@@ -1,0 +1,16 @@
+{
+  "EducationalInstitutions": [
+    {
+      "Name": "University of Testing",
+      "Description": "Test data",
+      "LocationID": "location1",
+      "BuildingID": "building12"
+    },
+    {
+      "Name": "University of Testing One",
+      "Description": "Test More Data",
+      "LocationID": "location12",
+      "BuildingID": "building123"
+    }
+  ]
+}
