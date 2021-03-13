@@ -194,7 +194,7 @@ namespace EducationalInstitution.API.Tests
 
             #region Assert
 
-            Assert.False(result.OperationStatus);
+            Assert.True(result.OperationStatus);
 
             #endregion Assert
         }
