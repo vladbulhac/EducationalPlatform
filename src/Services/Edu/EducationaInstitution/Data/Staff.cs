@@ -17,6 +17,9 @@ namespace EducationaInstitutionAPI.Data
             EducationalInstitution = eduInstitution;
             Availability = new();
         }
-        public Staff() { }
+
+        public Staff()
+        {
+        }
     }
 }

@@ -84,6 +84,24 @@ namespace EducationaInstitutionAPI.Repositories
             return educationalInstitution;
         }
 
+        public async Task<GetEducationalInstitutionByLocationQueryResult> GetByLocation(string locationID, CancellationToken cancellationToken)
+        {
+            var educationalInstitution = await context.EducationalInstitutions
+                                                        .Where(ei => ei.LocationID == locationID)
+                                                        .Select(ei => new GetEducationalInstitutionByLocationQueryResult()
+                                                        {
+                                                            Name = ei.Name,
+                                                            BuildingID = ei.BuildingID,
+                                                            Description = ei.Description,
+                                                            EduInstitutionID = ei.EduInstitutionID
+                                                        })
+                                                      .SingleOrDefaultAsync(cancellationToken);
+
+            if (educationalInstitution == null) return await Task.FromResult<GetEducationalInstitutionByLocationQueryResult>(null);
+
+            return educationalInstitution;
+        }
+
         public async Task<ICollection<GetEducationalInstitutionQueryResult>> GetFromCollectionOfIDs(ICollection<Guid> IDs, CancellationToken cancellationToken)
         {
             var educationalInstitutions = await context.EducationalInstitutions.Where(eduI => IDs.Contains(eduI.EduInstitutionID))
@@ -104,7 +122,8 @@ namespace EducationaInstitutionAPI.Repositories
 
         public async Task<bool> Update(EduInstitution data, CancellationToken cancellationToken)
         {
-            var educationalInstitution = await context.EducationalInstitutions.SingleOrDefaultAsync(eduI => eduI.EduInstitutionID == data.EduInstitutionID, cancellationToken);
+            var educationalInstitution = await context.EducationalInstitutions
+                                                      .SingleOrDefaultAsync(eduI => eduI.EduInstitutionID == data.EduInstitutionID, cancellationToken);
             if (educationalInstitution == null)
                 return false;
 

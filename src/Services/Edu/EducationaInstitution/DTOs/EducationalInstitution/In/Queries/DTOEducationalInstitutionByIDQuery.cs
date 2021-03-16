@@ -9,6 +9,7 @@ namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.In
     {
         public Guid EduInstitutionID { get; init; }
 
+        public DTOEducationalInstitutionByIDQuery() { }
         public DTOEducationalInstitutionByIDQuery(Guid eduInstitutionID)
         {
             EduInstitutionID = eduInstitutionID;

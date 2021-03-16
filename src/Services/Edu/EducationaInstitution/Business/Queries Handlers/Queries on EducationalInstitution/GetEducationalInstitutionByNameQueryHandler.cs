@@ -35,7 +35,7 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
                         ResponseObject = null,
                         OperationStatus = false,
                         StatusCode = HttpStatusCode.NotFound,
-                        Message = $"Could not find any Educational Institution with a name like:{request.Name}!"
+                        Message = $"Could not find any Educational Institution with a name like: {request.Name}!"
                     };
 
                 return new()
@@ -48,13 +48,13 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
             }
             catch (Exception e)
             {
-                logger.LogError("Could not retrieve an Educational Institution with a name like:{0}, using EducationInstitution Repository's method: {1}, error details=>{2}", request.Name, nameof(eduRepository.GetAllLikeName), e.Message);
+                logger.LogError("Could not find any Educational Institution with a name like: {0}, using {1}'s method: {2}, error details => {3}", request.Name, eduRepository.GetType(), nameof(eduRepository.GetAllLikeName), e.Message);
                 return new()
                 {
                     ResponseObject = null,
                     OperationStatus = false,
                     StatusCode = HttpStatusCode.NotFound,
-                    Message = $"An error occured while searching for any Educational Institution with a name like:{request.Name}!"
+                    Message = $"An error occured while searching for any Educational Institution with a name like: {request.Name}!"
                 };
             }
         }

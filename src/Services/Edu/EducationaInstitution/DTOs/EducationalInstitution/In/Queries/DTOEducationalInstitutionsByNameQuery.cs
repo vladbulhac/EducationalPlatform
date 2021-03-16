@@ -10,5 +10,13 @@ namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.In
         public string Name { get; init; }
         public int OffsetValue { get; init; }
         public int ResultsCount { get; init; }
+
+        public DTOEducationalInstitutionsByNameQuery() { }
+        public DTOEducationalInstitutionsByNameQuery(string name, int offsetValue, int resultsCount)
+        {
+            Name = name;
+            OffsetValue = offsetValue;
+            ResultsCount = resultsCount;
+        }
     }
 }

@@ -24,6 +24,11 @@ namespace EducationaInstitutionAPI.Business.Validation_Handler
             {
                 return new DTOEducationalInstitutionsByNameQueryValidator() as AbstractValidator<T>;
             }
+            else
+            if(typeof(T)==typeof(DTOEducationalInstitutionByLocationQuery))
+            {
+                return new DTOEducationalInstitutionByLocationQueryValidator() as AbstractValidator<T>;
+            }
 
             throw new Exception("Object Type not supported!");
         }

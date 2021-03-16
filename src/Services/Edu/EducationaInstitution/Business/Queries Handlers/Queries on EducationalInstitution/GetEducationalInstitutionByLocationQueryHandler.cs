@@ -9,25 +9,26 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
+namespace EducationaInstitutionAPI.Business.Queries_Handlers.Queries_on_EducationalInstitution
 {
-    public class GetEducationalInstitutionByIDQueryHandler : IRequestHandler<DTOEducationalInstitutionByIDQuery, Response<GetEducationalInstitutionByIDQueryResult>>
+    public class GetEducationalInstitutionByLocationQueryHandler : IRequestHandler<DTOEducationalInstitutionByLocationQuery, Response<GetEducationalInstitutionByLocationQueryResult>>
     {
+        private readonly ILogger<GetEducationalInstitutionByLocationQueryHandler> logger;
         private readonly IEducationalInstitutionRepository eduRepository;
-        private readonly ILogger<GetEducationalInstitutionByIDQueryHandler> logger;
 
-        public GetEducationalInstitutionByIDQueryHandler(IEducationalInstitutionRepository eduRepository, ILogger<GetEducationalInstitutionByIDQueryHandler> logger)
+        public GetEducationalInstitutionByLocationQueryHandler(IEducationalInstitutionRepository eduRepository, ILogger<GetEducationalInstitutionByLocationQueryHandler> logger)
         {
             this.eduRepository = eduRepository ?? throw new ArgumentNullException(nameof(eduRepository));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<Response<GetEducationalInstitutionByIDQueryResult>> Handle(DTOEducationalInstitutionByIDQuery request, CancellationToken cancellationToken)
+        public async Task<Response<GetEducationalInstitutionByLocationQueryResult>> Handle(DTOEducationalInstitutionByLocationQuery request, CancellationToken cancellationToken)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
+
             try
             {
-                var eduInstitution = await eduRepository.GetByID(request.EduInstitutionID, cancellationToken);
+                var eduInstitution = await eduRepository.GetByLocation(request.LocationID, cancellationToken);
 
                 if (eduInstitution == null)
                     return new()
@@ -35,7 +36,7 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
                         ResponseObject = null,
                         OperationStatus = false,
                         StatusCode = HttpStatusCode.NotFound,
-                        Message = $"Educational Institution with the following ID: {request.EduInstitutionID} has not been found!"
+                        Message = $"No Educational Institution with the following LocationID: {request.LocationID} has been found!"
                     };
 
                 return new()
@@ -43,18 +44,18 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
                     ResponseObject = eduInstitution,
                     OperationStatus = true,
                     StatusCode = HttpStatusCode.OK,
-                    Message = null
+                    Message = string.Empty
                 };
             }
             catch (Exception e)
             {
-                logger.LogError("Could not find an Educational Institution with ID: {0}, using {1}'s method: {2}, error details => {3}", request.EduInstitutionID, eduRepository.GetType(), nameof(eduRepository.GetByID), e.Message);
+                logger.LogError("Could not find an Educational Institution with LocationID: {0}, using {1}'s method: {2}, error details => {3}", request.LocationID, eduRepository.GetType(), nameof(eduRepository.GetByLocation), e.Message);
                 return new()
                 {
                     ResponseObject = null,
                     OperationStatus = false,
                     StatusCode = HttpStatusCode.NotFound,
-                    Message = $"An error occurred while searching for the Educational Institution with the following ID: {request.EduInstitutionID}!"
+                    Message = $"An error occurred while searching for the Educational Institution with the following LocationID: {request.LocationID}!"
                 };
             }
         }
