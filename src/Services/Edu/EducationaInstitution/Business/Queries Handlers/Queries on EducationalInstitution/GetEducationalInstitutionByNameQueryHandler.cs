@@ -43,7 +43,7 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
                     ResponseObject = eduInstitutions,
                     OperationStatus = true,
                     StatusCode = HttpStatusCode.OK,
-                    Message = null
+                    Message = string.Empty
                 };
             }
             catch (Exception e)

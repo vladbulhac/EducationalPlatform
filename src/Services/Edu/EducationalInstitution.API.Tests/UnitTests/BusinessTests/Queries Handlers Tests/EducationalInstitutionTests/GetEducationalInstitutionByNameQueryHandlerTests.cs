@@ -102,10 +102,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
 
         #endregion Input: string Name | Expect: record type object in return
 
-        #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's Message field to be null
+        #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's Message field to be empty
 
         [Fact]
-        public void GivenName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesANullMessageField()
+        public void GivenName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
             string name = "University of Testing";
@@ -127,7 +127,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
             var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
 
             //Assert
-            Assert.Null(result.Message);
+            Assert.Empty(result.Message);
         }
 
         #endregion Input: string Name | Expect: null Message field

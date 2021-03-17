@@ -57,9 +57,9 @@ namespace EducationalInstitution.API.Tests
         }
         #endregion
 
-        #region Input: ID = guid | Expect: Result's Message field to be null
+        #region Input: ID = guid | Expect: Result's Message field to be empty
         [Fact]
-        public void GivenAnID_ShouldReturnAResponseThatIncludesANullMessageField()
+        public void GivenAnID_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
             Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
@@ -74,7 +74,7 @@ namespace EducationalInstitution.API.Tests
             var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
 
             //Assert
-            Assert.Null(result.Message);
+            Assert.Empty(result.Message);
         }
         #endregion
 
