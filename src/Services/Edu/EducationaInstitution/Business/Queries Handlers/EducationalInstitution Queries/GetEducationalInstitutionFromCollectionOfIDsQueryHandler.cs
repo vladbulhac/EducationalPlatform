@@ -13,17 +13,29 @@ using System.Threading.Tasks;
 
 namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
 {
+    /// <summary>
+    /// Defines a method that handles the operation of getting Educational Institutions based on a collection of ids
+    /// </summary>
     public class GetEducationalInstitutionFromCollectionOfIDsQueryHandler : IRequestHandler<DTOEducationalInstitutionsFromCollectionOfIDsQuery, Response<ICollection<GetEducationalInstitutionQueryResult>>>
     {
-        private readonly IEducationalInstitutionRepository eduRepository;
+        /// <summary>
+        /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
+        /// </summary>
         private readonly ILogger<GetEducationalInstitutionFromCollectionOfIDsQueryHandler> logger;
-
+        private readonly IEducationalInstitutionRepository eduRepository;
+        
         public GetEducationalInstitutionFromCollectionOfIDsQueryHandler(IEducationalInstitutionRepository eduRepository, ILogger<GetEducationalInstitutionFromCollectionOfIDsQueryHandler> logger)
         {
             this.eduRepository = eduRepository;
             this.logger = logger;
         }
 
+        /// <summary>
+        /// Tries to get Educational Institutions based on the given collection of ids
+        /// </summary>
+        /// <param name="request">Contains the data necessary to get the Educational Institutions</param>
+        /// <param name="cancellationToken">Cancels the operation ________</param>
+        /// <returns>A collection of response objects along with information about the events that occurred during the request operation</returns>
         public async Task<Response<ICollection<GetEducationalInstitutionQueryResult>>> Handle(DTOEducationalInstitutionsFromCollectionOfIDsQuery request, CancellationToken cancellationToken)
         {
             ICollection<GetEducationalInstitutionQueryResult> educationInstitutions = default;

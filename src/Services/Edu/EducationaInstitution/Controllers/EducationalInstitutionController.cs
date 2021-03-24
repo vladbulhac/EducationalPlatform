@@ -45,7 +45,7 @@ namespace EducationaInstitutionAPI.Controllers
             return Ok(queryResult);
         }
 
-        [HttpGet("{name}/{offsetValue}/{resultsCount}")]
+        [HttpGet("{name}&{offsetValue}&{resultsCount}")]
         public async Task<ActionResult<Response<GetEducationalInstitutionQueryResult>>> GetEducationalInstitutionsWithName(string name, int offsetValue, int resultsCount)
         {
             var request = new DTOEducationalInstitutionsByNameQuery() { Name = name, ResultsCount = resultsCount, OffsetValue = offsetValue };

@@ -2,11 +2,27 @@
 
 namespace EducationaInstitutionAPI.Utils
 {
-    public record Response<ResType>
+    /// <summary>
+    /// Contains the response to a request or information about the failure
+    /// </summary>
+    public record Response<ResponseType>
     {
-        public ResType ResponseObject { get; init; }
+        /// <summary>
+        /// Contains the result of the request operation
+        /// </summary>
+        /// <value>If OperationStatus is True a <typeparamref name="ResponseType"/> object that contains the requested data, NULL otherwise</value>
+        public ResponseType ResponseObject { get; init; }
         public HttpStatusCode StatusCode { get; init; }
+
+        /// <summary>
+        /// Describes if the request operation was successful
+        /// </summary>
         public bool OperationStatus { get; init; }
+
+        /// <summary>
+        /// Describes the failure that occurred during the request operation
+        /// </summary>
+        /// <value>An error/exception/custom description if OperationStatus field is False, Empty otherwise</value>
         public string Message { get; init; }
     }
 }

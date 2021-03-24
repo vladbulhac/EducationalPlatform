@@ -37,6 +37,7 @@ namespace EducationalInstitution.API.Tests
         #region One object contains the input id TESTS
 
         #region Input: ID = guid | Expect: Result's StatusCode field to be equal HTTPStatusCode.OK
+
         [Fact]
         public void GivenAnID_ShouldReturnAResponseThatIncludesAStatusCodeOkField()
         {
@@ -55,9 +56,11 @@ namespace EducationalInstitution.API.Tests
             //Assert
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
         }
-        #endregion
+
+        #endregion Input: ID = guid | Expect: Result's StatusCode field to be equal HTTPStatusCode.OK
 
         #region Input: ID = guid | Expect: Result's Message field to be empty
+
         [Fact]
         public void GivenAnID_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
@@ -76,9 +79,11 @@ namespace EducationalInstitution.API.Tests
             //Assert
             Assert.Empty(result.Message);
         }
-        #endregion
 
-        #region Input: ID = guid | Expect: Result to be of type record
+        #endregion Input: ID = guid | Expect: Result's Message field to be empty
+
+        #region Input: ID = guid | Expect: Result to be of type record Response<GetEducationalInstitutionByIDQueryResult>
+
         [Fact]
         public void GivenAnID_ShouldReturnARecordTypeResponse()
         {
@@ -97,9 +102,34 @@ namespace EducationalInstitution.API.Tests
             //Assert
             Assert.IsType<Response<GetEducationalInstitutionByIDQueryResult>>(result);
         }
-        #endregion
+
+        #endregion Input: ID = guid | Expect: Result to be of type record Response<GetEducationalInstitutionByIDQueryResult>
+
+        #region Input: ID = guid | Expect: Result's ResponseObject to be of type GetEducationalInstitutionByIDQueryResult
+
+        [Fact]
+        public void GivenAnID_ShouldReturnAResponseThatIncludesAResponseObjectOfTypeGetEducationalInstitutionByIDQueryResult()
+        {
+            //Arrange
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+
+            DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetByID(eduInstitutionID, dependenciesHelper.cancellationToken))
+                                    .Returns(Task.FromResult(queryResult));
+
+            GetEducationalInstitutionByIDQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
+
+            //Act
+            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+
+            //Assert
+            Assert.IsType<GetEducationalInstitutionByIDQueryResult>(result.ResponseObject);
+        }
+
+        #endregion Input: ID = guid | Expect: Result's ResponseObject to be of type GetEducationalInstitutionByIDQueryResult
 
         #region Input: ID = guid | Expect: Result's ResponseObject field to be equal to an expected object
+
         [Fact]
         public void GivenAnID_ShouldReturnAResponseThatIncludesAResponseObjectWithFieldsEqualToTheModel()
         {
@@ -128,9 +158,11 @@ namespace EducationalInstitution.API.Tests
             //Assert
             Assert.Equal(expectedResponse, result.ResponseObject);
         }
-        #endregion
+
+        #endregion Input: ID = guid | Expect: Result's ResponseObject field to be equal to an expected object
 
         #region Input: ID = guid | Expect: Result's OperationStatus field to be true
+
         [Fact]
         public void GivenAnID_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
         {
@@ -150,13 +182,14 @@ namespace EducationalInstitution.API.Tests
             Assert.True(result.OperationStatus);
         }
 
-        #endregion
+        #endregion Input: ID = guid | Expect: Result's OperationStatus field to be true
 
-        #endregion
+        #endregion One object contains the input id TESTS
 
         #region No object contains the input id TESTS
 
         #region Input: ID = guid | Expect: Result's StatusCode field to be equal HTTPStatusCode.NotFound
+
         [Fact]
         public void GivenANonExistentID_ShouldReturnAResponseThatIncludesAStatusCodeNotFoundField()
         {
@@ -175,9 +208,11 @@ namespace EducationalInstitution.API.Tests
             //Assert
             Assert.Equal(HttpStatusCode.NotFound, result.StatusCode);
         }
-        #endregion
+
+        #endregion Input: ID = guid | Expect: Result's StatusCode field to be equal HTTPStatusCode.NotFound
 
         #region Input: ID = guid | Expect: Result's ResponseObject field to be null
+
         [Fact]
         public void GivenANonExistentGuidID_ShouldReturnAResponseThatIncludesANullResponseObjectField()
         {
@@ -196,9 +231,11 @@ namespace EducationalInstitution.API.Tests
             //Assert
             Assert.Null(result.ResponseObject);
         }
-        #endregion
+
+        #endregion Input: ID = guid | Expect: Result's ResponseObject field to be null
 
         #region Input: ID = guid | Expect: Result's OperationStatus field to be false
+
         [Fact]
         public void GivenANonExistentGuidID_ShouldReturnAResponseThatIncludesAFalseOperationStatusField()
         {
@@ -217,9 +254,11 @@ namespace EducationalInstitution.API.Tests
             //Assert
             Assert.False(result.OperationStatus);
         }
-        #endregion
+
+        #endregion Input: ID = guid | Expect: Result's OperationStatus field to be false
 
         #region Input: ID = guid | Expect: Result's Message field to contain a message
+
         [Fact]
         public void GivenANonExistentID_ShouldReturnAResponseThatIncludesAMessageField()
         {
@@ -227,7 +266,7 @@ namespace EducationalInstitution.API.Tests
             Guid eduInstitutionID = new Guid("e1c22f85-6bfe-4f3c-badd-15ec4acbec00");
 
             DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetByID(It.IsNotIn(testDataHelper.EduInstitutions[0].EduInstitutionID ), dependenciesHelper.cancellationToken))
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetByID(It.IsNotIn(testDataHelper.EduInstitutions[0].EduInstitutionID), dependenciesHelper.cancellationToken))
                                     .Returns(Task.FromResult<GetEducationalInstitutionByIDQueryResult>(null));
 
             GetEducationalInstitutionByIDQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
@@ -238,11 +277,13 @@ namespace EducationalInstitution.API.Tests
             //Assert
             Assert.Equal($"Educational Institution with the following ID: {request.EduInstitutionID} has not been found!", result.Message);
         }
-        #endregion
 
-        #endregion
+        #endregion Input: ID = guid | Expect: Result's Message field to contain a message
+
+        #endregion No object contains the input id TESTS
 
         #region Null arguments TESTS
+
         [Fact]
         public void GivenANullArgumentRequestToTheRequestHandlerHandleMethod_ShouldThrowArgumentNullException()
         {
@@ -280,6 +321,7 @@ namespace EducationalInstitution.API.Tests
             //Assert
             Assert.Throws<ArgumentNullException>(() => new GetEducationalInstitutionByIDQueryHandler(dependenciesHelper.mockRepository.Object, null));
         }
-        #endregion
+
+        #endregion Null arguments TESTS
     }
 }

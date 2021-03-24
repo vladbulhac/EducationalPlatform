@@ -3,16 +3,20 @@ using FluentValidation;
 
 namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.Validators
 {
+    /// <summary>
+    /// Contains the validation rules for DTOEducationalInstitutionsByNameQuery
+    /// </summary>
     public class DTOEducationalInstitutionsFromCollectionOfIDsValidator : AbstractValidator<DTOEducationalInstitutionsFromCollectionOfIDsQuery>
     {
+        /// <summary>
+        /// Initializes the rules based on which the validation is made
+        /// </summary>
         public DTOEducationalInstitutionsFromCollectionOfIDsValidator()
         {
             CascadeMode = CascadeMode.Stop;
             RuleForEach(v => v.EducationalInstitutionsIDs)
                                  .NotEmpty()
-                                 .WithMessage("{PropertyName} must not be empty and be of type GUID: https://docs.microsoft.com/en-us/dotnet/api/system.guid")
-                                 .NotNull()
-                                 .WithMessage("{PropertyName} must not be null and be of type GUID: https://docs.microsoft.com/en-us/dotnet/api/system.guid");
+                                 .WithMessage("{PropertyName} was empty or null!");
         }
     }
 }

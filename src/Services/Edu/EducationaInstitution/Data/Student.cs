@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace EducationaInstitutionAPI.Data
 {
+    /// <summary>
+    /// Defines the properties of a Student
+    /// </summary>
     public class Student
     {
         public Guid IdentityID { get; private set; }

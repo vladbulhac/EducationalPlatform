@@ -3,26 +3,32 @@ using FluentValidation;
 
 namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.Validators
 {
+    /// <summary>
+    /// Contains the validation logic for DTOEducationalInstitutionsByNameQuery
+    /// </summary>
     public class DTOEducationalInstitutionsByNameQueryValidator : AbstractValidator<DTOEducationalInstitutionsByNameQuery>
     {
+        /// <summary>
+        /// Initializes the rules based on which the validation is made
+        /// </summary>
         public DTOEducationalInstitutionsByNameQueryValidator()
         {
             CascadeMode = CascadeMode.Stop;
             RuleFor(v => v.Name)
                               .NotEmpty()
-                              .WithMessage("Property {PropertyName} cannot be empty or null!")
+                              .WithMessage("{PropertyName} was empty or null!")
                               .Length(2, 128)
-                              .WithMessage("Property {PropertyName}'s length must be between 2-128 characters!");
+                              .WithMessage("{PropertyName}'s length was not between 2-128 characters!");
 
             RuleFor(v => v.OffsetValue)
                 .NotNull()
                 .InclusiveBetween(0, 150)
-                .WithMessage("Property {PropertyName} must be between 0 and 150!");
+                .WithMessage("{PropertyName} was not between 0 and 150!");
 
             RuleFor(v => v.ResultsCount)
                 .NotNull()
                 .InclusiveBetween(1, 100)
-                .WithMessage("Property {PropertyName} must be between 1 and 100!");
+                .WithMessage("{PropertyName} was not between 1 and 100!");
         }
     }
 }

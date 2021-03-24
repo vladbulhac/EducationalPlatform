@@ -11,8 +11,14 @@ using System.Threading.Tasks;
 
 namespace EducationaInstitutionAPI.Business.Queries_Handlers.Queries_on_EducationalInstitution
 {
+    /// <summary>
+    /// Defines a method that handles the operation of getting an Educational Institution by LocationID
+    /// </summary>
     public class GetEducationalInstitutionByLocationQueryHandler : IRequestHandler<DTOEducationalInstitutionByLocationQuery, Response<GetEducationalInstitutionByLocationQueryResult>>
     {
+        /// <summary>
+        /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
+        /// </summary>
         private readonly ILogger<GetEducationalInstitutionByLocationQueryHandler> logger;
         private readonly IEducationalInstitutionRepository eduRepository;
 
@@ -22,6 +28,12 @@ namespace EducationaInstitutionAPI.Business.Queries_Handlers.Queries_on_Educatio
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        /// <summary>
+        /// Tries to get an Educational Institution by LocationID
+        /// </summary>
+        /// <param name="request">Contains the data necessary to get an Educational Institution</param>
+        /// <param name="cancellationToken">Cancels the operation _________</param>
+        /// <returns>The response object along with information about the events that occurred during the request operation</returns>
         public async Task<Response<GetEducationalInstitutionByLocationQueryResult>> Handle(DTOEducationalInstitutionByLocationQuery request, CancellationToken cancellationToken)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));

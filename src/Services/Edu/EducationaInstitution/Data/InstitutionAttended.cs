@@ -4,6 +4,13 @@ using System.Globalization;
 
 namespace EducationaInstitutionAPI.Data.Helpers
 {
+    /// <summary>
+    /// Contains information about the period of time in which someone attended an Educational Institution
+    /// </summary>
+    /// <remarks>
+    /// <para>For students represents the period of time in which he/she studied at an Educational Institution</para>
+    /// <para>For professors represents the period of time in which he/she taught at an Educational Institution</para>
+    /// </remarks>
     public class InstitutionAttended
     {
         public Guid InstitutionAttendedID { get; init; }

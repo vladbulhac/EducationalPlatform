@@ -3,10 +3,18 @@ using System.Collections.Generic;
 
 namespace EducationaInstitutionAPI.Data
 {
+    /// <summary>
+    /// Defines the properties of an Educational Institution
+    /// </summary>
     public class EduInstitution
     {
         public Guid EduInstitutionID { get; init; }
         public string Name { get; private set; }
+
+        /// <summary>
+        /// Marks this Educational Institution's join date on the application
+        /// </summary>
+        public DateTime JoinDate { get; init; }
         public string Description { get; private set; }
         public string LocationID { get; private set; }
         public string BuildingID { get; private set; }

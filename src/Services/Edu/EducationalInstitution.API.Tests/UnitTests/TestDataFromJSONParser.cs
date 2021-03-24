@@ -8,6 +8,9 @@ using System.IO;
 
 namespace EducationalInstitution.API.Tests.UnitTests
 {
+    /// <summary>
+    /// Extracts Data from a JSON file, that is used in tests
+    /// </summary>
     public class TestDataFromJSONParser
     {
         public IList<EduInstitution> EduInstitutions { get; set; }

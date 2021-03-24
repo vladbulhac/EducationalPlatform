@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace EducationaInstitutionAPI.Repositories
 {
+    /// <summary>
+    /// Contains concrete implementations of the methods that execute Queries and Commands over a database
+    /// </summary>
     public class EducationalInstitutionRepository : IEducationalInstitutionRepository
     {
         private readonly DataContext context;
@@ -18,15 +21,12 @@ namespace EducationaInstitutionAPI.Repositories
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Guid> Create(EduInstitution data, CancellationToken cancellationToken)
+        public async Task Create(EduInstitution data, CancellationToken cancellationToken = default)
         {
             await context.EducationalInstitutions.AddAsync(data, cancellationToken);
             await context.SaveChangesAsync(cancellationToken);
-
-            return data.EduInstitutionID;
         }
-
-        public async Task<bool> Delete(Guid ID, CancellationToken cancellationToken)
+        public async Task<bool> Delete(Guid ID, CancellationToken cancellationToken = default)
         {
             var educationalInstitution = await context.EducationalInstitutions.SingleOrDefaultAsync(eduI => eduI.EduInstitutionID == ID, cancellationToken);
             if (educationalInstitution == null)
@@ -38,7 +38,7 @@ namespace EducationaInstitutionAPI.Repositories
             return true;
         }
 
-        public async Task<ICollection<GetEducationalInstitutionQueryResult>> GetAllLikeName(string Name, int offsetValue, int resultsCount, CancellationToken cancellationToken)
+        public async Task<ICollection<GetEducationalInstitutionQueryResult>> GetAllLikeName(string Name, int offsetValue = 0, int resultsCount = 1, CancellationToken cancellationToken = default)
         {
             var educationalInstitutions = await context.EducationalInstitutions
                                                         .Where(ei => ei.Name.Contains(Name))
@@ -60,7 +60,7 @@ namespace EducationaInstitutionAPI.Repositories
             return educationalInstitutions;
         }
 
-        public async Task<GetEducationalInstitutionByIDQueryResult> GetByID(Guid ID, CancellationToken cancellationToken)
+        public async Task<GetEducationalInstitutionByIDQueryResult> GetByID(Guid ID, CancellationToken cancellationToken = default)
         {
             var educationalInstitution = await context.EducationalInstitutions
                                                         .Where(eduI => eduI.EduInstitutionID == ID)
@@ -84,7 +84,7 @@ namespace EducationaInstitutionAPI.Repositories
             return educationalInstitution;
         }
 
-        public async Task<GetEducationalInstitutionByLocationQueryResult> GetByLocation(string locationID, CancellationToken cancellationToken)
+        public async Task<GetEducationalInstitutionByLocationQueryResult> GetByLocation(string locationID, CancellationToken cancellationToken = default)
         {
             var educationalInstitution = await context.EducationalInstitutions
                                                         .Where(ei => ei.LocationID == locationID)
@@ -102,7 +102,7 @@ namespace EducationaInstitutionAPI.Repositories
             return educationalInstitution;
         }
 
-        public async Task<ICollection<GetEducationalInstitutionQueryResult>> GetFromCollectionOfIDs(ICollection<Guid> IDs, CancellationToken cancellationToken)
+        public async Task<ICollection<GetEducationalInstitutionQueryResult>> GetFromCollectionOfIDs(ICollection<Guid> IDs, CancellationToken cancellationToken = default)
         {
             var educationalInstitutions = await context.EducationalInstitutions.Where(eduI => IDs.Contains(eduI.EduInstitutionID))
                                                         .Select(ei => new GetEducationalInstitutionQueryResult()
@@ -120,7 +120,7 @@ namespace EducationaInstitutionAPI.Repositories
             return educationalInstitutions;
         }
 
-        public async Task<bool> Update(EduInstitution data, CancellationToken cancellationToken)
+        public async Task<bool> Update(EduInstitution data, CancellationToken cancellationToken = default)
         {
             var educationalInstitution = await context.EducationalInstitutions
                                                       .SingleOrDefaultAsync(eduI => eduI.EduInstitutionID == data.EduInstitutionID, cancellationToken);

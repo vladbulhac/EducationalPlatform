@@ -11,10 +11,16 @@ using System.Threading.Tasks;
 
 namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
 {
+    /// <summary>
+    /// Defines a method that handles the operation of getting an Educational Institution by ID
+    /// </summary>
     public class GetEducationalInstitutionByIDQueryHandler : IRequestHandler<DTOEducationalInstitutionByIDQuery, Response<GetEducationalInstitutionByIDQueryResult>>
     {
-        private readonly IEducationalInstitutionRepository eduRepository;
+        /// <summary>
+        /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
+        /// </summary>
         private readonly ILogger<GetEducationalInstitutionByIDQueryHandler> logger;
+        private readonly IEducationalInstitutionRepository eduRepository;
 
         public GetEducationalInstitutionByIDQueryHandler(IEducationalInstitutionRepository eduRepository, ILogger<GetEducationalInstitutionByIDQueryHandler> logger)
         {
@@ -22,9 +28,16 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        /// <summary>
+        /// Tries to get an Educational Institution by ID
+        /// </summary>
+        /// <param name="request">Contains the data necessary to get an Educational Institution</param>
+        /// <param name="cancellationToken">Cancels the operation ______</param>
+        /// <returns>The response object along with information about the events that occured during the request operation</returns>
         public async Task<Response<GetEducationalInstitutionByIDQueryResult>> Handle(DTOEducationalInstitutionByIDQuery request, CancellationToken cancellationToken)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
+
             try
             {
                 var eduInstitution = await eduRepository.GetByID(request.EduInstitutionID, cancellationToken);

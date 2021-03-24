@@ -2,6 +2,9 @@
 
 namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.Out
 {
+    /// <summary>
+    /// Defines the properties that are returned as the result of a Get by LocationID operation
+    /// </summary>
     public record GetEducationalInstitutionByLocationQueryResult
     {
         public Guid EduInstitutionID { get; init; }

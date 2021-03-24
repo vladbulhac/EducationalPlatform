@@ -5,13 +5,22 @@ using System.Collections.Generic;
 
 namespace EducationaInstitutionAPI.Data
 {
+    /// <summary>
+    /// Defines the properties of a Professor
+    /// </summary>
     public class Professor
     {
         public Guid IdentityID { get; private set; }
         public Rank Rank { get; private set; }
+
+        /// <value>An ID or OFFICE_UNKNOWKN</value>
         public string OfficeID { get; private set; }
         public ICollection<InstitutionAttended> InstitutionsAttended { get; private set; }
         public Availability Availability { get; private set; }
+
+        public Professor()
+        {
+        }
 
         public Professor(Guid identityID, Rank rank, string startDate, IList<EduInstitution> eduInstitutions, string officeID)
         {
@@ -20,10 +29,6 @@ namespace EducationaInstitutionAPI.Data
             OfficeID = officeID;
             InstitutionsAttended = SetTheInstitutionsAttendedHistory(eduInstitutions, startDate);
             Availability = new();
-        }
-
-        public Professor()
-        {
         }
 
         public void SetOffice(string officeid)

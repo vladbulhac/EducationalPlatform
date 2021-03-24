@@ -12,10 +12,16 @@ using System.Threading.Tasks;
 
 namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
 {
+    /// <summary>
+    /// Defines a method that handles the operation of getting Educational Institutions whose Name's contain a certain string
+    /// </summary>
     public class GetEducationalInstitutionByNameQueryHandler : IRequestHandler<DTOEducationalInstitutionsByNameQuery, Response<ICollection<GetEducationalInstitutionQueryResult>>>
     {
-        private readonly IEducationalInstitutionRepository eduRepository;
+        /// <summary>
+        /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
+        /// </summary>
         private readonly ILogger<GetEducationalInstitutionByNameQueryHandler> logger;
+        private readonly IEducationalInstitutionRepository eduRepository;
 
         public GetEducationalInstitutionByNameQueryHandler(IEducationalInstitutionRepository eduRepository, ILogger<GetEducationalInstitutionByNameQueryHandler> logger)
         {
@@ -23,6 +29,12 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        /// <summary>
+        /// Tries to get one or more Educational Institutions whose Name's contain a given string
+        /// </summary>
+        /// <param name="request">Contains the data necessary to get the Educational Institutions</param>
+        /// <param name="cancellationToken">Cancels the operation ______</param>
+        /// <returns>A collection of response objects along with information about the events that occurred during the request operation</returns>
         public async Task<Response<ICollection<GetEducationalInstitutionQueryResult>>> Handle(DTOEducationalInstitutionsByNameQuery request, CancellationToken cancellationToken)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));

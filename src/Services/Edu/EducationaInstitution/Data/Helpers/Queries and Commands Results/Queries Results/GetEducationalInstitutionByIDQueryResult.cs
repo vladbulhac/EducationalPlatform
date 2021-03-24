@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.Out
 {
+    /// <summary>
+    /// Defines the properties that are returned as the result of a Get by ID operation
+    /// </summary>
     public record GetEducationalInstitutionByIDQueryResult
     {
         public string Name { get; init; }

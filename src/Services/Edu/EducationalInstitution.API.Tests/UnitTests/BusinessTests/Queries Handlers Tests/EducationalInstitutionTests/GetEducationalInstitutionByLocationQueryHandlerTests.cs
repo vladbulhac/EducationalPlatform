@@ -31,9 +31,11 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         }
 
         #region One object contains the input locationID TESTS
+
         #region Input: LocationID = string | Expect: Result's ResponseObject field to be equal to an expected object
+
         [Fact]
-        public void GivenALocationID_ShouldReturnAResponseThatIncludes_AResponseObjectWithTheEducationalInstitutionThatHasThatLocationID()
+        public void GivenALocationID_ShouldReturnAResponseThatIncludesAResponseObjectWithTheEducationalInstitutionThatHasThatLocationID()
         {
             //Arrange
             string locationID = "location1";
@@ -50,9 +52,11 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             //Assert
             Assert.Equal(queryResult, result.ResponseObject);
         }
-        #endregion
 
-        #region Input: LocationID = string | Expect: Result to be of type record
+        #endregion Input: LocationID = string | Expect: Result's ResponseObject field to be equal to an expected object
+
+        #region Input: LocationID = string | Expect: Result to be of type record Response<GetEducationalInstitutionByLocationQueryResult>
+
         [Fact]
         public void GivenALocationID_ShouldReturnARecordTypeResponse()
         {
@@ -71,9 +75,34 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             //Arrange
             Assert.IsType<Response<GetEducationalInstitutionByLocationQueryResult>>(result);
         }
-        #endregion
+
+        #endregion Input: LocationID = string | Expect: Result to be of type record Response<GetEducationalInstitutionByLocationQueryResult>
+
+        #region Input: LocationID = string | Expect: Result's ResponseObject field to be of type GetEducationalInstitutionByLocationQueryResult
+
+        [Fact]
+        public void GivenALocationID_ShouldReturnAResponseThatIncludesAResponseObjectOfTypeGetEducationalInstitutionByLocationQueryResult()
+        {
+            //Arrange
+            string locationID = "location1";
+
+            DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(locationID, dependenciesHelper.cancellationToken))
+                                    .Returns(Task.FromResult(queryResult));
+
+            GetEducationalInstitutionByLocationQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
+
+            //Act
+            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+
+            //Arrange
+            Assert.IsType<GetEducationalInstitutionByLocationQueryResult>(result.ResponseObject);
+        }
+
+        #endregion Input: LocationID = string | Expect: Result's ResponseObject field to be of type GetEducationalInstitutionByLocationQueryResult
 
         #region Input: LocationID = string | Expect: Result's Message field to be empty
+
         [Fact]
         public void GivenALocationID_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
@@ -92,9 +121,11 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             //Arrange
             Assert.Empty(result.Message);
         }
-        #endregion
+
+        #endregion Input: LocationID = string | Expect: Result's Message field to be empty
 
         #region Input: LocationID = string | Expect: Result's StatusCode field to be equal HTTPStatusCode.OK
+
         [Fact]
         public void GivenALocationID_ShouldReturnAResponseThatIncludesAHttpStatusCodeOkField()
         {
@@ -113,9 +144,11 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             //Arrange
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
         }
-        #endregion
+
+        #endregion Input: LocationID = string | Expect: Result's StatusCode field to be equal HTTPStatusCode.OK
 
         #region Input: LocationID = string | Expect: Result's OperationStatus field to be true
+
         [Fact]
         public void GivenALocationID_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
         {
@@ -134,11 +167,15 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             //Arrange
             Assert.True(result.OperationStatus);
         }
-        #endregion
-        #endregion
+
+        #endregion Input: LocationID = string | Expect: Result's OperationStatus field to be true
+
+        #endregion One object contains the input locationID TESTS
 
         #region No object exists that contains the input string TESTS
+
         #region Input: LocationID = string | Expect: Result's StatusCode field to be equal HTTPStatusCode.NotFound
+
         [Fact]
         public void GivenANonExistentLocationID_ShouldReturnAResponseThatIncludesAHttpStatusCodeNotFoundField()
         {
@@ -146,7 +183,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             string locationID = "e32Loq4";
 
             DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(It.IsNotIn("location1","location12"), dependenciesHelper.cancellationToken))
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(It.IsNotIn("location1", "location12"), dependenciesHelper.cancellationToken))
                                     .Returns(Task.FromResult<GetEducationalInstitutionByLocationQueryResult>(null));
 
             GetEducationalInstitutionByLocationQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
@@ -157,9 +194,11 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             //Arrange
             Assert.Equal(HttpStatusCode.NotFound, result.StatusCode);
         }
-        #endregion
+
+        #endregion Input: LocationID = string | Expect: Result's StatusCode field to be equal HTTPStatusCode.NotFound
 
         #region Input: LocationID = string | Expect: Result's OperationStatus field to be false
+
         [Fact]
         public void GivenANonExistentLocationID_ShouldReturnAResponseThatIncludesAnOperationStatusFalseField()
         {
@@ -178,9 +217,11 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             //Arrange
             Assert.False(result.OperationStatus);
         }
-        #endregion
+
+        #endregion Input: LocationID = string | Expect: Result's OperationStatus field to be false
 
         #region Input: LocationID = string | Expect: Result's ResponseObject field to be null
+
         [Fact]
         public void GivenANonExistentLocationID_ShouldReturnAResponseThatIncludesANullResponseObjectField()
         {
@@ -199,9 +240,11 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             //Arrange
             Assert.Null(result.ResponseObject);
         }
-        #endregion
+
+        #endregion Input: LocationID = string | Expect: Result's ResponseObject field to be null
 
         #region Input: LocationID = string | Expect: Result's Message field to contain a message
+
         [Fact]
         public void GivenANonExistentLocationID_ShouldReturnAResponseThatIncludesAMessageField()
         {
@@ -220,16 +263,19 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             //Arrange
             Assert.Equal($"No Educational Institution with the following LocationID: {request.LocationID} has been found!", result.Message);
         }
-        #endregion
-        #endregion
+
+        #endregion Input: LocationID = string | Expect: Result's Message field to contain a message
+
+        #endregion No object exists that contains the input string TESTS
 
         #region Null arguments TESTS
+
         [Fact]
         public void GivenANullArgumentRequestToTheRequestHandlerHandleMethod_ShouldThrowArgumentNullException()
         {
             //Arrange
             DTOEducationalInstitutionByLocationQuery request = new() { LocationID = "location1" };
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(It.IsNotIn("location1", "location12" ), dependenciesHelper.cancellationToken))
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(It.IsNotIn("location1", "location12"), dependenciesHelper.cancellationToken))
                                     .Returns(Task.FromResult((GetEducationalInstitutionByLocationQueryResult)null));
 
             GetEducationalInstitutionByLocationQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
@@ -243,7 +289,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         {
             //Arrange
             DTOEducationalInstitutionByLocationQuery request = new() { LocationID = "location1" };
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(It.IsNotIn("location1", "location12" ), dependenciesHelper.cancellationToken))
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(It.IsNotIn("location1", "location12"), dependenciesHelper.cancellationToken))
                                     .Returns(Task.FromResult((GetEducationalInstitutionByLocationQueryResult)null));
 
             GetEducationalInstitutionByLocationQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
@@ -257,7 +303,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         {
             //Arrange
             DTOEducationalInstitutionByLocationQuery request = new() { LocationID = "location1" };
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(It.IsNotIn("location1", "location12" ), dependenciesHelper.cancellationToken))
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(It.IsNotIn("location1", "location12"), dependenciesHelper.cancellationToken))
                                     .Returns(Task.FromResult((GetEducationalInstitutionByLocationQueryResult)null));
 
             GetEducationalInstitutionByLocationQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
@@ -265,6 +311,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             //Assert
             Assert.Throws<ArgumentNullException>(() => new GetEducationalInstitutionByLocationQueryHandler(dependenciesHelper.mockRepository.Object, null));
         }
-        #endregion
+
+        #endregion Null arguments TESTS
     }
 }

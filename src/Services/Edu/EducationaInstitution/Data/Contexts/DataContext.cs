@@ -5,6 +5,9 @@ using System;
 
 namespace EducationaInstitutionAPI.Data
 {
+    /// <summary>
+    /// Contains the configuration of each entity
+    /// </summary>
     public class DataContext : DbContext
     {
         public virtual DbSet<EduInstitution> EducationalInstitutions { get; set; }
@@ -23,14 +26,14 @@ namespace EducationaInstitutionAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            StudentConstraints(modelBuilder);
-            ProfessorConstraints(modelBuilder);
-            StaffConstraints(modelBuilder);
-            EduInstitutionConstraints(modelBuilder);
-            InstitutionsAttendedConstraints(modelBuilder);
+            StudentConfiguration(modelBuilder);
+            ProfessorConfiguration(modelBuilder);
+            StaffConfiguration(modelBuilder);
+            EduInstitutionConfiguration(modelBuilder);
+            InstitutionsAttendedConfiguration(modelBuilder);
         }
 
-        private static void InstitutionsAttendedConstraints(ModelBuilder modelBuilder)
+        private static void InstitutionsAttendedConfiguration(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<InstitutionAttended>()
                         .HasKey(ia => ia.InstitutionAttendedID);
@@ -54,13 +57,13 @@ namespace EducationaInstitutionAPI.Data
                         .HasConversion(y => y.ToString(), y => (Year)Enum.Parse(typeof(Year), y));
         }
 
-        private static void EduInstitutionConstraints(ModelBuilder modelBuilder)
+        private static void EduInstitutionConfiguration(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<EduInstitution>()
                         .OwnsOne(ei => ei.Availability, accessibility =>
                         {
                             accessibility.Property(a => a.IsDisabled).IsRequired();
-                            accessibility.HasIndex(a => new { a.ScheduledForPermanentDeletion, a.IsDisabled });
+                            accessibility.HasIndex(a => new { a.DateForPermanentDeletion, a.IsDisabled });
                         });
 
             modelBuilder.Entity<EduInstitution>()
@@ -89,13 +92,13 @@ namespace EducationaInstitutionAPI.Data
                         .IsRequired();
         }
 
-        private static void StudentConstraints(ModelBuilder modelBuilder)
+        private static void StudentConfiguration(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Student>()
                        .OwnsOne(s => s.Availability, accessibility =>
                        {
                            accessibility.Property(a => a.IsDisabled).IsRequired();
-                           accessibility.HasIndex(a => new { a.ScheduledForPermanentDeletion, a.IsDisabled });
+                           accessibility.HasIndex(a => new { a.DateForPermanentDeletion, a.IsDisabled });
                        });
 
             modelBuilder.Entity<Student>()
@@ -104,13 +107,13 @@ namespace EducationaInstitutionAPI.Data
                         .HasIndex(s => new { s.IdentityID, s.CurrentYear }).IsUnique();
         }
 
-        private static void ProfessorConstraints(ModelBuilder modelBuilder)
+        private static void ProfessorConfiguration(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Professor>()
                         .OwnsOne(p => p.Availability, accessibility =>
                         {
                             accessibility.Property(a => a.IsDisabled).IsRequired();
-                            accessibility.HasIndex(a => new { a.ScheduledForPermanentDeletion, a.IsDisabled });
+                            accessibility.HasIndex(a => new { a.DateForPermanentDeletion, a.IsDisabled });
                         });
 
             modelBuilder.Entity<Professor>()
@@ -125,13 +128,13 @@ namespace EducationaInstitutionAPI.Data
                         .IsRequired();
         }
 
-        private static void StaffConstraints(ModelBuilder modelBuilder)
+        private static void StaffConfiguration(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Staff>()
                         .OwnsOne(p => p.Availability, accessibility =>
                         {
                             accessibility.Property(a => a.IsDisabled).IsRequired();
-                            accessibility.HasIndex(a => new { a.ScheduledForPermanentDeletion, a.IsDisabled });
+                            accessibility.HasIndex(a => new { a.DateForPermanentDeletion, a.IsDisabled });
                         });
 
             modelBuilder.Entity<Staff>()

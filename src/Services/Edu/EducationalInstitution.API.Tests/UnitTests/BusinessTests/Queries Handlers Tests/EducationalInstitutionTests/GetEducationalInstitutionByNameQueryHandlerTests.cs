@@ -70,9 +70,9 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
             Assert.Equal(queryResult[0], result.ResponseObject.Single());
         }
 
-        #endregion Input: string Name | Expect: Educational Institution with Name that contains the input string
+        #endregion Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's ResponseObject field to be an Educational Institution with Name that contains the input string
 
-        #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result to be of type record
+        #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result to be of type record Response<ICollection<GetEducationalInstitutionQueryResult>>
 
         [Fact]
         public void GivenName_OffsetValue_ResultsCount_ShouldReturnARecordTypeResponse()
@@ -100,7 +100,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
             Assert.IsType<Response<ICollection<GetEducationalInstitutionQueryResult>>>(result);
         }
 
-        #endregion Input: string Name | Expect: record type object in return
+        #endregion Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result to be of type record Response<ICollection<GetEducationalInstitutionQueryResult>>
 
         #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's Message field to be empty
 
@@ -130,9 +130,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
             Assert.Empty(result.Message);
         }
 
-        #endregion Input: string Name | Expect: null Message field
+        #endregion Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's Message field to be empty
 
         #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's StatusCode field to be equal HTTPStatusCode.OK
+
         [Fact]
         public void GivenName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesAHttpStatusCodeOkField()
         {
@@ -158,9 +159,11 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
             //Assert
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
         }
-        #endregion
+
+        #endregion Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's StatusCode field to be equal HTTPStatusCode.OK
 
         #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's OperationStatus field to be true
+
         [Fact]
         public void GivenName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
         {
@@ -186,17 +189,19 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
             //Assert
             Assert.True(result.OperationStatus);
         }
-        #endregion
 
-        #endregion
+        #endregion Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's OperationStatus field to be true
+
+        #endregion One object contains the input string TESTS
 
         #region No object exists that contains the input string TESTS
 
         #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's StatusCode field to be equal HTTPStatusCode.NotFound
+
         [Fact]
         public void GivenNonExistentName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesAHttpStatusCodeNotFoundField()
         {
-            //Arrange 
+            //Arrange
             string name = "School";
             int offsetValue = 0;
             int resultsCount = 1;
@@ -218,9 +223,11 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
             //Assert
             Assert.Equal(HttpStatusCode.NotFound, result.StatusCode);
         }
-        #endregion
+
+        #endregion Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's StatusCode field to be equal HTTPStatusCode.NotFound
 
         #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's OperationStatus field to be false
+
         [Fact]
         public void GivenNonExistentName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesAnOperationStatusFalseField()
         {
@@ -246,9 +253,11 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
             //Assert
             Assert.False(result.OperationStatus);
         }
-        #endregion
+
+        #endregion Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's OperationStatus field to be false
 
         #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's ResponseObject field to be null
+
         [Fact]
         public void GivenNonExistentName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesANullResponseObjectField()
         {
@@ -274,9 +283,11 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
             //Assert
             Assert.Null(result.ResponseObject);
         }
-        #endregion
+
+        #endregion Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's ResponseObject field to be null
 
         #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's Message field to contain a message
+
         [Fact]
         public void GivenNonExistentName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesAMessageField()
         {
@@ -302,11 +313,13 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
             //Assert
             Assert.Equal($"Could not find any Educational Institution with a name like: {request.Name}!", result.Message);
         }
-        #endregion
 
-        #endregion
+        #endregion Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's Message field to contain a message
+
+        #endregion No object exists that contains the input string TESTS
 
         #region Null arguments TESTS
+
         [Fact]
         public void GivenANullArgumentRequestToTheRequestHandlerHandleMethod_ShouldThrowArgumentNullException()
         {
@@ -317,7 +330,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
                 ResultsCount = 1,
                 OffsetValue = 0
             };
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetAllLikeName(It.IsNotIn("University", "of", "Testing", "One" ), It.IsAny<int>(), It.IsAny<int>(), dependenciesHelper.cancellationToken))
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetAllLikeName(It.IsNotIn("University", "of", "Testing", "One"), It.IsAny<int>(), It.IsAny<int>(), dependenciesHelper.cancellationToken))
                                     .Returns(Task.FromResult((ICollection<GetEducationalInstitutionQueryResult>)null));
 
             GetEducationalInstitutionByNameQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
@@ -363,6 +376,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
             //Assert
             Assert.Throws<ArgumentNullException>(() => new GetEducationalInstitutionByNameQueryHandler(dependenciesHelper.mockRepository.Object, null));
         }
-        #endregion
+
+        #endregion Null arguments TESTS
     }
 }

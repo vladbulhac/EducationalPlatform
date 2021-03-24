@@ -2,6 +2,9 @@
 
 namespace EducationaInstitutionAPI.Utils
 {
+    /// <summary>
+    /// Contains a method that searches for a key in the appsettings.json file
+    /// </summary>
     public static class ConfigurationHelper
     {
         public static string GetCurrentSettings(string key)

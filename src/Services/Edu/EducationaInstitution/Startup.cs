@@ -6,13 +6,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 namespace EducationaInstitutionAPI
 {
     public class Startup
     {
         private readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -55,9 +55,20 @@ namespace EducationaInstitutionAPI
 
             app.UseHttpsRedirection();
 
+            app.UseStaticFiles();
+
             app.UseRouting();
 
+            app.UseSerilogRequestLogging();
+
             app.UseAuthorization();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(swagger =>
+            {
+                swagger.SwaggerEndpoint("/swagger/v1/swagger.json", "Educational Institution API v1");
+            });
 
             app.UseEndpoints(endpoints =>
             {
