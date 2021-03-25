@@ -5,9 +5,9 @@ using MediatR;
 namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.In.Commands
 {
     /// <summary>
-    /// Encapsulates the request body of a Create operation 
+    /// Encapsulates the request body of a Create operation
     /// </summary>
-    public class DTOEducationalInstitutionCreateCommand : IRequest<Response<CreateEducationalInstitutionCommandResult>>
+    public class DTOEducationalInstitutionCreateCommand : IRequest<Response<EducationalInstitutionCommandResult>>
     {
         public string Name { get; init; }
         public string Description { get; init; }

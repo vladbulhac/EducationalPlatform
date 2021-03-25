@@ -15,9 +15,10 @@ namespace EducationaInstitutionAPI.Data
         /// Marks this Educational Institution's join date on the application
         /// </summary>
         public DateTime JoinDate { get; init; }
+        public string BuildingID { get; private set; }
         public string Description { get; private set; }
         public string LocationID { get; private set; }
-        public string BuildingID { get; private set; }
+        //public ICollection<EduInstitutionBuilding> Buildings { get; private set; }
         public ICollection<Student> Students { get; private set; }
         public ICollection<Professor> Professors { get; private set; }
         public ICollection<Staff> Personnel { get; private set; }
@@ -91,5 +92,15 @@ namespace EducationaInstitutionAPI.Data
         }
 
         public void RemoveStaff(Staff staff) => Personnel.Remove(staff);
+
+        public void UpdateEntireLocation(string locationID, string buildingID)
+        {
+            LocationID = locationID;
+            BuildingID = buildingID;
+        }
+
+        public void UpdateLocation(string locationID) => LocationID = locationID;
+
+        public void UpdateBuilding(string buildingID) => BuildingID = buildingID;
     }
 }

@@ -15,6 +15,7 @@ namespace EducationaInstitutionAPI.Data
 
         /// <value>An ID or OFFICE_UNKNOWKN</value>
         public string OfficeID { get; private set; }
+
         public ICollection<InstitutionAttended> InstitutionsAttended { get; private set; }
         public Availability Availability { get; private set; }
 

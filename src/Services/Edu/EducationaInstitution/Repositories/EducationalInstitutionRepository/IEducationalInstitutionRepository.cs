@@ -45,5 +45,26 @@ namespace EducationaInstitutionAPI.Repositories
         /// <param name="cancellationToken">Cancels the operation ______</param>
         /// <returns>NULL if no entities have been found, a collection of records of type GetEducationalInstitutionQueryResult otherwise</returns>
         public Task<ICollection<GetEducationalInstitutionQueryResult>> GetFromCollectionOfIDs(ICollection<Guid> IDs, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Updates the <paramref name="locationID"/> and <paramref name="buildingID"/> fields of an entity and saves the changes in the database
+        /// </summary>
+        /// <param name="cancellationToken">Cancels the operation _______</param>
+        /// <returns>True if the entity has been found and updated, False if the entity has not been found in the database</returns>
+        public Task<bool> Update(Guid eduInstituionID, string locationID, string buildingID, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Updates the <paramref name="locationID"/> field of an entity and saves the changes in the database
+        /// </summary>
+        /// <param name="cancellationToken">Cancels the operation ______</param>
+        /// <returns>True if the entity has been found and updated, False if the entity has not been found in the database</returns>
+        public Task<bool> Update(Guid eduInstitutionID, string locationID, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Updates the <paramref name="buildingID"/> field of an entity and saves the changes in the database
+        /// </summary>
+        /// <param name="cancellationToken">Cancels the operation _______</param>
+        /// <returns>True if the entity has been found and updated, False if the entity has not been found in the database</returns>
+        public Task<bool> Update(string buildingID, Guid eduInstitutionID, CancellationToken cancellationToken);
     }
 }

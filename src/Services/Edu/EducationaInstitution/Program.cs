@@ -10,6 +10,7 @@ namespace EducationaInstitutionAPI
     public class Program
     {
         public static readonly string AppName = typeof(Program).Namespace;
+
         public static int Main(string[] args)
         {
             var configuration = GetConfiguration();
@@ -27,7 +28,6 @@ namespace EducationaInstitutionAPI
                 return 1;
             }
             finally { Log.CloseAndFlush(); }
-
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

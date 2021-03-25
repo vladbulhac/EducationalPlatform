@@ -5,7 +5,7 @@ namespace EducationaInstitutionAPI.Data.Helpers.Queries_and_Commands_Results.Com
     /// <summary>
     /// Defines the properties that are returned as the result of a Create operation
     /// </summary>
-    public record CreateEducationalInstitutionCommandResult
+    public record EducationalInstitutionCommandResult
     {
         public Guid EduInstitutionID { get; init; }
     }

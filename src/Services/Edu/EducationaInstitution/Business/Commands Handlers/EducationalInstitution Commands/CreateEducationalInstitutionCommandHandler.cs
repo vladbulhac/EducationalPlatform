@@ -15,15 +15,16 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitu
     /// <summary>
     /// Defines a method that handles the creation and insertion of an Educational Institution into the database
     /// </summary>
-    public class CreateEducationalInstitutionCommandHandler : IRequestHandler<DTOEducationalInstitutionCreateCommand, Response<CreateEducationalInstitutionCommandResult>>
+    public class CreateEducationalInstitutionCommandHandler : IRequestHandler<DTOEducationalInstitutionCreateCommand, Response<EducationalInstitutionCommandResult>>
     {
         /// <summary>
         /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
         /// </summary>
         private readonly ILogger<CreateEducationalInstitutionCommandHandler> logger;
+
         private readonly IEducationalInstitutionRepository eduRepository;
 
-        public CreateEducationalInstitutionCommandHandler(ILogger<CreateEducationalInstitutionCommandHandler> logger, IEducationalInstitutionRepository eduRepository)
+        public CreateEducationalInstitutionCommandHandler(IEducationalInstitutionRepository eduRepository, ILogger<CreateEducationalInstitutionCommandHandler> logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.eduRepository = eduRepository ?? throw new ArgumentNullException(nameof(eduRepository));
@@ -35,7 +36,7 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitu
         /// <param name="request">Contains Educational Institution data that is to be added to the database</param>
         /// <param name="cancellationToken">Cancels the operation ________</param>
         /// <returns>The response object along with information about the events that occurred during the request operation</returns>
-        public async Task<Response<CreateEducationalInstitutionCommandResult>> Handle(DTOEducationalInstitutionCreateCommand request, CancellationToken cancellationToken)
+        public async Task<Response<EducationalInstitutionCommandResult>> Handle(DTOEducationalInstitutionCreateCommand request, CancellationToken cancellationToken)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
 

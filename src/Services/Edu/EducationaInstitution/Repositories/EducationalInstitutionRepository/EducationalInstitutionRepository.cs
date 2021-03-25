@@ -26,11 +26,12 @@ namespace EducationaInstitutionAPI.Repositories
             await context.EducationalInstitutions.AddAsync(data, cancellationToken);
             await context.SaveChangesAsync(cancellationToken);
         }
+
         public async Task<bool> Delete(Guid ID, CancellationToken cancellationToken = default)
         {
             var educationalInstitution = await context.EducationalInstitutions.SingleOrDefaultAsync(eduI => eduI.EduInstitutionID == ID, cancellationToken);
-            if (educationalInstitution == null)
-                return false;
+
+            if (educationalInstitution == null) return false;
 
             context.EducationalInstitutions.Remove(educationalInstitution);
             await context.SaveChangesAsync(cancellationToken);
@@ -54,8 +55,7 @@ namespace EducationaInstitutionAPI.Repositories
                                                         .Take(resultsCount)
                                                         .ToListAsync(cancellationToken);
 
-            if (educationalInstitutions == null)
-                return await Task.FromResult<ICollection<GetEducationalInstitutionQueryResult>>(null);
+            if (educationalInstitutions == null) return null;
 
             return educationalInstitutions;
         }
@@ -79,7 +79,7 @@ namespace EducationaInstitutionAPI.Repositories
                                                         .Include(ei => ei.Students)
                                                         .SingleOrDefaultAsync(cancellationToken);
 
-            if (educationalInstitution == null) return await Task.FromResult<GetEducationalInstitutionByIDQueryResult>(null);
+            if (educationalInstitution == null) return null;
 
             return educationalInstitution;
         }
@@ -97,7 +97,7 @@ namespace EducationaInstitutionAPI.Repositories
                                                         })
                                                       .SingleOrDefaultAsync(cancellationToken);
 
-            if (educationalInstitution == null) return await Task.FromResult<GetEducationalInstitutionByLocationQueryResult>(null);
+            if (educationalInstitution == null) return null;
 
             return educationalInstitution;
         }
@@ -115,7 +115,7 @@ namespace EducationaInstitutionAPI.Repositories
                                                         })
                                                         .ToListAsync(cancellationToken);
 
-            if (educationalInstitutions == null) return await Task.FromResult<ICollection<GetEducationalInstitutionQueryResult>>(null);
+            if (educationalInstitutions == null) return null;
 
             return educationalInstitutions;
         }
@@ -124,11 +124,46 @@ namespace EducationaInstitutionAPI.Repositories
         {
             var educationalInstitution = await context.EducationalInstitutions
                                                       .SingleOrDefaultAsync(eduI => eduI.EduInstitutionID == data.EduInstitutionID, cancellationToken);
-            if (educationalInstitution == null)
-                return false;
+            if (educationalInstitution == null) return false;
 
             educationalInstitution.Update(data.Name, data.Description, data.BuildingID, data.LocationID);
 
+            await context.SaveChangesAsync(cancellationToken);
+            return true;
+        }
+
+        public async Task<bool> Update(Guid eduInstitutionID, string locationID, string buildingID, CancellationToken cancellationToken)
+        {
+            var educationalInstitution = await context.EducationalInstitutions
+                                                     .SingleOrDefaultAsync(ei => ei.EduInstitutionID == eduInstitutionID, cancellationToken);
+
+            if (educationalInstitution == null) return false;
+
+            educationalInstitution.UpdateEntireLocation(locationID, buildingID);
+            await context.SaveChangesAsync(cancellationToken);
+            return true;
+        }
+
+        public async Task<bool> Update(Guid eduInstitutionID, string locationID, CancellationToken cancellationToken)
+        {
+            var educationalInstitution = await context.EducationalInstitutions
+                                                     .SingleOrDefaultAsync(ei => ei.EduInstitutionID == eduInstitutionID, cancellationToken);
+
+            if (educationalInstitution == null) return false;
+
+            educationalInstitution.UpdateLocation(locationID);
+            await context.SaveChangesAsync(cancellationToken);
+            return true;
+        }
+
+        public async Task<bool> Update(string buildingID, Guid eduInstitutionID, CancellationToken cancellationToken)
+        {
+            var educationalInstitution = await context.EducationalInstitutions
+                                                    .SingleOrDefaultAsync(ei => ei.EduInstitutionID == eduInstitutionID, cancellationToken);
+
+            if (educationalInstitution == null) return false;
+
+            educationalInstitution.UpdateBuilding(buildingID);
             await context.SaveChangesAsync(cancellationToken);
             return true;
         }

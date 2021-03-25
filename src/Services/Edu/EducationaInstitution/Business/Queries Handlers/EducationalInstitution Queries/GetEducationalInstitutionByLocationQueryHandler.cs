@@ -20,6 +20,7 @@ namespace EducationaInstitutionAPI.Business.Queries_Handlers.Queries_on_Educatio
         /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
         /// </summary>
         private readonly ILogger<GetEducationalInstitutionByLocationQueryHandler> logger;
+
         private readonly IEducationalInstitutionRepository eduRepository;
 
         public GetEducationalInstitutionByLocationQueryHandler(IEducationalInstitutionRepository eduRepository, ILogger<GetEducationalInstitutionByLocationQueryHandler> logger)
