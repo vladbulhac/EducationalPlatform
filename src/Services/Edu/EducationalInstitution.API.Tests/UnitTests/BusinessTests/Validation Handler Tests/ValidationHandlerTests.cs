@@ -493,8 +493,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
 
         #endregion Input: Name = string of length in [2,128], Description = string of length in [2,500], BuildingID & LocationID = string of length 24 with alphabet [a-fA-F0-9] | Expect: Result's validationError output to be empty
 
-
-
         #region Input: Name = empty string , Description = string of length in [2,500], BuildingID & LocationID = string of length 24 with alphabet [a-fA-F0-9] | Expect: Result to be false
 
         [Fact]
@@ -566,8 +564,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         #endregion Input: Name = string of length NOT in [2,128], Description = string of length in [2,500], BuildingID & LocationID = string of length 24 with alphabet [a-fA-F0-9] | Expect: Result to be false
-
-
 
         #region Input: Name = string of length NOT in [2,128], Description = string of length in [2,500], BuildingID & LocationID = string of length 24 with alphabet [a-fA-F0-9] | Expect: Result's validationError to contain the validation errors
 
@@ -641,8 +637,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
 
         #endregion Input: Name = string of length in [2,128], Description = empty string, BuildingID & LocationID = string of length 24 with alphabet [a-fA-F0-9] | Expect: Result's validationError to contain the validation errors
 
-
-
         #region Input: Name = string of length in [2,128], Description = string of length NOT in [2,500], BuildingID & LocationID = string of length 24 with alphabet [a-fA-F0-9] | Expect: Result to be false
 
         [Fact]
@@ -690,8 +684,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         #endregion Input: Name = string of length in [2,128], Description = string of length NOT in [2,500], BuildingID & LocationID = string of length 24 with alphabet [a-fA-F0-9] | Expect: Result's validationError to contain the validation errors
-
-
 
         #region Input: Name = string of length in [2,128], Description = string of length in [2,500], BuildingID = empty string, LocationID = string of length 24 with alphabet [a-fA-F0-9] | Expect: Result to be false
 
@@ -741,8 +733,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
 
         #endregion Input: Name = string of length in [2,128], Description = string of length NOT in [2,500], BuildingID = empty string, LocationID = string of length 24 with alphabet [a-fA-F0-9] | Expect: Result's validationError to contain the validation errors
 
-
-
         #region Input: Name = string of length in [2,128], Description = string of length in [2,500], BuildingID = string NOT of length 24, LocationID = string of length 24 with alphabet [a-fA-F0-9] | Expect: Result to be false
 
         [Fact]
@@ -790,8 +780,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         #endregion Input: Name = string of length in [2,128], Description = string of length in [2,500], BuildingID = string NOT of length 24, LocationID = string of length 24 with alphabet [a-fA-F0-9] | Expect: Result's validationError to contain the validation errors
-
-
 
         #region Input: Name = string of length in [2,128], Description = string of length in [2,500], BuildingID = string of length 24 with alphabet NOT [a-fA-F0-9], LocationID = string of length 24 with alphabet [a-fA-F0-9] | Expect: Result to be false
 
@@ -865,8 +853,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
 
         #endregion Input: Name = string of length in [2,128], Description = string of length in [2,500], BuildingID == LocationID = string of length 24 with alphabet [a-fA-F0-9] | Expect: Result to be false
 
-
-
         #region Input: Name = string of length in [2,128], Description = string of length in [2,500], BuildingID == LocationID = string of length 24 with alphabet [a-fA-F0-9] | Expect: Result's validationError to contain the validation errors
 
         [Fact]
@@ -890,8 +876,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         #endregion Input: Name = string of length in [2,128], Description = string of length in [2,500], BuildingID == LocationID = string of length 24 with alphabet [a-fA-F0-9] | Expect: Result's validationError to contain the validation errors
-
-
 
         #endregion Request of type DTOEducationalInstitutionCreateCommand TESTS
     }

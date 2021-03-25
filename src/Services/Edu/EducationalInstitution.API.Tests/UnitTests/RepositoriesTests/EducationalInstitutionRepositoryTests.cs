@@ -2,7 +2,9 @@
 using EducationaInstitutionAPI.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -29,11 +31,11 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
             mockSet.As<IQueryable<EduInstitution>>().Setup(s => s.GetEnumerator()).Returns(eduInstitutionsQueryable.GetEnumerator());
             mockSet.Setup(s => s.AddAsync(It.IsNotIn<EduInstitution>(testDataHelper.EduInstitutions), It.IsAny<CancellationToken>())).Callback<EduInstitution, CancellationToken>((ei, cancellationToken) => testDataHelper.EduInstitutions.Add(ei));
             mockSet.Setup(s => s.Remove(It.IsIn<EduInstitution>(testDataHelper.EduInstitutions))).Callback<EduInstitution>(ei => testDataHelper.EduInstitutions.Remove(ei));
-            //mockSet.Setup(s => s.SingleOrDefaultAsync(ei=>ei.EduInstitutionID==testDataFixture.EduInstitutions[0].EduInstitutionID),It.IsAny<CancellationToken>())).Callback<Expression<Func<>>,CancellationToken>((ei,cancellationToken)=> testDataFixture.EduInstitutions.SingleOrDefault(edu=>edu==ei));
+            //mockSet.Setup(s => s.SingleOrDefaultAsync(ei=>ei.EduInstitutionID==testDataHelper.EduInstitutions[0].EduInstitutionID,It.IsAny<CancellationToken>())).Returns<EduInstitution>(ei=>testDataHelper.EduInstitutions.SingleOrDefault(edu => edu == ei));
 
             mockContext = new();
             mockContext.Setup(c => c.EducationalInstitutions).Returns(mockSet.Object);
-            //mockContext.Setup(s => s.EducationalInstitutions.FindAsync(It.IsAny<EduInstitution[]>(), It.IsAny<CancellationToken>())).Returns(Task.FromResult(testDataFixture.EduInstitutions.FirstOrDefault(ei => ei.EduInstitutionID == testDataFixture.EduInstitutions[0].EduInstitutionID)));
+            mockContext.Setup(s => s.EducationalInstitutions.FindAsync(It.IsAny<EduInstitution[]>(), It.IsAny<CancellationToken>())).ReturnsAsync(testDataHelper.EduInstitutions.FirstOrDefault(ei => ei.EduInstitutionID == testDataHelper.EduInstitutions[0].EduInstitutionID));
 
             eduRepository = new EducationalInstitutionRepository(mockContext.Object);
         }
@@ -81,14 +83,15 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
          } _*/
 
         /*[Fact]
-        public async Task TestDeleteByIDMethod_GivenAGuidID_ShouldRemoveTheObjectWithThatIDFromTheList()
+        public async Task TestDeleteMethod_GivenAGuidID_ShouldRemoveTheObjectWithThatIDFromTheList()
         {
             //Arrange
-            var eduInstitution = testDataFixture.EduInstitutions[0];
+            var eduInstitution = testDataHelper.EduInstitutions[0];
+
             //Act
-            await eduRepository.DeleteByID(eduInstitution.EduInstitutionID, new CancellationToken());
+            await eduRepository.Delete(eduInstitution.EduInstitutionID, new CancellationToken());
             //Assert
-            Assert.DoesNotContain(eduInstitution, testDataFixture.EduInstitutions);
+            Assert.DoesNotContain(eduInstitution, testDataHelper.EduInstitutions);
         }*/
     }
 }

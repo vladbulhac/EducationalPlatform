@@ -35,19 +35,19 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         #region Input: LocationID = string | Expect: Result's ResponseObject field to be equal to an expected object
 
         [Fact]
-        public void GivenALocationID_ShouldReturnAResponseThatIncludesAResponseObjectWithTheEducationalInstitutionThatHasThatLocationID()
+        public async Task GivenALocationID_ShouldReturnAResponseThatIncludesAResponseObjectWithTheEducationalInstitutionThatHasThatLocationID()
         {
             //Arrange
             string locationID = "location1";
 
             DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(locationID, dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult(queryResult));
+                                    .ReturnsAsync(queryResult);
 
             GetEducationalInstitutionByLocationQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
             Assert.Equal(queryResult, result.ResponseObject);
@@ -58,19 +58,19 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         #region Input: LocationID = string | Expect: Result to be of type record Response<GetEducationalInstitutionByLocationQueryResult>
 
         [Fact]
-        public void GivenALocationID_ShouldReturnARecordTypeResponse()
+        public async Task GivenALocationID_ShouldReturnARecordTypeResponse()
         {
             //Arrange
             string locationID = "location1";
 
             DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(locationID, dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult(queryResult));
+                                    .ReturnsAsync(queryResult);
 
             GetEducationalInstitutionByLocationQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Arrange
             Assert.IsType<Response<GetEducationalInstitutionByLocationQueryResult>>(result);
@@ -81,19 +81,19 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         #region Input: LocationID = string | Expect: Result's ResponseObject field to be of type GetEducationalInstitutionByLocationQueryResult
 
         [Fact]
-        public void GivenALocationID_ShouldReturnAResponseThatIncludesAResponseObjectOfTypeGetEducationalInstitutionByLocationQueryResult()
+        public async Task GivenALocationID_ShouldReturnAResponseThatIncludesAResponseObjectOfTypeGetEducationalInstitutionByLocationQueryResult()
         {
             //Arrange
             string locationID = "location1";
 
             DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(locationID, dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult(queryResult));
+                                    .ReturnsAsync(queryResult);
 
             GetEducationalInstitutionByLocationQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Arrange
             Assert.IsType<GetEducationalInstitutionByLocationQueryResult>(result.ResponseObject);
@@ -104,19 +104,19 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         #region Input: LocationID = string | Expect: Result's Message field to be empty
 
         [Fact]
-        public void GivenALocationID_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
+        public async Task GivenALocationID_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
             string locationID = "location1";
 
             DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(locationID, dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult(queryResult));
+                                    .ReturnsAsync(queryResult);
 
             GetEducationalInstitutionByLocationQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Arrange
             Assert.Empty(result.Message);
@@ -127,19 +127,19 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         #region Input: LocationID = string | Expect: Result's StatusCode field to be equal HTTPStatusCode.OK
 
         [Fact]
-        public void GivenALocationID_ShouldReturnAResponseThatIncludesAHttpStatusCodeOkField()
+        public async Task GivenALocationID_ShouldReturnAResponseThatIncludesAHttpStatusCodeOkField()
         {
             //Arrange
             string locationID = "location1";
 
             DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(locationID, dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult(queryResult));
+                                    .ReturnsAsync(queryResult);
 
             GetEducationalInstitutionByLocationQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Arrange
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
@@ -150,19 +150,19 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         #region Input: LocationID = string | Expect: Result's OperationStatus field to be true
 
         [Fact]
-        public void GivenALocationID_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
+        public async Task GivenALocationID_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
         {
             //Arrange
             string locationID = "location1";
 
             DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(locationID, dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult(queryResult));
+                                    .ReturnsAsync(queryResult);
 
             GetEducationalInstitutionByLocationQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Arrange
             Assert.True(result.OperationStatus);
@@ -177,19 +177,20 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         #region Input: LocationID = string | Expect: Result's StatusCode field to be equal HTTPStatusCode.NotFound
 
         [Fact]
-        public void GivenANonExistentLocationID_ShouldReturnAResponseThatIncludesAHttpStatusCodeNotFoundField()
+        public async Task GivenANonExistentLocationID_ShouldReturnAResponseThatIncludesAHttpStatusCodeNotFoundField()
         {
             //Arrange
             string locationID = "e32Loq4";
-
             DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
+
+            GetEducationalInstitutionByLocationQueryResult repositoryTaskResult = null;
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(It.IsNotIn("location1", "location12"), dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult<GetEducationalInstitutionByLocationQueryResult>(null));
+                                    .ReturnsAsync(repositoryTaskResult);
 
             GetEducationalInstitutionByLocationQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Arrange
             Assert.Equal(HttpStatusCode.NotFound, result.StatusCode);
@@ -200,19 +201,20 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         #region Input: LocationID = string | Expect: Result's OperationStatus field to be false
 
         [Fact]
-        public void GivenANonExistentLocationID_ShouldReturnAResponseThatIncludesAnOperationStatusFalseField()
+        public async Task GivenANonExistentLocationID_ShouldReturnAResponseThatIncludesAnOperationStatusFalseField()
         {
             //Arrange
             string locationID = "e32Loq4";
-
             DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
+
+            GetEducationalInstitutionByLocationQueryResult repositoryTaskResult = null;
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(It.IsNotIn("location1", "location12"), dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult<GetEducationalInstitutionByLocationQueryResult>(null));
+                                    .ReturnsAsync(repositoryTaskResult);
 
             GetEducationalInstitutionByLocationQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Arrange
             Assert.False(result.OperationStatus);
@@ -223,19 +225,20 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         #region Input: LocationID = string | Expect: Result's ResponseObject field to be null
 
         [Fact]
-        public void GivenANonExistentLocationID_ShouldReturnAResponseThatIncludesANullResponseObjectField()
+        public async Task GivenANonExistentLocationID_ShouldReturnAResponseThatIncludesANullResponseObjectField()
         {
             //Arrange
             string locationID = "e32Loq4";
-
             DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
+
+            GetEducationalInstitutionByLocationQueryResult repositoryTaskResult = null;
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(It.IsNotIn("location1", "location12"), dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult<GetEducationalInstitutionByLocationQueryResult>(null));
+                                    .ReturnsAsync(repositoryTaskResult);
 
             GetEducationalInstitutionByLocationQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Arrange
             Assert.Null(result.ResponseObject);
@@ -246,19 +249,20 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         #region Input: LocationID = string | Expect: Result's Message field to contain a message
 
         [Fact]
-        public void GivenANonExistentLocationID_ShouldReturnAResponseThatIncludesAMessageField()
+        public async Task GivenANonExistentLocationID_ShouldReturnAResponseThatIncludesAMessageField()
         {
             //Arrange
             string locationID = "e32Loq4";
-
             DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
+
+            GetEducationalInstitutionByLocationQueryResult repositoryTaskResult = null;
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(It.IsNotIn("location1", "location12"), dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult<GetEducationalInstitutionByLocationQueryResult>(null));
+                                    .ReturnsAsync(repositoryTaskResult);
 
             GetEducationalInstitutionByLocationQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Arrange
             Assert.Equal($"No Educational Institution with the following LocationID: {request.LocationID} has been found!", result.Message);
@@ -271,29 +275,18 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         #region Null arguments TESTS
 
         [Fact]
-        public void GivenANullArgumentRequestToTheRequestHandlerHandleMethod_ShouldThrowArgumentNullException()
+        public async Task GivenANullArgumentRequestToTheRequestHandlerHandleMethod_ShouldThrowArgumentNullException()
         {
             //Arrange
-            DTOEducationalInstitutionByLocationQuery request = new() { LocationID = "location1" };
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(It.IsNotIn("location1", "location12"), dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult((GetEducationalInstitutionByLocationQueryResult)null));
-
             GetEducationalInstitutionByLocationQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Assert
-            Assert.ThrowsAsync<ArgumentNullException>(() => handler.Handle(null, dependenciesHelper.cancellationToken));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => handler.Handle(null, dependenciesHelper.cancellationToken));
         }
 
         [Fact]
         public void GivenANullArgumentRepositoryToTheRequestHandlerConstructor_ShouldThrowArgumentNullException()
         {
-            //Arrange
-            DTOEducationalInstitutionByLocationQuery request = new() { LocationID = "location1" };
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(It.IsNotIn("location1", "location12"), dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult((GetEducationalInstitutionByLocationQueryResult)null));
-
-            GetEducationalInstitutionByLocationQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
-
             //Assert
             Assert.Throws<ArgumentNullException>(() => new GetEducationalInstitutionByLocationQueryHandler(null, dependenciesHelper.mockLogger.Object));
         }
@@ -301,13 +294,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         [Fact]
         public void GivenANullArgumentLoggerToTheRequestHandlerConstructor_ShouldThrowArgumentNullException()
         {
-            //Arrange
-            DTOEducationalInstitutionByLocationQuery request = new() { LocationID = "location1" };
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetByLocation(It.IsNotIn("location1", "location12"), dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult((GetEducationalInstitutionByLocationQueryResult)null));
-
-            GetEducationalInstitutionByLocationQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
-
             //Assert
             Assert.Throws<ArgumentNullException>(() => new GetEducationalInstitutionByLocationQueryHandler(dependenciesHelper.mockRepository.Object, null));
         }

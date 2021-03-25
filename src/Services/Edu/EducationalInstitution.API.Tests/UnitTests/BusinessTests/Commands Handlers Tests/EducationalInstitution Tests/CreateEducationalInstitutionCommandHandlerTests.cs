@@ -23,7 +23,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         #region Input: Name = string, Description = string, LocationID = string, BuildingID = string | Expect: Result's StatusCode field to be equal HTTPStatusCode.Created
 
         [Fact]
-        public void GivenAName_Description_LocationID_BuildingID_ShouldReturnAResponseThatIncludesAStatusCodeCreatedField()
+        public async Task GivenAName_Description_LocationID_BuildingID_ShouldReturnAResponseThatIncludesAStatusCodeCreatedField()
         {
             //Arrange
             string name = "West High School";
@@ -40,12 +40,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             };
 
             EduInstitution newEduInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingID);
-            dependenciesHelper.mockRepository.Setup(mr => mr.Create(newEduInstitution, dependenciesHelper.cancellationToken)).Returns(Task.CompletedTask);
+            dependenciesHelper.mockRepository.Setup(mr => mr.Create(newEduInstitution, dependenciesHelper.cancellationToken));
 
-            var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockLogger.Object, dependenciesHelper.mockRepository.Object);
+            var handler = new CreateEducationalInstitutionCommandHandler( dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
             Assert.Equal(HttpStatusCode.Created, result.StatusCode);
@@ -56,7 +56,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         #region Input: Name = string, Description = string, LocationID = string, BuildingID = string | Expect: Result's Message field to be empty
 
         [Fact]
-        public void GivenAName_Description_LocationID_BuildingID_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
+        public async Task GivenAName_Description_LocationID_BuildingID_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
             string name = "West High School";
@@ -73,12 +73,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             };
 
             EduInstitution newEduInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingID);
-            dependenciesHelper.mockRepository.Setup(mr => mr.Create(newEduInstitution, dependenciesHelper.cancellationToken)).Returns(Task.CompletedTask);
+            dependenciesHelper.mockRepository.Setup(mr => mr.Create(newEduInstitution, dependenciesHelper.cancellationToken));
 
-            var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockLogger.Object, dependenciesHelper.mockRepository.Object);
+            var handler = new CreateEducationalInstitutionCommandHandler( dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
             Assert.Empty(result.Message);
@@ -89,7 +89,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         #region Input: Name = string, Description = string, LocationID = string, BuildingID = string | Expect: Result to be of type record Response<CreateEducationalInstitutionCommandResult>
 
         [Fact]
-        public void GivenAName_Description_LocationID_BuildingID_ShouldReturnARecordTypeResponse()
+        public async Task GivenAName_Description_LocationID_BuildingID_ShouldReturnARecordTypeResponse()
         {
             //Arrange
             string name = "West High School";
@@ -106,15 +106,15 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             };
 
             EduInstitution newEduInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingID);
-            dependenciesHelper.mockRepository.Setup(mr => mr.Create(newEduInstitution, dependenciesHelper.cancellationToken)).Returns(Task.CompletedTask);
+            dependenciesHelper.mockRepository.Setup(mr => mr.Create(newEduInstitution, dependenciesHelper.cancellationToken));
 
-            CreateEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockLogger.Object, dependenciesHelper.mockRepository.Object);
+            CreateEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
-            Assert.IsType<Response<CreateEducationalInstitutionCommandResult>>(result);
+            Assert.IsType<Response<EducationalInstitutionCommandResult>>(result);
         }
 
         #endregion Input: Name = string, Description = string, LocationID = string, BuildingID = string | Expect: Result to be of type record Response<CreateEducationalInstitutionCommandResult>
@@ -122,7 +122,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         #region Input: Name = string, Description = string, LocationID = string, BuildingID = string | Expect: Result's ResponseObject to have a Guid ID
 
         [Fact]
-        public void GivenAName_Description_LocationID_BuildingID_ShouldReturnAResponseThatIncludesAResponseObjectWithTheEducationalInstitutionID()
+        public async Task GivenAName_Description_LocationID_BuildingID_ShouldReturnAResponseThatIncludesAResponseObjectWithTheEducationalInstitutionID()
         {
             //Arrange
             string name = "West High School";
@@ -139,12 +139,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             };
 
             EduInstitution newEduInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingID);
-            dependenciesHelper.mockRepository.Setup(mr => mr.Create(newEduInstitution, dependenciesHelper.cancellationToken)).Returns(Task.CompletedTask);
+            dependenciesHelper.mockRepository.Setup(mr => mr.Create(newEduInstitution, dependenciesHelper.cancellationToken));
 
-            CreateEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockLogger.Object, dependenciesHelper.mockRepository.Object);
+            CreateEducationalInstitutionCommandHandler handler = new( dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
             Assert.IsType<Guid>(result.ResponseObject.EduInstitutionID);
@@ -155,7 +155,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         #region Input: Name = string, Description = string, LocationID = string, BuildingID = string | Expect: Result's ResponseObject field to be of type CreateEducationalInstitutionCommandResult
 
         [Fact]
-        public void GivenAName_Description_LocationID_BuildingID_ShouldReturnAResponseThatIncludesAResponseObjectOfTypeCreateEducationalInstitutionCommandResult()
+        public async Task GivenAName_Description_LocationID_BuildingID_ShouldReturnAResponseThatIncludesAResponseObjectOfTypeCreateEducationalInstitutionCommandResult()
         {
             //Arrange
             string name = "West High School";
@@ -172,15 +172,15 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             };
 
             EduInstitution newEduInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingID);
-            dependenciesHelper.mockRepository.Setup(mr => mr.Create(newEduInstitution, dependenciesHelper.cancellationToken)).Returns(Task.CompletedTask);
+            dependenciesHelper.mockRepository.Setup(mr => mr.Create(newEduInstitution, dependenciesHelper.cancellationToken));
 
-            CreateEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockLogger.Object, dependenciesHelper.mockRepository.Object);
+            CreateEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
-            Assert.IsType<CreateEducationalInstitutionCommandResult>(result.ResponseObject);
+            Assert.IsType<EducationalInstitutionCommandResult>(result.ResponseObject);
         }
 
         #endregion Input: Name = string, Description = string, LocationID = string, BuildingID = string | Expect: Result's ResponseObject field to be of type CreateEducationalInstitutionCommandResult
@@ -188,7 +188,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         #region Input: Name = string, Description = string, LocationID = string, BuildingID = string | Expect: Result's OperationStatus field to be true
 
         [Fact]
-        public void GivenAName_Description_LocationID_BuildingID_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
+        public async Task GivenAName_Description_LocationID_BuildingID_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
         {
             //Arrange
             string name = "West High School";
@@ -205,17 +205,46 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             };
 
             EduInstitution newEduInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingID);
-            dependenciesHelper.mockRepository.Setup(mr => mr.Create(newEduInstitution, dependenciesHelper.cancellationToken)).Returns(Task.CompletedTask);
+            dependenciesHelper.mockRepository.Setup(mr => mr.Create(newEduInstitution, dependenciesHelper.cancellationToken));
 
-            CreateEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockLogger.Object, dependenciesHelper.mockRepository.Object);
+            CreateEducationalInstitutionCommandHandler handler = new( dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
             Assert.True(result.OperationStatus);
         }
 
         #endregion Input: Name = string, Description = string, LocationID = string, BuildingID = string | Expect: Result's OperationStatus field to be true
+
+        #region When an object with the same field's value exists TESTS
+        #endregion
+
+        #region NULL arguments TESTS
+        [Fact]
+        public async Task GivenANullArgumentRequestToTheRequestHandlerHandleMethod_ShouldThrowArgumentNullException()
+        {
+            //Arrange
+            CreateEducationalInstitutionCommandHandler handler = new( dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
+
+            //Assert
+            await Assert.ThrowsAsync<ArgumentNullException>(() => handler.Handle(null, dependenciesHelper.cancellationToken));
+        }
+
+        [Fact]
+        public void GivenANullArgumentRepositoryToTheRequestHandlerConstructor_ShouldThrowArgumentNullException()
+        {
+            //Assert
+            Assert.Throws<ArgumentNullException>(() => new CreateEducationalInstitutionCommandHandler(null, dependenciesHelper.mockLogger.Object));
+        }
+
+        [Fact]
+        public void GivenANullArgumentLoggerToTheRequestHandlerConstructor_ShouldThrowArgumentNullException()
+        {
+            //Assert
+            Assert.Throws<ArgumentNullException>(() => new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockRepository.Object, null));
+        }
+        #endregion
     }
 }

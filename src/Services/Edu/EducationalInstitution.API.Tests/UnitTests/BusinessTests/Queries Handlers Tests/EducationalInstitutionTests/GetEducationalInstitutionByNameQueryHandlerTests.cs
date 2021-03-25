@@ -45,7 +45,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
         #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's ResponseObject field to be an Educational Institution with Name that contains the input string
 
         [Fact]
-        public void GivenName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludes_AResponseObjectWithTheEducationalInstitutionThatHasThatName()
+        public async Task GivenName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludes_AResponseObjectWithTheEducationalInstitutionThatHasThatName()
         {
             //Arrange
             string name = "University of Testing";
@@ -59,12 +59,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
                 OffsetValue = offsetValue
             };
             dependenciesHelper.mockRepository.Setup(mr => mr.GetAllLikeName(request.Name, It.IsInRange(0, 150, Moq.Range.Inclusive), It.IsInRange(0, 100, Moq.Range.Inclusive), dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult((ICollection<GetEducationalInstitutionQueryResult>)new List<GetEducationalInstitutionQueryResult>() { queryResult[0] }));
+                                    .ReturnsAsync(new List<GetEducationalInstitutionQueryResult>() { queryResult[0] });
 
             GetEducationalInstitutionByNameQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
             Assert.Equal(queryResult[0], result.ResponseObject.Single());
@@ -75,7 +75,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
         #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result to be of type record Response<ICollection<GetEducationalInstitutionQueryResult>>
 
         [Fact]
-        public void GivenName_OffsetValue_ResultsCount_ShouldReturnARecordTypeResponse()
+        public async Task GivenName_OffsetValue_ResultsCount_ShouldReturnARecordTypeResponse()
         {
             //Arrange
             string name = "University";
@@ -89,12 +89,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
                 OffsetValue = offsetValue
             };
             dependenciesHelper.mockRepository.Setup(mr => mr.GetAllLikeName(request.Name, It.IsInRange(0, 150, Moq.Range.Inclusive), It.IsInRange(0, 100, Moq.Range.Inclusive), dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult((ICollection<GetEducationalInstitutionQueryResult>)new List<GetEducationalInstitutionQueryResult>() { queryResult[0] }));
+                                    .ReturnsAsync(new List<GetEducationalInstitutionQueryResult>() { queryResult[0] });
 
             GetEducationalInstitutionByNameQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
             Assert.IsType<Response<ICollection<GetEducationalInstitutionQueryResult>>>(result);
@@ -105,7 +105,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
         #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's Message field to be empty
 
         [Fact]
-        public void GivenName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
+        public async Task GivenName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
             string name = "University of Testing";
@@ -119,12 +119,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
                 OffsetValue = offsetValue
             };
             dependenciesHelper.mockRepository.Setup(mr => mr.GetAllLikeName(request.Name, It.IsInRange(0, 150, Moq.Range.Inclusive), It.IsInRange(0, 100, Moq.Range.Inclusive), dependenciesHelper.cancellationToken))
-                                     .Returns(Task.FromResult((ICollection<GetEducationalInstitutionQueryResult>)new List<GetEducationalInstitutionQueryResult>() { queryResult[0] }));
+                                     .ReturnsAsync(new List<GetEducationalInstitutionQueryResult>() { queryResult[0] });
 
             GetEducationalInstitutionByNameQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
             Assert.Empty(result.Message);
@@ -135,7 +135,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
         #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's StatusCode field to be equal HTTPStatusCode.OK
 
         [Fact]
-        public void GivenName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesAHttpStatusCodeOkField()
+        public async Task GivenName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesAHttpStatusCodeOkField()
         {
             //Arrange
             string name = "University of Testing";
@@ -149,12 +149,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
                 OffsetValue = offsetValue
             };
             dependenciesHelper.mockRepository.Setup(mr => mr.GetAllLikeName(request.Name, It.IsInRange(0, 150, Moq.Range.Inclusive), It.IsInRange(0, 100, Moq.Range.Inclusive), dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult((ICollection<GetEducationalInstitutionQueryResult>)new List<GetEducationalInstitutionQueryResult>() { queryResult[0] }));
+                                    .ReturnsAsync(new List<GetEducationalInstitutionQueryResult>() { queryResult[0] });
 
             GetEducationalInstitutionByNameQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
@@ -165,7 +165,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
         #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's OperationStatus field to be true
 
         [Fact]
-        public void GivenName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
+        public async Task GivenName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
         {
             //Arrange
             string name = "University of Testing";
@@ -179,12 +179,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
                 OffsetValue = offsetValue
             };
             dependenciesHelper.mockRepository.Setup(mr => mr.GetAllLikeName(request.Name, It.IsInRange(0, 150, Moq.Range.Inclusive), It.IsInRange(0, 100, Moq.Range.Inclusive), dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult((ICollection<GetEducationalInstitutionQueryResult>)new List<GetEducationalInstitutionQueryResult>() { queryResult[0] }));
+                                    .ReturnsAsync(new List<GetEducationalInstitutionQueryResult>() { queryResult[0] });
 
             GetEducationalInstitutionByNameQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
             Assert.True(result.OperationStatus);
@@ -199,7 +199,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
         #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's StatusCode field to be equal HTTPStatusCode.NotFound
 
         [Fact]
-        public void GivenNonExistentName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesAHttpStatusCodeNotFoundField()
+        public async Task GivenNonExistentName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesAHttpStatusCodeNotFoundField()
         {
             //Arrange
             string name = "School";
@@ -212,13 +212,15 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
                 ResultsCount = resultsCount,
                 OffsetValue = offsetValue
             };
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetAllLikeName(It.IsNotIn<string>(new string[] { "University", "of", "Testing", "One" }), It.IsInRange(0, 150, Moq.Range.Inclusive), It.IsInRange(0, 100, Moq.Range.Inclusive), dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult((ICollection<GetEducationalInstitutionQueryResult>)null));
+
+            ICollection<GetEducationalInstitutionQueryResult> repositoryTaskResult = null;
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetAllLikeName(It.IsNotIn(new string[] { "University", "of", "Testing", "One" }), It.IsInRange(0, 150, Moq.Range.Inclusive), It.IsInRange(0, 100, Moq.Range.Inclusive), dependenciesHelper.cancellationToken))
+                                    .ReturnsAsync(repositoryTaskResult);
 
             GetEducationalInstitutionByNameQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
             Assert.Equal(HttpStatusCode.NotFound, result.StatusCode);
@@ -229,7 +231,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
         #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's OperationStatus field to be false
 
         [Fact]
-        public void GivenNonExistentName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesAnOperationStatusFalseField()
+        public async Task GivenNonExistentName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesAnOperationStatusFalseField()
         {
             //Arrange
             string name = "School";
@@ -242,13 +244,15 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
                 ResultsCount = resultsCount,
                 OffsetValue = offsetValue
             };
+
+            ICollection<GetEducationalInstitutionQueryResult> repositoryTaskResult = null;
             dependenciesHelper.mockRepository.Setup(mr => mr.GetAllLikeName(It.IsNotIn<string>(new string[] { "University", "of", "Testing", "One" }), It.IsInRange(0, 150, Moq.Range.Inclusive), It.IsInRange(0, 100, Moq.Range.Inclusive), dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult((ICollection<GetEducationalInstitutionQueryResult>)null));
+                                    .ReturnsAsync(repositoryTaskResult);
 
             GetEducationalInstitutionByNameQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
             Assert.False(result.OperationStatus);
@@ -259,7 +263,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
         #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's ResponseObject field to be null
 
         [Fact]
-        public void GivenNonExistentName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesANullResponseObjectField()
+        public async Task GivenNonExistentName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesANullResponseObjectField()
         {
             //Arrange
             string name = "School";
@@ -272,13 +276,15 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
                 ResultsCount = resultsCount,
                 OffsetValue = offsetValue
             };
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetAllLikeName(It.IsNotIn<string>(new string[] { "University", "of", "Testing", "One" }), It.IsInRange(0, 150, Moq.Range.Inclusive), It.IsInRange(0, 100, Moq.Range.Inclusive), dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult((ICollection<GetEducationalInstitutionQueryResult>)null));
+
+            ICollection<GetEducationalInstitutionQueryResult> repositoryTaskResult = null;
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetAllLikeName(It.IsNotIn(new string[] { "University", "of", "Testing", "One" }), It.IsInRange(0, 150, Moq.Range.Inclusive), It.IsInRange(0, 100, Moq.Range.Inclusive), dependenciesHelper.cancellationToken))
+                                    .ReturnsAsync(repositoryTaskResult);
 
             GetEducationalInstitutionByNameQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
             Assert.Null(result.ResponseObject);
@@ -289,7 +295,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
         #region Input: Name = string, OffsetValue = int in [0,150], ResultsCount = int in [1,100] | Expect: Result's Message field to contain a message
 
         [Fact]
-        public void GivenNonExistentName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesAMessageField()
+        public async Task GivenNonExistentName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesAMessageField()
         {
             //Arrange
             string name = "School";
@@ -302,13 +308,15 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
                 ResultsCount = resultsCount,
                 OffsetValue = offsetValue
             };
+
+            ICollection<GetEducationalInstitutionQueryResult> repositoryTaskResult = null;
             dependenciesHelper.mockRepository.Setup(mr => mr.GetAllLikeName(It.IsNotIn<string>(new string[] { "University", "of", "Testing", "One" }), It.IsInRange(0, 150, Moq.Range.Inclusive), It.IsInRange(0, 100, Moq.Range.Inclusive), dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult((ICollection<GetEducationalInstitutionQueryResult>)null));
+                                    .ReturnsAsync(repositoryTaskResult);
 
             GetEducationalInstitutionByNameQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
-            var result = handler.Handle(request, dependenciesHelper.cancellationToken).Result;
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
             Assert.Equal($"Could not find any Educational Institution with a name like: {request.Name}!", result.Message);
@@ -321,39 +329,18 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
         #region Null arguments TESTS
 
         [Fact]
-        public void GivenANullArgumentRequestToTheRequestHandlerHandleMethod_ShouldThrowArgumentNullException()
+        public async Task GivenANullArgumentRequestToTheRequestHandlerHandleMethod_ShouldThrowArgumentNullException()
         {
             //Arrange
-            DTOEducationalInstitutionsByNameQuery request = new()
-            {
-                Name = "School",
-                ResultsCount = 1,
-                OffsetValue = 0
-            };
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetAllLikeName(It.IsNotIn("University", "of", "Testing", "One"), It.IsAny<int>(), It.IsAny<int>(), dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult((ICollection<GetEducationalInstitutionQueryResult>)null));
-
             GetEducationalInstitutionByNameQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
 
             //Assert
-            Assert.ThrowsAsync<ArgumentNullException>(() => handler.Handle(null, dependenciesHelper.cancellationToken));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => handler.Handle(null, dependenciesHelper.cancellationToken));
         }
 
         [Fact]
         public void GivenANullArgumentRepositoryToTheRequestHandlerConstructor_ShouldThrowArgumentNullException()
         {
-            //Arrange
-            DTOEducationalInstitutionsByNameQuery request = new()
-            {
-                Name = "School",
-                ResultsCount = 1,
-                OffsetValue = 0
-            };
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetAllLikeName(It.IsNotIn("University", "of", "Testing", "One"), It.IsAny<int>(), It.IsAny<int>(), dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult((ICollection<GetEducationalInstitutionQueryResult>)null));
-
-            GetEducationalInstitutionByNameQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
-
             //Assert
             Assert.Throws<ArgumentNullException>(() => new GetEducationalInstitutionByNameQueryHandler(null, dependenciesHelper.mockLogger.Object));
         }
@@ -361,18 +348,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
         [Fact]
         public void GivenANullArgumentLoggerToTheRequestHandlerConstructor_ShouldThrowArgumentNullException()
         {
-            //Arrange
-            DTOEducationalInstitutionsByNameQuery request = new()
-            {
-                Name = "School",
-                ResultsCount = 1,
-                OffsetValue = 0
-            };
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetAllLikeName(It.IsNotIn("University", "of", "Testing", "One"), It.IsAny<int>(), It.IsAny<int>(), dependenciesHelper.cancellationToken))
-                                    .Returns(Task.FromResult((ICollection<GetEducationalInstitutionQueryResult>)null));
-
-            GetEducationalInstitutionByNameQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
-
             //Assert
             Assert.Throws<ArgumentNullException>(() => new GetEducationalInstitutionByNameQueryHandler(dependenciesHelper.mockRepository.Object, null));
         }
