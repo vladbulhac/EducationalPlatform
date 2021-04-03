@@ -3,7 +3,7 @@
 namespace EducationaInstitutionAPI.Utils
 {
     /// <summary>
-    /// Contains the response to a request or information about the failure
+    /// Contains the response to a request and the status of the request operation
     /// </summary>
     public record Response<ResponseType>
     {
@@ -22,7 +22,7 @@ namespace EducationaInstitutionAPI.Utils
         /// <summary>
         /// Describes the failure that occurred during the request operation
         /// </summary>
-        /// <value>An error/exception/custom description if OperationStatus field is False, Empty otherwise</value>
+        /// <value>An error/exception/custom description if <see cref="OperationStatus"/> field is False, Empty otherwise</value>
         public string Message { get; init; }
     }
 }

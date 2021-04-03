@@ -1,14 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace EducationaInstitutionAPI.Data
+﻿namespace EducationaInstitutionAPI.Data
 {
+    /// <summary>
+    /// Defines an association between a Building and an <see cref="EduInstitution"/>
+    /// </summary>
     public class EduInstitutionBuilding
     {
-        public string BuildingID { get; private set; }
-        public Guid EduInstitutionID { get; init; }
-        public Availability Availability { get; private set; }
+        public EduInstitution EducationalInstitution { get; init; }
+        public string BuildingID { get; init; }
+        public Access EntityAccess { get; private set; }
+
+        public EduInstitutionBuilding()
+        {
+        }
+
+        public EduInstitutionBuilding(string buildingID, EduInstitution eduInstitution)
+        {
+            BuildingID = buildingID;
+            EducationalInstitution = eduInstitution;
+        }
     }
 }

@@ -29,12 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Business\Queries Handlers\Personnel Queries\" />
-    <Folder Include="Business\Queries Handlers\Professors Queries\" />
-    <Folder Include="Business\Queries Handlers\Students Queries\" />
-    <Folder Include="DTOs\Personnel\Validators\" />
-    <Folder Include="DTOs\Professor\Validators\" />
-    <Folder Include="DTOs\Student\Validators\" />
     <Folder Include="Logs\" />
   </ItemGroup>
 

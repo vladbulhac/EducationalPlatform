@@ -1,9 +1,11 @@
-﻿using System;
+﻿using EducationaInstitutionAPI.Data;
+using System;
+using System.Collections.Generic;
 
 namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.Out
 {
     /// <summary>
-    /// Defines the properties that are returned as the result of a database operation
+    /// Defines the data that is returned as the result of any database operation
     /// </summary>
     public record GetEducationalInstitutionQueryResult
     {
@@ -11,6 +13,6 @@ namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.Out
         public string Name { get; init; }
         public string Description { get; init; }
         public string LocationID { get; init; }
-        public string BuildingID { get; init; }
+        public ICollection<EduInstitutionBuilding> BuildingsIDs { get; init; }
     }
 }

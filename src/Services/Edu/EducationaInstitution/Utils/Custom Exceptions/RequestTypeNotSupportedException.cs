@@ -3,7 +3,7 @@
 namespace EducationaInstitutionAPI.Utils.Custom_Exceptions
 {
     /// <summary>
-    /// Defines an Exception type that is thrown when a method can't handle a class type
+    /// Defines an Exception type that is thrown when a <see cref="FluentValidation"/> validator has not been created for a Data Transfer Object
     /// </summary>
     public class RequestTypeNotSupportedException : Exception
     {

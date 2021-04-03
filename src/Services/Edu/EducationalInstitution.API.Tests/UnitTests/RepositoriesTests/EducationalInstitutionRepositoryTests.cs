@@ -2,9 +2,8 @@
 using EducationaInstitutionAPI.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -47,10 +46,11 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
             EduInstitution data = new("School of Testing",
                 "Testing Basics 101",
                 "LoC123",
-                "BuILD123");
+                new List<string>() { "BuILD123" }
+                );
 
             //Act
-            await eduRepository.Create(data, new CancellationToken());
+            await eduRepository.CreateAsync(data, new CancellationToken());
 
             //Assert
             mockSet.Verify(s => s.AddAsync(It.IsAny<EduInstitution>(), It.IsAny<CancellationToken>()), Times.Once());
@@ -64,9 +64,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
             EduInstitution data = new("School of Testing",
                 "Testing Basics 101",
                 "LoC123",
-                "BuILD123");
+                new List<string>() { "BuILD123" }
+                );
             //Act
-            await eduRepository.Create(data, new CancellationToken());
+            await eduRepository.CreateAsync(data, new CancellationToken());
 
             //Assert
             Assert.Contains(data, testDataHelper.EduInstitutions);

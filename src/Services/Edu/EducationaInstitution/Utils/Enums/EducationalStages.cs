@@ -1,10 +1,11 @@
 ﻿namespace EducationaInstitutionAPI.Utils.Enums
 {
-    public enum Educational3StagesSystem
+    public enum EducationalStagesSystem
     {
         Pre = 0,
         Elementary = 1,
         Middle = 2,
-        High = 3
+        High = 3,
+        Faculty = 4
     }
 }

@@ -1,7 +1,10 @@
-﻿using EducationaInstitutionAPI.DTOs.EducationalInstitution.In;
+﻿using EducationaInstitutionAPI.DTOs.Commands;
+using EducationaInstitutionAPI.DTOs.EducationalInstitution.In;
 using EducationaInstitutionAPI.DTOs.EducationalInstitution.In.Commands;
 using EducationaInstitutionAPI.DTOs.EducationalInstitution.In.Queries;
 using EducationaInstitutionAPI.DTOs.EducationalInstitution.Validators;
+using EducationaInstitutionAPI.DTOs.EducationalInstitution.Validators.Commands_Validators;
+using EducationaInstitutionAPI.DTOs.Validators.Commands_Validators;
 using EducationaInstitutionAPI.Utils.Custom_Exceptions;
 using FluentValidation;
 
@@ -43,6 +46,16 @@ namespace EducationaInstitutionAPI.Business.Validation_Handler
             if (typeof(T) == typeof(DTOEducationalInstitutionCreateCommand))
             {
                 return new DTOEducationalInstitutionCreateCommandValidator() as AbstractValidator<T>;
+            }
+            else
+            if (typeof(T) == typeof(DTOEducationalInstitutionWithParentCreateCommand))
+            {
+                return new DTOEducationalInstitutionWithParentCommandCommandValidator() as AbstractValidator<T>;
+            }
+            else
+            if (typeof(T) == typeof(DTOEducationalInstitutionEntireLocationUpdateCommand))
+            {
+                return new DTOEducationalInstitutionEntireLocationUpdateCommandValidator() as AbstractValidator<T>;
             }
 
             throw new RequestTypeNotSupportedException(nameof(T));

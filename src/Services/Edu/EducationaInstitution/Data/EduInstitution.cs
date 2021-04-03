@@ -10,97 +10,96 @@ namespace EducationaInstitutionAPI.Data
     {
         public Guid EduInstitutionID { get; init; }
         public string Name { get; private set; }
+        public string Description { get; private set; }
 
         /// <summary>
-        /// Marks this Educational Institution's join date on the application
+        /// Defines this Educational Institution's join date on the application
         /// </summary>
         public DateTime JoinDate { get; init; }
-        public string BuildingID { get; private set; }
-        public string Description { get; private set; }
-        public string LocationID { get; private set; }
-        //public ICollection<EduInstitutionBuilding> Buildings { get; private set; }
-        public ICollection<Student> Students { get; private set; }
-        public ICollection<Professor> Professors { get; private set; }
-        public ICollection<Staff> Personnel { get; private set; }
-        public Availability Availability { get; private set; }
 
-        public EduInstitution(string name, string description, string locationID, string buildingID)
+        public string LocationID { get; private set; }
+        public ICollection<EduInstitutionBuilding> Buildings { get; private set; }
+
+        ///<summary>Contains the Educational Institutions that are part of the current Educational Institution</summary>
+        /// <remarks>
+        /// <para>For example an university can have multiple faculties that are part of it</para>
+        /// OPTIONAL
+        /// </remarks>
+        public ICollection<EduInstitution> ChildInstitutions { get; private set; }
+
+        ///<summary>Contains the Educational Institution that is the parent of this entity</summary>
+        /// <remarks>
+        /// <para>For example a faculty can have an university as a parent</para>
+        /// OPTIONAL
+        /// </remarks>
+        public EduInstitution ParentInstitution { get; private set; }
+
+        public Access EntityAccess { get; private set; }
+
+        public EduInstitution(string name, string description, string locationID, EduInstitution parentInstitution = null)
         {
-            EduInstitutionID = Guid.NewGuid();
             Name = name;
             Description = description;
-            LocationID = locationID;
-            BuildingID = buildingID;
-            Students = new HashSet<Student>();
-            Personnel = new HashSet<Staff>();
-            Professors = new HashSet<Professor>();
-            Availability = new();
+            EduInstitutionID = Guid.NewGuid();
+            LocationID = locationID ?? "LOCATION_UNKNOWN";
+            Buildings = new HashSet<EduInstitutionBuilding>();
+            ChildInstitutions = new HashSet<EduInstitution>();
+            ParentInstitution = parentInstitution;
+            EntityAccess = new();
+            JoinDate = DateTime.UtcNow;
         }
 
-        public EduInstitution(
-            string name,
-            string description,
-            string locationID,
-            string buildingID,
-            ICollection<Student> students,
-            ICollection<Professor> professors,
-            ICollection<Staff> personnel
-            ) : this(
-                name,
-                description,
-                locationID,
-                buildingID
-                )
+        public EduInstitution(string name, string description, string locationID, ICollection<string> buildingsIDs, EduInstitution parentInstitution = null) : this(name, description, locationID, parentInstitution)
         {
-            Students = students;
-            Professors = professors;
-            Personnel = personnel;
+            CreateAndAddABuilding(buildingsIDs);
         }
 
         public EduInstitution()
         {
         }
 
-        public void Update(string name, string description, string buildingID, string locationID)
+        public void AddChildInstitutions(ICollection<EduInstitution> childInstitutions)
+        {
+            foreach (var childInstitution in childInstitutions)
+                ChildInstitutions.Add(childInstitution);
+        }
+
+        public void Update(string name, string description, ICollection<string> buildingsIDs, string locationID)
         {
             Name = name;
             Description = description;
-            BuildingID = buildingID;
+            CreateAndAddABuilding(buildingsIDs);
             LocationID = locationID;
         }
 
-        public void AddStudent(Student student)
+        public void Update(string name, string description, string locationID)
         {
-            if (!Students.Contains(student))
-                Students.Add(student);
+            throw new NotImplementedException();
         }
 
-        public void RemoveStudent(Student student) => Students.Remove(student);
-
-        public void AddProfessor(Professor professor)
+        public void CreateAndAddABuilding(ICollection<string> buildingsIDs)
         {
-            if (!Professors.Contains(professor))
-                Professors.Add(professor);
+            foreach (var buildingID in buildingsIDs)
+            {
+                CreateAndAddABuilding(buildingID);
+            }
         }
 
-        public void RemoveProfessor(Professor professor) => Professors.Remove(professor);
-
-        public void AddStaff(Staff staff)
+        private void CreateAndAddABuilding(string buildingID)
         {
-            if (!Personnel.Contains(staff))
-                Personnel.Add(staff);
+            EduInstitutionBuilding newBuilding = new(buildingID, this);
+            Buildings.Add(newBuilding);
         }
 
-        public void RemoveStaff(Staff staff) => Personnel.Remove(staff);
-
-        public void UpdateEntireLocation(string locationID, string buildingID)
+        public void UpdateEntireLocation(string locationID, ICollection<string> buildingsIDs)
         {
             LocationID = locationID;
-            BuildingID = buildingID;
+            Buildings.Clear();
+            CreateAndAddABuilding(buildingsIDs);
         }
 
         public void UpdateLocation(string locationID) => LocationID = locationID;
 
-        public void UpdateBuilding(string buildingID) => BuildingID = buildingID;
+        public void AddBuilding(string buildingID) => CreateAndAddABuilding(buildingID);
     }
 }
