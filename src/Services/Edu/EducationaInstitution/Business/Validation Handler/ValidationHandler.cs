@@ -51,7 +51,7 @@ namespace EducationaInstitutionAPI.Business
         }
 
         /// <summary>
-        /// Iterates over a list of errors and appends each to a string variable
+        /// Iterates over a list of errors and appends each to a <see cref="StringBuilder"/>
         /// </summary>
         /// <param name="validationResult">The object that contains information about the validation result</param>
         /// <returns>All the validation errors</returns>

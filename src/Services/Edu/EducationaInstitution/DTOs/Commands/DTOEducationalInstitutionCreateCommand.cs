@@ -1,4 +1,5 @@
-﻿using EducationaInstitutionAPI.Data.Helpers.Queries_and_Commands_Results.Commands_Results;
+﻿using EducationaInstitutionAPI.Data;
+using EducationaInstitutionAPI.Data.Helpers.Queries_and_Commands_Results.Commands_Results;
 using EducationaInstitutionAPI.Utils;
 using MediatR;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Collections.Generic;
 namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.In.Commands
 {
     /// <summary>
-    /// Encapsulates the body of a create request
+    /// Encapsulates the body of a create <see cref="EduInstitution>"/> request
     /// </summary>
     public class DTOEducationalInstitutionCreateCommand : IRequest<Response<EducationalInstitutionCommandResult>>
     {

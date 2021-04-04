@@ -10,7 +10,7 @@ namespace EducationaInstitutionAPI.Utils
         /// <summary>
         /// Contains the result of the request operation
         /// </summary>
-        /// <value>If OperationStatus is True a <typeparamref name="ResponseType"/> object that contains the requested data, NULL otherwise</value>
+        /// <value>If <see cref="OperationStatus"/> is True a <typeparamref name="ResponseType"/> object that contains the requested data, NULL otherwise</value>
         public ResponseType ResponseObject { get; init; }
         public HttpStatusCode StatusCode { get; init; }
 
@@ -20,9 +20,9 @@ namespace EducationaInstitutionAPI.Utils
         public bool OperationStatus { get; init; }
 
         /// <summary>
-        /// Describes the failure that occurred during the request operation
+        /// Additional information for the client regarding the request
         /// </summary>
-        /// <value>An error/exception/custom description if <see cref="OperationStatus"/> field is False, Empty otherwise</value>
+        /// <value>An error/exception/custom description if necessary, Empty otherwise</value>
         public string Message { get; init; }
     }
 }

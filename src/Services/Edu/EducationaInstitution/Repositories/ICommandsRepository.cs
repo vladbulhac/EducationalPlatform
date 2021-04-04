@@ -36,9 +36,9 @@ namespace EducationaInstitutionAPI.Repositories
         /// <summary>
         /// Gets a <typeparamref name="TEntity"/> entity from database based on a unique identifier if it exists in the database
         /// </summary>
-        /// <param name="ID">Identifies the entity</param>
+        /// <param name="ID">Identifies <typeparamref name="TEntity"/></param>
         /// <param name="cancellationToken">Cancels the operation _____</param>
-        /// <returns>The entity if it has been found, NULL otherwise</returns>
+        /// <returns>The <typeparamref name="TEntity"/> if it has been found, NULL otherwise</returns>
         public Task<TEntity> GetEntityByIDAsync(Guid ID, CancellationToken cancellationToken = default);
     }
 }

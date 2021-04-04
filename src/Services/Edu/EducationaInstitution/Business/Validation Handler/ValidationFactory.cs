@@ -57,6 +57,11 @@ namespace EducationaInstitutionAPI.Business.Validation_Handler
             {
                 return new DTOEducationalInstitutionEntireLocationUpdateCommandValidator() as AbstractValidator<T>;
             }
+            else
+            if (typeof(T) == typeof(DTOEducationalInstitutionDeleteCommand))
+            {
+                return new DTOEducationalInstitutionDeleteCommandValidator() as AbstractValidator<T>;
+            }
 
             throw new RequestTypeNotSupportedException(nameof(T));
         }

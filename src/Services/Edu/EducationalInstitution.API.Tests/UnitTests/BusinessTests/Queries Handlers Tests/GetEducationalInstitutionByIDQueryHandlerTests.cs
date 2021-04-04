@@ -91,7 +91,7 @@ namespace EducationalInstitution.API.Tests
         }
 
         [Fact]
-        public async Task GivenAnID_ShouldReturnAResponseThatIncludesAResponseObjectOfTypeGetEducationalInstitutionByIDQueryResult()
+        public async Task GivenAnID_ShouldReturnAResponseThatIncludesAResponseObjectOfType_GetEducationalInstitutionByIDQueryResult()
         {
             //Arrange
             Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;

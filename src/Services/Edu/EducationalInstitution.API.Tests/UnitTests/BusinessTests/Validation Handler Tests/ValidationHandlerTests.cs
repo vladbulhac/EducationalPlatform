@@ -1278,5 +1278,65 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         #endregion Request of type DTOEducationalInstitutionEntireLocationUpdateCommand TESTS
+
+        #region Request of Type DTOEducationalInstiutionDeleteCommand TESTS
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionDeleteCommand_ShouldReturnTrue()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionDeleteCommand() { EduInstitutionID = Guid.NewGuid() };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out _);
+
+            //Assert
+            Assert.True(validationResult);
+        }
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionDeleteCommand_ShouldReturnAnEmptyValidationErrorsString()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionDeleteCommand() { EduInstitutionID = Guid.NewGuid() };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Empty(validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionDeleteCommand_WithDefaultID_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionDeleteCommand() { EduInstitutionID = default };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out _);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionDeleteCommand_WithDefaultID_ShouldReturnAStringWithTheErrorsFound()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionDeleteCommand() { EduInstitutionID = default };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property EduInstitutionID failed validation. Error was: Edu Institution ID was empty or null!", validationErrors);
+        }
+
+        #endregion Request of Type DTOEducationalInstiutionDeleteCommand TESTS
     }
 }

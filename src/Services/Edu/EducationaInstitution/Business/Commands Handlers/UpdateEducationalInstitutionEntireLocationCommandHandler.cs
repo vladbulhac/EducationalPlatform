@@ -33,7 +33,7 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitu
         /// <summary>
         /// Tries to update the locationID and the BuildingsIDs of an <see cref="EduInstitution"/> entity
         /// </summary>
-        /// <param name="request">Contains location and building identifiers</param>
+        /// <param name="request">Contains <see cref="EduInstitution.LocationID"/> and <see cref="EduInstitution.Buildings"/></param>
         /// <param name="cancellationToken">Cancels the operation ____________</param>
         /// <returns>
         /// An <see cref="Response{ResponseType}">object</see> with HttpStatusCode:
