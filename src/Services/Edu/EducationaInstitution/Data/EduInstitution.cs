@@ -87,7 +87,7 @@ namespace EducationaInstitutionAPI.Data
 
         private void CreateAndAddABuilding(string buildingID)
         {
-            EduInstitutionBuilding newBuilding = new(buildingID, this);
+            EduInstitutionBuilding newBuilding = new(buildingID, this.EduInstitutionID);
             Buildings.Add(newBuilding);
         }
 

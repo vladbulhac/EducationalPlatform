@@ -1,11 +1,13 @@
-﻿namespace EducationaInstitutionAPI.Data
+﻿using System;
+
+namespace EducationaInstitutionAPI.Data
 {
     /// <summary>
     /// Defines an association between a Building and an <see cref="EduInstitution"/>
     /// </summary>
     public class EduInstitutionBuilding
     {
-        public EduInstitution EducationalInstitution { get; init; }
+        public Guid EducationalInstitutionID { get; init; }
         public string BuildingID { get; init; }
         public Access EntityAccess { get; private set; }
 
@@ -13,10 +15,10 @@
         {
         }
 
-        public EduInstitutionBuilding(string buildingID, EduInstitution eduInstitution)
+        public EduInstitutionBuilding(string buildingID, Guid eduInstitutionID)
         {
             BuildingID = buildingID;
-            EducationalInstitution = eduInstitution;
+            EducationalInstitutionID = eduInstitutionID;
         }
     }
 }

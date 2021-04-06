@@ -21,6 +21,14 @@ namespace EducationaInstitutionAPI.Data.Contexts.Entities_Type_Configuration
             builder.HasOne(ei => ei.ParentInstitution)
                     .WithMany(ei => ei.ChildInstitutions);
 
+            builder.HasMany(ei => ei.Buildings)
+                   .WithOne()
+                   .HasForeignKey(eib => eib.EducationalInstitutionID)
+                   .IsRequired();
+
+            builder.Property(ei => ei.ParentInstitution)
+                .HasColumnName("ParentInstitutionID");
+
             builder.Property(ei => ei.Description)
                         .IsRequired()
                         .HasMaxLength(500);
@@ -30,9 +38,6 @@ namespace EducationaInstitutionAPI.Data.Contexts.Entities_Type_Configuration
                        .HasMaxLength(128);
 
             builder.Property(ei => ei.LocationID)
-                        .IsRequired();
-
-            builder.Property(ei => ei.Buildings)
                         .IsRequired();
         }
     }

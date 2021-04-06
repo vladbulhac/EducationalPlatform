@@ -67,7 +67,7 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitu
                     ResponseObject = null,
                     OperationStatus = false,
                     StatusCode = HttpStatusCode.InternalServerError,
-                    Message = $"An error occurred while creating the Educational Institution with data: {request}!"
+                    Message = "An error occurred while creating the Educational Institution with the given data!"
                 };
             }
         }

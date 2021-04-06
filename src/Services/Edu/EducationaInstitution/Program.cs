@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
 using System.IO;
+using System.Net;
 
 namespace EducationaInstitutionAPI
 {
@@ -35,10 +36,17 @@ namespace EducationaInstitutionAPI
                 .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureKestrel(options =>
+                    {
+                        options.Listen(IPAddress.Any, 5001, listenOptions =>
+                        {
+                            listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
+                        });
+                    });
                     webBuilder.UseStartup<Startup>();
                 });
 
-        private static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)
+        private static ILogger CreateSerilogLogger(IConfiguration configuration)
         {
             return new LoggerConfiguration()
                             .MinimumLevel.Verbose()

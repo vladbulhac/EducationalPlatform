@@ -21,8 +21,8 @@ namespace EducationaInstitutionAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            new EduInstitutionEntityTypeConfiguration().Configure(modelBuilder.Entity<EduInstitution>());
             new EduInstitutionBuildingEntityTypeConfiguration().Configure(modelBuilder.Entity<EduInstitutionBuilding>());
+            new EduInstitutionEntityTypeConfiguration().Configure(modelBuilder.Entity<EduInstitution>());
         }
     }
 }

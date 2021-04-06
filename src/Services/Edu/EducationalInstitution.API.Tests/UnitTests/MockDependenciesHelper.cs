@@ -1,5 +1,8 @@
-﻿using EducationaInstitutionAPI.Repositories;
+﻿using EducationaInstitutionAPI.Business.Validation_Handler;
+using EducationaInstitutionAPI.Repositories;
 using EducationaInstitutionAPI.Unit_of_Work;
+using Grpc.Core;
+using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System.Threading;
@@ -12,6 +15,9 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
         public readonly Mock<IEducationalInstitutionRepository> mockRepository;
         public readonly CancellationToken cancellationToken;
         public readonly Mock<IUnitOfWork> mockUnitOfWork;
+        public readonly Mock<IMediator> mockMediator;
+        public readonly Mock<IValidationHandler> mockValidationHandler;
+        public readonly Mock<ServerCallContext> mockServerCallContext;
 
         public MockDependenciesHelper()
         {
@@ -19,6 +25,9 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
             mockRepository = new();
             cancellationToken = new();
             mockUnitOfWork = new();
+            mockMediator = new();
+            mockValidationHandler = new();
+            mockServerCallContext = new();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace EducationaInstitutionAPI.Data.Contexts.Entities_Type_Configuration
                 accessibility.HasIndex(a => new { a.DateForPermanentDeletion, a.IsDisabled });
             });
 
-            builder.HasKey(eib => new { eib.BuildingID, eib.EducationalInstitution.EduInstitutionID });
+            builder.HasKey(eib => new { eib.BuildingID, eib.EducationalInstitutionID });
         }
     }
 }
