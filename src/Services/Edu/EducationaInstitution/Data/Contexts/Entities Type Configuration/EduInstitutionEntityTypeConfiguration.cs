@@ -26,9 +26,6 @@ namespace EducationaInstitutionAPI.Data.Contexts.Entities_Type_Configuration
                    .HasForeignKey(eib => eib.EducationalInstitutionID)
                    .IsRequired();
 
-            builder.Property(ei => ei.ParentInstitution)
-                .HasColumnName("ParentInstitutionID");
-
             builder.Property(ei => ei.Description)
                         .IsRequired()
                         .HasMaxLength(500);

@@ -1,5 +1,10 @@
+using EducationaInstitutionAPI.Business;
+using EducationaInstitutionAPI.Business.Validation_Handler;
 using EducationaInstitutionAPI.Data;
 using EducationaInstitutionAPI.Grpc;
+using EducationaInstitutionAPI.Repositories;
+using EducationaInstitutionAPI.Unit_of_Work;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -25,12 +30,18 @@ namespace EducationaInstitutionAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddGrpc();
+            services.AddGrpc(options =>
+            {
+                options.EnableDetailedErrors = true;
+            });
+
             services.AddControllers();
+
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("ConnectionToWriteDB"), providerOptions => providerOptions.EnableRetryOnFailure());
             });
+
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins, builder =>
@@ -40,10 +51,17 @@ namespace EducationaInstitutionAPI
                             .AllowAnyMethod();
                 });
             });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EducationaInstitution", Version = "v1" });
             });
+
+            services.AddTransient<IValidationHandler, ValidationHandler>();
+            services.AddTransient<IEducationalInstitutionRepository, EducationalInstitutionRepository>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            services.AddMediatR(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,8 +93,8 @@ namespace EducationaInstitutionAPI
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
                 endpoints.MapGrpcService<EducationalInstitutionService>();
+                endpoints.MapControllers();
             });
         }
     }

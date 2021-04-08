@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -20,7 +22,7 @@ namespace EducationaInstitutionAPI
             try
             {
                 Log.Information("Starting application...");
-                CreateHostBuilder(args).Build().Run();
+                BuildWebHost(args).Run();
                 return 0;
             }
             catch (Exception e)
@@ -31,20 +33,24 @@ namespace EducationaInstitutionAPI
             finally { Log.CloseAndFlush(); }
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IWebHost BuildWebHost(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                /* .ConfigureKestrel(options =>
+                 {
+                     options.Listen(IPAddress.Any, 80, listenOptions =>
+                      {
+                          listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
+                      });
+
+                     options.Listen(IPAddress.Any, 5001, listenOptions =>
+                       {
+                           listenOptions.Protocols = HttpProtocols.Http2;
+                       });
+                 })*/
+                .UseStartup<Startup>()
+                .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseSerilog()
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.ConfigureKestrel(options =>
-                    {
-                        options.Listen(IPAddress.Any, 5001, listenOptions =>
-                        {
-                            listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
-                        });
-                    });
-                    webBuilder.UseStartup<Startup>();
-                });
+                .Build();
 
         private static ILogger CreateSerilogLogger(IConfiguration configuration)
         {

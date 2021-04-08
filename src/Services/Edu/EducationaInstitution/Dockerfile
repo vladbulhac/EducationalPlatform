@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
-COPY ["EducationaInstitution.csproj", ""]
-RUN dotnet restore "./EducationaInstitution.csproj"
+COPY "Services/Edu/EducationaInstitution/EducationaInstitution.API.csproj" "Services/Edu/EducationaInstitution/EducationaInstitution.API.csproj"
+RUN dotnet restore "Services/Edu/EducationaInstitution/EducationaInstitution.API.csproj"
 COPY . .
-WORKDIR "/src/."
-RUN dotnet build "EducationaInstitution.csproj" -c Release -o /app/build
+WORKDIR "/src/Services/Edu/EducationaInstitution"
+RUN dotnet build "EducationaInstitution.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "EducationaInstitution.csproj" -c Release -o /app/publish
+RUN dotnet publish "EducationaInstitution.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "EducationaInstitution.dll"]
+ENTRYPOINT ["dotnet", "EducationaInstitution.API.dll"]

@@ -17,7 +17,7 @@ namespace EducationaInstitutionAPI.Grpc
     public class EducationalInstitutionService : EducationalInstitution.EducationalInstitutionBase
     {
         private readonly IMediator mediator;
-        private readonly ILogger logger;
+        private readonly ILogger<EducationalInstitutionService> logger;
         private readonly IValidationHandler validationHandler;
 
         public EducationalInstitutionService(IMediator mediator, ILogger<EducationalInstitutionService> logger, IValidationHandler validationHandler)
@@ -118,11 +118,11 @@ namespace EducationaInstitutionAPI.Grpc
             };
 
             var responseObject = new ResponseObject();
-            bool operationStatus = true;
-            string message = string.Empty;
+            bool operationStatus;
+            string message;
             var statusCode = HttpStatusCode.Created;
 
-            if (validationHandler.IsRequestValid(requestDTO, out string validationErrors) == false)
+            if (validationHandler.IsRequestValid(requestDTO, out string validationErrors) is not true)
             {
                 context.Status = new(StatusCode.FailedPrecondition, validationErrors);
 
@@ -135,7 +135,7 @@ namespace EducationaInstitutionAPI.Grpc
             {
                 var result = await mediator.Send(requestDTO);
 
-                if (result.OperationStatus == false)
+                if (result.OperationStatus is not true)
                 {
                     context.Status = new(StatusCode.Aborted, result.Message);
 
@@ -146,7 +146,7 @@ namespace EducationaInstitutionAPI.Grpc
                 {
                     context.Status = new(StatusCode.OK, "Educational Institution was successfully created");
 
-                    if (!string.IsNullOrEmpty(result.Message))
+                    if (string.IsNullOrEmpty(result.Message) is not true)
                         statusCode = HttpStatusCode.MultiStatus;
 
                     responseObject.EduInstitutionId = ConvertGuidToProtocolBufferLanguage(result.ResponseObject.EduInstitutionID);
@@ -167,7 +167,7 @@ namespace EducationaInstitutionAPI.Grpc
 
         private static Uuid ConvertGuidToProtocolBufferLanguage(Guid identifier)
         {
-            ProtobufGuidConverter.EncodeGuid(identifier, out ulong High64, out ulong Low64);
+            identifier.EncodeGuid(out ulong High64, out ulong Low64);
 
             Uuid protobufID = new();
             protobufID.High64 = High64;

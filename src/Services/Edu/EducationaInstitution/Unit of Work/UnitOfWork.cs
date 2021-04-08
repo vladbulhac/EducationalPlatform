@@ -11,7 +11,7 @@ namespace EducationaInstitutionAPI.Unit_of_Work
     /// Ensures that multiple repositories save changes on the same context
     /// </summary>
     /// <typeparam name="TContext">A class that defines multiple <see cref="DbSet{TEntity}"/> and entities configuration</typeparam>
-    public class UnitOfWork<TContext> : IUnitOfWork where TContext : DbContext
+    public class UnitOfWork : IUnitOfWork //where TContext : DbContext
     {
         private bool disposed;
         private readonly DataContext context;
@@ -38,9 +38,9 @@ namespace EducationaInstitutionAPI.Unit_of_Work
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposed)
+            if (disposed is not true)
             {
-                if (disposing)
+                if (disposing is true)
                 {
                     context.Dispose();
                 }

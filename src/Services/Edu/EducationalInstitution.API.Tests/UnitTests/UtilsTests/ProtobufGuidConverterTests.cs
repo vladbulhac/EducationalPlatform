@@ -11,7 +11,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.UtilsTests
         {
             //Arrange
             var identifier = Guid.NewGuid();
-            ProtobufGuidConverter.EncodeGuid(identifier, out UInt64 high64, out UInt64 low64);
+            identifier.EncodeGuid(out UInt64 high64, out UInt64 low64);
 
             //Act
             var decodedIdentifier = ProtobufGuidConverter.DecodeGuid(high64, low64);

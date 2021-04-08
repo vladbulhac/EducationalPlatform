@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:52692",
+      "applicationUrl": "http://localhost:57151",
       "sslPort": 0
     }
   },
@@ -17,14 +17,15 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "EducationaInstitution": {
+    "Aggregator": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:52692",
+      "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "dotnetRunMessages": "true"
+      "dotnetRunMessages": "true",
+      "applicationUrl": "http://localhost:61632"
     }
   }
 }

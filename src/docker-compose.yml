@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+    sqldb:
+        image: "mcr.microsoft.com/mssql/server:2019-latest"
+        environment:
+            ACCEPT_EULA: "Y"
+    educationalinstitution-api:
+        build: 
+            context: .
+            dockerfile: Services/Edu/EducationaInstitution/Dockerfile
+        ports:
+            - "8000:80"
+            - "8001:443"
+        depends_on:
+            - sqldb
+    aggregator:
+        build:
+            context: .
+            dockerfile: APIGateway/Aggregator/Dockerfile
+        ports:
+            - "9090:80"
+            - "9091:443"
+        depends_on:
+            - educationalinstitution-api
+

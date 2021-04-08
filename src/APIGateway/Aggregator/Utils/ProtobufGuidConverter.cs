@@ -1,4 +1,4 @@
-﻿using EducationaInstitutionAPI.Proto;
+﻿using Aggregator.EducationaInstitutionAPI.Proto;
 using System;
 using System.Buffers.Binary;
 

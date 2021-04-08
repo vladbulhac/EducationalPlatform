@@ -28,7 +28,7 @@ namespace EducationaInstitutionAPI.Business
                 var validator = CreateValidator<T>();
                 var validationResult = validator.Validate(request);
 
-                if (!validationResult.IsValid)
+                if (validationResult.IsValid is not true)
                     validationErrors = GetValidationErrors(validationResult);
                 else
                     validationErrors = string.Empty;

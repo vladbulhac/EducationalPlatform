@@ -1,4 +1,4 @@
-﻿using EducationaInstitutionAPI.Business;
+﻿using EducationaInstitutionAPI.Business.Validation_Handler;
 using EducationaInstitutionAPI.DTOs.EducationalInstitution.In;
 using EducationaInstitutionAPI.DTOs.EducationalInstitution.Out;
 using EducationaInstitutionAPI.Utils;
@@ -15,9 +15,9 @@ namespace EducationaInstitutionAPI.Controllers
     public class EducationalInstitutionController : ControllerBase
     {
         private readonly IMediator mediator;
-        private readonly ValidationHandler validationHandler;
+        private readonly IValidationHandler validationHandler;
 
-        public EducationalInstitutionController(IMediator mediator, ValidationHandler validationHandler)
+        public EducationalInstitutionController(IMediator mediator, IValidationHandler validationHandler)
         {
             this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             this.validationHandler = validationHandler ?? throw new ArgumentNullException(nameof(mediator));
