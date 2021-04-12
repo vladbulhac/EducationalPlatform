@@ -52,7 +52,8 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
             {
                 using (unitOfWork)
                 {
-                    var eduInstitution = await unitOfWork.UsingEducationalInstitutionRepository().GetByIDAsync(request.EduInstitutionID, cancellationToken);
+                    var eduInstitution = await unitOfWork.UsingEducationalInstitutionRepository()
+                                                            .GetByIDAsync(request.EduInstitutionID, cancellationToken);
 
                     if (eduInstitution is null)
                         return new()

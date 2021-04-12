@@ -2,6 +2,7 @@
 using EducationaInstitutionAPI.DTOs.EducationalInstitution.In;
 using EducationaInstitutionAPI.DTOs.EducationalInstitution.Out;
 using EducationaInstitutionAPI.Repositories;
+using EducationaInstitutionAPI.Unit_of_Work;
 using EducationaInstitutionAPI.Utils;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -23,11 +24,11 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
         /// </summary>
         private readonly ILogger<GetEducationalInstitutionByNameQueryHandler> logger;
 
-        private readonly IEducationalInstitutionRepository eduRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public GetEducationalInstitutionByNameQueryHandler(IEducationalInstitutionRepository eduRepository, ILogger<GetEducationalInstitutionByNameQueryHandler> logger)
+        public GetEducationalInstitutionByNameQueryHandler(IUnitOfWork unitOfWork, ILogger<GetEducationalInstitutionByNameQueryHandler> logger)
         {
-            this.eduRepository = eduRepository ?? throw new ArgumentNullException(nameof(eduRepository));
+            this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -50,27 +51,32 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
 
             try
             {
-                var eduInstitutions = await eduRepository.GetAllLikeNameAsync(request.Name, request.OffsetValue, request.ResultsCount, cancellationToken);
-                if (eduInstitutions is null)
+                using (unitOfWork)
+                {
+                    var eduInstitutions = await unitOfWork.UsingEducationalInstitutionRepository()
+                                                            .GetAllLikeNameAsync(request.Name, request.OffsetValue, request.ResultsCount, cancellationToken);
+
+                    if (eduInstitutions is null)
+                        return new()
+                        {
+                            ResponseObject = null,
+                            OperationStatus = false,
+                            StatusCode = HttpStatusCode.NotFound,
+                            Message = $"Could not find any Educational Institution with a name like: {request.Name}!"
+                        };
+
                     return new()
                     {
-                        ResponseObject = null,
-                        OperationStatus = false,
-                        StatusCode = HttpStatusCode.NotFound,
-                        Message = $"Could not find any Educational Institution with a name like: {request.Name}!"
+                        ResponseObject = eduInstitutions,
+                        OperationStatus = true,
+                        StatusCode = HttpStatusCode.OK,
+                        Message = string.Empty
                     };
-
-                return new()
-                {
-                    ResponseObject = eduInstitutions,
-                    OperationStatus = true,
-                    StatusCode = HttpStatusCode.OK,
-                    Message = string.Empty
-                };
+                }
             }
             catch (Exception e)
             {
-                logger.LogError("Could not find any Educational Institution with a name like: {0}, using {1}'s method: {2}, error details => {3}", request.Name, eduRepository.GetType(), nameof(eduRepository.GetAllLikeNameAsync), e.Message);
+                logger.LogError("Could not find any Educational Institution with a name like: {0}, using {1}'s method: {2}, error details => {3}", request.Name, unitOfWork.GetType(), nameof(unitOfWork.UsingEducationalInstitutionRepository), e.Message);
                 return new()
                 {
                     ResponseObject = null,
