@@ -8,10 +8,6 @@ using System.Threading.Tasks;
 
 namespace EducationaInstitutionAPI.Unit_of_Work
 {
-    /// <summary>
-    /// Ensures that multiple repositories save changes on the same context
-    /// </summary>
-    /// <typeparam name="TContext">A class that defines multiple <see cref="DbSet{TEntity}"/> and entities configuration</typeparam>
     public class UnitOfWork : IUnitOfWork //where TContext : DbContext
     {
         private bool disposed;

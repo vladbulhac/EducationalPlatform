@@ -50,24 +50,27 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
 
             try
             {
-                var eduInstitution = await unitOfWork.UsingEducationalInstitutionRepository().GetByIDAsync(request.EduInstitutionID, cancellationToken);
+                using (unitOfWork)
+                {
+                    var eduInstitution = await unitOfWork.UsingEducationalInstitutionRepository().GetByIDAsync(request.EduInstitutionID, cancellationToken);
 
-                if (eduInstitution is null)
+                    if (eduInstitution is null)
+                        return new()
+                        {
+                            ResponseObject = null,
+                            OperationStatus = false,
+                            StatusCode = HttpStatusCode.NotFound,
+                            Message = $"Educational Institution with the following ID: {request.EduInstitutionID} has not been found!"
+                        };
+
                     return new()
                     {
-                        ResponseObject = null,
-                        OperationStatus = false,
-                        StatusCode = HttpStatusCode.NotFound,
-                        Message = $"Educational Institution with the following ID: {request.EduInstitutionID} has not been found!"
+                        ResponseObject = eduInstitution,
+                        OperationStatus = true,
+                        StatusCode = HttpStatusCode.OK,
+                        Message = string.Empty
                     };
-
-                return new()
-                {
-                    ResponseObject = eduInstitution,
-                    OperationStatus = true,
-                    StatusCode = HttpStatusCode.OK,
-                    Message = string.Empty
-                };
+                }
             }
             catch (Exception e)
             {
