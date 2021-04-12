@@ -45,16 +45,16 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers
         /// </returns>
         public async Task<Response<DeleteEducationalInstitutionCommandResult>> Handle(DTOEducationalInstitutionDeleteCommand request, CancellationToken cancellationToken = default)
         {
-            if (request == null) throw new ArgumentNullException(nameof(request));
+            if (request is null) throw new ArgumentNullException(nameof(request));
 
             try
             {
                 using (unitOfWork)
                 {
-                    var educationalInstitution = await unitOfWork.UseEducationalInstitutionRepository()
+                    var educationalInstitution = await unitOfWork.UsingEducationalInstitutionRepository()
                                                                  .GetEntityByIDAsync(request.EduInstitutionID, cancellationToken);
 
-                    if (educationalInstitution == null)
+                    if (educationalInstitution is null)
                     {
                         return new()
                         {
@@ -85,7 +85,7 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers
             {
                 logger.LogError(
                     "Could not schedule for deletion the Educational Institution with ID: {0}, using {1}'s method: {2} with {3}, error details => {4}",
-                    request.EduInstitutionID, unitOfWork.GetType(), unitOfWork.UseEducationalInstitutionRepository().GetType(), nameof(request.EduInstitutionID), e.Message
+                    request.EduInstitutionID, unitOfWork.GetType(), unitOfWork.UsingEducationalInstitutionRepository().GetType(), nameof(request.EduInstitutionID), e.Message
                     );
 
                 return new()

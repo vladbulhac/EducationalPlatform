@@ -385,7 +385,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.EncodeGuid(id, out UInt64 high64, out UInt64 low64);
+            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -425,7 +425,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.EncodeGuid(id, out UInt64 high64, out UInt64 low64);
+            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -465,7 +465,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.EncodeGuid(id, out UInt64 high64, out UInt64 low64);
+            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -505,7 +505,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.EncodeGuid(id, out UInt64 high64, out UInt64 low64);
+            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -545,7 +545,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.EncodeGuid(id, out UInt64 high64, out UInt64 low64);
+            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -577,7 +577,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.EncodeGuid(id, out UInt64 high64, out UInt64 low64);
+            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -609,7 +609,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.EncodeGuid(id, out UInt64 high64, out UInt64 low64);
+            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -641,7 +641,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.EncodeGuid(id, out UInt64 high64, out UInt64 low64);
+            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -673,7 +673,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.EncodeGuid(id, out UInt64 high64, out UInt64 low64);
+            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -713,7 +713,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.EncodeGuid(id, out UInt64 high64, out UInt64 low64);
+            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -753,7 +753,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.EncodeGuid(id, out UInt64 high64, out UInt64 low64);
+            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -793,7 +793,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.EncodeGuid(id, out UInt64 high64, out UInt64 low64);
+            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -833,7 +833,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.EncodeGuid(id, out UInt64 high64, out UInt64 low64);
+            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -873,7 +873,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.EncodeGuid(id, out UInt64 high64, out UInt64 low64);
+            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -913,7 +913,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.EncodeGuid(id, out UInt64 high64, out UInt64 low64);
+            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -953,7 +953,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.EncodeGuid(id, out UInt64 high64, out UInt64 low64);
+            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {

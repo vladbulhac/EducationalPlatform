@@ -1,11 +1,12 @@
-﻿using EducationaInstitutionAPI.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.Out
+namespace EducationaInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results
 {
     /// <summary>
-    /// Defines the data that is returned as the result of a Get by LocationID operation
+    /// Defines the data data that is encapsulated in each <see cref="GetAllEducationalInstitutionsByLocationQueryResult"/>'s collection's entry
     /// </summary>
     public record GetEducationalInstitutionByLocationQueryResult
     {

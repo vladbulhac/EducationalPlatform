@@ -17,7 +17,7 @@ namespace EducationaInstitutionAPI.Repositories
         /// </summary>
         /// <param name="EduInstitutionID">Entity's identifier</param>
         /// <param name="cancellationToken">Cancels the operation _______</param>
-        /// <returns>NULL if the entity has not been found, a record type GetEducationalInstitutionByIDQueryResult otherwise</returns>
+        /// <returns>NULL if the entity has not been found, a record type <see cref="GetEducationalInstitutionByIDQueryResult"/> otherwise</returns>
         public Task<GetEducationalInstitutionByIDQueryResult> GetByIDAsync(Guid EduInstitutionID, CancellationToken cancellationToken = default);
 
         /// <summary>
@@ -25,8 +25,8 @@ namespace EducationaInstitutionAPI.Repositories
         /// </summary>
         /// <param name="locationID">Location's identifier</param>
         /// <param name="cancellationToken">Cancels the operation ______</param>
-        /// <returns>NULL if the entity has not been found, a record type GetEducationalInstitutionByLocationQueryResult otherwise</returns>
-        public Task<GetEducationalInstitutionByLocationQueryResult> GetByLocationAsync(string locationID, CancellationToken cancellationToken = default);
+        /// <returns>NULL if the entity has not been found, a record type <see cref="GetAllEducationalInstitutionsByLocationQueryResult"/> otherwise</returns>
+        public Task<GetAllEducationalInstitutionsByLocationQueryResult> GetAllByLocationAsync(string locationID, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets a collection with at most <paramref name="resultsCount"/> entities that contain <paramref name="name"/>
@@ -35,7 +35,7 @@ namespace EducationaInstitutionAPI.Repositories
         /// <param name="offsetValue">Skips a specified number of results</param>
         /// <param name="resultsCount">Number of results to be fetched</param>
         /// <param name="cancellationToken">Cancels the operation ______</param>
-        /// <returns>NULL if no entities have been found, a collection of records of type GetEducationalInstitutionQueryResult otherwise</returns>
+        /// <returns>NULL if no entities have been found, a collection of records of type <see cref="GetEducationalInstitutionQueryResult"/> otherwise</returns>
         public Task<ICollection<GetEducationalInstitutionQueryResult>> GetAllLikeNameAsync(string name, int offsetValue, int resultsCount, CancellationToken cancellationToken = default);
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace EducationaInstitutionAPI.Repositories
         /// </summary>
         /// <param name="IDs">List of identifiers based on which the lookup is made</param>
         /// <param name="cancellationToken">Cancels the operation ______</param>
-        /// <returns>NULL if no entities have been found, a collection of records of type GetEducationalInstitutionQueryResult otherwise</returns>
+        /// <returns>NULL if no entities have been found, a collection of records of type <see cref="GetEducationalInstitutionQueryResult"/> otherwise</returns>
         public Task<ICollection<GetEducationalInstitutionQueryResult>> GetFromCollectionOfIDsAsync(ICollection<Guid> IDs, CancellationToken cancellationToken = default);
 
         /// <summary>
@@ -65,6 +65,6 @@ namespace EducationaInstitutionAPI.Repositories
         /// </summary>
         /// <param name="cancellationToken">Cancels the operation _______</param>
         /// <returns>True if the entity has been found and updated, False if the entity has not been found in the database</returns>
-        public Task<bool> UpdateAsync(ICollection<string> buildingsIDs, Guid eduInstitutionID, CancellationToken cancellationToken = default);
+        public Task<bool> UpdateAsync(Guid eduInstitutionID, ICollection<string> buildingsIDs, CancellationToken cancellationToken = default);
     }
 }

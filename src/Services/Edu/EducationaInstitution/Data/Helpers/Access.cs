@@ -32,7 +32,7 @@ namespace EducationaInstitutionAPI.Data
         {
             IsDisabled = true;
 
-            DateTime currentDateAndTime = DateTime.Today;
+            DateTime currentDateAndTime = DateTime.UtcNow.Date;
             var daysFromConfigFile = ConfigurationHelper.GetCurrentSettings("DaysUntilDeletion");
             int days = int.Parse(daysFromConfigFile);
             DateForPermanentDeletion = currentDateAndTime.AddDays(days);

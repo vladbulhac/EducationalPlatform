@@ -8,6 +8,7 @@ namespace EducationaInstitutionAPI.Data
     public class EduInstitutionBuilding
     {
         public Guid EducationalInstitutionID { get; init; }
+        public EduInstitution EducationalInstitution { get; init; }
         public string BuildingID { get; init; }
         public Access EntityAccess { get; private set; }
 

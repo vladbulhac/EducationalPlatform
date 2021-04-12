@@ -1,4 +1,5 @@
 ﻿using EducationaInstitutionAPI.Data;
+using EducationaInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
 using EducationaInstitutionAPI.DTOs.EducationalInstitution.Out;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,81 +22,67 @@ namespace EducationaInstitutionAPI.Repositories
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task CreateAsync(EduInstitution data, CancellationToken cancellationToken = default)
-        {
-            await context.EducationalInstitutions.AddAsync(data, cancellationToken);
-            await context.SaveChangesAsync(cancellationToken);
-        }
+        public async Task CreateAsync(EduInstitution data, CancellationToken cancellationToken = default) => await context.EducationalInstitutions.AddAsync(data, cancellationToken);
 
         public async Task<bool> DeleteAsync(Guid ID, CancellationToken cancellationToken = default)
         {
             var educationalInstitution = await context.EducationalInstitutions.SingleOrDefaultAsync(eduI => eduI.EduInstitutionID == ID, cancellationToken);
 
-            if (educationalInstitution == null) return false;
+            if (educationalInstitution is null) return false;
 
             context.EducationalInstitutions.Remove(educationalInstitution);
-            await context.SaveChangesAsync(cancellationToken);
-
             return true;
         }
 
         public async Task<ICollection<GetEducationalInstitutionQueryResult>> GetAllLikeNameAsync(string Name, int offsetValue = 0, int resultsCount = 1, CancellationToken cancellationToken = default)
         {
-            var educationalInstitutions = await context.EducationalInstitutions
-                                                        .Where(ei => ei.Name.Contains(Name))
-                                                        .Include(ei => ei.Buildings)
-                                                        .Select(ei => new GetEducationalInstitutionQueryResult()
-                                                        {
-                                                            EduInstitutionID = ei.EduInstitutionID,
-                                                            Description = ei.Description,
-                                                            LocationID = ei.LocationID,
-                                                            BuildingsIDs = ei.Buildings,
-                                                            Name = ei.Name
-                                                        })
-                                                        .Skip(offsetValue)
-                                                        .Take(resultsCount)
-                                                        .ToListAsync(cancellationToken);
-
-            if (educationalInstitutions == null) return null;
-
-            return educationalInstitutions;
+            return await context.EducationalInstitutions
+                                 .Where(ei => ei.Name.Contains(Name))
+                                 .Include(ei => ei.Buildings)
+                                 .Select(ei => new GetEducationalInstitutionQueryResult()
+                                 {
+                                     EduInstitutionID = ei.EduInstitutionID,
+                                     Description = ei.Description,
+                                     LocationID = ei.LocationID,
+                                     BuildingsIDs = ei.Buildings,
+                                     Name = ei.Name
+                                 })
+                                 .Skip(offsetValue)
+                                 .Take(resultsCount)
+                                 .ToListAsync(cancellationToken);
         }
 
         public async Task<EduInstitution> GetEntityByIDAsync(Guid ID, CancellationToken cancellationToken = default)
         {
-            var educationalInstitution = await context.EducationalInstitutions
-                                                                .SingleOrDefaultAsync(ei => ei.EduInstitutionID == ID, cancellationToken);
-
-            return educationalInstitution;
+            return await context.EducationalInstitutions
+                                 .SingleOrDefaultAsync(ei => ei.EduInstitutionID == ID, cancellationToken);
         }
 
         public async Task<GetEducationalInstitutionByIDQueryResult> GetByIDAsync(Guid ID, CancellationToken cancellationToken = default)
         {
-            var educationalInstitution = await context.EducationalInstitutions
-                                                        .Where(eduI => eduI.EduInstitutionID == ID)
-                                                        .Include(ei => ei.Buildings)
-                                                        .Include(ei => ei.ChildInstitutions)
-                                                        .Include(ei => ei.ParentInstitution)
-                                                        .Select(ei => new GetEducationalInstitutionByIDQueryResult()
-                                                        {
-                                                            BuildingsIDs = ei.Buildings,
-                                                            Description = ei.Description,
-                                                            Name = ei.Name,
-                                                            LocationID = ei.LocationID,
-                                                            ChildInstitutions = ei.ChildInstitutions,
-                                                            ParentInstitution = ei.ParentInstitution,
-                                                            JoinDate = ei.JoinDate
-                                                        })
-                                                        .SingleOrDefaultAsync(cancellationToken);
-
-            if (educationalInstitution == null) return null;
-
-            return educationalInstitution;
+            return await context.EducationalInstitutions
+                                 .Where(eduI => eduI.EduInstitutionID == ID)
+                                 .Include(ei => ei.Buildings)
+                                 .Include(ei => ei.ChildInstitutions)
+                                 .Include(ei => ei.ParentInstitution)
+                                 .Select(ei => new GetEducationalInstitutionByIDQueryResult()
+                                 {
+                                     BuildingsIDs = ei.Buildings,
+                                     Description = ei.Description,
+                                     Name = ei.Name,
+                                     LocationID = ei.LocationID,
+                                     ChildInstitutions = ei.ChildInstitutions,
+                                     ParentInstitution = ei.ParentInstitution,
+                                     JoinDate = ei.JoinDate
+                                 })
+                                 .SingleOrDefaultAsync(cancellationToken);
         }
 
-        public async Task<GetEducationalInstitutionByLocationQueryResult> GetByLocationAsync(string locationID, CancellationToken cancellationToken = default)
+        public async Task<GetAllEducationalInstitutionsByLocationQueryResult> GetAllByLocationAsync(string locationID, CancellationToken cancellationToken = default)
         {
-            var educationalInstitution = await context.EducationalInstitutions
+            return new()
+            {
+                EducationalInstitutions = await context.EducationalInstitutions
                                                         .Where(ei => ei.LocationID == locationID)
                                                         .Include(ei => ei.Buildings)
                                                         .Select(ei => new GetEducationalInstitutionByLocationQueryResult()
@@ -105,41 +92,34 @@ namespace EducationaInstitutionAPI.Repositories
                                                             Description = ei.Description,
                                                             EduInstitutionID = ei.EduInstitutionID
                                                         })
-                                                      .SingleOrDefaultAsync(cancellationToken);
-
-            if (educationalInstitution == null) return null;
-
-            return educationalInstitution;
+                                                      .ToListAsync(cancellationToken)
+            };
         }
 
         public async Task<ICollection<GetEducationalInstitutionQueryResult>> GetFromCollectionOfIDsAsync(ICollection<Guid> IDs, CancellationToken cancellationToken = default)
         {
-            var educationalInstitutions = await context.EducationalInstitutions.Where(eduI => IDs.Contains(eduI.EduInstitutionID))
-                                                        .Include(ei => ei.Buildings)
-                                                        .Select(ei => new GetEducationalInstitutionQueryResult()
-                                                        {
-                                                            EduInstitutionID = ei.EduInstitutionID,
-                                                            LocationID = ei.LocationID,
-                                                            BuildingsIDs = ei.Buildings,
-                                                            Name = ei.Name,
-                                                            Description = ei.Description
-                                                        })
-                                                        .ToListAsync(cancellationToken);
-
-            if (educationalInstitutions == null) return null;
-
-            return educationalInstitutions;
+            return await context.EducationalInstitutions
+                                 .Where(eduI => IDs.Contains(eduI.EduInstitutionID))
+                                 .Include(ei => ei.Buildings)
+                                 .Select(ei => new GetEducationalInstitutionQueryResult()
+                                 {
+                                     EduInstitutionID = ei.EduInstitutionID,
+                                     LocationID = ei.LocationID,
+                                     BuildingsIDs = ei.Buildings,
+                                     Name = ei.Name,
+                                     Description = ei.Description
+                                 })
+                                 .ToListAsync(cancellationToken);
         }
 
         public async Task<bool> UpdateAsync(EduInstitution data, CancellationToken cancellationToken = default)
         {
             var educationalInstitution = await context.EducationalInstitutions
                                                       .SingleOrDefaultAsync(eduI => eduI.EduInstitutionID == data.EduInstitutionID, cancellationToken);
-            if (educationalInstitution == null) return false;
+
+            if (educationalInstitution is null) return false;
 
             educationalInstitution.Update(data.Name, data.Description, data.LocationID);
-
-            await context.SaveChangesAsync(cancellationToken);
             return true;
         }
 
@@ -148,10 +128,9 @@ namespace EducationaInstitutionAPI.Repositories
             var educationalInstitution = await context.EducationalInstitutions
                                                      .SingleOrDefaultAsync(ei => ei.EduInstitutionID == eduInstitutionID, cancellationToken);
 
-            if (educationalInstitution == null) return false;
+            if (educationalInstitution is null) return false;
 
             educationalInstitution.UpdateEntireLocation(locationID, buildingsIDs);
-            await context.SaveChangesAsync(cancellationToken);
             return true;
         }
 
@@ -160,22 +139,20 @@ namespace EducationaInstitutionAPI.Repositories
             var educationalInstitution = await context.EducationalInstitutions
                                                      .SingleOrDefaultAsync(ei => ei.EduInstitutionID == eduInstitutionID, cancellationToken);
 
-            if (educationalInstitution == null) return false;
+            if (educationalInstitution is null) return false;
 
             educationalInstitution.UpdateLocation(locationID);
-            await context.SaveChangesAsync(cancellationToken);
             return true;
         }
 
-        public async Task<bool> UpdateAsync(ICollection<string> buildingsIDs, Guid eduInstitutionID, CancellationToken cancellationToken)
+        public async Task<bool> UpdateAsync(Guid eduInstitutionID, ICollection<string> buildingsIDs, CancellationToken cancellationToken)
         {
             var educationalInstitution = await context.EducationalInstitutions
                                                     .SingleOrDefaultAsync(ei => ei.EduInstitutionID == eduInstitutionID, cancellationToken);
 
-            if (educationalInstitution == null) return false;
+            if (educationalInstitution is null) return false;
 
             educationalInstitution.CreateAndAddABuilding(buildingsIDs);
-            await context.SaveChangesAsync(cancellationToken);
             return true;
         }
     }

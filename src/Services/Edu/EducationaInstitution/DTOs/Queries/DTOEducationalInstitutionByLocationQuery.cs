@@ -7,7 +7,7 @@ namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.In
     /// <summary>
     /// Encapsulates the parameter of a get by locationid request
     /// </summary>
-    public class DTOEducationalInstitutionByLocationQuery : IRequest<Response<GetEducationalInstitutionByLocationQueryResult>>
+    public class DTOEducationalInstitutionByLocationQuery : IRequest<Response<GetAllEducationalInstitutionsByLocationQueryResult>>
     {
         public string LocationID { get; init; }
 

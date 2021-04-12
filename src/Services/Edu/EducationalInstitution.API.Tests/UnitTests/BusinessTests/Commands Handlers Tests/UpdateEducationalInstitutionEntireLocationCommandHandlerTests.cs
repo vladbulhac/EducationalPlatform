@@ -31,7 +31,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
             ICollection<string> buildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
 
-            DTOEducationalInstitutionEntireLocationUpdateCommand request = new()
+            DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
                 EduInstitutionID = eduInstitutionID,
                 LocationID = locationID,
@@ -55,7 +55,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
             ICollection<string> buildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
 
-            DTOEducationalInstitutionEntireLocationUpdateCommand request = new()
+            DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
                 EduInstitutionID = eduInstitutionID,
                 LocationID = locationID,
@@ -79,7 +79,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
             ICollection<string> buildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
 
-            DTOEducationalInstitutionEntireLocationUpdateCommand request = new()
+            DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
                 EduInstitutionID = eduInstitutionID,
                 LocationID = locationID,
@@ -103,7 +103,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
             ICollection<string> buildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
 
-            DTOEducationalInstitutionEntireLocationUpdateCommand request = new()
+            DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
                 EduInstitutionID = eduInstitutionID,
                 LocationID = locationID,
@@ -127,7 +127,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
             ICollection<string> buildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
 
-            DTOEducationalInstitutionEntireLocationUpdateCommand request = new()
+            DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
                 EduInstitutionID = eduInstitutionID,
                 LocationID = locationID,
@@ -151,7 +151,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
             ICollection<string> buildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
 
-            DTOEducationalInstitutionEntireLocationUpdateCommand request = new()
+            DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
                 EduInstitutionID = eduInstitutionID,
                 LocationID = locationID,

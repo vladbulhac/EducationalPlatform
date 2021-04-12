@@ -7,13 +7,14 @@ namespace EducationaInstitutionAPI.Utils
     /// <summary>
     /// Contains methods that are used to convert <see cref="Guid"/> to the protocol buffer language and vice versa
     /// </summary>
-    /// <remarks>Both methods contain the code found at the following link: <see cref="https://github.com/protocolbuffers/protobuf/issues/2224"/></remarks>
+    /// <remarks> The Encode and Decode methods contain the code found at the following link: <see cref="https://github.com/protocolbuffers/protobuf/issues/2224"/></remarks>
     public static class ProtobufGuidConverter
     {
         /// <summary>
-        /// An extension method that converts a <see cref="Guid"/> to the protocol buffer language equivalent <see cref="Uuid"/>
+        /// Converts a <see cref="Guid"/> to the protocol buffer language equivalent <see cref="Uuid"/>
         /// </summary>
-        public static void EncodeGuid(this Guid identifier, out UInt64 High64, out UInt64 Low64)
+        /// <remarks>A <see cref="Guid"/> extension method</remarks>
+        public static void Encode(this Guid identifier, out UInt64 High64, out UInt64 Low64)
         {
             Span<byte> bytes = stackalloc byte[16];
             identifier.TryWriteBytes(bytes);
@@ -38,6 +39,18 @@ namespace EducationaInstitutionAPI.Utils
             BinaryPrimitives.WriteUInt16LittleEndian(bytes.Slice(6, 2), (ushort)(High64 & 0xFFFF));
             BinaryPrimitives.WriteUInt64BigEndian(bytes.Slice(8, 8), Low64);
             return new Guid(bytes);
+        }
+
+        /// <remarks>A <see cref="Guid"/> extension method</remarks>
+        public static Uuid ToProtocolBufferLanguageEquivalent(this Guid identifier)
+        {
+            identifier.Encode(out ulong High64, out ulong Low64);
+
+            Uuid protobufID = new();
+            protobufID.High64 = High64;
+            protobufID.Low64 = Low64;
+
+            return protobufID;
         }
     }
 }

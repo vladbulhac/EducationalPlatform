@@ -52,7 +52,7 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
             try
             {
                 educationInstitutions = await eduRepository.GetFromCollectionOfIDsAsync(request.EducationalInstitutionsIDs, cancellationToken);
-                if (educationInstitutions == null || educationInstitutions.Count == 0)
+                if (educationInstitutions is null || educationInstitutions.Count is 0)
                     return new Response<ICollection<GetEducationalInstitutionQueryResult>>()
                     {
                         ResponseObject = null,
@@ -79,7 +79,7 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
             }
             catch (Exception e)
             {
-                if (educationInstitutions.Count is > 0)
+                if (educationInstitutions.Count > 0)
                 {
                     var eduInstitutionsIDsNotFound = request.EducationalInstitutionsIDs.Except(educationInstitutions.Select(eduI => eduI.EduInstitutionID).ToList());
                     logger.LogError("Could not retrieve all Educational Institutions with IDs: {0}, using {1}'s method {2}, error details => {3}", request.EducationalInstitutionsIDs.Except(educationInstitutions.Select(eduI => eduI.EduInstitutionID).ToList()), eduRepository.GetType(), nameof(eduRepository.GetFromCollectionOfIDsAsync), e.Message);

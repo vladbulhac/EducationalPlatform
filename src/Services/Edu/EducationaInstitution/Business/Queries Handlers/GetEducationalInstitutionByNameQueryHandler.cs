@@ -46,11 +46,12 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
         /// </returns>
         public async Task<Response<ICollection<GetEducationalInstitutionQueryResult>>> Handle(DTOEducationalInstitutionsByNameQuery request, CancellationToken cancellationToken)
         {
-            if (request == null) throw new ArgumentNullException(nameof(request));
+            if (request is null) throw new ArgumentNullException(nameof(request));
+
             try
             {
                 var eduInstitutions = await eduRepository.GetAllLikeNameAsync(request.Name, request.OffsetValue, request.ResultsCount, cancellationToken);
-                if (eduInstitutions == null)
+                if (eduInstitutions is null)
                     return new()
                     {
                         ResponseObject = null,

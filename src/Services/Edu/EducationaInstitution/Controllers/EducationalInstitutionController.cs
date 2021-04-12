@@ -28,7 +28,7 @@ namespace EducationaInstitutionAPI.Controllers
         {
             var request = new DTOEducationalInstitutionByIDQuery(ID);
 
-            if (validationHandler.IsRequestValid(request, out string validationErrors) == false)
+            if (!validationHandler.IsRequestValid(request, out string validationErrors))
                 return BadRequest(new Response<GetEducationalInstitutionByIDQueryResult>()
                 {
                     ResponseObject = null,
@@ -39,7 +39,7 @@ namespace EducationaInstitutionAPI.Controllers
 
             var queryResult = await mediator.Send(request);
 
-            if (queryResult.OperationStatus == false)
+            if (!queryResult.OperationStatus)
                 return NotFound(queryResult);
 
             return Ok(queryResult);
@@ -50,7 +50,7 @@ namespace EducationaInstitutionAPI.Controllers
         {
             var request = new DTOEducationalInstitutionsByNameQuery() { Name = name, ResultsCount = resultsCount, OffsetValue = offsetValue };
 
-            if (validationHandler.IsRequestValid(request, out string validationErrors) == false)
+            if (!validationHandler.IsRequestValid(request, out string validationErrors))
                 return BadRequest(new Response<GetEducationalInstitutionByIDQueryResult>()
                 {
                     ResponseObject = null,
@@ -61,7 +61,7 @@ namespace EducationaInstitutionAPI.Controllers
 
             var queryResult = await mediator.Send(request);
 
-            if (queryResult.OperationStatus == false)
+            if (!queryResult.OperationStatus)
                 return NotFound(queryResult);
 
             return Ok(queryResult);

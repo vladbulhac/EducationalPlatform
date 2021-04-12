@@ -15,7 +15,7 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitu
     /// <summary>
     /// Defines a method that handles the update of an <see cref="EduInstitution"/>'s entire location
     /// </summary>
-    public class UpdateEducationalInstitutionEntireLocationCommandHandler : IRequestHandler<DTOEducationalInstitutionEntireLocationUpdateCommand, Response<EducationalInstitutionCommandResult>>
+    public class UpdateEducationalInstitutionEntireLocationCommandHandler : IRequestHandler<DTOEducationalInstitutionLocationUpdateCommand, Response<EducationalInstitutionCommandResult>>
     {
         /// <summary>
         /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
@@ -43,14 +43,14 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitu
         /// <item><see cref="HttpStatusCode.InternalServerError">if the entity could not be updated</see></item>
         /// </list>
         /// </returns>
-        public async Task<Response<EducationalInstitutionCommandResult>> Handle(DTOEducationalInstitutionEntireLocationUpdateCommand request, CancellationToken cancellationToken)
+        public async Task<Response<EducationalInstitutionCommandResult>> Handle(DTOEducationalInstitutionLocationUpdateCommand request, CancellationToken cancellationToken)
         {
-            if (request == null) throw new ArgumentNullException(nameof(request));
+            if (request is null) throw new ArgumentNullException(nameof(request));
 
             try
             {
-                var updateResult = await eduRepository.UpdateAsync(request.EduInstitutionID, request.LocationID, request.BuildingsIDs, cancellationToken);
-                if (updateResult == false)
+                var isEntityUpdated = await eduRepository.UpdateAsync(request.EduInstitutionID, request.LocationID, request.BuildingsIDs, cancellationToken);
+                if (!isEntityUpdated)
                     return new()
                     {
                         ResponseObject = null,

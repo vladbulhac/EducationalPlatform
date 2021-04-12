@@ -32,7 +32,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
 
             DTOEducationalInstitutionDeleteCommand request = new(eduInstitutionID);
 
-            dependenciesHelper.mockUnitOfWork.Setup(muk => muk.UseEducationalInstitutionRepository())
+            dependenciesHelper.mockUnitOfWork.Setup(muk => muk.UsingEducationalInstitutionRepository())
                                                             .Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetEntityByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
                                               .ReturnsAsync(testDataHelper.EduInstitutions[0]);
@@ -54,7 +54,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
 
             DTOEducationalInstitutionDeleteCommand request = new(eduInstitutionID);
 
-            dependenciesHelper.mockUnitOfWork.Setup(muk => muk.UseEducationalInstitutionRepository())
+            dependenciesHelper.mockUnitOfWork.Setup(muk => muk.UsingEducationalInstitutionRepository())
                                                             .Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetEntityByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
                                               .ReturnsAsync(testDataHelper.EduInstitutions[0]);
@@ -76,7 +76,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
 
             DTOEducationalInstitutionDeleteCommand request = new(eduInstitutionID);
 
-            dependenciesHelper.mockUnitOfWork.Setup(muk => muk.UseEducationalInstitutionRepository())
+            dependenciesHelper.mockUnitOfWork.Setup(muk => muk.UsingEducationalInstitutionRepository())
                                                             .Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetEntityByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
                                               .ReturnsAsync(testDataHelper.EduInstitutions[0]);
@@ -98,7 +98,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
 
             DTOEducationalInstitutionDeleteCommand request = new(eduInstitutionID);
 
-            dependenciesHelper.mockUnitOfWork.Setup(muk => muk.UseEducationalInstitutionRepository())
+            dependenciesHelper.mockUnitOfWork.Setup(muk => muk.UsingEducationalInstitutionRepository())
                                                             .Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetEntityByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
                                               .ReturnsAsync(testDataHelper.EduInstitutions[0]);
@@ -120,7 +120,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
 
             DTOEducationalInstitutionDeleteCommand request = new(eduInstitutionID);
 
-            dependenciesHelper.mockUnitOfWork.Setup(muk => muk.UseEducationalInstitutionRepository())
+            dependenciesHelper.mockUnitOfWork.Setup(muk => muk.UsingEducationalInstitutionRepository())
                                                             .Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetEntityByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
                                               .ReturnsAsync(testDataHelper.EduInstitutions[0]);
@@ -142,7 +142,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
 
             DTOEducationalInstitutionDeleteCommand request = new(eduInstitutionID);
 
-            dependenciesHelper.mockUnitOfWork.Setup(muk => muk.UseEducationalInstitutionRepository())
+            dependenciesHelper.mockUnitOfWork.Setup(muk => muk.UsingEducationalInstitutionRepository())
                                                             .Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetEntityByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
                                               .ReturnsAsync(testDataHelper.EduInstitutions[0]);
@@ -167,7 +167,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
 
             DTOEducationalInstitutionDeleteCommand request = new(eduInstitutionID);
 
-            dependenciesHelper.mockUnitOfWork.Setup(muk => muk.UseEducationalInstitutionRepository())
+            dependenciesHelper.mockUnitOfWork.Setup(muk => muk.UsingEducationalInstitutionRepository())
                                                             .Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetEntityByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
                                               .ReturnsAsync(testDataHelper.EduInstitutions[0]);
@@ -189,7 +189,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
 
             DTOEducationalInstitutionDeleteCommand request = new(eduInstitutionID);
 
-            dependenciesHelper.mockUnitOfWork.Setup(muk => muk.UseEducationalInstitutionRepository())
+            dependenciesHelper.mockUnitOfWork.Setup(muk => muk.UsingEducationalInstitutionRepository())
                                                             .Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetEntityByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
                                               .ReturnsAsync(testDataHelper.EduInstitutions[0]);

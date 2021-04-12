@@ -45,7 +45,7 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitu
         /// </returns>
         public async Task<Response<EducationalInstitutionCommandResult>> Handle(DTOEducationalInstitutionWithParentCreateCommand request, CancellationToken cancellationToken = default)
         {
-            if (request == null) throw new ArgumentNullException(nameof(request));
+            if (request is null) throw new ArgumentNullException(nameof(request));
 
             try
             {
@@ -56,7 +56,7 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitu
 
                 var httpStatusCode = HttpStatusCode.Created;
                 string responseMessage = string.Empty;
-                if (parentInstitution == null)
+                if (parentInstitution is null)
                 {
                     httpStatusCode = HttpStatusCode.MultiStatus;
                     responseMessage = $"The Educational Institution has been successfully created but the Parent Institution with the following ID: {request.ParentInstitutionID} has not been found!";

@@ -1,5 +1,6 @@
 ﻿using EducationaInstitutionAPI.Data;
 using EducationaInstitutionAPI.Repositories;
+using EducationaInstitutionAPI.Repositories.EducationalInstitutionBuildingRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading;
@@ -15,26 +16,28 @@ namespace EducationaInstitutionAPI.Unit_of_Work
     {
         private bool disposed;
         private readonly DataContext context;
-        public IEducationalInstitutionRepository eduRepository { get; private set; }
+        public IEducationalInstitutionRepository EduRepository { get; private set; }
+        public IEducationalInstitutionBuildingRepository EduBuildingRepository { get; private set; }
 
-        public UnitOfWork()
+        public UnitOfWork() => context = new();
+
+        public IEducationalInstitutionRepository UsingEducationalInstitutionRepository()
         {
-            context = new();
+            if (EduRepository is null)
+                EduRepository = new EducationalInstitutionRepository(context);
+
+            return EduRepository;
         }
 
-        /// <returns>Existing instance of <see cref="IEducationalInstitutionRepository"/> or creates a new one</returns>
-        public IEducationalInstitutionRepository UseEducationalInstitutionRepository()
+        public IEducationalInstitutionBuildingRepository UsingEducationalInstitutionBuildingRepository()
         {
-            if (eduRepository == null)
-                eduRepository = new EducationalInstitutionRepository(context);
+            if (EduBuildingRepository is null)
+                EduBuildingRepository = new EducationalInstitutionBuildingRepository(context);
 
-            return eduRepository;
+            return EduBuildingRepository;
         }
 
-        public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            await context.SaveChangesAsync(cancellationToken);
-        }
+        public async Task SaveChangesAsync(CancellationToken cancellationToken = default) => await context.SaveChangesAsync(cancellationToken);
 
         protected virtual void Dispose(bool disposing)
         {

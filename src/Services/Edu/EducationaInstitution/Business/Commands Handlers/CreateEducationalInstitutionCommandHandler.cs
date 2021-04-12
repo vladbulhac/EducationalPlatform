@@ -44,7 +44,7 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitu
         /// </returns>
         public async Task<Response<EducationalInstitutionCommandResult>> Handle(DTOEducationalInstitutionCreateCommand request, CancellationToken cancellationToken = default)
         {
-            if (request == null) throw new ArgumentNullException(nameof(request));
+            if (request is null) throw new ArgumentNullException(nameof(request));
 
             try
             {

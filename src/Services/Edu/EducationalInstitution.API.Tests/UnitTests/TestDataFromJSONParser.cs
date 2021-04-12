@@ -8,7 +8,7 @@ using System.IO;
 namespace EducationalInstitution.API.Tests.UnitTests
 {
     /// <summary>
-    /// Extracts Data from a JSON file, that is used in tests
+    /// Extracts from a JSON file data that is used in tests
     /// </summary>
     public class TestDataFromJSONParser
     {

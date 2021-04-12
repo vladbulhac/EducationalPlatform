@@ -22,7 +22,7 @@ namespace EducationaInstitutionAPI.Data.Contexts.Entities_Type_Configuration
                     .WithMany(ei => ei.ChildInstitutions);
 
             builder.HasMany(ei => ei.Buildings)
-                   .WithOne()
+                   .WithOne(b => b.EducationalInstitution)
                    .HasForeignKey(eib => eib.EducationalInstitutionID)
                    .IsRequired();
 

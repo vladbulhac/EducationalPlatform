@@ -45,13 +45,13 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
         /// </returns>
         public async Task<Response<GetEducationalInstitutionByIDQueryResult>> Handle(DTOEducationalInstitutionByIDQuery request, CancellationToken cancellationToken)
         {
-            if (request == null) throw new ArgumentNullException(nameof(request));
+            if (request is null) throw new ArgumentNullException(nameof(request));
 
             try
             {
                 var eduInstitution = await eduRepository.GetByIDAsync(request.EduInstitutionID, cancellationToken);
 
-                if (eduInstitution == null)
+                if (eduInstitution is null)
                     return new()
                     {
                         ResponseObject = null,

@@ -9,17 +9,21 @@ namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.In.Commands
     /// <summary>
     /// Encapsulates the body of an update request
     /// </summary>
-    public class DTOEducationalInstitutionEntireLocationUpdateCommand : IRequest<Response<EducationalInstitutionCommandResult>>
+    public class DTOEducationalInstitutionLocationUpdateCommand : IRequest<Response<EducationalInstitutionCommandResult>>
     {
         public Guid EduInstitutionID { get; init; }
+
+        public bool UpdateLocation { get; init; }
         public string LocationID { get; init; }
+
+        public bool BuildingsUpdate { get; init; }
         public ICollection<string> BuildingsIDs { get; init; }
 
-        public DTOEducationalInstitutionEntireLocationUpdateCommand()
+        public DTOEducationalInstitutionLocationUpdateCommand()
         {
         }
 
-        public DTOEducationalInstitutionEntireLocationUpdateCommand(Guid eduInstitutionID, string newLocationID, ICollection<string> newBuildingsIDs)
+        public DTOEducationalInstitutionLocationUpdateCommand(Guid eduInstitutionID, string newLocationID, ICollection<string> newBuildingsIDs)
         {
             EduInstitutionID = eduInstitutionID;
             LocationID = newLocationID;

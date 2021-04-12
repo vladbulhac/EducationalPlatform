@@ -1148,7 +1148,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         public void GivenAValidRequestOfTypeDTOEducationalInstitutionEntireLocationUpdateCommand_ShouldReturnTrue()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionEntireLocationUpdateCommand()
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
                 EduInstitutionID = Guid.NewGuid(),
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
@@ -1167,7 +1167,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionEntireLocationUpdateCommand_WithDefaultEduInstitutionID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionEntireLocationUpdateCommand()
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
                 EduInstitutionID = Guid.NewGuid(),
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
@@ -1186,7 +1186,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionEntireLocationUpdateCommand_WithDefaultEduInstitutionID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionEntireLocationUpdateCommand()
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
                 EduInstitutionID = Guid.NewGuid(),
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
@@ -1205,7 +1205,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionEntireLocationUpdateCommand_WithEmptyBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionEntireLocationUpdateCommand()
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
                 EduInstitutionID = Guid.NewGuid(),
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
@@ -1224,7 +1224,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionEntireLocationUpdateCommand_WithEmptyBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionEntireLocationUpdateCommand()
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
                 EduInstitutionID = Guid.NewGuid(),
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
@@ -1243,7 +1243,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionEntireLocationUpdateCommand_WithEmptyLocationID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionEntireLocationUpdateCommand()
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
                 EduInstitutionID = Guid.NewGuid(),
                 LocationID = string.Empty,
@@ -1262,7 +1262,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionEntireLocationUpdateCommand_WithEmptyLocationID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionEntireLocationUpdateCommand()
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
                 EduInstitutionID = Guid.NewGuid(),
                 LocationID = string.Empty,

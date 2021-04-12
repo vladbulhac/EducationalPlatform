@@ -15,7 +15,7 @@ namespace EducationaInstitutionAPI.Business.Queries_Handlers.Queries_on_Educatio
     /// <summary>
     /// Defines a method that handles the operation of getting an <see cref="EduInstitution"/> by LocationID
     /// </summary>
-    public class GetEducationalInstitutionByLocationQueryHandler : IRequestHandler<DTOEducationalInstitutionByLocationQuery, Response<GetEducationalInstitutionByLocationQueryResult>>
+    public class GetEducationalInstitutionByLocationQueryHandler : IRequestHandler<DTOEducationalInstitutionByLocationQuery, Response<GetAllEducationalInstitutionsByLocationQueryResult>>
     {
         /// <summary>
         /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
@@ -43,15 +43,15 @@ namespace EducationaInstitutionAPI.Business.Queries_Handlers.Queries_on_Educatio
         /// <item><see cref="HttpStatusCode.InternalServerError">if the entity could not be inserted into the database</see></item>
         /// </list>
         /// </returns>
-        public async Task<Response<GetEducationalInstitutionByLocationQueryResult>> Handle(DTOEducationalInstitutionByLocationQuery request, CancellationToken cancellationToken)
+        public async Task<Response<GetAllEducationalInstitutionsByLocationQueryResult>> Handle(DTOEducationalInstitutionByLocationQuery request, CancellationToken cancellationToken)
         {
-            if (request == null) throw new ArgumentNullException(nameof(request));
+            if (request is null) throw new ArgumentNullException(nameof(request));
 
             try
             {
-                var eduInstitution = await eduRepository.GetByLocationAsync(request.LocationID, cancellationToken);
+                var eduInstitution = await eduRepository.GetAllByLocationAsync(request.LocationID, cancellationToken);
 
-                if (eduInstitution == null)
+                if (eduInstitution is null)
                     return new()
                     {
                         ResponseObject = null,
@@ -70,7 +70,7 @@ namespace EducationaInstitutionAPI.Business.Queries_Handlers.Queries_on_Educatio
             }
             catch (Exception e)
             {
-                logger.LogError("Could not find an Educational Institution with LocationID: {0}, using {1}'s method: {2}, error details => {3}", request.LocationID, eduRepository.GetType(), nameof(eduRepository.GetByLocationAsync), e.Message);
+                logger.LogError("Could not find an Educational Institution with LocationID: {0}, using {1}'s method: {2}, error details => {3}", request.LocationID, eduRepository.GetType(), nameof(eduRepository.GetAllByLocationAsync), e.Message);
                 return new()
                 {
                     ResponseObject = null,

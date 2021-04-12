@@ -42,6 +42,10 @@ namespace EducationaInstitutionAPI.Grpc
         public override async Task<EducationalInstitutionCreateResponse> CreateEducationalInstitution(DTOEducationalInstitutionCreateRequest request, ServerCallContext context)
         {
             logger.LogInformation("Begin grpc call EducationalInstitutionService.CreateEducationalInstitution");
+
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            if (context is null) throw new ArgumentNullException(nameof(context));
+
             var requestDTO = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = request.Name,
@@ -55,7 +59,7 @@ namespace EducationaInstitutionAPI.Grpc
             string message = string.Empty;
             var statusCode = HttpStatusCode.Created;
 
-            if (validationHandler.IsRequestValid(requestDTO, out string validationErrors) == false)
+            if (!validationHandler.IsRequestValid(requestDTO, out string validationErrors))
             {
                 context.Status = new(StatusCode.FailedPrecondition, validationErrors);
 
@@ -68,7 +72,7 @@ namespace EducationaInstitutionAPI.Grpc
             {
                 var result = await mediator.Send(requestDTO);
 
-                if (result.OperationStatus == false)
+                if (!result.OperationStatus)
                 {
                     context.Status = new(StatusCode.Aborted, result.Message);
 
@@ -81,7 +85,7 @@ namespace EducationaInstitutionAPI.Grpc
                 {
                     context.Status = new(StatusCode.OK, "Educational Institution was successfully created");
 
-                    responseObject.EduInstitutionId = ConvertGuidToProtocolBufferLanguage(result.ResponseObject.EduInstitutionID);
+                    responseObject.EduInstitutionId = result.ResponseObject.EduInstitutionID.ToProtocolBufferLanguageEquivalent();
                 }
             }
 
@@ -108,7 +112,11 @@ namespace EducationaInstitutionAPI.Grpc
         /// </returns>
         public override async Task<EducationalInstitutionCreateResponse> CreateEducationalInstitutionWithParent(DTOEducationalInstitutionWithParentCreateRequest request, ServerCallContext context)
         {
-            logger.LogInformation("Begin grpc call EducationalInstitutionService.CreateEducationalInstitution");
+            logger.LogInformation("Begin grpc call EducationalInstitutionService.CreateEducationalInstitutionWithParent");
+
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            if (context is null) throw new ArgumentNullException(nameof(context));
+
             var requestDTO = new DTOEducationalInstitutionWithParentCreateCommand()
             {
                 Name = request.Name,
@@ -122,7 +130,7 @@ namespace EducationaInstitutionAPI.Grpc
             string message;
             var statusCode = HttpStatusCode.Created;
 
-            if (validationHandler.IsRequestValid(requestDTO, out string validationErrors) is not true)
+            if (!validationHandler.IsRequestValid(requestDTO, out string validationErrors))
             {
                 context.Status = new(StatusCode.FailedPrecondition, validationErrors);
 
@@ -135,7 +143,7 @@ namespace EducationaInstitutionAPI.Grpc
             {
                 var result = await mediator.Send(requestDTO);
 
-                if (result.OperationStatus is not true)
+                if (!result.OperationStatus)
                 {
                     context.Status = new(StatusCode.Aborted, result.Message);
 
@@ -146,10 +154,10 @@ namespace EducationaInstitutionAPI.Grpc
                 {
                     context.Status = new(StatusCode.OK, "Educational Institution was successfully created");
 
-                    if (string.IsNullOrEmpty(result.Message) is not true)
+                    if (!string.IsNullOrEmpty(result.Message))
                         statusCode = HttpStatusCode.MultiStatus;
 
-                    responseObject.EduInstitutionId = ConvertGuidToProtocolBufferLanguage(result.ResponseObject.EduInstitutionID);
+                    responseObject.EduInstitutionId = result.ResponseObject.EduInstitutionID.ToProtocolBufferLanguageEquivalent();
                 }
 
                 operationStatus = result.OperationStatus;
@@ -163,17 +171,6 @@ namespace EducationaInstitutionAPI.Grpc
                 StatusCode = statusCode,
                 Message = message
             };
-        }
-
-        private static Uuid ConvertGuidToProtocolBufferLanguage(Guid identifier)
-        {
-            identifier.EncodeGuid(out ulong High64, out ulong Low64);
-
-            Uuid protobufID = new();
-            protobufID.High64 = High64;
-            protobufID.Low64 = Low64;
-
-            return protobufID;
         }
     }
 }

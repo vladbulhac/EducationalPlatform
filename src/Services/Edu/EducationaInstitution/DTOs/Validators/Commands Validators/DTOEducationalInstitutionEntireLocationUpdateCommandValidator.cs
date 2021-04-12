@@ -4,9 +4,9 @@ using FluentValidation;
 namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.Validators.Commands_Validators
 {
     /// <summary>
-    /// Contains the validation rules for <see cref="DTOEducationalInstitutionEntireLocationUpdateCommand"/>'s fields
+    /// Contains the validation rules for <see cref="DTOEducationalInstitutionLocationUpdateCommand"/>'s fields
     /// </summary>
-    public class DTOEducationalInstitutionEntireLocationUpdateCommandValidator : AbstractValidator<DTOEducationalInstitutionEntireLocationUpdateCommand>
+    public class DTOEducationalInstitutionEntireLocationUpdateCommandValidator : AbstractValidator<DTOEducationalInstitutionLocationUpdateCommand>
     {
         /// <summary>
         /// Initializes the rules based on which the validation is made
