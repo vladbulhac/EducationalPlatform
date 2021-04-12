@@ -13,27 +13,27 @@ using System.Threading.Tasks;
 namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitution_Commands
 {
     /// <summary>
-    /// Defines a method that handles the update of an <see cref="EduInstitution"/>'s entire location
+    /// Defines a method that handles the update of an <see cref="EduInstitution"/>'s location and buildings
     /// </summary>
-    public class UpdateEducationalInstitutionEntireLocationCommandHandler : IRequestHandler<DTOEducationalInstitutionLocationUpdateCommand, Response<EducationalInstitutionCommandResult>>
+    public class UpdateEducationalInstitutionLocationCommandHandler : IRequestHandler<DTOEducationalInstitutionLocationUpdateCommand, Response<EducationalInstitutionCommandResult>>
     {
         /// <summary>
         /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
         /// </summary>
-        private readonly ILogger<UpdateEducationalInstitutionEntireLocationCommandHandler> logger;
+        private readonly ILogger<UpdateEducationalInstitutionLocationCommandHandler> logger;
 
         private readonly IEducationalInstitutionRepository eduRepository;
 
-        public UpdateEducationalInstitutionEntireLocationCommandHandler(IEducationalInstitutionRepository eduRepository, ILogger<UpdateEducationalInstitutionEntireLocationCommandHandler> logger)
+        public UpdateEducationalInstitutionLocationCommandHandler(IEducationalInstitutionRepository eduRepository, ILogger<UpdateEducationalInstitutionLocationCommandHandler> logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.eduRepository = eduRepository ?? throw new ArgumentNullException(nameof(eduRepository));
         }
 
         /// <summary>
-        /// Tries to update the locationID and the BuildingsIDs of an <see cref="EduInstitution"/> entity
+        /// Tries to update the locationID and/or the BuildingsIDs of an <see cref="EduInstitution"/> entity
         /// </summary>
-        /// <param name="request">Contains <see cref="EduInstitution.LocationID"/> and <see cref="EduInstitution.Buildings"/></param>
+        /// <param name="request">Contains <see cref="EduInstitution.LocationID"/> and/or <see cref="EduInstitution.Buildings"/></param>
         /// <param name="cancellationToken">Cancels the operation ____________</param>
         /// <returns>
         /// An <see cref="Response{ResponseType}">object</see> with HttpStatusCode:
@@ -49,7 +49,15 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitu
 
             try
             {
-                var isEntityUpdated = await eduRepository.UpdateAsync(request.EduInstitutionID, request.LocationID, request.BuildingsIDs, cancellationToken);
+                bool isEntityUpdated = false;
+                if (request.UpdateBuildings && request.UpdateLocation)
+                    isEntityUpdated = await eduRepository.UpdateAsync(request.EduInstitutionID, request.LocationID, request.BuildingsIDs, cancellationToken);
+                else
+                if (request.UpdateLocation)
+                    isEntityUpdated = await eduRepository.UpdateAsync(request.EduInstitutionID, request.LocationID, cancellationToken);
+                else
+                    isEntityUpdated = await eduRepository.UpdateAsync(request.EduInstitutionID, request.BuildingsIDs, cancellationToken);
+
                 if (!isEntityUpdated)
                     return new()
                     {

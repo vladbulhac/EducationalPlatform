@@ -16,7 +16,7 @@ namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.In.Commands
         public bool UpdateLocation { get; init; }
         public string LocationID { get; init; }
 
-        public bool BuildingsUpdate { get; init; }
+        public bool UpdateBuildings { get; init; }
         public ICollection<string> BuildingsIDs { get; init; }
 
         public DTOEducationalInstitutionLocationUpdateCommand()
