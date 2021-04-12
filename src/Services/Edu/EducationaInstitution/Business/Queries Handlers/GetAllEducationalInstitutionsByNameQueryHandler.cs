@@ -17,16 +17,16 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
     /// <summary>
     /// Defines a method that handles the operation of getting <see cref="EduInstitution"/>s whose Name's contain a certain string
     /// </summary>
-    public class GetEducationalInstitutionByNameQueryHandler : IRequestHandler<DTOEducationalInstitutionsByNameQuery, Response<ICollection<GetEducationalInstitutionQueryResult>>>
+    public class GetAllEducationalInstitutionsByNameQueryHandler : IRequestHandler<DTOEducationalInstitutionsByNameQuery, Response<ICollection<GetEducationalInstitutionQueryResult>>>
     {
         /// <summary>
         /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
         /// </summary>
-        private readonly ILogger<GetEducationalInstitutionByNameQueryHandler> logger;
+        private readonly ILogger<GetAllEducationalInstitutionsByNameQueryHandler> logger;
 
         private readonly IUnitOfWork unitOfWork;
 
-        public GetEducationalInstitutionByNameQueryHandler(IUnitOfWork unitOfWork, ILogger<GetEducationalInstitutionByNameQueryHandler> logger)
+        public GetAllEducationalInstitutionsByNameQueryHandler(IUnitOfWork unitOfWork, ILogger<GetAllEducationalInstitutionsByNameQueryHandler> logger)
         {
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));

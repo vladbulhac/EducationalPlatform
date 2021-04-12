@@ -16,16 +16,16 @@ namespace EducationaInstitutionAPI.Business.Queries_Handlers.Queries_on_Educatio
     /// <summary>
     /// Defines a method that handles the operation of getting an <see cref="EduInstitution"/> by LocationID
     /// </summary>
-    public class GetEducationalInstitutionByLocationQueryHandler : IRequestHandler<DTOEducationalInstitutionByLocationQuery, Response<GetAllEducationalInstitutionsByLocationQueryResult>>
+    public class GetAllEducationalInstitutionsByLocationQueryHandler : IRequestHandler<DTOEducationalInstitutionByLocationQuery, Response<GetAllEducationalInstitutionsByLocationQueryResult>>
     {
         /// <summary>
         /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
         /// </summary>
-        private readonly ILogger<GetEducationalInstitutionByLocationQueryHandler> logger;
+        private readonly ILogger<GetAllEducationalInstitutionsByLocationQueryHandler> logger;
 
         private readonly IUnitOfWork unitOfWork;
 
-        public GetEducationalInstitutionByLocationQueryHandler(IUnitOfWork unitOfWork, ILogger<GetEducationalInstitutionByLocationQueryHandler> logger)
+        public GetAllEducationalInstitutionsByLocationQueryHandler(IUnitOfWork unitOfWork, ILogger<GetAllEducationalInstitutionsByLocationQueryHandler> logger)
         {
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));

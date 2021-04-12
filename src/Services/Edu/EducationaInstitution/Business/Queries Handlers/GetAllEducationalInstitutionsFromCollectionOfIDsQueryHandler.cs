@@ -18,16 +18,16 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
     /// <summary>
     /// Defines a method that handles the operation of getting <see cref="EduInstitution"/>s based on a collection of ids
     /// </summary>
-    public class GetEducationalInstitutionFromCollectionOfIDsQueryHandler : IRequestHandler<DTOEducationalInstitutionsFromCollectionOfIDsQuery, Response<ICollection<GetEducationalInstitutionQueryResult>>>
+    public class GetAllEducationalInstitutionsFromCollectionOfIDsQueryHandler : IRequestHandler<DTOEducationalInstitutionsFromCollectionOfIDsQuery, Response<ICollection<GetEducationalInstitutionQueryResult>>>
     {
         /// <summary>
         /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
         /// </summary>
-        private readonly ILogger<GetEducationalInstitutionFromCollectionOfIDsQueryHandler> logger;
+        private readonly ILogger<GetAllEducationalInstitutionsFromCollectionOfIDsQueryHandler> logger;
 
         private readonly IUnitOfWork unitOfWork;
 
-        public GetEducationalInstitutionFromCollectionOfIDsQueryHandler(IUnitOfWork unitOfWork, ILogger<GetEducationalInstitutionFromCollectionOfIDsQueryHandler> logger)
+        public GetAllEducationalInstitutionsFromCollectionOfIDsQueryHandler(IUnitOfWork unitOfWork, ILogger<GetAllEducationalInstitutionsFromCollectionOfIDsQueryHandler> logger)
         {
             this.unitOfWork = unitOfWork;
             this.logger = logger;

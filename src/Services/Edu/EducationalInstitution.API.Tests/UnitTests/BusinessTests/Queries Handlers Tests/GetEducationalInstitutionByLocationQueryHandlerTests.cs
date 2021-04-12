@@ -14,14 +14,14 @@ using Xunit;
 
 namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handlers_Tests.EducationalInstitutionTests
 {
-    public class GetEducationalInstitutionByLocationQueryHandlerTests : IClassFixture<MockDependenciesHelper<GetEducationalInstitutionByLocationQueryHandler>>, IClassFixture<TestDataFromJSONParser>
+    public class GetEducationalInstitutionByLocationQueryHandlerTests : IClassFixture<MockDependenciesHelper<GetAllEducationalInstitutionsByLocationQueryHandler>>, IClassFixture<TestDataFromJSONParser>
     {
-        private readonly MockDependenciesHelper<GetEducationalInstitutionByLocationQueryHandler> dependenciesHelper;
+        private readonly MockDependenciesHelper<GetAllEducationalInstitutionsByLocationQueryHandler> dependenciesHelper;
         private readonly TestDataFromJSONParser testDataHelper;
         private readonly GetAllEducationalInstitutionsByLocationQueryResult queryResult;
         private readonly Mock<IUnitOfWork> mockUnitOfWork;
 
-        public GetEducationalInstitutionByLocationQueryHandlerTests(MockDependenciesHelper<GetEducationalInstitutionByLocationQueryHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
+        public GetEducationalInstitutionByLocationQueryHandlerTests(MockDependenciesHelper<GetAllEducationalInstitutionsByLocationQueryHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
         {
             this.dependenciesHelper = dependenciesHelper;
             this.testDataHelper = testDataHelper;
@@ -52,7 +52,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             dependenciesHelper.mockRepository.Setup(mr => mr.GetAllByLocationAsync(locationID, dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(queryResult);
 
-            GetEducationalInstitutionByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
+            GetAllEducationalInstitutionsByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -72,7 +72,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             dependenciesHelper.mockRepository.Setup(mr => mr.GetAllByLocationAsync(locationID, dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(queryResult);
 
-            GetEducationalInstitutionByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
+            GetAllEducationalInstitutionsByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -92,7 +92,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             dependenciesHelper.mockRepository.Setup(mr => mr.GetAllByLocationAsync(locationID, dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(queryResult);
 
-            GetEducationalInstitutionByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
+            GetAllEducationalInstitutionsByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -112,7 +112,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             dependenciesHelper.mockRepository.Setup(mr => mr.GetAllByLocationAsync(locationID, dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(queryResult);
 
-            GetEducationalInstitutionByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
+            GetAllEducationalInstitutionsByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -132,7 +132,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             dependenciesHelper.mockRepository.Setup(mr => mr.GetAllByLocationAsync(locationID, dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(queryResult);
 
-            GetEducationalInstitutionByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
+            GetAllEducationalInstitutionsByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -152,7 +152,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             dependenciesHelper.mockRepository.Setup(mr => mr.GetAllByLocationAsync(locationID, dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(queryResult);
 
-            GetEducationalInstitutionByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
+            GetAllEducationalInstitutionsByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -177,7 +177,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             dependenciesHelper.mockRepository.Setup(mr => mr.GetAllByLocationAsync(It.IsNotIn("location1", "location12"), dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(repositoryTaskResult);
 
-            GetEducationalInstitutionByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
+            GetAllEducationalInstitutionsByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -198,7 +198,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             dependenciesHelper.mockRepository.Setup(mr => mr.GetAllByLocationAsync(It.IsNotIn("location1", "location12"), dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(repositoryTaskResult);
 
-            GetEducationalInstitutionByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
+            GetAllEducationalInstitutionsByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -219,7 +219,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             dependenciesHelper.mockRepository.Setup(mr => mr.GetAllByLocationAsync(It.IsNotIn("location1", "location12"), dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(repositoryTaskResult);
 
-            GetEducationalInstitutionByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
+            GetAllEducationalInstitutionsByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -240,7 +240,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             dependenciesHelper.mockRepository.Setup(mr => mr.GetAllByLocationAsync(It.IsNotIn("location1", "location12"), dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(repositoryTaskResult);
 
-            GetEducationalInstitutionByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
+            GetAllEducationalInstitutionsByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -257,7 +257,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         public async Task GivenANullArgumentRequestToTheRequestHandlerHandleMethod_ShouldThrowArgumentNullException()
         {
             //Arrange
-            GetEducationalInstitutionByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
+            GetAllEducationalInstitutionsByLocationQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Assert
             await Assert.ThrowsAsync<ArgumentNullException>(() => handler.Handle(null, dependenciesHelper.cancellationToken));
@@ -267,14 +267,14 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         public void GivenANullArgumentRepositoryToTheRequestHandlerConstructor_ShouldThrowArgumentNullException()
         {
             //Assert
-            Assert.Throws<ArgumentNullException>(() => new GetEducationalInstitutionByLocationQueryHandler(null, dependenciesHelper.mockLogger.Object));
+            Assert.Throws<ArgumentNullException>(() => new GetAllEducationalInstitutionsByLocationQueryHandler(null, dependenciesHelper.mockLogger.Object));
         }
 
         [Fact]
         public void GivenANullArgumentLoggerToTheRequestHandlerConstructor_ShouldThrowArgumentNullException()
         {
             //Assert
-            Assert.Throws<ArgumentNullException>(() => new GetEducationalInstitutionByLocationQueryHandler(mockUnitOfWork.Object, null));
+            Assert.Throws<ArgumentNullException>(() => new GetAllEducationalInstitutionsByLocationQueryHandler(mockUnitOfWork.Object, null));
         }
 
         #endregion Null arguments TESTS
