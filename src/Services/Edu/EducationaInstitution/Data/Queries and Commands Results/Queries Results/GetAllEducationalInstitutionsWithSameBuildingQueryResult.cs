@@ -7,7 +7,7 @@ namespace EducationaInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Res
 {
     public record GetAllEducationalInstitutionsWithSameBuildingQueryResult
     {
-        public ICollection<EducationalInstitutionEssentialData> EducationalInstitutionsIDs { get; init; }
+        public ICollection<EducationalInstitutionEssentialData> EducationalInstitutions { get; init; }
     }
 
     public record EducationalInstitutionEssentialData

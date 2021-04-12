@@ -18,14 +18,14 @@ namespace EducationaInstitutionAPI.Repositories.EducationalInstitutionBuildingRe
 
         public EducationalInstitutionBuildingRepository(DataContext context)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task<GetAllEducationalInstitutionsWithSameBuildingQueryResult> GetAllEducationalInstitutionsWithSameBuildingAsync(string buildingID, CancellationToken cancellationToken = default)
         {
             return new()
             {
-                EducationalInstitutionsIDs = await context.EducationalInstitutionsBuildings
+                EducationalInstitutions = await context.EducationalInstitutionsBuildings
                                                                         .Where(eib => eib.BuildingID == buildingID)
                                                                         .Include(ei => ei.EducationalInstitution)
                                                                         .Select(s => new EducationalInstitutionEssentialData()

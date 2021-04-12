@@ -4,7 +4,7 @@
       "Name": "University of Testing",
       "Description": "Test data",
       "LocationID": "location1",
-      "BuildingsIDs": [ "building12" ]
+      "BuildingsIDs": [ "building12", "building123" ]
     },
     {
       "Name": "University of Testing One",
