@@ -75,7 +75,7 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
             }
             catch (Exception e)
             {
-                logger.LogError("Could not find an Educational Institution with ID: {0}, using {1}'s method: {2}, error details => {3}", request.EduInstitutionID, unitOfWork.GetType(), nameof(unitOfWork.UsingEducationalInstitutionRepository), e.Message);
+                logger.LogError("Could not find an Educational Institution with ID: {0}, using {1}'s method: {2}, error details => {3}", request.EduInstitutionID, unitOfWork.GetType(), nameof(IEducationalInstitutionRepository.GetByIDAsync), e.Message);
                 return new()
                 {
                     ResponseObject = null,

@@ -76,7 +76,7 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
             }
             catch (Exception e)
             {
-                logger.LogError("Could not find any Educational Institution with a name like: {0}, using {1}'s method: {2}, error details => {3}", request.Name, unitOfWork.GetType(), nameof(unitOfWork.UsingEducationalInstitutionRepository), e.Message);
+                logger.LogError("Could not find any Educational Institution with a name like: {0}, using {1}'s method: {2}, error details => {3}", request.Name, unitOfWork.GetType(), nameof(IEducationalInstitutionRepository.GetAllLikeNameAsync), e.Message);
                 return new()
                 {
                     ResponseObject = null,

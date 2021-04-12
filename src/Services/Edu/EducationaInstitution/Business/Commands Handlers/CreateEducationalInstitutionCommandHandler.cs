@@ -2,6 +2,7 @@
 using EducationaInstitutionAPI.Data.Helpers.Queries_and_Commands_Results.Commands_Results;
 using EducationaInstitutionAPI.DTOs.EducationalInstitution.In.Commands;
 using EducationaInstitutionAPI.Repositories;
+using EducationaInstitutionAPI.Unit_of_Work;
 using EducationaInstitutionAPI.Utils;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -22,12 +23,12 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitu
         /// </summary>
         private readonly ILogger<CreateEducationalInstitutionCommandHandler> logger;
 
-        private readonly IEducationalInstitutionRepository eduRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public CreateEducationalInstitutionCommandHandler(IEducationalInstitutionRepository eduRepository, ILogger<CreateEducationalInstitutionCommandHandler> logger)
+        public CreateEducationalInstitutionCommandHandler(IUnitOfWork unitOfWork, ILogger<CreateEducationalInstitutionCommandHandler> logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.eduRepository = eduRepository ?? throw new ArgumentNullException(nameof(eduRepository));
+            this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
         /// <summary>
@@ -48,20 +49,24 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitu
 
             try
             {
-                EduInstitution newEducationalInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs);
-                await eduRepository.CreateAsync(newEducationalInstitution, cancellationToken);
-
-                return new()
+                using (unitOfWork)
                 {
-                    ResponseObject = new() { EduInstitutionID = newEducationalInstitution.EduInstitutionID },
-                    OperationStatus = true,
-                    StatusCode = HttpStatusCode.Created,
-                    Message = string.Empty
-                };
+                    EduInstitution newEducationalInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs);
+                    await unitOfWork.UsingEducationalInstitutionRepository().CreateAsync(newEducationalInstitution, cancellationToken);
+                    await unitOfWork.SaveChangesAsync(cancellationToken);
+
+                    return new()
+                    {
+                        ResponseObject = new() { EduInstitutionID = newEducationalInstitution.EduInstitutionID },
+                        OperationStatus = true,
+                        StatusCode = HttpStatusCode.Created,
+                        Message = string.Empty
+                    };
+                }
             }
             catch (Exception e)
             {
-                logger.LogError("Could not create an Educational Institution with data: {0}, using {1}'s method: {2}, error details => {3}", request.ToString(), eduRepository.GetType(), nameof(eduRepository.CreateAsync), e.Message);
+                logger.LogError("Could not create an Educational Institution with data: {0}, using {1}'s method: {2}, error details => {3}", request.ToString(), unitOfWork.GetType(), nameof(IEducationalInstitutionRepository.CreateAsync), e.Message);
                 return new()
                 {
                     ResponseObject = null,

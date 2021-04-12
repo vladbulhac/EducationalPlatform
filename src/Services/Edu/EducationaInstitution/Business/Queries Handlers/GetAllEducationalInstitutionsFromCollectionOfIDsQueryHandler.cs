@@ -88,7 +88,7 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
                 if (educationInstitutions.Count > 0)
                 {
                     var eduInstitutionsIDsNotFound = request.EducationalInstitutionsIDs.Except(educationInstitutions.Select(eduI => eduI.EduInstitutionID).ToList());
-                    logger.LogError("Could not retrieve all Educational Institutions with IDs: {0}, using {1}'s method {2}, error details => {3}", request.EducationalInstitutionsIDs.Except(educationInstitutions.Select(eduI => eduI.EduInstitutionID).ToList()), unitOfWork.GetType(), nameof(unitOfWork.UsingEducationalInstitutionRepository), e.Message);
+                    logger.LogError("Could not retrieve all Educational Institutions with IDs: {0}, using {1}'s method {2}, error details => {3}", request.EducationalInstitutionsIDs.Except(educationInstitutions.Select(eduI => eduI.EduInstitutionID).ToList()), unitOfWork.GetType(), nameof(IEducationalInstitutionRepository.GetFromCollectionOfIDsAsync), e.Message);
                     return new Response<ICollection<GetEducationalInstitutionQueryResult>>()
                     {
                         ResponseObject = educationInstitutions,

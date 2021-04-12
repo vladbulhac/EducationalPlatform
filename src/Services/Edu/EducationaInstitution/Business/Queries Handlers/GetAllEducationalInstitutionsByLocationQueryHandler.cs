@@ -75,7 +75,7 @@ namespace EducationaInstitutionAPI.Business.Queries_Handlers.Queries_on_Educatio
             }
             catch (Exception e)
             {
-                logger.LogError("Could not find an Educational Institution with LocationID: {0}, using {1}'s method: {2}, error details => {3}", request.LocationID, unitOfWork.GetType(), nameof(unitOfWork.UsingEducationalInstitutionRepository), e.Message);
+                logger.LogError("Could not find an Educational Institution with LocationID: {0}, using {1}'s method: {2}, error details => {3}", request.LocationID, unitOfWork.GetType(), nameof(IEducationalInstitutionRepository.GetAllByLocationAsync), e.Message);
                 return new()
                 {
                     ResponseObject = null,
