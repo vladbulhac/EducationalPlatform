@@ -1,6 +1,7 @@
 using EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution;
 using EducationaInstitutionAPI.DTOs.EducationalInstitution.In;
 using EducationaInstitutionAPI.DTOs.EducationalInstitution.Out;
+using EducationaInstitutionAPI.Unit_of_Work;
 using EducationaInstitutionAPI.Utils;
 using EducationalInstitution.API.Tests.UnitTests;
 using EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.EducationalInstitutionTests;
@@ -17,6 +18,7 @@ namespace EducationalInstitution.API.Tests
         private readonly MockDependenciesHelper<GetEducationalInstitutionByIDQueryHandler> dependenciesHelper;
         private readonly TestDataFromJSONParser testDataHelper;
         private readonly GetEducationalInstitutionByIDQueryResult queryResult;
+        private readonly Mock<IUnitOfWork> mockUnitOfWork;
 
         public GetEducationalInstitutionByIDQueryHandlerTests(MockDependenciesHelper<GetEducationalInstitutionByIDQueryHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
         {
@@ -29,6 +31,8 @@ namespace EducationalInstitution.API.Tests
                 LocationID = testDataHelper.EduInstitutions[0].LocationID,
                 BuildingsIDs = testDataHelper.EduInstitutions[0].Buildings
             };
+
+            mockUnitOfWork = new();
         }
 
         #region One object contains the input id TESTS
@@ -40,10 +44,11 @@ namespace EducationalInstitution.API.Tests
             Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
 
             DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
+            mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(queryResult);
 
-            GetEducationalInstitutionByIDQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
+            GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -59,10 +64,11 @@ namespace EducationalInstitution.API.Tests
             Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
 
             DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
+            mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
                                      .ReturnsAsync(queryResult);
 
-            GetEducationalInstitutionByIDQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
+            GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -78,10 +84,11 @@ namespace EducationalInstitution.API.Tests
             Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
 
             DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
+            mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(queryResult);
 
-            GetEducationalInstitutionByIDQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
+            GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -97,10 +104,11 @@ namespace EducationalInstitution.API.Tests
             Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
 
             DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
+            mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(queryResult);
 
-            GetEducationalInstitutionByIDQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
+            GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -123,10 +131,11 @@ namespace EducationalInstitution.API.Tests
                 LocationID = testDataHelper.EduInstitutions[0].LocationID,
                 BuildingsIDs = testDataHelper.EduInstitutions[0].Buildings
             };
+            mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(queryResult);
 
-            GetEducationalInstitutionByIDQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
+            GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -142,10 +151,11 @@ namespace EducationalInstitution.API.Tests
             Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
 
             DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
+            mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(queryResult);
 
-            GetEducationalInstitutionByIDQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
+            GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -166,10 +176,11 @@ namespace EducationalInstitution.API.Tests
             DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
 
             GetEducationalInstitutionByIDQueryResult repositoryTaskResult = null;
+            mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(It.IsNotIn(testDataHelper.EduInstitutions[0].EduInstitutionID), dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(repositoryTaskResult);
 
-            GetEducationalInstitutionByIDQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
+            GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -186,10 +197,11 @@ namespace EducationalInstitution.API.Tests
             DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
 
             GetEducationalInstitutionByIDQueryResult repositoryTaskResult = null;
+            mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(It.IsNotIn(testDataHelper.EduInstitutions[0].EduInstitutionID), dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(repositoryTaskResult);
 
-            GetEducationalInstitutionByIDQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
+            GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -206,10 +218,11 @@ namespace EducationalInstitution.API.Tests
             DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
 
             GetEducationalInstitutionByIDQueryResult repositoryTaskResult = null;
+            mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(It.IsNotIn(testDataHelper.EduInstitutions[0].EduInstitutionID), dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(repositoryTaskResult);
 
-            GetEducationalInstitutionByIDQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
+            GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -226,10 +239,11 @@ namespace EducationalInstitution.API.Tests
             DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
 
             GetEducationalInstitutionByIDQueryResult repositoryTaskResult = null;
+            mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(It.IsNotIn(testDataHelper.EduInstitutions[0].EduInstitutionID), dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(repositoryTaskResult);
 
-            GetEducationalInstitutionByIDQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
+            GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
@@ -244,7 +258,7 @@ namespace EducationalInstitution.API.Tests
         public async Task GivenANullArgumentRequestToTheRequestHandlerHandleMethod_ShouldThrowArgumentNullException()
         {
             //Arrange
-            GetEducationalInstitutionByIDQueryHandler handler = new(dependenciesHelper.mockRepository.Object, dependenciesHelper.mockLogger.Object);
+            GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Assert
             await Assert.ThrowsAsync<ArgumentNullException>(() => handler.Handle(null, dependenciesHelper.cancellationToken));
@@ -261,7 +275,7 @@ namespace EducationalInstitution.API.Tests
         public void GivenANullArgumentLoggerToTheRequestHandlerConstructor_ShouldThrowArgumentNullException()
         {
             //Assert
-            Assert.Throws<ArgumentNullException>(() => new GetEducationalInstitutionByIDQueryHandler(dependenciesHelper.mockRepository.Object, null));
+            Assert.Throws<ArgumentNullException>(() => new GetEducationalInstitutionByIDQueryHandler(mockUnitOfWork.Object, null));
         }
     }
 }

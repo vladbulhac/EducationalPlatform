@@ -2,6 +2,7 @@
 using EducationaInstitutionAPI.DTOs.EducationalInstitution.In;
 using EducationaInstitutionAPI.DTOs.EducationalInstitution.Out;
 using EducationaInstitutionAPI.Repositories;
+using EducationaInstitutionAPI.Unit_of_Work;
 using EducationaInstitutionAPI.Utils;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -22,11 +23,11 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
         /// </summary>
         private readonly ILogger<GetEducationalInstitutionByIDQueryHandler> logger;
 
-        private readonly IEducationalInstitutionRepository eduRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public GetEducationalInstitutionByIDQueryHandler(IEducationalInstitutionRepository eduRepository, ILogger<GetEducationalInstitutionByIDQueryHandler> logger)
+        public GetEducationalInstitutionByIDQueryHandler(IUnitOfWork unitOfWork, ILogger<GetEducationalInstitutionByIDQueryHandler> logger)
         {
-            this.eduRepository = eduRepository ?? throw new ArgumentNullException(nameof(eduRepository));
+            this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -49,7 +50,7 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
 
             try
             {
-                var eduInstitution = await eduRepository.GetByIDAsync(request.EduInstitutionID, cancellationToken);
+                var eduInstitution = await unitOfWork.UsingEducationalInstitutionRepository().GetByIDAsync(request.EduInstitutionID, cancellationToken);
 
                 if (eduInstitution is null)
                     return new()
@@ -70,7 +71,7 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
             }
             catch (Exception e)
             {
-                logger.LogError("Could not find an Educational Institution with ID: {0}, using {1}'s method: {2}, error details => {3}", request.EduInstitutionID, eduRepository.GetType(), nameof(eduRepository.GetByIDAsync), e.Message);
+                logger.LogError("Could not find an Educational Institution with ID: {0}, using {1}'s method: {2}, error details => {3}", request.EduInstitutionID, unitOfWork.GetType(), nameof(unitOfWork.UsingEducationalInstitutionRepository), e.Message);
                 return new()
                 {
                     ResponseObject = null,
