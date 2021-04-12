@@ -2,6 +2,7 @@
 using EducationaInstitutionAPI.DTOs.EducationalInstitution.In.Queries;
 using EducationaInstitutionAPI.DTOs.EducationalInstitution.Out;
 using EducationaInstitutionAPI.Repositories;
+using EducationaInstitutionAPI.Unit_of_Work;
 using EducationaInstitutionAPI.Utils;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -24,11 +25,11 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
         /// </summary>
         private readonly ILogger<GetEducationalInstitutionFromCollectionOfIDsQueryHandler> logger;
 
-        private readonly IEducationalInstitutionRepository eduRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public GetEducationalInstitutionFromCollectionOfIDsQueryHandler(IEducationalInstitutionRepository eduRepository, ILogger<GetEducationalInstitutionFromCollectionOfIDsQueryHandler> logger)
+        public GetEducationalInstitutionFromCollectionOfIDsQueryHandler(IUnitOfWork unitOfWork, ILogger<GetEducationalInstitutionFromCollectionOfIDsQueryHandler> logger)
         {
-            this.eduRepository = eduRepository;
+            this.unitOfWork = unitOfWork;
             this.logger = logger;
         }
 
@@ -51,38 +52,43 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
             ICollection<GetEducationalInstitutionQueryResult> educationInstitutions = default;
             try
             {
-                educationInstitutions = await eduRepository.GetFromCollectionOfIDsAsync(request.EducationalInstitutionsIDs, cancellationToken);
-                if (educationInstitutions is null || educationInstitutions.Count is 0)
+                using (unitOfWork)
+                {
+                    educationInstitutions = await unitOfWork.UsingEducationalInstitutionRepository()
+                                                                .GetFromCollectionOfIDsAsync(request.EducationalInstitutionsIDs, cancellationToken);
+
+                    if (educationInstitutions is null || educationInstitutions.Count is 0)
+                        return new Response<ICollection<GetEducationalInstitutionQueryResult>>()
+                        {
+                            ResponseObject = null,
+                            OperationStatus = true,
+                            StatusCode = HttpStatusCode.NotFound,
+                            Message = "Could not find the Educational Institutions from the list of given IDs!"
+                        };
+
+                    var httpStatusCode = HttpStatusCode.OK;
+                    string message = string.Empty;
+                    if (educationInstitutions.Count < request.EducationalInstitutionsIDs.Count)
+                    {
+                        httpStatusCode = HttpStatusCode.MultiStatus;
+                        message = $"Could not retrieve all Educational Institutions with IDs: {request.EducationalInstitutionsIDs.Except(educationInstitutions.Select(eduI => eduI.EduInstitutionID).ToList())}";
+                    }
+
                     return new Response<ICollection<GetEducationalInstitutionQueryResult>>()
                     {
-                        ResponseObject = null,
+                        ResponseObject = educationInstitutions,
                         OperationStatus = true,
-                        StatusCode = HttpStatusCode.NotFound,
-                        Message = "Could not find the Educational Institutions from the list of given IDs!"
+                        StatusCode = httpStatusCode,
+                        Message = message
                     };
-
-                var httpStatusCode = HttpStatusCode.OK;
-                string message = string.Empty;
-                if (educationInstitutions.Count < request.EducationalInstitutionsIDs.Count)
-                {
-                    httpStatusCode = HttpStatusCode.MultiStatus;
-                    message = $"Could not retrieve all Educational Institutions with IDs: {request.EducationalInstitutionsIDs.Except(educationInstitutions.Select(eduI => eduI.EduInstitutionID).ToList())}";
                 }
-
-                return new Response<ICollection<GetEducationalInstitutionQueryResult>>()
-                {
-                    ResponseObject = educationInstitutions,
-                    OperationStatus = true,
-                    StatusCode = httpStatusCode,
-                    Message = message
-                };
             }
             catch (Exception e)
             {
                 if (educationInstitutions.Count > 0)
                 {
                     var eduInstitutionsIDsNotFound = request.EducationalInstitutionsIDs.Except(educationInstitutions.Select(eduI => eduI.EduInstitutionID).ToList());
-                    logger.LogError("Could not retrieve all Educational Institutions with IDs: {0}, using {1}'s method {2}, error details => {3}", request.EducationalInstitutionsIDs.Except(educationInstitutions.Select(eduI => eduI.EduInstitutionID).ToList()), eduRepository.GetType(), nameof(eduRepository.GetFromCollectionOfIDsAsync), e.Message);
+                    logger.LogError("Could not retrieve all Educational Institutions with IDs: {0}, using {1}'s method {2}, error details => {3}", request.EducationalInstitutionsIDs.Except(educationInstitutions.Select(eduI => eduI.EduInstitutionID).ToList()), unitOfWork.GetType(), nameof(unitOfWork.UsingEducationalInstitutionRepository), e.Message);
                     return new Response<ICollection<GetEducationalInstitutionQueryResult>>()
                     {
                         ResponseObject = educationInstitutions,
@@ -93,7 +99,7 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
                 }
                 else
                 {
-                    logger.LogError("Could not retrieve any Educational Institutions from the following list of IDs:{0}, using {1}'s method {2}, error details => {3}", request.EducationalInstitutionsIDs, eduRepository.GetType(), nameof(eduRepository.GetFromCollectionOfIDsAsync), e.Message);
+                    logger.LogError("Could not retrieve any Educational Institutions from the following list of IDs:{0}, using {1}'s method {2}, error details => {3}", request.EducationalInstitutionsIDs, unitOfWork.GetType(), nameof(unitOfWork.UsingEducationalInstitutionRepository), e.Message);
                     return new Response<ICollection<GetEducationalInstitutionQueryResult>>()
                     {
                         ResponseObject = null,
