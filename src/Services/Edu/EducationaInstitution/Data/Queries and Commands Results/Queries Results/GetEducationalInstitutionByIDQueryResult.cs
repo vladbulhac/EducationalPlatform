@@ -13,8 +13,8 @@ namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.Out
         public string Description { get; init; }
         public string LocationID { get; init; }
         public DateTime JoinDate { get; init; }
-        public EduInstitution ParentInstitution { get; init; }
+        public Data.EducationalInstitution ParentInstitution { get; init; }
         public ICollection<EduInstitutionBuilding> BuildingsIDs { get; init; }
-        public ICollection<EduInstitution> ChildInstitutions { get; init; }
+        public ICollection<Data.EducationalInstitution> ChildInstitutions { get; init; }
     }
 }

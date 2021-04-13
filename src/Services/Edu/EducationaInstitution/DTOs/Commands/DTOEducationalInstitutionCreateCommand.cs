@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.In.Commands
 {
     /// <summary>
-    /// Encapsulates the body of a create <see cref="EduInstitution>"/> request
+    /// Encapsulates the body of a create <see cref="Data.EducationalInstitution>"/> request
     /// </summary>
     public class DTOEducationalInstitutionCreateCommand : IRequest<Response<EducationalInstitutionCommandResult>>
     {

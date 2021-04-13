@@ -338,7 +338,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAnEduInstitution_ToCreateAsyncMethod_ShouldAddItTotheCollectionOfEntities()
         {
             //Arrange
-            EduInstitution newEducationalInstitution = new(
+            EducationaInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(
                 "Test_Name",
                 "Test_Description",
                 "Test_LocationID",
@@ -400,7 +400,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToDeleteAsyncMethod_ShouldReturnTrue()
         {
             //Arrange
-            EduInstitution newEducationalInstitution = new(
+            EducationaInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(
                 "Test_Name",
                 "Test_Description",
                 "Test_LocationID",
@@ -425,7 +425,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToDeleteAsyncMethod_ShouldRemoveAnEntity()
         {
             //Arrange
-            EduInstitution newEducationalInstitution = new(
+            EducationaInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(
                 "Test_Name",
                 "Test_Description",
                 "Test_LocationID",

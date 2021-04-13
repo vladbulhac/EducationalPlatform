@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
 {
     /// <summary>
-    /// Defines a method that handles the operation of getting <see cref="EduInstitution"/>s based on a collection of ids
+    /// Defines a method that handles the operation of getting <see cref="EducationalInstitution"/>s based on a collection of ids
     /// </summary>
     public class GetAllEducationalInstitutionsFromCollectionOfIDsQueryHandler : IRequestHandler<DTOEducationalInstitutionsFromCollectionOfIDsQuery, Response<ICollection<GetEducationalInstitutionQueryResult>>>
     {
@@ -34,16 +34,16 @@ namespace EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution
         }
 
         /// <summary>
-        /// Tries to get <see cref="EduInstitution"/>s based on the given collection of ids
+        /// Tries to get <see cref="EducationalInstitution"/>s based on the given collection of ids
         /// </summary>
-        /// <param name="request">Contains the data necessary to get the <see cref="EduInstitution"/>s</param>
+        /// <param name="request">Contains the data necessary to get the <see cref="EducationalInstitution"/>s</param>
         /// <param name="cancellationToken">Cancels the operation ________</param>
         /// <returns>
         /// An <see cref="Response{ResponseType}">object</see> with HttpStatusCode:
         /// <list type="bullet">
         /// <item><see cref="HttpStatusCode.OK">if operation is successful</see></item>
-        /// <item><see cref="HttpStatusCode.MultiStatus">if not all <see cref="EduInstitution"/> have been found from the provided ids</see></item>
-        /// <item><see cref="HttpStatusCode.NotFound">if no <see cref="EduInstitution"/> has been found from the provided ids</see></item>
+        /// <item><see cref="HttpStatusCode.MultiStatus">if not all <see cref="EducationalInstitution"/> have been found from the provided ids</see></item>
+        /// <item><see cref="HttpStatusCode.NotFound">if no <see cref="EducationalInstitution"/> has been found from the provided ids</see></item>
         /// <item><see cref="HttpStatusCode.InternalServerError">if the entity could not be inserted into the database</see></item>
         /// </list>
         /// </returns>

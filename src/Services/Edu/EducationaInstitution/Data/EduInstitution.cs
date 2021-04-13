@@ -6,7 +6,7 @@ namespace EducationaInstitutionAPI.Data
     /// <summary>
     /// Defines the properties of an Educational Institution
     /// </summary>
-    public class EduInstitution
+    public class EducationalInstitution
     {
         public Guid EduInstitutionID { get; init; }
         public string Name { get; private set; }
@@ -25,40 +25,40 @@ namespace EducationaInstitutionAPI.Data
         /// <para>For example an university can have multiple faculties that are part of it</para>
         /// OPTIONAL
         /// </remarks>
-        public ICollection<EduInstitution> ChildInstitutions { get; private set; }
+        public ICollection<EducationalInstitution> ChildInstitutions { get; private set; }
 
         ///<summary>Contains the Educational Institution that is the parent of this entity</summary>
         /// <remarks>
         /// <para>For example a faculty can have an university as a parent</para>
         /// OPTIONAL
         /// </remarks>
-        public EduInstitution ParentInstitution { get; private set; }
+        public EducationalInstitution ParentInstitution { get; private set; }
 
         public Access EntityAccess { get; private set; }
 
-        public EduInstitution(string name, string description, string locationID, EduInstitution parentInstitution = null)
+        public EducationalInstitution(string name, string description, string locationID, EducationalInstitution parentInstitution = null)
         {
             Name = name;
             Description = description;
             EduInstitutionID = Guid.NewGuid();
             LocationID = locationID ?? "LOCATION_UNKNOWN";
             Buildings = new HashSet<EduInstitutionBuilding>();
-            ChildInstitutions = new HashSet<EduInstitution>();
+            ChildInstitutions = new HashSet<EducationalInstitution>();
             ParentInstitution = parentInstitution;
             EntityAccess = new();
             JoinDate = DateTime.UtcNow;
         }
 
-        public EduInstitution(string name, string description, string locationID, ICollection<string> buildingsIDs, EduInstitution parentInstitution = null) : this(name, description, locationID, parentInstitution)
+        public EducationalInstitution(string name, string description, string locationID, ICollection<string> buildingsIDs, EducationalInstitution parentInstitution = null) : this(name, description, locationID, parentInstitution)
         {
             CreateAndAddABuilding(buildingsIDs);
         }
 
-        public EduInstitution()
+        public EducationalInstitution()
         {
         }
 
-        public void AddChildInstitutions(ICollection<EduInstitution> childInstitutions)
+        public void AddChildInstitutions(ICollection<EducationalInstitution> childInstitutions)
         {
             foreach (var childInstitution in childInstitutions)
                 ChildInstitutions.Add(childInstitution);

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitution_Commands
 {
     /// <summary>
-    /// Defines a method that handles the update of an <see cref="EduInstitution"/>'s location and buildings
+    /// Defines a method that handles the update of an <see cref="EducationalInstitution"/>'s location and buildings
     /// </summary>
     public class UpdateEducationalInstitutionLocationCommandHandler : IRequestHandler<DTOEducationalInstitutionLocationUpdateCommand, Response<EducationalInstitutionCommandResult>>
     {
@@ -32,15 +32,15 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitu
         }
 
         /// <summary>
-        /// Tries to update the locationID and/or the BuildingsIDs of an <see cref="EduInstitution"/> entity
+        /// Tries to update the locationID and/or the BuildingsIDs of an <see cref="EducationalInstitution"/> entity
         /// </summary>
-        /// <param name="request">Contains <see cref="EduInstitution.LocationID"/> and/or <see cref="EduInstitution.Buildings"/></param>
+        /// <param name="request">Contains <see cref="EducationalInstitution.LocationID"/> and/or <see cref="EducationalInstitution.Buildings"/></param>
         /// <param name="cancellationToken">Cancels the operation ____________</param>
         /// <returns>
         /// An <see cref="Response{ResponseType}">object</see> with HttpStatusCode:
         /// <list type="bullet">
         /// <item><see cref="HttpStatusCode.OK">if operation is successful</see></item>
-        /// <item><see cref="HttpStatusCode.NotFound">if no <see cref="EduInstitution"/> has been found for the provided id</see></item>
+        /// <item><see cref="HttpStatusCode.NotFound">if no <see cref="EducationalInstitution"/> has been found for the provided id</see></item>
         /// <item><see cref="HttpStatusCode.InternalServerError">if the entity could not be updated</see></item>
         /// </list>
         /// </returns>

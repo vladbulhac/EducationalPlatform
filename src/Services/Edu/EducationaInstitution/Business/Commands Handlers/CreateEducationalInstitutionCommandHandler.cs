@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitution_Commands
 {
     /// <summary>
-    /// Defines a method that handles the creation of an <see cref="EduInstitution"/> entity
+    /// Defines a method that handles the creation of an <see cref="EducationalInstitution"/> entity
     /// </summary>
     public class CreateEducationalInstitutionCommandHandler : IRequestHandler<DTOEducationalInstitutionCreateCommand, Response<EducationalInstitutionCommandResult>>
     {
@@ -32,9 +32,9 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitu
         }
 
         /// <summary>
-        /// Tries to create and save to the database a new <see cref="EduInstitution"/> entity
+        /// Tries to create and save to the database a new <see cref="EducationalInstitution"/> entity
         /// </summary>
-        /// <param name="request">Contains <see cref="EduInstitution"/> data that is to be added to the database</param>
+        /// <param name="request">Contains <see cref="EducationalInstitution"/> data that is to be added to the database</param>
         /// <param name="cancellationToken">Cancels the operation ________</param>
         /// <returns>
         /// An <see cref="Response{ResponseType}">object</see> with HttpStatusCode:
@@ -51,7 +51,7 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitu
             {
                 using (unitOfWork)
                 {
-                    EduInstitution newEducationalInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs);
+                    EducationalInstitution newEducationalInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs);
                     await unitOfWork.UsingEducationalInstitutionRepository().CreateAsync(newEducationalInstitution, cancellationToken);
                     await unitOfWork.SaveChangesAsync(cancellationToken);
 

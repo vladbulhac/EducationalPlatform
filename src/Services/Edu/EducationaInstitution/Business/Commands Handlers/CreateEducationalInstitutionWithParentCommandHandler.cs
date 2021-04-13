@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitution_Commands
 {
     /// <summary>
-    /// Defines a method that handles the creation of an <see cref="EduInstitution"/> entity that has a parent institution
+    /// Defines a method that handles the creation of an <see cref="EducationalInstitution"/> entity that has a parent institution
     /// </summary>
     public class CreateEducationalInstitutionWithParentCommandHandler : IRequestHandler<DTOEducationalInstitutionWithParentCreateCommand, Response<EducationalInstitutionCommandResult>>
     {
@@ -32,15 +32,15 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitu
         }
 
         /// <summary>
-        /// Tries to create and save to the database a new <see cref="EduInstitution"/> entity
+        /// Tries to create and save to the database a new <see cref="EducationalInstitution"/> entity
         /// </summary>
-        /// <param name="request">Contains <see cref="EduInstitution"/> data that is to be added to the database</param>
+        /// <param name="request">Contains <see cref="EducationalInstitution"/> data that is to be added to the database</param>
         /// <param name="cancellationToken">Cancels the operation ________</param>
         /// <returns>
         /// An <see cref="Response{ResponseType}">object</see> with HttpStatusCode:
         /// <list type="bullet">
         /// <item><see cref="HttpStatusCode.Created">if operation is successful</see></item>
-        /// <item><see cref="HttpStatusCode.MultiStatus">if the <see cref="EduInstitution">Parent Institution</see> has not been found</see></item>
+        /// <item><see cref="HttpStatusCode.MultiStatus">if the <see cref="EducationalInstitution">Parent Institution</see> has not been found</see></item>
         /// <item><see cref="HttpStatusCode.InternalServerError">if the entity could not be inserted into the database</see></item>
         /// </list>
         /// </returns>
@@ -55,7 +55,7 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitu
                     var parentInstitution = await unitOfWork.UsingEducationalInstitutionRepository()
                                                             .GetEntityByIDAsync(request.ParentInstitutionID, cancellationToken);
 
-                    EduInstitution newEducationalInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs, parentInstitution);
+                    EducationalInstitution newEducationalInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs, parentInstitution);
                     await unitOfWork.UsingEducationalInstitutionRepository()
                                     .CreateAsync(newEducationalInstitution, cancellationToken);
                     await unitOfWork.SaveChangesAsync(cancellationToken);

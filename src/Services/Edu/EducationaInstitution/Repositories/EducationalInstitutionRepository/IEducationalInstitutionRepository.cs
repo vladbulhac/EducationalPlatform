@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace EducationaInstitutionAPI.Repositories
 {
     /// <summary>
-    /// Defines specific operations over the set of <see cref="EduInstitution"/> entities
+    /// Defines specific operations over the set of <see cref="EducationalInstitution"/> entities
     /// </summary>
-    public interface IEducationalInstitutionRepository : ICommandsRepository<EduInstitution>
+    public interface IEducationalInstitutionRepository : ICommandsRepository<EducationalInstitution>
     {
         /// <summary>
         /// Gets an entity, including its related entities, based on a unique identifier if it exists in the database

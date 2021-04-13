@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace EducationaInstitutionAPI.Business.Commands_Handlers
 {
     /// <summary>
-    /// Defines a method that handles the deletion of an <see cref="EduInstitution"/> entity
+    /// Defines a method that handles the deletion of an <see cref="EducationalInstitution"/> entity
     /// </summary>
     public class DeleteEducationalInstitutionCommandHandler : IRequestHandler<DTOEducationalInstitutionDeleteCommand, Response<DeleteEducationalInstitutionCommandResult>>
     {
@@ -31,15 +31,15 @@ namespace EducationaInstitutionAPI.Business.Commands_Handlers
         }
 
         /// <summary>
-        /// Schedules an <see cref="EduInstitution"/> entity for deletion
+        /// Schedules an <see cref="EducationalInstitution"/> entity for deletion
         /// </summary>
-        /// <param name="request">Contains a <see cref="EduInstitution.EduInstitutionID"/></param>
+        /// <param name="request">Contains a <see cref="EducationalInstitution.EduInstitutionID"/></param>
         /// <param name="cancellationToken">Cancels the operation ________</param>
         /// <returns>
         /// An <see cref="Response{ResponseType}">object</see> with HttpStatusCode:
         /// <list type="bullet">
         /// <item><see cref="HttpStatusCode.Accepted">if the entity has been scheduled for deletion</see></item>
-        /// <item><see cref="HttpStatusCode.NotFound">if the <see cref="EduInstitution"/> has not been found</see></item>
+        /// <item><see cref="HttpStatusCode.NotFound">if the <see cref="EducationalInstitution"/> has not been found</see></item>
         /// <item><see cref="HttpStatusCode.InternalServerError">if the schedule for deletion could not be saved in the database</see></item>
         /// </list>
         /// </returns>

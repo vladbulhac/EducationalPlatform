@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace EducationaInstitutionAPI.Business.Queries_Handlers.Queries_on_EducationalInstitution
 {
     /// <summary>
-    /// Defines a method that handles the operation of getting an <see cref="EduInstitution"/> by LocationID
+    /// Defines a method that handles the operation of getting an <see cref="EducationalInstitution"/> by LocationID
     /// </summary>
     public class GetAllEducationalInstitutionsByLocationQueryHandler : IRequestHandler<DTOEducationalInstitutionByLocationQuery, Response<GetAllEducationalInstitutionsByLocationQueryResult>>
     {
@@ -32,15 +32,15 @@ namespace EducationaInstitutionAPI.Business.Queries_Handlers.Queries_on_Educatio
         }
 
         /// <summary>
-        /// Tries to get an <see cref="EduInstitution"/> by LocationID
+        /// Tries to get an <see cref="EducationalInstitution"/> by LocationID
         /// </summary>
-        /// <param name="request">Contains the data necessary to get an <see cref="EduInstitution"/></param>
+        /// <param name="request">Contains the data necessary to get an <see cref="EducationalInstitution"/></param>
         /// <param name="cancellationToken">Cancels the operation _________</param>
         /// <returns>
         /// An <see cref="Response{ResponseType}">object</see> with HttpStatusCode:
         /// <list type="bullet">
         /// <item><see cref="HttpStatusCode.OK">if operation is successful</see></item>
-        /// <item><see cref="HttpStatusCode.NotFound">if no <see cref="EduInstitution"/> has been found for the provided id</see></item>
+        /// <item><see cref="HttpStatusCode.NotFound">if no <see cref="EducationalInstitution"/> has been found for the provided id</see></item>
         /// <item><see cref="HttpStatusCode.InternalServerError">if the entity could not be inserted into the database</see></item>
         /// </list>
         /// </returns>

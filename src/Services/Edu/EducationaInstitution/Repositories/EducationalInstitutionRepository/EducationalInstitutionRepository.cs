@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace EducationaInstitutionAPI.Repositories
 {
     /// <summary>
-    /// Contains concrete implementations of the methods that execute Queries and Commands over the <see cref="EduInstitution"/> entities
+    /// Contains concrete implementations of the methods that execute Queries and Commands over the <see cref="EducationalInstitution"/> entities
     /// </summary>
     public class EducationalInstitutionRepository : IEducationalInstitutionRepository
     {
@@ -22,7 +22,7 @@ namespace EducationaInstitutionAPI.Repositories
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task CreateAsync(EduInstitution data, CancellationToken cancellationToken = default) => await context.EducationalInstitutions.AddAsync(data, cancellationToken);
+        public async Task CreateAsync(EducationalInstitution data, CancellationToken cancellationToken = default) => await context.EducationalInstitutions.AddAsync(data, cancellationToken);
 
         public async Task<bool> DeleteAsync(Guid ID, CancellationToken cancellationToken = default)
         {
@@ -52,7 +52,7 @@ namespace EducationaInstitutionAPI.Repositories
                                  .ToListAsync(cancellationToken);
         }
 
-        public async Task<EduInstitution> GetEntityByIDAsync(Guid ID, CancellationToken cancellationToken = default)
+        public async Task<EducationalInstitution> GetEntityByIDAsync(Guid ID, CancellationToken cancellationToken = default)
         {
             return await context.EducationalInstitutions
                                  .SingleOrDefaultAsync(ei => ei.EduInstitutionID == ID, cancellationToken);
@@ -112,7 +112,7 @@ namespace EducationaInstitutionAPI.Repositories
                                  .ToListAsync(cancellationToken);
         }
 
-        public async Task<bool> UpdateAsync(EduInstitution data, CancellationToken cancellationToken = default)
+        public async Task<bool> UpdateAsync(EducationalInstitution data, CancellationToken cancellationToken = default)
         {
             var educationalInstitution = await context.EducationalInstitutions
                                                       .SingleOrDefaultAsync(eduI => eduI.EduInstitutionID == data.EduInstitutionID, cancellationToken);
