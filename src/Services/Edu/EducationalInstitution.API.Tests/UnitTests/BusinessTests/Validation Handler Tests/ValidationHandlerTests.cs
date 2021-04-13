@@ -1142,6 +1142,325 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
 
         #endregion Request of type DTOEducationalInstitutionWithParentCreateCommand TESTS
 
+        #region Request of type DTOEducationalInstitutionUpdateCommand TESTS
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionUpdateCommand_ShouldReturnTrue()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateName = true,
+                Name = "New_Name",
+                UpdateDescription = true,
+                Description = "New_Description",
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out _);
+
+            //Assert
+            Assert.True(validationResult);
+        }
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithFalseUpdateNameAndEmptyName_ShouldReturnTrue()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateName = false,
+                Name = string.Empty,
+                UpdateDescription = true,
+                Description = "New_Description",
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out _);
+
+            //Assert
+            Assert.True(validationResult);
+        }
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithFalseUpdateDescriptionAndEmptyDescription_ShouldReturnTrue()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateName = true,
+                Name = "New_Name",
+                UpdateDescription = false,
+                Description = string.Empty,
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out _);
+
+            //Assert
+            Assert.True(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithFalseUpdateDescriptionAndFalseUpdateName_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateName = false,
+                Name = string.Empty,
+                UpdateDescription = false,
+                Description = string.Empty,
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out _);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithFalseUpdateDescriptionAndFalseUpdateName_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateName = false,
+                Name = string.Empty,
+                UpdateDescription = false,
+                Description = string.Empty,
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property UpdateDescription failed validation. Error was: Both update fields are set to false!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithDefaultEducationalInstituionID_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionUpdateCommand()
+            {
+                EduInstitutionID = default,
+                UpdateName = true,
+                Name = "New_Name",
+                UpdateDescription = true,
+                Description = "New_Description",
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithDefaultEducationalInstituionID_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionUpdateCommand()
+            {
+                EduInstitutionID = default,
+                UpdateName = true,
+                Name = "New_Name",
+                UpdateDescription = true,
+                Description = "New_Description",
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property EduInstitutionID failed validation. Error was: Edu Institution ID was empty or null!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithEmptyName_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateName = true,
+                Name = string.Empty,
+                UpdateDescription = true,
+                Description = "New_Description",
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithEmptyName_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateName = true,
+                Name = string.Empty,
+                UpdateDescription = true,
+                Description = "New_Description",
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property Name failed validation. Error was: Name was empty or null!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithOutOfBoundsNameLength_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateName = true,
+                Name = "N",
+                UpdateDescription = true,
+                Description = "New_Description",
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithOutOfBoundsNameLength_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateName = true,
+                Name = "N",
+                UpdateDescription = true,
+                Description = "New_Description",
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property Name failed validation. Error was: Name's length was not between 2-128 characters!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithEmptyDescription_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateName = true,
+                Name = "New_Name",
+                UpdateDescription = true,
+                Description = string.Empty,
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithEmptyDescription_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateName = true,
+                Name = "New_Name",
+                UpdateDescription = true,
+                Description = string.Empty,
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property Description failed validation. Error was: Description was empty or null!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithOutOfBoundsDescriptionLength_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateName = true,
+                Name = "New_Name",
+                UpdateDescription = true,
+                Description = "N",
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithOutOfBoundsDescriptionLength_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateName = true,
+                Name = "New_Name",
+                UpdateDescription = true,
+                Description = "N",
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property Description failed validation. Error was: Description's length was not between 2-500 characters!", validationErrors);
+        }
+
+        #endregion Request of type DTOEducationalInstitutionUpdateCommand TESTS
+
         #region Request of type DTOEducationalInstitutionLocationUpdateCommand TESTS
 
         [Fact]
@@ -1171,11 +1490,11 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EduInstitutionID = default,
                 UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 UpdateBuildings = true,
-                BuildingsIDs = new List<string>() { string.Empty }
+                BuildingsIDs = new List<string>() { "10Fc4a7f1E00f1BDebAe4509" }
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
@@ -1192,11 +1511,11 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EduInstitutionID = default,
                 UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 UpdateBuildings = true,
-                BuildingsIDs = new List<string>() { string.Empty }
+                BuildingsIDs = new List<string>() { "10Fc4a7f1E00f1BDebAe4509" }
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
@@ -1204,7 +1523,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             validationHandler.IsRequestValid(request, out string validationErrors);
 
             //Assert
-            Assert.Equal(" Property BuildingsIDs[0] failed validation. Error was: BuildingID was empty or null!", validationErrors);
+            Assert.Equal(" Property EduInstitutionID failed validation. Error was: Edu Institution ID was empty or null!", validationErrors);
         }
 
         [Fact]
