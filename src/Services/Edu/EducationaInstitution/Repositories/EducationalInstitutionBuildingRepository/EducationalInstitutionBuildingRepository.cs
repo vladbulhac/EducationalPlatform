@@ -2,7 +2,6 @@
 using EducationaInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;

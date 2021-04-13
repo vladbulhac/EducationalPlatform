@@ -55,7 +55,7 @@ namespace EducationaInstitutionAPI.Business.Validation_Handler
             else
             if (typeof(T) == typeof(DTOEducationalInstitutionLocationUpdateCommand))
             {
-                return new DTOEducationalInstitutionEntireLocationUpdateCommandValidator() as AbstractValidator<T>;
+                return new DTOEducationalInstitutionLocationUpdateCommandValidator() as AbstractValidator<T>;
             }
             else
             if (typeof(T) == typeof(DTOEducationalInstitutionDeleteCommand))

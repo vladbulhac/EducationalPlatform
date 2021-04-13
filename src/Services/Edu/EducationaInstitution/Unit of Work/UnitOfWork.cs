@@ -1,7 +1,6 @@
 ﻿using EducationaInstitutionAPI.Data;
 using EducationaInstitutionAPI.Repositories;
 using EducationaInstitutionAPI.Repositories.EducationalInstitutionBuildingRepository;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

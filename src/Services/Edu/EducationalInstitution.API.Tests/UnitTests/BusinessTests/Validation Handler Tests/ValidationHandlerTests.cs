@@ -1142,16 +1142,18 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
 
         #endregion Request of type DTOEducationalInstitutionWithParentCreateCommand TESTS
 
-        #region Request of type DTOEducationalInstitutionEntireLocationUpdateCommand TESTS
+        #region Request of type DTOEducationalInstitutionLocationUpdateCommand TESTS
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionEntireLocationUpdateCommand_ShouldReturnTrue()
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_ShouldReturnTrue()
         {
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
                 EduInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
@@ -1164,13 +1166,15 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionEntireLocationUpdateCommand_WithDefaultEduInstitutionID_ShouldReturnFalse()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithDefaultEduInstitutionID_ShouldReturnFalse()
         {
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
                 EduInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
                 BuildingsIDs = new List<string>() { string.Empty }
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
@@ -1183,13 +1187,15 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionEntireLocationUpdateCommand_WithDefaultEduInstitutionID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithDefaultEduInstitutionID_ShouldReturnValidationErrors()
         {
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
                 EduInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
                 BuildingsIDs = new List<string>() { string.Empty }
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
@@ -1202,13 +1208,15 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionEntireLocationUpdateCommand_WithEmptyBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyBuildingID_ShouldReturnFalse()
         {
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
                 EduInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
                 BuildingsIDs = new List<string>() { string.Empty }
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
@@ -1221,13 +1229,15 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionEntireLocationUpdateCommand_WithEmptyBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
                 EduInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
                 BuildingsIDs = new List<string>() { string.Empty }
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
@@ -1240,13 +1250,15 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionEntireLocationUpdateCommand_WithEmptyLocationID_ShouldReturnFalse()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyLocationID_ShouldReturnFalse()
         {
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
                 EduInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
                 LocationID = string.Empty,
+                UpdateBuildings = true,
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4503" }
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
@@ -1259,13 +1271,15 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionEntireLocationUpdateCommand_WithEmptyLocationID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyLocationID_ShouldReturnValidationErrors()
         {
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
                 EduInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
                 LocationID = string.Empty,
+                UpdateBuildings = true,
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4503" }
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
@@ -1277,7 +1291,135 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             Assert.Equal(" Property LocationID failed validation. Error was: Location ID was empty or null!", validationErrors);
         }
 
-        #endregion Request of type DTOEducationalInstitutionEntireLocationUpdateCommand TESTS
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyBuildings_ShouldReturnTrue()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = false,
+                BuildingsIDs = default
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.True(validationResult);
+        }
+
+        /* ---THROWS Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')---
+         * ---WHEN UpdateLocation is false---
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyLocationID_ShouldReturnTrue()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateLocation = false,
+                LocationID = string.Empty,
+                UpdateBuildings = true,
+                BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509" }
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.True(validationResult);
+        }*/
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithDuplicateBuildingsIDs_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509", "10Fc4a7f1e00f1BDebAe4509" }
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithDuplicateBuildingsIDs_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509", "10Fc4a7f1e00f1BDebAe4509" }
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property BuildingsIDs failed validation. Error was: BuildingsIDs can't contain duplicates!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithFalseUpdateLocationAndUpdateBuildings_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateLocation = false,
+                LocationID = string.Empty,
+                UpdateBuildings = false,
+                BuildingsIDs = default
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithFalseUpdateLocationAndUpdateBuildings_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EduInstitutionID = Guid.NewGuid(),
+                UpdateLocation = false,
+                LocationID = string.Empty,
+                UpdateBuildings = false,
+                BuildingsIDs = default
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property UpdateBuildings failed validation. Error was: Both location and buildings update fields are false!", validationErrors);
+        }
+
+        #endregion Request of type DTOEducationalInstitutionLocationUpdateCommand TESTS
 
         #region Request of Type DTOEducationalInstiutionDeleteCommand TESTS
 

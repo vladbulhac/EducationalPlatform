@@ -1,6 +1,4 @@
-﻿using EducationaInstitutionAPI.Data;
-using EducationaInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
-using System;
+﻿using EducationaInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
 using System.Collections.Generic;
 
 namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.Out
