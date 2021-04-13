@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace EducationaInstitutionAPI.Repositories.EducationalInstitutionBuildingRepository
 {
     /// <summary>
-    /// Contains concrete implementations of the methods that execute Queries and Commands over the <see cref="EduInstitutionBuilding"/> entities
+    /// Contains concrete implementations of the methods that execute Queries and Commands over the <see cref="EducationalInstitutionBuilding"/> entities
     /// </summary>
     public class EducationalInstitutionBuildingRepository : IEducationalInstitutionBuildingRepository
     {

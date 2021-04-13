@@ -18,7 +18,7 @@ namespace EducationaInstitutionAPI.Data
         public DateTime JoinDate { get; init; }
 
         public string LocationID { get; private set; }
-        public ICollection<EduInstitutionBuilding> Buildings { get; private set; }
+        public ICollection<EducationalInstitutionBuilding> Buildings { get; private set; }
 
         ///<summary>Contains the Educational Institutions that are part of the current Educational Institution</summary>
         /// <remarks>
@@ -42,7 +42,7 @@ namespace EducationaInstitutionAPI.Data
             Description = description;
             EduInstitutionID = Guid.NewGuid();
             LocationID = locationID ?? "LOCATION_UNKNOWN";
-            Buildings = new HashSet<EduInstitutionBuilding>();
+            Buildings = new HashSet<EducationalInstitutionBuilding>();
             ChildInstitutions = new HashSet<EducationalInstitution>();
             ParentInstitution = parentInstitution;
             EntityAccess = new();
@@ -87,7 +87,7 @@ namespace EducationaInstitutionAPI.Data
 
         private void CreateAndAddABuilding(string buildingID)
         {
-            EduInstitutionBuilding newBuilding = new(buildingID, this.EduInstitutionID);
+            EducationalInstitutionBuilding newBuilding = new(buildingID, this.EduInstitutionID);
             Buildings.Add(newBuilding);
         }
 

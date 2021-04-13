@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace EducationaInstitutionAPI.Data.Contexts.Entities_Type_Configuration
 {
     /// <summary>
-    /// Contains the configuration of the <see cref="EduInstitutionBuilding"/> model
+    /// Contains the configuration of the <see cref="EducationalInstitutionBuilding"/> model
     /// </summary>
-    public class EduInstitutionBuildingEntityTypeConfiguration : IEntityTypeConfiguration<EduInstitutionBuilding>
+    public class EduInstitutionBuildingEntityTypeConfiguration : IEntityTypeConfiguration<EducationalInstitutionBuilding>
     {
-        public void Configure(EntityTypeBuilder<EduInstitutionBuilding> builder)
+        public void Configure(EntityTypeBuilder<EducationalInstitutionBuilding> builder)
         {
             builder.OwnsOne(ei => ei.EntityAccess, accessibility =>
             {

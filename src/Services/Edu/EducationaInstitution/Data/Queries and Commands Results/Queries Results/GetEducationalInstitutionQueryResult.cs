@@ -13,6 +13,6 @@ namespace EducationaInstitutionAPI.DTOs.EducationalInstitution.Out
         public string Name { get; init; }
         public string Description { get; init; }
         public string LocationID { get; init; }
-        public ICollection<EduInstitutionBuilding> BuildingsIDs { get; init; }
+        public ICollection<EducationalInstitutionBuilding> BuildingsIDs { get; init; }
     }
 }

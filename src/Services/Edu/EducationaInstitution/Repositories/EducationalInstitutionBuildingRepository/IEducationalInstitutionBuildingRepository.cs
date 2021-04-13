@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace EducationaInstitutionAPI.Repositories.EducationalInstitutionBuildingRepository
 {
     /// <summary>
-    /// Defines specific operations over the set of <see cref="EduInstitutionBuilding"/> entities
+    /// Defines specific operations over the set of <see cref="EducationalInstitutionBuilding"/> entities
     /// </summary>
     public interface IEducationalInstitutionBuildingRepository
     {

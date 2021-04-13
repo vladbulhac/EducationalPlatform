@@ -9,7 +9,7 @@ namespace EducationaInstitutionAPI.Data
     public class DataContext : DbContext
     {
         public virtual DbSet<EducationalInstitution> EducationalInstitutions { get; set; }
-        public virtual DbSet<EduInstitutionBuilding> EducationalInstitutionsBuildings { get; set; }
+        public virtual DbSet<EducationalInstitutionBuilding> EducationalInstitutionsBuildings { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
@@ -21,7 +21,7 @@ namespace EducationaInstitutionAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            new EduInstitutionBuildingEntityTypeConfiguration().Configure(modelBuilder.Entity<EduInstitutionBuilding>());
+            new EduInstitutionBuildingEntityTypeConfiguration().Configure(modelBuilder.Entity<EducationalInstitutionBuilding>());
             new EduInstitutionEntityTypeConfiguration().Configure(modelBuilder.Entity<EducationalInstitution>());
         }
     }
