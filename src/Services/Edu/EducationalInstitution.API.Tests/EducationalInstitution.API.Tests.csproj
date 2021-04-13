@@ -33,6 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EducationaInstitution\EducationaInstitution.API.csproj" />
+    <ProjectReference Include="..\EducationalInstitution.API\EducationalInstitution.API.csproj" />
   </ItemGroup>
 </Project>

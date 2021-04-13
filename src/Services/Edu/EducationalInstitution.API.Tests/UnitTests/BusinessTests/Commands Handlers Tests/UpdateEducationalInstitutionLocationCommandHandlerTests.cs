@@ -1,9 +1,8 @@
-﻿using EducationaInstitutionAPI.Business.Commands_Handlers.EducationalInstitution_Commands;
-using EducationaInstitutionAPI.Data.Helpers.Queries_and_Commands_Results.Commands_Results;
-using EducationaInstitutionAPI.DTOs.EducationalInstitution.In.Commands;
-using EducationaInstitutionAPI.Unit_of_Work;
-using EducationaInstitutionAPI.Utils;
-using EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.EducationalInstitutionTests;
+﻿using EducationalInstitutionAPI.Business.Commands_Handlers;
+using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Commands_Results;
+using EducationalInstitutionAPI.DTOs;
+using EducationalInstitutionAPI.DTOs.Commands;
+using EducationalInstitutionAPI.Unit_of_Work;
 using Moq;
 using System;
 using System.Collections.Generic;

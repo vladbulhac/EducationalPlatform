@@ -1,5 +1,4 @@
-﻿using EducationaInstitutionAPI.Data;
-using EducationaInstitutionAPI.Utils;
+﻿using EducationalInstitutionAPI.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,7 +11,7 @@ namespace EducationalInstitution.API.Tests.UnitTests
     /// </summary>
     public class TestDataFromJSONParser
     {
-        public IList<EducationaInstitutionAPI.Data.EducationalInstitution> EduInstitutions { get; set; }
+        public IList<EducationalInstitutionAPI.Data.EducationalInstitution> EduInstitutions { get; set; }
 
         public TestDataFromJSONParser()
         {
@@ -20,12 +19,12 @@ namespace EducationalInstitution.API.Tests.UnitTests
             EduInstitutions = GetEducationalInstitutionsFromJSONFile(testDataPath);
         }
 
-        private static IList<EducationaInstitutionAPI.Data.EducationalInstitution> GetEducationalInstitutionsFromJSONFile(string path)
+        private static IList<EducationalInstitutionAPI.Data.EducationalInstitution> GetEducationalInstitutionsFromJSONFile(string path)
         {
             string file = File.ReadAllText(path);
             dynamic jsonEduInstitutions = JsonConvert.DeserializeObject(file);
 
-            List<EducationaInstitutionAPI.Data.EducationalInstitution> listOFEduInstitutions = new();
+            List<EducationalInstitutionAPI.Data.EducationalInstitution> listOFEduInstitutions = new();
             foreach (var eduInstitution in jsonEduInstitutions.EducationalInstitutions)
             {
                 listOFEduInstitutions.Add(new((

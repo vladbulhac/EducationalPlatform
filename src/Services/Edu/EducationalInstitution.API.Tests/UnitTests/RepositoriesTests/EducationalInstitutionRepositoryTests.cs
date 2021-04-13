@@ -1,6 +1,6 @@
-﻿using EducationaInstitutionAPI.Data;
-using EducationaInstitutionAPI.DTOs.EducationalInstitution.Out;
-using EducationaInstitutionAPI.Repositories;
+﻿using EducationalInstitutionAPI.Data.Contexts;
+using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
+using EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -105,7 +105,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAnInvalidID_ToGetEntityByIDAsyncMethod_ShouldReturnNull()
         {
             //Arrange
-            Guid educationalInstitutionID = new Guid("5b426f94-d83f-4af0-a578-a09116eff0b7");
+            Guid educationalInstitutionID = new("5b426f94-d83f-4af0-a578-a09116eff0b7");
 
             //Act
             var result = await eduRepository.GetEntityByIDAsync(educationalInstitutionID);
@@ -335,10 +335,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         #region CreateAsync() TESTS
 
         [Fact]
-        public async Task GivenAnEduInstitution_ToCreateAsyncMethod_ShouldAddItTotheCollectionOfEntities()
+        public async Task GivenAnEduInstitution_ToCreateAsyncMethod_ShouldAddItToTheCollectionOfEntities()
         {
             //Arrange
-            EducationaInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(
+            EducationalInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(
                 "Test_Name",
                 "Test_Description",
                 "Test_LocationID",
@@ -400,7 +400,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToDeleteAsyncMethod_ShouldReturnTrue()
         {
             //Arrange
-            EducationaInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(
+            EducationalInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(
                 "Test_Name",
                 "Test_Description",
                 "Test_LocationID",
@@ -425,7 +425,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToDeleteAsyncMethod_ShouldRemoveAnEntity()
         {
             //Arrange
-            EducationaInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(
+            EducationalInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(
                 "Test_Name",
                 "Test_Description",
                 "Test_LocationID",

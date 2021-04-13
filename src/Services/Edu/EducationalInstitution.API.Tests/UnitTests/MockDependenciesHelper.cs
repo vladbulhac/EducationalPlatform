@@ -1,13 +1,13 @@
-﻿using EducationaInstitutionAPI.Business.Validation_Handler;
-using EducationaInstitutionAPI.Repositories;
-using EducationaInstitutionAPI.Unit_of_Work;
+﻿using EducationalInstitutionAPI.Business.Validation_Handler;
+using EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository;
+using EducationalInstitutionAPI.Unit_of_Work;
 using Grpc.Core;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System.Threading;
 
-namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.EducationalInstitutionTests
+namespace EducationalInstitution.API.Tests.UnitTests
 {
     public class MockDependenciesHelper<T>
     {

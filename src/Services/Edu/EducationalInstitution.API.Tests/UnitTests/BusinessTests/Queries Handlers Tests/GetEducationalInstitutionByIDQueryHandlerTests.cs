@@ -1,10 +1,9 @@
-using EducationaInstitutionAPI.Business.Queries.OnEducationalInstitution;
-using EducationaInstitutionAPI.DTOs.EducationalInstitution.In;
-using EducationaInstitutionAPI.DTOs.EducationalInstitution.Out;
-using EducationaInstitutionAPI.Unit_of_Work;
-using EducationaInstitutionAPI.Utils;
 using EducationalInstitution.API.Tests.UnitTests;
-using EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.EducationalInstitutionTests;
+using EducationalInstitutionAPI.Business.Queries_Handlers;
+using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
+using EducationalInstitutionAPI.DTOs;
+using EducationalInstitutionAPI.DTOs.Queries;
+using EducationalInstitutionAPI.Unit_of_Work;
 using Moq;
 using System;
 using System.Net;

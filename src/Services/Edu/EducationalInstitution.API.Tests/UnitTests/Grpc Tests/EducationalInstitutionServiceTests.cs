@@ -1,17 +1,16 @@
-﻿using EducationaInstitutionAPI.Data.Helpers.Queries_and_Commands_Results.Commands_Results;
-using EducationaInstitutionAPI.DTOs.Commands;
-using EducationaInstitutionAPI.DTOs.EducationalInstitution.In.Commands;
-using EducationaInstitutionAPI.Grpc;
-using EducationaInstitutionAPI.Proto;
-using EducationaInstitutionAPI.Utils;
-using EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.EducationalInstitutionTests;
+﻿using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Commands_Results;
+using EducationalInstitutionAPI.DTOs;
+using EducationalInstitutionAPI.DTOs.Commands;
+using EducationalInstitutionAPI.Grpc;
+using EducationalInstitutionAPI.Proto;
+using EducationalInstitutionAPI.Utils;
 using Moq;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Grpc_Tests
+namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 {
     public class EducationalInstitutionServiceTests : IClassFixture<MockDependenciesHelper<EducationalInstitutionService>>
     {

@@ -1,7 +1,6 @@
-﻿using EducationaInstitutionAPI.Business;
-using EducationaInstitutionAPI.DTOs.Commands;
-using EducationaInstitutionAPI.DTOs.EducationalInstitution.In;
-using EducationaInstitutionAPI.DTOs.EducationalInstitution.In.Commands;
+﻿using EducationalInstitutionAPI.Business.Validation_Handler;
+using EducationalInstitutionAPI.DTOs.Commands;
+using EducationalInstitutionAPI.DTOs.Queries;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
@@ -616,7 +615,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthBuildingID_ShouldReturnValdationErrors()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
             var request = new DTOEducationalInstitutionCreateCommand()
@@ -994,7 +993,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_WithOutOfBoundsLengthBuildingID_ShouldReturnValdationErrors()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_WithOutOfBoundsLengthBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
             var request = new DTOEducationalInstitutionWithParentCreateCommand()
@@ -1250,7 +1249,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithDefaultEducationalInstituionID_ShouldReturnFalse()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
         {
             //Arrange
             var request = new DTOEducationalInstitutionUpdateCommand()
@@ -1271,7 +1270,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithDefaultEducationalInstituionID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnValidationErrors()
         {
             //Arrange
             var request = new DTOEducationalInstitutionUpdateCommand()
@@ -1746,7 +1745,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         public void GivenAValidRequestOfTypeDTOEducationalInstitutionDeleteCommand_ShouldReturnTrue()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionDeleteCommand() { EduInstitutionID = Guid.NewGuid() };
+            var request = new DTOEducationalInstitutionDeleteCommand() { EducationalInstitutionID = Guid.NewGuid() };
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
@@ -1760,7 +1759,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         public void GivenAValidRequestOfTypeDTOEducationalInstitutionDeleteCommand_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionDeleteCommand() { EduInstitutionID = Guid.NewGuid() };
+            var request = new DTOEducationalInstitutionDeleteCommand() { EducationalInstitutionID = Guid.NewGuid() };
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
@@ -1774,7 +1773,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionDeleteCommand_WithDefaultID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionDeleteCommand() { EduInstitutionID = default };
+            var request = new DTOEducationalInstitutionDeleteCommand() { EducationalInstitutionID = default };
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
@@ -1788,14 +1787,14 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionDeleteCommand_WithDefaultID_ShouldReturnAStringWithTheErrorsFound()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionDeleteCommand() { EduInstitutionID = default };
+            var request = new DTOEducationalInstitutionDeleteCommand() { EducationalInstitutionID = default };
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
 
             //Assert
-            Assert.Equal(" Property EduInstitutionID failed validation. Error was: Edu Institution ID was empty or null!", validationErrors);
+            Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
         }
 
         #endregion Request of Type DTOEducationalInstiutionDeleteCommand TESTS

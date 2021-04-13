@@ -7,7 +7,7 @@ services:
     educationalinstitution-api:
         build: 
             context: .
-            dockerfile: Services/Edu/EducationaInstitution/Dockerfile
+            dockerfile: Services/Edu/EducationalInstitution.API/Dockerfile
         ports:
             - "8000:80"
             - "8001:443"

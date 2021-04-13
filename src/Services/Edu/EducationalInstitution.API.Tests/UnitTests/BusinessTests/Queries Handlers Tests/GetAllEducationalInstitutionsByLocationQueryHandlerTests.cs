@@ -1,10 +1,8 @@
-﻿using EducationaInstitutionAPI.Business.Queries_Handlers.Queries_on_EducationalInstitution;
-using EducationaInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
-using EducationaInstitutionAPI.DTOs.EducationalInstitution.In;
-using EducationaInstitutionAPI.DTOs.EducationalInstitution.Out;
-using EducationaInstitutionAPI.Unit_of_Work;
-using EducationaInstitutionAPI.Utils;
-using EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.EducationalInstitutionTests;
+﻿using EducationalInstitutionAPI.Business.Queries_Handlers;
+using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
+using EducationalInstitutionAPI.DTOs;
+using EducationalInstitutionAPI.DTOs.Queries;
+using EducationalInstitutionAPI.Unit_of_Work;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -12,7 +10,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handlers_Tests.EducationalInstitutionTests
+namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handlers_Tests
 {
     public class GetEducationalInstitutionByLocationQueryHandlerTests : IClassFixture<MockDependenciesHelper<GetAllEducationalInstitutionsByLocationQueryHandler>>, IClassFixture<TestDataFromJSONParser>
     {
