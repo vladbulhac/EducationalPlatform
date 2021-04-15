@@ -71,11 +71,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
                     return new()
                     {
-                        ResponseObject = new()
-                        {
-                            EduInstitutionID = educationalInstitution.EduInstitutionID,
-                            AccessInformation = educationalInstitution.EntityAccess
-                        },
+                        ResponseObject = new() { DateForPermanentDeletion = (DateTime)educationalInstitution.EntityAccess.DateForPermanentDeletion },
                         OperationStatus = true,
                         StatusCode = HttpStatusCode.Accepted,
                         Message = string.Empty

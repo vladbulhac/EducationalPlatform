@@ -8,7 +8,6 @@ namespace EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Commands_R
     /// </summary>
     public record DeleteEducationalInstitutionCommandResult
     {
-        public Guid EduInstitutionID { get; init; }
-        public Access AccessInformation { get; init; }
+        public DateTime DateForPermanentDeletion { get; init; }
     }
 }

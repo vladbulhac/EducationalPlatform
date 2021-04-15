@@ -113,28 +113,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         }
 
         [Fact]
-        public async Task GivenAnID_ShouldReturnAResponseThatIncludesAResponseObjectWithAn_IsDisabledTrueField()
-        {
-            //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
-
-            DTOEducationalInstitutionDeleteCommand request = new(eduInstitutionID);
-
-            dependenciesHelper.mockUnitOfWork.Setup(muk => muk.UsingEducationalInstitutionRepository())
-                                                            .Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetEntityByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
-                                              .ReturnsAsync(testDataHelper.EduInstitutions[0]);
-
-            DeleteEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
-
-            //Act
-            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
-
-            //Assert
-            Assert.True(result.ResponseObject.AccessInformation.IsDisabled);
-        }
-
-        [Fact]
         public async Task GivenAnID_ShouldReturnAResponseThatIncludesAResponseObjectWithA_DateForPermanentDeletionSetToADayInTheFutureField()
         {
             //Arrange
@@ -156,29 +134,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
-            Assert.Equal(DateTime.UtcNow.Date.AddDays(days), result.ResponseObject.AccessInformation.DateForPermanentDeletion);
-        }
-
-        [Fact]
-        public async Task GivenAnID_ShouldReturnAResponseThatIncludesAResponseObjectWithAn_IDThatIsTheSameAsTheRequestID()
-        {
-            //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
-
-            DTOEducationalInstitutionDeleteCommand request = new(eduInstitutionID);
-
-            dependenciesHelper.mockUnitOfWork.Setup(muk => muk.UsingEducationalInstitutionRepository())
-                                                            .Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetEntityByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
-                                              .ReturnsAsync(testDataHelper.EduInstitutions[0]);
-
-            DeleteEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
-
-            //Act
-            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
-
-            //Assert
-            Assert.Equal(eduInstitutionID, result.ResponseObject.EduInstitutionID);
+            Assert.Equal(DateTime.UtcNow.Date.AddDays(days), result.ResponseObject.DateForPermanentDeletion);
         }
 
         [Fact]
