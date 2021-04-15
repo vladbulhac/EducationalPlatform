@@ -52,21 +52,21 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
             {
                 using (unitOfWork)
                 {
-                    var eduInstitution = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                            .GetByIDAsync(request.EduInstitutionID, cancellationToken);
+                    var educationalInstitution = await unitOfWork.UsingEducationalInstitutionRepository()
+                                                            .GetByIDAsync(request.EducationalInstitutionID, cancellationToken);
 
-                    if (eduInstitution is null)
+                    if (educationalInstitution is null)
                         return new()
                         {
                             ResponseObject = null,
                             OperationStatus = false,
                             StatusCode = HttpStatusCode.NotFound,
-                            Message = $"Educational Institution with the following ID: {request.EduInstitutionID} has not been found!"
+                            Message = $"Educational Institution with the following ID: {request.EducationalInstitutionID} has not been found!"
                         };
                     else
                         return new()
                         {
-                            ResponseObject = eduInstitution,
+                            ResponseObject = educationalInstitution,
                             OperationStatus = true,
                             StatusCode = HttpStatusCode.OK,
                             Message = string.Empty
@@ -77,7 +77,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
             {
                 logger.LogError(
                     "Could not find an Educational Institution with ID: {0}, using {1}'s method: {2}, error details => {3}",
-                    request.EduInstitutionID,
+                    request.EducationalInstitutionID,
                     unitOfWork.GetType(),
                     nameof(IEducationalInstitutionRepository.GetByIDAsync),
                     e.Message);
@@ -87,7 +87,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
                     ResponseObject = null,
                     OperationStatus = false,
                     StatusCode = HttpStatusCode.InternalServerError,
-                    Message = $"An error occurred while searching for the Educational Institution with the following ID: {request.EduInstitutionID}!"
+                    Message = $"An error occurred while searching for the Educational Institution with the following ID: {request.EducationalInstitutionID}!"
                 };
             }
         }

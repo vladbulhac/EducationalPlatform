@@ -56,30 +56,30 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
             {
                 using (unitOfWork)
                 {
-                    var educationInstitutions = await unitOfWork.UsingEducationalInstitutionRepository()
+                    var educationalInstitutions = await unitOfWork.UsingEducationalInstitutionRepository()
                                                                 .GetFromCollectionOfIDsAsync(request.EducationalInstitutionsIDs, cancellationToken);
 
-                    if (educationInstitutions is null || educationInstitutions.Count is 0)
+                    if (educationalInstitutions is null || educationalInstitutions.Count is 0)
                         return new()
                         {
-                            ResponseObject = educationInstitutions,
+                            ResponseObject = educationalInstitutions,
                             OperationStatus = true,
                             StatusCode = HttpStatusCode.NotFound,
                             Message = "Could not find the Educational Institutions from the list of given IDs!"
                         };
                     else
-                    if (educationInstitutions.Count < request.EducationalInstitutionsIDs.Count)
+                    if (educationalInstitutions.Count < request.EducationalInstitutionsIDs.Count)
                         return new()
                         {
-                            ResponseObject = educationInstitutions,
+                            ResponseObject = educationalInstitutions,
                             OperationStatus = true,
                             StatusCode = HttpStatusCode.MultiStatus,
-                            Message = $"Could not retrieve Educational Institutions with the following IDs: {JsonConvert.SerializeObject(request.EducationalInstitutionsIDs.Except(educationInstitutions.Select(eduI => eduI.EduInstitutionID).ToList()))}"
+                            Message = $"Could not retrieve Educational Institutions with the following IDs: {JsonConvert.SerializeObject(request.EducationalInstitutionsIDs.Except(educationalInstitutions.Select(eduI => eduI.EducationalInstitutionID).ToList()))}"
                         };
                     else
                         return new()
                         {
-                            ResponseObject = educationInstitutions,
+                            ResponseObject = educationalInstitutions,
                             OperationStatus = true,
                             StatusCode = HttpStatusCode.OK,
                             Message = string.Empty

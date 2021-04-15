@@ -21,8 +21,8 @@ namespace EducationalInstitutionAPI.Data.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            new EduInstitutionBuildingEntityTypeConfiguration().Configure(modelBuilder.Entity<EducationalInstitutionBuilding>());
-            new EduInstitutionEntityTypeConfiguration().Configure(modelBuilder.Entity<EducationalInstitution>());
+            new EducationalInstitutionBuildingEntityTypeConfiguration().Configure(modelBuilder.Entity<EducationalInstitutionBuilding>());
+            new EducationalInstitutionEntityTypeConfiguration().Configure(modelBuilder.Entity<EducationalInstitution>());
         }
     }
 }

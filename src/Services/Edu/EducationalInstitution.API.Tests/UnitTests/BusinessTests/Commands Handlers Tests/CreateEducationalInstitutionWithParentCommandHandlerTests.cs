@@ -33,7 +33,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            Guid parentInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             DTOEducationalInstitutionWithParentCreateCommand request = new()
             {
@@ -65,7 +65,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            Guid parentInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             DTOEducationalInstitutionWithParentCreateCommand request = new()
             {
@@ -97,7 +97,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            Guid parentInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             DTOEducationalInstitutionWithParentCreateCommand request = new()
             {
@@ -129,7 +129,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            Guid parentInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             DTOEducationalInstitutionWithParentCreateCommand request = new()
             {
@@ -161,7 +161,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            Guid parentInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             DTOEducationalInstitutionWithParentCreateCommand request = new()
             {
@@ -193,7 +193,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            Guid parentInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             DTOEducationalInstitutionWithParentCreateCommand request = new()
             {
@@ -225,7 +225,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            Guid parentInstitutionID = testDataHelper.EduInstitutions[1].EduInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EduInstitutions[1].EducationalInstitutionID;
 
             DTOEducationalInstitutionWithParentCreateCommand request = new()
             {
@@ -238,7 +238,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
 
             EducationalInstitutionAPI.Data.EducationalInstitution repositoryTaskResult = null;
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetEntityByIDAsync(It.IsNotIn(testDataHelper.EduInstitutions[0].EduInstitutionID), dependenciesHelper.cancellationToken)).ReturnsAsync(repositoryTaskResult);
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetEntityByIDAsync(It.IsNotIn(testDataHelper.EduInstitutions[0].EducationalInstitutionID), dependenciesHelper.cancellationToken)).ReturnsAsync(repositoryTaskResult);
             dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(It.IsAny<EducationalInstitutionAPI.Data.EducationalInstitution>(), dependenciesHelper.cancellationToken));
 
             var handler = new CreateEducationalInstitutionWithParentCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
@@ -258,7 +258,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            Guid parentInstitutionID = testDataHelper.EduInstitutions[1].EduInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EduInstitutions[1].EducationalInstitutionID;
 
             DTOEducationalInstitutionWithParentCreateCommand request = new()
             {
@@ -271,7 +271,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
 
             EducationalInstitutionAPI.Data.EducationalInstitution repositoryTaskResult = null;
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetEntityByIDAsync(It.IsNotIn(testDataHelper.EduInstitutions[0].EduInstitutionID), dependenciesHelper.cancellationToken)).ReturnsAsync(repositoryTaskResult);
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetEntityByIDAsync(It.IsNotIn(testDataHelper.EduInstitutions[0].EducationalInstitutionID), dependenciesHelper.cancellationToken)).ReturnsAsync(repositoryTaskResult);
             dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(It.IsAny<EducationalInstitutionAPI.Data.EducationalInstitution>(), dependenciesHelper.cancellationToken));
 
             var handler = new CreateEducationalInstitutionWithParentCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
@@ -291,7 +291,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            Guid parentInstitutionID = testDataHelper.EduInstitutions[1].EduInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EduInstitutions[1].EducationalInstitutionID;
 
             DTOEducationalInstitutionWithParentCreateCommand request = new()
             {
@@ -304,7 +304,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
 
             EducationalInstitutionAPI.Data.EducationalInstitution repositoryTaskResult = null;
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetEntityByIDAsync(It.IsNotIn(testDataHelper.EduInstitutions[0].EduInstitutionID), dependenciesHelper.cancellationToken)).ReturnsAsync(repositoryTaskResult);
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetEntityByIDAsync(It.IsNotIn(testDataHelper.EduInstitutions[0].EducationalInstitutionID), dependenciesHelper.cancellationToken)).ReturnsAsync(repositoryTaskResult);
             dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(It.IsAny<EducationalInstitutionAPI.Data.EducationalInstitution>(), dependenciesHelper.cancellationToken));
 
             var handler = new CreateEducationalInstitutionWithParentCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
@@ -324,7 +324,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            Guid parentInstitutionID = testDataHelper.EduInstitutions[1].EduInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EduInstitutions[1].EducationalInstitutionID;
 
             DTOEducationalInstitutionWithParentCreateCommand request = new()
             {
@@ -337,7 +337,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
 
             EducationalInstitutionAPI.Data.EducationalInstitution repositoryTaskResult = null;
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetEntityByIDAsync(It.IsNotIn(testDataHelper.EduInstitutions[0].EduInstitutionID), dependenciesHelper.cancellationToken)).ReturnsAsync(repositoryTaskResult);
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetEntityByIDAsync(It.IsNotIn(testDataHelper.EduInstitutions[0].EducationalInstitutionID), dependenciesHelper.cancellationToken)).ReturnsAsync(repositoryTaskResult);
             dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(It.IsAny<EducationalInstitutionAPI.Data.EducationalInstitution>(), dependenciesHelper.cancellationToken));
 
             var handler = new CreateEducationalInstitutionWithParentCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);

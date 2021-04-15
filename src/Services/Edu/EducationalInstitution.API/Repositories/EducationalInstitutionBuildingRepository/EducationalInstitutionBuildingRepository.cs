@@ -30,7 +30,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingR
                                                                         .Include(ei => ei.EducationalInstitution)
                                                                         .Select(s => new EducationalInstitutionEssentialData()
                                                                         {
-                                                                            EducationalInstitutionID = s.EducationalInstitution.EduInstitutionID,
+                                                                            EducationalInstitutionID = s.EducationalInstitution.EducationalInstitutionID,
                                                                             Name = s.EducationalInstitution.Name,
                                                                             Description = s.EducationalInstitution.Description
                                                                         })

@@ -9,7 +9,7 @@ namespace EducationalInstitutionAPI.Data
     /// </summary>
     public class EducationalInstitution
     {
-        public Guid EduInstitutionID { get; init; }
+        public Guid EducationalInstitutionID { get; init; }
         public string Name { get; private set; }
         public string Description { get; private set; }
 
@@ -41,7 +41,7 @@ namespace EducationalInstitutionAPI.Data
         {
             Name = name;
             Description = description;
-            EduInstitutionID = Guid.NewGuid();
+            EducationalInstitutionID = Guid.NewGuid();
             LocationID = locationID ?? "LOCATION_UNKNOWN";
             Buildings = new HashSet<EducationalInstitutionBuilding>();
             ChildInstitutions = new HashSet<EducationalInstitution>();
@@ -95,7 +95,7 @@ namespace EducationalInstitutionAPI.Data
 
         private void CreateAndAddABuilding(string buildingID)
         {
-            EducationalInstitutionBuilding newBuilding = new(buildingID, this.EduInstitutionID);
+            EducationalInstitutionBuilding newBuilding = new(buildingID, this.EducationalInstitutionID);
             Buildings.Add(newBuilding);
         }
 

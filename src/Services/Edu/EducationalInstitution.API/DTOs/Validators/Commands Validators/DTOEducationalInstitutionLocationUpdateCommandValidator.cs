@@ -15,7 +15,7 @@ namespace EducationalInstitutionAPI.DTOs.Validators.Commands_Validators
         public DTOEducationalInstitutionLocationUpdateCommandValidator()
         {
             CascadeMode = CascadeMode.Stop;
-            RuleFor(v => v.EduInstitutionID)
+            RuleFor(v => v.EducationalInstitutionID)
                               .NotEmpty()
                               .WithMessage("{PropertyName} was empty or null!");
 

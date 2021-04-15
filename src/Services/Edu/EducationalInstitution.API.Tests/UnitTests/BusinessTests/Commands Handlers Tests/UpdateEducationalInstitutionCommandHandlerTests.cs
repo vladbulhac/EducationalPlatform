@@ -27,13 +27,13 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithNameDescription_ShouldReturnAResponseThatIncludesAStatusCodeNoContentField()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string name = "New_Name";
             string description = "New_Description";
 
             DTOEducationalInstitutionUpdateCommand request = new()
             {
-                EduInstitutionID = educationalInstitutionID,
+                EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
                 Name = name,
                 UpdateDescription = true,
@@ -57,13 +57,13 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithNameDescription_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string name = "New_Name";
             string description = "New_Description";
 
             DTOEducationalInstitutionUpdateCommand request = new()
             {
-                EduInstitutionID = educationalInstitutionID,
+                EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
                 Name = name,
                 UpdateDescription = true,
@@ -87,13 +87,13 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithNameDescription_ShouldReturnAResponseThatIncludesATrueOperationStatusField()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string name = "New_Name";
             string description = "New_Description";
 
             DTOEducationalInstitutionUpdateCommand request = new()
             {
-                EduInstitutionID = educationalInstitutionID,
+                EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
                 Name = name,
                 UpdateDescription = true,
@@ -117,13 +117,13 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithNameDescription_ShouldReturnANonGenericTypeResponse()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string name = "New_Name";
             string description = "New_Description";
 
             DTOEducationalInstitutionUpdateCommand request = new()
             {
-                EduInstitutionID = educationalInstitutionID,
+                EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
                 Name = name,
                 UpdateDescription = true,
@@ -147,12 +147,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithName_ShouldReturnAResponseThatIncludesAStatusCodeNoContentField()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string name = "New_Name";
 
             DTOEducationalInstitutionUpdateCommand request = new()
             {
-                EduInstitutionID = educationalInstitutionID,
+                EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
                 Name = name,
                 UpdateDescription = false,
@@ -176,12 +176,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithName_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string name = "New_Name";
 
             DTOEducationalInstitutionUpdateCommand request = new()
             {
-                EduInstitutionID = educationalInstitutionID,
+                EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
                 Name = name,
                 UpdateDescription = false,
@@ -205,12 +205,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithName_ShouldReturnAResponseThatIncludesATrueOperationStatusField()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string name = "New_Name";
 
             DTOEducationalInstitutionUpdateCommand request = new()
             {
-                EduInstitutionID = educationalInstitutionID,
+                EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
                 Name = name,
                 UpdateDescription = false,
@@ -234,12 +234,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithName_ShouldReturnANonGenericTypeResponse()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string name = "New_Name";
 
             DTOEducationalInstitutionUpdateCommand request = new()
             {
-                EduInstitutionID = educationalInstitutionID,
+                EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
                 Name = name,
                 UpdateDescription = false,
@@ -263,12 +263,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithDescription_ShouldReturnAResponseThatIncludesAStatusCodeNoContentField()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string description = "New_Description";
 
             DTOEducationalInstitutionUpdateCommand request = new()
             {
-                EduInstitutionID = educationalInstitutionID,
+                EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = false,
                 Name = string.Empty,
                 UpdateDescription = true,
@@ -292,12 +292,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithDescription_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string description = "New_Description";
 
             DTOEducationalInstitutionUpdateCommand request = new()
             {
-                EduInstitutionID = educationalInstitutionID,
+                EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = false,
                 Name = string.Empty,
                 UpdateDescription = true,
@@ -321,12 +321,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithDescription_ShouldReturnAResponseThatIncludesATrueOperationStatusField()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string description = "New_Description";
 
             DTOEducationalInstitutionUpdateCommand request = new()
             {
-                EduInstitutionID = educationalInstitutionID,
+                EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = false,
                 Name = string.Empty,
                 UpdateDescription = true,
@@ -350,12 +350,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithDescription_ShouldReturnANonGenericTypeResponse()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string description = "New_Description";
 
             DTOEducationalInstitutionUpdateCommand request = new()
             {
-                EduInstitutionID = educationalInstitutionID,
+                EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = false,
                 Name = string.Empty,
                 UpdateDescription = true,

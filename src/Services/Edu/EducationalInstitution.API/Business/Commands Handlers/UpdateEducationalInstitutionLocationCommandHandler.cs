@@ -58,7 +58,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                         {
                             OperationStatus = false,
                             StatusCode = HttpStatusCode.NotFound,
-                            Message = $"Educational Institution with the following ID: {request.EduInstitutionID} has not been found!"
+                            Message = $"Educational Institution with the following ID: {request.EducationalInstitutionID} has not been found!"
                         };
                     else
                         return new()
@@ -84,7 +84,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                 {
                     OperationStatus = false,
                     StatusCode = HttpStatusCode.InternalServerError,
-                    Message = $"An error occurred while updating the Educational Institution with the following ID: {request.EduInstitutionID}!"
+                    Message = $"An error occurred while updating the Educational Institution with the following ID: {request.EducationalInstitutionID}!"
                 };
             }
         }
@@ -94,14 +94,14 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             bool isEntityUpdated;
             if (request.UpdateBuildings && request.UpdateLocation)
                 isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                    .UpdateEntireLocationAsync(request.EduInstitutionID, request.LocationID, request.BuildingsIDs, cancellationToken);
+                                                    .UpdateEntireLocationAsync(request.EducationalInstitutionID, request.LocationID, request.BuildingsIDs, cancellationToken);
             else
             if (request.UpdateLocation)
                 isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                    .UpdateLocationAsync(request.EduInstitutionID, request.LocationID, cancellationToken);
+                                                    .UpdateLocationAsync(request.EducationalInstitutionID, request.LocationID, cancellationToken);
             else
                 isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                    .UpdateBuildingsAsync(request.EduInstitutionID, request.BuildingsIDs, cancellationToken);
+                                                    .UpdateBuildingsAsync(request.EducationalInstitutionID, request.BuildingsIDs, cancellationToken);
 
             if (isEntityUpdated)
                 await unitOfWork.SaveChangesAsync(cancellationToken);

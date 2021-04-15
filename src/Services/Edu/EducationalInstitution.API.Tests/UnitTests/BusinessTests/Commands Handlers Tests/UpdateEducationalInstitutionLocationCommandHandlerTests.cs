@@ -29,13 +29,13 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_LocationID_BuildingsIDs_ShouldReturnAResponseThatIncludesAStatusCodeNoContentField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
             ICollection<string> buildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
-                EduInstitutionID = eduInstitutionID,
+                EducationalInstitutionID = eduInstitutionID,
                 UpdateLocation = true,
                 LocationID = locationID,
                 UpdateBuildings = true,
@@ -56,13 +56,13 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_LocationID_BuildingsIDs_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
             ICollection<string> buildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
-                EduInstitutionID = eduInstitutionID,
+                EducationalInstitutionID = eduInstitutionID,
                 UpdateLocation = true,
                 LocationID = locationID,
                 UpdateBuildings = true,
@@ -83,13 +83,13 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_LocationID_BuildingsIDs_ShouldReturnANonGenericResponse()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
             ICollection<string> buildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
-                EduInstitutionID = eduInstitutionID,
+                EducationalInstitutionID = eduInstitutionID,
                 UpdateLocation = true,
                 LocationID = locationID,
                 UpdateBuildings = true,
@@ -110,13 +110,13 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_LocationID_BuildingsIDs_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
             ICollection<string> buildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
-                EduInstitutionID = eduInstitutionID,
+                EducationalInstitutionID = eduInstitutionID,
                 UpdateLocation = true,
                 LocationID = locationID,
                 UpdateBuildings = true,
@@ -137,12 +137,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_LocationID_ShouldReturnAResponseThatIncludesAStatusCodeNoContentField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
-                EduInstitutionID = eduInstitutionID,
+                EducationalInstitutionID = eduInstitutionID,
                 UpdateLocation = true,
                 LocationID = locationID,
                 UpdateBuildings = false,
@@ -163,12 +163,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_LocationID_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
-                EduInstitutionID = eduInstitutionID,
+                EducationalInstitutionID = eduInstitutionID,
                 UpdateLocation = true,
                 LocationID = locationID,
                 UpdateBuildings = false,
@@ -189,12 +189,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_LocationID_ShouldReturnANonGenericResponse()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
-                EduInstitutionID = eduInstitutionID,
+                EducationalInstitutionID = eduInstitutionID,
                 UpdateLocation = true,
                 LocationID = locationID,
                 UpdateBuildings = false,
@@ -215,12 +215,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_LocationID_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
-                EduInstitutionID = eduInstitutionID,
+                EducationalInstitutionID = eduInstitutionID,
                 UpdateLocation = true,
                 LocationID = locationID,
                 UpdateBuildings = false,
@@ -241,12 +241,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_BuildingsIDs_ShouldReturnAResponseThatIncludesAStatusCodeNoContentField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             ICollection<string> buildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
-                EduInstitutionID = eduInstitutionID,
+                EducationalInstitutionID = eduInstitutionID,
                 UpdateLocation = false,
                 LocationID = default,
                 UpdateBuildings = true,
@@ -267,12 +267,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_BuildingsIDs_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             ICollection<string> buildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
-                EduInstitutionID = eduInstitutionID,
+                EducationalInstitutionID = eduInstitutionID,
                 UpdateLocation = false,
                 LocationID = default,
                 UpdateBuildings = true,
@@ -293,12 +293,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_BuildingsIDs_ShouldReturnANonGenericResponse()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             ICollection<string> buildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
-                EduInstitutionID = eduInstitutionID,
+                EducationalInstitutionID = eduInstitutionID,
                 UpdateLocation = false,
                 LocationID = default,
                 UpdateBuildings = true,
@@ -319,12 +319,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_BuildingsIDs_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             ICollection<string> buildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
-                EduInstitutionID = eduInstitutionID,
+                EducationalInstitutionID = eduInstitutionID,
                 UpdateLocation = false,
                 LocationID = default,
                 UpdateBuildings = true,

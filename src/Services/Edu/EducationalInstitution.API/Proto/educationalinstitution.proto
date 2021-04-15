@@ -31,7 +31,7 @@ message EducationalInstitutionCreateResponse{
 }
 
 message ResponseObject{
-	Uuid edu_institution_id=1;
+	Uuid educational_institution_id=1;
 }
 
 enum HttpStatusCode{

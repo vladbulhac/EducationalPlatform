@@ -43,7 +43,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                         {
                             OperationStatus = false,
                             StatusCode = HttpStatusCode.NotFound,
-                            Message = $"Educational Institution with the following ID: {request.EduInstitutionID} has not been found!"
+                            Message = $"Educational Institution with the following ID: {request.EducationalInstitutionID} has not been found!"
                         };
                     else
                         return new()
@@ -69,7 +69,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                 {
                     OperationStatus = false,
                     StatusCode = HttpStatusCode.InternalServerError,
-                    Message = $"An error occurred while updating the Educational Institution with the following ID: {request.EduInstitutionID}!"
+                    Message = $"An error occurred while updating the Educational Institution with the following ID: {request.EducationalInstitutionID}!"
                 };
             }
         }
@@ -79,13 +79,13 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             bool isEntityUpdated;
             if (request.UpdateName && request.UpdateDescription)
                 isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                    .UpdateNameDescriptionAsync(request.EduInstitutionID, request.Name, request.Description, cancellationToken);
+                                                    .UpdateNameDescriptionAsync(request.EducationalInstitutionID, request.Name, request.Description, cancellationToken);
             else if (request.UpdateName)
                 isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                    .UpdateNameAsync(request.EduInstitutionID, request.Name, cancellationToken);
+                                                    .UpdateNameAsync(request.EducationalInstitutionID, request.Name, cancellationToken);
             else
                 isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                    .UpdateDescriptionAsync(request.EduInstitutionID, request.Description, cancellationToken);
+                                                    .UpdateDescriptionAsync(request.EducationalInstitutionID, request.Description, cancellationToken);
 
             if (isEntityUpdated)
                 await unitOfWork.SaveChangesAsync(cancellationToken);

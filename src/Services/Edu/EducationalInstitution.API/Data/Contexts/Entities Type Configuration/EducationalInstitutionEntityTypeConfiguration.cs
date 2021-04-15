@@ -6,7 +6,7 @@ namespace EducationalInstitutionAPI.Data.Contexts.Entities_Type_Configuration
     /// <summary>
     /// Contains the configuration of the <see cref="EducationalInstitution"/> model
     /// </summary>
-    public class EduInstitutionEntityTypeConfiguration : IEntityTypeConfiguration<EducationalInstitution>
+    public class EducationalInstitutionEntityTypeConfiguration : IEntityTypeConfiguration<EducationalInstitution>
     {
         public void Configure(EntityTypeBuilder<EducationalInstitution> builder)
         {
@@ -16,8 +16,8 @@ namespace EducationalInstitutionAPI.Data.Contexts.Entities_Type_Configuration
                             access.HasIndex(a => new { a.DateForPermanentDeletion, a.IsDisabled });
                         });
 
-            builder.HasKey(ei => ei.EduInstitutionID);
-            builder.HasIndex(ei => new { ei.LocationID, ei.EduInstitutionID });
+            builder.HasKey(ei => ei.EducationalInstitutionID);
+            builder.HasIndex(ei => new { ei.LocationID, ei.EducationalInstitutionID });
             builder.HasOne(ei => ei.ParentInstitution)
                     .WithMany(ei => ei.ChildInstitutions);
 

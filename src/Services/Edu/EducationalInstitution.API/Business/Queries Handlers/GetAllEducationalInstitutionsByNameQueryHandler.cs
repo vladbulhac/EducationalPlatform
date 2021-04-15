@@ -54,10 +54,10 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
             {
                 using (unitOfWork)
                 {
-                    var eduInstitutions = await unitOfWork.UsingEducationalInstitutionRepository()
+                    var educationalInstitutions = await unitOfWork.UsingEducationalInstitutionRepository()
                                                             .GetAllLikeNameAsync(request.Name, request.OffsetValue, request.ResultsCount, cancellationToken);
 
-                    if (eduInstitutions is null)
+                    if (educationalInstitutions is null)
                         return new()
                         {
                             ResponseObject = null,
@@ -68,7 +68,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
                     else
                         return new()
                         {
-                            ResponseObject = eduInstitutions,
+                            ResponseObject = educationalInstitutions,
                             OperationStatus = true,
                             StatusCode = HttpStatusCode.OK,
                             Message = string.Empty

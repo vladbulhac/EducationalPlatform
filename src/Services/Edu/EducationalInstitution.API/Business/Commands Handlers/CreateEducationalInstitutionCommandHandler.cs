@@ -60,7 +60,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
                     return new()
                     {
-                        ResponseObject = new() { EduInstitutionID = newEducationalInstitution.EduInstitutionID },
+                        ResponseObject = new() { EduInstitutionID = newEducationalInstitution.EducationalInstitutionID },
                         OperationStatus = true,
                         StatusCode = HttpStatusCode.Created,
                         Message = string.Empty

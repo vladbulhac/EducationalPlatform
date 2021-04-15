@@ -29,7 +29,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
                         Name = testDataHelper.EduInstitutions[0].Name,
                         Description = testDataHelper.EduInstitutions[0].Description,
                         BuildingsIDs = testDataHelper.EduInstitutions[0].Buildings,
-                        EduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID
+                        EducationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID
                         }
                     }
             };

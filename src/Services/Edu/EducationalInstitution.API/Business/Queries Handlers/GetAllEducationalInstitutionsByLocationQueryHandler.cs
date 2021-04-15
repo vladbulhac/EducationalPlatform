@@ -52,10 +52,10 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
             {
                 using (unitOfWork)
                 {
-                    var eduInstitution = await unitOfWork.UsingEducationalInstitutionRepository()
+                    var educationalInstitution = await unitOfWork.UsingEducationalInstitutionRepository()
                                                             .GetAllByLocationAsync(request.LocationID, cancellationToken);
 
-                    if (eduInstitution is null)
+                    if (educationalInstitution is null)
                         return new()
                         {
                             ResponseObject = null,
@@ -66,7 +66,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
                     else
                         return new()
                         {
-                            ResponseObject = eduInstitution,
+                            ResponseObject = educationalInstitution,
                             OperationStatus = true,
                             StatusCode = HttpStatusCode.OK,
                             Message = string.Empty

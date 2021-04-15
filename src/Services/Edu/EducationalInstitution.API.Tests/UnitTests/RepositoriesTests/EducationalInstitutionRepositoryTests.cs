@@ -40,7 +40,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnANotNullEduInstitutionEntity()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetEntityByIDAsync(educationalInstitutionID);
@@ -53,7 +53,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEduInstitutionEntity_WithMatchingName()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetEntityByIDAsync(educationalInstitutionID);
@@ -66,7 +66,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEduInstitutionEntity_WithMatchingDescription()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetEntityByIDAsync(educationalInstitutionID);
@@ -79,20 +79,20 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEduInstitutionEntity_WithMatchingIDs()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetEntityByIDAsync(educationalInstitutionID);
 
             //Assert
-            Assert.Equal(testDataHelper.EduInstitutions[0].EduInstitutionID, result.EduInstitutionID);
+            Assert.Equal(testDataHelper.EduInstitutions[0].EducationalInstitutionID, result.EducationalInstitutionID);
         }
 
         [Fact]
         public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEduInstitutionEntity_WithMatchingLocationIDs()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetEntityByIDAsync(educationalInstitutionID);
@@ -122,7 +122,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldNotReturnNull()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetByIDAsync(educationalInstitutionID);
@@ -135,7 +135,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAGetEducationalInstitutionByIDQueryResultObject()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetByIDAsync(educationalInstitutionID);
@@ -148,7 +148,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAGetEducationalInstitutionByIDQueryResultObject_WithMatchingName()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetByIDAsync(educationalInstitutionID);
@@ -161,7 +161,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAGetEducationalInstitutionByIDQueryResultObject_WithMatchingDescription()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetByIDAsync(educationalInstitutionID);
@@ -174,7 +174,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAGetEducationalInstitutionByIDQueryResultObject_WithMatchingLocation()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetByIDAsync(educationalInstitutionID);
@@ -187,7 +187,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAGetEducationalInstitutionByIDQueryResultObject_WithMatchingBuildings()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetByIDAsync(educationalInstitutionID);
@@ -200,7 +200,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAGetEducationalInstitutionByIDQueryResultObject_WithMatchingParentInstitutions()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetByIDAsync(educationalInstitutionID);
@@ -213,7 +213,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAGetEducationalInstitutionByIDQueryResultObject_WithMatchingChildInstitutions()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetByIDAsync(educationalInstitutionID);
@@ -226,7 +226,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAGetEducationalInstitutionByIDQueryResultObject_WithJoinDateToday()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetByIDAsync(educationalInstitutionID);
@@ -364,7 +364,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_LocationID_BuildingsIDs_ToUpdateAsyncMethod_ShouldReturnTrue()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string locationID = "Update_Test_LocationID";
             var buildings = new List<string>() { "Update_Test_Building_ID1",
                     "Update_Test_Building_ID2" };
@@ -381,7 +381,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_LocationID_ToUpdateAsyncMethod_ShouldReturnTheNewLocationID()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string locationID = "Update_Test_LocationID";
 
             //Act
@@ -389,7 +389,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
             dbContext.SaveChanges();
 
             //Assert
-            Assert.Equal(locationID, dbContext.EducationalInstitutions.SingleOrDefault(ei => ei.EduInstitutionID == educationalInstitutionID).LocationID);
+            Assert.Equal(locationID, dbContext.EducationalInstitutions.SingleOrDefault(ei => ei.EducationalInstitutionID == educationalInstitutionID).LocationID);
         }
 
         #endregion UpdateAsync() TESTS
@@ -414,7 +414,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
             dbContext.SaveChanges();
 
             //Act
-            var result = await eduRepository.DeleteAsync(newEducationalInstitution.EduInstitutionID);
+            var result = await eduRepository.DeleteAsync(newEducationalInstitution.EducationalInstitutionID);
             dbContext.SaveChanges();
 
             //Assert
@@ -439,7 +439,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
             dbContext.SaveChanges();
 
             //Act
-            var result = await eduRepository.DeleteAsync(newEducationalInstitution.EduInstitutionID);
+            var result = await eduRepository.DeleteAsync(newEducationalInstitution.EducationalInstitutionID);
             dbContext.SaveChanges();
 
             //Assert

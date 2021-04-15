@@ -28,7 +28,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnID_ShouldReturnAResponseThatIncludesAStatusCodeAcceptedField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             DTOEducationalInstitutionDeleteCommand request = new(eduInstitutionID);
 
@@ -50,7 +50,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnID_ShouldReturnAResponseThatIncludesAnEmptyMessage()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             DTOEducationalInstitutionDeleteCommand request = new(eduInstitutionID);
 
@@ -72,7 +72,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnID_ShouldReturnARecordTypeResponse()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             DTOEducationalInstitutionDeleteCommand request = new(eduInstitutionID);
 
@@ -94,7 +94,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnID_ShouldReturnAResponseThatIncludesAResponseObjectOfType_DeleteEducationalInstitutionCommandResult()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             DTOEducationalInstitutionDeleteCommand request = new(eduInstitutionID);
 
@@ -116,7 +116,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnID_ShouldReturnAResponseThatIncludesAResponseObjectWithA_DateForPermanentDeletionSetToADayInTheFutureField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             DTOEducationalInstitutionDeleteCommand request = new(eduInstitutionID);
 
@@ -141,7 +141,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnID_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
 
             DTOEducationalInstitutionDeleteCommand request = new(eduInstitutionID);
 

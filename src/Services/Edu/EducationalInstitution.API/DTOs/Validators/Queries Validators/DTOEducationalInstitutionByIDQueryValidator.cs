@@ -14,7 +14,7 @@ namespace EducationalInstitutionAPI.DTOs.Validators.Queries_Validators
         public DTOEducationalInstitutionByIDQueryValidator()
         {
             CascadeMode = CascadeMode.Stop;
-            RuleFor(v => v.EduInstitutionID)
+            RuleFor(v => v.EducationalInstitutionID)
                               .NotEmpty()
                               .WithMessage("{PropertyName} was empty or null!");
         }

@@ -26,14 +26,14 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
             this.testDataHelper = testDataHelper;
             queryResult = new List<GetEducationalInstitutionQueryResult>(2) {
                 new() {
-                EduInstitutionID=testDataHelper.EduInstitutions[0].EduInstitutionID,
+                EducationalInstitutionID=testDataHelper.EduInstitutions[0].EducationalInstitutionID,
                 Name = testDataHelper.EduInstitutions[0].Name,
                 Description = testDataHelper.EduInstitutions[0].Description,
                 LocationID = testDataHelper.EduInstitutions[0].LocationID,
                 BuildingsIDs = testDataHelper.EduInstitutions[0].Buildings
                 },
                 new(){
-                EduInstitutionID=testDataHelper.EduInstitutions[1].EduInstitutionID,
+                EducationalInstitutionID=testDataHelper.EduInstitutions[1].EducationalInstitutionID,
                 Name = testDataHelper.EduInstitutions[1].Name,
                 Description = testDataHelper.EduInstitutions[1].Description,
                 LocationID = testDataHelper.EduInstitutions[1].LocationID,

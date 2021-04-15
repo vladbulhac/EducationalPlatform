@@ -12,25 +12,25 @@ namespace EducationalInstitutionAPI.Unit_of_Work
     {
         private bool disposed;
         private readonly DataContext context;
-        public IEducationalInstitutionRepository EduRepository { get; private set; }
-        public IEducationalInstitutionBuildingRepository EduBuildingRepository { get; private set; }
+        public IEducationalInstitutionRepository EducationalInstitutionRepository { get; private set; }
+        public IEducationalInstitutionBuildingRepository EducationalInstitutionBuildingRepository { get; private set; }
 
         public UnitOfWork(DbContextOptions<DataContext> options) => context = new(options);
 
         public IEducationalInstitutionRepository UsingEducationalInstitutionRepository()
         {
-            if (EduRepository is null)
-                EduRepository = new EducationalInstitutionRepository(context);
+            if (EducationalInstitutionRepository is null)
+                EducationalInstitutionRepository = new EducationalInstitutionRepository(context);
 
-            return EduRepository;
+            return EducationalInstitutionRepository;
         }
 
         public IEducationalInstitutionBuildingRepository UsingEducationalInstitutionBuildingRepository()
         {
-            if (EduBuildingRepository is null)
-                EduBuildingRepository = new EducationalInstitutionBuildingRepository(context);
+            if (EducationalInstitutionBuildingRepository is null)
+                EducationalInstitutionBuildingRepository = new EducationalInstitutionBuildingRepository(context);
 
-            return EduBuildingRepository;
+            return EducationalInstitutionBuildingRepository;
         }
 
         public async Task SaveChangesAsync(CancellationToken cancellationToken = default) => await context.SaveChangesAsync(cancellationToken);

@@ -5,7 +5,7 @@ namespace EducationalInstitutionAPI.DTOs.Commands
 {
     public class DTOEducationalInstitutionUpdateCommand : IRequest<Response>
     {
-        public Guid EduInstitutionID { get; init; }
+        public Guid EducationalInstitutionID { get; init; }
 
         public bool UpdateName { get; init; }
         public string Name { get; init; }

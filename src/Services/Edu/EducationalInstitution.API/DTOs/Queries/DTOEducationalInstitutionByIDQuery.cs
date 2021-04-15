@@ -9,15 +9,15 @@ namespace EducationalInstitutionAPI.DTOs.Queries
     /// </summary>
     public class DTOEducationalInstitutionByIDQuery : IRequest<Response<GetEducationalInstitutionByIDQueryResult>>
     {
-        public Guid EduInstitutionID { get; init; }
+        public Guid EducationalInstitutionID { get; init; }
 
         public DTOEducationalInstitutionByIDQuery()
         {
         }
 
-        public DTOEducationalInstitutionByIDQuery(Guid eduInstitutionID)
+        public DTOEducationalInstitutionByIDQuery(Guid educationalInstitutionID)
         {
-            EduInstitutionID = eduInstitutionID;
+            EducationalInstitutionID = educationalInstitutionID;
         }
     }
 }

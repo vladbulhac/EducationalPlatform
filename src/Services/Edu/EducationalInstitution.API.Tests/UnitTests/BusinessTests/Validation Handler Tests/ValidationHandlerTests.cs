@@ -73,7 +73,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             validationHandler.IsRequestValid(request, out string validationErrors);
 
             //Assert
-            Assert.Equal(" Property EduInstitutionID failed validation. Error was: Edu Institution ID was empty or null!", validationErrors);
+            Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
         }
 
         #endregion Request of type DTOEducationalInstitutionByIDQuery TESTS
@@ -1149,7 +1149,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
                 Name = "New_Name",
                 UpdateDescription = true,
@@ -1170,7 +1170,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = false,
                 Name = string.Empty,
                 UpdateDescription = true,
@@ -1191,7 +1191,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
                 Name = "New_Name",
                 UpdateDescription = false,
@@ -1212,7 +1212,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = false,
                 Name = string.Empty,
                 UpdateDescription = false,
@@ -1233,7 +1233,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = false,
                 Name = string.Empty,
                 UpdateDescription = false,
@@ -1254,7 +1254,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionUpdateCommand()
             {
-                EduInstitutionID = default,
+                EducationalInstitutionID = default,
                 UpdateName = true,
                 Name = "New_Name",
                 UpdateDescription = true,
@@ -1275,7 +1275,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionUpdateCommand()
             {
-                EduInstitutionID = default,
+                EducationalInstitutionID = default,
                 UpdateName = true,
                 Name = "New_Name",
                 UpdateDescription = true,
@@ -1287,7 +1287,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
 
             //Assert
-            Assert.Equal(" Property EduInstitutionID failed validation. Error was: Edu Institution ID was empty or null!", validationErrors);
+            Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
         }
 
         [Fact]
@@ -1296,7 +1296,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
                 Name = string.Empty,
                 UpdateDescription = true,
@@ -1317,7 +1317,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
                 Name = string.Empty,
                 UpdateDescription = true,
@@ -1338,7 +1338,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
                 Name = "N",
                 UpdateDescription = true,
@@ -1359,7 +1359,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
                 Name = "N",
                 UpdateDescription = true,
@@ -1380,7 +1380,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
                 Name = "New_Name",
                 UpdateDescription = true,
@@ -1401,7 +1401,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
                 Name = "New_Name",
                 UpdateDescription = true,
@@ -1422,7 +1422,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
                 Name = "New_Name",
                 UpdateDescription = true,
@@ -1443,7 +1443,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
                 Name = "New_Name",
                 UpdateDescription = true,
@@ -1468,7 +1468,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 UpdateBuildings = true,
@@ -1489,7 +1489,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
-                EduInstitutionID = default,
+                EducationalInstitutionID = default,
                 UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 UpdateBuildings = true,
@@ -1510,7 +1510,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
-                EduInstitutionID = default,
+                EducationalInstitutionID = default,
                 UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 UpdateBuildings = true,
@@ -1522,7 +1522,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             validationHandler.IsRequestValid(request, out string validationErrors);
 
             //Assert
-            Assert.Equal(" Property EduInstitutionID failed validation. Error was: Edu Institution ID was empty or null!", validationErrors);
+            Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
         }
 
         [Fact]
@@ -1531,7 +1531,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 UpdateBuildings = true,
@@ -1552,7 +1552,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 UpdateBuildings = true,
@@ -1573,7 +1573,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
                 LocationID = string.Empty,
                 UpdateBuildings = true,
@@ -1594,7 +1594,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
                 LocationID = string.Empty,
                 UpdateBuildings = true,
@@ -1615,7 +1615,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 UpdateBuildings = false,
@@ -1659,7 +1659,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 UpdateBuildings = true,
@@ -1680,7 +1680,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 UpdateBuildings = true,
@@ -1701,7 +1701,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = false,
                 LocationID = string.Empty,
                 UpdateBuildings = false,
@@ -1722,7 +1722,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = false,
                 LocationID = string.Empty,
                 UpdateBuildings = false,

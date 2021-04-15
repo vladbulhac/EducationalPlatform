@@ -10,7 +10,7 @@ namespace EducationalInstitutionAPI.DTOs.Commands
     /// </summary>
     public class DTOEducationalInstitutionLocationUpdateCommand : IRequest<Response>
     {
-        public Guid EduInstitutionID { get; init; }
+        public Guid EducationalInstitutionID { get; init; }
 
         public bool UpdateLocation { get; init; }
         public string LocationID { get; init; }
@@ -22,9 +22,9 @@ namespace EducationalInstitutionAPI.DTOs.Commands
         {
         }
 
-        public DTOEducationalInstitutionLocationUpdateCommand(Guid eduInstitutionID, string newLocationID, ICollection<string> newBuildingsIDs)
+        public DTOEducationalInstitutionLocationUpdateCommand(Guid educationalInstitutionID, string newLocationID, ICollection<string> newBuildingsIDs)
         {
-            EduInstitutionID = eduInstitutionID;
+            EducationalInstitutionID = educationalInstitutionID;
             LocationID = newLocationID;
             BuildingsIDs = newBuildingsIDs;
         }

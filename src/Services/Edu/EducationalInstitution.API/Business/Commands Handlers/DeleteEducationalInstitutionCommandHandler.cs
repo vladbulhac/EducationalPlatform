@@ -34,7 +34,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// <summary>
         /// Schedules an <see cref="EducationalInstitution"/> entity for deletion
         /// </summary>
-        /// <param name="request">Contains a <see cref="EducationalInstitution.EduInstitutionID"/></param>
+        /// <param name="request">Contains a <see cref="EducationalInstitution.EducationalInstitutionID"/></param>
         /// <param name="cancellationToken">Cancels the operation ________</param>
         /// <returns>
         /// An <see cref="Response{ResponseType}">object</see> with HttpStatusCode:
