@@ -63,19 +63,27 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
                             StatusCode = HttpStatusCode.NotFound,
                             Message = $"No Educational Institution with the following LocationID: {request.LocationID} has been found!"
                         };
-
-                    return new()
-                    {
-                        ResponseObject = eduInstitution,
-                        OperationStatus = true,
-                        StatusCode = HttpStatusCode.OK,
-                        Message = string.Empty
-                    };
+                    else
+                        return new()
+                        {
+                            ResponseObject = eduInstitution,
+                            OperationStatus = true,
+                            StatusCode = HttpStatusCode.OK,
+                            Message = string.Empty
+                        };
                 }
             }
             catch (Exception e)
             {
-                logger.LogError("Could not find an Educational Institution with LocationID: {0}, using {1}'s method: {2}, error details => {3}", request.LocationID, unitOfWork.GetType(), nameof(IEducationalInstitutionRepository.GetAllByLocationAsync), e.Message);
+                logger.LogError(
+                    "Could not find an Educational Institution with LocationID: {0}, using {1} with {2}'s method: {3}, error details => {4}",
+                    request.LocationID,
+                    unitOfWork.GetType(),
+                    unitOfWork.UsingEducationalInstitutionRepository().GetType(),
+                    nameof(IEducationalInstitutionRepository.GetAllByLocationAsync),
+                    e.Message
+                    );
+
                 return new()
                 {
                     ResponseObject = null,

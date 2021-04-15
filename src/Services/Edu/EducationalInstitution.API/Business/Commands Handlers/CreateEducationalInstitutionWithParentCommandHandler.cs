@@ -6,6 +6,7 @@ using EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository;
 using EducationalInstitutionAPI.Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Net;
 using System.Threading;
@@ -44,7 +45,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// <item><see cref="HttpStatusCode.InternalServerError">if the entity could not be inserted into the database</see></item>
         /// </list>
         /// </returns>
-        public async Task<Response<EducationalInstitutionCommandResult>> Handle(DTOEducationalInstitutionWithParentCreateCommand request, CancellationToken cancellationToken = default)
+        public async Task<Response<EducationalInstitutionCommandResult>> Handle(DTOEducationalInstitutionWithParentCreateCommand request, CancellationToken cancellationToken)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
 
@@ -55,37 +56,53 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                     var parentInstitution = await unitOfWork.UsingEducationalInstitutionRepository()
                                                             .GetEntityByIDAsync(request.ParentInstitutionID, cancellationToken);
 
-                    EducationalInstitution newEducationalInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs, parentInstitution);
+                    EducationalInstitution newEducationalInstitution = new(
+                                                                            request.Name,
+                                                                            request.Description,
+                                                                            request.LocationID,
+                                                                            request.BuildingsIDs,
+                                                                            parentInstitution
+                                                                            );
+
                     await unitOfWork.UsingEducationalInstitutionRepository()
-                                    .CreateAsync(newEducationalInstitution, cancellationToken);
+                                            .CreateAsync(newEducationalInstitution, cancellationToken);
                     await unitOfWork.SaveChangesAsync(cancellationToken);
 
-                    var httpStatusCode = HttpStatusCode.Created;
-                    string responseMessage = string.Empty;
                     if (parentInstitution is null)
-                    {
-                        httpStatusCode = HttpStatusCode.MultiStatus;
-                        responseMessage = $"The Educational Institution has been successfully created but the Parent Institution with the following ID: {request.ParentInstitutionID} has not been found!";
-                    }
-
-                    return new()
-                    {
-                        ResponseObject = new() { EduInstitutionID = newEducationalInstitution.EduInstitutionID },
-                        OperationStatus = true,
-                        StatusCode = httpStatusCode,
-                        Message = responseMessage
-                    };
+                        return new()
+                        {
+                            ResponseObject = new() { EduInstitutionID = newEducationalInstitution.EduInstitutionID },
+                            OperationStatus = true,
+                            StatusCode = HttpStatusCode.MultiStatus,
+                            Message = $"The Educational Institution has been successfully created but the Parent Institution with the following ID: {request.ParentInstitutionID} has not been found!"
+                        };
+                    else
+                        return new()
+                        {
+                            ResponseObject = new() { EduInstitutionID = newEducationalInstitution.EduInstitutionID },
+                            OperationStatus = true,
+                            StatusCode = HttpStatusCode.Created,
+                            Message = string.Empty
+                        };
                 }
             }
             catch (Exception e)
             {
-                logger.LogError("Could not create an Educational Institution with data: {0}, using {1}'s method: {2}, error details => {3}", request.ToString(), unitOfWork.GetType(), nameof(IEducationalInstitutionRepository.CreateAsync), e.Message);
+                logger.LogError(
+                    "Could not create an Educational Institution with the request data: {0}, using {1} with {2}'s method: {3}, error details => {4}",
+                    JsonConvert.SerializeObject(request),
+                    unitOfWork.GetType(),
+                    unitOfWork.UsingEducationalInstitutionRepository().GetType(),
+                    nameof(IEducationalInstitutionRepository.CreateAsync),
+                    e.Message
+                    );
+
                 return new()
                 {
                     ResponseObject = null,
                     OperationStatus = false,
                     StatusCode = HttpStatusCode.InternalServerError,
-                    Message = $"An error occurred while creating the Educational Institution with data: {request}!"
+                    Message = $"An error occurred while creating the Educational Institution with the given data!"
                 };
             }
         }

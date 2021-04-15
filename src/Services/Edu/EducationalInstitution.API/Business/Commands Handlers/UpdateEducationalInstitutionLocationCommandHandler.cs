@@ -6,6 +6,7 @@ using EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository;
 using EducationalInstitutionAPI.Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Net;
 using System.Threading;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 namespace EducationalInstitutionAPI.Business.Commands_Handlers
 {
     /// <summary>
-    /// Defines a method that handles the update of an <see cref="EducationalInstitution"/>'s location and buildings
+    /// Defines a method that handles the update of an <see cref="EducationalInstitution"/>'s location and/or buildings
     /// </summary>
     public class UpdateEducationalInstitutionLocationCommandHandler : IRequestHandler<DTOEducationalInstitutionLocationUpdateCommand, Response<EducationalInstitutionCommandResult>>
     {
@@ -52,21 +53,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             {
                 using (unitOfWork)
                 {
-                    bool isEntityUpdated = false;
-                    if (request.UpdateBuildings && request.UpdateLocation)
-                        isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                            .UpdateAsync(request.EduInstitutionID, request.LocationID, request.BuildingsIDs, cancellationToken);
-                    else
-                    if (request.UpdateLocation)
-                        isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                            .UpdateAsync(request.EduInstitutionID, request.LocationID, cancellationToken);
-                    else
-                        isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                            .UpdateAsync(request.EduInstitutionID, request.BuildingsIDs, cancellationToken);
-
-                    await unitOfWork.SaveChangesAsync(cancellationToken);
-
-                    if (!isEntityUpdated)
+                    if (!await IsEducationalInstitutionUpdatedAndSavedToDatabase(request, cancellationToken))
                         return new()
                         {
                             ResponseObject = null,
@@ -74,22 +61,26 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                             StatusCode = HttpStatusCode.NotFound,
                             Message = $"Educational Institution with the following ID: {request.EduInstitutionID} has not been found!"
                         };
-
-                    return new()
-                    {
-                        ResponseObject = new() { EduInstitutionID = request.EduInstitutionID },
-                        OperationStatus = true,
-                        StatusCode = HttpStatusCode.OK,
-                        Message = string.Empty
-                    };
+                    else
+                        return new()
+                        {
+                            ResponseObject = new() { EduInstitutionID = request.EduInstitutionID },
+                            OperationStatus = true,
+                            StatusCode = HttpStatusCode.OK,
+                            Message = string.Empty
+                        };
                 }
             }
             catch (Exception e)
             {
                 logger.LogError(
-                    "Could not update the Educational Institution with ID: {0}, using {1}'s method: {2} with {3}, {4}, error details => {5}",
-                    request.EduInstitutionID, unitOfWork.GetType(), nameof(IEducationalInstitutionRepository.UpdateAsync), nameof(request.LocationID), nameof(request.BuildingsIDs), e.Message
-                    );
+                   "Could not update the Educational Institution with the given data: {0}, using {1} with {2}'s method: {3}, error details => {4}",
+                   JsonConvert.SerializeObject(request),
+                   unitOfWork.GetType(),
+                   unitOfWork.UsingEducationalInstitutionRepository().GetType(),
+                   GetNameOfRepositoryMethodThatWasCalledInHandler(request),
+                   e.Message
+                   );
 
                 return new()
                 {
@@ -99,6 +90,37 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                     Message = $"An error occurred while updating the Educational Institution with the following ID: {request.EduInstitutionID}!"
                 };
             }
+        }
+
+        private async Task<bool> IsEducationalInstitutionUpdatedAndSavedToDatabase(DTOEducationalInstitutionLocationUpdateCommand request, CancellationToken cancellationToken)
+        {
+            bool isEntityUpdated;
+            if (request.UpdateBuildings && request.UpdateLocation)
+                isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
+                                                    .UpdateEntireLocationAsync(request.EduInstitutionID, request.LocationID, request.BuildingsIDs, cancellationToken);
+            else
+            if (request.UpdateLocation)
+                isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
+                                                    .UpdateLocationAsync(request.EduInstitutionID, request.LocationID, cancellationToken);
+            else
+                isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
+                                                    .UpdateBuildingsAsync(request.EduInstitutionID, request.BuildingsIDs, cancellationToken);
+
+            if (isEntityUpdated)
+                await unitOfWork.SaveChangesAsync(cancellationToken);
+
+            return isEntityUpdated;
+        }
+
+        private static string GetNameOfRepositoryMethodThatWasCalledInHandler(DTOEducationalInstitutionLocationUpdateCommand request)
+        {
+            if (request.UpdateBuildings && request.UpdateLocation)
+                return nameof(IEducationalInstitutionRepository.UpdateEntireLocationAsync);
+            else
+            if (request.UpdateLocation)
+                return nameof(IEducationalInstitutionRepository.UpdateLocationAsync);
+            else
+                return nameof(IEducationalInstitutionRepository.UpdateBuildingsAsync);
         }
     }
 }

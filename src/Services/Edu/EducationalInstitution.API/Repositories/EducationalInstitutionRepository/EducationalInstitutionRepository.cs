@@ -123,7 +123,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
             return true;
         }
 
-        public async Task<bool> UpdateAsync(Guid eduInstitutionID, string locationID, ICollection<string> buildingsIDs, CancellationToken cancellationToken)
+        public async Task<bool> UpdateEntireLocationAsync(Guid eduInstitutionID, string locationID, ICollection<string> buildingsIDs, CancellationToken cancellationToken)
         {
             var educationalInstitution = await context.EducationalInstitutions
                                                      .SingleOrDefaultAsync(ei => ei.EduInstitutionID == eduInstitutionID, cancellationToken);
@@ -134,7 +134,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
             return true;
         }
 
-        public async Task<bool> UpdateAsync(Guid eduInstitutionID, string locationID, CancellationToken cancellationToken)
+        public async Task<bool> UpdateLocationAsync(Guid eduInstitutionID, string locationID, CancellationToken cancellationToken)
         {
             var educationalInstitution = await context.EducationalInstitutions
                                                      .SingleOrDefaultAsync(ei => ei.EduInstitutionID == eduInstitutionID, cancellationToken);
@@ -145,7 +145,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
             return true;
         }
 
-        public async Task<bool> UpdateAsync(Guid eduInstitutionID, ICollection<string> buildingsIDs, CancellationToken cancellationToken)
+        public async Task<bool> UpdateBuildingsAsync(Guid eduInstitutionID, ICollection<string> buildingsIDs, CancellationToken cancellationToken)
         {
             var educationalInstitution = await context.EducationalInstitutions
                                                     .SingleOrDefaultAsync(ei => ei.EduInstitutionID == eduInstitutionID, cancellationToken);
@@ -153,6 +153,39 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
             if (educationalInstitution is null) return false;
 
             educationalInstitution.CreateAndAddABuilding(buildingsIDs);
+            return true;
+        }
+
+        public async Task<bool> UpdateNameAsync(Guid eduInstitutionID, string name, CancellationToken cancellationToken)
+        {
+            var educationalInstitution = await context.EducationalInstitutions
+                                                    .SingleOrDefaultAsync(ei => ei.EduInstitutionID == eduInstitutionID, cancellationToken);
+
+            if (educationalInstitution is null) return false;
+
+            educationalInstitution.UpdateName(name);
+            return true;
+        }
+
+        public async Task<bool> UpdateDescriptionAsync(Guid eduInstitutionID, string description, CancellationToken cancellationToken)
+        {
+            var educationalInstitution = await context.EducationalInstitutions
+                                                    .SingleOrDefaultAsync(ei => ei.EduInstitutionID == eduInstitutionID, cancellationToken);
+
+            if (educationalInstitution is null) return false;
+
+            educationalInstitution.UpdateDescription(description);
+            return true;
+        }
+
+        public async Task<bool> UpdateNameDescriptionAsync(Guid eduInstitutionID, string name, string description, CancellationToken cancellationToken)
+        {
+            var educationalInstitution = await context.EducationalInstitutions
+                .SingleOrDefaultAsync(ei => ei.EduInstitutionID == eduInstitutionID, cancellationToken);
+
+            if (educationalInstitution is null) return false;
+
+            educationalInstitution.Update(name, description);
             return true;
         }
     }

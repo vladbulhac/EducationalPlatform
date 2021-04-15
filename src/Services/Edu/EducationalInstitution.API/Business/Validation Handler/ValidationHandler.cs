@@ -36,8 +36,13 @@ namespace EducationalInstitutionAPI.Business.Validation_Handler
             }
             catch (Exception e)
             {
-                logger.LogError("Could not validate the request: {0} with the type: {1}, error details => {2}", nameof(request), request.GetType().ToString(), e.Message);
-                validationErrors = e.Message;
+                logger.LogError("Could not validate the request: {0} with the type: {1}, error details => {2}",
+                    nameof(request),
+                    request.GetType(),
+                    e.Message
+                    );
+
+                validationErrors = "An error occurred when trying to validate the request!";
                 return false;
             }
         }

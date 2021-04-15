@@ -6,6 +6,7 @@ using EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository;
 using EducationalInstitutionAPI.Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,65 +50,60 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
         /// </returns>
         public async Task<Response<ICollection<GetEducationalInstitutionQueryResult>>> Handle(DTOEducationalInstitutionsFromCollectionOfIDsQuery request, CancellationToken cancellationToken)
         {
-            ICollection<GetEducationalInstitutionQueryResult> educationInstitutions = default;
+            if (request is null) throw new ArgumentNullException(nameof(request));
+
             try
             {
                 using (unitOfWork)
                 {
-                    educationInstitutions = await unitOfWork.UsingEducationalInstitutionRepository()
+                    var educationInstitutions = await unitOfWork.UsingEducationalInstitutionRepository()
                                                                 .GetFromCollectionOfIDsAsync(request.EducationalInstitutionsIDs, cancellationToken);
 
                     if (educationInstitutions is null || educationInstitutions.Count is 0)
-                        return new Response<ICollection<GetEducationalInstitutionQueryResult>>()
+                        return new()
                         {
-                            ResponseObject = null,
+                            ResponseObject = educationInstitutions,
                             OperationStatus = true,
                             StatusCode = HttpStatusCode.NotFound,
                             Message = "Could not find the Educational Institutions from the list of given IDs!"
                         };
-
-                    var httpStatusCode = HttpStatusCode.OK;
-                    string message = string.Empty;
+                    else
                     if (educationInstitutions.Count < request.EducationalInstitutionsIDs.Count)
-                    {
-                        httpStatusCode = HttpStatusCode.MultiStatus;
-                        message = $"Could not retrieve all Educational Institutions with IDs: {request.EducationalInstitutionsIDs.Except(educationInstitutions.Select(eduI => eduI.EduInstitutionID).ToList())}";
-                    }
-
-                    return new Response<ICollection<GetEducationalInstitutionQueryResult>>()
-                    {
-                        ResponseObject = educationInstitutions,
-                        OperationStatus = true,
-                        StatusCode = httpStatusCode,
-                        Message = message
-                    };
+                        return new()
+                        {
+                            ResponseObject = educationInstitutions,
+                            OperationStatus = true,
+                            StatusCode = HttpStatusCode.MultiStatus,
+                            Message = $"Could not retrieve Educational Institutions with the following IDs: {JsonConvert.SerializeObject(request.EducationalInstitutionsIDs.Except(educationInstitutions.Select(eduI => eduI.EduInstitutionID).ToList()))}"
+                        };
+                    else
+                        return new()
+                        {
+                            ResponseObject = educationInstitutions,
+                            OperationStatus = true,
+                            StatusCode = HttpStatusCode.OK,
+                            Message = string.Empty
+                        };
                 }
             }
             catch (Exception e)
             {
-                if (educationInstitutions.Count > 0)
+                logger.LogError(
+                    "Could not retrieve any Educational Institutions from the following list of IDs: {0}, using {1} with {2}'s method {3}, error details => {4}",
+                    JsonConvert.SerializeObject(request.EducationalInstitutionsIDs),
+                    unitOfWork.GetType(),
+                    unitOfWork.UsingEducationalInstitutionRepository().GetType(),
+                    nameof(IEducationalInstitutionRepository.GetFromCollectionOfIDsAsync),
+                    e.Message
+                    );
+
+                return new()
                 {
-                    var eduInstitutionsIDsNotFound = request.EducationalInstitutionsIDs.Except(educationInstitutions.Select(eduI => eduI.EduInstitutionID).ToList());
-                    logger.LogError("Could not retrieve all Educational Institutions with IDs: {0}, using {1}'s method {2}, error details => {3}", request.EducationalInstitutionsIDs.Except(educationInstitutions.Select(eduI => eduI.EduInstitutionID).ToList()), unitOfWork.GetType(), nameof(IEducationalInstitutionRepository.GetFromCollectionOfIDsAsync), e.Message);
-                    return new Response<ICollection<GetEducationalInstitutionQueryResult>>()
-                    {
-                        ResponseObject = educationInstitutions,
-                        OperationStatus = true,
-                        StatusCode = HttpStatusCode.MultiStatus,
-                        Message = $"The following Educational Institutions' IDs have not been found: {eduInstitutionsIDsNotFound}"
-                    };
-                }
-                else
-                {
-                    logger.LogError("Could not retrieve any Educational Institutions from the following list of IDs:{0}, using {1}'s method {2}, error details => {3}", request.EducationalInstitutionsIDs, unitOfWork.GetType(), nameof(unitOfWork.UsingEducationalInstitutionRepository), e.Message);
-                    return new Response<ICollection<GetEducationalInstitutionQueryResult>>()
-                    {
-                        ResponseObject = null,
-                        OperationStatus = true,
-                        StatusCode = HttpStatusCode.NotFound,
-                        Message = "Could not find any Educational Institution from the list of IDs given!"
-                    };
-                }
+                    ResponseObject = null,
+                    OperationStatus = false,
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    Message = "Could not find any Educational Institution from the list of IDs given!"
+                };
             }
         }
     }

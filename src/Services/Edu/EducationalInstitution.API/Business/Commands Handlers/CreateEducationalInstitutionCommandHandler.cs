@@ -6,6 +6,7 @@ using EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository;
 using EducationalInstitutionAPI.Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Net;
 using System.Threading;
@@ -52,7 +53,9 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                 using (unitOfWork)
                 {
                     EducationalInstitution newEducationalInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs);
-                    await unitOfWork.UsingEducationalInstitutionRepository().CreateAsync(newEducationalInstitution, cancellationToken);
+
+                    await unitOfWork.UsingEducationalInstitutionRepository()
+                                            .CreateAsync(newEducationalInstitution, cancellationToken);
                     await unitOfWork.SaveChangesAsync(cancellationToken);
 
                     return new()
@@ -66,7 +69,15 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             }
             catch (Exception e)
             {
-                logger.LogError("Could not create an Educational Institution with data: {0}, using {1}'s method: {2}, error details => {3}", request.ToString(), unitOfWork.GetType(), nameof(IEducationalInstitutionRepository.CreateAsync), e.Message);
+                logger.LogError(
+                    "Could not create an Educational Institution with the request data: {0}, using {1} with {2}'s method: {3}, error details => {4}",
+                    JsonConvert.SerializeObject(request),
+                    unitOfWork.GetType(),
+                    unitOfWork.UsingEducationalInstitutionRepository().GetType(),
+                    nameof(IEducationalInstitutionRepository.CreateAsync),
+                    e.Message
+                    );
+
                 return new()
                 {
                     ResponseObject = null,

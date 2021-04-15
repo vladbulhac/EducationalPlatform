@@ -6,6 +6,7 @@ using EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository;
 using EducationalInstitutionAPI.Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -64,19 +65,27 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
                             StatusCode = HttpStatusCode.NotFound,
                             Message = $"Could not find any Educational Institution with a name like: {request.Name}!"
                         };
-
-                    return new()
-                    {
-                        ResponseObject = eduInstitutions,
-                        OperationStatus = true,
-                        StatusCode = HttpStatusCode.OK,
-                        Message = string.Empty
-                    };
+                    else
+                        return new()
+                        {
+                            ResponseObject = eduInstitutions,
+                            OperationStatus = true,
+                            StatusCode = HttpStatusCode.OK,
+                            Message = string.Empty
+                        };
                 }
             }
             catch (Exception e)
             {
-                logger.LogError("Could not find any Educational Institution with a name like: {0}, using {1}'s method: {2}, error details => {3}", request.Name, unitOfWork.GetType(), nameof(IEducationalInstitutionRepository.GetAllLikeNameAsync), e.Message);
+                logger.LogError(
+                    "Could not find any Educational Institution with the given data: {0}, using {1} and {2}'s method: {3}, error details => {4}",
+                    JsonConvert.SerializeObject(request),
+                    unitOfWork.GetType(),
+                    unitOfWork.UsingEducationalInstitutionRepository().GetType(),
+                    nameof(IEducationalInstitutionRepository.GetAllLikeNameAsync),
+                    e.Message
+                    );
+
                 return new()
                 {
                     ResponseObject = null,

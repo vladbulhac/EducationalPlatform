@@ -63,19 +63,25 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
                             StatusCode = HttpStatusCode.NotFound,
                             Message = $"Educational Institution with the following ID: {request.EduInstitutionID} has not been found!"
                         };
-
-                    return new()
-                    {
-                        ResponseObject = eduInstitution,
-                        OperationStatus = true,
-                        StatusCode = HttpStatusCode.OK,
-                        Message = string.Empty
-                    };
+                    else
+                        return new()
+                        {
+                            ResponseObject = eduInstitution,
+                            OperationStatus = true,
+                            StatusCode = HttpStatusCode.OK,
+                            Message = string.Empty
+                        };
                 }
             }
             catch (Exception e)
             {
-                logger.LogError("Could not find an Educational Institution with ID: {0}, using {1}'s method: {2}, error details => {3}", request.EduInstitutionID, unitOfWork.GetType(), nameof(IEducationalInstitutionRepository.GetByIDAsync), e.Message);
+                logger.LogError(
+                    "Could not find an Educational Institution with ID: {0}, using {1}'s method: {2}, error details => {3}",
+                    request.EduInstitutionID,
+                    unitOfWork.GetType(),
+                    nameof(IEducationalInstitutionRepository.GetByIDAsync),
+                    e.Message);
+
                 return new()
                 {
                     ResponseObject = null,

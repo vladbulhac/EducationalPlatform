@@ -370,7 +370,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
                     "Update_Test_Building_ID2" };
 
             //Act
-            var result = await eduRepository.UpdateAsync(educationalInstitutionID, locationID, buildings);
+            var result = await eduRepository.UpdateEntireLocationAsync(educationalInstitutionID, locationID, buildings);
             dbContext.SaveChanges();
 
             //Assert
@@ -385,7 +385,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
             string locationID = "Update_Test_LocationID";
 
             //Act
-            var result = await eduRepository.UpdateAsync(educationalInstitutionID, locationID);
+            var result = await eduRepository.UpdateLocationAsync(educationalInstitutionID, locationID);
             dbContext.SaveChanges();
 
             //Assert

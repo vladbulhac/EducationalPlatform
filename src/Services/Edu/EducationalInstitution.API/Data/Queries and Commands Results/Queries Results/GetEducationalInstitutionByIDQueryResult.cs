@@ -12,8 +12,8 @@ namespace EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Re
         public string Description { get; init; }
         public string LocationID { get; init; }
         public DateTime JoinDate { get; init; }
-        public Data.EducationalInstitution ParentInstitution { get; init; }
+        public EducationalInstitution ParentInstitution { get; init; }
         public ICollection<EducationalInstitutionBuilding> BuildingsIDs { get; init; }
-        public ICollection<Data.EducationalInstitution> ChildInstitutions { get; init; }
+        public ICollection<EducationalInstitution> ChildInstitutions { get; init; }
     }
 }

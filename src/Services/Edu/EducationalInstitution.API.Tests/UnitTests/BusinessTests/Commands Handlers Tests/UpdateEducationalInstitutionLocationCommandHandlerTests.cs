@@ -42,7 +42,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = buildingsIDs
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateAsync(eduInstitutionID, locationID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
+            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateEntireLocationAsync(eduInstitutionID, locationID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
             var handler = new UpdateEducationalInstitutionLocationCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -69,7 +69,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = buildingsIDs
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateAsync(eduInstitutionID, locationID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
+            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateEntireLocationAsync(eduInstitutionID, locationID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
             var handler = new UpdateEducationalInstitutionLocationCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -96,7 +96,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = buildingsIDs
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateAsync(eduInstitutionID, locationID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
+            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateEntireLocationAsync(eduInstitutionID, locationID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
             var handler = new UpdateEducationalInstitutionLocationCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -123,7 +123,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = buildingsIDs
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateAsync(eduInstitutionID, locationID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
+            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateEntireLocationAsync(eduInstitutionID, locationID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
             var handler = new UpdateEducationalInstitutionLocationCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -150,7 +150,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = buildingsIDs
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateAsync(eduInstitutionID, locationID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
+            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateEntireLocationAsync(eduInstitutionID, locationID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
             var handler = new UpdateEducationalInstitutionLocationCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -177,7 +177,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = buildingsIDs
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateAsync(eduInstitutionID, locationID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
+            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateEntireLocationAsync(eduInstitutionID, locationID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
             var handler = new UpdateEducationalInstitutionLocationCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -203,7 +203,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = default
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateAsync(eduInstitutionID, locationID, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
+            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateLocationAsync(eduInstitutionID, locationID, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
             var handler = new UpdateEducationalInstitutionLocationCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -229,7 +229,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = default
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateAsync(eduInstitutionID, locationID, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
+            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateLocationAsync(eduInstitutionID, locationID, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
             var handler = new UpdateEducationalInstitutionLocationCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -255,7 +255,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = default
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateAsync(eduInstitutionID, locationID, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
+            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateLocationAsync(eduInstitutionID, locationID, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
             var handler = new UpdateEducationalInstitutionLocationCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -281,7 +281,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = default
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateAsync(eduInstitutionID, locationID, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
+            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateLocationAsync(eduInstitutionID, locationID, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
             var handler = new UpdateEducationalInstitutionLocationCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -307,7 +307,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = default
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateAsync(eduInstitutionID, locationID, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
+            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateLocationAsync(eduInstitutionID, locationID, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
             var handler = new UpdateEducationalInstitutionLocationCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -333,7 +333,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = default
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateAsync(eduInstitutionID, locationID, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
+            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateLocationAsync(eduInstitutionID, locationID, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
             var handler = new UpdateEducationalInstitutionLocationCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -359,7 +359,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = buildingsIDs
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateAsync(eduInstitutionID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
+            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateBuildingsAsync(eduInstitutionID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
             var handler = new UpdateEducationalInstitutionLocationCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -385,7 +385,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = buildingsIDs
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateAsync(eduInstitutionID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
+            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateBuildingsAsync(eduInstitutionID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
             var handler = new UpdateEducationalInstitutionLocationCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -411,7 +411,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = buildingsIDs
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateAsync(eduInstitutionID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
+            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateBuildingsAsync(eduInstitutionID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
             var handler = new UpdateEducationalInstitutionLocationCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -437,7 +437,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = buildingsIDs
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateAsync(eduInstitutionID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
+            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateBuildingsAsync(eduInstitutionID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
             var handler = new UpdateEducationalInstitutionLocationCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -463,7 +463,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = buildingsIDs
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateAsync(eduInstitutionID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
+            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateBuildingsAsync(eduInstitutionID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
             var handler = new UpdateEducationalInstitutionLocationCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -489,7 +489,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = buildingsIDs
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateAsync(eduInstitutionID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
+            dependenciesHelper.mockRepository.Setup(mr => mr.UpdateBuildingsAsync(eduInstitutionID, buildingsIDs, dependenciesHelper.cancellationToken)).ReturnsAsync(true);
             var handler = new UpdateEducationalInstitutionLocationCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
             //Act

@@ -50,7 +50,8 @@ namespace EducationalInstitutionAPI.Data
             JoinDate = DateTime.UtcNow;
         }
 
-        public EducationalInstitution(string name, string description, string locationID, ICollection<string> buildingsIDs, EducationalInstitution parentInstitution = null) : this(name, description, locationID, parentInstitution)
+        public EducationalInstitution(string name, string description, string locationID,
+            ICollection<string> buildingsIDs, EducationalInstitution parentInstitution = null) : this(name, description, locationID, parentInstitution)
         {
             CreateAndAddABuilding(buildingsIDs);
         }
@@ -65,18 +66,24 @@ namespace EducationalInstitutionAPI.Data
                 ChildInstitutions.Add(childInstitution);
         }
 
-        public void Update(string name, string description, ICollection<string> buildingsIDs, string locationID)
+        public void Update(string name, string description, string locationID)
         {
             Name = name;
             Description = description;
-            CreateAndAddABuilding(buildingsIDs);
             LocationID = locationID;
         }
 
-        public void Update(string name, string description, string locationID)
+        public void Update(string name, string description)
         {
-            throw new NotImplementedException();
+            Name = name;
+            Description = description;
         }
+
+        public void UpdateName(string name) => Name = name;
+
+        public void UpdateDescription(string description) => Description = description;
+
+        public void UpdateLocation(string locationID) => LocationID = locationID;
 
         public void CreateAndAddABuilding(ICollection<string> buildingsIDs)
         {
@@ -98,8 +105,6 @@ namespace EducationalInstitutionAPI.Data
             Buildings.Clear();
             CreateAndAddABuilding(buildingsIDs);
         }
-
-        public void UpdateLocation(string locationID) => LocationID = locationID;
 
         public void AddBuilding(string buildingID) => CreateAndAddABuilding(buildingID);
     }

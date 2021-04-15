@@ -1,8 +1,9 @@
-﻿using System;
+﻿using MediatR;
+using System;
 
 namespace EducationalInstitutionAPI.DTOs.Commands
 {
-    public class DTOEducationalInstitutionUpdateCommand
+    public class DTOEducationalInstitutionUpdateCommand : IRequest<Response>
     {
         public Guid EduInstitutionID { get; init; }
 

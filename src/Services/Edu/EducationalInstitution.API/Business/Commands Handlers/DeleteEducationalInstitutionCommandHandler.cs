@@ -2,6 +2,7 @@
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Commands_Results;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
+using EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository;
 using EducationalInstitutionAPI.Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -84,8 +85,12 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             catch (Exception e)
             {
                 logger.LogError(
-                    "Could not schedule for deletion the Educational Institution with ID: {0}, using {1}'s method: {2} with {3}, error details => {4}",
-                    request.EducationalInstitutionID, unitOfWork.GetType(), unitOfWork.UsingEducationalInstitutionRepository().GetType(), nameof(request.EducationalInstitutionID), e.Message
+                    "Could not schedule for deletion the Educational Institution with ID: {0}, using {1} with {2}'s method: {3}, error details => {4}",
+                    request.EducationalInstitutionID,
+                    unitOfWork.GetType(),
+                    unitOfWork.UsingEducationalInstitutionRepository().GetType(),
+                    nameof(IEducationalInstitutionRepository.GetEntityByIDAsync),
+                    e.Message
                     );
 
                 return new()

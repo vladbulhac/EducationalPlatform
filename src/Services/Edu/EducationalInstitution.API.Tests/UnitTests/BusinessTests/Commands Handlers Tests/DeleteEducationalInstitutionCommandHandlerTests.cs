@@ -135,7 +135,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         }
 
         [Fact]
-        public async Task GivenAnID_ShouldReturnAResponseThatIncludesAResponseObjectWithA_DateForPermanentDeletionSetAtADayInTheFutureField()
+        public async Task GivenAnID_ShouldReturnAResponseThatIncludesAResponseObjectWithA_DateForPermanentDeletionSetToADayInTheFutureField()
         {
             //Arrange
             Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EduInstitutionID;
@@ -156,7 +156,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
-            Assert.Equal(DateTime.Today.AddDays(days), result.ResponseObject.AccessInformation.DateForPermanentDeletion);
+            Assert.Equal(DateTime.UtcNow.Date.AddDays(days), result.ResponseObject.AccessInformation.DateForPermanentDeletion);
         }
 
         [Fact]
