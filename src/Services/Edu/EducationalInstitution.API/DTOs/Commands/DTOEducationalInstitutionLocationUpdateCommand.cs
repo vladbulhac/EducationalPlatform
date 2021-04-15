@@ -8,7 +8,7 @@ namespace EducationalInstitutionAPI.DTOs.Commands
     /// <summary>
     /// Encapsulates the body of an update request
     /// </summary>
-    public class DTOEducationalInstitutionLocationUpdateCommand : IRequest<Response<EducationalInstitutionCommandResult>>
+    public class DTOEducationalInstitutionLocationUpdateCommand : IRequest<Response>
     {
         public Guid EduInstitutionID { get; init; }
 

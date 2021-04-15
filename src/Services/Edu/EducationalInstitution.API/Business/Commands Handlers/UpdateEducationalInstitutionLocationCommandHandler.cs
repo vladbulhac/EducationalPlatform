@@ -17,7 +17,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
     /// <summary>
     /// Defines a method that handles the update of an <see cref="EducationalInstitution"/>'s location and/or buildings
     /// </summary>
-    public class UpdateEducationalInstitutionLocationCommandHandler : IRequestHandler<DTOEducationalInstitutionLocationUpdateCommand, Response<EducationalInstitutionCommandResult>>
+    public class UpdateEducationalInstitutionLocationCommandHandler : IRequestHandler<DTOEducationalInstitutionLocationUpdateCommand, Response>
     {
         /// <summary>
         /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
@@ -40,12 +40,12 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// <returns>
         /// An <see cref="Response{ResponseType}">object</see> with HttpStatusCode:
         /// <list type="bullet">
-        /// <item><see cref="HttpStatusCode.OK">if operation is successful</see></item>
+        /// <item><see cref="HttpStatusCode.NoContent">if operation is successful</see></item>
         /// <item><see cref="HttpStatusCode.NotFound">if no <see cref="EducationalInstitution"/> has been found for the provided id</see></item>
         /// <item><see cref="HttpStatusCode.InternalServerError">if the entity could not be updated</see></item>
         /// </list>
         /// </returns>
-        public async Task<Response<EducationalInstitutionCommandResult>> Handle(DTOEducationalInstitutionLocationUpdateCommand request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(DTOEducationalInstitutionLocationUpdateCommand request, CancellationToken cancellationToken)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
 
@@ -56,7 +56,6 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                     if (!await IsEducationalInstitutionUpdatedAndSavedToDatabase(request, cancellationToken))
                         return new()
                         {
-                            ResponseObject = null,
                             OperationStatus = false,
                             StatusCode = HttpStatusCode.NotFound,
                             Message = $"Educational Institution with the following ID: {request.EduInstitutionID} has not been found!"
@@ -64,9 +63,8 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                     else
                         return new()
                         {
-                            ResponseObject = new() { EduInstitutionID = request.EduInstitutionID },
                             OperationStatus = true,
-                            StatusCode = HttpStatusCode.OK,
+                            StatusCode = HttpStatusCode.NoContent,
                             Message = string.Empty
                         };
                 }
@@ -84,7 +82,6 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
                 return new()
                 {
-                    ResponseObject = null,
                     OperationStatus = false,
                     StatusCode = HttpStatusCode.InternalServerError,
                     Message = $"An error occurred while updating the Educational Institution with the following ID: {request.EduInstitutionID}!"
