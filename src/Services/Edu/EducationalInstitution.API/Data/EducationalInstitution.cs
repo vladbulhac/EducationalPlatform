@@ -1,6 +1,7 @@
 ﻿using EducationalInstitutionAPI.Data.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EducationalInstitutionAPI.Data
 {
@@ -53,7 +54,7 @@ namespace EducationalInstitutionAPI.Data
         public EducationalInstitution(string name, string description, string locationID,
             ICollection<string> buildingsIDs, EducationalInstitution parentInstitution = null) : this(name, description, locationID, parentInstitution)
         {
-            CreateAndAddABuilding(buildingsIDs);
+            CreateAndAddBuildings(buildingsIDs);
         }
 
         public EducationalInstitution()
@@ -85,27 +86,36 @@ namespace EducationalInstitutionAPI.Data
 
         public void UpdateLocation(string locationID) => LocationID = locationID;
 
-        public void CreateAndAddABuilding(ICollection<string> buildingsIDs)
+        public void CreateAndAddBuildings(ICollection<string> addBuildingsIDs)
         {
-            foreach (var buildingID in buildingsIDs)
+            if (addBuildingsIDs is not null && addBuildingsIDs.Count > 0)
             {
-                CreateAndAddABuilding(buildingID);
+                foreach (var buildingID in addBuildingsIDs)
+                {
+                    EducationalInstitutionBuilding newBuilding = new(buildingID, EducationalInstitutionID);
+                    Buildings.Add(newBuilding);
+                }
             }
         }
 
-        private void CreateAndAddABuilding(string buildingID)
+        public void RemoveBuildings(ICollection<string> removeBuildingsIDs)
         {
-            EducationalInstitutionBuilding newBuilding = new(buildingID, this.EducationalInstitutionID);
-            Buildings.Add(newBuilding);
+            if (removeBuildingsIDs is not null && removeBuildingsIDs.Count > 0)
+            {
+                foreach (var buildingID in removeBuildingsIDs)
+                {
+                    var building = Buildings.SingleOrDefault(b => b.BuildingID == buildingID);
+                    if (building is not null)
+                        Buildings.Remove(building);
+                }
+            }
         }
 
-        public void UpdateEntireLocation(string locationID, ICollection<string> buildingsIDs)
+        public void UpdateEntireLocation(string locationID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs)
         {
             LocationID = locationID;
-            Buildings.Clear();
-            CreateAndAddABuilding(buildingsIDs);
+            CreateAndAddBuildings(addBuildingsIDs);
+            RemoveBuildings(removeBuildingsIDs);
         }
-
-        public void AddBuilding(string buildingID) => CreateAndAddABuilding(buildingID);
     }
 }

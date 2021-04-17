@@ -123,14 +123,14 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
             return true;
         }
 
-        public async Task<bool> UpdateEntireLocationAsync(Guid educationalInstitutionID, string locationID, ICollection<string> buildingsIDs, CancellationToken cancellationToken)
+        public async Task<bool> UpdateEntireLocationAsync(Guid educationalInstitutionID, string locationID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken)
         {
             var educationalInstitution = await context.EducationalInstitutions
                                                      .SingleOrDefaultAsync(ei => ei.EducationalInstitutionID == educationalInstitutionID, cancellationToken);
 
             if (educationalInstitution is null) return false;
 
-            educationalInstitution.UpdateEntireLocation(locationID, buildingsIDs);
+            educationalInstitution.UpdateEntireLocation(locationID, addBuildingsIDs, removeBuildingsIDs);
             return true;
         }
 
@@ -145,14 +145,15 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
             return true;
         }
 
-        public async Task<bool> UpdateBuildingsAsync(Guid educationalInstitutionID, ICollection<string> buildingsIDs, CancellationToken cancellationToken)
+        public async Task<bool> UpdateBuildingsAsync(Guid educationalInstitutionID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken)
         {
             var educationalInstitution = await context.EducationalInstitutions
                                                     .SingleOrDefaultAsync(ei => ei.EducationalInstitutionID == educationalInstitutionID, cancellationToken);
 
             if (educationalInstitution is null) return false;
 
-            educationalInstitution.CreateAndAddABuilding(buildingsIDs);
+            educationalInstitution.CreateAndAddBuildings(addBuildingsIDs);
+            educationalInstitution.RemoveBuildings(removeBuildingsIDs);
             return true;
         }
 

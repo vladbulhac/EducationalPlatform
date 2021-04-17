@@ -1472,7 +1472,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 UpdateBuildings = true,
-                BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
+                AddBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
@@ -1493,7 +1493,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 UpdateBuildings = true,
-                BuildingsIDs = new List<string>() { "10Fc4a7f1E00f1BDebAe4509" }
+                AddBuildingsIDs = new List<string>() { "10Fc4a7f1E00f1BDebAe4509" }
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
@@ -1514,7 +1514,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 UpdateBuildings = true,
-                BuildingsIDs = new List<string>() { "10Fc4a7f1E00f1BDebAe4509" }
+                AddBuildingsIDs = new List<string>() { "10Fc4a7f1E00f1BDebAe4509" }
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
@@ -1535,7 +1535,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 UpdateBuildings = true,
-                BuildingsIDs = new List<string>() { string.Empty }
+                AddBuildingsIDs = new List<string>() { string.Empty }
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
@@ -1556,7 +1556,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 UpdateBuildings = true,
-                BuildingsIDs = new List<string>() { string.Empty }
+                AddBuildingsIDs = new List<string>() { string.Empty }
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
@@ -1564,7 +1564,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             validationHandler.IsRequestValid(request, out string validationErrors);
 
             //Assert
-            Assert.Equal(" Property BuildingsIDs[0] failed validation. Error was: BuildingID was empty or null!", validationErrors);
+            Assert.Equal(" Property AddBuildingsIDs[0] failed validation. Error was: BuildingID was empty or null!", validationErrors);
         }
 
         [Fact]
@@ -1577,7 +1577,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateLocation = true,
                 LocationID = string.Empty,
                 UpdateBuildings = true,
-                BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4503" }
+                AddBuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4503" }
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
@@ -1598,7 +1598,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateLocation = true,
                 LocationID = string.Empty,
                 UpdateBuildings = true,
-                BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4503" }
+                AddBuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4503" }
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
@@ -1619,7 +1619,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 UpdateBuildings = false,
-                BuildingsIDs = default
+                AddBuildingsIDs = default
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
@@ -1663,7 +1663,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 UpdateBuildings = true,
-                BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509", "10Fc4a7f1e00f1BDebAe4509" }
+                AddBuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509", "10Fc4a7f1e00f1BDebAe4509" }
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
@@ -1684,7 +1684,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateLocation = true,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 UpdateBuildings = true,
-                BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509", "10Fc4a7f1e00f1BDebAe4509" }
+                AddBuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509", "10Fc4a7f1e00f1BDebAe4509" }
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
@@ -1692,7 +1692,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
 
             //Assert
-            Assert.Equal(" Property BuildingsIDs failed validation. Error was: BuildingsIDs can't contain duplicates!", validationErrors);
+            Assert.Equal(" Property AddBuildingsIDs failed validation. Error was: AddBuildingsIDs can't contain duplicates!", validationErrors);
         }
 
         [Fact]
@@ -1705,7 +1705,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateLocation = false,
                 LocationID = string.Empty,
                 UpdateBuildings = false,
-                BuildingsIDs = default
+                AddBuildingsIDs = default
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
@@ -1726,7 +1726,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateLocation = false,
                 LocationID = string.Empty,
                 UpdateBuildings = false,
-                BuildingsIDs = default
+                AddBuildingsIDs = default
             };
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
@@ -1735,6 +1735,310 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
 
             //Assert
             Assert.Equal(" Property UpdateBuildings failed validation. Error was: Both location and buildings update fields are false!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithDuplicateBuildingsIDs_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                AddBuildingsIDs = new List<string>() { "10Fc4a7f1E00f1BDebAe4509", "10Fc4a7f1E00f1BDebAe4509" }
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithDuplicateBuildingsIDs_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                AddBuildingsIDs = new List<string>() { "10Fc4a7f1E00f1BDebAe4509", "10Fc4a7f1E00f1BDebAe4509" }
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property AddBuildingsIDs failed validation. Error was: AddBuildingsIDs can't contain duplicates!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithBothAddBuiildingsIDsAndRemoveBuildingsIDsEmpty_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                AddBuildingsIDs = new List<string>(0),
+                RemoveBuildingsIDs = new List<string>(0)
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithBothAddBuiildingsIDsAndRemoveBuildingsIDsEmpty_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                AddBuildingsIDs = new List<string>(0),
+                RemoveBuildingsIDs = new List<string>(0)
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property AddBuildingsIDs failed validation. Error was: Both AddBuildingsIDs and RemoveBuildingsIDs collections are empty!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyRemoveBuildingID_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                RemoveBuildingsIDs = new List<string>() { string.Empty }
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyRemoveBuildingID_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                RemoveBuildingsIDs = new List<string>() { string.Empty }
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property RemoveBuildingsIDs[0] failed validation. Error was: BuildingID was empty or null!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithOutOfBoundsCharactersInRemoveBuildingID_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                AddBuildingsIDs = new List<string>(),
+                RemoveBuildingsIDs = new List<string>() { "Q10Fc47f1e00f1BDebAe4509" }
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithOutOfBoundsCharactersInRemoveBuildingID_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                AddBuildingsIDs = new List<string>(),
+                RemoveBuildingsIDs = new List<string>() { "Q10Fc47f1e00f1BDebAe4509" }
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property RemoveBuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithOutOfBoundsCharactersInAddBuildingID_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                RemoveBuildingsIDs = new List<string>(),
+                AddBuildingsIDs = new List<string>() { "Q10Fc47f1e00f1BDebAe4509" }
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithOutOfBoundsCharactersInAddBuildingID_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                RemoveBuildingsIDs = new List<string>(),
+                AddBuildingsIDs = new List<string>() { "Q10Fc47f1e00f1BDebAe4509" }
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property AddBuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithLengthGreaterThan24InRemoveBuildingID_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                AddBuildingsIDs = new List<string>(),
+                RemoveBuildingsIDs = new List<string>() { "a10Fc47f1e00f1BDebAe4509A" }
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithLengthGreaterThan24InRemoveBuildingID_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                AddBuildingsIDs = new List<string>(),
+                RemoveBuildingsIDs = new List<string>() { "a10Fc47f1e00f1BDebAe4509A" }
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property RemoveBuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithLengthGreaterThan24InAddBuildingID_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                RemoveBuildingsIDs = new List<string>(),
+                AddBuildingsIDs = new List<string>() { "AA10Fc47f1e00f1BDebAe4509" }
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithLengthGreaterThan24InAddBuildingID_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                RemoveBuildingsIDs = new List<string>(),
+                AddBuildingsIDs = new List<string>() { "a10Fc47f1e00f1BDebAe4509AE" }
+            };
+            var validationHandler = new ValidationHandler(mockLogger.Object);
+
+            //Act
+            validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property AddBuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
         }
 
         #endregion Request of type DTOEducationalInstitutionLocationUpdateCommand TESTS

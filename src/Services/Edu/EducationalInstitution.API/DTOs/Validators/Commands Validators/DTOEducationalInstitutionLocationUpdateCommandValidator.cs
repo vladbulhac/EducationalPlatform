@@ -21,18 +21,42 @@ namespace EducationalInstitutionAPI.DTOs.Validators.Commands_Validators
 
             When(v => v.UpdateBuildings == true, () =>
             {
-                RuleFor(v => v.BuildingsIDs)
-                                .Must((i, x) => NotContainsDuplicates(x))
-                                .WithMessage("BuildingsIDs can't contain duplicates!");
+                When(v => v.AddBuildingsIDs is not null && v.AddBuildingsIDs.Count > 0, () =>
+                {
+                    RuleFor(v => v.AddBuildingsIDs)
+                                   .Must((i, x) => NotContainDuplicates(x))
+                                    .WithMessage("AddBuildingsIDs can't contain duplicates!");
 
-                RuleForEach(v => v.BuildingsIDs)
-                            .NotEmpty()
-                                .WithMessage("BuildingID was empty or null!")
-                            .Matches(@"[a-fA-F0-9]{24}")
-                                .WithMessage("BuildingID contains characters that are not supported and/or the length is not exactly 24!")
-                            .NotEqual(req => req.LocationID)
-                                .When(v => v.UpdateLocation == true)
-                                .WithMessage("BuildingID was the same as LocationID!");
+                    RuleForEach(v => v.AddBuildingsIDs)
+                                    .NotEmpty()
+                                        .WithMessage("BuildingID was empty or null!")
+                                    .Matches(@"\b[a-fA-F0-9]{24}$")
+                                        .WithMessage("BuildingID contains characters that are not supported and/or the length is not exactly 24!")
+                                    .NotEqual(req => req.LocationID)
+                                        .When(v => v.UpdateLocation == true)
+                                        .WithMessage("BuildingID was the same as LocationID!");
+                });
+
+                When(v => v.RemoveBuildingsIDs is not null && v.RemoveBuildingsIDs.Count > 0, () =>
+                {
+                    RuleFor(v => v.RemoveBuildingsIDs)
+                                 .Must((i, x) => NotContainDuplicates(x))
+                                  .WithMessage("BuildingsIDs can't contain duplicates!");
+
+                    RuleForEach(v => v.RemoveBuildingsIDs)
+                                .NotEmpty()
+                                    .WithMessage("BuildingID was empty or null!")
+                                .Matches(@"\b[a-fA-F0-9]{24}$")
+                                    .WithMessage("BuildingID contains characters that are not supported and/or the length is not exactly 24!")
+                                .NotEqual(req => req.LocationID)
+                                    .When(v => v.UpdateLocation == true)
+                                    .WithMessage("BuildingID was the same as LocationID!");
+                }).Otherwise(() =>
+                {
+                    RuleFor(v => v.AddBuildingsIDs)
+                                      .NotEmpty()
+                                          .WithMessage("Both AddBuildingsIDs and RemoveBuildingsIDs collections are empty!");
+                });
             });
 
             When(v => v.UpdateLocation == true, () =>
@@ -40,17 +64,17 @@ namespace EducationalInstitutionAPI.DTOs.Validators.Commands_Validators
                 RuleFor(v => v.LocationID)
                                    .NotEmpty()
                                     .WithMessage("{PropertyName} was empty or null!")
-                                   .Matches(@"[a-fA-F0-9]{24}")
+                                   .Matches(@"\b[a-fA-F0-9]{24}$")
                                     .WithMessage("{PropertyName} contains characters that are not supported and/or the length is not exactly 24!");
             }).Otherwise(() =>
             {
                 RuleFor(v => v.UpdateBuildings)
                             .Equal(true)
-                            .WithMessage("Both location and buildings update fields are false!");
+                                .WithMessage("Both location and buildings update fields are false!");
             });
         }
 
-        private static bool NotContainsDuplicates<TElement>(ICollection<TElement> elements)
+        private static bool NotContainDuplicates<TElement>(ICollection<TElement> elements)
         {
             HashSet<TElement> visitedElements = new(elements.Count);
             foreach (var element in elements)

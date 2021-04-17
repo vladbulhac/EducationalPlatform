@@ -1,5 +1,4 @@
 ﻿using EducationalInstitutionAPI.Data;
-using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Commands_Results;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
 using EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository;
@@ -94,14 +93,14 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             bool isEntityUpdated;
             if (request.UpdateBuildings && request.UpdateLocation)
                 isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                    .UpdateEntireLocationAsync(request.EducationalInstitutionID, request.LocationID, request.BuildingsIDs, cancellationToken);
+                                                    .UpdateEntireLocationAsync(request.EducationalInstitutionID, request.LocationID, request.AddBuildingsIDs, request.RemoveBuildingsIDs, cancellationToken);
             else
             if (request.UpdateLocation)
                 isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
                                                     .UpdateLocationAsync(request.EducationalInstitutionID, request.LocationID, cancellationToken);
             else
                 isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                    .UpdateBuildingsAsync(request.EducationalInstitutionID, request.BuildingsIDs, cancellationToken);
+                                                    .UpdateBuildingsAsync(request.EducationalInstitutionID, request.AddBuildingsIDs, request.RemoveBuildingsIDs, cancellationToken);
 
             if (isEntityUpdated)
                 await unitOfWork.SaveChangesAsync(cancellationToken);

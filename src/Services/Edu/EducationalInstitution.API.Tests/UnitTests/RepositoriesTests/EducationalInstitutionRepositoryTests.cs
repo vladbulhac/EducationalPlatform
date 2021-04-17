@@ -366,11 +366,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
             //Arrange
             Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
             string locationID = "Update_Test_LocationID";
-            var buildings = new List<string>() { "Update_Test_Building_ID1",
+            var addBuildingsIDs = new List<string>() { "Update_Test_Building_ID1",
                     "Update_Test_Building_ID2" };
+            var removeBuildingsIDs = new List<string>() { testDataHelper.EduInstitutions[0].Buildings.ElementAtOrDefault(0).BuildingID };
 
             //Act
-            var result = await eduRepository.UpdateEntireLocationAsync(educationalInstitutionID, locationID, buildings);
+            var result = await eduRepository.UpdateEntireLocationAsync(educationalInstitutionID, locationID, addBuildingsIDs, removeBuildingsIDs);
             dbContext.SaveChanges();
 
             //Assert

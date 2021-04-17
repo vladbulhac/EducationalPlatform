@@ -16,23 +16,23 @@ namespace EducationalInstitutionAPI.DTOs.Validators.Commands_Validators
             {
                 RuleFor(v => v.Name)
                                .NotEmpty()
-                               .WithMessage("{PropertyName} was empty or null!")
+                                .WithMessage("{PropertyName} was empty or null!")
                                .Length(2, 128)
-                               .WithMessage("{PropertyName}'s length was not between 2-128 characters!");
+                                .WithMessage("{PropertyName}'s length was not between 2-128 characters!");
             }).Otherwise(() =>
             {
                 RuleFor(v => v.UpdateDescription)
                         .Equal(true)
-                        .WithMessage("Both update fields are set to false!");
+                            .WithMessage("Both update fields are set to false!");
             });
 
             When(v => v.UpdateDescription == true, () =>
             {
                 RuleFor(v => v.Description)
                              .NotEmpty()
-                             .WithMessage("{PropertyName} was empty or null!")
+                                .WithMessage("{PropertyName} was empty or null!")
                              .Length(2, 500)
-                             .WithMessage("{PropertyName}'s length was not between 2-500 characters!");
+                                .WithMessage("{PropertyName}'s length was not between 2-500 characters!");
             });
         }
     }

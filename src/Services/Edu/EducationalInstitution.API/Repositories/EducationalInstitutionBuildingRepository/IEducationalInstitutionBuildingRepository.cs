@@ -1,5 +1,6 @@
 ﻿using EducationalInstitutionAPI.Data;
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,5 +18,9 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingR
         /// <param name="cancellationToken">Cancels the operation _______</param>
         /// <returns>NULL if the entity has not been found, a record type <see cref="GetAllEducationalInstitutionsWithSameBuildingQueryResult"/> otherwise</returns>
         public Task<GetAllEducationalInstitutionsWithSameBuildingQueryResult> GetAllEducationalInstitutionsWithSameBuildingAsync(string buildingID, CancellationToken cancellationToken = default);
+
+        public Task<bool> DeleteAsync(string buildingID, CancellationToken cancellationToken = default);
+
+        public Task<bool> DeleteAsync(ICollection<string> buildingsIDs, CancellationToken cancellationToken = default);
     }
 }

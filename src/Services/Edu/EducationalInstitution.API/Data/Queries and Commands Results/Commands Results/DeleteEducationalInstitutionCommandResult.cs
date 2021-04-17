@@ -1,5 +1,4 @@
-﻿using EducationalInstitutionAPI.Data.Helpers;
-using System;
+﻿using System;
 
 namespace EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Commands_Results
 {

@@ -16,19 +16,19 @@ namespace EducationalInstitutionAPI.DTOs.Validators.Queries_Validators
             CascadeMode = CascadeMode.Stop;
             RuleFor(v => v.Name)
                               .NotEmpty()
-                              .WithMessage("{PropertyName} was empty or null!")
+                                .WithMessage("{PropertyName} was empty or null!")
                               .Length(2, 128)
-                              .WithMessage("{PropertyName}'s length was not between 2-128 characters!");
+                                .WithMessage("{PropertyName}'s length was not between 2-128 characters!");
 
             RuleFor(v => v.OffsetValue)
                 .NotNull()
                 .InclusiveBetween(0, 150)
-                .WithMessage("{PropertyName} was not between 0 and 150!");
+                    .WithMessage("{PropertyName} was not between 0 and 150!");
 
             RuleFor(v => v.ResultsCount)
                 .NotNull()
                 .InclusiveBetween(1, 100)
-                .WithMessage("{PropertyName} was not between 1 and 100!");
+                    .WithMessage("{PropertyName} was not between 1 and 100!");
         }
     }
 }

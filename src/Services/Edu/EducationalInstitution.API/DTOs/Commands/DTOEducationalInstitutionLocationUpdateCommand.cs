@@ -1,5 +1,4 @@
-﻿using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Commands_Results;
-using MediatR;
+﻿using MediatR;
 using System;
 using System.Collections.Generic;
 
@@ -16,7 +15,8 @@ namespace EducationalInstitutionAPI.DTOs.Commands
         public string LocationID { get; init; }
 
         public bool UpdateBuildings { get; init; }
-        public ICollection<string> BuildingsIDs { get; init; }
+        public ICollection<string> AddBuildingsIDs { get; init; }
+        public ICollection<string> RemoveBuildingsIDs { get; init; }
 
         public DTOEducationalInstitutionLocationUpdateCommand()
         {
@@ -26,7 +26,7 @@ namespace EducationalInstitutionAPI.DTOs.Commands
         {
             EducationalInstitutionID = educationalInstitutionID;
             LocationID = newLocationID;
-            BuildingsIDs = newBuildingsIDs;
+            AddBuildingsIDs = newBuildingsIDs;
         }
     }
 }
