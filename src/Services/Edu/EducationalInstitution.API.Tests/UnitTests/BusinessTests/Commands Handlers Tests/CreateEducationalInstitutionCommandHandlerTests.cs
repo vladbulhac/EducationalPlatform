@@ -140,7 +140,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
-            Assert.IsType<Guid>(result.ResponseObject.EduInstitutionID);
+            Assert.IsType<Guid>(result.Data.EduInstitutionID);
         }
 
         [Fact]
@@ -170,7 +170,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
-            Assert.IsType<EducationalInstitutionCommandResult>(result.ResponseObject);
+            Assert.IsType<EducationalInstitutionCommandResult>(result.Data);
         }
 
         [Fact]

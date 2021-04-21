@@ -1,4 +1,5 @@
-﻿using EducationalInstitutionAPI.DTOs;
+﻿using EducationalInstitutionAPI.Data;
+using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
 using EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository;
 using EducationalInstitutionAPI.Unit_of_Work;
@@ -12,9 +13,6 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Business.Commands_Handlers
 {
-    /// <summary>
-    /// Defines a method that handles the update of an <see cref="EducationalInstitution"/>'s name and/or description
-    /// </summary>
     public class UpdateEducationalInstitutionCommandHandler : IRequestHandler<DTOEducationalInstitutionUpdateCommand, Response>
     {
         /// <summary>
@@ -24,12 +22,20 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
         private readonly IUnitOfWork unitOfWork;
 
+        /// <exception cref="ArgumentNullException"/>
         public UpdateEducationalInstitutionCommandHandler(IUnitOfWork unitOfWork, ILogger<UpdateEducationalInstitutionCommandHandler> logger)
         {
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        /// <summary>
+        /// Tries to update the name and/or description of an <see cref="EducationalInstitution"/> entity
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"/>
         public async Task<Response> Handle(DTOEducationalInstitutionUpdateCommand request, CancellationToken cancellationToken)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
@@ -45,13 +51,13 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                             StatusCode = HttpStatusCode.NotFound,
                             Message = $"Educational Institution with the following ID: {request.EducationalInstitutionID} has not been found!"
                         };
-                    else
-                        return new()
-                        {
-                            OperationStatus = true,
-                            StatusCode = HttpStatusCode.NoContent,
-                            Message = string.Empty
-                        };
+
+                    return new()
+                    {
+                        OperationStatus = true,
+                        StatusCode = HttpStatusCode.NoContent,
+                        Message = string.Empty
+                    };
                 }
             }
             catch (Exception e)
@@ -77,15 +83,23 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         private async Task<bool> IsEducationalInstitutionUpdatedAndSavedToDatabase(DTOEducationalInstitutionUpdateCommand request, CancellationToken cancellationToken)
         {
             bool isEntityUpdated;
-            if (request.UpdateName && request.UpdateDescription)
-                isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                    .UpdateNameDescriptionAsync(request.EducationalInstitutionID, request.Name, request.Description, cancellationToken);
-            else if (request.UpdateName)
-                isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                    .UpdateNameAsync(request.EducationalInstitutionID, request.Name, cancellationToken);
-            else
-                isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                    .UpdateDescriptionAsync(request.EducationalInstitutionID, request.Description, cancellationToken);
+            switch (request.UpdateName)
+            {
+                case true when request.UpdateDescription:
+                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
+                                                        .UpdateNameAndDescriptionAsync(request.EducationalInstitutionID, request.Name, request.Description, cancellationToken);
+                    break;
+
+                case false when request.UpdateDescription:
+                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
+                                                         .UpdateDescriptionAsync(request.EducationalInstitutionID, request.Description, cancellationToken);
+                    break;
+
+                default:
+                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
+                                                        .UpdateNameAsync(request.EducationalInstitutionID, request.Name, cancellationToken);
+                    break;
+            }
 
             if (isEntityUpdated)
                 await unitOfWork.SaveChangesAsync(cancellationToken);
@@ -95,13 +109,12 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
         private static string GetNameOfRepositoryMethodThatWasCalledInHandler(DTOEducationalInstitutionUpdateCommand request)
         {
-            if (request.UpdateName && request.UpdateDescription)
-                return nameof(IEducationalInstitutionRepository.UpdateNameDescriptionAsync);
-            else
-            if (request.UpdateName)
-                return nameof(IEducationalInstitutionRepository.UpdateNameAsync);
-            else
-                return nameof(IEducationalInstitutionRepository.UpdateDescriptionAsync);
+            switch (request.UpdateName)
+            {
+                case true when request.UpdateDescription: return nameof(IEducationalInstitutionRepository.UpdateNameAndDescriptionAsync);
+                case false when request.UpdateDescription: return nameof(IEducationalInstitutionRepository.UpdateDescriptionAsync);
+                default: return nameof(IEducationalInstitutionRepository.UpdateNameAsync);
+            }
         }
     }
 }

@@ -26,18 +26,18 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
             this.testDataHelper = testDataHelper;
             queryResult = new List<GetEducationalInstitutionQueryResult>(2) {
                 new() {
-                EducationalInstitutionID=testDataHelper.EduInstitutions[0].EducationalInstitutionID,
-                Name = testDataHelper.EduInstitutions[0].Name,
-                Description = testDataHelper.EduInstitutions[0].Description,
-                LocationID = testDataHelper.EduInstitutions[0].LocationID,
-                BuildingsIDs = testDataHelper.EduInstitutions[0].Buildings
+                EducationalInstitutionID=testDataHelper.EducationalInstitutions[0].EducationalInstitutionID,
+                Name = testDataHelper.EducationalInstitutions[0].Name,
+                Description = testDataHelper.EducationalInstitutions[0].Description,
+                LocationID = testDataHelper.EducationalInstitutions[0].LocationID,
+                BuildingsIDs = testDataHelper.EducationalInstitutions[0].Buildings
                 },
                 new(){
-                EducationalInstitutionID=testDataHelper.EduInstitutions[1].EducationalInstitutionID,
-                Name = testDataHelper.EduInstitutions[1].Name,
-                Description = testDataHelper.EduInstitutions[1].Description,
-                LocationID = testDataHelper.EduInstitutions[1].LocationID,
-                BuildingsIDs = testDataHelper.EduInstitutions[1].Buildings
+                EducationalInstitutionID=testDataHelper.EducationalInstitutions[1].EducationalInstitutionID,
+                Name = testDataHelper.EducationalInstitutions[1].Name,
+                Description = testDataHelper.EducationalInstitutions[1].Description,
+                LocationID = testDataHelper.EducationalInstitutions[1].LocationID,
+                BuildingsIDs = testDataHelper.EducationalInstitutions[1].Buildings
                 }
             };
 
@@ -70,7 +70,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
-            Assert.Equal(queryResult[0], result.ResponseObject.Single());
+            Assert.Equal(queryResult[0], result.Data.Single());
         }
 
         [Fact]
@@ -269,7 +269,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
-            Assert.Null(result.ResponseObject);
+            Assert.Null(result.Data);
         }
 
         [Fact]

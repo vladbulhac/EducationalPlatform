@@ -11,27 +11,27 @@ namespace EducationalInstitution.API.Tests.UnitTests
     /// </summary>
     public class TestDataFromJSONParser
     {
-        public IList<EducationalInstitutionAPI.Data.EducationalInstitution> EduInstitutions { get; set; }
+        public IList<EducationalInstitutionAPI.Data.EducationalInstitution> EducationalInstitutions { get; set; }
 
         public TestDataFromJSONParser()
         {
             var testDataPath = ConfigurationHelper.GetCurrentSettings("TestDataFilesPaths:EducationalInstitutionsFilePath") ?? throw new Exception("Could not find the test data file path in appsettings.json file!");
-            EduInstitutions = GetEducationalInstitutionsFromJSONFile(testDataPath);
+            EducationalInstitutions = GetEducationalInstitutionsFromJSONFile(testDataPath);
         }
 
         private static IList<EducationalInstitutionAPI.Data.EducationalInstitution> GetEducationalInstitutionsFromJSONFile(string path)
         {
             string file = File.ReadAllText(path);
-            dynamic jsonEduInstitutions = JsonConvert.DeserializeObject(file);
+            dynamic jsonEducationalInstitutions = JsonConvert.DeserializeObject(file);
 
             List<EducationalInstitutionAPI.Data.EducationalInstitution> listOFEduInstitutions = new();
-            foreach (var eduInstitution in jsonEduInstitutions.EducationalInstitutions)
+            foreach (var educationalInstitution in jsonEducationalInstitutions.EducationalInstitutions)
             {
                 listOFEduInstitutions.Add(new((
-                    string)eduInstitution.Name,
-                    (string)eduInstitution.Description,
-                    (string)eduInstitution.LocationID,
-                    eduInstitution.BuildingsIDs.ToObject<List<string>>()
+                    string)educationalInstitution.Name,
+                    (string)educationalInstitution.Description,
+                    (string)educationalInstitution.LocationID,
+                    educationalInstitution.BuildingsIDs.ToObject<List<string>>()
                     ));
             }
 

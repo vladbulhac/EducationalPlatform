@@ -12,10 +12,12 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
     public class ValidationHandlerTests
     {
         private readonly Mock<ILogger<ValidationHandler>> mockLogger;
+        private readonly IValidationHandler validationHandler;
 
         public ValidationHandlerTests()
         {
             mockLogger = new();
+            validationHandler = new ValidationHandler(mockLogger.Object);
         }
 
         #region Request of type DTOEducationalInstitutionByIDQuery TESTS
@@ -24,8 +26,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         public void GivenAValidRequestOfTypeDTOEducationalInstitutionByIDQuery_ShouldReturnTrue()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByIDQuery(Guid.NewGuid());
-            var validationHandler = new ValidationHandler(mockLogger.Object);
+            var request = new DTOEducationalInstitutionByIDQuery() { EducationalInstitutionID = Guid.NewGuid() };
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out _);
@@ -38,9 +39,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         public void GivenAValidRequestOfTypeDTOEducationalInstitutionByIDQuery_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByIDQuery(Guid.NewGuid());
-            var validationHandler = new ValidationHandler(mockLogger.Object);
-
+            var request = new DTOEducationalInstitutionByIDQuery() { EducationalInstitutionID = Guid.NewGuid() };
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
 
@@ -49,11 +48,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByIDQuery_WithDefaultID_ShouldReturnFalse()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByIDQuery_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByIDQuery(default);
-            var validationHandler = new ValidationHandler(mockLogger.Object);
+            var request = new DTOEducationalInstitutionByIDQuery() { EducationalInstitutionID = default };
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out _);
@@ -63,11 +61,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByIDQuery_WithDefaultID_ShouldReturnAStringWithTheErrorsFound()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByIDQuery_WithDefaultEducationalInstitutionID_ShouldReturnAStringWithTheErrorsFound()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByIDQuery(default);
-            var validationHandler = new ValidationHandler(mockLogger.Object);
+            var request = new DTOEducationalInstitutionByIDQuery() { EducationalInstitutionID = default };
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -85,7 +82,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         {
             //Arrange
             var request = new DTOEducationalInstitutionsByNameQuery() { Name = "University", OffsetValue = 0, ResultsCount = 1 };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out _);
@@ -99,7 +95,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         {
             //Arrange
             var request = new DTOEducationalInstitutionsByNameQuery() { Name = "University", OffsetValue = 0, ResultsCount = 1 };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -113,7 +108,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         {
             //Arrange
             var request = new DTOEducationalInstitutionsByNameQuery() { Name = null, OffsetValue = 0, ResultsCount = 1 };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out _);
@@ -127,7 +121,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         {
             //Arrange
             var request = new DTOEducationalInstitutionsByNameQuery() { Name = string.Empty, OffsetValue = 0, ResultsCount = 1 };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out _);
@@ -141,7 +134,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         {
             //Arrange
             var request = new DTOEducationalInstitutionsByNameQuery() { Name = string.Empty, OffsetValue = 0, ResultsCount = 1 };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -155,7 +147,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         {
             //Arrange
             var request = new DTOEducationalInstitutionsByNameQuery() { Name = null, OffsetValue = 0, ResultsCount = 1 };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -169,7 +160,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         {
             //Arrange
             var request = new DTOEducationalInstitutionsByNameQuery() { Name = "a", OffsetValue = 0, ResultsCount = 1 };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -183,7 +173,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         {
             //Arrange
             var request = new DTOEducationalInstitutionsByNameQuery() { Name = "University", OffsetValue = -1, ResultsCount = 1 };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -197,7 +186,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         {
             //Arrange
             var request = new DTOEducationalInstitutionsByNameQuery() { Name = "University", OffsetValue = -1, ResultsCount = 1 };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -211,7 +199,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         {
             //Arrange
             var request = new DTOEducationalInstitutionsByNameQuery() { Name = "University", OffsetValue = 0, ResultsCount = 0 };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -225,7 +212,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         {
             //Arrange
             var request = new DTOEducationalInstitutionsByNameQuery() { Name = "University", OffsetValue = 0, ResultsCount = 0 };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -242,8 +228,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         public void GivenAValidRequestOfTypeDTOEducationalInstitutionByLocationQuery_ShouldReturnTrue()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByLocationQuery("6050efcd87e2647ab7ac443e");
-            var validationHandler = new ValidationHandler(mockLogger.Object);
+            var request = new DTOEducationalInstitutionByLocationQuery() { LocationID = "6050efcd87e2647ab7ac443e" };
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out _);
@@ -256,8 +241,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         public void GivenAValidRequestOfTypeDTOEducationalInstitutionByLocationQuery_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByLocationQuery("6050efcd87e2647ab7ac443e");
-            var validationHandler = new ValidationHandler(mockLogger.Object);
+            var request = new DTOEducationalInstitutionByLocationQuery() { LocationID = "6050efcd87e2647ab7ac443e" };
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -267,11 +251,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithEmptyID_ShouldReturnFalse()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithEmptyLocationID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByLocationQuery(string.Empty);
-            var validationHandler = new ValidationHandler(mockLogger.Object);
+            var request = new DTOEducationalInstitutionByLocationQuery() { LocationID = string.Empty };
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out _);
@@ -281,11 +264,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithEmptyID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithEmptyLocationID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByLocationQuery(string.Empty);
-            var validationHandler = new ValidationHandler(mockLogger.Object);
+            var request = new DTOEducationalInstitutionByLocationQuery() { LocationID = string.Empty };
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -295,11 +277,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAanInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithIDOfLengthNot24_ShouldReturnFalse()
+        public void GivenAanInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithLocationIDOfLengthNot24_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByLocationQuery("eIdL14F9");
-            var validationHandler = new ValidationHandler(mockLogger.Object);
+            var request = new DTOEducationalInstitutionByLocationQuery() { LocationID = "eIdL14F9" };
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -309,11 +290,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithIDOfLengthNot24_ShouldReturnValidationErrors()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithLocationIDOfLengthNot24_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByLocationQuery("eIdL14F9");
-            var validationHandler = new ValidationHandler(mockLogger.Object);
+            var request = new DTOEducationalInstitutionByLocationQuery() { LocationID = "eIdL14F9" };
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -323,11 +303,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithIDThatContainsProhibitedCharacters_ShouldReturnFalse()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithLocationIDThatContainsProhibitedCharacters_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByLocationQuery("6050efcd87e2647ab7ac443~");
-            var validationHandler = new ValidationHandler(mockLogger.Object);
+            var request = new DTOEducationalInstitutionByLocationQuery() { LocationID = "6050efcd87e2647ab7ac443~" };
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -337,11 +316,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithIDThatContainsProhibitedCharacters_ShouldReturnValidationErrors()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithLocationIDThatContainsProhibitedCharacters_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByLocationQuery("6050efcd87e2647ab7ac443~");
-            var validationHandler = new ValidationHandler(mockLogger.Object);
+            var request = new DTOEducationalInstitutionByLocationQuery() { LocationID = "6050efcd87e2647ab7ac443~" };
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -365,7 +343,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out _);
@@ -385,7 +362,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -405,7 +381,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -425,7 +400,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -445,7 +419,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -465,7 +438,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -485,7 +457,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -505,7 +476,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -525,7 +495,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -545,7 +514,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -565,7 +533,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { string.Empty }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -585,7 +552,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { string.Empty }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -605,7 +571,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fa3A" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -625,7 +590,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fa3A" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -645,7 +609,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fa3AQ" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -665,7 +628,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fa3AQ" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -685,7 +647,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -705,7 +666,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -730,7 +690,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
                 ParentInstitutionID = Guid.NewGuid()
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out _);
@@ -751,7 +710,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
                 ParentInstitutionID = Guid.NewGuid()
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -773,7 +731,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
                 ParentInstitutionID = Guid.NewGuid()
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -794,7 +751,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
                 ParentInstitutionID = Guid.NewGuid()
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -815,7 +771,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
                 ParentInstitutionID = Guid.NewGuid()
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -836,7 +791,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
                 ParentInstitutionID = Guid.NewGuid()
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -857,7 +811,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
                 ParentInstitutionID = Guid.NewGuid()
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -878,7 +831,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
                 ParentInstitutionID = Guid.NewGuid()
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -899,7 +851,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
                 ParentInstitutionID = Guid.NewGuid()
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -920,7 +871,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
                 ParentInstitutionID = Guid.NewGuid()
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -941,7 +891,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { string.Empty },
                 ParentInstitutionID = Guid.NewGuid()
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -962,7 +911,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { string.Empty },
                 ParentInstitutionID = Guid.NewGuid()
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -983,7 +931,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { "10Fa3A" },
                 ParentInstitutionID = Guid.NewGuid()
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1004,7 +951,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { "10Fa3A" },
                 ParentInstitutionID = Guid.NewGuid()
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1025,7 +971,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { "10Fa3AQ" },
                 ParentInstitutionID = Guid.NewGuid()
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1046,7 +991,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { "10Fa3AQ" },
                 ParentInstitutionID = Guid.NewGuid()
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1067,7 +1011,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509" },
                 ParentInstitutionID = Guid.NewGuid()
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1088,7 +1031,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509" },
                 ParentInstitutionID = Guid.NewGuid()
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1109,7 +1051,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4503" },
                 ParentInstitutionID = default
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1130,7 +1071,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4503" },
                 ParentInstitutionID = default
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1155,13 +1095,32 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateDescription = true,
                 Description = "New_Description",
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out _);
 
             //Assert
             Assert.True(validationResult);
+        }
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionUpdateCommand_ShouldReturnAnEmptyValidationErrorsString()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateName = true,
+                Name = "New_Name",
+                UpdateDescription = true,
+                Description = "New_Description",
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Empty(validationErrors);
         }
 
         [Fact]
@@ -1176,13 +1135,32 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateDescription = true,
                 Description = "New_Description",
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out _);
 
             //Assert
             Assert.True(validationResult);
+        }
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithFalseUpdateNameAndEmptyName_ShouldReturnAnEmptyValidationErrorsString()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateName = false,
+                Name = string.Empty,
+                UpdateDescription = true,
+                Description = "New_Description",
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Empty(validationErrors);
         }
 
         [Fact]
@@ -1207,6 +1185,26 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithFalseUpdateDescriptionAndEmptyDescription_ShouldReturnAnEmptyValidationErrorsString()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateName = true,
+                Name = "New_Name",
+                UpdateDescription = false,
+                Description = string.Empty,
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Empty(validationErrors);
+        }
+
+        [Fact]
         public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithFalseUpdateDescriptionAndFalseUpdateName_ShouldReturnFalse()
         {
             //Arrange
@@ -1218,7 +1216,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateDescription = false,
                 Description = string.Empty,
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out _);
@@ -1239,7 +1236,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateDescription = false,
                 Description = string.Empty,
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1260,7 +1256,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateDescription = true,
                 Description = "New_Description",
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1281,7 +1276,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateDescription = true,
                 Description = "New_Description",
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1302,7 +1296,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateDescription = true,
                 Description = "New_Description",
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1323,7 +1316,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateDescription = true,
                 Description = "New_Description",
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1344,7 +1336,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateDescription = true,
                 Description = "New_Description",
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1365,7 +1356,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateDescription = true,
                 Description = "New_Description",
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1386,7 +1376,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateDescription = true,
                 Description = string.Empty,
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1407,7 +1396,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateDescription = true,
                 Description = string.Empty,
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1428,7 +1416,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateDescription = true,
                 Description = "N",
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1449,7 +1436,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateDescription = true,
                 Description = "N",
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1459,6 +1445,148 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         #endregion Request of type DTOEducationalInstitutionUpdateCommand TESTS
+
+        #region Request of type DTOEducationalInstitutionParentUpdateCommand TESTS
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_ShouldReturnTrue()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionParentUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                ParentInstitutionID = Guid.NewGuid()
+            };
+
+            //Act
+            var result = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_ShouldReturnAnEmptyValidationErrorsString()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionParentUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                ParentInstitutionID = Guid.NewGuid()
+            };
+
+            //Act
+            var result = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Empty(validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionParentUpdateCommand()
+            {
+                EducationalInstitutionID = default,
+                ParentInstitutionID = Guid.NewGuid()
+            };
+
+            //Act
+            var result = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionParentUpdateCommand()
+            {
+                EducationalInstitutionID = default,
+                ParentInstitutionID = Guid.NewGuid()
+            };
+
+            //Act
+            var result = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithDefaultParentInstitutionID_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionParentUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                ParentInstitutionID = default
+            };
+
+            //Act
+            var result = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithDefaultParentInstitutionID_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionParentUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                ParentInstitutionID = default
+            };
+
+            //Act
+            var result = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property ParentInstitutionID failed validation. Error was: Parent Institution ID was empty or null!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithParentInstitutionIDSameAsEducationalInstitutionID_ShouldReturnFalse()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var request = new DTOEducationalInstitutionParentUpdateCommand()
+            {
+                EducationalInstitutionID = id,
+                ParentInstitutionID = id
+            };
+
+            //Act
+            var result = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithParentInstitutionIDSameAsEducationalInstitutionID_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var request = new DTOEducationalInstitutionParentUpdateCommand()
+            {
+                EducationalInstitutionID = id,
+                ParentInstitutionID = id
+            };
+
+            //Act
+            var result = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property ParentInstitutionID failed validation. Error was: Parent Institution ID was the same as Educational Institution ID!", validationErrors);
+        }
+
+        #endregion Request of type DTOEducationalInstitutionParentUpdateCommand TESTS
 
         #region Request of type DTOEducationalInstitutionLocationUpdateCommand TESTS
 
@@ -1474,7 +1602,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateBuildings = true,
                 AddBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out _);
@@ -1484,7 +1611,27 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithDefaultEduInstitutionID_ShouldReturnFalse()
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_ShouldReturnAnEmptyValidationErrorsString()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                AddBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Empty(validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
         {
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
@@ -1495,7 +1642,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateBuildings = true,
                 AddBuildingsIDs = new List<string>() { "10Fc4a7f1E00f1BDebAe4509" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1505,7 +1651,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithDefaultEduInstitutionID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnValidationErrors()
         {
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
@@ -1516,7 +1662,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateBuildings = true,
                 AddBuildingsIDs = new List<string>() { "10Fc4a7f1E00f1BDebAe4509" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1537,7 +1682,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateBuildings = true,
                 AddBuildingsIDs = new List<string>() { string.Empty }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1558,7 +1702,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateBuildings = true,
                 AddBuildingsIDs = new List<string>() { string.Empty }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1579,7 +1722,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateBuildings = true,
                 AddBuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4503" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1600,7 +1742,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateBuildings = true,
                 AddBuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4503" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1621,13 +1762,32 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateBuildings = false,
                 AddBuildingsIDs = default
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
 
             //Assert
             Assert.True(validationResult);
+        }
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyBuildings_ShouldReturnAnEmptyValidationErrorsString()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = false,
+                AddBuildingsIDs = default
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Empty(validationErrors);
         }
 
         /* ---THROWS Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')---
@@ -1644,7 +1804,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateBuildings = true,
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1665,7 +1824,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateBuildings = true,
                 AddBuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509", "10Fc4a7f1e00f1BDebAe4509" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1686,7 +1844,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateBuildings = true,
                 AddBuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509", "10Fc4a7f1e00f1BDebAe4509" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1707,7 +1864,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateBuildings = false,
                 AddBuildingsIDs = default
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1728,7 +1884,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateBuildings = false,
                 AddBuildingsIDs = default
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1749,7 +1904,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateBuildings = true,
                 AddBuildingsIDs = new List<string>() { "10Fc4a7f1E00f1BDebAe4509", "10Fc4a7f1E00f1BDebAe4509" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1770,7 +1924,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateBuildings = true,
                 AddBuildingsIDs = new List<string>() { "10Fc4a7f1E00f1BDebAe4509", "10Fc4a7f1E00f1BDebAe4509" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1792,7 +1945,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 AddBuildingsIDs = new List<string>(0),
                 RemoveBuildingsIDs = new List<string>(0)
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1814,7 +1966,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 AddBuildingsIDs = new List<string>(0),
                 RemoveBuildingsIDs = new List<string>(0)
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1835,7 +1986,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateBuildings = true,
                 RemoveBuildingsIDs = new List<string>() { string.Empty }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1856,7 +2006,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 UpdateBuildings = true,
                 RemoveBuildingsIDs = new List<string>() { string.Empty }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1878,7 +2027,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 AddBuildingsIDs = new List<string>(),
                 RemoveBuildingsIDs = new List<string>() { "Q10Fc47f1e00f1BDebAe4509" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1900,7 +2048,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 AddBuildingsIDs = new List<string>(),
                 RemoveBuildingsIDs = new List<string>() { "Q10Fc47f1e00f1BDebAe4509" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1922,7 +2069,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 RemoveBuildingsIDs = new List<string>(),
                 AddBuildingsIDs = new List<string>() { "Q10Fc47f1e00f1BDebAe4509" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1944,7 +2090,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 RemoveBuildingsIDs = new List<string>(),
                 AddBuildingsIDs = new List<string>() { "Q10Fc47f1e00f1BDebAe4509" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1966,7 +2111,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 AddBuildingsIDs = new List<string>(),
                 RemoveBuildingsIDs = new List<string>() { "a10Fc47f1e00f1BDebAe4509A" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -1988,7 +2132,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 AddBuildingsIDs = new List<string>(),
                 RemoveBuildingsIDs = new List<string>() { "a10Fc47f1e00f1BDebAe4509A" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -2010,7 +2153,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 RemoveBuildingsIDs = new List<string>(),
                 AddBuildingsIDs = new List<string>() { "AA10Fc47f1e00f1BDebAe4509" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -2032,7 +2174,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
                 RemoveBuildingsIDs = new List<string>(),
                 AddBuildingsIDs = new List<string>() { "a10Fc47f1e00f1BDebAe4509AE" }
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -2050,7 +2191,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         {
             //Arrange
             var request = new DTOEducationalInstitutionDeleteCommand() { EducationalInstitutionID = Guid.NewGuid() };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out _);
@@ -2064,7 +2204,6 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         {
             //Arrange
             var request = new DTOEducationalInstitutionDeleteCommand() { EducationalInstitutionID = Guid.NewGuid() };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -2074,11 +2213,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionDeleteCommand_WithDefaultID_ShouldReturnFalse()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionDeleteCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
         {
             //Arrange
             var request = new DTOEducationalInstitutionDeleteCommand() { EducationalInstitutionID = default };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out _);
@@ -2088,11 +2226,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionDeleteCommand_WithDefaultID_ShouldReturnAStringWithTheErrorsFound()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionDeleteCommand_WithDefaultEducationalInstitutionID_ShouldReturnAStringWithTheErrorsFound()
         {
             //Arrange
             var request = new DTOEducationalInstitutionDeleteCommand() { EducationalInstitutionID = default };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);

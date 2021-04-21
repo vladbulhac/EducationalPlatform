@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 namespace EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results
 {
-    /// <summary>
-    /// Defines the data that is returned as the result of any database operation
-    /// </summary>
     public record GetEducationalInstitutionQueryResult
     {
         public Guid EducationalInstitutionID { get; init; }

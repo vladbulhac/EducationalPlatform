@@ -33,9 +33,9 @@ namespace EducationalInstitutionAPI.Grpc
         /// <returns>
         /// A <see cref="EducationalInstitutionCreateResponse">message</see> with HttpStatusCode:
         /// <list type="bullet">
-        /// <item><see cref="HttpStatusCode.Created">if operation is successful</see></item>
-        /// <item><see cref="HttpStatusCode.BadRequest">if <paramref name="request"/>'s fields fail the validation process</see></item>
-        /// <item><see cref="HttpStatusCode.InternalServerError">if the entity could not be inserted into the database</see></item>
+        /// <item><see cref="HttpStatusCode.Created">Created</see> if operation is successful</item>
+        /// <item><see cref="HttpStatusCode.BadRequest">BadRequest</see> if <paramref name="request"/>'s fields fail the validation process</item>
+        /// <item><see cref="HttpStatusCode.InternalServerError">InternalServerError</see> if the entity could not be inserted into the database</item>
         /// </list>
         /// </returns>
         public override async Task<EducationalInstitutionCreateResponse> CreateEducationalInstitution(DTOEducationalInstitutionCreateRequest request, ServerCallContext context)
@@ -84,7 +84,7 @@ namespace EducationalInstitutionAPI.Grpc
                 {
                     context.Status = new(StatusCode.OK, "Educational Institution was successfully created");
 
-                    responseObject.EducationalInstitutionId = result.ResponseObject.EduInstitutionID.ToProtocolBufferLanguageEquivalent();
+                    responseObject.EducationalInstitutionId = result.Data.EduInstitutionID.ToProtocolBufferLanguageEquivalent();
                 }
             }
 
@@ -104,9 +104,9 @@ namespace EducationalInstitutionAPI.Grpc
         /// <returns>
         /// A <see cref="EducationalInstitutionCreateResponse">message</see> with HttpStatusCode:
         /// <list type="bullet">
-        /// <item><see cref="HttpStatusCode.Created">if operation is successful</see></item>
-        /// <item><see cref="HttpStatusCode.BadRequest">if <paramref name="request"/>'s fields fail the validation process</see></item>
-        /// <item><see cref="HttpStatusCode.InternalServerError">if the entity could not be inserted into the database</see></item>
+        /// <item><see cref="HttpStatusCode.Created">Created</see> if operation is successful</item>
+        /// <item><see cref="HttpStatusCode.BadRequest">BadRequest</see> if <paramref name="request"/>'s fields fail the validation process</item>
+        /// <item><see cref="HttpStatusCode.InternalServerError">InternalServerError</see> if the entity could not be inserted into the database</item>
         /// </list>
         /// </returns>
         public override async Task<EducationalInstitutionCreateResponse> CreateEducationalInstitutionWithParent(DTOEducationalInstitutionWithParentCreateRequest request, ServerCallContext context)
@@ -156,7 +156,7 @@ namespace EducationalInstitutionAPI.Grpc
                     if (!string.IsNullOrEmpty(result.Message))
                         statusCode = HttpStatusCode.MultiStatus;
 
-                    responseObject.EducationalInstitutionId = result.ResponseObject.EduInstitutionID.ToProtocolBufferLanguageEquivalent();
+                    responseObject.EducationalInstitutionId = result.Data.EduInstitutionID.ToProtocolBufferLanguageEquivalent();
                 }
 
                 operationStatus = result.OperationStatus;

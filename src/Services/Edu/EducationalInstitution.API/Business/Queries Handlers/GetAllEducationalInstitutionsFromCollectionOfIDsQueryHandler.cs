@@ -16,9 +16,6 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Business.Queries_Handlers
 {
-    /// <summary>
-    /// Defines a method that handles the operation of getting <see cref="EducationalInstitution"/>s based on a collection of ids
-    /// </summary>
     public class GetAllEducationalInstitutionsFromCollectionOfIDsQueryHandler : IRequestHandler<DTOEducationalInstitutionsFromCollectionOfIDsQuery, Response<ICollection<GetEducationalInstitutionQueryResult>>>
     {
         /// <summary>
@@ -28,6 +25,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
 
         private readonly IUnitOfWork unitOfWork;
 
+        /// <exception cref="ArgumentNullException"/>
         public GetAllEducationalInstitutionsFromCollectionOfIDsQueryHandler(IUnitOfWork unitOfWork, ILogger<GetAllEducationalInstitutionsFromCollectionOfIDsQueryHandler> logger)
         {
             this.unitOfWork = unitOfWork;
@@ -37,17 +35,17 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
         /// <summary>
         /// Tries to get <see cref="EducationalInstitution"/>s based on the given collection of ids
         /// </summary>
-        /// <param name="request">Contains the data necessary to get the <see cref="EducationalInstitution"/>s</param>
         /// <param name="cancellationToken">Cancels the operation ________</param>
         /// <returns>
-        /// An <see cref="Response{ResponseType}">object</see> with HttpStatusCode:
+        /// An <see cref="Response{TData}">object</see> with HttpStatusCode:
         /// <list type="bullet">
-        /// <item><see cref="HttpStatusCode.OK">if operation is successful</see></item>
-        /// <item><see cref="HttpStatusCode.MultiStatus">if not all <see cref="EducationalInstitution"/> have been found from the provided ids</see></item>
-        /// <item><see cref="HttpStatusCode.NotFound">if no <see cref="EducationalInstitution"/> has been found from the provided ids</see></item>
-        /// <item><see cref="HttpStatusCode.InternalServerError">if the entity could not be inserted into the database</see></item>
+        /// <item><see cref="HttpStatusCode.OK">Ok</see> if operation is successful</item>
+        /// <item><see cref="HttpStatusCode.MultiStatus">MultiStatus</see> if not all <see cref="EducationalInstitution"/> have been found from the provided ids</item>
+        /// <item><see cref="HttpStatusCode.NotFound">NotFound</see> if no <see cref="EducationalInstitution"/> has been found from the provided ids</item>
+        /// <item><see cref="HttpStatusCode.InternalServerError">InternalServerError</see> if the entity could not be inserted into the database</item>
         /// </list>
         /// </returns>
+        /// <exception cref="ArgumentNullException"/>
         public async Task<Response<ICollection<GetEducationalInstitutionQueryResult>>> Handle(DTOEducationalInstitutionsFromCollectionOfIDsQuery request, CancellationToken cancellationToken)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
@@ -62,28 +60,28 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
                     if (educationalInstitutions is null || educationalInstitutions.Count is 0)
                         return new()
                         {
-                            ResponseObject = educationalInstitutions,
+                            Data = educationalInstitutions,
                             OperationStatus = true,
                             StatusCode = HttpStatusCode.NotFound,
                             Message = "Could not find the Educational Institutions from the list of given IDs!"
                         };
-                    else
+
                     if (educationalInstitutions.Count < request.EducationalInstitutionsIDs.Count)
                         return new()
                         {
-                            ResponseObject = educationalInstitutions,
+                            Data = educationalInstitutions,
                             OperationStatus = true,
                             StatusCode = HttpStatusCode.MultiStatus,
                             Message = $"Could not retrieve Educational Institutions with the following IDs: {JsonConvert.SerializeObject(request.EducationalInstitutionsIDs.Except(educationalInstitutions.Select(eduI => eduI.EducationalInstitutionID).ToList()))}"
                         };
-                    else
-                        return new()
-                        {
-                            ResponseObject = educationalInstitutions,
-                            OperationStatus = true,
-                            StatusCode = HttpStatusCode.OK,
-                            Message = string.Empty
-                        };
+
+                    return new()
+                    {
+                        Data = educationalInstitutions,
+                        OperationStatus = true,
+                        StatusCode = HttpStatusCode.OK,
+                        Message = string.Empty
+                    };
                 }
             }
             catch (Exception e)
@@ -99,7 +97,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
 
                 return new()
                 {
-                    ResponseObject = null,
+                    Data = null,
                     OperationStatus = false,
                     StatusCode = HttpStatusCode.InternalServerError,
                     Message = "Could not find any Educational Institution from the list of IDs given!"

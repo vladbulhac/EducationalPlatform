@@ -3,9 +3,6 @@ using FluentValidation;
 
 namespace EducationalInstitutionAPI.DTOs.Validators.Queries_Validators
 {
-    /// <summary>
-    /// Contains the validation logic for <see cref="DTOEducationalInstitutionsByNameQuery"/>'s fields
-    /// </summary>
     public class DTOEducationalInstitutionsByNameQueryValidator : AbstractValidator<DTOEducationalInstitutionsByNameQuery>
     {
         /// <summary>

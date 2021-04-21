@@ -5,18 +5,11 @@ using System.Linq;
 
 namespace EducationalInstitutionAPI.Data
 {
-    /// <summary>
-    /// Defines the properties of an Educational Institution
-    /// </summary>
     public class EducationalInstitution
     {
         public Guid EducationalInstitutionID { get; init; }
         public string Name { get; private set; }
         public string Description { get; private set; }
-
-        /// <summary>
-        /// Defines this Educational Institution's join date on the application
-        /// </summary>
         public DateTime JoinDate { get; init; }
 
         public string LocationID { get; private set; }
@@ -36,7 +29,7 @@ namespace EducationalInstitutionAPI.Data
         /// </remarks>
         public EducationalInstitution ParentInstitution { get; private set; }
 
-        public Access EntityAccess { get; private set; }
+        public Access EntityAccess { get; }
 
         public EducationalInstitution(string name, string description, string locationID, EducationalInstitution parentInstitution = null)
         {
@@ -63,9 +56,28 @@ namespace EducationalInstitutionAPI.Data
 
         public void AddChildInstitutions(ICollection<EducationalInstitution> childInstitutions)
         {
-            foreach (var childInstitution in childInstitutions)
-                ChildInstitutions.Add(childInstitution);
+            if (childInstitutions is not null && childInstitutions.Count > 0)
+            {
+                foreach (var childInstitution in childInstitutions)
+                    ChildInstitutions.Add(childInstitution);
+            }
         }
+
+        public void RemoveChildInstitutions(ICollection<Guid> childInstitutionsIDs)
+        {
+            if (childInstitutionsIDs is not null && childInstitutionsIDs.Count > 0)
+            {
+                foreach (var childInstitutionID in childInstitutionsIDs)
+                {
+                    var childInstitution = ChildInstitutions.SingleOrDefault(ci => ci.EducationalInstitutionID == childInstitutionID);
+
+                    if (childInstitution is not null)
+                        ChildInstitutions.Remove(childInstitution);
+                }
+            }
+        }
+
+        public void UpdateParentInstitution(EducationalInstitution newParentInstitution) => ParentInstitution = newParentInstitution;
 
         public void Update(string name, string description, string locationID)
         {

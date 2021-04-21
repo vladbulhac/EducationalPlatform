@@ -28,7 +28,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
 
             dbContext = new(dbOptions);
             dbContext.Database.EnsureDeleted();
-            dbContext.AddRange(testDataHelper.EduInstitutions);
+            dbContext.AddRange(testDataHelper.EducationalInstitutions);
             dbContext.SaveChanges();
 
             eduRepository = new EducationalInstitutionRepository(dbContext);
@@ -40,7 +40,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnANotNullEduInstitutionEntity()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetEntityByIDAsync(educationalInstitutionID);
@@ -53,52 +53,52 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEduInstitutionEntity_WithMatchingName()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetEntityByIDAsync(educationalInstitutionID);
 
             //Assert
-            Assert.Equal(testDataHelper.EduInstitutions[0].Name, result.Name);
+            Assert.Equal(testDataHelper.EducationalInstitutions[0].Name, result.Name);
         }
 
         [Fact]
         public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEduInstitutionEntity_WithMatchingDescription()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetEntityByIDAsync(educationalInstitutionID);
 
             //Assert
-            Assert.Equal(testDataHelper.EduInstitutions[0].Description, result.Description);
+            Assert.Equal(testDataHelper.EducationalInstitutions[0].Description, result.Description);
         }
 
         [Fact]
         public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEduInstitutionEntity_WithMatchingIDs()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetEntityByIDAsync(educationalInstitutionID);
 
             //Assert
-            Assert.Equal(testDataHelper.EduInstitutions[0].EducationalInstitutionID, result.EducationalInstitutionID);
+            Assert.Equal(testDataHelper.EducationalInstitutions[0].EducationalInstitutionID, result.EducationalInstitutionID);
         }
 
         [Fact]
         public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEduInstitutionEntity_WithMatchingLocationIDs()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetEntityByIDAsync(educationalInstitutionID);
 
             //Assert
-            Assert.Equal(testDataHelper.EduInstitutions[0].LocationID, result.LocationID);
+            Assert.Equal(testDataHelper.EducationalInstitutions[0].LocationID, result.LocationID);
         }
 
         [Fact]
@@ -122,7 +122,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldNotReturnNull()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetByIDAsync(educationalInstitutionID);
@@ -135,7 +135,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAGetEducationalInstitutionByIDQueryResultObject()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetByIDAsync(educationalInstitutionID);
@@ -148,85 +148,85 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAGetEducationalInstitutionByIDQueryResultObject_WithMatchingName()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetByIDAsync(educationalInstitutionID);
 
             //Assert
-            Assert.Equal(testDataHelper.EduInstitutions[0].Name, result.Name);
+            Assert.Equal(testDataHelper.EducationalInstitutions[0].Name, result.Name);
         }
 
         [Fact]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAGetEducationalInstitutionByIDQueryResultObject_WithMatchingDescription()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetByIDAsync(educationalInstitutionID);
 
             //Assert
-            Assert.Equal(testDataHelper.EduInstitutions[0].Description, result.Description);
+            Assert.Equal(testDataHelper.EducationalInstitutions[0].Description, result.Description);
         }
 
         [Fact]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAGetEducationalInstitutionByIDQueryResultObject_WithMatchingLocation()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetByIDAsync(educationalInstitutionID);
 
             //Assert
-            Assert.Equal(testDataHelper.EduInstitutions[0].LocationID, result.LocationID);
+            Assert.Equal(testDataHelper.EducationalInstitutions[0].LocationID, result.LocationID);
         }
 
         [Fact]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAGetEducationalInstitutionByIDQueryResultObject_WithMatchingBuildings()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetByIDAsync(educationalInstitutionID);
 
             //Assert
-            Assert.Equal(testDataHelper.EduInstitutions[0].Buildings, result.BuildingsIDs);
+            Assert.Equal(testDataHelper.EducationalInstitutions[0].Buildings, result.BuildingsIDs);
         }
 
         [Fact]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAGetEducationalInstitutionByIDQueryResultObject_WithMatchingParentInstitutions()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetByIDAsync(educationalInstitutionID);
 
             //Assert
-            Assert.Equal(testDataHelper.EduInstitutions[0].ParentInstitution, result.ParentInstitution);
+            Assert.Equal(testDataHelper.EducationalInstitutions[0].ParentInstitution, result.ParentInstitution);
         }
 
         [Fact]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAGetEducationalInstitutionByIDQueryResultObject_WithMatchingChildInstitutions()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetByIDAsync(educationalInstitutionID);
 
             //Assert
-            Assert.Equal(testDataHelper.EduInstitutions[0].ChildInstitutions, result.ChildInstitutions);
+            Assert.Equal(testDataHelper.EducationalInstitutions[0].ChildInstitutions, result.ChildInstitutions);
         }
 
         [Fact]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAGetEducationalInstitutionByIDQueryResultObject_WithJoinDateToday()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             //Act
             var result = await eduRepository.GetByIDAsync(educationalInstitutionID);
@@ -256,7 +256,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnAGetAllEducationalInstitutionsByLocationQueryResultObject()
         {
             //Arrange
-            string locationID = testDataHelper.EduInstitutions[0].LocationID;
+            string locationID = testDataHelper.EducationalInstitutions[0].LocationID;
 
             //Act
             var result = await eduRepository.GetAllByLocationAsync(locationID);
@@ -269,7 +269,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnAGetAllEducationalInstitutionsByLocationQueryResultObject_WithACollectionThatHasOneEntry()
         {
             //Arrange
-            string locationID = testDataHelper.EduInstitutions[0].LocationID;
+            string locationID = testDataHelper.EducationalInstitutions[0].LocationID;
 
             //Act
             var result = await eduRepository.GetAllByLocationAsync(locationID);
@@ -282,39 +282,39 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnAGetAllEducationalInstitutionsByLocationQueryResultObject_WithMatchingName()
         {
             //Arrange
-            string locationID = testDataHelper.EduInstitutions[0].LocationID;
+            string locationID = testDataHelper.EducationalInstitutions[0].LocationID;
 
             //Act
             var result = await eduRepository.GetAllByLocationAsync(locationID);
 
             //Assert
-            Assert.Equal(testDataHelper.EduInstitutions[0].Name, result.EducationalInstitutions.ElementAt(0).Name);
+            Assert.Equal(testDataHelper.EducationalInstitutions[0].Name, result.EducationalInstitutions.ElementAt(0).Name);
         }
 
         [Fact]
         public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnAGetAllEducationalInstitutionsByLocationQueryResultObject_WithMatchingDescription()
         {
             //Arrange
-            string locationID = testDataHelper.EduInstitutions[0].LocationID;
+            string locationID = testDataHelper.EducationalInstitutions[0].LocationID;
 
             //Act
             var result = await eduRepository.GetAllByLocationAsync(locationID);
 
             //Assert
-            Assert.Equal(testDataHelper.EduInstitutions[0].Description, result.EducationalInstitutions.ElementAt(0).Description);
+            Assert.Equal(testDataHelper.EducationalInstitutions[0].Description, result.EducationalInstitutions.ElementAt(0).Description);
         }
 
         [Fact]
         public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnAGetAllEducationalInstitutionsByLocationQueryResultObject_WithMatchingBuildings()
         {
             //Arrange
-            string locationID = testDataHelper.EduInstitutions[0].LocationID;
+            string locationID = testDataHelper.EducationalInstitutions[0].LocationID;
 
             //Act
             var result = await eduRepository.GetAllByLocationAsync(locationID);
 
             //Assert
-            Assert.Equal(testDataHelper.EduInstitutions[0].Buildings, result.EducationalInstitutions.ElementAt(0).BuildingsIDs);
+            Assert.Equal(testDataHelper.EducationalInstitutions[0].Buildings, result.EducationalInstitutions.ElementAt(0).BuildingsIDs);
         }
 
         [Fact]
@@ -346,7 +346,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
                     "Test_Building_ID1",
                     "Test_Building_ID2"
                 },
-                testDataHelper.EduInstitutions[0]);
+                testDataHelper.EducationalInstitutions[0]);
 
             //Act
             await eduRepository.CreateAsync(newEducationalInstitution);
@@ -364,11 +364,11 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_LocationID_BuildingsIDs_ToUpdateAsyncMethod_ShouldReturnTrue()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
             string locationID = "Update_Test_LocationID";
             var addBuildingsIDs = new List<string>() { "Update_Test_Building_ID1",
                     "Update_Test_Building_ID2" };
-            var removeBuildingsIDs = new List<string>() { testDataHelper.EduInstitutions[0].Buildings.ElementAtOrDefault(0).BuildingID };
+            var removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAtOrDefault(0).BuildingID };
 
             //Act
             var result = await eduRepository.UpdateEntireLocationAsync(educationalInstitutionID, locationID, addBuildingsIDs, removeBuildingsIDs);
@@ -382,7 +382,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         public async Task GivenAValidID_LocationID_ToUpdateAsyncMethod_ShouldReturnTheNewLocationID()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
             string locationID = "Update_Test_LocationID";
 
             //Act
@@ -409,7 +409,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
                     "Test_Building_ID1",
                     "Test_Building_ID2"
                 },
-                testDataHelper.EduInstitutions[0]);
+                testDataHelper.EducationalInstitutions[0]);
 
             await eduRepository.CreateAsync(newEducationalInstitution);
             dbContext.SaveChanges();
@@ -434,7 +434,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
                     "Test_Building_ID1",
                     "Test_Building_ID2"
                 },
-                testDataHelper.EduInstitutions[0]);
+                testDataHelper.EducationalInstitutions[0]);
 
             await eduRepository.CreateAsync(newEducationalInstitution);
             dbContext.SaveChanges();

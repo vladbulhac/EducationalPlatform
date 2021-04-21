@@ -14,9 +14,6 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Business.Commands_Handlers
 {
-    /// <summary>
-    /// Defines a method that handles the creation of an <see cref="EducationalInstitution"/> entity that has a parent institution
-    /// </summary>
     public class CreateEducationalInstitutionWithParentCommandHandler : IRequestHandler<DTOEducationalInstitutionWithParentCreateCommand, Response<EducationalInstitutionCommandResult>>
     {
         /// <summary>
@@ -26,6 +23,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
         private readonly IUnitOfWork unitOfWork;
 
+        /// <exception cref="ArgumentNullException"/>
         public CreateEducationalInstitutionWithParentCommandHandler(IUnitOfWork unitOfWork, ILogger<CreateEducationalInstitutionWithParentCommandHandler> logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -35,16 +33,16 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// <summary>
         /// Tries to create and save to the database a new <see cref="EducationalInstitution"/> entity
         /// </summary>
-        /// <param name="request">Contains <see cref="EducationalInstitution"/> data that is to be added to the database</param>
         /// <param name="cancellationToken">Cancels the operation ________</param>
         /// <returns>
-        /// An <see cref="Response{ResponseType}">object</see> with HttpStatusCode:
+        /// An <see cref="Response{TData}">object</see> with HttpStatusCode:
         /// <list type="bullet">
-        /// <item><see cref="HttpStatusCode.Created">if operation is successful</see></item>
-        /// <item><see cref="HttpStatusCode.MultiStatus">if the <see cref="EducationalInstitution">Parent Institution</see> has not been found</see></item>
-        /// <item><see cref="HttpStatusCode.InternalServerError">if the entity could not be inserted into the database</see></item>
+        /// <item><see cref="HttpStatusCode.Created">Created</see> if operation is successful</item>
+        /// <item><see cref="HttpStatusCode.MultiStatus">MultiStatus</see> if the <see cref="EducationalInstitution">Parent Institution</see> has not been found but the <see cref="EducationalInstitution"/> has been saved in the database</item>
+        /// <item><see cref="HttpStatusCode.InternalServerError">InternalServerError</see> if the entity could not be inserted into the database</item>
         /// </list>
         /// </returns>
+        /// <exception cref="ArgumentNullException"/>
         public async Task<Response<EducationalInstitutionCommandResult>> Handle(DTOEducationalInstitutionWithParentCreateCommand request, CancellationToken cancellationToken)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
@@ -71,19 +69,19 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                     if (parentInstitution is null)
                         return new()
                         {
-                            ResponseObject = new() { EduInstitutionID = newEducationalInstitution.EducationalInstitutionID },
+                            Data = new() { EduInstitutionID = newEducationalInstitution.EducationalInstitutionID },
                             OperationStatus = true,
                             StatusCode = HttpStatusCode.MultiStatus,
                             Message = $"The Educational Institution has been successfully created but the Parent Institution with the following ID: {request.ParentInstitutionID} has not been found!"
                         };
-                    else
-                        return new()
-                        {
-                            ResponseObject = new() { EduInstitutionID = newEducationalInstitution.EducationalInstitutionID },
-                            OperationStatus = true,
-                            StatusCode = HttpStatusCode.Created,
-                            Message = string.Empty
-                        };
+
+                    return new()
+                    {
+                        Data = new() { EduInstitutionID = newEducationalInstitution.EducationalInstitutionID },
+                        OperationStatus = true,
+                        StatusCode = HttpStatusCode.Created,
+                        Message = string.Empty
+                    };
                 }
             }
             catch (Exception e)
@@ -99,7 +97,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
                 return new()
                 {
-                    ResponseObject = null,
+                    Data = null,
                     OperationStatus = false,
                     StatusCode = HttpStatusCode.InternalServerError,
                     Message = $"An error occurred while creating the Educational Institution with the given data!"

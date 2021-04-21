@@ -1,7 +1,7 @@
 ﻿namespace EducationalInstitutionAPI.Business.Validation_Handler
 {
     /// <summary>
-    /// Defines the methods used in validation
+    /// Defines a method that instantiates a validator class that validates all the fields of a given request
     /// </summary>
     public interface IValidationHandler
     {

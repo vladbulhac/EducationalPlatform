@@ -4,20 +4,8 @@ using System;
 
 namespace EducationalInstitutionAPI.DTOs.Queries
 {
-    /// <summary>
-    /// Encapsulates the parameter of a get by id request
-    /// </summary>
     public class DTOEducationalInstitutionByIDQuery : IRequest<Response<GetEducationalInstitutionByIDQueryResult>>
     {
         public Guid EducationalInstitutionID { get; init; }
-
-        public DTOEducationalInstitutionByIDQuery()
-        {
-        }
-
-        public DTOEducationalInstitutionByIDQuery(Guid educationalInstitutionID)
-        {
-            EducationalInstitutionID = educationalInstitutionID;
-        }
     }
 }

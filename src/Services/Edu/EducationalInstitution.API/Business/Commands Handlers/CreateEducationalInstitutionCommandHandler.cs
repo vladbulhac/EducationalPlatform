@@ -14,9 +14,6 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Business.Commands_Handlers
 {
-    /// <summary>
-    /// Defines a method that handles the creation of an <see cref="EducationalInstitution"/> entity
-    /// </summary>
     public class CreateEducationalInstitutionCommandHandler : IRequestHandler<DTOEducationalInstitutionCreateCommand, Response<EducationalInstitutionCommandResult>>
     {
         /// <summary>
@@ -26,6 +23,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
         private readonly IUnitOfWork unitOfWork;
 
+        /// <exception cref="ArgumentNullException"/>
         public CreateEducationalInstitutionCommandHandler(IUnitOfWork unitOfWork, ILogger<CreateEducationalInstitutionCommandHandler> logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -35,15 +33,15 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// <summary>
         /// Tries to create and save to the database a new <see cref="EducationalInstitution"/> entity
         /// </summary>
-        /// <param name="request">Contains <see cref="EducationalInstitution"/> data that is to be added to the database</param>
         /// <param name="cancellationToken">Cancels the operation ________</param>
         /// <returns>
-        /// An <see cref="Response{ResponseType}">object</see> with HttpStatusCode:
+        /// An <see cref="Response{TData}">object</see> with HttpStatusCode:
         /// <list type="bullet">
-        /// <item><see cref="HttpStatusCode.Created">if operation is successful</see></item>
-        /// <item><see cref="HttpStatusCode.InternalServerError">if the entity could not be inserted into the database</see></item>
+        /// <item><see cref="HttpStatusCode.Created">Created</see> if operation is successful</item>
+        /// <item><see cref="HttpStatusCode.InternalServerError">InternalServerError</see> if the entity could not be inserted into the database</item>
         /// </list>
         /// </returns>
+        /// <exception cref="ArgumentNullException"/>
         public async Task<Response<EducationalInstitutionCommandResult>> Handle(DTOEducationalInstitutionCreateCommand request, CancellationToken cancellationToken = default)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
@@ -60,7 +58,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
                     return new()
                     {
-                        ResponseObject = new() { EduInstitutionID = newEducationalInstitution.EducationalInstitutionID },
+                        Data = new() { EduInstitutionID = newEducationalInstitution.EducationalInstitutionID },
                         OperationStatus = true,
                         StatusCode = HttpStatusCode.Created,
                         Message = string.Empty
@@ -80,7 +78,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
                 return new()
                 {
-                    ResponseObject = null,
+                    Data = null,
                     OperationStatus = false,
                     StatusCode = HttpStatusCode.InternalServerError,
                     Message = "An error occurred while creating the Educational Institution with the given data!"

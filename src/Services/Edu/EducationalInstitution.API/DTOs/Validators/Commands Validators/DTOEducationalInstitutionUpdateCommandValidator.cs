@@ -5,6 +5,9 @@ namespace EducationalInstitutionAPI.DTOs.Validators.Commands_Validators
 {
     public class DTOEducationalInstitutionUpdateCommandValidator : AbstractValidator<DTOEducationalInstitutionUpdateCommand>
     {
+        /// <summary>
+        /// Initializes the rules based on which the validation is made
+        /// </summary>
         public DTOEducationalInstitutionUpdateCommandValidator()
         {
             CascadeMode = CascadeMode.Stop;

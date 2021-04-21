@@ -26,10 +26,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             queryResult = new()
             {
                 EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { new(){
-                        Name = testDataHelper.EduInstitutions[0].Name,
-                        Description = testDataHelper.EduInstitutions[0].Description,
-                        BuildingsIDs = testDataHelper.EduInstitutions[0].Buildings,
-                        EducationalInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID
+                        Name = testDataHelper.EducationalInstitutions[0].Name,
+                        Description = testDataHelper.EducationalInstitutions[0].Description,
+                        BuildingsIDs = testDataHelper.EducationalInstitutions[0].Buildings,
+                        EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID
                         }
                     }
             };
@@ -56,7 +56,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
-            Assert.Equal(queryResult, result.ResponseObject);
+            Assert.Equal(queryResult, result.Data);
         }
 
         [Fact]
@@ -96,7 +96,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Arrange
-            Assert.IsType<GetAllEducationalInstitutionsByLocationQueryResult>(result.ResponseObject);
+            Assert.IsType<GetAllEducationalInstitutionsByLocationQueryResult>(result.Data);
         }
 
         [Fact]
@@ -223,7 +223,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Arrange
-            Assert.Null(result.ResponseObject);
+            Assert.Null(result.Data);
         }
 
         [Fact]

@@ -26,12 +26,12 @@ namespace EducationalInstitutionAPI.Controllers
         [HttpGet("{ID}")]
         public async Task<ActionResult<Response<GetEducationalInstitutionByIDQueryResult>>> GetEducationalInstitutionByID(Guid ID)
         {
-            var request = new DTOEducationalInstitutionByIDQuery(ID);
+            var request = new DTOEducationalInstitutionByIDQuery() { EducationalInstitutionID = ID };
 
             if (!validationHandler.IsRequestValid(request, out string validationErrors))
                 return BadRequest(new Response<GetEducationalInstitutionByIDQueryResult>()
                 {
-                    ResponseObject = null,
+                    Data = null,
                     OperationStatus = false,
                     StatusCode = HttpStatusCode.BadRequest,
                     Message = validationErrors
@@ -53,7 +53,7 @@ namespace EducationalInstitutionAPI.Controllers
             if (!validationHandler.IsRequestValid(request, out string validationErrors))
                 return BadRequest(new Response<GetEducationalInstitutionByIDQueryResult>()
                 {
-                    ResponseObject = null,
+                    Data = null,
                     OperationStatus = false,
                     StatusCode = HttpStatusCode.BadRequest,
                     Message = validationErrors

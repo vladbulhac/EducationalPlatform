@@ -37,7 +37,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = new() { EduInstitutionID = Guid.NewGuid() },
+                Data = new() { EduInstitutionID = Guid.NewGuid() },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Message = string.Empty
@@ -69,7 +69,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = new() { EduInstitutionID = Guid.NewGuid() },
+                Data = new() { EduInstitutionID = Guid.NewGuid() },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Message = string.Empty
@@ -101,7 +101,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = new() { EduInstitutionID = Guid.NewGuid() },
+                Data = new() { EduInstitutionID = Guid.NewGuid() },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Message = string.Empty
@@ -133,7 +133,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = new() { EduInstitutionID = Guid.NewGuid() },
+                Data = new() { EduInstitutionID = Guid.NewGuid() },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Message = string.Empty
@@ -261,7 +261,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = null,
+                Data = null,
                 OperationStatus = false,
                 StatusCode = System.Net.HttpStatusCode.InternalServerError,
                 Message = $"An error occurred while creating the Educational Institution with the given data!"
@@ -293,7 +293,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = null,
+                Data = null,
                 OperationStatus = false,
                 StatusCode = System.Net.HttpStatusCode.InternalServerError,
                 Message = $"An error occurred while creating the Educational Institution with the given data!"
@@ -325,7 +325,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = null,
+                Data = null,
                 OperationStatus = false,
                 StatusCode = System.Net.HttpStatusCode.InternalServerError,
                 Message = $"An error occurred while creating the Educational Institution with the given data!"
@@ -357,7 +357,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = null,
+                Data = null,
                 OperationStatus = false,
                 StatusCode = System.Net.HttpStatusCode.InternalServerError,
                 Message = "An error occurred while creating the Educational Institution with the given data!"
@@ -384,7 +384,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
+            id.Encode(out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -401,7 +401,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = new() { EduInstitutionID = id },
+                Data = new() { EduInstitutionID = id },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Message = string.Empty
@@ -424,7 +424,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
+            id.Encode(out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -441,7 +441,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = new() { EduInstitutionID = id },
+                Data = new() { EduInstitutionID = id },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Message = string.Empty
@@ -464,7 +464,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
+            id.Encode(out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -481,7 +481,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = new() { EduInstitutionID = id },
+                Data = new() { EduInstitutionID = id },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Message = string.Empty
@@ -504,7 +504,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
+            id.Encode(out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -521,7 +521,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = new() { EduInstitutionID = id },
+                Data = new() { EduInstitutionID = id },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Message = string.Empty
@@ -544,7 +544,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
+            id.Encode(out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -576,7 +576,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
+            id.Encode(out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -608,7 +608,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
+            id.Encode(out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -640,7 +640,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
+            id.Encode(out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -672,7 +672,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
+            id.Encode(out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -689,7 +689,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = null,
+                Data = null,
                 OperationStatus = false,
                 StatusCode = System.Net.HttpStatusCode.InternalServerError,
                 Message = "An error occurred while creating the Educational Institution with the given data!"
@@ -712,7 +712,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
+            id.Encode(out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -729,7 +729,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = null,
+                Data = null,
                 OperationStatus = false,
                 StatusCode = System.Net.HttpStatusCode.InternalServerError,
                 Message = "An error occurred while creating the Educational Institution with the given data!"
@@ -752,7 +752,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
+            id.Encode(out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -769,7 +769,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = null,
+                Data = null,
                 OperationStatus = false,
                 StatusCode = System.Net.HttpStatusCode.InternalServerError,
                 Message = "An error occurred while creating the Educational Institution with the given data!"
@@ -792,7 +792,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
+            id.Encode(out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -809,7 +809,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = null,
+                Data = null,
                 OperationStatus = false,
                 StatusCode = System.Net.HttpStatusCode.InternalServerError,
                 Message = "An error occurred while creating the Educational Institution with the given data!"
@@ -832,7 +832,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
+            id.Encode(out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -849,7 +849,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = new() { EduInstitutionID = Guid.NewGuid() },
+                Data = new() { EduInstitutionID = Guid.NewGuid() },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.MultiStatus,
                 Message = "Educational Institution was created but parent institution was not found!"
@@ -872,7 +872,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
+            id.Encode(out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -889,7 +889,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = new() { EduInstitutionID = Guid.NewGuid() },
+                Data = new() { EduInstitutionID = Guid.NewGuid() },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.MultiStatus,
                 Message = "Educational Institution was created but parent institution was not found!"
@@ -912,7 +912,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
+            id.Encode(out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -929,7 +929,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = new() { EduInstitutionID = Guid.NewGuid() },
+                Data = new() { EduInstitutionID = Guid.NewGuid() },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.MultiStatus,
                 Message = "Educational Institution was created but parent institution was not found!"
@@ -952,7 +952,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         {
             //Arrange
             var id = Guid.NewGuid();
-            ProtobufGuidConverter.Encode(id, out UInt64 high64, out UInt64 low64);
+            id.Encode(out UInt64 high64, out UInt64 low64);
 
             DTOEducationalInstitutionWithParentCreateRequest request = new()
             {
@@ -969,7 +969,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                ResponseObject = new() { EduInstitutionID = Guid.NewGuid() },
+                Data = new() { EduInstitutionID = Guid.NewGuid() },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.MultiStatus,
                 Message = "Educational Institution was created but parent institution was not found!"

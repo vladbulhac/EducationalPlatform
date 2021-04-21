@@ -13,9 +13,6 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Business.Commands_Handlers
 {
-    /// <summary>
-    /// Defines a method that handles the deletion of an <see cref="EducationalInstitution"/> entity
-    /// </summary>
     public class DeleteEducationalInstitutionCommandHandler : IRequestHandler<DTOEducationalInstitutionDeleteCommand, Response<DeleteEducationalInstitutionCommandResult>>
     {
         /// <summary>
@@ -25,6 +22,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
         private readonly IUnitOfWork unitOfWork;
 
+        /// <exception cref="ArgumentNullException"/>
         public DeleteEducationalInstitutionCommandHandler(IUnitOfWork unitOfWork, ILogger<DeleteEducationalInstitutionCommandHandler> logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -34,14 +32,13 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// <summary>
         /// Schedules an <see cref="EducationalInstitution"/> entity for deletion
         /// </summary>
-        /// <param name="request">Contains a <see cref="EducationalInstitution.EducationalInstitutionID"/></param>
         /// <param name="cancellationToken">Cancels the operation ________</param>
         /// <returns>
-        /// An <see cref="Response{ResponseType}">object</see> with HttpStatusCode:
+        /// An <see cref="Response{TData}">object</see> with HttpStatusCode:
         /// <list type="bullet">
-        /// <item><see cref="HttpStatusCode.Accepted">if the entity has been scheduled for deletion</see></item>
-        /// <item><see cref="HttpStatusCode.NotFound">if the <see cref="EducationalInstitution"/> has not been found</see></item>
-        /// <item><see cref="HttpStatusCode.InternalServerError">if the schedule for deletion could not be saved in the database</see></item>
+        /// <item><see cref="HttpStatusCode.Accepted">Accepted</see> if the entity has been scheduled for deletion</item>
+        /// <item><see cref="HttpStatusCode.NotFound">NotFound</see> if the <see cref="EducationalInstitution"/> has not been found</item>
+        /// <item><see cref="HttpStatusCode.InternalServerError">InternalServerError</see> if the schedule for deletion could not be saved in the database</item>
         /// </list>
         /// </returns>
         public async Task<Response<DeleteEducationalInstitutionCommandResult>> Handle(DTOEducationalInstitutionDeleteCommand request, CancellationToken cancellationToken = default)
@@ -59,7 +56,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                     {
                         return new()
                         {
-                            ResponseObject = null,
+                            Data = null,
                             OperationStatus = false,
                             StatusCode = HttpStatusCode.NotFound,
                             Message = $"Educational Institution with the following ID: {request.EducationalInstitutionID} has not been found!"
@@ -71,7 +68,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
                     return new()
                     {
-                        ResponseObject = new() { DateForPermanentDeletion = (DateTime)educationalInstitution.EntityAccess.DateForPermanentDeletion },
+                        Data = new() { DateForPermanentDeletion = (DateTime)educationalInstitution.EntityAccess.DateForPermanentDeletion! },
                         OperationStatus = true,
                         StatusCode = HttpStatusCode.Accepted,
                         Message = string.Empty
@@ -91,7 +88,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
                 return new()
                 {
-                    ResponseObject = null,
+                    Data = null,
                     OperationStatus = false,
                     StatusCode = HttpStatusCode.InternalServerError,
                     Message = $"An error occurred while scheduling for deletion the Educational Institution with the following ID: {request.EducationalInstitutionID}!"

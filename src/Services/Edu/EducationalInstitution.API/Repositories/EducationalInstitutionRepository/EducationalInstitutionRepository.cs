@@ -179,14 +179,25 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
             return true;
         }
 
-        public async Task<bool> UpdateNameDescriptionAsync(Guid educationalInstitutionID, string name, string description, CancellationToken cancellationToken)
+        public async Task<bool> UpdateNameAndDescriptionAsync(Guid educationalInstitutionID, string name, string description, CancellationToken cancellationToken)
         {
             var educationalInstitution = await context.EducationalInstitutions
-                .SingleOrDefaultAsync(ei => ei.EducationalInstitutionID == educationalInstitutionID, cancellationToken);
+                                                        .SingleOrDefaultAsync(ei => ei.EducationalInstitutionID == educationalInstitutionID, cancellationToken);
 
             if (educationalInstitution is null) return false;
 
             educationalInstitution.Update(name, description);
+            return true;
+        }
+
+        public async Task<bool> UpdateParentInstitutionAsync(Guid educationalInstitutionID, EducationalInstitution parentInstitution, CancellationToken cancellationToken = default)
+        {
+            var educationalInstitution = await context.EducationalInstitutions
+                                                        .SingleOrDefaultAsync(ei => ei.EducationalInstitutionID == educationalInstitutionID, cancellationToken);
+
+            if (educationalInstitution is null) return false;
+
+            educationalInstitution.UpdateParentInstitution(parentInstitution);
             return true;
         }
     }

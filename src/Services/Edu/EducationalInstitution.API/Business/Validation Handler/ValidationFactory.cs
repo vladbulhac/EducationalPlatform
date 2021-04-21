@@ -13,11 +13,11 @@ namespace EducationalInstitutionAPI.Business.Validation_Handler
     public abstract class ValidationFactory
     {
         /// <summary>
-        /// Instantiates, based on <typeparamref name="T"/>, a concrete validator class that extends the generic AbstractValidator class from the FluentValidation package
+        /// Instantiates, based on <typeparamref name="T"/>, a concrete validator class that extends <see cref="AbstractValidator{T}"/> from the <see cref="FluentValidation"/> package
         /// </summary>
         /// <remarks>The project must have the FluentValidation package installed</remarks>
         /// <typeparam name="T">A Data Transfer Object type whose fields you want to validate</typeparam>
-        /// <returns>A validator object of a class that extends the generic AbstractValidator class from the FluentValidation package</returns>
+        /// <returns>A validator object of a class that extends <see cref="AbstractValidator{T}"/> from the <see cref="FluentValidation"/> package</returns>
         /// <exception cref="RequestTypeNotSupportedException">Thrown when a validator of <typeparamref name="T"/> has not been declared</exception>
         protected AbstractValidator<T> CreateValidator<T>()
         {
@@ -53,6 +53,11 @@ namespace EducationalInstitutionAPI.Business.Validation_Handler
              if (typeof(T) == typeof(DTOEducationalInstitutionUpdateCommand))
             {
                 return new DTOEducationalInstitutionUpdateCommandValidator() as AbstractValidator<T>;
+            }
+            else
+            if (typeof(T) == typeof(DTOEducationalInstitutionParentUpdateCommand))
+            {
+                return new DTOEducationalInstitutionParentUpdateCommandValidator() as AbstractValidator<T>;
             }
             else
             if (typeof(T) == typeof(DTOEducationalInstitutionLocationUpdateCommand))

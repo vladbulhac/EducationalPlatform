@@ -25,10 +25,10 @@ namespace EducationalInstitution.API.Tests
             this.testDataHelper = testDataHelper;
             queryResult = new()
             {
-                Name = testDataHelper.EduInstitutions[0].Name,
-                Description = testDataHelper.EduInstitutions[0].Description,
-                LocationID = testDataHelper.EduInstitutions[0].LocationID,
-                BuildingsIDs = testDataHelper.EduInstitutions[0].Buildings
+                Name = testDataHelper.EducationalInstitutions[0].Name,
+                Description = testDataHelper.EducationalInstitutions[0].Description,
+                LocationID = testDataHelper.EducationalInstitutions[0].LocationID,
+                BuildingsIDs = testDataHelper.EducationalInstitutions[0].Buildings
             };
 
             mockUnitOfWork = new();
@@ -40,11 +40,11 @@ namespace EducationalInstitution.API.Tests
         public async Task GivenAnID_ShouldReturnAResponseThatIncludesAStatusCodeOkField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
-            DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
+            DTOEducationalInstitutionByIDQuery request = new() { EducationalInstitutionID = educationalInstitutionID };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(educationalInstitutionID, dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(queryResult);
 
             GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
@@ -60,11 +60,11 @@ namespace EducationalInstitution.API.Tests
         public async Task GivenAnID_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
-            DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
+            DTOEducationalInstitutionByIDQuery request = new() { EducationalInstitutionID = educationalInstitutionID };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(educationalInstitutionID, dependenciesHelper.cancellationToken))
                                      .ReturnsAsync(queryResult);
 
             GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
@@ -80,11 +80,11 @@ namespace EducationalInstitution.API.Tests
         public async Task GivenAnID_ShouldReturnARecordTypeResponse()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
-            DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
+            DTOEducationalInstitutionByIDQuery request = new() { EducationalInstitutionID = educationalInstitutionID };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(educationalInstitutionID, dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(queryResult);
 
             GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
@@ -100,11 +100,11 @@ namespace EducationalInstitution.API.Tests
         public async Task GivenAnID_ShouldReturnAResponseThatIncludesAResponseObjectOfType_GetEducationalInstitutionByIDQueryResult()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
-            DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
+            DTOEducationalInstitutionByIDQuery request = new() { EducationalInstitutionID = educationalInstitutionID };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(educationalInstitutionID, dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(queryResult);
 
             GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
@@ -113,25 +113,25 @@ namespace EducationalInstitution.API.Tests
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
-            Assert.IsType<GetEducationalInstitutionByIDQueryResult>(result.ResponseObject);
+            Assert.IsType<GetEducationalInstitutionByIDQueryResult>(result.Data);
         }
 
         [Fact]
         public async Task GivenAnID_ShouldReturnAResponseThatIncludesAResponseObjectWithFieldsEqualToTheModel()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
-            DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
+            DTOEducationalInstitutionByIDQuery request = new() { EducationalInstitutionID = educationalInstitutionID };
             GetEducationalInstitutionByIDQueryResult expectedResponse = new()
             {
-                Name = testDataHelper.EduInstitutions[0].Name,
-                Description = testDataHelper.EduInstitutions[0].Description,
-                LocationID = testDataHelper.EduInstitutions[0].LocationID,
-                BuildingsIDs = testDataHelper.EduInstitutions[0].Buildings
+                Name = testDataHelper.EducationalInstitutions[0].Name,
+                Description = testDataHelper.EducationalInstitutions[0].Description,
+                LocationID = testDataHelper.EducationalInstitutions[0].LocationID,
+                BuildingsIDs = testDataHelper.EducationalInstitutions[0].Buildings
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(educationalInstitutionID, dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(queryResult);
 
             GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
@@ -140,18 +140,18 @@ namespace EducationalInstitution.API.Tests
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
-            Assert.Equal(expectedResponse, result.ResponseObject);
+            Assert.Equal(expectedResponse, result.Data);
         }
 
         [Fact]
         public async Task GivenAnID_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
-            DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
+            DTOEducationalInstitutionByIDQuery request = new() { EducationalInstitutionID = educationalInstitutionID };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(eduInstitutionID, dependenciesHelper.cancellationToken))
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(educationalInstitutionID, dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(queryResult);
 
             GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
@@ -171,12 +171,12 @@ namespace EducationalInstitution.API.Tests
         public async Task GivenANonExistentID_ShouldReturnAResponseThatIncludesAStatusCodeNotFoundField()
         {
             //Arrange
-            Guid eduInstitutionID = new("e1c22f85-6bfe-4f3c-badd-15ec4acbec00");
-            DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
+            Guid educationalInstitutionID = new("e1c22f85-6bfe-4f3c-badd-15ec4acbec00");
+            DTOEducationalInstitutionByIDQuery request = new() { EducationalInstitutionID = educationalInstitutionID };
 
             GetEducationalInstitutionByIDQueryResult repositoryTaskResult = null;
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(It.IsNotIn(testDataHelper.EduInstitutions[0].EducationalInstitutionID), dependenciesHelper.cancellationToken))
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(It.IsNotIn(testDataHelper.EducationalInstitutions[0].EducationalInstitutionID), dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(repositoryTaskResult);
 
             GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
@@ -192,12 +192,12 @@ namespace EducationalInstitution.API.Tests
         public async Task GivenANonExistentGuidID_ShouldReturnAResponseThatIncludesANullResponseObjectField()
         {
             //Arrange
-            Guid eduInstitutionID = new("e1c22f85-6bfe-4f3c-badd-15ec4acbec00");
-            DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
+            Guid educationalInstitutionID = new("e1c22f85-6bfe-4f3c-badd-15ec4acbec00");
+            DTOEducationalInstitutionByIDQuery request = new() { EducationalInstitutionID = educationalInstitutionID };
 
             GetEducationalInstitutionByIDQueryResult repositoryTaskResult = null;
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(It.IsNotIn(testDataHelper.EduInstitutions[0].EducationalInstitutionID), dependenciesHelper.cancellationToken))
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(It.IsNotIn(testDataHelper.EducationalInstitutions[0].EducationalInstitutionID), dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(repositoryTaskResult);
 
             GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
@@ -206,19 +206,19 @@ namespace EducationalInstitution.API.Tests
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
-            Assert.Null(result.ResponseObject);
+            Assert.Null(result.Data);
         }
 
         [Fact]
         public async Task GivenANonExistentGuidID_ShouldReturnAResponseThatIncludesAFalseOperationStatusField()
         {
             //Arrange
-            Guid eduInstitutionID = new("e1c22f85-6bfe-4f3c-badd-15ec4acbec00");
-            DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
+            Guid educationalInstitutionID = new("e1c22f85-6bfe-4f3c-badd-15ec4acbec00");
+            DTOEducationalInstitutionByIDQuery request = new() { EducationalInstitutionID = educationalInstitutionID };
 
             GetEducationalInstitutionByIDQueryResult repositoryTaskResult = null;
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(It.IsNotIn(testDataHelper.EduInstitutions[0].EducationalInstitutionID), dependenciesHelper.cancellationToken))
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(It.IsNotIn(testDataHelper.EducationalInstitutions[0].EducationalInstitutionID), dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(repositoryTaskResult);
 
             GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
@@ -234,12 +234,12 @@ namespace EducationalInstitution.API.Tests
         public async Task GivenANonExistentID_ShouldReturnAResponseThatIncludesAMessageField()
         {
             //Arrange
-            Guid eduInstitutionID = new("e1c22f85-6bfe-4f3c-badd-15ec4acbec00");
-            DTOEducationalInstitutionByIDQuery request = new(eduInstitutionID);
+            Guid educationalInstitutionID = new("e1c22f85-6bfe-4f3c-badd-15ec4acbec00");
+            DTOEducationalInstitutionByIDQuery request = new() { EducationalInstitutionID = educationalInstitutionID };
 
             GetEducationalInstitutionByIDQueryResult repositoryTaskResult = null;
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(It.IsNotIn(testDataHelper.EduInstitutions[0].EducationalInstitutionID), dependenciesHelper.cancellationToken))
+            dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(It.IsNotIn(testDataHelper.EducationalInstitutions[0].EducationalInstitutionID), dependenciesHelper.cancellationToken))
                                     .ReturnsAsync(repositoryTaskResult);
 
             GetEducationalInstitutionByIDQueryHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);

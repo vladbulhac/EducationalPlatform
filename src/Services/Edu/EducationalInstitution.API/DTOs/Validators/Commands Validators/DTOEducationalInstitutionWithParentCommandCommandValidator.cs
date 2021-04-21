@@ -3,9 +3,6 @@ using FluentValidation;
 
 namespace EducationalInstitutionAPI.DTOs.Validators.Commands_Validators
 {
-    /// <summary>
-    /// Contains the validation rules for <see cref="DTOEducationalInstitutionWithParentCreateCommand"/>'s fields
-    /// </summary>
     public class DTOEducationalInstitutionWithParentCommandCommandValidator : AbstractValidator<DTOEducationalInstitutionWithParentCreateCommand>
     {
         /// <summary>

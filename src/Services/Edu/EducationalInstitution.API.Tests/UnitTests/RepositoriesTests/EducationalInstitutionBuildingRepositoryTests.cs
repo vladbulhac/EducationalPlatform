@@ -24,7 +24,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
 
             dbContext = new(dbOptions);
             dbContext.Database.EnsureDeleted();
-            dbContext.AddRange(testDataHelper.EduInstitutions);
+            dbContext.AddRange(testDataHelper.EducationalInstitutions);
             dbContext.SaveChanges();
 
             eduBuildingRepository = new EducationalInstitutionBuildingRepository(dbContext);
@@ -79,7 +79,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
             var result = await eduBuildingRepository.GetAllEducationalInstitutionsWithSameBuildingAsync(buildingID);
 
             //Assert
-            Assert.Contains(result.EducationalInstitutions, ei => ei.Name == testDataHelper.EduInstitutions[0].Name);
+            Assert.Contains(result.EducationalInstitutions, ei => ei.Name == testDataHelper.EducationalInstitutions[0].Name);
         }
 
         [Fact]

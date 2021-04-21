@@ -29,10 +29,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_LocationID_BuildingsIDs_ShouldReturnAResponseThatIncludesAStatusCodeNoContentField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EduInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
@@ -58,10 +58,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_LocationID_BuildingsIDs_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EduInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
@@ -87,10 +87,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_LocationID_BuildingsIDs_ShouldReturnANonGenericResponse()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EduInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
@@ -116,10 +116,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_LocationID_BuildingsIDs_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EduInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
@@ -145,7 +145,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_LocationID_ShouldReturnAResponseThatIncludesAStatusCodeNoContentField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
@@ -172,7 +172,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_LocationID_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
@@ -199,7 +199,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_LocationID_ShouldReturnANonGenericResponse()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
@@ -226,7 +226,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_LocationID_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
@@ -253,9 +253,9 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_BuildingsIDs_ShouldReturnAResponseThatIncludesAStatusCodeNoContentField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EduInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
@@ -281,9 +281,9 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_BuildingsIDs_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EduInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
@@ -309,9 +309,9 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_BuildingsIDs_ShouldReturnANonGenericResponse()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EduInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {
@@ -337,9 +337,9 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         public async Task GivenAnEduInstitutionID_BuildingsIDs_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
         {
             //Arrange
-            Guid eduInstitutionID = testDataHelper.EduInstitutions[0].EducationalInstitutionID;
+            Guid eduInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EduInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
 
             DTOEducationalInstitutionLocationUpdateCommand request = new()
             {

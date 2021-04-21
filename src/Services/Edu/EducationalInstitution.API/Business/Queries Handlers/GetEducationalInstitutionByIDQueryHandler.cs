@@ -13,9 +13,6 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Business.Queries_Handlers
 {
-    /// <summary>
-    /// Defines a method that handles the operation of getting an <see cref="EducationalInstitution"/> by ID
-    /// </summary>
     public class GetEducationalInstitutionByIDQueryHandler : IRequestHandler<DTOEducationalInstitutionByIDQuery, Response<GetEducationalInstitutionByIDQueryResult>>
     {
         /// <summary>
@@ -25,6 +22,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
 
         private readonly IUnitOfWork unitOfWork;
 
+        /// <exception cref="ArgumentNullException"/>
         public GetEducationalInstitutionByIDQueryHandler(IUnitOfWork unitOfWork, ILogger<GetEducationalInstitutionByIDQueryHandler> logger)
         {
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
@@ -32,18 +30,18 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
         }
 
         /// <summary>
-        /// Tries to get an <see cref="EducationalInstitution"/> by ID
+        /// Tries to get an <see cref="EducationalInstitution"/> by EducationalInstitutionID
         /// </summary>
-        /// <param name="request">Contains the data necessary to get an <see cref="EducationalInstitution"/></param>
         /// <param name="cancellationToken">Cancels the operation ______</param>
         /// <returns>
-        /// An <see cref="Response{ResponseType}">object</see> with HttpStatusCode:
+        /// An <see cref="Response{TData}">object</see> with HttpStatusCode:
         /// <list type="bullet">
-        /// <item><see cref="HttpStatusCode.OK">if operation is successful</see></item>
-        /// <item><see cref="HttpStatusCode.NotFound">if no <see cref="EducationalInstitution"/> has been found for the provided id</see></item>
-        /// <item><see cref="HttpStatusCode.InternalServerError">if the entity could not be inserted into the database</see></item>
+        /// <item><see cref="HttpStatusCode.OK">Ok</see> if operation is successful</item>
+        /// <item><see cref="HttpStatusCode.NotFound">NotFound</see> if no <see cref="EducationalInstitution"/> has been found for the provided id</item>
+        /// <item><see cref="HttpStatusCode.InternalServerError">InternalServerError</see> if the entity could not be inserted into the database</item>
         /// </list>
         /// </returns>
+        /// <exception cref="ArgumentNullException"/>
         public async Task<Response<GetEducationalInstitutionByIDQueryResult>> Handle(DTOEducationalInstitutionByIDQuery request, CancellationToken cancellationToken)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
@@ -58,19 +56,19 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
                     if (educationalInstitution is null)
                         return new()
                         {
-                            ResponseObject = null,
+                            Data = null,
                             OperationStatus = false,
                             StatusCode = HttpStatusCode.NotFound,
                             Message = $"Educational Institution with the following ID: {request.EducationalInstitutionID} has not been found!"
                         };
-                    else
-                        return new()
-                        {
-                            ResponseObject = educationalInstitution,
-                            OperationStatus = true,
-                            StatusCode = HttpStatusCode.OK,
-                            Message = string.Empty
-                        };
+
+                    return new()
+                    {
+                        Data = educationalInstitution,
+                        OperationStatus = true,
+                        StatusCode = HttpStatusCode.OK,
+                        Message = string.Empty
+                    };
                 }
             }
             catch (Exception e)
@@ -84,7 +82,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
 
                 return new()
                 {
-                    ResponseObject = null,
+                    Data = null,
                     OperationStatus = false,
                     StatusCode = HttpStatusCode.InternalServerError,
                     Message = $"An error occurred while searching for the Educational Institution with the following ID: {request.EducationalInstitutionID}!"

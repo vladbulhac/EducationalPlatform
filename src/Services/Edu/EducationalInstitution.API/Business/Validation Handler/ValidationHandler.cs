@@ -1,13 +1,11 @@
 ﻿using FluentValidation.Results;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Text;
 
 namespace EducationalInstitutionAPI.Business.Validation_Handler
 {
-    /// <summary>
-    /// Instantiates a validator class that validates all the fields of a given request
-    /// </summary>
     public class ValidationHandler : ValidationFactory, IValidationHandler
     {
         /// <summary>
@@ -15,6 +13,7 @@ namespace EducationalInstitutionAPI.Business.Validation_Handler
         /// </summary>
         private readonly ILogger<ValidationHandler> logger;
 
+        /// <exception cref="ArgumentNullException"/>
         public ValidationHandler(ILogger<ValidationHandler> logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -37,12 +36,12 @@ namespace EducationalInstitutionAPI.Business.Validation_Handler
             catch (Exception e)
             {
                 logger.LogError("Could not validate the request: {0} with the type: {1}, error details => {2}",
-                    nameof(request),
+                    JsonConvert.SerializeObject(request),
                     request.GetType(),
                     e.Message
                     );
 
-                validationErrors = "An error occurred when trying to validate the request!";
+                validationErrors = "An error occurred while trying to validate the request!";
                 return false;
             }
         }

@@ -3,26 +3,26 @@
 namespace EducationalInstitutionAPI.DTOs
 {
     /// <summary>
-    /// Contains the response object to a request and the fields of <see cref="Response"/>
+    /// Extends <see cref="Response"/> with a result object
     /// </summary>
-    public record Response<TResponse> : Response
+    public record Response<TData> : Response
     {
         /// <summary>
         /// Contains the result of the request operation
         /// </summary>
-        /// <value>If <see cref="OperationStatus"/> is True a <typeparamref name="TResponse"/> object that contains the requested data, NULL otherwise</value>
-        public TResponse ResponseObject { get; init; }
+        /// <value>Encapsulates the result data when a request is successful, NULL otherwise</value>
+        public TData Data { get; init; }
     }
 
     /// <summary>
-    /// Contains the status of the request operation
+    /// Contains the status of the requested operation
     /// </summary>
     public record Response
     {
         public HttpStatusCode StatusCode { get; init; }
 
         /// <summary>
-        /// Describes if the request operation was successful
+        /// Describes if the requested operation was successful
         /// </summary>
         public bool OperationStatus { get; init; }
 

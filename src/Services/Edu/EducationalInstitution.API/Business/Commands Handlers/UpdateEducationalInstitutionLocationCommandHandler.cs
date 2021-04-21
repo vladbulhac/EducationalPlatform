@@ -13,9 +13,6 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Business.Commands_Handlers
 {
-    /// <summary>
-    /// Defines a method that handles the update of an <see cref="EducationalInstitution"/>'s location and/or buildings
-    /// </summary>
     public class UpdateEducationalInstitutionLocationCommandHandler : IRequestHandler<DTOEducationalInstitutionLocationUpdateCommand, Response>
     {
         /// <summary>
@@ -25,6 +22,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
         private readonly IUnitOfWork unitOfWork;
 
+        /// <exception cref="ArgumentNullException"/>
         public UpdateEducationalInstitutionLocationCommandHandler(IUnitOfWork unitOfWork, ILogger<UpdateEducationalInstitutionLocationCommandHandler> logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -34,16 +32,16 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// <summary>
         /// Tries to update the locationID and/or the BuildingsIDs of an <see cref="EducationalInstitution"/> entity
         /// </summary>
-        /// <param name="request">Contains <see cref="EducationalInstitution.LocationID"/> and/or <see cref="EducationalInstitution.Buildings"/></param>
         /// <param name="cancellationToken">Cancels the operation ____________</param>
         /// <returns>
-        /// An <see cref="Response{ResponseType}">object</see> with HttpStatusCode:
+        /// An <see cref="Response{TData}">object</see> with HttpStatusCode:
         /// <list type="bullet">
-        /// <item><see cref="HttpStatusCode.NoContent">if operation is successful</see></item>
-        /// <item><see cref="HttpStatusCode.NotFound">if no <see cref="EducationalInstitution"/> has been found for the provided id</see></item>
-        /// <item><see cref="HttpStatusCode.InternalServerError">if the entity could not be updated</see></item>
+        /// <item><see cref="HttpStatusCode.NoContent">NoContent</see> if operation is successful</item>
+        /// <item><see cref="HttpStatusCode.NotFound">NotFound</see> if no <see cref="EducationalInstitution"/> has been found for the provided id</item>
+        /// <item><see cref="HttpStatusCode.InternalServerError">InternalServerError</see> if the entity could not be updated</item>
         /// </list>
         /// </returns>
+        /// <exception cref="ArgumentNullException"/>
         public async Task<Response> Handle(DTOEducationalInstitutionLocationUpdateCommand request, CancellationToken cancellationToken)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
@@ -59,13 +57,13 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                             StatusCode = HttpStatusCode.NotFound,
                             Message = $"Educational Institution with the following ID: {request.EducationalInstitutionID} has not been found!"
                         };
-                    else
-                        return new()
-                        {
-                            OperationStatus = true,
-                            StatusCode = HttpStatusCode.NoContent,
-                            Message = string.Empty
-                        };
+
+                    return new()
+                    {
+                        OperationStatus = true,
+                        StatusCode = HttpStatusCode.NoContent,
+                        Message = string.Empty
+                    };
                 }
             }
             catch (Exception e)
@@ -91,16 +89,23 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         private async Task<bool> IsEducationalInstitutionUpdatedAndSavedToDatabase(DTOEducationalInstitutionLocationUpdateCommand request, CancellationToken cancellationToken)
         {
             bool isEntityUpdated;
-            if (request.UpdateBuildings && request.UpdateLocation)
-                isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                    .UpdateEntireLocationAsync(request.EducationalInstitutionID, request.LocationID, request.AddBuildingsIDs, request.RemoveBuildingsIDs, cancellationToken);
-            else
-            if (request.UpdateLocation)
-                isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                    .UpdateLocationAsync(request.EducationalInstitutionID, request.LocationID, cancellationToken);
-            else
-                isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                    .UpdateBuildingsAsync(request.EducationalInstitutionID, request.AddBuildingsIDs, request.RemoveBuildingsIDs, cancellationToken);
+            switch (request.UpdateLocation)
+            {
+                case true when request.UpdateBuildings:
+                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
+                                                .UpdateEntireLocationAsync(request.EducationalInstitutionID, request.LocationID, request.AddBuildingsIDs, request.RemoveBuildingsIDs, cancellationToken);
+                    break;
+
+                case false when request.UpdateBuildings:
+                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
+                                                .UpdateBuildingsAsync(request.EducationalInstitutionID, request.AddBuildingsIDs, request.RemoveBuildingsIDs, cancellationToken);
+                    break;
+
+                default:
+                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
+                                                .UpdateLocationAsync(request.EducationalInstitutionID, request.LocationID, cancellationToken);
+                    break;
+            }
 
             if (isEntityUpdated)
                 await unitOfWork.SaveChangesAsync(cancellationToken);
@@ -110,13 +115,12 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
         private static string GetNameOfRepositoryMethodThatWasCalledInHandler(DTOEducationalInstitutionLocationUpdateCommand request)
         {
-            if (request.UpdateBuildings && request.UpdateLocation)
-                return nameof(IEducationalInstitutionRepository.UpdateEntireLocationAsync);
-            else
-            if (request.UpdateLocation)
-                return nameof(IEducationalInstitutionRepository.UpdateLocationAsync);
-            else
-                return nameof(IEducationalInstitutionRepository.UpdateBuildingsAsync);
+            switch (request.UpdateLocation)
+            {
+                case true when request.UpdateBuildings: return nameof(IEducationalInstitutionRepository.UpdateEntireLocationAsync);
+                case false when request.UpdateBuildings: return nameof(IEducationalInstitutionRepository.UpdateBuildingsAsync);
+                default: return nameof(IEducationalInstitutionRepository.UpdateLocationAsync);
+            }
         }
     }
 }

@@ -4,9 +4,6 @@ using System.Collections.Generic;
 
 namespace EducationalInstitutionAPI.DTOs.Validators.Commands_Validators
 {
-    /// <summary>
-    /// Contains the validation rules for <see cref="DTOEducationalInstitutionLocationUpdateCommand"/>'s fields
-    /// </summary>
     public class DTOEducationalInstitutionLocationUpdateCommandValidator : AbstractValidator<DTOEducationalInstitutionLocationUpdateCommand>
     {
         /// <summary>

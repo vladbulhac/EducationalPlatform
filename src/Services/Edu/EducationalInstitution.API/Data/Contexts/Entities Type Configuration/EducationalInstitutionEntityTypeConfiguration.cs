@@ -3,9 +3,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EducationalInstitutionAPI.Data.Contexts.Entities_Type_Configuration
 {
-    /// <summary>
-    /// Contains the configuration of the <see cref="EducationalInstitution"/> model
-    /// </summary>
     public class EducationalInstitutionEntityTypeConfiguration : IEntityTypeConfiguration<EducationalInstitution>
     {
         public void Configure(EntityTypeBuilder<EducationalInstitution> builder)
