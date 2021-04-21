@@ -69,7 +69,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                     if (parentInstitution is null)
                         return new()
                         {
-                            Data = new() { EduInstitutionID = newEducationalInstitution.EducationalInstitutionID },
+                            Data = new() { EducationalInstitutionID = newEducationalInstitution.EducationalInstitutionID },
                             OperationStatus = true,
                             StatusCode = HttpStatusCode.MultiStatus,
                             Message = $"The Educational Institution has been successfully created but the Parent Institution with the following ID: {request.ParentInstitutionID} has not been found!"
@@ -77,7 +77,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
                     return new()
                     {
-                        Data = new() { EduInstitutionID = newEducationalInstitution.EducationalInstitutionID },
+                        Data = new() { EducationalInstitutionID = newEducationalInstitution.EducationalInstitutionID },
                         OperationStatus = true,
                         StatusCode = HttpStatusCode.Created,
                         Message = string.Empty

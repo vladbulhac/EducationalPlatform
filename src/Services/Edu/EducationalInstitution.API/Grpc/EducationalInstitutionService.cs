@@ -84,7 +84,7 @@ namespace EducationalInstitutionAPI.Grpc
                 {
                     context.Status = new(StatusCode.OK, "Educational Institution was successfully created");
 
-                    responseObject.EducationalInstitutionId = result.Data.EduInstitutionID.ToProtocolBufferLanguageEquivalent();
+                    responseObject.EducationalInstitutionId = result.Data.EducationalInstitutionID.ToProtocolBufferLanguageEquivalent();
                 }
             }
 
@@ -156,7 +156,7 @@ namespace EducationalInstitutionAPI.Grpc
                     if (!string.IsNullOrEmpty(result.Message))
                         statusCode = HttpStatusCode.MultiStatus;
 
-                    responseObject.EducationalInstitutionId = result.Data.EduInstitutionID.ToProtocolBufferLanguageEquivalent();
+                    responseObject.EducationalInstitutionId = result.Data.EducationalInstitutionID.ToProtocolBufferLanguageEquivalent();
                 }
 
                 operationStatus = result.OperationStatus;

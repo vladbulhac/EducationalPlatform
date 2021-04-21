@@ -58,7 +58,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
                     return new()
                     {
-                        Data = new() { EduInstitutionID = newEducationalInstitution.EducationalInstitutionID },
+                        Data = new() { EducationalInstitutionID = newEducationalInstitution.EducationalInstitutionID },
                         OperationStatus = true,
                         StatusCode = HttpStatusCode.Created,
                         Message = string.Empty

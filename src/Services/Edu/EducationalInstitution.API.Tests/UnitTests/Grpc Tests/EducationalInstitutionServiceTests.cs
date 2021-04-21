@@ -37,7 +37,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                Data = new() { EduInstitutionID = Guid.NewGuid() },
+                Data = new() { EducationalInstitutionID = Guid.NewGuid() },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Message = string.Empty
@@ -69,7 +69,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                Data = new() { EduInstitutionID = Guid.NewGuid() },
+                Data = new() { EducationalInstitutionID = Guid.NewGuid() },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Message = string.Empty
@@ -101,7 +101,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                Data = new() { EduInstitutionID = Guid.NewGuid() },
+                Data = new() { EducationalInstitutionID = Guid.NewGuid() },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Message = string.Empty
@@ -133,7 +133,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                Data = new() { EduInstitutionID = Guid.NewGuid() },
+                Data = new() { EducationalInstitutionID = Guid.NewGuid() },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Message = string.Empty
@@ -401,7 +401,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                Data = new() { EduInstitutionID = id },
+                Data = new() { EducationalInstitutionID = id },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Message = string.Empty
@@ -441,7 +441,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                Data = new() { EduInstitutionID = id },
+                Data = new() { EducationalInstitutionID = id },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Message = string.Empty
@@ -481,7 +481,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                Data = new() { EduInstitutionID = id },
+                Data = new() { EducationalInstitutionID = id },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Message = string.Empty
@@ -521,7 +521,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                Data = new() { EduInstitutionID = id },
+                Data = new() { EducationalInstitutionID = id },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Message = string.Empty
@@ -849,7 +849,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                Data = new() { EduInstitutionID = Guid.NewGuid() },
+                Data = new() { EducationalInstitutionID = Guid.NewGuid() },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.MultiStatus,
                 Message = "Educational Institution was created but parent institution was not found!"
@@ -889,7 +889,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                Data = new() { EduInstitutionID = Guid.NewGuid() },
+                Data = new() { EducationalInstitutionID = Guid.NewGuid() },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.MultiStatus,
                 Message = "Educational Institution was created but parent institution was not found!"
@@ -929,7 +929,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                Data = new() { EduInstitutionID = Guid.NewGuid() },
+                Data = new() { EducationalInstitutionID = Guid.NewGuid() },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.MultiStatus,
                 Message = "Educational Institution was created but parent institution was not found!"
@@ -969,7 +969,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
 
             var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
             {
-                Data = new() { EduInstitutionID = Guid.NewGuid() },
+                Data = new() { EducationalInstitutionID = Guid.NewGuid() },
                 OperationStatus = true,
                 StatusCode = System.Net.HttpStatusCode.MultiStatus,
                 Message = "Educational Institution was created but parent institution was not found!"

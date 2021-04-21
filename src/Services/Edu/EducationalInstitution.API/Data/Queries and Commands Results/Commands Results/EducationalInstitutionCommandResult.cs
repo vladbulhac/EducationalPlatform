@@ -4,6 +4,6 @@ namespace EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Commands_R
 {
     public record EducationalInstitutionCommandResult
     {
-        public Guid EduInstitutionID { get; init; }
+        public Guid EducationalInstitutionID { get; init; }
     }
 }
