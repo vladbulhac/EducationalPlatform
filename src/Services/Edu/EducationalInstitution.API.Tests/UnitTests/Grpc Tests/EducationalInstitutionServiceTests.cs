@@ -372,7 +372,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
             var result = await handler.CreateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
-            Assert.Equal("An error occurred while creating the Educational Institution with the given data!", result.Message);
+            Assert.Equal("An error occurred while processing the request!", result.Message);
         }
 
         #endregion EducationalInstitutionService CreateEducationalInstitutionMethod TESTS
@@ -824,7 +824,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
             var result = await handler.CreateEducationalInstitutionWithParent(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
-            Assert.Equal("An error occurred while creating the Educational Institution with the given data!", result.Message);
+            Assert.Equal("An error occurred while processing the request!", result.Message);
         }
 
         [Fact]

@@ -5,6 +5,7 @@ using EducationalInstitutionAPI.Utils;
 using Grpc.Core;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 
@@ -53,47 +54,56 @@ namespace EducationalInstitutionAPI.Grpc
                 BuildingsIDs = request.Buildings
             };
 
-            var responseObject = new ResponseObject();
-            bool operationStatus = true;
-            string message = string.Empty;
-            var statusCode = HttpStatusCode.Created;
-
             if (!validationHandler.IsRequestValid(requestDTO, out string validationErrors))
             {
-                context.Status = new(StatusCode.FailedPrecondition, validationErrors);
+                context.Status = new(StatusCode.InvalidArgument, validationErrors);
 
-                responseObject = null;
-                operationStatus = false;
-                statusCode = HttpStatusCode.BadRequest;
-                message = validationErrors;
+                return new()
+                {
+                    ResponseObject = null,
+                    OperationStatus = false,
+                    StatusCode = HttpStatusCode.BadRequest,
+                    Message = validationErrors
+                };
             }
-            else
+
+            try
             {
                 var result = await mediator.Send(requestDTO);
 
-                if (!result.OperationStatus)
+                if (result.OperationStatus)
                 {
-                    context.Status = new(StatusCode.Aborted, result.Message);
+                    context.Status = new(StatusCode.OK, "Educational Institution was successfully created!");
 
-                    responseObject = null;
-                    operationStatus = result.OperationStatus;
-                    statusCode = HttpStatusCode.InternalServerError;
-                    message = result.Message;
+                    return new()
+                    {
+                        ResponseObject = new() { EducationalInstitutionId = result.Data.EducationalInstitutionID.ToProtocolBufferLanguageEquivalent() },
+                        OperationStatus = result.OperationStatus,
+                        StatusCode = HttpStatusCode.Created,
+                        Message = result.Message
+                    };
                 }
                 else
-                {
-                    context.Status = new(StatusCode.OK, "Educational Institution was successfully created");
+                    context.Status = new(StatusCode.Aborted, result.Message);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(
+                    "Could not create an Educational Institution with the request data: {0}, using {1}, error details => {2}",
+                    JsonConvert.SerializeObject(request),
+                    mediator.GetType(),
+                    e.Message
+                );
 
-                    responseObject.EducationalInstitutionId = result.Data.EducationalInstitutionID.ToProtocolBufferLanguageEquivalent();
-                }
+                context.Status = new(StatusCode.Aborted, "An error occurred while processing the request!");
             }
 
             return new()
             {
-                ResponseObject = responseObject,
-                OperationStatus = operationStatus,
-                StatusCode = statusCode,
-                Message = message
+                ResponseObject = null,
+                OperationStatus = false,
+                StatusCode = HttpStatusCode.InternalServerError,
+                Message = "An error occurred while processing the request!"
             };
         }
 
@@ -124,51 +134,60 @@ namespace EducationalInstitutionAPI.Grpc
                 BuildingsIDs = request.Buildings
             };
 
-            var responseObject = new ResponseObject();
-            bool operationStatus;
-            string message;
-            var statusCode = HttpStatusCode.Created;
-
             if (!validationHandler.IsRequestValid(requestDTO, out string validationErrors))
             {
-                context.Status = new(StatusCode.FailedPrecondition, validationErrors);
+                context.Status = new(StatusCode.InvalidArgument, validationErrors);
 
-                responseObject = null;
-                operationStatus = false;
-                statusCode = HttpStatusCode.BadRequest;
-                message = validationErrors;
+                return new()
+                {
+                    ResponseObject = null,
+                    OperationStatus = false,
+                    StatusCode = HttpStatusCode.BadRequest,
+                    Message = validationErrors
+                };
             }
-            else
+
+            try
             {
                 var result = await mediator.Send(requestDTO);
 
-                if (!result.OperationStatus)
+                if (result.OperationStatus)
                 {
-                    context.Status = new(StatusCode.Aborted, result.Message);
+                    context.Status = new(StatusCode.OK, "Educational Institution was successfully created!");
 
-                    responseObject = null;
-                    statusCode = HttpStatusCode.InternalServerError;
-                }
-                else
-                {
-                    context.Status = new(StatusCode.OK, "Educational Institution was successfully created");
-
+                    var statusCode = HttpStatusCode.Created;
                     if (!string.IsNullOrEmpty(result.Message))
                         statusCode = HttpStatusCode.MultiStatus;
 
-                    responseObject.EducationalInstitutionId = result.Data.EducationalInstitutionID.ToProtocolBufferLanguageEquivalent();
+                    return new()
+                    {
+                        ResponseObject = new() { EducationalInstitutionId = result.Data.EducationalInstitutionID.ToProtocolBufferLanguageEquivalent() },
+                        OperationStatus = result.OperationStatus,
+                        StatusCode = statusCode,
+                        Message = result.Message
+                    };
                 }
+                else
+                    context.Status = new(StatusCode.Aborted, result.Message);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(
+                    "Could not create an Educational Institution with the request data: {0}, using {1}, error details => {2}",
+                    JsonConvert.SerializeObject(request),
+                    mediator.GetType(),
+                    e.Message
+                );
 
-                operationStatus = result.OperationStatus;
-                message = result.Message;
+                context.Status = new(StatusCode.Aborted, "An error occurred while processing the request!");
             }
 
             return new()
             {
-                ResponseObject = responseObject,
-                OperationStatus = operationStatus,
-                StatusCode = statusCode,
-                Message = message
+                ResponseObject = null,
+                OperationStatus = false,
+                StatusCode = HttpStatusCode.InternalServerError,
+                Message = "An error occurred while processing the request!"
             };
         }
     }

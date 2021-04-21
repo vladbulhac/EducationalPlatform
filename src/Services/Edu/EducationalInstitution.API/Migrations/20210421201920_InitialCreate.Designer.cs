@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EducationalInstitutionAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210413180026_InitialCreate")]
+    [Migration("20210421201920_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,7 +23,7 @@ namespace EducationalInstitutionAPI.Migrations
 
             modelBuilder.Entity("EducationalInstitutionAPI.Data.EducationalInstitution", b =>
                 {
-                    b.Property<Guid>("EduInstitutionID")
+                    b.Property<Guid>("EducationalInstitutionID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -44,14 +44,14 @@ namespace EducationalInstitutionAPI.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<Guid?>("ParentInstitutionEduInstitutionID")
+                    b.Property<Guid?>("ParentInstitutionEducationalInstitutionID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("EduInstitutionID");
+                    b.HasKey("EducationalInstitutionID");
 
-                    b.HasIndex("ParentInstitutionEduInstitutionID");
+                    b.HasIndex("ParentInstitutionEducationalInstitutionID");
 
-                    b.HasIndex("LocationID", "EduInstitutionID");
+                    b.HasIndex("LocationID", "EducationalInstitutionID");
 
                     b.ToTable("EducationalInstitutions");
                 });
@@ -75,11 +75,11 @@ namespace EducationalInstitutionAPI.Migrations
                 {
                     b.HasOne("EducationalInstitutionAPI.Data.EducationalInstitution", "ParentInstitution")
                         .WithMany("ChildInstitutions")
-                        .HasForeignKey("ParentInstitutionEduInstitutionID");
+                        .HasForeignKey("ParentInstitutionEducationalInstitutionID");
 
                     b.OwnsOne("EducationalInstitutionAPI.Data.Helpers.Access", "EntityAccess", b1 =>
                         {
-                            b1.Property<Guid>("EducationalInstitutionEduInstitutionID")
+                            b1.Property<Guid>("EducationalInstitutionID")
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime?>("DateForPermanentDeletion")
@@ -88,14 +88,14 @@ namespace EducationalInstitutionAPI.Migrations
                             b1.Property<bool>("IsDisabled")
                                 .HasColumnType("bit");
 
-                            b1.HasKey("EducationalInstitutionEduInstitutionID");
+                            b1.HasKey("EducationalInstitutionID");
 
                             b1.HasIndex("DateForPermanentDeletion", "IsDisabled");
 
                             b1.ToTable("EducationalInstitutions");
 
                             b1.WithOwner()
-                                .HasForeignKey("EducationalInstitutionEduInstitutionID");
+                                .HasForeignKey("EducationalInstitutionID");
                         });
 
                     b.Navigation("EntityAccess");

@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EducationalInstitutionAPI.Migrations
 {
@@ -11,23 +11,23 @@ namespace EducationalInstitutionAPI.Migrations
                 name: "EducationalInstitutions",
                 columns: table => new
                 {
-                    EduInstitutionID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EducationalInstitutionID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     JoinDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LocationID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ParentInstitutionEduInstitutionID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ParentInstitutionEducationalInstitutionID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     EntityAccess_IsDisabled = table.Column<bool>(type: "bit", nullable: true),
                     EntityAccess_DateForPermanentDeletion = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EducationalInstitutions", x => x.EduInstitutionID);
+                    table.PrimaryKey("PK_EducationalInstitutions", x => x.EducationalInstitutionID);
                     table.ForeignKey(
-                        name: "FK_EducationalInstitutions_EducationalInstitutions_ParentInstitutionEduInstitutionID",
-                        column: x => x.ParentInstitutionEduInstitutionID,
+                        name: "FK_EducationalInstitutions_EducationalInstitutions_ParentInstitutionEducationalInstitutionID",
+                        column: x => x.ParentInstitutionEducationalInstitutionID,
                         principalTable: "EducationalInstitutions",
-                        principalColumn: "EduInstitutionID",
+                        principalColumn: "EducationalInstitutionID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -47,7 +47,7 @@ namespace EducationalInstitutionAPI.Migrations
                         name: "FK_EducationalInstitutionsBuildings_EducationalInstitutions_EducationalInstitutionID",
                         column: x => x.EducationalInstitutionID,
                         principalTable: "EducationalInstitutions",
-                        principalColumn: "EduInstitutionID",
+                        principalColumn: "EducationalInstitutionID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -57,14 +57,14 @@ namespace EducationalInstitutionAPI.Migrations
                 columns: new[] { "EntityAccess_DateForPermanentDeletion", "EntityAccess_IsDisabled" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_EducationalInstitutions_LocationID_EduInstitutionID",
+                name: "IX_EducationalInstitutions_LocationID_EducationalInstitutionID",
                 table: "EducationalInstitutions",
-                columns: new[] { "LocationID", "EduInstitutionID" });
+                columns: new[] { "LocationID", "EducationalInstitutionID" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_EducationalInstitutions_ParentInstitutionEduInstitutionID",
+                name: "IX_EducationalInstitutions_ParentInstitutionEducationalInstitutionID",
                 table: "EducationalInstitutions",
-                column: "ParentInstitutionEduInstitutionID");
+                column: "ParentInstitutionEducationalInstitutionID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EducationalInstitutionsBuildings_EducationalInstitutionID",
