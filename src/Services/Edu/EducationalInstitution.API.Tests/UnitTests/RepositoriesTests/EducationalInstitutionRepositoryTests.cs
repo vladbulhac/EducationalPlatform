@@ -37,7 +37,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         #region GetEntityByIDAsync() TESTS
 
         [Fact]
-        public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnANotNullEduInstitutionEntity()
+        public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnANotNullEducationalInstitutionEntity()
         {
             //Arrange
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
@@ -50,7 +50,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         }
 
         [Fact]
-        public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEduInstitutionEntity_WithMatchingName()
+        public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEducationalInstitutionEntity_WithMatchingName()
         {
             //Arrange
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
@@ -63,7 +63,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         }
 
         [Fact]
-        public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEduInstitutionEntity_WithMatchingDescription()
+        public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEducationalInstitutionEntity_WithMatchingDescription()
         {
             //Arrange
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
@@ -76,7 +76,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         }
 
         [Fact]
-        public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEduInstitutionEntity_WithMatchingIDs()
+        public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEducationalInstitutionEntity_WithMatchingIDs()
         {
             //Arrange
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
@@ -89,7 +89,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         }
 
         [Fact]
-        public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEduInstitutionEntity_WithMatchingLocationIDs()
+        public async Task GivenAValidID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEducationalInstitutionEntity_WithMatchingLocationIDs()
         {
             //Arrange
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
@@ -335,7 +335,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         #region CreateAsync() TESTS
 
         [Fact]
-        public async Task GivenAnEduInstitution_ToCreateAsyncMethod_ShouldAddItToTheCollectionOfEntities()
+        public async Task GivenAnEducationalInstitution_ToCreateAsyncMethod_ShouldAddItToTheCollectionOfEntities()
         {
             //Arrange
             EducationalInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(

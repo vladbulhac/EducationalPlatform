@@ -60,7 +60,7 @@ namespace EducationalInstitutionAPI.Grpc
 
                 return new()
                 {
-                    ResponseObject = null,
+                    Data = null,
                     OperationStatus = false,
                     StatusCode = HttpStatusCode.BadRequest,
                     Message = validationErrors
@@ -77,7 +77,7 @@ namespace EducationalInstitutionAPI.Grpc
 
                     return new()
                     {
-                        ResponseObject = new() { EducationalInstitutionId = result.Data.EducationalInstitutionID.ToProtocolBufferLanguageEquivalent() },
+                        Data = new() { EducationalInstitutionId = result.Data.EducationalInstitutionID.ToProtocolBufferLanguageEquivalent() },
                         OperationStatus = result.OperationStatus,
                         StatusCode = HttpStatusCode.Created,
                         Message = result.Message
@@ -100,7 +100,7 @@ namespace EducationalInstitutionAPI.Grpc
 
             return new()
             {
-                ResponseObject = null,
+                Data = null,
                 OperationStatus = false,
                 StatusCode = HttpStatusCode.InternalServerError,
                 Message = "An error occurred while processing the request!"
@@ -140,7 +140,7 @@ namespace EducationalInstitutionAPI.Grpc
 
                 return new()
                 {
-                    ResponseObject = null,
+                    Data = null,
                     OperationStatus = false,
                     StatusCode = HttpStatusCode.BadRequest,
                     Message = validationErrors
@@ -161,7 +161,7 @@ namespace EducationalInstitutionAPI.Grpc
 
                     return new()
                     {
-                        ResponseObject = new() { EducationalInstitutionId = result.Data.EducationalInstitutionID.ToProtocolBufferLanguageEquivalent() },
+                        Data = new() { EducationalInstitutionId = result.Data.EducationalInstitutionID.ToProtocolBufferLanguageEquivalent() },
                         OperationStatus = result.OperationStatus,
                         StatusCode = statusCode,
                         Message = result.Message
@@ -184,7 +184,7 @@ namespace EducationalInstitutionAPI.Grpc
 
             return new()
             {
-                ResponseObject = null,
+                Data = null,
                 OperationStatus = false,
                 StatusCode = HttpStatusCode.InternalServerError,
                 Message = "An error occurred while processing the request!"

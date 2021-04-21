@@ -47,7 +47,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
         #region One object contains the input string TESTS
 
         [Fact]
-        public async Task GivenName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludes_AResponseObjectWithTheEducationalInstitutionThatHasThatName()
+        public async Task GivenName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludes_DataWithTheEducationalInstitutionThatHasThatName()
         {
             //Arrange
             string name = "University of Testing";
@@ -244,7 +244,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.QueriesTests.
         }
 
         [Fact]
-        public async Task GivenNonExistentName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesANullResponseObjectField()
+        public async Task GivenNonExistentName_OffsetValue_ResultsCount_ShouldReturnAResponseThatIncludesANullDataField()
         {
             //Arrange
             string name = "School";

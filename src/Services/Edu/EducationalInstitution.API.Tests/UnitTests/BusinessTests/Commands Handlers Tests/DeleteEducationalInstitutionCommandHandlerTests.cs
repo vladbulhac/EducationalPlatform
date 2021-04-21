@@ -91,7 +91,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         }
 
         [Fact]
-        public async Task GivenAnID_ShouldReturnAResponseThatIncludesAResponseObjectOfType_DeleteEducationalInstitutionCommandResult()
+        public async Task GivenAnID_ShouldReturnAResponseThatIncludesDataOfType_DeleteEducationalInstitutionCommandResult()
         {
             //Arrange
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
@@ -113,7 +113,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         }
 
         [Fact]
-        public async Task GivenAnID_ShouldReturnAResponseThatIncludesAResponseObjectWithA_DateForPermanentDeletionSetToADayInTheFutureField()
+        public async Task GivenAnID_ShouldReturnAResponseThatIncludesDataWithA_DateForPermanentDeletionSetToADayInTheFutureField()
         {
             //Arrange
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;

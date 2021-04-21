@@ -40,9 +40,9 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = buildingsIDs
             };
 
-            EducationalInstitutionAPI.Data.EducationalInstitution newEduInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs);
+            EducationalInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs);
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(newEduInstitution, dependenciesHelper.cancellationToken));
+            dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(newEducationalInstitution, dependenciesHelper.cancellationToken));
 
             var handler = new CreateEducationalInstitutionCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
@@ -70,9 +70,9 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = buildingsIDs
             };
 
-            EducationalInstitutionAPI.Data.EducationalInstitution newEduInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs);
+            EducationalInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs);
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(newEduInstitution, dependenciesHelper.cancellationToken));
+            dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(newEducationalInstitution, dependenciesHelper.cancellationToken));
 
             var handler = new CreateEducationalInstitutionCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
@@ -100,9 +100,9 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = buildingsIDs
             };
 
-            EducationalInstitutionAPI.Data.EducationalInstitution newEduInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs);
+            EducationalInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs);
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(newEduInstitution, dependenciesHelper.cancellationToken));
+            dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(newEducationalInstitution, dependenciesHelper.cancellationToken));
 
             CreateEducationalInstitutionCommandHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
@@ -114,7 +114,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         }
 
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_ShouldReturnAResponseThatIncludesAResponseObjectWithTheEducationalInstitutionID()
+        public async Task GivenAName_Description_LocationID_BuildingID_ShouldReturnAResponseThatIncludesDataWithTheEducationalInstitutionID()
         {
             //Arrange
             string name = "West High School";
@@ -130,9 +130,9 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = buildingsIDs
             };
 
-            EducationalInstitutionAPI.Data.EducationalInstitution newEduInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs);
+            EducationalInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs);
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(newEduInstitution, dependenciesHelper.cancellationToken));
+            dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(newEducationalInstitution, dependenciesHelper.cancellationToken));
 
             CreateEducationalInstitutionCommandHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
@@ -144,7 +144,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         }
 
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_ShouldReturnAResponseThatIncludesAResponseObjectOfTypeCreateEducationalInstitutionCommandResult()
+        public async Task GivenAName_Description_LocationID_BuildingID_ShouldReturnAResponseThatIncludesDataOfTypeCreateEducationalInstitutionCommandResult()
         {
             //Arrange
             string name = "West High School";
@@ -160,9 +160,9 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = buildingsIDs
             };
 
-            EducationalInstitutionAPI.Data.EducationalInstitution newEduInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs);
+            EducationalInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs);
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(newEduInstitution, dependenciesHelper.cancellationToken));
+            dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(newEducationalInstitution, dependenciesHelper.cancellationToken));
 
             CreateEducationalInstitutionCommandHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 
@@ -190,9 +190,9 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
                 BuildingsIDs = buildingsIDs
             };
 
-            EducationalInstitutionAPI.Data.EducationalInstitution newEduInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs);
+            EducationalInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(request.Name, request.Description, request.LocationID, request.BuildingsIDs);
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
-            dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(newEduInstitution, dependenciesHelper.cancellationToken));
+            dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(newEducationalInstitution, dependenciesHelper.cancellationToken));
 
             CreateEducationalInstitutionCommandHandler handler = new(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
 

@@ -11,6 +11,10 @@
 
   <ItemGroup>
     <None Remove="Proto\educationalinstitution.proto" />
+    <None Remove="Proto\requestmessages.proto" />
+    <None Remove="Proto\responsedata.proto" />
+    <None Remove="Proto\responsemessages.proto" />
+    <None Remove="Proto\statuscodes.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,5 +47,9 @@
 
   <ItemGroup>
     <Protobuf Include="Proto\educationalinstitution.proto" GrpcServices="Server" />
+    <Protobuf Include="Proto\requestmessages.proto" GrpcServices="Server" />
+    <Protobuf Include="Proto\responsedata.proto" GrpcServices="Server" />
+    <Protobuf Include="Proto\responsemessages.proto" GrpcServices="Server" />
+    <Protobuf Include="Proto\statuscodes.proto" GrpcServices="Server" />
   </ItemGroup>
 </Project>

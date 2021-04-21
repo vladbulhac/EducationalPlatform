@@ -224,7 +224,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAnInvalidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_FailsValidation_ShouldReturnAResponseThatIncludesA_DefaultResponseObjectField()
+        public async Task GivenAnInvalidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_FailsValidation_ShouldReturnAResponseThatIncludesA_DefaultDataField()
         {
             //Arrange
             DTOEducationalInstitutionCreateRequest request = new()
@@ -244,11 +244,11 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
             var result = await handler.CreateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
-            Assert.Null(result.ResponseObject);
+            Assert.Null(result.Data);
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_DatabaseInsertOperationFails_ShouldReturnAResponseThatIncludesA_DefaultResponseObjectField()
+        public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_DatabaseInsertOperationFails_ShouldReturnAResponseThatIncludesA_DefaultDataField()
         {
             //Arrange
             DTOEducationalInstitutionCreateRequest request = new()
@@ -276,7 +276,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
             var result = await handler.CreateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
-            Assert.Null(result.ResponseObject);
+            Assert.Null(result.Data);
         }
 
         [Fact]
@@ -391,7 +391,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                EduInstitutionId = new Uuid()
+                EducationalInstitutionId = new Uuid()
                 {
                     High64 = high64,
                     Low64 = low64
@@ -431,7 +431,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                EduInstitutionId = new Uuid()
+                EducationalInstitutionId = new Uuid()
                 {
                     High64 = high64,
                     Low64 = low64
@@ -471,7 +471,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                EduInstitutionId = new Uuid()
+                EducationalInstitutionId = new Uuid()
                 {
                     High64 = high64,
                     Low64 = low64
@@ -511,7 +511,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                EduInstitutionId = new Uuid()
+                EducationalInstitutionId = new Uuid()
                 {
                     High64 = high64,
                     Low64 = low64
@@ -551,7 +551,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location_invalid_data",
-                EduInstitutionId = new Uuid()
+                EducationalInstitutionId = new Uuid()
                 {
                     High64 = high64,
                     Low64 = low64
@@ -583,7 +583,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location_invalid_data",
-                EduInstitutionId = new Uuid()
+                EducationalInstitutionId = new Uuid()
                 {
                     High64 = high64,
                     Low64 = low64
@@ -604,7 +604,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAnInvalidDTOEducationalInstitutionWithParentCreateRequest_ToCreateEducationalInstitutionWithParentMethod_FailsTheValidation_ShouldReturnAResponseThatIncludesA_DefaultResponseObjectField()
+        public async Task GivenAnInvalidDTOEducationalInstitutionWithParentCreateRequest_ToCreateEducationalInstitutionWithParentMethod_FailsTheValidation_ShouldReturnAResponseThatIncludesA_DefaultDataField()
         {
             //Arrange
             var id = Guid.NewGuid();
@@ -615,7 +615,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location_invalid_data",
-                EduInstitutionId = new Uuid()
+                EducationalInstitutionId = new Uuid()
                 {
                     High64 = high64,
                     Low64 = low64
@@ -632,7 +632,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
             var result = await handler.CreateEducationalInstitutionWithParent(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
-            Assert.Null(result.ResponseObject);
+            Assert.Null(result.Data);
         }
 
         [Fact]
@@ -647,7 +647,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location_invalid_data",
-                EduInstitutionId = new Uuid()
+                EducationalInstitutionId = new Uuid()
                 {
                     High64 = high64,
                     Low64 = low64
@@ -668,7 +668,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionWithParentCreateRequest_ToCreateEducationalInstitutionWithParentMethod_DatabaseInsertOperationFails_ShouldReturnANullResponseObjectField()
+        public async Task GivenAValidDTOEducationalInstitutionWithParentCreateRequest_ToCreateEducationalInstitutionWithParentMethod_DatabaseInsertOperationFails_ShouldReturnANullDataField()
         {
             //Arrange
             var id = Guid.NewGuid();
@@ -679,7 +679,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                EduInstitutionId = new Uuid()
+                EducationalInstitutionId = new Uuid()
                 {
                     High64 = high64,
                     Low64 = low64
@@ -704,7 +704,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
             var result = await handler.CreateEducationalInstitutionWithParent(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
-            Assert.Null(result.ResponseObject);
+            Assert.Null(result.Data);
         }
 
         [Fact]
@@ -719,7 +719,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                EduInstitutionId = new Uuid()
+                EducationalInstitutionId = new Uuid()
                 {
                     High64 = high64,
                     Low64 = low64
@@ -759,7 +759,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                EduInstitutionId = new Uuid()
+                EducationalInstitutionId = new Uuid()
                 {
                     High64 = high64,
                     Low64 = low64
@@ -799,7 +799,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                EduInstitutionId = new Uuid()
+                EducationalInstitutionId = new Uuid()
                 {
                     High64 = high64,
                     Low64 = low64
@@ -839,7 +839,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                EduInstitutionId = new Uuid()
+                EducationalInstitutionId = new Uuid()
                 {
                     High64 = high64,
                     Low64 = low64
@@ -879,7 +879,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                EduInstitutionId = new Uuid()
+                EducationalInstitutionId = new Uuid()
                 {
                     High64 = high64,
                     Low64 = low64
@@ -919,7 +919,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                EduInstitutionId = new Uuid()
+                EducationalInstitutionId = new Uuid()
                 {
                     High64 = high64,
                     Low64 = low64
@@ -948,7 +948,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionWithParentCreateRequest_ToCreateEducationalInstitutionWithParentMethod_ParentIsNotFound_ShouldReturnAResponseObjectThatContainsAnId()
+        public async Task GivenAValidDTOEducationalInstitutionWithParentCreateRequest_ToCreateEducationalInstitutionWithParentMethod_ParentIsNotFound_ShouldReturnDataThatContainsAnId()
         {
             //Arrange
             var id = Guid.NewGuid();
@@ -959,7 +959,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                EduInstitutionId = new Uuid()
+                EducationalInstitutionId = new Uuid()
                 {
                     High64 = high64,
                     Low64 = low64
@@ -984,7 +984,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
             var result = await handler.CreateEducationalInstitutionWithParent(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
-            Assert.NotNull(result.ResponseObject);
+            Assert.NotNull(result.Data);
         }
 
         #endregion EducationalInstitutionService CreateEducationalInstitutionWithParentMethod TESTS

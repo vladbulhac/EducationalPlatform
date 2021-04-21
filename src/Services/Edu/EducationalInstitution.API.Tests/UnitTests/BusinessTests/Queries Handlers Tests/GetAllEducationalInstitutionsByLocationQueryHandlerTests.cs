@@ -40,7 +40,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         #region One object contains the input locationID TESTS
 
         [Fact]
-        public async Task GivenALocationID_ShouldReturnAResponseThatIncludesAResponseObjectWithTheEducationalInstitutionThatHasThatLocationID()
+        public async Task GivenALocationID_ShouldReturnAResponseThatIncludesDataWithTheEducationalInstitutionThatHasThatLocationID()
         {
             //Arrange
             string locationID = "location1";
@@ -80,7 +80,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         }
 
         [Fact]
-        public async Task GivenALocationID_ShouldReturnAResponseThatIncludesAResponseObjectOfTypeGetEducationalInstitutionByLocationQueryResult()
+        public async Task GivenALocationID_ShouldReturnAResponseThatIncludesDataOfTypeGetEducationalInstitutionByLocationQueryResult()
         {
             //Arrange
             string locationID = "location1";
@@ -206,7 +206,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         }
 
         [Fact]
-        public async Task GivenANonExistentLocationID_ShouldReturnAResponseThatIncludesANullResponseObjectField()
+        public async Task GivenANonExistentLocationID_ShouldReturnAResponseThatIncludesANullDataField()
         {
             //Arrange
             string locationID = "e32Loq4";

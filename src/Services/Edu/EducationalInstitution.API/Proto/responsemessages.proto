@@ -1,0 +1,13 @@
+syntax = "proto3";
+import "Proto/statuscodes.proto";
+import "Proto/responsedata.proto";
+
+option csharp_namespace = "EducationalInstitutionAPI.Proto";
+
+
+message EducationalInstitutionCreateResponse{
+	ResponseObject data=1;
+	bool operation_status=2;
+	string message=3;
+	HttpStatusCode status_code=4;
+}

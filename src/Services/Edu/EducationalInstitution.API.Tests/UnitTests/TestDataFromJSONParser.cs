@@ -24,10 +24,10 @@ namespace EducationalInstitution.API.Tests.UnitTests
             string file = File.ReadAllText(path);
             dynamic jsonEducationalInstitutions = JsonConvert.DeserializeObject(file);
 
-            List<EducationalInstitutionAPI.Data.EducationalInstitution> listOFEduInstitutions = new();
+            List<EducationalInstitutionAPI.Data.EducationalInstitution> listOFEducationalInstitutions = new();
             foreach (var educationalInstitution in jsonEducationalInstitutions.EducationalInstitutions)
             {
-                listOFEduInstitutions.Add(new((
+                listOFEducationalInstitutions.Add(new((
                     string)educationalInstitution.Name,
                     (string)educationalInstitution.Description,
                     (string)educationalInstitution.LocationID,
@@ -35,7 +35,7 @@ namespace EducationalInstitution.API.Tests.UnitTests
                     ));
             }
 
-            return listOFEduInstitutions;
+            return listOFEducationalInstitutions;
         }
     }
 }

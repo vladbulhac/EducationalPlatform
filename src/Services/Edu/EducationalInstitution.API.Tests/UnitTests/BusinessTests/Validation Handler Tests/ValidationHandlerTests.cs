@@ -1798,7 +1798,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             //Arrange
             var request = new DTOEducationalInstitutionLocationUpdateCommand()
             {
-                EduInstitutionID = Guid.NewGuid(),
+                EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = false,
                 LocationID = string.Empty,
                 UpdateBuildings = true,

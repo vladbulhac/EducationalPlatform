@@ -97,7 +97,7 @@ namespace EducationalInstitution.API.Tests
         }
 
         [Fact]
-        public async Task GivenAnID_ShouldReturnAResponseThatIncludesAResponseObjectOfType_GetEducationalInstitutionByIDQueryResult()
+        public async Task GivenAnID_ShouldReturnAResponseThatIncludesDataOfType_GetEducationalInstitutionByIDQueryResult()
         {
             //Arrange
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
@@ -117,7 +117,7 @@ namespace EducationalInstitution.API.Tests
         }
 
         [Fact]
-        public async Task GivenAnID_ShouldReturnAResponseThatIncludesAResponseObjectWithFieldsEqualToTheModel()
+        public async Task GivenAnID_ShouldReturnAResponseThatIncludesDataWithFieldsEqualToTheModel()
         {
             //Arrange
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
@@ -189,7 +189,7 @@ namespace EducationalInstitution.API.Tests
         }
 
         [Fact]
-        public async Task GivenANonExistentGuidID_ShouldReturnAResponseThatIncludesANullResponseObjectField()
+        public async Task GivenANonExistentGuidID_ShouldReturnAResponseThatIncludesANullDataField()
         {
             //Arrange
             Guid educationalInstitutionID = new("e1c22f85-6bfe-4f3c-badd-15ec4acbec00");

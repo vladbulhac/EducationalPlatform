@@ -122,7 +122,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         }
 
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_ParentInstitutionID_ShouldReturnAResponseThatIncludesAResponseObjectWithTheEducationalInstitutionID()
+        public async Task GivenAName_Description_LocationID_BuildingID_ParentInstitutionID_ShouldReturnAResponseThatIncludesDataWithTheEducationalInstitutionID()
         {
             //Arrange
             string name = "West High School";
@@ -154,7 +154,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         }
 
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_ParentInstitutionID_ShouldReturnAResponseThatIncludesAResponseObjectOfTypeCreateEducationalInstitutionCommandResult()
+        public async Task GivenAName_Description_LocationID_BuildingID_ParentInstitutionID_ShouldReturnAResponseThatIncludesDataOfTypeCreateEducationalInstitutionCommandResult()
         {
             //Arrange
             string name = "West High School";
@@ -284,7 +284,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         }
 
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_InvalidParentInstitutionID_ShouldReturnAResponseThatIncludesAResponseObjectWithTheEducationalInstitutionID()
+        public async Task GivenAName_Description_LocationID_BuildingID_InvalidParentInstitutionID_ShouldReturnAResponseThatIncludesDataWithTheEducationalInstitutionID()
         {
             //Arrange
             string name = "West High School";
