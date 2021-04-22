@@ -30,7 +30,7 @@ namespace EducationalInstitutionAPI.Grpc
         /// <summary>
         /// Overrides the auto generated Remote Call Procedure method from proto file, validates the request fields and sends it to the <see cref="Mediator"/> to handle it
         /// </summary>
-        /// <param name="request">A <see cref="DTOEducationalInstitutionWithParentCreateRequest"/> message as defined in the proto file</param>
+        /// <param name="request">A <see cref="DTOEducationalInstitutionCreateRequest"/> message as defined in the proto file</param>
         /// <returns>
         /// A <see cref="EducationalInstitutionCreateResponse">message</see> with HttpStatusCode:
         /// <list type="bullet">
@@ -40,14 +40,14 @@ namespace EducationalInstitutionAPI.Grpc
         /// <item><see cref="HttpStatusCode.InternalServerError">InternalServerError</see> if the entity could not be inserted into the database</item>
         /// </list>
         /// </returns>
-        public override async Task<EducationalInstitutionCreateResponse> CreateEducationalInstitutionWithParent(DTOEducationalInstitutionWithParentCreateRequest request, ServerCallContext context)
+        public override async Task<EducationalInstitutionCreateResponse> CreateEducationalInstitution(DTOEducationalInstitutionCreateRequest request, ServerCallContext context)
         {
             logger.LogInformation("Begin grpc call EducationalInstitutionService.CreateEducationalInstitution");
 
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 
-            var mappedRequest = mapRequestToDTOEducationalInstitutionWithParentCreateCommand(request);
+            var mappedRequest = mapRequestToDTOEducationalInstitutionCreateCommand(request);
 
             if (!validationHandler.IsRequestValid(mappedRequest, out string validationErrors))
             {
@@ -106,9 +106,9 @@ namespace EducationalInstitutionAPI.Grpc
             };
         }
 
-        private static DTOEducationalInstitutionWithParentCreateCommand mapRequestToDTOEducationalInstitutionWithParentCreateCommand(DTOEducationalInstitutionWithParentCreateRequest clientData)
+        private static DTOEducationalInstitutionCreateCommand mapRequestToDTOEducationalInstitutionCreateCommand(DTOEducationalInstitutionCreateRequest clientData)
         {
-            DTOEducationalInstitutionWithParentCreateCommand request = new()
+            DTOEducationalInstitutionCreateCommand request = new()
             {
                 Name = clientData.Name,
                 Description = clientData.Description,

@@ -41,9 +41,9 @@ namespace EducationalInstitutionAPI.Business.Validation_Handler
                 return new DTOEducationalInstitutionByLocationQueryValidator() as AbstractValidator<T>;
             }
             else
-            if (typeof(T) == typeof(DTOEducationalInstitutionWithParentCreateCommand))
+            if (typeof(T) == typeof(DTOEducationalInstitutionCreateCommand))
             {
-                return new DTOEducationalInstitutionWithParentCreateCommandValidator() as AbstractValidator<T>;
+                return new DTOEducationalInstitutionCreateCommandValidator() as AbstractValidator<T>;
             }
             else
              if (typeof(T) == typeof(DTOEducationalInstitutionUpdateCommand))

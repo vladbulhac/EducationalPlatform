@@ -3,12 +3,12 @@ using FluentValidation;
 
 namespace EducationalInstitutionAPI.DTOs.Validators.Commands_Validators
 {
-    public class DTOEducationalInstitutionWithParentCreateCommandValidator : AbstractValidator<DTOEducationalInstitutionWithParentCreateCommand>
+    public class DTOEducationalInstitutionCreateCommandValidator : AbstractValidator<DTOEducationalInstitutionCreateCommand>
     {
         /// <summary>
         /// Initializes the rules based on which the validation is made
         /// </summary>
-        public DTOEducationalInstitutionWithParentCreateCommandValidator()
+        public DTOEducationalInstitutionCreateCommandValidator()
         {
             CascadeMode = CascadeMode.Stop;
             RuleFor(v => v.LocationID)

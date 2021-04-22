@@ -14,17 +14,17 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Business.Commands_Handlers
 {
-    public class CreateEducationalInstitutionWithParentCommandHandler : IRequestHandler<DTOEducationalInstitutionWithParentCreateCommand, Response<EducationalInstitutionCommandResult>>
+    public class CreateEducationalInstitutionCommandHandler : IRequestHandler<DTOEducationalInstitutionCreateCommand, Response<EducationalInstitutionCommandResult>>
     {
         /// <summary>
         /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
         /// </summary>
-        private readonly ILogger<CreateEducationalInstitutionWithParentCommandHandler> logger;
+        private readonly ILogger<CreateEducationalInstitutionCommandHandler> logger;
 
         private readonly IUnitOfWork unitOfWork;
 
         /// <exception cref="ArgumentNullException"/>
-        public CreateEducationalInstitutionWithParentCommandHandler(IUnitOfWork unitOfWork, ILogger<CreateEducationalInstitutionWithParentCommandHandler> logger)
+        public CreateEducationalInstitutionCommandHandler(IUnitOfWork unitOfWork, ILogger<CreateEducationalInstitutionCommandHandler> logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
@@ -43,7 +43,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// </list>
         /// </returns>
         /// <exception cref="ArgumentNullException"/>
-        public async Task<Response<EducationalInstitutionCommandResult>> Handle(DTOEducationalInstitutionWithParentCreateCommand request, CancellationToken cancellationToken)
+        public async Task<Response<EducationalInstitutionCommandResult>> Handle(DTOEducationalInstitutionCreateCommand request, CancellationToken cancellationToken)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
 

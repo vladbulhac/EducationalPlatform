@@ -330,13 +330,13 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
 
         #endregion Request of type DTOEducationalInstitutionByLocationQuery TESTS
 
-        #region Request of type DTOEducationalInstitutionWithParentCreateCommand TESTS
+        #region Request of type DTOEducationalInstitutionCreateCommand TESTS
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_ShouldReturnTrue()
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionCreateCommand_ShouldReturnTrue()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionWithParentCreateCommand()
+            var request = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = "Name",
                 Description = "Description",
@@ -353,10 +353,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionCreateCommand_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionWithParentCreateCommand()
+            var request = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = "Name",
                 Description = "Description",
@@ -374,10 +374,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
 
         //->
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_WithEmptyName_ShouldReturnFalse()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyName_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionWithParentCreateCommand()
+            var request = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = string.Empty,
                 Description = "Description",
@@ -394,10 +394,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_WithEmptyName_ShouldReturnValidationErrors()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyName_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionWithParentCreateCommand()
+            var request = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = string.Empty,
                 Description = "Description",
@@ -414,10 +414,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_WithOutOfBoundsLengthName_ShouldReturnFalse()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthName_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionWithParentCreateCommand()
+            var request = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = "N",
                 Description = "Description",
@@ -434,10 +434,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_WithOutOfBoundsLengthName_ShouldReturnValidationErrors()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthName_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionWithParentCreateCommand()
+            var request = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = "N",
                 Description = "Description",
@@ -454,10 +454,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_WithEmptyDescription_ShouldReturnFalse()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyDescription_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionWithParentCreateCommand()
+            var request = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = "Name",
                 Description = string.Empty,
@@ -474,10 +474,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_WithEmptyDescription_ShouldReturnValidationErrors()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyDescription_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionWithParentCreateCommand()
+            var request = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = "Name",
                 Description = string.Empty,
@@ -494,10 +494,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_WithOutOfBoundsLengthDescription_ShouldReturnFalse()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthDescription_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionWithParentCreateCommand()
+            var request = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = "Name",
                 Description = "D",
@@ -514,10 +514,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_WithOutOfBoundsLengthDescription_ShouldReturnValidationErrors()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthDescription_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionWithParentCreateCommand()
+            var request = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = "Name",
                 Description = "D",
@@ -534,10 +534,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_WithEmptyBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionWithParentCreateCommand()
+            var request = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = "Name",
                 Description = "Description",
@@ -554,10 +554,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_WithEmptyBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionWithParentCreateCommand()
+            var request = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = "Name",
                 Description = "Description",
@@ -574,10 +574,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_WithOutOfBoundsLengthBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionWithParentCreateCommand()
+            var request = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = "Name",
                 Description = "Description",
@@ -594,10 +594,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_WithOutOfBoundsLengthBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionWithParentCreateCommand()
+            var request = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = "Name",
                 Description = "Description",
@@ -614,10 +614,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_WithOutOfBoundsAlphabetBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithOutOfBoundsAlphabetBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionWithParentCreateCommand()
+            var request = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = "Name",
                 Description = "Description",
@@ -634,10 +634,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_WithOutOfBoundsAlphabetBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithOutOfBoundsAlphabetBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionWithParentCreateCommand()
+            var request = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = "Name",
                 Description = "Description",
@@ -654,10 +654,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_WithBuildingIDEqualsLocationID_ShouldReturnFalse()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithBuildingIDEqualsLocationID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionWithParentCreateCommand()
+            var request = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = "Name",
                 Description = "Description",
@@ -674,10 +674,10 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionWithParentCreateCommand_WithBuildingIDEqualsLocationID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithBuildingIDEqualsLocationID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionWithParentCreateCommand()
+            var request = new DTOEducationalInstitutionCreateCommand()
             {
                 Name = "Name",
                 Description = "Description",
@@ -693,7 +693,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Ha
             Assert.Equal(" Property BuildingsIDs[0] failed validation. Error was: BuildingID was the same as LocationID!", validationErrors);
         }
 
-        #endregion Request of type DTOEducationalInstitutionWithParentCreateCommand TESTS
+        #endregion Request of type DTOEducationalInstitutionCreateCommand TESTS
 
         #region Request of type DTOEducationalInstitutionUpdateCommand TESTS
 

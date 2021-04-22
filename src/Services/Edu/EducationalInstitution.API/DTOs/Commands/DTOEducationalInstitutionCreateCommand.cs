@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace EducationalInstitutionAPI.DTOs.Commands
 {
-    public class DTOEducationalInstitutionWithParentCreateCommand : IRequest<Response<EducationalInstitutionCommandResult>>
+    public class DTOEducationalInstitutionCreateCommand : IRequest<Response<EducationalInstitutionCommandResult>>
     {
         public string Name { get; init; }
         public string Description { get; init; }
