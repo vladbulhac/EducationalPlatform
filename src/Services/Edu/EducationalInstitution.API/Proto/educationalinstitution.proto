@@ -6,7 +6,6 @@ option csharp_namespace = "EducationalInstitutionAPI.Proto";
 
 
 service EducationalInstitution{
-	rpc CreateEducationalInstitution(DTOEducationalInstitutionCreateRequest) returns (EducationalInstitutionCreateResponse);
 	rpc CreateEducationalInstitutionWithParent(DTOEducationalInstitutionWithParentCreateRequest) returns (EducationalInstitutionCreateResponse);
 }
 

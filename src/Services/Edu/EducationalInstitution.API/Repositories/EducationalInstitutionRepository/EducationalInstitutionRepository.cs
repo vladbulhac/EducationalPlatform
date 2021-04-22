@@ -34,10 +34,10 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
             return true;
         }
 
-        public async Task<ICollection<GetEducationalInstitutionQueryResult>> GetAllLikeNameAsync(string Name, int offsetValue = 0, int resultsCount = 1, CancellationToken cancellationToken = default)
+        public async Task<ICollection<GetEducationalInstitutionQueryResult>> GetAllLikeNameAsync(string name, int offsetValue = 0, int resultsCount = 1, CancellationToken cancellationToken = default)
         {
             return await context.EducationalInstitutions
-                                 .Where(ei => ei.Name.Contains(Name))
+                                 .Where(ei => ei.Name.Contains(name))
                                  .Include(ei => ei.Buildings)
                                  .Select(ei => new GetEducationalInstitutionQueryResult()
                                  {

@@ -3,12 +3,12 @@ using FluentValidation;
 
 namespace EducationalInstitutionAPI.DTOs.Validators.Commands_Validators
 {
-    public class DTOEducationalInstitutionCreateCommandValidator : AbstractValidator<DTOEducationalInstitutionCreateCommand>
+    public class DTOEducationalInstitutionWithParentCreateCommandValidator : AbstractValidator<DTOEducationalInstitutionWithParentCreateCommand>
     {
         /// <summary>
         /// Initializes the rules based on which the validation is made
         /// </summary>
-        public DTOEducationalInstitutionCreateCommandValidator()
+        public DTOEducationalInstitutionWithParentCreateCommandValidator()
         {
             CascadeMode = CascadeMode.Stop;
             RuleFor(v => v.LocationID)
@@ -23,7 +23,6 @@ namespace EducationalInstitutionAPI.DTOs.Validators.Commands_Validators
                                     .WithMessage("BuildingID contains characters that are not supported and/or the length is not exactly 24!")
                                 .NotEqual(req => req.LocationID)
                                     .WithMessage("BuildingID was the same as LocationID!");
-
             RuleFor(v => v.Name)
                               .NotEmpty()
                                 .WithMessage("{PropertyName} was empty or null!")

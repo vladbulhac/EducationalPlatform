@@ -38,7 +38,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// An <see cref="Response{TData}">object</see> with HttpStatusCode:
         /// <list type="bullet">
         /// <item><see cref="HttpStatusCode.Created">Created</see> if operation is successful</item>
-        /// <item><see cref="HttpStatusCode.MultiStatus">MultiStatus</see> if the <see cref="EducationalInstitution">Parent Institution</see> has not been found but the <see cref="EducationalInstitution"/> has been saved in the database</item>
+        /// <item><see cref="HttpStatusCode.MultiStatus">MultiStatus</see> if an ID for the <see cref="EducationalInstitution">Parent Institution</see> has provided but has not been found in the database but the <see cref="EducationalInstitution"/> has been saved in the database</item>
         /// <item><see cref="HttpStatusCode.InternalServerError">InternalServerError</see> if the entity could not be inserted into the database</item>
         /// </list>
         /// </returns>
@@ -51,7 +51,9 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             {
                 using (unitOfWork)
                 {
-                    var parentInstitution = await unitOfWork.UsingEducationalInstitutionRepository()
+                    EducationalInstitution parentInstitution = null;
+                    if (request.ParentInstitutionID != default)
+                        parentInstitution = await unitOfWork.UsingEducationalInstitutionRepository()
                                                             .GetEntityByIDAsync(request.ParentInstitutionID, cancellationToken);
 
                     EducationalInstitution newEducationalInstitution = new(
@@ -66,7 +68,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                                             .CreateAsync(newEducationalInstitution, cancellationToken);
                     await unitOfWork.SaveChangesAsync(cancellationToken);
 
-                    if (parentInstitution is null)
+                    if (parentInstitution is null && request.ParentInstitutionID != default)
                         return new()
                         {
                             Data = new() { EducationalInstitutionID = newEducationalInstitution.EducationalInstitutionID },

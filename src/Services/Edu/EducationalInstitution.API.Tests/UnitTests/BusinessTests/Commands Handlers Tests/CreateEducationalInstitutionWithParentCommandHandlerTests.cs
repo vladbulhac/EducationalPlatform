@@ -349,6 +349,132 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
             Assert.Equal($"The Educational Institution has been successfully created but the Parent Institution with the following ID: {parentInstitutionID} has not been found!", result.Message);
         }
 
+        //------------------------------------------------------------------------------
+
+        [Fact]
+        public async Task GivenAName_Description_LocationID_BuildingID_WithDefaultParentInstitutionID__ShouldReturnAResponseThatIncludesAStatusCodeCreatedField()
+        {
+            //Arrange
+            string name = "West High School";
+            string description = "School";
+            string locationID = "location1235";
+            var buildingsIDs = new List<string>() { "building1235" };
+            Guid parentInstitutionID = Guid.Empty;
+
+            DTOEducationalInstitutionWithParentCreateCommand request = new()
+            {
+                Name = name,
+                Description = description,
+                LocationID = locationID,
+                BuildingsIDs = buildingsIDs,
+                ParentInstitutionID = parentInstitutionID
+            };
+
+            mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
+            dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(It.IsAny<EducationalInstitutionAPI.Data.EducationalInstitution>(), dependenciesHelper.cancellationToken));
+
+            var handler = new CreateEducationalInstitutionWithParentCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
+
+            //Act
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
+
+            //Assert
+            Assert.Equal(HttpStatusCode.Created, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GivenAName_Description_LocationID_BuildingID_WithDefaultParentInstitutionID_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
+        {
+            //Arrange
+            string name = "West High School";
+            string description = "School";
+            string locationID = "location1235";
+            var buildingsIDs = new List<string>() { "building1235" };
+            Guid parentInstitutionID = Guid.Empty;
+
+            DTOEducationalInstitutionWithParentCreateCommand request = new()
+            {
+                Name = name,
+                Description = description,
+                LocationID = locationID,
+                BuildingsIDs = buildingsIDs,
+                ParentInstitutionID = parentInstitutionID
+            };
+
+            mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
+            dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(It.IsAny<EducationalInstitutionAPI.Data.EducationalInstitution>(), dependenciesHelper.cancellationToken));
+
+            var handler = new CreateEducationalInstitutionWithParentCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
+
+            //Act
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
+
+            //Assert
+            Assert.Empty(result.Message);
+        }
+
+        [Fact]
+        public async Task GivenAName_Description_LocationID_BuildingID_WithDefaultParentInstitutionID_ShouldReturnAResponseThatIncludesATrueOperationStatusField()
+        {
+            //Arrange
+            string name = "West High School";
+            string description = "School";
+            string locationID = "location1235";
+            var buildingsIDs = new List<string>() { "building1235" };
+            Guid parentInstitutionID = Guid.Empty;
+
+            DTOEducationalInstitutionWithParentCreateCommand request = new()
+            {
+                Name = name,
+                Description = description,
+                LocationID = locationID,
+                BuildingsIDs = buildingsIDs,
+                ParentInstitutionID = parentInstitutionID
+            };
+
+            mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
+            dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(It.IsAny<EducationalInstitutionAPI.Data.EducationalInstitution>(), dependenciesHelper.cancellationToken));
+
+            var handler = new CreateEducationalInstitutionWithParentCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
+
+            //Act
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
+
+            //Assert
+            Assert.True(result.OperationStatus);
+        }
+
+        [Fact]
+        public async Task GivenAName_Description_LocationID_BuildingID_WithDefaultParentInstitutionID_ShouldReturnAResponseThatIncludesAGuidIDField()
+        {
+            //Arrange
+            string name = "West High School";
+            string description = "School";
+            string locationID = "location1235";
+            var buildingsIDs = new List<string>() { "building1235" };
+            Guid parentInstitutionID = Guid.Empty;
+
+            DTOEducationalInstitutionWithParentCreateCommand request = new()
+            {
+                Name = name,
+                Description = description,
+                LocationID = locationID,
+                BuildingsIDs = buildingsIDs,
+                ParentInstitutionID = parentInstitutionID
+            };
+
+            mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
+            dependenciesHelper.mockRepository.Setup(mr => mr.CreateAsync(It.IsAny<EducationalInstitutionAPI.Data.EducationalInstitution>(), dependenciesHelper.cancellationToken));
+
+            var handler = new CreateEducationalInstitutionWithParentCommandHandler(mockUnitOfWork.Object, dependenciesHelper.mockLogger.Object);
+
+            //Act
+            var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
+
+            //Assert
+            Assert.IsType<Guid>(result.Data.EducationalInstitutionID);
+        }
+
         [Fact]
         public async Task GivenANullArgumentRequestToTheRequestHandlerHandleMethod_ShouldThrowArgumentNullException()
         {
