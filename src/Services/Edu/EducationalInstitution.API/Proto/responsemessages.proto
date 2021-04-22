@@ -4,9 +4,18 @@ import "Proto/responsedata.proto";
 
 option csharp_namespace = "EducationalInstitutionAPI.Proto";
 
-
+//Command Responses
 message EducationalInstitutionCreateResponse{
-	ResponseObject data=1;
+	BaseCommandResult data=1;
+	bool operation_status=2;
+	string message=3;
+	HttpStatusCode status_code=4;
+}
+
+
+//Query Responses
+message EducationalInstitutionGetResponse{
+	GetByIDQueryResult data=1;
 	bool operation_status=2;
 	string message=3;
 	HttpStatusCode status_code=4;

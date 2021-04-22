@@ -1,0 +1,10 @@
+syntax = "proto3";
+import "Proto/requestmessages.proto";
+import "Proto/responsemessages.proto";
+
+option csharp_namespace = "EducationalInstitutionAPI.Proto";
+
+service Command{
+	rpc CreateEducationalInstitution(DTOEducationalInstitutionCreateRequest) returns (EducationalInstitutionCreateResponse);
+}
+

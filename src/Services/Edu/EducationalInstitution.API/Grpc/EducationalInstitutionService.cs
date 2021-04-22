@@ -14,7 +14,7 @@ namespace EducationalInstitutionAPI.Grpc
     /// <summary>
     /// Implements the methods that handle the Remote Call Procedure requests
     /// </summary>
-    public class EducationalInstitutionService : EducationalInstitution.EducationalInstitutionBase
+    public class EducationalInstitutionService : Command.CommandBase
     {
         private readonly IMediator mediator;
         private readonly ILogger<EducationalInstitutionService> logger;

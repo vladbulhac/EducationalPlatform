@@ -3,11 +3,16 @@ import "Proto/responsedata.proto";
 
 option csharp_namespace = "EducationalInstitutionAPI.Proto";
 
-//Requests
+//Command Requests
 message DTOEducationalInstitutionCreateRequest{
 	string name=1;
 	string description=2;
 	string location_id=3;
 	repeated string buildings=4;
 	Uuid parent_institution_id=5;
+}
+
+//Query Requests
+message DTOEducationalInstitutionGetByIdRequest{
+	Uuid educational_institution_id=1;
 }
