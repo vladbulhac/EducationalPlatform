@@ -21,14 +21,11 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
         private readonly DataContext context;
         private readonly string dbConnection;
 
-        public EducationalInstitutionRepository(DataContext context)
-        {
-            this.context = context ?? throw new ArgumentNullException(nameof(context));
-        }
+        public EducationalInstitutionRepository(DataContext context) => this.context = context ?? throw new ArgumentNullException(nameof(context));
 
         public EducationalInstitutionRepository(string connectionString = null)
         {
-            if (connectionString is not null)
+            if (!string.IsNullOrEmpty(connectionString))
                 dbConnection = connectionString;
             else
                 dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB") ?? throw new ArgumentNullException(nameof(dbConnection));
