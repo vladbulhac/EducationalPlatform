@@ -4,13 +4,13 @@
       "Name": "University of Testing",
       "Description": "Test data",
       "LocationID": "location1",
-      "BuildingsIDs": [ "building12", "building123" ]
+      "BuildingsIDs": [ "building12", "building123", "6050efcd87e2647ab7ac443e" ]
     },
     {
       "Name": "University of Testing One",
       "Description": "Test More Data",
       "LocationID": "location12",
-      "BuildingsIDs": [ "building123" ]
+      "BuildingsIDs": [ "building123", "6050efcd87e2647ab7ac443e" ]
     }
   ]
 }

@@ -30,15 +30,13 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
                 EducationalInstitutionID=testDataHelper.EducationalInstitutions[0].EducationalInstitutionID,
                 Name = testDataHelper.EducationalInstitutions[0].Name,
                 Description = testDataHelper.EducationalInstitutions[0].Description,
-                LocationID = testDataHelper.EducationalInstitutions[0].LocationID,
-                BuildingsIDs = testDataHelper.EducationalInstitutions[0].Buildings
+                LocationID = testDataHelper.EducationalInstitutions[0].LocationID
                 },
                 new(){
                 EducationalInstitutionID=testDataHelper.EducationalInstitutions[1].EducationalInstitutionID,
                 Name = testDataHelper.EducationalInstitutions[1].Name,
                 Description = testDataHelper.EducationalInstitutions[1].Description,
-                LocationID = testDataHelper.EducationalInstitutions[1].LocationID,
-                BuildingsIDs = testDataHelper.EducationalInstitutions[1].Buildings
+                LocationID = testDataHelper.EducationalInstitutions[1].LocationID
                 }
             };
 

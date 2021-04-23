@@ -1,80 +1,94 @@
-﻿using EducationalInstitutionAPI.Data.Contexts;
-using EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingRepository;
-using EducationalInstitutionAPI.Utils;
-using Microsoft.EntityFrameworkCore;
+﻿using EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingRepository;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
 {
+    [Collection("Database collection")]
     public class EducationalInstitutionBuildingRepositoryTests
     {
-        private readonly string dbConnection;
-        private readonly DataContext context;
+        private readonly DatabaseFixture dbFixture;
+        private readonly IEducationalInstitutionBuildingRepository repository;
 
         /// <remarks>Called before each test</remarks>
-        public EducationalInstitutionBuildingRepositoryTests()
+        public EducationalInstitutionBuildingRepositoryTests(DatabaseFixture dbFixture)
         {
-            dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB");
-            var dbOptions = new DbContextOptionsBuilder<DataContext>()
-                                .UseSqlServer(dbConnection, providerOptions => providerOptions.EnableRetryOnFailure());
-
-            context = new(dbOptions.Options);
-            CleanupDatabase();
-            SeedDatabase();
+            this.dbFixture = dbFixture;
+            repository = new EducationalInstitutionBuildingRepository(dbFixture.DbConnection);
         }
 
         [Fact]
-        public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldReturnACollectionWithOneElement()
+        public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldReturnACollectionWithTwoElements()
         {
             //Arrange
             string buildingId = "6050efcd87e2647ab7ac443e";
-            var repository = new EducationalInstitutionBuildingRepository();
 
             //Act
             var result = await repository.GetAllEducationalInstitutionsWithSameBuildingAsync(buildingId);
 
             //Assert
-            Assert.Equal(1, result.EducationalInstitutions.Count);
+            Assert.Equal(2, result.EducationalInstitutions.Count);
         }
 
         [Fact]
-        public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldReturnAnEntityWithName()
+        public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldContainAnEntityWithName_UniversityofTesting()
         {
             //Arrange
             string buildingId = "6050efcd87e2647ab7ac443e";
-            var repository = new EducationalInstitutionBuildingRepository();
 
             //Act
             var result = await repository.GetAllEducationalInstitutionsWithSameBuildingAsync(buildingId);
 
             //Assert
-            Assert.Equal("Integration_Test_Name", result.EducationalInstitutions.ElementAt(0).Name);
+            Assert.Contains(result.EducationalInstitutions, ei => ei.Name.Equals("University of Testing"));
         }
 
         [Fact]
-        public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldReturnAnEntityWithDescription()
+        public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldContainAnEntityWithName_UniversityofTestingOne()
         {
             //Arrange
             string buildingId = "6050efcd87e2647ab7ac443e";
-            var repository = new EducationalInstitutionBuildingRepository();
 
             //Act
             var result = await repository.GetAllEducationalInstitutionsWithSameBuildingAsync(buildingId);
 
             //Assert
-            Assert.Equal("Integration_Test_Description", result.EducationalInstitutions.ElementAt(0).Description);
+            Assert.Contains(result.EducationalInstitutions, ei => ei.Name.Equals("University of Testing One"));
         }
 
         [Fact]
-        public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldReturnAnEntityWithAGuidID()
+        public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldContainAnEntityWithDescription_Testdata()
         {
             //Arrange
             string buildingId = "6050efcd87e2647ab7ac443e";
-            var repository = new EducationalInstitutionBuildingRepository();
+
+            //Act
+            var result = await repository.GetAllEducationalInstitutionsWithSameBuildingAsync(buildingId);
+
+            //Assert
+            Assert.Contains(result.EducationalInstitutions, ei => ei.Description.Equals("Test data"));
+        }
+
+        [Fact]
+        public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldContainAnEntityWithDescription_TestMoreData()
+        {
+            //Arrange
+            string buildingId = "6050efcd87e2647ab7ac443e";
+
+            //Act
+            var result = await repository.GetAllEducationalInstitutionsWithSameBuildingAsync(buildingId);
+
+            //Assert
+            Assert.Contains(result.EducationalInstitutions, ei => ei.Description.Equals("Test More Data"));
+        }
+
+        [Fact]
+        public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldReturnTheFirstEntityWithAGuidID()
+        {
+            //Arrange
+            string buildingId = "6050efcd87e2647ab7ac443e";
 
             //Act
             var result = await repository.GetAllEducationalInstitutionsWithSameBuildingAsync(buildingId);
@@ -83,22 +97,30 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.NotEqual(Guid.Empty, result.EducationalInstitutions.ElementAt(0).EducationalInstitutionID);
         }
 
-        private void SeedDatabase()
+        [Fact]
+        public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldReturnTheSecondEntityWithAGuidID()
         {
-            EducationalInstitutionAPI.Data.EducationalInstitution educationalInstitutionTest = new("Integration_Test_Name", "Integration_Test_Description", "6050efcd87e2647ab7ac443A", new List<string>() { "6050efcd87e2647ab7ac443e" });
-            context.EducationalInstitutions.Add(educationalInstitutionTest);
-            context.SaveChanges();
+            //Arrange
+            string buildingId = "6050efcd87e2647ab7ac443e";
+
+            //Act
+            var result = await repository.GetAllEducationalInstitutionsWithSameBuildingAsync(buildingId);
+
+            //Assert
+            Assert.NotEqual(Guid.Empty, result.EducationalInstitutions.ElementAt(1).EducationalInstitutionID);
         }
 
-        private void CleanupDatabase()
+        [Fact]
+        public async Task GivenAnInvalidBuildingID_ThatDoesntExistInDatabase_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldReturnAnEmptyCollection()
         {
-            var testEducationalInstitution = context.EducationalInstitutions.Where(ei => ei.Name == "Integration_Test_Name").ToList();
-            testEducationalInstitution.ForEach(ei =>
-                    context.Remove(ei)
-                );
+            //Arrange
+            string buildingId = "6050efcd87e2647ab7ac443F";
 
-            var testBuilding = context.EducationalInstitutionsBuildings.Single(b => b.BuildingID == "6050efcd87e2647ab7ac443e");
-            context.Remove(testBuilding);
+            //Act
+            var result = await repository.GetAllEducationalInstitutionsWithSameBuildingAsync(buildingId);
+
+            //Assert
+            Assert.Empty(result.EducationalInstitutions);
         }
     }
 }

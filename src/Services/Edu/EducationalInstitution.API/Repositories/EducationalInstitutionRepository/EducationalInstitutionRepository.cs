@@ -1,6 +1,9 @@
-﻿using EducationalInstitutionAPI.Data;
+﻿using Dapper;
+using EducationalInstitutionAPI.Data;
 using EducationalInstitutionAPI.Data.Contexts;
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
+using EducationalInstitutionAPI.Utils;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,10 +19,19 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
     public class EducationalInstitutionRepository : IEducationalInstitutionRepository
     {
         private readonly DataContext context;
+        private readonly string dbConnection;
 
         public EducationalInstitutionRepository(DataContext context)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
+        }
+
+        public EducationalInstitutionRepository(string connectionString = null)
+        {
+            if (connectionString is not null)
+                dbConnection = connectionString;
+            else
+                dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB") ?? throw new ArgumentNullException(nameof(dbConnection));
         }
 
         public async Task CreateAsync(EducationalInstitution data, CancellationToken cancellationToken = default) => await context.EducationalInstitutions.AddAsync(data, cancellationToken);
@@ -36,9 +48,26 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
 
         public async Task<ICollection<GetEducationalInstitutionQueryResult>> GetAllLikeNameAsync(string name, int offsetValue = 0, int resultsCount = 1, CancellationToken cancellationToken = default)
         {
-            return await context.EducationalInstitutions
+            using (var connection = new SqlConnection(dbConnection))
+            {
+                connection.Open();
+
+                var queryResult = await connection.QueryAsync<GetEducationalInstitutionQueryResult>(
+                                                                @"SELECT EducationalInstitutionID, Name, Description, LocationID
+                                                                FROM dbo.EducationalInstitutions
+                                                                WHERE Name LIKE @Name + '%' AND EntityAccess_IsDisabled=0
+                                                                ORDER BY Name
+                                                                OFFSET @Offset ROWS
+                                                                FETCH NEXT @Results ROWS ONLY",
+                                                            new { Name = name, Offset = offsetValue, Results = resultsCount });
+
+                return queryResult.ToList();
+            }
+
+            #region Entity Framework Core LINQ
+
+            /*return await context.EducationalInstitutions
                                  .Where(ei => ei.Name.Contains(name))
-                                 .Include(ei => ei.Buildings)
                                  .Select(ei => new GetEducationalInstitutionQueryResult()
                                  {
                                      EducationalInstitutionID = ei.EducationalInstitutionID,
@@ -49,7 +78,9 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
                                  })
                                  .Skip(offsetValue)
                                  .Take(resultsCount)
-                                 .ToListAsync(cancellationToken);
+                                 .ToListAsync(cancellationToken);*/
+
+            #endregion Entity Framework Core LINQ
         }
 
         public async Task<EducationalInstitution> GetEntityByIDAsync(Guid ID, CancellationToken cancellationToken = default)
@@ -100,12 +131,10 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
         {
             return await context.EducationalInstitutions
                                  .Where(eduI => IDs.Contains(eduI.EducationalInstitutionID))
-                                 .Include(ei => ei.Buildings)
                                  .Select(ei => new GetEducationalInstitutionQueryResult()
                                  {
                                      EducationalInstitutionID = ei.EducationalInstitutionID,
                                      LocationID = ei.LocationID,
-                                     BuildingsIDs = ei.Buildings,
                                      Name = ei.Name,
                                      Description = ei.Description
                                  })

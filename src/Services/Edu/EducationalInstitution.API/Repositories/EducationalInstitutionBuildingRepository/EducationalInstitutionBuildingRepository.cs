@@ -26,9 +26,12 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingR
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public EducationalInstitutionBuildingRepository()
+        public EducationalInstitutionBuildingRepository(string connectionString = null)
         {
-            dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB") ?? throw new ArgumentNullException(nameof(dbConnection));
+            if (connectionString is not null)
+                dbConnection = connectionString;
+            else
+                dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB") ?? throw new ArgumentNullException(nameof(dbConnection));
         }
 
         public async Task<bool> DeleteAsync(string buildingID, CancellationToken cancellationToken = default)
@@ -47,7 +50,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingR
             var educationalInstitutionBuildings = await context.EducationalInstitutionsBuildings
                                                               .Where(eib => buildingsIDs.Contains(eib.BuildingID)).ToListAsync(cancellationToken);
 
-            if (educationalInstitutionBuildings is null || educationalInstitutionBuildings.Count is 0) return false;
+            if (educationalInstitutionBuildings is null || educationalInstitutionBuildings.Count == 0) return false;
 
             for (int buildingIndex = 0; buildingIndex < educationalInstitutionBuildings.Count; buildingIndex++)
                 context.EducationalInstitutionsBuildings.Remove(educationalInstitutionBuildings[buildingIndex]);
@@ -62,10 +65,11 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingR
                 connection.Open();
 
                 var queryResult = await connection.QueryAsync<dynamic>(@"SELECT e.EducationalInstitutionID, e.Name, e.Description
-                                                                       FROM dbo.EducationalInstitutionsBuildings b
-                                                                       JOIN dbo.EducationalInstitutions e
+                                                                       FROM EducationalInstitutionsBuildings b
+                                                                       JOIN EducationalInstitutions e
                                                                        ON b.EducationalInstitutionID=e.EducationalInstitutionID
-                                                                       WHERE b.BuildingID=@BuildingID AND b.EntityAccess_IsDisabled=0",
+                                                                       WHERE b.BuildingID=@BuildingID AND b.EntityAccess_IsDisabled=0
+                                                                       ORDER BY Name",
                                                                         new { buildingID });
 
                 GetAllEducationalInstitutionsWithSameBuildingQueryResult result = new() { EducationalInstitutions = new List<EducationalInstitutionEssentialData>() };
@@ -84,6 +88,9 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingR
 
                 return result;
             }
+
+            #region Entity Framework Core LINQ
+
             /* return new()
              {
                  EducationalInstitutions = await context.EducationalInstitutionsBuildings
@@ -97,6 +104,8 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingR
                                                                          })
                                                                          .ToListAsync(cancellationToken)
              };*/
+
+            #endregion Entity Framework Core LINQ
         }
     }
 }
