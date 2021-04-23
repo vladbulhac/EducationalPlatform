@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Dapper;
+using EducationalInstitutionAPI.Utils;
+using Microsoft.Data.SqlClient;
 
 namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingRepository
 {
@@ -16,10 +19,16 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingR
     public class EducationalInstitutionBuildingRepository : IEducationalInstitutionBuildingRepository
     {
         private readonly DataContext context;
+        private readonly string dbConnection;
 
         public EducationalInstitutionBuildingRepository(DataContext context)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
+        }
+
+        public EducationalInstitutionBuildingRepository()
+        {
+            dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB") ?? throw new ArgumentNullException(nameof(dbConnection));
         }
 
         public async Task<bool> DeleteAsync(string buildingID, CancellationToken cancellationToken = default)
@@ -48,19 +57,46 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingR
 
         public async Task<GetAllEducationalInstitutionsWithSameBuildingQueryResult> GetAllEducationalInstitutionsWithSameBuildingAsync(string buildingID, CancellationToken cancellationToken = default)
         {
-            return new()
+            using (var connection = new SqlConnection(dbConnection))
             {
-                EducationalInstitutions = await context.EducationalInstitutionsBuildings
-                                                                        .Where(eib => eib.BuildingID == buildingID)
-                                                                        .Include(ei => ei.EducationalInstitution)
-                                                                        .Select(s => new EducationalInstitutionEssentialData()
-                                                                        {
-                                                                            EducationalInstitutionID = s.EducationalInstitution.EducationalInstitutionID,
-                                                                            Name = s.EducationalInstitution.Name,
-                                                                            Description = s.EducationalInstitution.Description
-                                                                        })
-                                                                        .ToListAsync(cancellationToken)
-            };
+                connection.Open();
+
+                var queryResult = await connection.QueryAsync<dynamic>(@"SELECT e.EducationalInstitutionID, e.Name, e.Description
+                                                                       FROM dbo.EducationalInstitutionsBuildings b
+                                                                       JOIN dbo.EducationalInstitutions e
+                                                                       ON b.EducationalInstitutionID=e.EducationalInstitutionID
+                                                                       WHERE b.BuildingID=@BuildingID AND b.EntityAccess_IsDisabled=0",
+                                                                        new { buildingID });
+
+                GetAllEducationalInstitutionsWithSameBuildingQueryResult result = new() { EducationalInstitutions = new List<EducationalInstitutionEssentialData>() };
+
+                foreach (var building in queryResult)
+                {
+                    result.EducationalInstitutions.Add(
+                                                    new()
+                                                    {
+                                                        EducationalInstitutionID = (Guid)building.EducationalInstitutionID,
+                                                        Name = (string)building.Name,
+                                                        Description = (string)building.Description
+                                                    }
+                                                    );
+                }
+
+                return result;
+            }
+            /* return new()
+             {
+                 EducationalInstitutions = await context.EducationalInstitutionsBuildings
+                                                                         .Where(eib => eib.BuildingID == buildingID)
+                                                                         .Include(ei => ei.EducationalInstitution)
+                                                                         .Select(s => new EducationalInstitutionEssentialData()
+                                                                         {
+                                                                             EducationalInstitutionID = s.EducationalInstitution.EducationalInstitutionID,
+                                                                             Name = s.EducationalInstitution.Name,
+                                                                             Description = s.EducationalInstitution.Description
+                                                                         })
+                                                                         .ToListAsync(cancellationToken)
+             };*/
         }
     }
 }

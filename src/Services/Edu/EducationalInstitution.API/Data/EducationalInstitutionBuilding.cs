@@ -21,6 +21,7 @@ namespace EducationalInstitutionAPI.Data
         {
             BuildingID = buildingID;
             EducationalInstitutionID = educationalInstitutionID;
+            EntityAccess = new();
         }
     }
 }
