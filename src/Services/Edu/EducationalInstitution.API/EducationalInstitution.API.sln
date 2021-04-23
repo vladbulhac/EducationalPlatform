@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationalInstitution.API", "EducationalInstitution.API.csproj", "{DD48BC07-1C30-411F-A1AB-079D3F741204}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationalInstitution.API.Tests", "..\EducationalInstitution.API.Tests\EducationalInstitution.API.Tests.csproj", "{B80DB464-C0B9-4547-A4D3-B972ECA43B5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationalInstitution.API.UnitTests", "..\EducationalInstitution.API.UnitTests\EducationalInstitution.API.UnitTests.csproj", "{B80DB464-C0B9-4547-A4D3-B972ECA43B5E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DD48BC07-1C30-411F-A1AB-079D3F741204} = {DD48BC07-1C30-411F-A1AB-079D3F741204}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationalInstitution.API.IntegrationTests", "..\EducationalInstitution.API.IntegrationTests\EducationalInstitution.API.IntegrationTests.csproj", "{72165FAC-5B06-4729-B0EC-84875071133F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{DD48BC07-1C30-411F-A1AB-079D3F741204} = {DD48BC07-1C30-411F-A1AB-079D3F741204}
 	EndProjectSection
@@ -24,6 +29,10 @@ Global
 		{B80DB464-C0B9-4547-A4D3-B972ECA43B5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B80DB464-C0B9-4547-A4D3-B972ECA43B5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B80DB464-C0B9-4547-A4D3-B972ECA43B5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72165FAC-5B06-4729-B0EC-84875071133F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72165FAC-5B06-4729-B0EC-84875071133F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72165FAC-5B06-4729-B0EC-84875071133F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72165FAC-5B06-4729-B0EC-84875071133F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

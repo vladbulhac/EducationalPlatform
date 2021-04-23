@@ -10,12 +10,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EducationalInstitution.API.Tests.UnitTests.Grpc_Tests
+namespace EducationalInstitution.API.UnitTests.Grpc_Tests
 {
     public class EducationalInstitutionServiceTests : IClassFixture<MockDependenciesHelper<EducationalInstitutionService>>
     {
         private readonly MockDependenciesHelper<EducationalInstitutionService> dependenciesHelper;
 
+        /// <remarks>Called before each test</remarks>
         public EducationalInstitutionServiceTests(MockDependenciesHelper<EducationalInstitutionService> dependenciesHelper)
         {
             this.dependenciesHelper = dependenciesHelper;

@@ -1,4 +1,3 @@
-using EducationalInstitution.API.Tests.UnitTests;
 using EducationalInstitutionAPI.Business.Queries_Handlers;
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
 using EducationalInstitutionAPI.DTOs;
@@ -10,7 +9,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EducationalInstitution.API.Tests
+namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Tests
 {
     public class GetEducationalInstitutionByIDQueryHandlerTests : IClassFixture<MockDependenciesHelper<GetEducationalInstitutionByIDQueryHandler>>, IClassFixture<TestDataFromJSONParser>
     {
@@ -19,6 +18,7 @@ namespace EducationalInstitution.API.Tests
         private readonly GetEducationalInstitutionByIDQueryResult queryResult;
         private readonly Mock<IUnitOfWork> mockUnitOfWork;
 
+        /// <remarks>Called before each test</remarks>
         public GetEducationalInstitutionByIDQueryHandlerTests(MockDependenciesHelper<GetEducationalInstitutionByIDQueryHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
         {
             this.dependenciesHelper = dependenciesHelper;

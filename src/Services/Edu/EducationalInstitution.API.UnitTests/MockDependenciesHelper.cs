@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using System.Threading;
 
-namespace EducationalInstitution.API.Tests.UnitTests
+namespace EducationalInstitution.API.UnitTests
 {
     public class MockDependenciesHelper<T>
     {

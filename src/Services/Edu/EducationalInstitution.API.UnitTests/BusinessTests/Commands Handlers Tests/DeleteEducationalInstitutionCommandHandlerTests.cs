@@ -9,13 +9,14 @@ using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Handlers_Tests
+namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_Tests
 {
     public class DeleteEducationalInstitutionCommandHandlerTests : IClassFixture<MockDependenciesHelper<DeleteEducationalInstitutionCommandHandler>>, IClassFixture<TestDataFromJSONParser>
     {
         private readonly MockDependenciesHelper<DeleteEducationalInstitutionCommandHandler> dependenciesHelper;
         private readonly TestDataFromJSONParser testDataHelper;
 
+        /// <remarks>Called before each test</remarks>
         public DeleteEducationalInstitutionCommandHandlerTests(MockDependenciesHelper<DeleteEducationalInstitutionCommandHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
         {
             this.dependenciesHelper = dependenciesHelper;

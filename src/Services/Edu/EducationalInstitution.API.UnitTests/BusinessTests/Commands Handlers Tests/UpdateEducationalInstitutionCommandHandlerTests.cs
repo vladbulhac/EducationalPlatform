@@ -8,7 +8,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Handlers_Tests
+namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_Tests
 {
     public class UpdateEducationalInstitutionCommandHandlerTests : IClassFixture<MockDependenciesHelper<UpdateEducationalInstitutionCommandHandler>>, IClassFixture<TestDataFromJSONParser>
     {
@@ -16,6 +16,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Commands_Hand
         private readonly TestDataFromJSONParser testDataHelper;
         private readonly Mock<IUnitOfWork> mockUnitOfWork;
 
+        /// <remarks>Called before each test</remarks>
         public UpdateEducationalInstitutionCommandHandlerTests(MockDependenciesHelper<UpdateEducationalInstitutionCommandHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
         {
             this.dependenciesHelper = dependenciesHelper;

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
+namespace EducationalInstitution.API.UnitTests.RepositoriesTests
 {
     public class EducationalInstitutionBuildingRepositoryTests : IClassFixture<TestDataFromJSONParser>
     {
@@ -14,6 +14,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.RepositoriesTests
         private readonly IEducationalInstitutionBuildingRepository eduBuildingRepository;
         private readonly DataContext dbContext;
 
+        /// <remarks>Called before each test</remarks>
         public EducationalInstitutionBuildingRepositoryTests(TestDataFromJSONParser testDataHelper)
         {
             this.testDataHelper = testDataHelper;

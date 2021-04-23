@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EducationalInstitutionAPI.Data.Contexts;
+﻿using EducationalInstitutionAPI.Data.Contexts;
 using EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingRepository;
 using EducationalInstitutionAPI.Utils;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
-namespace EducationalInstitution.API.Tests.IntegrationTests.RepositoriesTests
+namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
 {
     public class EducationalInstitutionBuildingRepositoryTests
     {
         private readonly string dbConnection;
         private readonly DataContext context;
 
+        /// <remarks>Called before each test</remarks>
         public EducationalInstitutionBuildingRepositoryTests()
         {
             dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB");

@@ -10,7 +10,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handlers_Tests
+namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Tests
 {
     public class GetEducationalInstitutionByLocationQueryHandlerTests : IClassFixture<MockDependenciesHelper<GetAllEducationalInstitutionsByLocationQueryHandler>>, IClassFixture<TestDataFromJSONParser>
     {
@@ -19,6 +19,7 @@ namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Queries_Handl
         private readonly GetAllEducationalInstitutionsByLocationQueryResult queryResult;
         private readonly Mock<IUnitOfWork> mockUnitOfWork;
 
+        /// <remarks>Called before each test</remarks>
         public GetEducationalInstitutionByLocationQueryHandlerTests(MockDependenciesHelper<GetAllEducationalInstitutionsByLocationQueryHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
         {
             this.dependenciesHelper = dependenciesHelper;

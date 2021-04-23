@@ -1,15 +1,15 @@
-﻿using EducationalInstitutionAPI.Data;
+﻿using Dapper;
+using EducationalInstitutionAPI.Data;
 using EducationalInstitutionAPI.Data.Contexts;
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
+using EducationalInstitutionAPI.Utils;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Dapper;
-using EducationalInstitutionAPI.Utils;
-using Microsoft.Data.SqlClient;
 
 namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingRepository
 {

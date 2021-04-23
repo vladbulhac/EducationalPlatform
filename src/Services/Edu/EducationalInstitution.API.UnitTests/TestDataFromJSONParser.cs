@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace EducationalInstitution.API.Tests.UnitTests
+namespace EducationalInstitution.API.UnitTests
 {
     /// <summary>
     /// Extracts from a JSON file data that is used in tests

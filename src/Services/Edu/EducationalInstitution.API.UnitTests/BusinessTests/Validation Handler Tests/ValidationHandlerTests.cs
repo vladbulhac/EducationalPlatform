@@ -7,13 +7,14 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace EducationalInstitution.API.Tests.UnitTests.BusinessTests.Validation_Handler_Tests
+namespace EducationalInstitution.API.UnitTests.BusinessTests.Validation_Handler_Tests
 {
     public class ValidationHandlerTests
     {
         private readonly Mock<ILogger<ValidationHandler>> mockLogger;
         private readonly IValidationHandler validationHandler;
 
+        /// <remarks>Called before each test</remarks>
         public ValidationHandlerTests()
         {
             mockLogger = new();

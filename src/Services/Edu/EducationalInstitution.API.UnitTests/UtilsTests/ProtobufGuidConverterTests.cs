@@ -2,7 +2,7 @@
 using System;
 using Xunit;
 
-namespace EducationalInstitution.API.Tests.UnitTests.UtilsTests
+namespace EducationalInstitution.API.UnitTests.UtilsTests
 {
     public class ProtobufGuidConverterTests
     {
