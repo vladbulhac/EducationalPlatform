@@ -88,19 +88,20 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingR
 
             #region Entity Framework Core LINQ
 
-            /* return new()
-             {
-                 EducationalInstitutions = await context.EducationalInstitutionsBuildings
-                                                                         .Where(eib => eib.BuildingID == buildingID)
-                                                                         .Include(ei => ei.EducationalInstitution)
-                                                                         .Select(s => new EducationalInstitutionEssentialData()
-                                                                         {
-                                                                             EducationalInstitutionID = s.EducationalInstitution.EducationalInstitutionID,
-                                                                             Name = s.EducationalInstitution.Name,
-                                                                             Description = s.EducationalInstitution.Description
-                                                                         })
-                                                                         .ToListAsync(cancellationToken)
-             };*/
+            /*return new()
+            {
+                EducationalInstitutions = await context.EducationalInstitutionsBuildings
+                                                                        .Where(eib => eib.BuildingID == buildingID)
+                                                                        .Include(ei => ei.EducationalInstitution)
+                                                                        .Select(s => new EducationalInstitutionEssentialData()
+                                                                        {
+                                                                            EducationalInstitutionID = s.EducationalInstitution.EducationalInstitutionID,
+                                                                            Name = s.EducationalInstitution.Name,
+                                                                            Description = s.EducationalInstitution.Description
+                                                                        })
+                                                                        .OrderBy(ei=>ei.Name)
+                                                                        .ToListAsync(cancellationToken)
+            };*/
 
             #endregion Entity Framework Core LINQ
         }
