@@ -33,9 +33,9 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
 
         public async Task CreateAsync(EducationalInstitution data, CancellationToken cancellationToken = default) => await context.EducationalInstitutions.AddAsync(data, cancellationToken);
 
-        public async Task<bool> DeleteAsync(Guid ID, CancellationToken cancellationToken = default)
+        public async Task<bool> DeleteAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default)
         {
-            var educationalInstitution = await context.EducationalInstitutions.SingleOrDefaultAsync(eduI => eduI.EducationalInstitutionID == ID, cancellationToken);
+            var educationalInstitution = await context.EducationalInstitutions.SingleOrDefaultAsync(eduI => eduI.EducationalInstitutionID == educationalInstitutionID, cancellationToken);
 
             if (educationalInstitution is null) return false;
 
@@ -45,12 +45,12 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
 
         public async Task<ICollection<GetEducationalInstitutionQueryResult>> GetAllLikeNameAsync(string name, int offsetValue = 0, int resultsCount = 1, CancellationToken cancellationToken = default)
         {
-            using (var connection = new SqlConnection(dbConnection))
+            await using (var connection = new SqlConnection(dbConnection))
             {
-                connection.Open();
+                await connection.OpenAsync(cancellationToken);
 
-                var queryResult = await connection.QueryAsync<GetEducationalInstitutionQueryResult>(
-                                                                @"SELECT EducationalInstitutionID, Name, Description, LocationID
+                var queryResult = await connection.QueryAsync<GetEducationalInstitutionQueryResult>
+                                                                (@"SELECT EducationalInstitutionID, Name, Description, LocationID
                                                                 FROM dbo.EducationalInstitutions
                                                                 WHERE Name LIKE @Name + '%' AND EntityAccess_IsDisabled=0
                                                                 ORDER BY Name
@@ -64,46 +64,69 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
             #region Entity Framework Core LINQ
 
             /*return await context.EducationalInstitutions
-                                 .Where(ei => ei.Name.Contains(name))
+                                 .Where(ei => ei.Name.Contains(name) && ei.EntityAccess.IsDisabled==false)
                                  .Select(ei => new GetEducationalInstitutionQueryResult()
                                  {
                                      EducationalInstitutionID = ei.EducationalInstitutionID,
                                      Description = ei.Description,
                                      LocationID = ei.LocationID,
-                                     BuildingsIDs = ei.Buildings,
                                      Name = ei.Name
                                  })
                                  .Skip(offsetValue)
                                  .Take(resultsCount)
+                                 .OrderBy(ei=>ei.Name)
                                  .ToListAsync(cancellationToken);*/
 
             #endregion Entity Framework Core LINQ
         }
 
-        public async Task<EducationalInstitution> GetEntityByIDAsync(Guid ID, CancellationToken cancellationToken = default)
+        public async Task<EducationalInstitution> GetEntityByIDAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default)
         {
             return await context.EducationalInstitutions
-                                 .SingleOrDefaultAsync(ei => ei.EducationalInstitutionID == ID, cancellationToken);
+                                 .SingleOrDefaultAsync(ei => ei.EducationalInstitutionID == educationalInstitutionID, cancellationToken);
         }
 
-        public async Task<GetEducationalInstitutionByIDQueryResult> GetByIDAsync(Guid ID, CancellationToken cancellationToken = default)
+        public async Task<GetEducationalInstitutionByIDQueryResult> GetByIDAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default)
         {
-            return await context.EducationalInstitutions
-                                 .Where(eduI => eduI.EducationalInstitutionID == ID)
-                                 .Include(ei => ei.Buildings)
-                                 .Include(ei => ei.ChildInstitutions)
-                                 .Include(ei => ei.ParentInstitution)
-                                 .Select(ei => new GetEducationalInstitutionByIDQueryResult()
-                                 {
-                                     BuildingsIDs = ei.Buildings,
-                                     Description = ei.Description,
-                                     Name = ei.Name,
-                                     LocationID = ei.LocationID,
-                                     ChildInstitutions = ei.ChildInstitutions,
-                                     ParentInstitution = ei.ParentInstitution,
-                                     JoinDate = ei.JoinDate
-                                 })
-                                 .SingleOrDefaultAsync(cancellationToken);
+            await using (var connection = new SqlConnection(dbConnection))
+            {
+                await connection.OpenAsync(cancellationToken);
+
+                var queryResult = await connection.QueryAsync<dynamic>
+                                  (@"SELECT e.EducationalInstitutionID, e.Name, e.Description, e.LocationID, e.JoinDate, e.ParentInstitutionEducationalInstitutionID as ParentInstitutionID,
+                                             ce.EducationalInstitutionID as ChildInstitutionID, ce.Name as ChildInstitutionName, ce.Description as ChildInstitutionDescription,
+                                             pe.Name as ParentName, pe.Description as ParentDescription,
+                                             b.BuildingID
+                                    FROM EducationalInstitutions e
+                                    LEFT JOIN EducationalInstitutions ce ON ce.ParentInstitutionEducationalInstitutionID=e.EducationalInstitutionID AND ce.EntityAccess_IsDisabled=0
+                                    LEFT JOIN EducationalInstitutions pe ON e.ParentInstitutionEducationalInstitutionID=pe.EducationalInstitutionID AND pe.EntityAccess_IsDisabled=0
+                                    JOIN EducationalInstitutionsBuildings b ON e.EducationalInstitutionID=b.EducationalInstitutionID
+                                    WHERE e.EducationalInstitutionID=@ID AND e.EntityAccess_IsDisabled=0",
+                                    new { ID = educationalInstitutionID });
+
+                return MapQueryResultToGetEducationalInstitutionByIDQueryResult(queryResult.ToList());
+            }
+
+            #region Entity Framework Core LINQ
+
+            /*return await context.EducationalInstitutions
+                                                 .Where(eduI => eduI.EducationalInstitutionID == educationalInstitutionID && eduI.EntityAccess.IsDisabled == false)
+                                                 .Include(ei => ei.Buildings)
+                                                 .Include(ei => ei.ChildInstitutions)
+                                                 .Include(ei => ei.ParentInstitution)
+                                                 .Select(ei => new GetEducationalInstitutionByIDQueryResult()
+                                                 {
+                                                     BuildingsIDs = ei.Buildings.Select(b => b.BuildingID).ToList(),
+                                                     Description = ei.Description,
+                                                     Name = ei.Name,
+                                                     LocationID = ei.LocationID,
+                                                     ChildInstitutions = ei.ChildInstitutions.Select(ci => new EducationalInstitutionBaseQueryResult(ci.EducationalInstitutionID, ci.Name, ci.Description)).ToList(),
+                                                     ParentInstitution = new EducationalInstitutionBaseQueryResult(ei.ParentInstitution.EducationalInstitutionID, ei.ParentInstitution.Name, ei.ParentInstitution.Description),
+                                                     JoinDate = ei.JoinDate
+                                                 })
+                                                 .SingleOrDefaultAsync(cancellationToken);*/
+
+            #endregion Entity Framework Core LINQ
         }
 
         public async Task<GetAllEducationalInstitutionsByLocationQueryResult> GetAllByLocationAsync(string locationID, CancellationToken cancellationToken = default)
@@ -225,6 +248,62 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
 
             educationalInstitution.UpdateParentInstitution(parentInstitution);
             return true;
+        }
+
+        private static GetEducationalInstitutionByIDQueryResult MapQueryResultToGetEducationalInstitutionByIDQueryResult(IList<dynamic> queryResult)
+        {
+            if (queryResult.Count > 0)
+            {
+                HashSet<string> buildings = new(queryResult.Count);
+                HashSet<EducationalInstitutionBaseQueryResult> childInstitutions = new(queryResult.Count);
+
+                MapQueryResultBuildingsAndChildInstitutions(queryResult, ref buildings, ref childInstitutions);
+
+                GetEducationalInstitutionByIDQueryResult mappedResult = new()
+                {
+                    EducationalInstitutionID = (Guid)queryResult[0].EducationalInstitutionID,
+                    Name = (string)queryResult[0].Name,
+                    Description = (string)queryResult[0].Description,
+                    LocationID = (string)queryResult[0].LocationID,
+                    JoinDate = (DateTime)queryResult[0].JoinDate,
+                    ParentInstitution = MapQueryResultParentInstitution(queryResult[0]),
+                    ChildInstitutions = childInstitutions,
+                    BuildingsIDs = buildings
+                };
+
+                return mappedResult;
+            }
+
+            return default;
+        }
+
+        private static void MapQueryResultBuildingsAndChildInstitutions(IList<dynamic> queryResult, ref HashSet<string> buildings, ref HashSet<EducationalInstitutionBaseQueryResult> childInstitutions)
+        {
+            foreach (var result in queryResult)
+            {
+                var buildingID = result.BuildingID as string;
+                if (buildingID is not null && !buildings.Contains(buildingID))
+                    buildings.Add((string)result.BuildingID);
+
+                var childInstitutionID = result.ChildInstitutionID as Guid?;
+                if (childInstitutionID is not null)
+                {
+                    EducationalInstitutionBaseQueryResult childInstitution = new((Guid)childInstitutionID, (string)result.ChildInstitutionName, (string)result.ChildInstitutionDescription);
+                    if (!childInstitutions.Contains(childInstitution))
+                        childInstitutions.Add(childInstitution);
+                }
+            }
+        }
+
+        private static EducationalInstitutionBaseQueryResult MapQueryResultParentInstitution(dynamic queryResultItem)
+        {
+            var parentInstitutionID = queryResultItem.ParentInstitutionID as Guid?;
+            EducationalInstitutionBaseQueryResult parentInstitution = null;
+
+            if (parentInstitutionID is not null)
+                parentInstitution = new((Guid)parentInstitutionID, (string)queryResultItem.ParentName, (string)queryResultItem.ParentDescription);
+
+            return parentInstitution;
         }
     }
 }

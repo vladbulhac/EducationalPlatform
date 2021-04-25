@@ -28,7 +28,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
                 Name = testDataHelper.EducationalInstitutions[0].Name,
                 Description = testDataHelper.EducationalInstitutions[0].Description,
                 LocationID = testDataHelper.EducationalInstitutions[0].LocationID,
-                BuildingsIDs = testDataHelper.EducationalInstitutions[0].Buildings
+                //BuildingsIDs = testDataHelper.EducationalInstitutions[0].Buildings
             };
 
             mockUnitOfWork = new();
@@ -128,7 +128,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
                 Name = testDataHelper.EducationalInstitutions[0].Name,
                 Description = testDataHelper.EducationalInstitutions[0].Description,
                 LocationID = testDataHelper.EducationalInstitutions[0].LocationID,
-                BuildingsIDs = testDataHelper.EducationalInstitutions[0].Buildings
+                //BuildingsIDs = testDataHelper.EducationalInstitutions[0].Buildings
             };
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
             dependenciesHelper.mockRepository.Setup(mr => mr.GetByIDAsync(educationalInstitutionID, dependenciesHelper.cancellationToken))

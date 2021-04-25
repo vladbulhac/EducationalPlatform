@@ -16,26 +16,37 @@ namespace EducationalInstitution.API.UnitTests
         public TestDataFromJSONParser()
         {
             var testDataPath = ConfigurationHelper.GetCurrentSettings("TestDataFilesPaths:EducationalInstitutionsFilePath") ?? throw new Exception("Could not find the test data file path in appsettings.json file!");
-            EducationalInstitutions = GetEducationalInstitutionsFromJSONFile(testDataPath);
+            GetEducationalInstitutionsFromJSONFile(testDataPath);
+            SetupEducationalInstitutions();
         }
 
-        private static IList<EducationalInstitutionAPI.Data.EducationalInstitution> GetEducationalInstitutionsFromJSONFile(string path)
+        private void GetEducationalInstitutionsFromJSONFile(string path)
         {
             string file = File.ReadAllText(path);
             dynamic jsonEducationalInstitutions = JsonConvert.DeserializeObject(file);
 
-            List<EducationalInstitutionAPI.Data.EducationalInstitution> listOFEducationalInstitutions = new();
+            ParseTheExtractedDataAndSaveItToList(jsonEducationalInstitutions);
+        }
+
+        private void ParseTheExtractedDataAndSaveItToList(dynamic jsonEducationalInstitutions)
+        {
+            EducationalInstitutions = new List<EducationalInstitutionAPI.Data.EducationalInstitution>();
             foreach (var educationalInstitution in jsonEducationalInstitutions.EducationalInstitutions)
             {
-                listOFEducationalInstitutions.Add(new((
+                EducationalInstitutions.Add(new((
                     string)educationalInstitution.Name,
                     (string)educationalInstitution.Description,
                     (string)educationalInstitution.LocationID,
                     educationalInstitution.BuildingsIDs.ToObject<List<string>>()
                     ));
             }
+        }
 
-            return listOFEducationalInstitutions;
+        private void SetupEducationalInstitutions()
+        {
+            EducationalInstitutions[0].UpdateParentInstitution(EducationalInstitutions[1]);
+            EducationalInstitutions[1].UpdateParentInstitution(EducationalInstitutions[2]);
+            EducationalInstitutions[2].UpdateParentInstitution(EducationalInstitutions[3]);
         }
     }
 }

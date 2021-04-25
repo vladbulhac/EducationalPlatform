@@ -57,33 +57,20 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingR
 
         public async Task<GetAllEducationalInstitutionsWithSameBuildingQueryResult> GetAllEducationalInstitutionsWithSameBuildingAsync(string buildingID, CancellationToken cancellationToken = default)
         {
-            using (var connection = new SqlConnection(dbConnection))
+            await using (var connection = new SqlConnection(dbConnection))
             {
-                connection.Open();
+                await connection.OpenAsync(cancellationToken);
 
-                var queryResult = await connection.QueryAsync<dynamic>(@"SELECT e.EducationalInstitutionID, e.Name, e.Description
+                var queryResult = await connection.QueryAsync<EducationalInstitutionBaseQueryResult>(@"
+                                                                       SELECT e.EducationalInstitutionID, e.Name, e.Description
                                                                        FROM EducationalInstitutionsBuildings b
                                                                        JOIN EducationalInstitutions e
                                                                        ON b.EducationalInstitutionID=e.EducationalInstitutionID
                                                                        WHERE b.BuildingID=@BuildingID AND b.EntityAccess_IsDisabled=0
                                                                        ORDER BY Name",
-                                                                        new { buildingID });
+                                                                       new { buildingID });
 
-                GetAllEducationalInstitutionsWithSameBuildingQueryResult result = new() { EducationalInstitutions = new List<EducationalInstitutionEssentialData>() };
-
-                foreach (var building in queryResult)
-                {
-                    result.EducationalInstitutions.Add(
-                                                    new()
-                                                    {
-                                                        EducationalInstitutionID = (Guid)building.EducationalInstitutionID,
-                                                        Name = (string)building.Name,
-                                                        Description = (string)building.Description
-                                                    }
-                                                    );
-                }
-
-                return result;
+                return new() { EducationalInstitutions = queryResult.ToList() };
             }
 
             #region Entity Framework Core LINQ

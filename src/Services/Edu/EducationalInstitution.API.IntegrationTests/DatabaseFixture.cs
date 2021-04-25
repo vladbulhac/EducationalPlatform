@@ -11,7 +11,7 @@ namespace EducationalInstitution.API.IntegrationTests
     {
         public string DbConnection { get; init; }
         public DataContext Context { get; private set; }
-        private readonly TestDataFromJSONParser testDataHelper;
+        public readonly TestDataFromJSONParser testDataHelper;
 
         public DatabaseFixture()
         {
