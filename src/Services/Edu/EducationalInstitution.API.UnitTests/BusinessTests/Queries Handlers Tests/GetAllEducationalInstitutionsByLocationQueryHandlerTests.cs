@@ -6,6 +6,7 @@ using EducationalInstitutionAPI.Unit_of_Work;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Xunit;
@@ -29,7 +30,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
                 EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { new(){
                         Name = testDataHelper.EducationalInstitutions[0].Name,
                         Description = testDataHelper.EducationalInstitutions[0].Description,
-                        BuildingsIDs = testDataHelper.EducationalInstitutions[0].Buildings,
+                        BuildingsIDs = testDataHelper.EducationalInstitutions[0].Buildings.Select(b=>b.BuildingID).ToList(),
                         EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID
                         }
                     }

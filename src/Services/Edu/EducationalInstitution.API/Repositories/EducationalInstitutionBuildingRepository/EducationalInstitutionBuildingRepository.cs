@@ -64,11 +64,10 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingR
                 var queryResult = await connection.QueryAsync<EducationalInstitutionBaseQueryResult>(@"
                                                                        SELECT e.EducationalInstitutionID, e.Name, e.Description
                                                                        FROM EducationalInstitutionsBuildings b
-                                                                       JOIN EducationalInstitutions e
-                                                                       ON b.EducationalInstitutionID=e.EducationalInstitutionID
-                                                                       WHERE b.BuildingID=@BuildingID AND b.EntityAccess_IsDisabled=0
-                                                                       ORDER BY Name",
-                                                                       new { buildingID });
+                                                                       JOIN EducationalInstitutions e ON b.EducationalInstitutionID=e.EducationalInstitutionID
+                                                                       WHERE b.BuildingID=@ID AND b.EntityAccess_IsDisabled=0 AND e.EntityAccess_IsDisabled=0
+                                                                       ORDER BY e.Name",
+                                                                       new { ID = buildingID });
 
                 return new() { EducationalInstitutions = queryResult.ToList() };
             }
@@ -79,7 +78,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingR
             {
                 EducationalInstitutions = await context.EducationalInstitutionsBuildings
                                                                         .Where(eib => eib.BuildingID == buildingID)
-                                                                        .Include(ei => ei.EducationalInstitution)
+                                                                        .Include(ei => ei.EducationalInstitution.Where(e=>e.EntityAccess_IsDisabled==false))
                                                                         .Select(s => new EducationalInstitutionEssentialData()
                                                                         {
                                                                             EducationalInstitutionID = s.EducationalInstitution.EducationalInstitutionID,

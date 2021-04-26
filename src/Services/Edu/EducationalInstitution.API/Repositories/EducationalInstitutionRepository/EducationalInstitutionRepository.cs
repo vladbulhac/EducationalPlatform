@@ -28,7 +28,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
             if (!string.IsNullOrEmpty(connectionString))
                 dbConnection = connectionString;
             else
-                dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB") ?? throw new ArgumentNullException(nameof(dbConnection));
+                dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB") ?? throw new ArgumentNullException();
         }
 
         public async Task CreateAsync(EducationalInstitution data, CancellationToken cancellationToken = default) => await context.EducationalInstitutions.AddAsync(data, cancellationToken);
@@ -51,7 +51,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
 
                 var queryResult = await connection.QueryAsync<GetEducationalInstitutionQueryResult>
                                                                 (@"SELECT EducationalInstitutionID, Name, Description, LocationID
-                                                                FROM dbo.EducationalInstitutions
+                                                                FROM EducationalInstitutions
                                                                 WHERE Name LIKE @Name + '%' AND EntityAccess_IsDisabled=0
                                                                 ORDER BY Name
                                                                 OFFSET @Offset ROWS
@@ -100,8 +100,9 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
                                     FROM EducationalInstitutions e
                                     LEFT JOIN EducationalInstitutions ce ON ce.ParentInstitutionEducationalInstitutionID=e.EducationalInstitutionID AND ce.EntityAccess_IsDisabled=0
                                     LEFT JOIN EducationalInstitutions pe ON e.ParentInstitutionEducationalInstitutionID=pe.EducationalInstitutionID AND pe.EntityAccess_IsDisabled=0
-                                    JOIN EducationalInstitutionsBuildings b ON e.EducationalInstitutionID=b.EducationalInstitutionID
-                                    WHERE e.EducationalInstitutionID=@ID AND e.EntityAccess_IsDisabled=0",
+                                    LEFT JOIN EducationalInstitutionsBuildings b ON e.EducationalInstitutionID=b.EducationalInstitutionID AND b.EntityAccess_IsDisabled=0
+                                    WHERE e.EducationalInstitutionID=@ID AND e.EntityAccess_IsDisabled=0
+                                    ORDER BY e.Name, ParentName",
                                     new { ID = educationalInstitutionID });
 
                 return MapQueryResultToGetEducationalInstitutionByIDQueryResult(queryResult.ToList());
@@ -111,9 +112,9 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
 
             /*return await context.EducationalInstitutions
                                                  .Where(eduI => eduI.EducationalInstitutionID == educationalInstitutionID && eduI.EntityAccess.IsDisabled == false)
-                                                 .Include(ei => ei.Buildings)
-                                                 .Include(ei => ei.ChildInstitutions)
-                                                 .Include(ei => ei.ParentInstitution)
+                                                 .Include(ei => ei.Buildings.Where(b=>b.EntityAccess_IsDisabled==false))
+                                                 .Include(ei => ei.ChildInstitutions.Where(c=>c.EntityAccess_IsDisabled==false))
+                                                 .Include(ei => ei.ParentInstitution.Where(p=>p.EntityAccess_IsDisabled==false))
                                                  .Select(ei => new GetEducationalInstitutionByIDQueryResult()
                                                  {
                                                      BuildingsIDs = ei.Buildings.Select(b => b.BuildingID).ToList(),
@@ -131,20 +132,39 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
 
         public async Task<GetAllEducationalInstitutionsByLocationQueryResult> GetAllByLocationAsync(string locationID, CancellationToken cancellationToken = default)
         {
-            return new()
+            await using (var connection = new SqlConnection(dbConnection))
             {
-                EducationalInstitutions = await context.EducationalInstitutions
-                                                        .Where(ei => ei.LocationID == locationID)
-                                                        .Include(ei => ei.Buildings)
-                                                        .Select(ei => new GetEducationalInstitutionByLocationQueryResult()
-                                                        {
-                                                            Name = ei.Name,
-                                                            BuildingsIDs = ei.Buildings,
-                                                            Description = ei.Description,
-                                                            EducationalInstitutionID = ei.EducationalInstitutionID
-                                                        })
-                                                      .ToListAsync(cancellationToken)
-            };
+                await connection.OpenAsync(cancellationToken);
+
+                var queryResult = await connection.QueryAsync<dynamic>(
+                                                                    @"SELECT e.EducationalInstitutionID, e.Name, e.Description, b.BuildingID
+                                                                       FROM EducationalInstitutions e
+                                                                       LEFT JOIN EducationalInstitutionsBuildings b ON e.EducationalInstitutionID=b.EducationalInstitutionID AND b.EntityAccess_IsDisabled=0
+                                                                       WHERE e.LocationID=@ID AND e.EntityAccess_IsDisabled=0
+                                                                       ORDER BY e.Name",
+                                                                    new { ID = locationID });
+
+                return MapQueryResultToGetAllEducationalInstitutionsByLocationQueryResult(queryResult.ToList());
+            }
+
+            #region Entity Framework Core LINQ
+
+            /*            return new()
+                        {
+                            EducationalInstitutions = await context.EducationalInstitutions
+                                                                    .Where(ei => ei.LocationID == locationID && ei.EntityAccess.IsDisabled == false)
+                                                                    .Include(ei => ei.Buildings.Where(b => b.EntityAccess.IsDisabled == false))
+                                                                    .Select(ei => new GetEducationalInstitutionByLocationQueryResult()
+                                                                    {
+                                                                        Name = ei.Name,
+                                                                        BuildingsIDs = ei.Buildings.Select(b => b.BuildingID).ToList(),
+                                                                        Description = ei.Description,
+                                                                        EducationalInstitutionID = ei.EducationalInstitutionID
+                                                                    })
+                                                                  .ToListAsync(cancellationToken)
+                        };*/
+
+            #endregion Entity Framework Core LINQ
         }
 
         public async Task<ICollection<GetEducationalInstitutionQueryResult>> GetFromCollectionOfIDsAsync(ICollection<Guid> IDs, CancellationToken cancellationToken = default)
@@ -250,31 +270,72 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
             return true;
         }
 
-        private static GetEducationalInstitutionByIDQueryResult MapQueryResultToGetEducationalInstitutionByIDQueryResult(IList<dynamic> queryResult)
+        #region GetAllByLocationAsync() query result map methods
+
+        private static GetAllEducationalInstitutionsByLocationQueryResult MapQueryResultToGetAllEducationalInstitutionsByLocationQueryResult(IList<dynamic> queryResult)
         {
-            if (queryResult.Count > 0)
+            if (queryResult.Count == 0) return null;
+
+            var idToRecordMap = new Dictionary<Guid, GetEducationalInstitutionByLocationQueryResult>(queryResult.Count);
+            for (int entityIndex = 0; entityIndex < queryResult.Count; entityIndex++)
             {
-                HashSet<string> buildings = new(queryResult.Count);
-                HashSet<EducationalInstitutionBaseQueryResult> childInstitutions = new(queryResult.Count);
+                var educationalInstitutionID = (Guid)queryResult[entityIndex].EducationalInstitutionID;
 
-                MapQueryResultBuildingsAndChildInstitutions(queryResult, ref buildings, ref childInstitutions);
-
-                GetEducationalInstitutionByIDQueryResult mappedResult = new()
+                if (!idToRecordMap.ContainsKey(educationalInstitutionID))
                 {
-                    EducationalInstitutionID = (Guid)queryResult[0].EducationalInstitutionID,
-                    Name = (string)queryResult[0].Name,
-                    Description = (string)queryResult[0].Description,
-                    LocationID = (string)queryResult[0].LocationID,
-                    JoinDate = (DateTime)queryResult[0].JoinDate,
-                    ParentInstitution = MapQueryResultParentInstitution(queryResult[0]),
-                    ChildInstitutions = childInstitutions,
-                    BuildingsIDs = buildings
-                };
-
-                return mappedResult;
+                    var result = MapEntityToGetEducationalInstitutionByLocationQueryResult(queryResult[entityIndex], educationalInstitutionID);
+                    idToRecordMap.Add(educationalInstitutionID, result);
+                }
+                else
+                    idToRecordMap[educationalInstitutionID].BuildingsIDs.Add((string)queryResult[entityIndex].BuildingID);
             }
 
-            return default;
+            return new() { EducationalInstitutions = idToRecordMap.Select(qr => qr.Value).ToList() };
+        }
+
+        private static GetEducationalInstitutionByLocationQueryResult MapEntityToGetEducationalInstitutionByLocationQueryResult(dynamic queryResultItem, Guid educationalInstitutionID)
+        {
+            var result = new GetEducationalInstitutionByLocationQueryResult()
+            {
+                EducationalInstitutionID = educationalInstitutionID,
+                Name = (string)queryResultItem.Name,
+                Description = (string)queryResultItem.Description,
+                BuildingsIDs = new HashSet<string>()
+            };
+
+            var buildingID = queryResultItem.BuildingID as string;
+            if (buildingID is not null && !result.BuildingsIDs.Contains(buildingID))
+                result.BuildingsIDs.Add(buildingID);
+
+            return result;
+        }
+
+        #endregion GetAllByLocationAsync() query result map methods
+
+        #region GetByIDAsync() query result map methods
+
+        private static GetEducationalInstitutionByIDQueryResult MapQueryResultToGetEducationalInstitutionByIDQueryResult(IList<dynamic> queryResult)
+        {
+            if (queryResult.Count == 0) return null;
+
+            HashSet<string> buildings = new(queryResult.Count);
+            HashSet<EducationalInstitutionBaseQueryResult> childInstitutions = new(queryResult.Count);
+
+            MapQueryResultBuildingsAndChildInstitutions(queryResult, ref buildings, ref childInstitutions);
+
+            GetEducationalInstitutionByIDQueryResult mappedResult = new()
+            {
+                EducationalInstitutionID = (Guid)queryResult[0].EducationalInstitutionID,
+                Name = (string)queryResult[0].Name,
+                Description = (string)queryResult[0].Description,
+                LocationID = (string)queryResult[0].LocationID,
+                JoinDate = (DateTime)queryResult[0].JoinDate,
+                ParentInstitution = MapQueryResultParentInstitution(queryResult[0]),
+                ChildInstitutions = childInstitutions,
+                BuildingsIDs = buildings
+            };
+
+            return mappedResult;
         }
 
         private static void MapQueryResultBuildingsAndChildInstitutions(IList<dynamic> queryResult, ref HashSet<string> buildings, ref HashSet<EducationalInstitutionBaseQueryResult> childInstitutions)
@@ -305,5 +366,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
 
             return parentInstitution;
         }
+
+        #endregion GetByIDAsync() query result map methods
     }
 }

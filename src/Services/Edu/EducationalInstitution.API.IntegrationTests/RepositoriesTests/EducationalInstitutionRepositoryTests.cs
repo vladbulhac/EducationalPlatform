@@ -28,7 +28,6 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         {
             //Arrange
             Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
-            repository = new EducationalInstitutionRepository(dbFixture.DbConnection);
 
             //Act
             var result = await repository.GetByIDAsync(educationalInstitutionID);
@@ -42,7 +41,6 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         {
             //Arrange
             Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
-            repository = new EducationalInstitutionRepository(dbFixture.DbConnection);
 
             //Act
             var result = await repository.GetByIDAsync(educationalInstitutionID);
@@ -56,7 +54,6 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         {
             //Arrange
             Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
-            repository = new EducationalInstitutionRepository(dbFixture.DbConnection);
 
             //Act
             var result = await repository.GetByIDAsync(educationalInstitutionID);
@@ -70,7 +67,6 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         {
             //Arrange
             Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
-            repository = new EducationalInstitutionRepository(dbFixture.DbConnection);
 
             //Act
             var result = await repository.GetByIDAsync(educationalInstitutionID);
@@ -84,7 +80,6 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         {
             //Arrange
             Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
-            repository = new EducationalInstitutionRepository(dbFixture.DbConnection);
 
             //Act
             var result = await repository.GetByIDAsync(educationalInstitutionID);
@@ -98,7 +93,6 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         {
             //Arrange
             Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
-            repository = new EducationalInstitutionRepository(dbFixture.DbConnection);
 
             //Act
             var result = await repository.GetByIDAsync(educationalInstitutionID);
@@ -112,7 +106,6 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         {
             //Arrange
             Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
-            repository = new EducationalInstitutionRepository(dbFixture.DbConnection);
 
             //Act
             var result = await repository.GetByIDAsync(educationalInstitutionID);
@@ -126,7 +119,6 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         {
             //Arrange
             Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
-            repository = new EducationalInstitutionRepository(dbFixture.DbConnection);
 
             //Act
             var result = await repository.GetByIDAsync(educationalInstitutionID);
@@ -140,7 +132,6 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         {
             //Arrange
             Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
-            repository = new EducationalInstitutionRepository(dbFixture.DbConnection);
 
             //Act
             var result = await repository.GetByIDAsync(educationalInstitutionID);
@@ -154,7 +145,6 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         {
             //Arrange
             Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
-            repository = new EducationalInstitutionRepository(dbFixture.DbConnection);
 
             //Act
             var result = await repository.GetByIDAsync(educationalInstitutionID);
@@ -168,7 +158,6 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         {
             //Arrange
             Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
-            repository = new EducationalInstitutionRepository(dbFixture.DbConnection);
 
             //Act
             var result = await repository.GetByIDAsync(educationalInstitutionID);
@@ -182,7 +171,6 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         {
             //Arrange
             Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[1].EducationalInstitutionID;
-            repository = new EducationalInstitutionRepository(dbFixture.DbConnection);
 
             //Act
             var result = await repository.GetByIDAsync(educationalInstitutionID);
@@ -196,7 +184,6 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         {
             //Arrange
             Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[1].EducationalInstitutionID;
-            repository = new EducationalInstitutionRepository(dbFixture.DbConnection);
 
             //Act
             var result = await repository.GetByIDAsync(educationalInstitutionID);
@@ -210,7 +197,6 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         {
             //Arrange
             Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[1].EducationalInstitutionID;
-            repository = new EducationalInstitutionRepository(dbFixture.DbConnection);
 
             //Act
             var result = await repository.GetByIDAsync(educationalInstitutionID);
@@ -224,7 +210,6 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         {
             //Arrange
             Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[1].EducationalInstitutionID;
-            repository = new EducationalInstitutionRepository(dbFixture.DbConnection);
 
             //Act
             var result = await repository.GetByIDAsync(educationalInstitutionID);
@@ -238,7 +223,6 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         {
             //Arrange
             Guid educationalInstitutionID = Guid.NewGuid();
-            repository = new EducationalInstitutionRepository(dbFixture.DbConnection);
 
             //Act
             var result = await repository.GetByIDAsync(educationalInstitutionID);
@@ -248,6 +232,153 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         }
 
         #endregion GetByIDAsync() TESTS
+
+        #region GetAllBYLocationAsync() TESTS
+
+        [Fact]
+        public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnAGetAllEducationalInstitutionsByLocationQueryResult()
+        {
+            //Arrange
+            string locationID = "1350efcd87A2647ab7ac443F";
+
+            //Act
+            var result = await repository.GetAllByLocationAsync(locationID);
+
+            //Assert
+            Assert.IsType<GetAllEducationalInstitutionsByLocationQueryResult>(result);
+        }
+
+        [Fact]
+        public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnACollectionWithTwoElements()
+        {
+            //Arrange
+            string locationID = "1350efcd87A2647ab7ac443F";
+
+            //Act
+            var result = await repository.GetAllByLocationAsync(locationID);
+
+            //Assert
+            Assert.Equal(2, result.EducationalInstitutions.Count);
+        }
+
+        [Fact]
+        public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnFirstResultWithExpectedEducationalInstitutionID()
+        {
+            //Arrange
+            string locationID = "1350efcd87A2647ab7ac443F";
+
+            //Act
+            var result = await repository.GetAllByLocationAsync(locationID);
+
+            //Assert
+            Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[3].EducationalInstitutionID, result.EducationalInstitutions.ElementAt(0).EducationalInstitutionID);
+        }
+
+        [Fact]
+        public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnFirstResultWithExpectedName()
+        {
+            //Arrange
+            string locationID = "1350efcd87A2647ab7ac443F";
+
+            //Act
+            var result = await repository.GetAllByLocationAsync(locationID);
+
+            //Assert
+            Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[3].Name, result.EducationalInstitutions.ElementAt(0).Name);
+        }
+
+        [Fact]
+        public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnFirstResultWithExpectedDescription()
+        {
+            //Arrange
+            string locationID = "1350efcd87A2647ab7ac443F";
+
+            //Act
+            var result = await repository.GetAllByLocationAsync(locationID);
+
+            //Assert
+            Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[3].Description, result.EducationalInstitutions.ElementAt(0).Description);
+        }
+
+        [Fact]
+        public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnFirstResultWithExpectedBuildings()
+        {
+            //Arrange
+            string locationID = "1350efcd87A2647ab7ac443F";
+
+            //Act
+            var result = await repository.GetAllByLocationAsync(locationID);
+
+            //Assert
+            Assert.Equal(new HashSet<string>() { "4150efcd87A2647ab7ac443E", "5550efcd87e2647ab7ac4435" }, result.EducationalInstitutions.ElementAt(0).BuildingsIDs);
+        }
+
+        [Fact]
+        public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnSecondResultWithExpectedEducationalInstitutionID()
+        {
+            //Arrange
+            string locationID = "1350efcd87A2647ab7ac443F";
+
+            //Act
+            var result = await repository.GetAllByLocationAsync(locationID);
+
+            //Assert
+            Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[2].EducationalInstitutionID, result.EducationalInstitutions.ElementAt(1).EducationalInstitutionID);
+        }
+
+        [Fact]
+        public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnSecondResultWithExpectedName()
+        {
+            //Arrange
+            string locationID = "1350efcd87A2647ab7ac443F";
+
+            //Act
+            var result = await repository.GetAllByLocationAsync(locationID);
+
+            //Assert
+            Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[2].Name, result.EducationalInstitutions.ElementAt(1).Name);
+        }
+
+        [Fact]
+        public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnSecondResultWithExpectedDescription()
+        {
+            //Arrange
+            string locationID = "1350efcd87A2647ab7ac443F";
+
+            //Act
+            var result = await repository.GetAllByLocationAsync(locationID);
+
+            //Assert
+            Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[2].Description, result.EducationalInstitutions.ElementAt(1).Description);
+        }
+
+        [Fact]
+        public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnSecondResultWithExpectedBuildings()
+        {
+            //Arrange
+            string locationID = "1350efcd87A2647ab7ac443F";
+
+            //Act
+            var result = await repository.GetAllByLocationAsync(locationID);
+
+            //Assert
+            Assert.Equal(new HashSet<string>() { "6050efcd87A2647ab7ac443E", "6050efcd87e2647ab7ac4435" }, result.EducationalInstitutions.ElementAt(1).BuildingsIDs);
+        }
+
+        [Fact]
+        public async Task GivenAnInvalidLocationID_ThatDoesntExistInDatabase_ToGetAllByLocationAsyncMethod_ShouldReturnNull()
+        {
+            //Arrange
+            string locationID = "1AA0efcd87A2647ab7ac4430";
+
+            //Act
+            var result = await repository.GetAllByLocationAsync(locationID);
+
+            //Assert
+            Assert.Null(result);
+        }
+
+        #endregion GetAllBYLocationAsync() TESTS
 
         #region GetAllLikeNameAsync() TESTS
 
