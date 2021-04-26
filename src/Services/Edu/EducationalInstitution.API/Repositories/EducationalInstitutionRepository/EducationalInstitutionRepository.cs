@@ -82,8 +82,23 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
 
         public async Task<EducationalInstitution> GetEntityByIDAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default)
         {
-            return await context.EducationalInstitutions
-                                 .SingleOrDefaultAsync(ei => ei.EducationalInstitutionID == educationalInstitutionID, cancellationToken);
+            await using (var connection = new SqlConnection(dbConnection))
+            {
+                await connection.OpenAsync(cancellationToken);
+
+                return await connection.QuerySingleOrDefaultAsync<EducationalInstitution>(
+                                                                        @"SELECT EducationalInstitutionID, Name, Description, LocationID, JoinDate
+                                                                          FROM EducationalInstitutions
+                                                                          WHERE EducationalInstitutionID=@ID AND EntityAccess_IsDisabled=0",
+                                                                        new { ID = educationalInstitutionID });
+            }
+
+            #region Entity Framework Core LINQ
+
+            /*return await context.EducationalInstitutions
+                                 .SingleOrDefaultAsync(ei => ei.EducationalInstitutionID == educationalInstitutionID, cancellationToken);*/
+
+            #endregion Entity Framework Core LINQ
         }
 
         public async Task<GetEducationalInstitutionByIDQueryResult> GetByIDAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default)

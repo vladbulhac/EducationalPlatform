@@ -233,6 +233,75 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
 
         #endregion GetByIDAsync() TESTS
 
+        #region GetEntityByIDAsync() TESTS
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEntityWithExpectedEducationalInstitutionID()
+        {
+            //Arrange
+            Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+
+            //Act
+            var result = await repository.GetEntityByIDAsync(educationalInstitutionID);
+
+            //Assert
+            Assert.Equal(educationalInstitutionID, result.EducationalInstitutionID);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEntityWithExpectedName()
+        {
+            //Arrange
+            Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+
+            //Act
+            var result = await repository.GetEntityByIDAsync(educationalInstitutionID);
+
+            //Assert
+            Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].Name, result.Name);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEntityWithExpectedDescription()
+        {
+            //Arrange
+            Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+
+            //Act
+            var result = await repository.GetEntityByIDAsync(educationalInstitutionID);
+
+            //Assert
+            Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].Description, result.Description);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEntityWithExpectedJoinDate()
+        {
+            //Arrange
+            Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+
+            //Act
+            var result = await repository.GetEntityByIDAsync(educationalInstitutionID);
+
+            //Assert
+            Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].JoinDate, result.JoinDate);
+        }
+
+        [Fact]
+        public async Task GivenAnInvalidEducationalInstitutionID_ToGetEntityByIDAsyncMethod_ShouldReturnNull()
+        {
+            //Arrange
+            Guid educationalInstitutionID = Guid.NewGuid();
+
+            //Act
+            var result = await repository.GetEntityByIDAsync(educationalInstitutionID);
+
+            //Assert
+            Assert.Null(result);
+        }
+
+        #endregion GetEntityByIDAsync() TESTS
+
         #region GetAllBYLocationAsync() TESTS
 
         [Fact]
