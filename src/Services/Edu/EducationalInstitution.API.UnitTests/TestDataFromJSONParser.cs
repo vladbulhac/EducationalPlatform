@@ -15,7 +15,7 @@ namespace EducationalInstitution.API.UnitTests
 
         public TestDataFromJSONParser()
         {
-            var testDataPath = ConfigurationHelper.GetCurrentSettings("TestDataFilesPaths:EducationalInstitutionsFilePath") ?? throw new Exception("Could not find the test data file path in appsettings.json file!");
+            var testDataPath = ConfigurationHelper.GetCurrentSettings("Tests:ResourcesPaths:EducationalInstitutionsFilePath") ?? throw new Exception("Could not find the test data file path in appsettings.json file!");
             GetEducationalInstitutionsFromJSONFile(testDataPath);
             SetupEducationalInstitutions();
         }

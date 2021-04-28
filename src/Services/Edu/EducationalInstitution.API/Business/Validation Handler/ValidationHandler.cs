@@ -6,7 +6,7 @@ using System.Text;
 
 namespace EducationalInstitutionAPI.Business.Validation_Handler
 {
-    public class ValidationHandler : ValidationFactory, IValidationHandler
+    public class ValidationHandler : IValidationHandler
     {
         /// <summary>
         /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
@@ -14,16 +14,13 @@ namespace EducationalInstitutionAPI.Business.Validation_Handler
         private readonly ILogger<ValidationHandler> logger;
 
         /// <exception cref="ArgumentNullException"/>
-        public ValidationHandler(ILogger<ValidationHandler> logger)
-        {
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        }
+        public ValidationHandler(ILogger<ValidationHandler> logger) => this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
         public bool IsRequestValid<T>(T request, out string validationErrors)
         {
             try
             {
-                var validator = CreateValidator<T>();
+                var validator = ValidationFactory.CreateValidator<T>();
                 var validationResult = validator.Validate(request);
 
                 if (!validationResult.IsValid)

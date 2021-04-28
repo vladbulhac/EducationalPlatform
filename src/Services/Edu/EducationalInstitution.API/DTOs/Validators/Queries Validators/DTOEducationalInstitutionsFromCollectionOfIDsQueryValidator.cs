@@ -3,12 +3,12 @@ using FluentValidation;
 
 namespace EducationalInstitutionAPI.DTOs.Validators.Queries_Validators
 {
-    public class DTOEducationalInstitutionsFromCollectionOfIDsValidator : AbstractValidator<DTOEducationalInstitutionsFromCollectionOfIDsQuery>
+    public class DTOEducationalInstitutionsFromCollectionOfIDsQueryValidator : AbstractValidator<DTOEducationalInstitutionsFromCollectionOfIDsQuery>
     {
         /// <summary>
         /// Initializes the rules based on which the validation is made
         /// </summary>
-        public DTOEducationalInstitutionsFromCollectionOfIDsValidator()
+        public DTOEducationalInstitutionsFromCollectionOfIDsQueryValidator()
         {
             CascadeMode = CascadeMode.Stop;
             RuleForEach(v => v.EducationalInstitutionsIDs)

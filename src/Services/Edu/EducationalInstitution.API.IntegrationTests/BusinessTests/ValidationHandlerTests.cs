@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace EducationalInstitution.API.UnitTests.BusinessTests.Validation_Handler_Tests
+namespace EducationalInstitution.API.IntegrationTests.BusinessTests
 {
     public class ValidationHandlerTests
     {

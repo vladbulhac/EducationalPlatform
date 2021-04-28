@@ -1,4 +1,5 @@
-﻿using EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingRepository;
+﻿using EducationalInstitution.API.IntegrationTests.Utils;
+using EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingRepository;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             repository = new EducationalInstitutionBuildingRepository(dbFixture.DbConnection);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldReturnACollectionWithTwoElements()
         {
             //Arrange
@@ -32,7 +33,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(2, result.EducationalInstitutions.Count);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldContainAnEntityWithName_UniversityofTesting()
         {
             //Arrange
@@ -45,7 +46,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Contains(result.EducationalInstitutions, ei => ei.Name.Equals("University of Testing"));
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldContainAnEntityWithName_UniversityofTestingOne()
         {
             //Arrange
@@ -58,7 +59,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Contains(result.EducationalInstitutions, ei => ei.Name.Equals("University of Testing One"));
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldContainAnEntityWithDescription_Testdata()
         {
             //Arrange
@@ -71,7 +72,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Contains(result.EducationalInstitutions, ei => ei.Description.Equals("Test data"));
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldContainAnEntityWithDescription_TestMoreData()
         {
             //Arrange
@@ -84,7 +85,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Contains(result.EducationalInstitutions, ei => ei.Description.Equals("Test More Data"));
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldReturnTheFirstEntityWithAGuidID()
         {
             //Arrange
@@ -97,7 +98,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.NotEqual(Guid.Empty, result.EducationalInstitutions.ElementAt(0).EducationalInstitutionID);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldReturnTheSecondEntityWithAGuidID()
         {
             //Arrange
@@ -110,7 +111,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.NotEqual(Guid.Empty, result.EducationalInstitutions.ElementAt(1).EducationalInstitutionID);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAnInvalidBuildingID_ThatDoesntExistInDatabase_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldReturnAnEmptyCollection()
         {
             //Arrange

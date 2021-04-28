@@ -1,4 +1,5 @@
-﻿using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
+﻿using EducationalInstitution.API.IntegrationTests.Utils;
+using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
 using EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
 
         #region GetByIDAsync() TESTS
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAGetEducationalInstitutionByIDQueryResult()
         {
             //Arrange
@@ -36,7 +37,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.IsType<GetEducationalInstitutionByIDQueryResult>(result);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithExpectedEducationalInstitutionID()
         {
             //Arrange
@@ -49,7 +50,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID, result.EducationalInstitutionID);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithExpectedName()
         {
             //Arrange
@@ -62,7 +63,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].Name, result.Name);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithExpectedDescription()
         {
             //Arrange
@@ -75,7 +76,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].Description, result.Description);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithExpectedLocationID()
         {
             //Arrange
@@ -88,7 +89,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].LocationID, result.LocationID);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithExpectedBuildingsIDs()
         {
             //Arrange
@@ -101,7 +102,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(new HashSet<string>() { "6050efcd87e2647ab7ac443e", "building12", "building123" }, result.BuildingsIDs);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithExpectedParentInstitutionEducationalInstitutionID()
         {
             //Arrange
@@ -114,7 +115,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].ParentInstitution.EducationalInstitutionID, result.ParentInstitution.EducationalInstitutionID);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithExpectedParentInstitutionName()
         {
             //Arrange
@@ -127,7 +128,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].ParentInstitution.Name, result.ParentInstitution.Name);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithExpectedParentInstitutionDescription()
         {
             //Arrange
@@ -140,7 +141,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].ParentInstitution.Description, result.ParentInstitution.Description);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithExpectedJoinDate()
         {
             //Arrange
@@ -153,7 +154,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].JoinDate, result.JoinDate);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithNoChildInstitutions()
         {
             //Arrange
@@ -166,7 +167,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Empty(result.ChildInstitutions);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithOneChildInstitution()
         {
             //Arrange
@@ -179,7 +180,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(1, result.ChildInstitutions.Count);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithExpectedChildInstitutionEducationalInstitutionID()
         {
             //Arrange
@@ -192,7 +193,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[1].ChildInstitutions.ElementAt(0).EducationalInstitutionID, result.ChildInstitutions.ElementAt(0).EducationalInstitutionID);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithExpectedChildInstitutionName()
         {
             //Arrange
@@ -205,7 +206,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[1].ChildInstitutions.ElementAt(0).Name, result.ChildInstitutions.ElementAt(0).Name);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithExpectedChildInstitutionDescription()
         {
             //Arrange
@@ -218,7 +219,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[1].ChildInstitutions.ElementAt(0).Description, result.ChildInstitutions.ElementAt(0).Description);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAnInvalidID_ThatDoesntExistInDatabase_ToGetByIDAsyncMethod_ShouldReturnNull()
         {
             //Arrange
@@ -235,7 +236,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
 
         #region GetEntityByIDAsync() TESTS
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidEducationalInstitutionID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEntityWithExpectedEducationalInstitutionID()
         {
             //Arrange
@@ -248,7 +249,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(educationalInstitutionID, result.EducationalInstitutionID);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidEducationalInstitutionID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEntityWithExpectedName()
         {
             //Arrange
@@ -261,7 +262,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].Name, result.Name);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidEducationalInstitutionID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEntityWithExpectedDescription()
         {
             //Arrange
@@ -274,7 +275,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].Description, result.Description);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidEducationalInstitutionID_ToGetEntityByIDAsyncMethod_ShouldReturnAnEntityWithExpectedJoinDate()
         {
             //Arrange
@@ -287,7 +288,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].JoinDate, result.JoinDate);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAnInvalidEducationalInstitutionID_ToGetEntityByIDAsyncMethod_ShouldReturnNull()
         {
             //Arrange
@@ -304,7 +305,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
 
         #region GetAllBYLocationAsync() TESTS
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnAGetAllEducationalInstitutionsByLocationQueryResult()
         {
             //Arrange
@@ -317,7 +318,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.IsType<GetAllEducationalInstitutionsByLocationQueryResult>(result);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnACollectionWithTwoElements()
         {
             //Arrange
@@ -330,7 +331,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(2, result.EducationalInstitutions.Count);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnFirstResultWithExpectedEducationalInstitutionID()
         {
             //Arrange
@@ -343,7 +344,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[3].EducationalInstitutionID, result.EducationalInstitutions.ElementAt(0).EducationalInstitutionID);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnFirstResultWithExpectedName()
         {
             //Arrange
@@ -356,7 +357,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[3].Name, result.EducationalInstitutions.ElementAt(0).Name);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnFirstResultWithExpectedDescription()
         {
             //Arrange
@@ -369,7 +370,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[3].Description, result.EducationalInstitutions.ElementAt(0).Description);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnFirstResultWithExpectedBuildings()
         {
             //Arrange
@@ -382,7 +383,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(new HashSet<string>() { "4150efcd87A2647ab7ac443E", "5550efcd87e2647ab7ac4435" }, result.EducationalInstitutions.ElementAt(0).BuildingsIDs);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnSecondResultWithExpectedEducationalInstitutionID()
         {
             //Arrange
@@ -395,7 +396,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[2].EducationalInstitutionID, result.EducationalInstitutions.ElementAt(1).EducationalInstitutionID);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnSecondResultWithExpectedName()
         {
             //Arrange
@@ -408,7 +409,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[2].Name, result.EducationalInstitutions.ElementAt(1).Name);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnSecondResultWithExpectedDescription()
         {
             //Arrange
@@ -421,7 +422,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[2].Description, result.EducationalInstitutions.ElementAt(1).Description);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidLocationID_ToGetAllByLocationAsyncMethod_ShouldReturnSecondResultWithExpectedBuildings()
         {
             //Arrange
@@ -434,7 +435,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(new HashSet<string>() { "6050efcd87A2647ab7ac443E", "6050efcd87e2647ab7ac4435" }, result.EducationalInstitutions.ElementAt(1).BuildingsIDs);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAnInvalidLocationID_ThatDoesntExistInDatabase_ToGetAllByLocationAsyncMethod_ShouldReturnNull()
         {
             //Arrange
@@ -451,7 +452,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
 
         #region GetAllLikeNameAsync() TESTS
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenValidName_OffsetValue_ResultsCount_ToGetAllLikeNameAsyncMethod_ShouldReturnACollectionWithTwoElements()
         {
             //Arrange
@@ -466,7 +467,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(2, result.Count);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenValidName_OffsetValue_ResultsCount_ToGetAllLikeNameAsyncMethod_ShouldContainAnEntityWithName_UniversityofTesting()
         {
             //Arrange
@@ -481,7 +482,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Contains(result, ei => ei.Name.Equals("University of Testing"));
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenValidName_OffsetValue_ResultsCount_ToGetAllLikeNameAsyncMethod_ShouldContainAnEntityWitDescription_Testdata()
         {
             //Arrange
@@ -496,7 +497,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Contains(result, ei => ei.Description.Equals("Test data"));
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenValidName_OffsetValue_ResultsCount_ToGetAllLikeNameAsyncMethod_ShouldContainAnEntityWithName_UniversityofTestingOne()
         {
             //Arrange
@@ -511,7 +512,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Contains(result, ei => ei.Name.Equals("University of Testing One"));
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenValidName_OffsetValue_ResultsCount_ToGetAllLikeNameAsyncMethod_ShouldContainAnEntityWitDescription_TestMoreData()
         {
             //Arrange
@@ -526,7 +527,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Contains(result, ei => ei.Description.Equals("Test More Data"));
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenValidName_OffsetValue_WithResultsCount1_ToGetAllLikeNameAsyncMethod_ShouldReturnACollectionWithOneElement()
         {
             //Arrange
@@ -541,7 +542,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(1, result.Count);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenValidName_OffsetValue_WithResultsCount1_ToGetAllLikeNameAsyncMethod_ShouldReturnAnEntityWithName_UniversityofTesting()
         {
             //Arrange
@@ -556,7 +557,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal("University of Testing", result.ElementAt(0).Name);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenValidName_ResultsCount_WithOffsetValue1_ToGetAllLikeNameAsyncMethod_ShouldReturnACollectionWithOneElement()
         {
             //Arrange
@@ -571,7 +572,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal(1, result.Count);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenValidName_ResultsCount_WithOffsetValue1_ToGetAllLikeNameAsyncMethod_ShouldReturnAnEntityWithName_UniversityofTestingOne()
         {
             //Arrange
@@ -586,7 +587,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Equal("University of Testing One", result.ElementAt(0).Name);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenValidName_ResultsCount_WithOffsetValueGreaterThanTotalQueryResults_ToGetAllLikeNameAsyncMethod_ShouldReturnAnEmptyCollection()
         {
             //Arrange
@@ -601,7 +602,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             Assert.Empty(result);
         }
 
-        [Fact]
+        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAnInvalidName_ThatDoesntExistInDatabase_OffsetValue_ResultsCount_ToGetAllLikeNameAsyncMethod_ShouldReturnAnEmptyCollection()
         {
             //Arrange
