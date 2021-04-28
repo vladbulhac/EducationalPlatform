@@ -48,6 +48,13 @@ jobs:
           projects: src\Services\Edu\EducationalInstitution.API.UnitTests\EducationalInstitution.API.UnitTests.csproj
           arguments: --configuration $(buildConfiguration)
           workingDirectory: src/Services/Edu/EducationalInstitution.API.UnitTests
+      - task: DotNetCoreCLI@2
+        displayName: Educational Institution API Integration Tests
+        inputs:
+          command: test
+          projects: src\Services\Edu\EducationalInstitution.API.IntegrationTests\EducationalInstitution.API.IntegrationTests.csproj
+          arguments: --configuration $(buildConfiguration)
+          workingDirectory: src/Services/Edu/EducationalInstitution.API.IntegrationTests
       - task: VSTest@2
         displayName: VsTest - testAssemblies
         enabled: False
