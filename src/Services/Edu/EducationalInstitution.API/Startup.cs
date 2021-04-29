@@ -92,7 +92,7 @@ namespace EducationalInstitutionAPI
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<EducationalInstitutionService>();
+                endpoints.MapGrpcService<EducationalInstitutionCommandService>();
                 endpoints.MapControllers();
             });
         }

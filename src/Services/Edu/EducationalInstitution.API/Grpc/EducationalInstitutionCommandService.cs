@@ -14,13 +14,13 @@ namespace EducationalInstitutionAPI.Grpc
     /// <summary>
     /// Implements the methods that handle the Remote Call Procedure requests
     /// </summary>
-    public class EducationalInstitutionService : Command.CommandBase
+    public class EducationalInstitutionCommandService : Command.CommandBase
     {
         private readonly IMediator mediator;
-        private readonly ILogger<EducationalInstitutionService> logger;
+        private readonly ILogger<EducationalInstitutionCommandService> logger;
         private readonly IValidationHandler validationHandler;
 
-        public EducationalInstitutionService(IMediator mediator, ILogger<EducationalInstitutionService> logger, IValidationHandler validationHandler)
+        public EducationalInstitutionCommandService(IMediator mediator, ILogger<EducationalInstitutionCommandService> logger, IValidationHandler validationHandler)
         {
             this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -108,7 +108,7 @@ namespace EducationalInstitutionAPI.Grpc
 
         private static DTOEducationalInstitutionCreateCommand mapRequestToDTOEducationalInstitutionCreateCommand(DTOEducationalInstitutionCreateRequest clientData)
         {
-            DTOEducationalInstitutionCreateCommand request = new()
+            return new()
             {
                 Name = clientData.Name,
                 Description = clientData.Description,
@@ -116,8 +116,6 @@ namespace EducationalInstitutionAPI.Grpc
                 BuildingsIDs = clientData.Buildings,
                 ParentInstitutionID = ProtobufGuidConverter.DecodeGuid(clientData.ParentInstitutionId.High64, clientData.ParentInstitutionId.Low64)
             };
-
-            return request;
         }
     }
 }
