@@ -38,19 +38,6 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         }
 
         [IgnoreWhenDatabaseIsNotLoaded]
-        public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithExpectedEducationalInstitutionID()
-        {
-            //Arrange
-            Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
-
-            //Act
-            var result = await repository.GetByIDAsync(educationalInstitutionID);
-
-            //Assert
-            Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID, result.EducationalInstitutionID);
-        }
-
-        [IgnoreWhenDatabaseIsNotLoaded]
         public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithExpectedName()
         {
             //Arrange

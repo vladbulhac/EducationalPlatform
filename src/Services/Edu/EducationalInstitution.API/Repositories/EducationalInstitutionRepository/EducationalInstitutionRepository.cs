@@ -108,7 +108,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
                 await connection.OpenAsync(cancellationToken);
 
                 var queryResult = await connection.QueryAsync<dynamic>
-                                  (@"SELECT e.EducationalInstitutionID, e.Name, e.Description, e.LocationID, e.JoinDate, e.ParentInstitutionEducationalInstitutionID as ParentInstitutionID,
+                                  (@"SELECT e.Name, e.Description, e.LocationID, e.JoinDate, e.ParentInstitutionEducationalInstitutionID as ParentInstitutionID,
                                              ce.EducationalInstitutionID as ChildInstitutionID, ce.Name as ChildInstitutionName, ce.Description as ChildInstitutionDescription,
                                              pe.Name as ParentName, pe.Description as ParentDescription,
                                              b.BuildingID
@@ -338,9 +338,8 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
 
             MapQueryResultBuildingsAndChildInstitutions(queryResult, ref buildings, ref childInstitutions);
 
-            GetEducationalInstitutionByIDQueryResult mappedResult = new()
+            return new()
             {
-                EducationalInstitutionID = (Guid)queryResult[0].EducationalInstitutionID,
                 Name = (string)queryResult[0].Name,
                 Description = (string)queryResult[0].Description,
                 LocationID = (string)queryResult[0].LocationID,
@@ -349,8 +348,6 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
                 ChildInstitutions = childInstitutions,
                 BuildingsIDs = buildings
             };
-
-            return mappedResult;
         }
 
         private static void MapQueryResultBuildingsAndChildInstitutions(IList<dynamic> queryResult, ref HashSet<string> buildings, ref HashSet<EducationalInstitutionBaseQueryResult> childInstitutions)

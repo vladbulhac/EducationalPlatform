@@ -12,17 +12,17 @@ using Xunit;
 
 namespace EducationalInstitution.API.UnitTests.Grpc_Tests
 {
-    public class EducationalInstitutionServiceTests : IClassFixture<MockDependenciesHelper<EducationalInstitutionCommandService>>
+    public class EducationalInstitutionCommandServiceTests : IClassFixture<MockDependenciesHelper<EducationalInstitutionCommandService>>
     {
         private readonly MockDependenciesHelper<EducationalInstitutionCommandService> dependenciesHelper;
 
         /// <remarks>Called before each test</remarks>
-        public EducationalInstitutionServiceTests(MockDependenciesHelper<EducationalInstitutionCommandService> dependenciesHelper)
+        public EducationalInstitutionCommandServiceTests(MockDependenciesHelper<EducationalInstitutionCommandService> dependenciesHelper)
         {
             this.dependenciesHelper = dependenciesHelper;
         }
 
-        #region EducationalInstitutionService CreateEducationalInstitutionMethod TESTS
+        #region CreateEducationalInstitutionMethod TESTS
 
         [Fact]
         public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_ShouldReturnAnEducationalInstitutionCreateResponse()
@@ -217,7 +217,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAnInvalidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_FailsTheValidation_ShouldReturnAResponseThatIncludesA_NotEmptyMessageField()
+        public async Task GivenAnInvalidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_FailsTheValidation_ShouldReturnDefault()
         {
             //Arrange
             var id = Guid.NewGuid();
@@ -245,7 +245,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var result = await handler.CreateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
-            Assert.NotEmpty(result.Message);
+            Assert.Equal(new EducationalInstitutionCreateResponse(), result);
         }
 
         [Fact]
@@ -278,38 +278,6 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
 
             //Assert
             Assert.Null(result.Data);
-        }
-
-        [Fact]
-        public async Task GivenAnInvalidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_FailsTheValidation_ShouldReturnAResponseThatIncludesA_ProtoStatusCodeBadRequestField()
-        {
-            //Arrange
-            var id = Guid.NewGuid();
-            id.Encode(out UInt64 high64, out UInt64 low64);
-
-            DTOEducationalInstitutionCreateRequest request = new()
-            {
-                Name = "Educational_Institution_TestName",
-                Description = "Educational_Institution_TestDescription",
-                LocationId = "location_invalid_data",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
-            };
-            request.Buildings.Add("building_invalid_data");
-
-            string validationErrors = "LocationID failed the validation process!";
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionCreateCommand>(), out validationErrors)).Returns(false);
-
-            EducationalInstitutionCommandService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
-
-            //Act
-            var result = await handler.CreateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
-
-            //Assert
-            Assert.Equal(HttpStatusCode.BadRequest, result.StatusCode);
         }
 
         [Fact]
@@ -390,86 +358,6 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
 
             //Assert
             Assert.False(result.OperationStatus);
-        }
-
-        [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_DatabaseInsertOperationFails_ShouldReturnAProtoStatusCodeInternalServerErrorField()
-        {
-            //Arrange
-            var id = Guid.NewGuid();
-            id.Encode(out UInt64 high64, out UInt64 low64);
-
-            DTOEducationalInstitutionCreateRequest request = new()
-            {
-                Name = "Educational_Institution_TestName",
-                Description = "Educational_Institution_TestDescription",
-                LocationId = "location1235",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
-            };
-            request.Buildings.Add("building1235");
-
-            var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
-            {
-                Data = null,
-                OperationStatus = false,
-                StatusCode = System.Net.HttpStatusCode.InternalServerError,
-                Message = "An error occurred while creating the Educational Institution with the given data!"
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionCreateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionCreateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            EducationalInstitutionCommandService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
-
-            //Act
-            var result = await handler.CreateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
-
-            //Assert
-            Assert.Equal(HttpStatusCode.InternalServerError, result.StatusCode);
-        }
-
-        [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_DatabaseInsertOperationFails_ShouldReturnAMessageField()
-        {
-            //Arrange
-            var id = Guid.NewGuid();
-            id.Encode(out UInt64 high64, out UInt64 low64);
-
-            DTOEducationalInstitutionCreateRequest request = new()
-            {
-                Name = "Educational_Institution_TestName",
-                Description = "Educational_Institution_TestDescription",
-                LocationId = "location1235",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
-            };
-            request.Buildings.Add("building1235");
-
-            var expectedMediatorResult = new Response<EducationalInstitutionCommandResult>()
-            {
-                Data = null,
-                OperationStatus = false,
-                StatusCode = System.Net.HttpStatusCode.InternalServerError,
-                Message = "An error occurred while creating the Educational Institution with the given data!"
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionCreateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionCreateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            EducationalInstitutionCommandService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
-
-            //Act
-            var result = await handler.CreateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
-
-            //Assert
-            Assert.Equal("An error occurred while processing the request!", result.Message);
         }
 
         [Fact]
@@ -792,6 +680,6 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             Assert.Equal(expectedMediatorResult.Data.EducationalInstitutionID.ToProtocolBufferLanguageEquivalent(), result.Data.EducationalInstitutionId);
         }
 
-        #endregion EducationalInstitutionService CreateEducationalInstitutionMethod TESTS
+        #endregion CreateEducationalInstitutionMethod TESTS
     }
 }

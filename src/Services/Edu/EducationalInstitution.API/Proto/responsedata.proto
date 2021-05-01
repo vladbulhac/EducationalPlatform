@@ -21,7 +21,6 @@ message BaseQueryResult{
 	Uuid educational_institution_id=1;
 	string name=2;
 	string description=3;
-	string location_id=4;
 }
 
 // A UUID, encoded in accordance with section 4.1.2 of RFC 4122.

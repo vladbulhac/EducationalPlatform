@@ -42,7 +42,7 @@ namespace EducationalInstitutionAPI.Grpc
         /// </returns>
         public override async Task<EducationalInstitutionCreateResponse> CreateEducationalInstitution(DTOEducationalInstitutionCreateRequest request, ServerCallContext context)
         {
-            logger.LogInformation("Begin grpc call EducationalInstitutionService.CreateEducationalInstitution");
+            logger.LogInformation("Begin grpc call EducationalInstitutionCommandService.CreateEducationalInstitution");
 
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
@@ -53,13 +53,7 @@ namespace EducationalInstitutionAPI.Grpc
             {
                 context.Status = new(StatusCode.InvalidArgument, validationErrors);
 
-                return new()
-                {
-                    Data = null,
-                    OperationStatus = false,
-                    StatusCode = HttpStatusCode.BadRequest,
-                    Message = validationErrors
-                };
+                return new();
             }
 
             try
@@ -69,16 +63,13 @@ namespace EducationalInstitutionAPI.Grpc
                 if (result.OperationStatus)
                 {
                     context.Status = new(StatusCode.OK, "Educational Institution was successfully created!");
-
-                    var statusCode = HttpStatusCode.Created;
-                    if (!string.IsNullOrEmpty(result.Message))
-                        statusCode = HttpStatusCode.MultiStatus;
+                    result.StatusCode.CanMapToProto(out HttpStatusCode protoStatusCode);
 
                     return new()
                     {
                         Data = new() { EducationalInstitutionId = result.Data.EducationalInstitutionID.ToProtocolBufferLanguageEquivalent() },
                         OperationStatus = result.OperationStatus,
-                        StatusCode = statusCode,
+                        StatusCode = protoStatusCode,
                         Message = result.Message
                     };
                 }
@@ -97,13 +88,7 @@ namespace EducationalInstitutionAPI.Grpc
                 context.Status = new(StatusCode.Aborted, "An error occurred while processing the request!");
             }
 
-            return new()
-            {
-                Data = null,
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.InternalServerError,
-                Message = "An error occurred while processing the request!"
-            };
+            return new();
         }
 
         private static DTOEducationalInstitutionCreateCommand mapRequestToDTOEducationalInstitutionCreateCommand(DTOEducationalInstitutionCreateRequest clientData)
