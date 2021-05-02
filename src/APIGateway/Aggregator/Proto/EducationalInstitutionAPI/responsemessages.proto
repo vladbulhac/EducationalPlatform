@@ -1,0 +1,22 @@
+syntax = "proto3";
+import "Proto/Common/statuscodes.proto";
+import "Proto/EducationalInstitutionAPI/responsedata.proto";
+
+option csharp_namespace = "Aggregator.EducationalInstitutionAPI.Proto";
+
+//Command Responses
+message EducationalInstitutionCreateResponse{
+	BaseCommandResult data=1;
+	bool operation_status=2;
+	string message=3;
+	ProtoHttpStatusCode status_code=4;
+}
+
+
+//Query Responses
+message EducationalInstitutionGetResponse{
+	GetByIDQueryResult data=1;
+	bool operation_status=2;
+	string message=3;
+	ProtoHttpStatusCode status_code=4;
+}

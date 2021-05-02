@@ -1,27 +1,28 @@
-﻿using Aggregator.EducationaInstitutionAPI.Proto;
+﻿using Aggregator.Common.Proto;
+using System.Net;
 
 namespace Aggregator.Utils
 {
     public static class HttpStatusCodeConverter
     {
-        public static System.Net.HttpStatusCode DecodeStatusCode(this HttpStatusCode protoStatusCode)
+        public static HttpStatusCode DecodeStatusCode(this ProtoHttpStatusCode protoStatusCode)
         {
             switch (protoStatusCode)
             {
-                case HttpStatusCode.Created:
-                    return System.Net.HttpStatusCode.Created;
+                case ProtoHttpStatusCode.Created:
+                    return HttpStatusCode.Created;
 
-                case HttpStatusCode.MultiStatus:
-                    return System.Net.HttpStatusCode.MultiStatus;
+                case ProtoHttpStatusCode.MultiStatus:
+                    return HttpStatusCode.MultiStatus;
 
-                case HttpStatusCode.BadRequest:
-                    return System.Net.HttpStatusCode.BadRequest;
+                case ProtoHttpStatusCode.BadRequest:
+                    return HttpStatusCode.BadRequest;
 
-                case HttpStatusCode.InternalServerError:
-                    return System.Net.HttpStatusCode.InternalServerError;
+                case ProtoHttpStatusCode.InternalServerError:
+                    return HttpStatusCode.InternalServerError;
 
                 default:
-                    return System.Net.HttpStatusCode.ServiceUnavailable;
+                    return HttpStatusCode.ServiceUnavailable;
             }
         }
     }

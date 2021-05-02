@@ -8,7 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Proto\educationalinstitution.proto" />
+    <None Remove="Proto\Common\uuid.proto" />
+    <None Remove="Proto\EducationalInstitutionAPI\commandervices.proto" />
+    <None Remove="Proto\EducationalInstitutionAPI\queryservices.proto" />
+    <None Remove="Proto\EducationalInstitutionAPI\requestmessages.proto" />
+    <None Remove="Proto\EducationalInstitutionAPI\responsedata.proto" />
+    <None Remove="Proto\EducationalInstitutionAPI\responsemessages.proto" />
+    <None Remove="Proto\EducationalInstitutionAPI\statuscodes.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,7 +29,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Proto\educationalinstitution.proto" GrpcServices="Client" />
+    <Protobuf Include="Proto\Common\uuid.proto" GrpcServices="Client" />
+    <Protobuf Include="Proto\EducationalInstitutionAPI\commandervices.proto" GrpcServices="Client" />
+    <Protobuf Include="Proto\EducationalInstitutionAPI\queryservices.proto" GrpcServices="Client" />
+    <Protobuf Include="Proto\EducationalInstitutionAPI\requestmessages.proto" GrpcServices="Client" />
+    <Protobuf Include="Proto\EducationalInstitutionAPI\responsedata.proto" GrpcServices="Client" />
+    <Protobuf Include="Proto\EducationalInstitutionAPI\responsemessages.proto" GrpcServices="Client" />
+    <Protobuf Include="Proto\Common\statuscodes.proto" GrpcServices="Client" />
   </ItemGroup>
 
 </Project>

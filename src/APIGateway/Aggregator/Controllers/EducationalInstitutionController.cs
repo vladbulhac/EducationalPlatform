@@ -1,8 +1,8 @@
-﻿using Aggregator.Models.DTOs;
-using Aggregator.Services;
-using EducationaInstitutionAPI.Utils;
+﻿using Aggregator.DTOs;
+using Aggregator.DTOs.EducationalInstitutionDTOs.Requests;
+using Aggregator.DTOs.EducationalInstitutionDTOs.Responses;
+using Aggregator.Services.EducationalInstitution;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 
 namespace Aggregator.Controllers
@@ -11,18 +11,18 @@ namespace Aggregator.Controllers
     [Route("v1/api/edu")]
     public class EducationalInstitutionController : ControllerBase
     {
-        private readonly IEducationalInstitutionService eduInstitutionService;
+        private readonly IEducationalInstitutionCommandService eduInstitutionService;
 
-        public EducationalInstitutionController(IEducationalInstitutionService eduInstitutionService)
+        public EducationalInstitutionController(IEducationalInstitutionCommandService eduInstitutionService)
         {
             this.eduInstitutionService = eduInstitutionService;
         }
 
         [HttpPost]
-        public async Task<ActionResult<Response<Guid>>> CreateEducationalInstitution([FromBody] DTOCreateEducationalInstitution request)
+        public async Task<ActionResult<Response<DTOGetEducationalInstitutionByIDResponse>>> CreateEducationalInstitution([FromBody] DTOCreateEducationalInstitutionRequest request)
         {
-            var result = await eduInstitutionService.CreateEducationalInstiutionAsync(request);
-            return result;
+            var result = await eduInstitutionService.CreateEducationalInstitutionAsync(request);
+            return StatusCode((int)result.StatusCode, result);
         }
     }
 }

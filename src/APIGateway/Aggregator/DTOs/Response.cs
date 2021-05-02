@@ -1,21 +1,28 @@
 ﻿using System.Net;
 
-namespace EducationaInstitutionAPI.Utils
+namespace Aggregator.DTOs
 {
     /// <summary>
-    /// Contains the response to a request and the status of the request operation
+    /// Extends <see cref="Response"/> with a result object
     /// </summary>
-    public record Response<ResponseType>
+    public record Response<TData> : Response
     {
         /// <summary>
         /// Contains the result of the request operation
         /// </summary>
-        /// <value>If <see cref="OperationStatus"/> is True a <typeparamref name="ResponseType"/> object that contains the requested data, NULL otherwise</value>
-        public ResponseType ResponseObject { get; init; }
+        /// <value>Encapsulates the result data when a request is successful, NULL otherwise</value>
+        public TData Data { get; init; }
+    }
+
+    /// <summary>
+    /// Contains the status of the requested operation
+    /// </summary>
+    public record Response
+    {
         public HttpStatusCode StatusCode { get; init; }
 
         /// <summary>
-        /// Describes if the request operation was successful
+        /// Describes if the requested operation was successful
         /// </summary>
         public bool OperationStatus { get; init; }
 

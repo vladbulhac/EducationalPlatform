@@ -1,0 +1,10 @@
+syntax = "proto3";
+import "Proto/EducationalInstitutionAPI/requestmessages.proto";
+import "Proto/EducationalInstitutionAPI/responsemessages.proto";
+
+option csharp_namespace = "Aggregator.EducationalInstitutionAPI.Proto";
+
+service Command{
+	rpc CreateEducationalInstitution(DTOEducationalInstitutionCreateRequest) returns (EducationalInstitutionCreateResponse);
+}
+
