@@ -1,5 +1,6 @@
 ﻿using EducationalInstitutionAPI.Proto;
 using EducationalInstitutionAPI.Utils;
+using System.Net;
 using Xunit;
 
 namespace EducationalInstitution.API.UnitTests.UtilsTests
@@ -7,107 +8,81 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests
     public class HttpStatusCodeMapperTests
     {
         [Fact]
-        public void GivenASystemNetHttpStatusCodeCreated_SholdReturnTrue()
+        public void GivenASystemNetHttpStatusCodeOk_SholdReturnProtoHttpStatusCodeOk()
         {
             //Arrange
-            var httpStatusCode = System.Net.HttpStatusCode.Created;
+            var httpStatusCode = HttpStatusCode.OK;
 
             //Act
-            var result = httpStatusCode.CanMapToProto(out HttpStatusCode protoHttpStatusCode);
+            httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK(out ProtoHttpStatusCode protoHttpStatusCode);
 
             //Assert
-            Assert.True(result);
+            Assert.Equal(ProtoHttpStatusCode.Ok, protoHttpStatusCode);
         }
 
         [Fact]
         public void GivenASystemNetHttpStatusCodeCreated_SholdReturnProtoHttpStatusCodeCreated()
         {
             //Arrange
-            var httpStatusCode = System.Net.HttpStatusCode.Created;
+            var httpStatusCode = HttpStatusCode.Created;
 
             //Act
-            httpStatusCode.CanMapToProto(out HttpStatusCode protoHttpStatusCode);
+            httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK(out ProtoHttpStatusCode protoHttpStatusCode);
 
             //Assert
-            Assert.Equal(HttpStatusCode.Created, protoHttpStatusCode);
-        }
-
-        [Fact]
-        public void GivenASystemNetHttpStatusCodeMultiStatus_SholdReturnTrue()
-        {
-            //Arrange
-            var httpStatusCode = System.Net.HttpStatusCode.MultiStatus;
-
-            //Act
-            var result = httpStatusCode.CanMapToProto(out HttpStatusCode protoHttpStatusCode);
-
-            //Assert
-            Assert.True(result);
+            Assert.Equal(ProtoHttpStatusCode.Created, protoHttpStatusCode);
         }
 
         [Fact]
         public void GivenASystemNetHttpStatusCodeMultiStatus_SholdReturnProtoHttpStatusCodeMultiStatus()
         {
             //Arrange
-            var httpStatusCode = System.Net.HttpStatusCode.MultiStatus;
+            var httpStatusCode = HttpStatusCode.MultiStatus;
 
             //Act
-            httpStatusCode.CanMapToProto(out HttpStatusCode protoCode);
+            httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK(out ProtoHttpStatusCode protoCode);
 
             //Assert
-            Assert.Equal(HttpStatusCode.MultiStatus, protoCode);
-        }
-
-        [Fact]
-        public void GivenASystemNetHttpStatusCodeBadRequest_SholdReturnTrue()
-        {
-            //Arrange
-            var httpStatusCode = System.Net.HttpStatusCode.BadRequest;
-
-            //Act
-            var result = httpStatusCode.CanMapToProto(out HttpStatusCode protoHttpStatusCode);
-
-            //Assert
-            Assert.True(result);
+            Assert.Equal(ProtoHttpStatusCode.MultiStatus, protoCode);
         }
 
         [Fact]
         public void GivenASystemNetHttpStatusCodeBadRequest_SholdReturnProtoHttpStatusCodeBadRequest()
         {
             //Arrange
-            var httpStatusCode = System.Net.HttpStatusCode.BadRequest;
+            var httpStatusCode = HttpStatusCode.BadRequest;
 
             //Act
-            httpStatusCode.CanMapToProto(out HttpStatusCode protoHttpStatusCode);
+            httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK(out ProtoHttpStatusCode protoHttpStatusCode);
 
             //Assert
-            Assert.Equal(HttpStatusCode.BadRequest, protoHttpStatusCode);
-        }
-
-        [Fact]
-        public void GivenASystemNetHttpStatusCodeInternalServerError_SholdReturnTrue()
-        {
-            //Arrange
-            var httpStatusCode = System.Net.HttpStatusCode.InternalServerError;
-
-            //Act
-            var result = httpStatusCode.CanMapToProto(out HttpStatusCode protoHttpStatusCode);
-
-            //Assert
-            Assert.True(result);
+            Assert.Equal(ProtoHttpStatusCode.BadRequest, protoHttpStatusCode);
         }
 
         [Fact]
         public void GivenASystemNetHttpStatusCodeInternalServerError_SholdReturnProtoHttpStatusCodeInternalServerError()
         {
             //Arrange
-            var httpStatusCode = System.Net.HttpStatusCode.InternalServerError;
+            var httpStatusCode = HttpStatusCode.InternalServerError;
 
             //Act
-            httpStatusCode.CanMapToProto(out HttpStatusCode protoHttpStatusCode);
+            httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK(out ProtoHttpStatusCode protoHttpStatusCode);
 
             //Assert
-            Assert.Equal(HttpStatusCode.InternalServerError, protoHttpStatusCode);
+            Assert.Equal(ProtoHttpStatusCode.InternalServerError, protoHttpStatusCode);
+        }
+
+        [Fact]
+        public void GivenASystemNetHttpStatusCode_ThatDoesntHaveAnEquivalentInProtoHttpStatusCode_SholdReturnProtoHttpStatusCodeOk()
+        {
+            //Arrange
+            var httpStatusCode = HttpStatusCode.SeeOther;
+
+            //Act
+            httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK(out ProtoHttpStatusCode protoHttpStatusCode);
+
+            //Assert
+            Assert.Equal(ProtoHttpStatusCode.Ok, protoHttpStatusCode);
         }
     }
 }

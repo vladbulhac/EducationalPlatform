@@ -27,7 +27,7 @@ namespace EducationalInstitution.API.IntegrationTests
         private void SetupContext()
         {
             var dbOptions = new DbContextOptionsBuilder<DataContext>()
-                           .UseSqlServer(DbConnection, providerOptions => providerOptions.EnableRetryOnFailure(3));
+                           .UseSqlServer(DbConnection, providerOptions => providerOptions.EnableRetryOnFailure(1));
 
             Context = new(dbOptions.Options);
             Context.Database.Migrate();

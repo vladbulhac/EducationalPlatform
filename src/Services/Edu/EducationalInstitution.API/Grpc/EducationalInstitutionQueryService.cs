@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Grpc
@@ -50,7 +51,7 @@ namespace EducationalInstitutionAPI.Grpc
                 if (result.OperationStatus)
                 {
                     context.Status = new(StatusCode.OK, "Educational Institution with given ID was found!");
-                    result.StatusCode.CanMapToProto(out HttpStatusCode protoStatusCode);
+                    result.StatusCode.MapToEquivalentProtoHttpStatusCodeOrOK(out ProtoHttpStatusCode protoStatusCode);
 
                     return new()
                     {
@@ -61,10 +62,15 @@ namespace EducationalInstitutionAPI.Grpc
                     };
                 }
                 else
-                if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
+                if (result.StatusCode == HttpStatusCode.NotFound)
                     context.Status = new(StatusCode.NotFound, result.Message);
                 else
                     context.Status = new(StatusCode.Aborted, result.Message);
+
+                context.ResponseTrailers.AddMultiple(new (string key, string value)[2] {
+                    ("Message", result.Message),
+                    ("HttpStatusCode",((int)result.StatusCode).ToString())
+                    });
             }
             catch (Exception e)
             {

@@ -56,7 +56,7 @@ namespace EducationalInstitutionAPI
                             .MinimumLevel.Verbose()
                             .Enrich.WithProperty("ApplicationContext", AppName)
                             .WriteTo.Console()
-                            .WriteTo.File(path: @"Logs/logs.json",
+                            .WriteTo.File(path: "Logs/logs.json",
                                           formatter: new Serilog.Formatting.Json.JsonFormatter(),
                                           fileSizeLimitBytes: 1_000_000,
                                           rollOnFileSizeLimit: true,

@@ -177,7 +177,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var result = await handler.GetEducationalInstitutionByID(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
-            Assert.Equal(HttpStatusCode.Created, result.StatusCode);
+            Assert.Equal(ProtoHttpStatusCode.Created, result.StatusCode);
         }
 
         [Fact]
@@ -948,7 +948,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var result = await handler.GetEducationalInstitutionByID(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
-            Assert.Equal(HttpStatusCode.Default, result.StatusCode);
+            Assert.Equal(ProtoHttpStatusCode.Default, result.StatusCode);
         }
 
         #endregion GetEducationalInstitutionByIDMethod TESTS

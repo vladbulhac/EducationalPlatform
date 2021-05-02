@@ -28,7 +28,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
             if (!string.IsNullOrEmpty(connectionString))
                 dbConnection = connectionString;
             else
-                dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB") ?? throw new ArgumentNullException();
+                dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB") ?? throw new Exception("No connection string has been found!");
         }
 
         public async Task CreateAsync(EducationalInstitution data, CancellationToken cancellationToken = default) => await context.EducationalInstitutions.AddAsync(data, cancellationToken);

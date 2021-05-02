@@ -52,7 +52,10 @@ namespace EducationalInstitutionAPI.Business.Validation_Handler
         {
             StringBuilder validationErrorInfo = new();
             foreach (var failure in validationResult.Errors)
-                validationErrorInfo.Append(" Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
+                validationErrorInfo.Append(" Property ")
+                                   .Append(failure.PropertyName)
+                                   .Append(" failed validation. Error was: ")
+                                   .Append(failure.ErrorMessage);
 
             return validationErrorInfo.ToString();
         }

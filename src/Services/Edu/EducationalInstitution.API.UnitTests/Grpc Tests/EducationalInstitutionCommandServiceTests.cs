@@ -101,7 +101,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var result = await handler.CreateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
-            Assert.Equal(HttpStatusCode.Created, result.StatusCode);
+            Assert.Equal(ProtoHttpStatusCode.Created, result.StatusCode);
         }
 
         [Fact]
@@ -477,7 +477,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var result = await handler.CreateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
-            Assert.Equal(HttpStatusCode.MultiStatus, result.StatusCode);
+            Assert.Equal(ProtoHttpStatusCode.MultiStatus, result.StatusCode);
         }
 
         [Fact]
@@ -557,7 +557,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var result = await handler.CreateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
-            Assert.Equal(HttpStatusCode.Created, result.StatusCode);
+            Assert.Equal(ProtoHttpStatusCode.Created, result.StatusCode);
         }
 
         [Fact]
