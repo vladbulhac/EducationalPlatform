@@ -4,7 +4,7 @@ import "Proto/Common/uuid.proto";
 option csharp_namespace = "Aggregator.EducationalInstitutionAPI.Proto";
 
 //Command Requests
-message DTOEducationalInstitutionCreateRequest{
+message EducationalInstitutionCreateRequest{
 	string name=1;
 	string description=2;
 	string location_id=3;
@@ -13,6 +13,6 @@ message DTOEducationalInstitutionCreateRequest{
 }
 
 //Query Requests
-message DTOEducationalInstitutionGetByIdRequest{
+message EducationalInstitutionGetByIdRequest{
 	Uuid educational_institution_id=1;
 }

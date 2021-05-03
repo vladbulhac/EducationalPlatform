@@ -5,5 +5,5 @@ import "Proto/EducationalInstitutionAPI/responsemessages.proto";
 option csharp_namespace = "Aggregator.EducationalInstitutionAPI.Proto";
 
 service Query{
-	rpc GetEducationalInstitutionByID(DTOEducationalInstitutionGetByIdRequest) returns (EducationalInstitutionGetResponse);
+	rpc GetEducationalInstitutionByID(EducationalInstitutionGetByIdRequest) returns (EducationalInstitutionGetResponse);
 }
