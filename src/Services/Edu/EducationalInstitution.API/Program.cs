@@ -60,6 +60,7 @@ namespace EducationalInstitutionAPI
                                           formatter: new Serilog.Formatting.Json.JsonFormatter(),
                                           fileSizeLimitBytes: 1_000_000,
                                           rollOnFileSizeLimit: true,
+                                          rollingInterval: RollingInterval.Day,
                                           shared: true)
                             .ReadFrom.Configuration(configuration)
                             .CreateLogger();

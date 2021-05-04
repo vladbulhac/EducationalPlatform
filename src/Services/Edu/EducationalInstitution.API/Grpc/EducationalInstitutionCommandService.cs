@@ -1,8 +1,8 @@
 ﻿using EducationalInstitutionAPI.Business.Commands_Handlers;
 using EducationalInstitutionAPI.Business.Validation_Handler;
-using EducationalInstitutionAPI.DTOs.Commands;
 using EducationalInstitutionAPI.Proto;
 using EducationalInstitutionAPI.Utils;
+using EducationalInstitutionAPI.Utils.Mappers;
 using Grpc.Core;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -32,7 +32,6 @@ namespace EducationalInstitutionAPI.Grpc
         /// <summary>
         /// Overrides the auto generated Remote Call Procedure method from proto file, validates the request fields and sends it to the <see cref="Mediator"/> to handle it
         /// </summary>
-        /// <param name="request">A <see cref="DTOEducationalInstitutionCreateRequest"/> message as defined in the proto file</param>
         /// <returns>
         /// In addition to the returned <see cref="HttpStatusCode">HttpStatusCodes</see> by <see cref="CreateEducationalInstitutionCommandHandler">handler</see>:
         /// <list type="bullet">
@@ -46,14 +45,14 @@ namespace EducationalInstitutionAPI.Grpc
         /// </list>
         /// If the request fails (e.g an Exception is thrown somewhere) then <see cref="ServerCallContext"/>'s ResponseTrailers are set with a message and <see cref="HttpStatusCode"/>
         /// </returns>
-        public override async Task<EducationalInstitutionCreateResponse> CreateEducationalInstitution(DTOEducationalInstitutionCreateRequest request, ServerCallContext context)
+        public override async Task<EducationalInstitutionCreateResponse> CreateEducationalInstitution(EducationalInstitutionCreateRequest request, ServerCallContext context)
         {
             logger.LogInformation("Begin grpc call EducationalInstitutionCommandService.CreateEducationalInstitution");
 
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 
-            var mappedRequest = MapRequestToDTOEducationalInstitutionCreateCommand(request);
+            var mappedRequest = request.MapToDTOEducationalInstitutionCreateCommand();
 
             if (!validationHandler.IsRequestValid(mappedRequest, out string validationErrors))
             {
@@ -73,13 +72,12 @@ namespace EducationalInstitutionAPI.Grpc
                 if (result.OperationStatus)
                 {
                     context.Status = new(StatusCode.OK, "Educational Institution was successfully created!");
-                    result.StatusCode.MapToEquivalentProtoHttpStatusCodeOrOK(out ProtoHttpStatusCode protoHttpStatusCode);
 
                     return new()
                     {
-                        Data = new() { EducationalInstitutionId = result.Data.EducationalInstitutionID.ToProtocolBufferLanguageEquivalent() },
+                        Data = new() { EducationalInstitutionId = result.Data.EducationalInstitutionID.ToProtoUuid() },
                         OperationStatus = result.OperationStatus,
-                        StatusCode = protoHttpStatusCode,
+                        StatusCode = result.StatusCode.MapToEquivalentProtoHttpStatusCodeOrOK(),
                         Message = result.Message
                     };
                 }
@@ -109,22 +107,6 @@ namespace EducationalInstitutionAPI.Grpc
             }
 
             return new();
-        }
-
-        private static DTOEducationalInstitutionCreateCommand MapRequestToDTOEducationalInstitutionCreateCommand(DTOEducationalInstitutionCreateRequest clientData)
-        {
-            Guid parentInstitutionID = default;
-            if (clientData.ParentInstitutionId is not null)
-                parentInstitutionID = ProtobufGuidConverter.DecodeGuid(clientData.ParentInstitutionId.High64, clientData.ParentInstitutionId.Low64);
-
-            return new()
-            {
-                Name = clientData.Name,
-                Description = clientData.Description,
-                LocationID = clientData.LocationId,
-                BuildingsIDs = clientData.Buildings,
-                ParentInstitutionID = parentInstitutionID
-            };
         }
     }
 }

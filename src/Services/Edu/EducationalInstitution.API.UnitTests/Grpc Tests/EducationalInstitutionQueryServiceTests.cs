@@ -29,13 +29,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         #region GetEducationalInstitutionByIDMethod TESTS
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnAnEducationalInstitutionGetResponse()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnAnEducationalInstitutionGetResponse()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -67,13 +66,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnATrueOperationStatusField()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnATrueOperationStatusField()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -105,13 +103,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnAnEmptyMessageField()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnAnEmptyMessageField()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -143,13 +140,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnAStatusCodeCreatedField()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnAStatusCodeCreatedField()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -181,13 +177,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithExpectedName()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithExpectedName()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -219,13 +214,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithExpectedDescription()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithExpectedDescription()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -257,13 +251,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithExpectedLocationID()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithExpectedLocationID()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -295,13 +288,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithExpectedTimestampJoinDate()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithExpectedTimestampJoinDate()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -333,13 +325,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithNullParentInstitution()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithNullParentInstitution()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -371,13 +362,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithEmptyChildInstitutions()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithEmptyChildInstitutions()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -409,13 +399,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithEmptyBuildings()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithEmptyBuildings()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -447,13 +436,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithParentInstitution()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithParentInstitution()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -485,13 +473,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithExpectedParentInstitutionID()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithExpectedParentInstitutionID()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -517,20 +504,19 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
 
             //Act
             var result = await handler.GetEducationalInstitutionByID(request, dependenciesHelper.mockServerCallContext.Object);
-            var convertedToGuidID = ProtobufGuidConverter.DecodeGuid(result.Data.ParentInstitution.EducationalInstitutionId.High64, result.Data.ParentInstitution.EducationalInstitutionId.Low64);
+            var convertedToGuidID = result.Data.ParentInstitution.EducationalInstitutionId.ToGuid();
 
             //Assert
             Assert.Equal(testDataHelper.EducationalInstitutions[1].EducationalInstitutionID, convertedToGuidID);
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithExpectedParentInstitutionName()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithExpectedParentInstitutionName()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -562,13 +548,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithExpectedParentInstitutionDescription()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithExpectedParentInstitutionDescription()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -600,13 +585,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithOneChildInstitution()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithOneChildInstitution()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -638,13 +622,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWitheExpectedChildInstitutionID()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWitheExpectedChildInstitutionID()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -670,19 +653,18 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
 
             //Act
             var result = await handler.GetEducationalInstitutionByID(request, dependenciesHelper.mockServerCallContext.Object);
-            var convertedToGuidID = ProtobufGuidConverter.DecodeGuid(result.Data.ChildInstitutions[0].EducationalInstitutionId.High64, result.Data.ChildInstitutions[0].EducationalInstitutionId.Low64);
+            var convertedToGuidID = result.Data.ChildInstitutions[0].EducationalInstitutionId.ToGuid();
             //Assert
             Assert.Equal(testDataHelper.EducationalInstitutions[1].EducationalInstitutionID, convertedToGuidID);
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithBuildings()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_ShouldReturnDataWithBuildings()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -714,13 +696,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_WithIdThatDoesntExistInDatabase_ToGetEducationalInstitutionByIDMethod_ShouldReturnDefault()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_WithIdThatDoesntExistInDatabase_ToGetEducationalInstitutionByIDMethod_ShouldReturnDefault()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -744,13 +725,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_WhenAnExceptionIsCaughtInGetEducationalInstitutionByIDQueryHandler_ShouldReturnDefault()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_WhenAnExceptionIsCaughtInGetEducationalInstitutionByIDQueryHandler_ShouldReturnDefault()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -774,13 +754,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_WhenAnExceptionIsThrownByTheMediator_ShouldReturnDefault()
+        public async Task GivenAValidEducationalInstitutionGetByIdRequest_ToGetEducationalInstitutionByIDMethod_WhenAnExceptionIsThrownByTheMediator_ShouldReturnDefault()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionByIDQuery>(), out It.Ref<string>.IsAny)).Returns(false);
 
@@ -796,13 +775,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAnInvalidDTOEducationalInstitutionGetByIdRequest_ThatFailsTheRequestValidation_ToGetEducationalInstitutionByIDMethod_ShouldReturnNullData()
+        public async Task GivenAnInvalidEducationalInstitutionGetByIdRequest_ThatFailsTheRequestValidation_ToGetEducationalInstitutionByIDMethod_ShouldReturnNullData()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -835,13 +813,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAnInvalidDTOEducationalInstitutionGetByIdRequest_ThatFailsTheRequestValidation_ToGetEducationalInstitutionByIDMethod_ShouldReturnAnEmptyMessageField()
+        public async Task GivenAnInvalidEducationalInstitutionGetByIdRequest_ThatFailsTheRequestValidation_ToGetEducationalInstitutionByIDMethod_ShouldReturnAnEmptyMessageField()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -874,13 +851,12 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAnInvalidDTOEducationalInstitutionGetByIdRequest_ThatFailsTheRequestValidation_ToGetEducationalInstitutionByIDMethod_ShouldReturnAFalseOperationStatusField()
+        public async Task GivenAnInvalidEducationalInstitutionGetByIdRequest_ThatFailsTheRequestValidation_ToGetEducationalInstitutionByIDMethod_ShouldReturnAFalseOperationStatusField()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -913,13 +889,13 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAnInvalidDTOEducationalInstitutionGetByIdRequest_ThatFailsTheRequestValidation_ToGetEducationalInstitutionByIDMethod_ShouldReturnAStatusCodeDefaultField()
+        public async Task GivenAnInvalidEducationalInstitutionGetByIdRequest_ThatFailsTheRequestValidation_ToGetEducationalInstitutionByIDMethod_ShouldReturnAStatusCodeDefaultField()
         {
             //Arrange
             var educationalInstitution = testDataHelper.EducationalInstitutions[0];
             var id = educationalInstitution.EducationalInstitutionID;
-            id.Encode(out UInt64 high64, out UInt64 low64);
-            DTOEducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = new() { High64 = high64, Low64 = low64 } };
+
+            EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {

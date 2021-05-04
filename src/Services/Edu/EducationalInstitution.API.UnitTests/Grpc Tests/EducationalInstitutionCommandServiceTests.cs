@@ -25,22 +25,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         #region CreateEducationalInstitutionMethod TESTS
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_ShouldReturnAnEducationalInstitutionCreateResponse()
+        public async Task GivenAValidEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_ShouldReturnAnEducationalInstitutionCreateResponse()
         {
             //Arrange
             var id = Guid.NewGuid();
-            id.Encode(out UInt64 high64, out UInt64 low64);
 
-            DTOEducationalInstitutionCreateRequest request = new()
+            EducationalInstitutionCreateRequest request = new()
             {
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
+                ParentInstitutionId = id.ToProtoUuid()
             };
             request.Buildings.Add("building1235");
 
@@ -65,22 +60,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_ShouldReturnA_ProtoStatusCodeCreatedField()
+        public async Task GivenAValidEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_ShouldReturnA_ProtoStatusCodeCreatedField()
         {
             //Arrange
             var id = Guid.NewGuid();
-            id.Encode(out UInt64 high64, out UInt64 low64);
 
-            DTOEducationalInstitutionCreateRequest request = new()
+            EducationalInstitutionCreateRequest request = new()
             {
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
+                ParentInstitutionId = id.ToProtoUuid()
             };
             request.Buildings.Add("building1235");
 
@@ -105,22 +95,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_ShouldReturnAResponseThatIncludesA_MessageEmptyField()
+        public async Task GivenAValidEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_ShouldReturnAResponseThatIncludesA_MessageEmptyField()
         {
             //Arrange
             var id = Guid.NewGuid();
-            id.Encode(out UInt64 high64, out UInt64 low64);
 
-            DTOEducationalInstitutionCreateRequest request = new()
+            EducationalInstitutionCreateRequest request = new()
             {
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
+                ParentInstitutionId = id.ToProtoUuid()
             };
             request.Buildings.Add("building1235");
 
@@ -145,22 +130,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_ShouldReturnAResponseThatIncludesAn_OperationStatusTrueField()
+        public async Task GivenAValidEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_ShouldReturnAResponseThatIncludesAn_OperationStatusTrueField()
         {
             //Arrange
             var id = Guid.NewGuid();
-            id.Encode(out UInt64 high64, out UInt64 low64);
 
-            DTOEducationalInstitutionCreateRequest request = new()
+            EducationalInstitutionCreateRequest request = new()
             {
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
+                ParentInstitutionId = id.ToProtoUuid()
             };
             request.Buildings.Add("building1235");
 
@@ -185,22 +165,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAnInvalidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_FailsTheValidation_ShouldReturnAResponseThatIncludesAn_OperationStatusFalseField()
+        public async Task GivenAnInvalidEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_FailsTheValidation_ShouldReturnAResponseThatIncludesAn_OperationStatusFalseField()
         {
             //Arrange
             var id = Guid.NewGuid();
-            id.Encode(out UInt64 high64, out UInt64 low64);
 
-            DTOEducationalInstitutionCreateRequest request = new()
+            EducationalInstitutionCreateRequest request = new()
             {
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location_invalid_data",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
+                ParentInstitutionId = id.ToProtoUuid()
             };
             request.Buildings.Add("building_invalid_data");
 
@@ -217,22 +192,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAnInvalidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_FailsTheValidation_ShouldReturnDefault()
+        public async Task GivenAnInvalidEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_FailsTheValidation_ShouldReturnDefault()
         {
             //Arrange
             var id = Guid.NewGuid();
-            id.Encode(out UInt64 high64, out UInt64 low64);
 
-            DTOEducationalInstitutionCreateRequest request = new()
+            EducationalInstitutionCreateRequest request = new()
             {
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location_invalid_data",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
+                ParentInstitutionId = id.ToProtoUuid()
             };
             request.Buildings.Add("building_invalid_data");
 
@@ -249,22 +219,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAnInvalidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_FailsTheValidation_ShouldReturnAResponseThatIncludesA_DefaultDataField()
+        public async Task GivenAnInvalidEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_FailsTheValidation_ShouldReturnAResponseThatIncludesA_DefaultDataField()
         {
             //Arrange
             var id = Guid.NewGuid();
-            id.Encode(out UInt64 high64, out UInt64 low64);
 
-            DTOEducationalInstitutionCreateRequest request = new()
+            EducationalInstitutionCreateRequest request = new()
             {
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location_invalid_data",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
+                ParentInstitutionId = id.ToProtoUuid()
             };
             request.Buildings.Add("building_invalid_data");
 
@@ -281,22 +246,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_DatabaseInsertOperationFails_ShouldReturnANullDataField()
+        public async Task GivenAValidEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_DatabaseInsertOperationFails_ShouldReturnANullDataField()
         {
             //Arrange
             var id = Guid.NewGuid();
-            id.Encode(out UInt64 high64, out UInt64 low64);
 
-            DTOEducationalInstitutionCreateRequest request = new()
+            EducationalInstitutionCreateRequest request = new()
             {
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
+                ParentInstitutionId = id.ToProtoUuid()
             };
             request.Buildings.Add("building1235");
 
@@ -321,22 +281,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_DatabaseInsertOperationFails_ShouldReturnAFalseOperationStatusField()
+        public async Task GivenAValidEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_DatabaseInsertOperationFails_ShouldReturnAFalseOperationStatusField()
         {
             //Arrange
             var id = Guid.NewGuid();
-            id.Encode(out UInt64 high64, out UInt64 low64);
 
-            DTOEducationalInstitutionCreateRequest request = new()
+            EducationalInstitutionCreateRequest request = new()
             {
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
+                ParentInstitutionId = id.ToProtoUuid()
             };
             request.Buildings.Add("building1235");
 
@@ -361,22 +316,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_ParentIsNotFound_ShouldReturnAMessageField()
+        public async Task GivenAValidEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_ParentIsNotFound_ShouldReturnAMessageField()
         {
             //Arrange
             var id = Guid.NewGuid();
-            id.Encode(out UInt64 high64, out UInt64 low64);
 
-            DTOEducationalInstitutionCreateRequest request = new()
+            EducationalInstitutionCreateRequest request = new()
             {
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
+                ParentInstitutionId = id.ToProtoUuid()
             };
             request.Buildings.Add("building1235");
 
@@ -401,22 +351,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_ParentIsNotFound_ShouldReturnAnOperationStatusTrueField()
+        public async Task GivenAValidEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_ParentIsNotFound_ShouldReturnAnOperationStatusTrueField()
         {
             //Arrange
             var id = Guid.NewGuid();
-            id.Encode(out UInt64 high64, out UInt64 low64);
 
-            DTOEducationalInstitutionCreateRequest request = new()
+            EducationalInstitutionCreateRequest request = new()
             {
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
+                ParentInstitutionId = id.ToProtoUuid()
             };
             request.Buildings.Add("building1235");
 
@@ -441,22 +386,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_ParentIsNotFound_ShouldReturnAProtoStatusCodeMultiStatusField()
+        public async Task GivenAValidEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_ParentIsNotFound_ShouldReturnAProtoStatusCodeMultiStatusField()
         {
             //Arrange
             var id = Guid.NewGuid();
-            id.Encode(out UInt64 high64, out UInt64 low64);
 
-            DTOEducationalInstitutionCreateRequest request = new()
+            EducationalInstitutionCreateRequest request = new()
             {
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
+                ParentInstitutionId = id.ToProtoUuid()
             };
             request.Buildings.Add("building1235");
 
@@ -481,22 +421,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_ParentIsNotFound_ShouldReturnDataThatContainsAnId()
+        public async Task GivenAValidEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_ParentIsNotFound_ShouldReturnDataThatContainsAnId()
         {
             //Arrange
             var id = Guid.NewGuid();
-            id.Encode(out UInt64 high64, out UInt64 low64);
 
-            DTOEducationalInstitutionCreateRequest request = new()
+            EducationalInstitutionCreateRequest request = new()
             {
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
+                ParentInstitutionId = id.ToProtoUuid()
             };
             request.Buildings.Add("building1235");
 
@@ -521,22 +456,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_WithDefaultParentInstitutionID_ShouldReturnAProtoStatusCodeCreatedField()
+        public async Task GivenAValidEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_WithDefaultParentInstitutionID_ShouldReturnAProtoStatusCodeCreatedField()
         {
             //Arrange
             var id = Guid.Empty;
-            id.Encode(out UInt64 high64, out UInt64 low64);
 
-            DTOEducationalInstitutionCreateRequest request = new()
+            EducationalInstitutionCreateRequest request = new()
             {
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
+                ParentInstitutionId = id.ToProtoUuid()
             };
             request.Buildings.Add("building1235");
 
@@ -561,22 +491,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_WithDefaultParentInstitutionID_ShouldReturnAnEmptyMessageField()
+        public async Task GivenAValidEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_WithDefaultParentInstitutionID_ShouldReturnAnEmptyMessageField()
         {
             //Arrange
             var id = Guid.Empty;
-            id.Encode(out UInt64 high64, out UInt64 low64);
 
-            DTOEducationalInstitutionCreateRequest request = new()
+            EducationalInstitutionCreateRequest request = new()
             {
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
+                ParentInstitutionId = id.ToProtoUuid()
             };
             request.Buildings.Add("building1235");
 
@@ -601,22 +526,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_WithDefaultParentInstitutionID_ShouldReturnATrueOperationStatusField()
+        public async Task GivenAValidEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_WithDefaultParentInstitutionID_ShouldReturnATrueOperationStatusField()
         {
             //Arrange
             var id = Guid.Empty;
-            id.Encode(out UInt64 high64, out UInt64 low64);
 
-            DTOEducationalInstitutionCreateRequest request = new()
+            EducationalInstitutionCreateRequest request = new()
             {
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
+                ParentInstitutionId = id.ToProtoUuid()
             };
             request.Buildings.Add("building1235");
 
@@ -641,22 +561,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_WithDefaultParentInstitutionID_ShouldAGuidIDField()
+        public async Task GivenAValidEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_WithDefaultParentInstitutionID_ShouldAGuidIDField()
         {
             //Arrange
             var id = Guid.Empty;
-            id.Encode(out UInt64 high64, out UInt64 low64);
 
-            DTOEducationalInstitutionCreateRequest request = new()
+            EducationalInstitutionCreateRequest request = new()
             {
                 Name = "Educational_Institution_TestName",
                 Description = "Educational_Institution_TestDescription",
                 LocationId = "location1235",
-                ParentInstitutionId = new Uuid()
-                {
-                    High64 = high64,
-                    Low64 = low64
-                }
+                ParentInstitutionId = id.ToProtoUuid()
             };
             request.Buildings.Add("building1235");
 
@@ -677,7 +592,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var result = await handler.CreateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
-            Assert.Equal(expectedMediatorResult.Data.EducationalInstitutionID.ToProtocolBufferLanguageEquivalent(), result.Data.EducationalInstitutionId);
+            Assert.Equal(expectedMediatorResult.Data.EducationalInstitutionID.ToProtoUuid(), result.Data.EducationalInstitutionId);
         }
 
         #endregion CreateEducationalInstitutionMethod TESTS

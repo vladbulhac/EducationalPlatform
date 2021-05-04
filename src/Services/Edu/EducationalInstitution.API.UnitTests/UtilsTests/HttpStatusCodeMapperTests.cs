@@ -14,7 +14,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests
             var httpStatusCode = HttpStatusCode.OK;
 
             //Act
-            httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK(out ProtoHttpStatusCode protoHttpStatusCode);
+            var protoHttpStatusCode = httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK();
 
             //Assert
             Assert.Equal(ProtoHttpStatusCode.Ok, protoHttpStatusCode);
@@ -27,7 +27,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests
             var httpStatusCode = HttpStatusCode.Created;
 
             //Act
-            httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK(out ProtoHttpStatusCode protoHttpStatusCode);
+            var protoHttpStatusCode = httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK();
 
             //Assert
             Assert.Equal(ProtoHttpStatusCode.Created, protoHttpStatusCode);
@@ -40,10 +40,10 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests
             var httpStatusCode = HttpStatusCode.MultiStatus;
 
             //Act
-            httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK(out ProtoHttpStatusCode protoCode);
+            var protoHttpStatusCode = httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK();
 
             //Assert
-            Assert.Equal(ProtoHttpStatusCode.MultiStatus, protoCode);
+            Assert.Equal(ProtoHttpStatusCode.MultiStatus, protoHttpStatusCode);
         }
 
         [Fact]
@@ -53,7 +53,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests
             var httpStatusCode = HttpStatusCode.BadRequest;
 
             //Act
-            httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK(out ProtoHttpStatusCode protoHttpStatusCode);
+            var protoHttpStatusCode = httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK();
 
             //Assert
             Assert.Equal(ProtoHttpStatusCode.BadRequest, protoHttpStatusCode);
@@ -66,7 +66,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests
             var httpStatusCode = HttpStatusCode.InternalServerError;
 
             //Act
-            httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK(out ProtoHttpStatusCode protoHttpStatusCode);
+            var protoHttpStatusCode = httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK();
 
             //Assert
             Assert.Equal(ProtoHttpStatusCode.InternalServerError, protoHttpStatusCode);
@@ -79,7 +79,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests
             var httpStatusCode = HttpStatusCode.SeeOther;
 
             //Act
-            httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK(out ProtoHttpStatusCode protoHttpStatusCode);
+            var protoHttpStatusCode = httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK();
 
             //Assert
             Assert.Equal(ProtoHttpStatusCode.Ok, protoHttpStatusCode);

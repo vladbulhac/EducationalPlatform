@@ -1,4 +1,5 @@
-﻿using EducationalInstitutionAPI.Utils;
+﻿using EducationalInstitutionAPI.Proto;
+using EducationalInstitutionAPI.Utils;
 using System;
 using Xunit;
 
@@ -11,13 +12,39 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests
         {
             //Arrange
             var identifier = Guid.NewGuid();
-            identifier.Encode(out UInt64 high64, out UInt64 low64);
+            var protoUuid = identifier.ToProtoUuid();
 
             //Act
-            var decodedIdentifier = ProtobufGuidConverter.DecodeGuid(high64, low64);
+            var decodedIdentifier = protoUuid.ToGuid();
 
             //Assert
             Assert.Equal(identifier, decodedIdentifier);
+        }
+
+        [Fact]
+        public void GivenANullUuid_ShouldReturnDefaultGuid()
+        {
+            //Arrange
+            Uuid identifier = null;
+
+            //Act
+            var encodedIdentifier = identifier.ToGuid();
+
+            //Assert
+            Assert.Equal(default, encodedIdentifier);
+        }
+
+        [Fact]
+        public void GivenADefaultGuid_ShouldReturnNullUuid()
+        {
+            //Arrange
+            Guid identifier = default;
+
+            //Act
+            var decodedIdentifier = identifier.ToProtoUuid();
+
+            //Assert
+            Assert.Null(decodedIdentifier);
         }
     }
 }

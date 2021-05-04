@@ -7,18 +7,16 @@ namespace EducationalInstitutionAPI.Utils
 {
     public static class HttpStatusCodeMapper
     {
-        private static ConcurrentDictionary<HttpStatusCode, ProtoHttpStatusCode> protoToNetHttpStatusCodeMap;
+        private readonly static ConcurrentDictionary<HttpStatusCode, ProtoHttpStatusCode> protoToNetHttpStatusCodeMap;
 
-        static HttpStatusCodeMapper()
-        {
-            protoToNetHttpStatusCodeMap = new();
-        }
+        static HttpStatusCodeMapper() => protoToNetHttpStatusCodeMap = new();
 
         /// <summary>
-        /// Extension method that maps a <see cref="HttpStatusCode"/> to a equivalent <see cref="ProtoHttpStatusCode"/> if it can otherwise it maps to <see cref="ProtoHttpStatusCode.Ok"/>
+        /// Extension method that maps a <see cref="HttpStatusCode"/> to an equivalent <see cref="ProtoHttpStatusCode"/> if it can otherwise it maps to <see cref="ProtoHttpStatusCode.Ok"/>
         /// </summary>
-        public static void MapToEquivalentProtoHttpStatusCodeOrOK(this HttpStatusCode code, out ProtoHttpStatusCode protoHttpStatusCode)
+        public static ProtoHttpStatusCode MapToEquivalentProtoHttpStatusCodeOrOK(this HttpStatusCode code)
         {
+            ProtoHttpStatusCode protoHttpStatusCode;
             if (!protoToNetHttpStatusCodeMap.ContainsKey(code))
             {
                 if (Enum.TryParse(code.ToString(), out protoHttpStatusCode))
@@ -28,6 +26,8 @@ namespace EducationalInstitutionAPI.Utils
             }
             else
                 protoToNetHttpStatusCodeMap.TryGetValue(code, out protoHttpStatusCode);
+
+            return protoHttpStatusCode;
         }
     }
 }
