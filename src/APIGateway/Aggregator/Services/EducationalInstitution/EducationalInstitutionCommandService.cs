@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Aggregator.Services.EducationalInstitution
 {
-    public class EducationalInstitutionCommandService : IEducationalInstitutionCommandService
+    public class EducationalInstitutionCommandService : GrpcServiceBase, IEducationalInstitutionCommandService
     {
         private readonly ILogger<EducationalInstitutionCommandService> logger;
         private readonly Command.CommandClient client;
 
-        public EducationalInstitutionCommandService(ILogger<EducationalInstitutionCommandService> logger, Command.CommandClient commandClient)
+        public EducationalInstitutionCommandService(ILogger<EducationalInstitutionCommandService> logger, Command.CommandClient commandClient) : base(logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             client = commandClient ?? throw new ArgumentNullException(nameof(commandClient));
@@ -19,16 +19,11 @@ namespace Aggregator.Services.EducationalInstitution
 
         public async Task<GrpcCallResponse<EducationalInstitutionCreateResponse>> CreateEducationalInstitutionAsync(EducationalInstitutionCreateRequest request)
         {
-            //logger.LogDebug("grpc client created, request = {@educationalInstitutionData}", educationalInstitutionData);
+            logger.LogDebug("Grpc client created, calls server with request: {@request}", request);
 
-            var requestCall = client.CreateEducationalInstitutionAsync(request);
+            var request_call = client.CreateEducationalInstitutionAsync(request);
 
-            var response = await requestCall.ResponseAsync;
-            var trailers = requestCall.GetTrailers();
-
-            //logger.LogDebug(" grpc response: {@response}", response);
-
-            return new() { Body = response, Trailers = trailers };
+            return await MakeUnaryCallAndGetResponseAsync(request_call);
         }
     }
 }

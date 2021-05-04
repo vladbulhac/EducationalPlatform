@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aggregator.Common.Proto;
+using System;
 using System.Buffers.Binary;
 
 namespace EducationaInstitutionAPI.Utils
@@ -10,9 +11,10 @@ namespace EducationaInstitutionAPI.Utils
     public static class ProtobufGuidConverter
     {
         /// <summary>
-        /// An extension method that converts a <see cref="Guid"/> to the protocol buffer language equivalent <see cref="Uuid"/>
+        /// Converts a <see cref="Guid"/> to the protocol buffer language equivalent <see cref="Uuid"/>
         /// </summary>
-        public static void EncodeGuid(this Guid identifier, out UInt64 High64, out UInt64 Low64)
+        /// <remarks>A <see cref="Guid"/> extension method</remarks>
+        private static void Encode(this Guid identifier, out UInt64 High64, out UInt64 Low64)
         {
             Span<byte> bytes = stackalloc byte[16];
             identifier.TryWriteBytes(bytes);
@@ -27,16 +29,35 @@ namespace EducationaInstitutionAPI.Utils
         }
 
         /// <summary>
-        /// Converts the protocol buffer language <see cref="Uuid"/> to a <see cref="Guid"/>
+        /// Converts the protocol buffer language <see cref="Uuid"/> to its equivalent in <see cref="Guid"/>
         /// </summary>
-        public static Guid DecodeGuid(UInt64 High64, UInt64 Low64)
+        private static Guid DecodeGuid(UInt64 High64, UInt64 Low64)
         {
             Span<byte> bytes = stackalloc byte[16];
             BinaryPrimitives.WriteUInt32LittleEndian(bytes.Slice(0, 4), (uint)(High64 >> 32));
             BinaryPrimitives.WriteUInt16LittleEndian(bytes.Slice(4, 2), (ushort)((High64 >> 16) & 0xFFFF));
             BinaryPrimitives.WriteUInt16LittleEndian(bytes.Slice(6, 2), (ushort)(High64 & 0xFFFF));
             BinaryPrimitives.WriteUInt64BigEndian(bytes.Slice(8, 8), Low64);
+
             return new Guid(bytes);
+        }
+
+        /// <summary>A <see cref="Guid"/> extension method that converts the value to <see cref="Uuid"/> type</summary>>
+        public static Uuid ToProtoUuid(this Guid identifier)
+        {
+            if (identifier == default) return null;
+
+            identifier.Encode(out ulong high64, out ulong low64);
+
+            return new() { High64 = high64, Low64 = low64 };
+        }
+
+        /// <summary>A <see cref="Uuid"/> extension method that converts the value to <see cref="Guid"/> type</summary>
+        public static Guid ToGuid(this Uuid identifier)
+        {
+            if (identifier is null) return default;
+
+            return DecodeGuid(identifier.High64, identifier.Low64);
         }
     }
 }

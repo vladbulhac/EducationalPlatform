@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System;
 
 namespace Aggregator
@@ -28,9 +29,13 @@ namespace Aggregator
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Aggregator", Version = "v1" }));
 
             services.AddScoped<IEducationalInstitutionCommandService, EducationalInstitutionCommandService>();
+            services.AddScoped<IEducationalInstitutionQueryService, EducationalInstitutionQueryService>();
             services.AddTransient<GrpcExceptionInterceptor>();
 
-            services.AddGrpcClient<Command.CommandClient>(options => options.Address = new Uri("https://localhost:53001"))
+            var uri = new Uri("https://localhost:53001");
+            services.AddGrpcClient<Query.QueryClient>(options => options.Address = uri)
+                    .AddInterceptor<GrpcExceptionInterceptor>();
+            services.AddGrpcClient<Command.CommandClient>(options => options.Address = uri)
                     .AddInterceptor<GrpcExceptionInterceptor>();
         }
 
@@ -47,6 +52,8 @@ namespace Aggregator
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseSerilogRequestLogging();
 
             app.UseAuthorization();
 
