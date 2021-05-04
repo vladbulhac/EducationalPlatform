@@ -31,6 +31,16 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingR
                 dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB") ?? throw new ArgumentNullException(nameof(dbConnection));
         }
 
+        public EducationalInstitutionBuildingRepository(DataContext context, string connectionString = null)
+        {
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
+
+            if (!string.IsNullOrEmpty(connectionString))
+                dbConnection = connectionString;
+            else
+                dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB") ?? throw new ArgumentNullException(nameof(dbConnection));
+        }
+
         public async Task<bool> DeleteAsync(string buildingID, CancellationToken cancellationToken = default)
         {
             var educationalInstitutionBuilding = await context.EducationalInstitutionsBuildings

@@ -20,7 +20,7 @@ namespace EducationalInstitutionAPI.Unit_of_Work
         public IEducationalInstitutionRepository UsingEducationalInstitutionRepository()
         {
             if (EducationalInstitutionRepository is null)
-                EducationalInstitutionRepository = new EducationalInstitutionRepository(context);
+                EducationalInstitutionRepository = new EducationalInstitutionRepository(context, null);
 
             return EducationalInstitutionRepository;
         }
@@ -28,7 +28,7 @@ namespace EducationalInstitutionAPI.Unit_of_Work
         public IEducationalInstitutionBuildingRepository UsingEducationalInstitutionBuildingRepository()
         {
             if (EducationalInstitutionBuildingRepository is null)
-                EducationalInstitutionBuildingRepository = new EducationalInstitutionBuildingRepository(context);
+                EducationalInstitutionBuildingRepository = new EducationalInstitutionBuildingRepository(context, null);
 
             return EducationalInstitutionBuildingRepository;
         }

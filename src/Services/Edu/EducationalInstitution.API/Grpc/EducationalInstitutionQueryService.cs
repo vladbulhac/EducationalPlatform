@@ -37,6 +37,10 @@ namespace EducationalInstitutionAPI.Grpc
             if (!validationHandler.IsRequestValid(mappedRequest, out string validationErrors))
             {
                 context.Status = new(StatusCode.InvalidArgument, validationErrors);
+                context.ResponseTrailers.AddMultiple(new (string key, string value)[2] {
+                    ("Message", validationErrors),
+                    ("HttpStatusCode", ((int)HttpStatusCode.BadRequest).ToString())
+                });
 
                 return new();
             }
@@ -71,13 +75,17 @@ namespace EducationalInstitutionAPI.Grpc
             catch (Exception e)
             {
                 logger.LogError(
-                   "Could not create an Educational Institution with the request data: {0}, using {1}, error details => {2}",
+                   "Could not get the Educational Institution with the request data: {0}, using {1}, error details => {2}",
                    JsonConvert.SerializeObject(request),
                    mediator.GetType(),
                    e.Message
                );
 
                 context.Status = new(StatusCode.Aborted, "An error occurred while processing the request!");
+                context.ResponseTrailers.AddMultiple(new (string key, string value)[2] {
+                    ("Message", "An error occurred while processing the request!"),
+                    ("HttpStatusCode", ((int)HttpStatusCode.InternalServerError).ToString())
+                });
             }
 
             return new();

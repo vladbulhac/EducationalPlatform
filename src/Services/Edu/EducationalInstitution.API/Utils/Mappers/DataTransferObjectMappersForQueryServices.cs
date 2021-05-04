@@ -26,7 +26,7 @@ namespace EducationalInstitutionAPI.Utils.Mappers
             {
                 Name = result.Name,
                 Description = result.Description,
-                JoinDate = Timestamp.FromDateTime(result.JoinDate),
+                JoinDate = Timestamp.FromDateTime(result.JoinDate.ToUniversalTime()),
                 LocationId = result.LocationID,
                 ParentInstitution = parentInstitution
             };

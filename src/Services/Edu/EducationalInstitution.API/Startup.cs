@@ -83,16 +83,10 @@ namespace EducationalInstitutionAPI
 
             app.UseAuthorization();
 
-            app.UseSwagger();
-
-            app.UseSwaggerUI(swagger =>
-            {
-                swagger.SwaggerEndpoint("/swagger/v1/swagger.json", "Educational Institution API v1");
-            });
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<EducationalInstitutionCommandService>();
+                endpoints.MapGrpcService<EducationalInstitutionQueryService>();
                 endpoints.MapControllers();
             });
         }

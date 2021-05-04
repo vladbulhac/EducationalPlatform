@@ -35,7 +35,7 @@ namespace EducationalInstitutionAPI.Data.Helpers
             DateTime currentDateAndTime = DateTime.UtcNow.Date;
             var daysFromConfigFile = ConfigurationHelper.GetCurrentSettings("DaysUntilDeletion");
             int days = int.Parse(daysFromConfigFile);
-            DateForPermanentDeletion = currentDateAndTime.AddDays(days);
+            DateForPermanentDeletion = currentDateAndTime.AddDays(days).ToUniversalTime();
         }
 
         /// <summary>

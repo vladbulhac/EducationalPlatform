@@ -31,6 +31,16 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
                 dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB") ?? throw new Exception("No connection string has been found!");
         }
 
+        public EducationalInstitutionRepository(DataContext context, string connectionString = null)
+        {
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
+
+            if (!string.IsNullOrEmpty(connectionString))
+                dbConnection = connectionString;
+            else
+                dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB") ?? throw new Exception("No connection string has been found!");
+        }
+
         public async Task CreateAsync(EducationalInstitution data, CancellationToken cancellationToken = default) => await context.EducationalInstitutions.AddAsync(data, cancellationToken);
 
         public async Task<bool> DeleteAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default)
@@ -343,7 +353,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
                 Name = (string)queryResult[0].Name,
                 Description = (string)queryResult[0].Description,
                 LocationID = (string)queryResult[0].LocationID,
-                JoinDate = (DateTime)queryResult[0].JoinDate,
+                JoinDate = ((DateTime)queryResult[0].JoinDate).ToUniversalTime(),
                 ParentInstitution = MapQueryResultParentInstitution(queryResult[0]),
                 ChildInstitutions = childInstitutions,
                 BuildingsIDs = buildings
