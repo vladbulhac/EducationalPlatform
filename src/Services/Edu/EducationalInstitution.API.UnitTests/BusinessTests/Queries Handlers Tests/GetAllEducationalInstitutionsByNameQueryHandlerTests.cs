@@ -69,7 +69,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
-            Assert.Equal(queryResult[0], result.Data.Single());
+            Assert.Equal(queryResult[0], result.Data.EducationalInstitutions.Single());
         }
 
         [Fact]
@@ -96,7 +96,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
             var result = await handler.Handle(request, dependenciesHelper.cancellationToken);
 
             //Assert
-            Assert.IsType<Response<ICollection<GetEducationalInstitutionQueryResult>>>(result);
+            Assert.IsType<Response<GetAllEducationalInstitutionsByNameQueryResult>>(result);
         }
 
         [Fact]

@@ -20,3 +20,9 @@ message EducationalInstitutionDeleteRequest{
 message EducationalInstitutionGetByIdRequest{
 	Uuid educational_institution_id=1;
 }
+
+message EducationalInstitutionGetByNameRequest{
+	string name=1;
+	int32 offset_value=2;
+	int32 results_count=3;
+}

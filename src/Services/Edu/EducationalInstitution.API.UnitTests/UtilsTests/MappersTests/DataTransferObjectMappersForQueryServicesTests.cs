@@ -5,6 +5,7 @@ using EducationalInstitutionAPI.Utils;
 using EducationalInstitutionAPI.Utils.Mappers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
@@ -593,6 +594,207 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
 
             //Assert
             Assert.Equal(educationalInstitutionID, mappedRequest.EducationalInstitutionID);
+        }
+
+        [Fact]
+        public void GivenEducationalInstitutionGetByNameRequest_ShouldReturnExpectedName()
+        {
+            //Arrange
+            var name = "testName";
+            var offsetValue = 1;
+            var resultsCount = 1;
+            EducationalInstitutionGetByNameRequest request = new()
+            {
+                Name = name,
+                OffsetValue = offsetValue,
+                ResultsCount = resultsCount
+            };
+
+            //Act
+            var mappedRequest = request.MapToDTOEducationalInstitutionsByNameQuery();
+
+            //Assert
+            Assert.Equal(name, mappedRequest.Name);
+        }
+
+        [Fact]
+        public void GivenEducationalInstitutionGetByNameRequest_ShouldReturnExpectedOffsetValue()
+        {
+            //Arrange
+            var name = "testName";
+            var offsetValue = 1;
+            var resultsCount = 1;
+            EducationalInstitutionGetByNameRequest request = new()
+            {
+                Name = name,
+                OffsetValue = offsetValue,
+                ResultsCount = resultsCount
+            };
+
+            //Act
+            var mappedRequest = request.MapToDTOEducationalInstitutionsByNameQuery();
+
+            //Assert
+            Assert.Equal(offsetValue, mappedRequest.OffsetValue);
+        }
+
+        [Fact]
+        public void GivenEducationalInstitutionGetByNameRequest_ShouldReturnExpectedResultsCount()
+        {
+            //Arrange
+            var name = "testName";
+            var offsetValue = 1;
+            var resultsCount = 1;
+            EducationalInstitutionGetByNameRequest request = new()
+            {
+                Name = name,
+                OffsetValue = offsetValue,
+                ResultsCount = resultsCount
+            };
+
+            //Act
+            var mappedRequest = request.MapToDTOEducationalInstitutionsByNameQuery();
+
+            //Assert
+            Assert.Equal(resultsCount, mappedRequest.ResultsCount);
+        }
+
+        [Fact]
+        public void GivenGetAllEducationalInstitutionsByNameQueryResult_ShouldReturnACollectionWithOneElement()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var name = "testName";
+            var description = "testDescription";
+            var locationID = "testID";
+
+            GetAllEducationalInstitutionsByNameQueryResult result = new()
+            {
+                EducationalInstitutions = new List<GetEducationalInstitutionQueryResult>() { new() {
+                    EducationalInstitutionID = id,
+                    Name = name,
+                    Description = description,
+                    LocationID = locationID } }
+            };
+
+            //Act
+            var mappedResult = result.MapToGetByNameResult();
+
+            //Assert
+            Assert.Single(mappedResult);
+        }
+
+        [Fact]
+        public void GivenGetAllEducationalInstitutionsByNameQueryResult_ShouldReturnExpectedEducationalInstitutionId()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var name = "testName";
+            var description = "testDescription";
+            var locationID = "testID";
+
+            GetAllEducationalInstitutionsByNameQueryResult result = new()
+            {
+                EducationalInstitutions = new List<GetEducationalInstitutionQueryResult>() { new() {
+                    EducationalInstitutionID = id,
+                    Name = name,
+                    Description = description,
+                    LocationID = locationID } }
+            };
+
+            //Act
+            var mappedResult = result.MapToGetByNameResult();
+
+            //Assert
+            Assert.Equal(id.ToProtoUuid(), mappedResult.ElementAt(0).EducationalInstitutionId);
+        }
+
+        [Fact]
+        public void GivenGetAllEducationalInstitutionsByNameQueryResult_ShouldReturnExpectedName()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var name = "testName";
+            var description = "testDescription";
+            var locationID = "testID";
+
+            GetAllEducationalInstitutionsByNameQueryResult result = new()
+            {
+                EducationalInstitutions = new List<GetEducationalInstitutionQueryResult>() { new() {
+                    EducationalInstitutionID = id,
+                    Name = name,
+                    Description = description,
+                    LocationID = locationID } }
+            };
+
+            //Act
+            var mappedResult = result.MapToGetByNameResult();
+
+            //Assert
+            Assert.Equal(name, mappedResult.ElementAt(0).Name);
+        }
+
+        [Fact]
+        public void GivenGetAllEducationalInstitutionsByNameQueryResult_ShouldReturnExpectedDescription()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var name = "testName";
+            var description = "testDescription";
+            var locationID = "testID";
+
+            GetAllEducationalInstitutionsByNameQueryResult result = new()
+            {
+                EducationalInstitutions = new List<GetEducationalInstitutionQueryResult>() { new() {
+                    EducationalInstitutionID = id,
+                    Name = name,
+                    Description = description,
+                    LocationID = locationID } }
+            };
+
+            //Act
+            var mappedResult = result.MapToGetByNameResult();
+
+            //Assert
+            Assert.Equal(description, mappedResult.ElementAt(0).Description);
+        }
+
+        [Fact]
+        public void GivenGetAllEducationalInstitutionsByNameQueryResult_ShouldReturnExpectedLocationID()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var name = "testName";
+            var description = "testDescription";
+            var locationID = "testID";
+
+            GetAllEducationalInstitutionsByNameQueryResult result = new()
+            {
+                EducationalInstitutions = new List<GetEducationalInstitutionQueryResult>() { new() {
+                    EducationalInstitutionID = id,
+                    Name = name,
+                    Description = description,
+                    LocationID = locationID } }
+            };
+
+            //Act
+            var mappedResult = result.MapToGetByNameResult();
+
+            //Assert
+            Assert.Equal(locationID, mappedResult.ElementAt(0).LocationId);
+        }
+
+        [Fact]
+        public void GivenGetAllEducationalInstitutionsByNameQueryResult_WithEmptyCollection_ShouldReturnEmptyCollection()
+        {
+            //Arrange
+            GetAllEducationalInstitutionsByNameQueryResult result = new() { EducationalInstitutions = new List<GetEducationalInstitutionQueryResult>() };
+
+            //Act
+            var mappedResult = result.MapToGetByNameResult();
+
+            //Assert
+            Assert.Empty(mappedResult);
         }
     }
 }

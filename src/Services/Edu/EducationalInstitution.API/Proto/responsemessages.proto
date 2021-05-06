@@ -27,3 +27,10 @@ message EducationalInstitutionGetResponse{
 	string message=3;
 	ProtoHttpStatusCode status_code=4;
 }
+
+message EducationalInstitutionGetByNameResponse{
+	repeated GetByNameResult data=1;
+	bool operation_status=2;
+	string message=3;
+	ProtoHttpStatusCode status_code=4;
+}

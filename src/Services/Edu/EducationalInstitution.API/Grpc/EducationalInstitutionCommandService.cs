@@ -57,12 +57,7 @@ namespace EducationalInstitutionAPI.Grpc
 
             if (!validationHandler.IsRequestValid(mappedRequest, out string validationErrors))
             {
-                context.Status = new(StatusCode.InvalidArgument, validationErrors);
-                context.ResponseTrailers.AddMultiple(new (string key, string value)[2] {
-                    ("Message", validationErrors),
-                    ("HttpStatusCode", ((int)HttpStatusCode.BadRequest).ToString())
-                });
-
+                SetStatusAndTrailersOfContext(ref context, StatusCode.InvalidArgument, validationErrors, ((int)HttpStatusCode.BadRequest).ToString());
                 return new();
             }
 
@@ -83,28 +78,16 @@ namespace EducationalInstitutionAPI.Grpc
                     };
                 }
                 else
-                {
-                    context.Status = new(StatusCode.Aborted, result.Message);
-                    context.ResponseTrailers.AddMultiple(new (string key, string value)[2] {
-                    ("Message", result.Message),
-                    ("HttpStatusCode",((int)result.StatusCode).ToString())
-                    });
-                }
+                    SetStatusAndTrailersOfContext(ref context, StatusCode.Aborted, result.Message, ((int)result.StatusCode).ToString());
             }
             catch (Exception e)
             {
-                logger.LogError(
+                HandleException(logger,
+                    ref context,
                     "Could not create an Educational Institution with the request data: {0}, using {1}, error details => {2}",
                     JsonConvert.SerializeObject(request),
                     mediator.GetType(),
-                    e.Message
-                );
-
-                context.Status = new(StatusCode.Aborted, "An error occurred while processing the request!");
-                context.ResponseTrailers.AddMultiple(new (string key, string value)[2] {
-                    ("Message", "An error occurred while processing the request!"),
-                    ("HttpStatusCode", ((int)HttpStatusCode.InternalServerError).ToString())
-                });
+                    e.Message);
             }
 
             return new();
@@ -137,12 +120,7 @@ namespace EducationalInstitutionAPI.Grpc
 
             if (!validationHandler.IsRequestValid(mappedRequest, out string validationErrors))
             {
-                context.Status = new(StatusCode.InvalidArgument, validationErrors);
-                context.ResponseTrailers.AddMultiple(new (string key, string value)[2] {
-                    ("Message", validationErrors),
-                    ("HttpStatusCode", ((int)HttpStatusCode.BadRequest).ToString())
-                });
-
+                SetStatusAndTrailersOfContextWhenValidationFails(ref context, validationErrors);
                 return new();
             }
 
@@ -163,28 +141,16 @@ namespace EducationalInstitutionAPI.Grpc
                     };
                 }
                 else
-                {
-                    context.Status = new(StatusCode.Aborted, result.Message);
-                    context.ResponseTrailers.AddMultiple(new (string key, string value)[2] {
-                    ("Message", result.Message),
-                    ("HttpStatusCode",((int)result.StatusCode).ToString())
-                    });
-                }
+                    SetStatusAndTrailersOfContext(ref context, StatusCode.Aborted, result.Message, ((int)result.StatusCode).ToString());
             }
             catch (Exception e)
             {
-                logger.LogError(
+                HandleException(logger,
+                    ref context,
                     "Could not schedule for deletion the Educational Institution with the request data: {0}, using {1}, error details => {2}",
                     JsonConvert.SerializeObject(request),
                     mediator.GetType(),
-                    e.Message
-                );
-
-                context.Status = new(StatusCode.Aborted, "An error occurred while processing the request!");
-                context.ResponseTrailers.AddMultiple(new (string key, string value)[2] {
-                    ("Message", "An error occurred while processing the request!"),
-                    ("HttpStatusCode", ((int)HttpStatusCode.InternalServerError).ToString())
-                });
+                    e.Message);
             }
 
             return new();

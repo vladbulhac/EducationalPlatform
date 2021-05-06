@@ -8,14 +8,13 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Business.Queries_Handlers
 {
-    public class GetAllEducationalInstitutionsByNameQueryHandler : IRequestHandler<DTOEducationalInstitutionsByNameQuery, Response<ICollection<GetEducationalInstitutionQueryResult>>>
+    public class GetAllEducationalInstitutionsByNameQueryHandler : IRequestHandler<DTOEducationalInstitutionsByNameQuery, Response<GetAllEducationalInstitutionsByNameQueryResult>>
     {
         /// <summary>
         /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
@@ -44,7 +43,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
         /// </list>
         /// </returns>
         /// <exception cref="ArgumentNullException"/>
-        public async Task<Response<ICollection<GetEducationalInstitutionQueryResult>>> Handle(DTOEducationalInstitutionsByNameQuery request, CancellationToken cancellationToken)
+        public async Task<Response<GetAllEducationalInstitutionsByNameQueryResult>> Handle(DTOEducationalInstitutionsByNameQuery request, CancellationToken cancellationToken)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
 
@@ -55,7 +54,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
                     var educationalInstitutions = await unitOfWork.UsingEducationalInstitutionRepository()
                                                             .GetAllLikeNameAsync(request.Name, request.OffsetValue, request.ResultsCount, cancellationToken);
 
-                    if (educationalInstitutions is null)
+                    if (educationalInstitutions is null || educationalInstitutions.Count == 0)
                         return new()
                         {
                             Data = null,
@@ -66,7 +65,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
 
                     return new()
                     {
-                        Data = educationalInstitutions,
+                        Data = new() { EducationalInstitutions = educationalInstitutions },
                         OperationStatus = true,
                         StatusCode = HttpStatusCode.OK,
                         Message = string.Empty
