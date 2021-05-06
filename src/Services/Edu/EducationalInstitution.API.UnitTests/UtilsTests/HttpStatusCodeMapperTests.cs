@@ -34,6 +34,19 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests
         }
 
         [Fact]
+        public void GivenASystemNetHttpStatusCodeAccepted_SholdReturnProtoHttpStatusCodeAccepted()
+        {
+            //Arrange
+            var httpStatusCode = HttpStatusCode.Accepted;
+
+            //Act
+            var protoHttpStatusCode = httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK();
+
+            //Assert
+            Assert.Equal(ProtoHttpStatusCode.Accepted, protoHttpStatusCode);
+        }
+
+        [Fact]
         public void GivenASystemNetHttpStatusCodeMultiStatus_SholdReturnProtoHttpStatusCodeMultiStatus()
         {
             //Arrange
@@ -57,6 +70,19 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests
 
             //Assert
             Assert.Equal(ProtoHttpStatusCode.BadRequest, protoHttpStatusCode);
+        }
+
+        [Fact]
+        public void GivenASystemNetHttpStatusCodeBadRequest_SholdReturnProtoHttpStatusCodeNotFound()
+        {
+            //Arrange
+            var httpStatusCode = HttpStatusCode.NotFound;
+
+            //Act
+            var protoHttpStatusCode = httpStatusCode.MapToEquivalentProtoHttpStatusCodeOrOK();
+
+            //Assert
+            Assert.Equal(ProtoHttpStatusCode.NotFound, protoHttpStatusCode);
         }
 
         [Fact]

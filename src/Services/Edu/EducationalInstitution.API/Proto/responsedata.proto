@@ -7,6 +7,10 @@ message BaseCommandResult{
 	Uuid educational_institution_id=1;
 }
 
+message DeleteCommandResult{
+	google.protobuf.Timestamp date_for_permanent_deletion=1;
+}
+
 message GetByIDQueryResult{
 	string name=1;
 	string description=2;

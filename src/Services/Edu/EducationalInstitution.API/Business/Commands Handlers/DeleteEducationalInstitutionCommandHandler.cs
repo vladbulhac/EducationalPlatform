@@ -68,7 +68,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
                     return new()
                     {
-                        Data = new() { DateForPermanentDeletion = (DateTime)educationalInstitution.EntityAccess.DateForPermanentDeletion! },
+                        Data = new() { DateForPermanentDeletion = educationalInstitution.EntityAccess.DateForPermanentDeletion.Value.ToUniversalTime() },
                         OperationStatus = true,
                         StatusCode = HttpStatusCode.Accepted,
                         Message = string.Empty

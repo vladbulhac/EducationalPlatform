@@ -12,6 +12,10 @@ message EducationalInstitutionCreateRequest{
 	Uuid parent_institution_id=5;
 }
 
+message EducationalInstitutionDeleteRequest{
+	Uuid educational_institution_id=1;
+}
+
 //Query Requests
 message EducationalInstitutionGetByIdRequest{
 	Uuid educational_institution_id=1;

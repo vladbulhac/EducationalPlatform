@@ -24,5 +24,10 @@ namespace EducationalInstitutionAPI.Utils.Mappers
                 ParentInstitutionID = parentInstitutionID
             };
         }
+
+        public static DTOEducationalInstitutionDeleteCommand MapToDTOEducationalInstitutionDeleteCommand(this EducationalInstitutionDeleteRequest request)
+        {
+            return new() { EducationalInstitutionID = request.EducationalInstitutionId.ToGuid() };
+        }
     }
 }
