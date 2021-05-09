@@ -1,11 +1,11 @@
 using EducationalInstitutionAPI.Business.Validation_Handler;
 using EducationalInstitutionAPI.Data.Contexts;
 using EducationalInstitutionAPI.Grpc;
-using EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository;
 using EducationalInstitutionAPI.Unit_of_Work;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,13 +18,9 @@ namespace EducationalInstitutionAPI
     public class Startup
     {
         private readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
         public IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration) => Configuration = configuration;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -56,9 +52,7 @@ namespace EducationalInstitutionAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Educational Institution API", Version = "v1" });
             });
 
-            services.AddTransient<IValidationHandler, ValidationHandler>();
-            services.AddTransient<IEducationalInstitutionRepository, EducationalInstitutionRepository>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.RegisterProjectServices();
 
             services.AddMediatR(typeof(Startup));
         }
@@ -83,12 +77,27 @@ namespace EducationalInstitutionAPI
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGrpcService<EducationalInstitutionCommandService>();
-                endpoints.MapGrpcService<EducationalInstitutionQueryService>();
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => endpoints.RegisterGrpcServices());
+        }
+    }
+
+    public static class StartupExtensionMethods
+    {
+        public static IServiceCollection RegisterProjectServices(this IServiceCollection services)
+        {
+            services.AddTransient<IValidationHandler, ValidationHandler>();
+            //services.AddTransient<IEducationalInstitutionRepository, EducationalInstitutionRepository>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            return services;
+        }
+
+        public static IEndpointRouteBuilder RegisterGrpcServices(this IEndpointRouteBuilder endpoints)
+        {
+            endpoints.MapGrpcService<EducationalInstitutionCommandService>();
+            endpoints.MapGrpcService<EducationalInstitutionQueryService>();
+
+            return endpoints;
         }
     }
 }
