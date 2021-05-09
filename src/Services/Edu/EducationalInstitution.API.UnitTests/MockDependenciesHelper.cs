@@ -1,5 +1,5 @@
 ﻿using EducationalInstitutionAPI.Business.Validation_Handler;
-using EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository;
+using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository;
 using EducationalInstitutionAPI.Unit_of_Work;
 using Grpc.Core;
 using MediatR;
