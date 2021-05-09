@@ -1,5 +1,5 @@
 ﻿using EducationalInstitution.API.IntegrationTests.Utils;
-using EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingRepository;
+using EducationalInstitutionAPI.Repositories.EducationalInstitutionBuilding_Repository;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

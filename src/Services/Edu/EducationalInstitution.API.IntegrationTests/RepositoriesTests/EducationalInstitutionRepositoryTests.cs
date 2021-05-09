@@ -1,6 +1,6 @@
 ﻿using EducationalInstitution.API.IntegrationTests.Utils;
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
-using EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository;
+using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -129,7 +129,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
         }
 
         [IgnoreWhenDatabaseIsNotLoaded]
-        public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithExpectedJoinDate()
+        public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithExpectedJoinDateDate()
         {
             //Arrange
             Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
@@ -138,7 +138,33 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
             var result = await repository.GetByIDAsync(educationalInstitutionID);
 
             //Assert
-            Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].JoinDate, result.JoinDate);
+            Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].JoinDate.Date, result.JoinDate.Date);
+        }
+
+        [IgnoreWhenDatabaseIsNotLoaded]
+        public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithExpectedJoinDateDayOfTheWeek()
+        {
+            //Arrange
+            Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+
+            //Act
+            var result = await repository.GetByIDAsync(educationalInstitutionID);
+
+            //Assert
+            Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].JoinDate.DayOfWeek, result.JoinDate.DayOfWeek);
+        }
+
+        [IgnoreWhenDatabaseIsNotLoaded]
+        public async Task GivenAValidID_ToGetByIDAsyncMethod_ShouldReturnAnEntityWithExpectedJoinDateMonth()
+        {
+            //Arrange
+            Guid educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+
+            //Act
+            var result = await repository.GetByIDAsync(educationalInstitutionID);
+
+            //Assert
+            Assert.Equal(dbFixture.testDataHelper.EducationalInstitutions[0].JoinDate.Month, result.JoinDate.Month);
         }
 
         [IgnoreWhenDatabaseIsNotLoaded]
