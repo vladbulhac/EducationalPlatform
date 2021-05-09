@@ -37,7 +37,8 @@ namespace EducationalInstitution.API.UnitTests
                     string)educationalInstitution.Name,
                     (string)educationalInstitution.Description,
                     (string)educationalInstitution.LocationID,
-                    educationalInstitution.BuildingsIDs.ToObject<List<string>>()
+                    educationalInstitution.BuildingsIDs.ToObject<List<string>>(),
+                    educationalInstitution.AdminsIDs.ToObject<List<Guid>>()
                     ));
             }
         }
