@@ -343,6 +343,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -363,6 +364,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -373,7 +375,6 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             Assert.Empty(validationErrors);
         }
 
-        //->
         [Fact]
         public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyName_ShouldReturnFalse()
         {
@@ -384,6 +385,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -404,6 +406,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -424,6 +427,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -444,6 +448,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -464,6 +469,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 Description = string.Empty,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -484,6 +490,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 Description = string.Empty,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -504,6 +511,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 Description = "D",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -524,6 +532,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 Description = "D",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -544,6 +553,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { string.Empty },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -564,6 +574,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { string.Empty },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -584,6 +595,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fa3A" },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -604,6 +616,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fa3A" },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -624,6 +637,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fa3AQ" },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -644,6 +658,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fa3AQ" },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -664,6 +679,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509" },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -684,6 +700,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509" },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -692,6 +709,132 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
 
             //Assert
             Assert.Equal(" Property BuildingsIDs[0] failed validation. Error was: BuildingID was the same as LocationID!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyBuildingsIDs_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionCreateCommand()
+            {
+                Name = "Name",
+                Description = "Description",
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                BuildingsIDs = new List<string>(0),
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                ParentInstitutionID = Guid.NewGuid()
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyBuildingsIDs_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionCreateCommand()
+            {
+                Name = "Name",
+                Description = "Description",
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                BuildingsIDs = new List<string>(0),
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                ParentInstitutionID = Guid.NewGuid()
+            };
+
+            //Act
+            validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property BuildingsIDs failed validation. Error was: BuildingsIDs was empty or null!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyAdminsIDs_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionCreateCommand()
+            {
+                Name = "Name",
+                Description = "Description",
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
+                AdminsIDs = new List<Guid>(0),
+                ParentInstitutionID = Guid.NewGuid()
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyAdminsIDs_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionCreateCommand()
+            {
+                Name = "Name",
+                Description = "Description",
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
+                AdminsIDs = new List<Guid>(0),
+                ParentInstitutionID = Guid.NewGuid()
+            };
+
+            //Act
+            validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property AdminsIDs failed validation. Error was: AdminsIDs was empty or null!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithDefaultAdminID_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionCreateCommand()
+            {
+                Name = "Name",
+                Description = "Description",
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
+                AdminsIDs = new List<Guid>() { default },
+                ParentInstitutionID = Guid.NewGuid()
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithDefaultAdminID_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionCreateCommand()
+            {
+                Name = "Name",
+                Description = "Description",
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
+                AdminsIDs = new List<Guid>() { default },
+                ParentInstitutionID = Guid.NewGuid()
+            };
+
+            //Act
+            validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property AdminsIDs[0] failed validation. Error was: AdminID was empty or null!", validationErrors);
         }
 
         #endregion Request of type DTOEducationalInstitutionCreateCommand TESTS
