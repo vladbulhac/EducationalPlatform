@@ -27,13 +27,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_ParentInstitutionID__ShouldReturnAResponseThatIncludesAStatusCodeCreatedField()
+        public async Task GivenAName_Description_LocationID_BuildingID_ParentInstitutionID_AdminID_ShouldReturnAResponseThatIncludesAStatusCodeCreatedField()
         {
             //Arrange
             string name = "West High School";
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
+            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             DTOEducationalInstitutionCreateCommand request = new()
@@ -42,7 +43,8 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                 Description = description,
                 LocationID = locationID,
                 BuildingsIDs = buildingsIDs,
-                ParentInstitutionID = parentInstitutionID
+                ParentInstitutionID = parentInstitutionID,
+                AdminsIDs = adminsIDs
             };
 
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
@@ -59,13 +61,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_ParentInstitutionID_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
+        public async Task GivenAName_Description_LocationID_BuildingID_ParentInstitutionID_AdminID_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
             string name = "West High School";
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
+            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             DTOEducationalInstitutionCreateCommand request = new()
@@ -74,7 +77,8 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                 Description = description,
                 LocationID = locationID,
                 BuildingsIDs = buildingsIDs,
-                ParentInstitutionID = parentInstitutionID
+                ParentInstitutionID = parentInstitutionID,
+                AdminsIDs = adminsIDs
             };
 
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
@@ -91,13 +95,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_ParentInstitutionID_ShouldReturnARecordTypeResponse()
+        public async Task GivenAName_Description_LocationID_BuildingID_ParentInstitutionID_AdminID_ShouldReturnARecordTypeResponse()
         {
             //Arrange
             string name = "West High School";
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
+            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             DTOEducationalInstitutionCreateCommand request = new()
@@ -106,7 +111,8 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                 Description = description,
                 LocationID = locationID,
                 BuildingsIDs = buildingsIDs,
-                ParentInstitutionID = parentInstitutionID
+                ParentInstitutionID = parentInstitutionID,
+                AdminsIDs = adminsIDs
             };
 
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
@@ -123,13 +129,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_ParentInstitutionID_ShouldReturnAResponseThatIncludesDataWithTheEducationalInstitutionID()
+        public async Task GivenAName_Description_LocationID_BuildingID_ParentInstitutionID_AdminID_ShouldReturnAResponseThatIncludesDataWithTheEducationalInstitutionID()
         {
             //Arrange
             string name = "West High School";
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
+            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             DTOEducationalInstitutionCreateCommand request = new()
@@ -138,7 +145,8 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                 Description = description,
                 LocationID = locationID,
                 BuildingsIDs = buildingsIDs,
-                ParentInstitutionID = parentInstitutionID
+                ParentInstitutionID = parentInstitutionID,
+                AdminsIDs = adminsIDs
             };
 
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
@@ -155,13 +163,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_ParentInstitutionID_ShouldReturnAResponseThatIncludesDataOfTypeCreateEducationalInstitutionCommandResult()
+        public async Task GivenAName_Description_LocationID_BuildingID_ParentInstitutionID_AdminID_ShouldReturnAResponseThatIncludesDataOfTypeCreateEducationalInstitutionCommandResult()
         {
             //Arrange
             string name = "West High School";
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
+            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             DTOEducationalInstitutionCreateCommand request = new()
@@ -170,7 +179,8 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                 Description = description,
                 LocationID = locationID,
                 BuildingsIDs = buildingsIDs,
-                ParentInstitutionID = parentInstitutionID
+                ParentInstitutionID = parentInstitutionID,
+                AdminsIDs = adminsIDs
             };
 
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
@@ -187,13 +197,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_ParentInstitutionID_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
+        public async Task GivenAName_Description_LocationID_BuildingID_ParentInstitutionID_AdminID_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
         {
             //Arrange
             string name = "West High School";
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
+            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
 
             DTOEducationalInstitutionCreateCommand request = new()
@@ -202,7 +213,8 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                 Description = description,
                 LocationID = locationID,
                 BuildingsIDs = buildingsIDs,
-                ParentInstitutionID = parentInstitutionID
+                ParentInstitutionID = parentInstitutionID,
+                AdminsIDs = adminsIDs
             };
 
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
@@ -219,13 +231,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_InvalidParentInstitutionID_ShouldReturnAResponseThatIncludesAStatusCodeMultiStatusField()
+        public async Task GivenAName_Description_LocationID_BuildingID_AdminID_InvalidParentInstitutionID_ShouldReturnAResponseThatIncludesAStatusCodeMultiStatusField()
         {
             //Arrange
             string name = "West High School";
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
+            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[1].EducationalInstitutionID;
 
             DTOEducationalInstitutionCreateCommand request = new()
@@ -234,7 +247,8 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                 Description = description,
                 LocationID = locationID,
                 BuildingsIDs = buildingsIDs,
-                ParentInstitutionID = parentInstitutionID
+                ParentInstitutionID = parentInstitutionID,
+                AdminsIDs = adminsIDs
             };
 
             EducationalInstitutionAPI.Data.EducationalInstitution repositoryTaskResult = null;
@@ -252,13 +266,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_InvalidParentInstitutionID_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
+        public async Task GivenAName_Description_LocationID_BuildingID_AdminID_InvalidParentInstitutionID_ShouldReturnAResponseThatIncludesAnOperationStatusTrueField()
         {
             //Arrange
             string name = "West High School";
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
+            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[1].EducationalInstitutionID;
 
             DTOEducationalInstitutionCreateCommand request = new()
@@ -267,7 +282,8 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                 Description = description,
                 LocationID = locationID,
                 BuildingsIDs = buildingsIDs,
-                ParentInstitutionID = parentInstitutionID
+                ParentInstitutionID = parentInstitutionID,
+                AdminsIDs = adminsIDs
             };
 
             EducationalInstitutionAPI.Data.EducationalInstitution repositoryTaskResult = null;
@@ -285,13 +301,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_InvalidParentInstitutionID_ShouldReturnAResponseThatIncludesDataWithTheEducationalInstitutionID()
+        public async Task GivenAName_Description_LocationID_BuildingID_AdminID_InvalidParentInstitutionID_ShouldReturnAResponseThatIncludesDataWithTheEducationalInstitutionID()
         {
             //Arrange
             string name = "West High School";
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
+            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[1].EducationalInstitutionID;
 
             DTOEducationalInstitutionCreateCommand request = new()
@@ -300,7 +317,8 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                 Description = description,
                 LocationID = locationID,
                 BuildingsIDs = buildingsIDs,
-                ParentInstitutionID = parentInstitutionID
+                ParentInstitutionID = parentInstitutionID,
+                AdminsIDs = adminsIDs
             };
 
             EducationalInstitutionAPI.Data.EducationalInstitution repositoryTaskResult = null;
@@ -318,13 +336,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_InvalidParentInstitutionID_ShouldReturnAResponseThatIncludesAMessageField()
+        public async Task GivenAName_Description_LocationID_BuildingID_AdminID_InvalidParentInstitutionID_ShouldReturnAResponseThatIncludesAMessageField()
         {
             //Arrange
             string name = "West High School";
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
+            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[1].EducationalInstitutionID;
 
             DTOEducationalInstitutionCreateCommand request = new()
@@ -333,7 +352,8 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                 Description = description,
                 LocationID = locationID,
                 BuildingsIDs = buildingsIDs,
-                ParentInstitutionID = parentInstitutionID
+                ParentInstitutionID = parentInstitutionID,
+                AdminsIDs = adminsIDs
             };
 
             EducationalInstitutionAPI.Data.EducationalInstitution repositoryTaskResult = null;
@@ -350,16 +370,15 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             Assert.Equal($"The Educational Institution has been successfully created but the Parent Institution with the following ID: {parentInstitutionID} has not been found!", result.Message);
         }
 
-        //------------------------------------------------------------------------------
-
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_WithDefaultParentInstitutionID__ShouldReturnAResponseThatIncludesAStatusCodeCreatedField()
+        public async Task GivenAName_Description_LocationID_BuildingID_AdminID_WithDefaultParentInstitutionID__ShouldReturnAResponseThatIncludesAStatusCodeCreatedField()
         {
             //Arrange
             string name = "West High School";
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
+            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
             Guid parentInstitutionID = Guid.Empty;
 
             DTOEducationalInstitutionCreateCommand request = new()
@@ -368,7 +387,8 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                 Description = description,
                 LocationID = locationID,
                 BuildingsIDs = buildingsIDs,
-                ParentInstitutionID = parentInstitutionID
+                ParentInstitutionID = parentInstitutionID,
+                AdminsIDs = adminsIDs
             };
 
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
@@ -384,13 +404,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_WithDefaultParentInstitutionID_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
+        public async Task GivenAName_Description_LocationID_BuildingID__AdminID_WithDefaultParentInstitutionID_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
             string name = "West High School";
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
+            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
             Guid parentInstitutionID = Guid.Empty;
 
             DTOEducationalInstitutionCreateCommand request = new()
@@ -399,7 +420,8 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                 Description = description,
                 LocationID = locationID,
                 BuildingsIDs = buildingsIDs,
-                ParentInstitutionID = parentInstitutionID
+                ParentInstitutionID = parentInstitutionID,
+                AdminsIDs = adminsIDs
             };
 
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
@@ -415,13 +437,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_WithDefaultParentInstitutionID_ShouldReturnAResponseThatIncludesATrueOperationStatusField()
+        public async Task GivenAName_Description_LocationID_BuildingID_AdminID_WithDefaultParentInstitutionID_ShouldReturnAResponseThatIncludesATrueOperationStatusField()
         {
             //Arrange
             string name = "West High School";
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
+            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
             Guid parentInstitutionID = Guid.Empty;
 
             DTOEducationalInstitutionCreateCommand request = new()
@@ -430,7 +453,8 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                 Description = description,
                 LocationID = locationID,
                 BuildingsIDs = buildingsIDs,
-                ParentInstitutionID = parentInstitutionID
+                ParentInstitutionID = parentInstitutionID,
+                AdminsIDs = adminsIDs
             };
 
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
@@ -446,13 +470,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAName_Description_LocationID_BuildingID_WithDefaultParentInstitutionID_ShouldReturnAResponseThatIncludesAGuidIDField()
+        public async Task GivenAName_Description_LocationID_BuildingID_AdminID_WithDefaultParentInstitutionID_ShouldReturnAResponseThatIncludesAGuidIDField()
         {
             //Arrange
             string name = "West High School";
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
+            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
             Guid parentInstitutionID = Guid.Empty;
 
             DTOEducationalInstitutionCreateCommand request = new()
@@ -461,7 +486,8 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                 Description = description,
                 LocationID = locationID,
                 BuildingsIDs = buildingsIDs,
-                ParentInstitutionID = parentInstitutionID
+                ParentInstitutionID = parentInstitutionID,
+                AdminsIDs = adminsIDs
             };
 
             mockUnitOfWork.Setup(uok => uok.UsingEducationalInstitutionRepository()).Returns(dependenciesHelper.mockRepository.Object);
