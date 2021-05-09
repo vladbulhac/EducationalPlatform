@@ -23,6 +23,11 @@ namespace EducationalInstitutionAPI.Data.Contexts.Entities_Type_Configuration
                    .HasForeignKey(eib => eib.EducationalInstitutionID)
                    .IsRequired();
 
+            builder.HasMany(ei => ei.Admins)
+                .WithOne(a => a.EducationalInstitution)
+                .HasForeignKey(eia => eia.EducationalInstitutionID)
+                .IsRequired();
+
             builder.Property(ei => ei.Description)
                         .IsRequired()
                         .HasMaxLength(500);
