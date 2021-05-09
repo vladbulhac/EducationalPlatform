@@ -46,7 +46,7 @@ namespace EducationalInstitution.API.IntegrationTests
             var testEducationalInstitution = Context.EducationalInstitutions.ToList();
             Context.RemoveRange(testEducationalInstitution);
 
-            var testBuilding = Context.EducationalInstitutionsBuildings.ToList();
+            var testBuilding = Context.Buildings.ToList();
             Context.RemoveRange(testBuilding);
         }
 
