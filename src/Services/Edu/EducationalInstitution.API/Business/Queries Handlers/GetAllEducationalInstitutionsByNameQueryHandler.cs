@@ -2,7 +2,7 @@
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Queries;
-using EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository;
+using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository;
 using EducationalInstitutionAPI.Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;

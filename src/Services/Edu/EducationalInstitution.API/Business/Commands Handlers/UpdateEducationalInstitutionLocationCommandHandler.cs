@@ -1,7 +1,7 @@
 ﻿using EducationalInstitutionAPI.Data;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
-using EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository;
+using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository;
 using EducationalInstitutionAPI.Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
