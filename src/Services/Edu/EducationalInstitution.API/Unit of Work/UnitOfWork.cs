@@ -1,6 +1,7 @@
 ﻿using EducationalInstitutionAPI.Data.Contexts;
-using EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingRepository;
-using EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository;
+using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository;
+using EducationalInstitutionAPI.Repositories.EducationalInstitutionAdmin_Repository;
+using EducationalInstitutionAPI.Repositories.EducationalInstitutionBuilding_Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading;
@@ -13,7 +14,8 @@ namespace EducationalInstitutionAPI.Unit_of_Work
         private bool disposed;
         private readonly DataContext context;
         public IEducationalInstitutionRepository EducationalInstitutionRepository { get; private set; }
-        public IEducationalInstitutionBuildingRepository EducationalInstitutionBuildingRepository { get; private set; }
+        public IEducationalInstitutionBuildingRepository BuildingRepository { get; private set; }
+        public IEducationalInstitutionAdminRepository AdminRepository { get; private set; }
 
         public UnitOfWork(DbContextOptions<DataContext> options) => context = new(options);
 
@@ -27,23 +29,30 @@ namespace EducationalInstitutionAPI.Unit_of_Work
 
         public IEducationalInstitutionBuildingRepository UsingEducationalInstitutionBuildingRepository()
         {
-            if (EducationalInstitutionBuildingRepository is null)
-                EducationalInstitutionBuildingRepository = new EducationalInstitutionBuildingRepository(context, null);
+            if (BuildingRepository is null)
+                BuildingRepository = new EducationalInstitutionBuildingRepository(context, null);
 
-            return EducationalInstitutionBuildingRepository;
+            return BuildingRepository;
+        }
+
+        public IEducationalInstitutionAdminRepository UsingEducationalInstitutionAdminRepository()
+        {
+            if (AdminRepository is null)
+                AdminRepository = new EducationalInstitutionAdminRepository(context, null);
+
+            return AdminRepository;
         }
 
         public async Task SaveChangesAsync(CancellationToken cancellationToken = default) => await context.SaveChangesAsync(cancellationToken);
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposed is not true)
+            if (!disposed)
             {
-                if (disposing is true)
-                {
+                if (disposing)
                     context.Dispose();
-                }
             }
+
             disposed = true;
         }
 
