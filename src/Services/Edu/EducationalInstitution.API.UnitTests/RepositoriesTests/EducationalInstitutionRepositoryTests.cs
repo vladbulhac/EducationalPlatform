@@ -1,6 +1,6 @@
 ﻿using EducationalInstitutionAPI.Data.Contexts;
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
-using EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository;
+using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -399,6 +399,10 @@ namespace EducationalInstitution.API.UnitTests.RepositoriesTests
                     "Test_Building_ID1",
                     "Test_Building_ID2"
                 },
+                new List<Guid>() {
+                    Guid.NewGuid(),
+                    Guid.NewGuid()
+                },
                 testDataHelper.EducationalInstitutions[0]);
 
             //Act
@@ -462,6 +466,7 @@ namespace EducationalInstitution.API.UnitTests.RepositoriesTests
                     "Test_Building_ID1",
                     "Test_Building_ID2"
                 },
+                new List<Guid>() { Guid.NewGuid() },
                 testDataHelper.EducationalInstitutions[0]);
 
             await eduRepository.CreateAsync(newEducationalInstitution);
@@ -487,6 +492,7 @@ namespace EducationalInstitution.API.UnitTests.RepositoriesTests
                     "Test_Building_ID1",
                     "Test_Building_ID2"
                 },
+                new List<Guid>() { Guid.NewGuid() },
                 testDataHelper.EducationalInstitutions[0]);
 
             await eduRepository.CreateAsync(newEducationalInstitution);

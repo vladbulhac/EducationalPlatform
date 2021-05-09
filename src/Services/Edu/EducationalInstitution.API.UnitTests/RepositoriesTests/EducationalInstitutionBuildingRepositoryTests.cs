@@ -1,6 +1,6 @@
 ﻿using EducationalInstitutionAPI.Data.Contexts;
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
-using EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingRepository;
+using EducationalInstitutionAPI.Repositories.EducationalInstitutionBuilding_Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Xunit;
