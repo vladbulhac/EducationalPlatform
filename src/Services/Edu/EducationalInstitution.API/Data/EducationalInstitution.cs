@@ -11,7 +11,6 @@ namespace EducationalInstitutionAPI.Data
         public string Name { get; private set; }
         public string Description { get; private set; }
         public DateTime JoinDate { get; init; }
-
         public string LocationID { get; private set; }
         public ICollection<EducationalInstitutionBuilding> Buildings { get; private set; }
 
@@ -29,25 +28,27 @@ namespace EducationalInstitutionAPI.Data
         /// </remarks>
         public EducationalInstitution ParentInstitution { get; private set; }
 
+        public ICollection<EducationalInstitutionAdmin> Admins { get; private set; }
+
         public Access EntityAccess { get; }
 
-        public EducationalInstitution(string name, string description, string locationID, EducationalInstitution parentInstitution = null)
+        public EducationalInstitution(string name, string description, string locationID,
+            ICollection<string> buildingsIDs, ICollection<Guid> adminsIDs, EducationalInstitution parentInstitution = null)
         {
             Name = name;
-            Description = description;
+            Description = description ?? "NO_DESCRIPTION";
             EducationalInstitutionID = Guid.NewGuid();
             LocationID = locationID ?? "LOCATION_UNKNOWN";
+            JoinDate = DateTime.UtcNow;
+            EntityAccess = new();
+
             Buildings = new HashSet<EducationalInstitutionBuilding>();
             ChildInstitutions = new HashSet<EducationalInstitution>();
+            Admins = new HashSet<EducationalInstitutionAdmin>();
             ParentInstitution = parentInstitution;
-            EntityAccess = new();
-            JoinDate = DateTime.UtcNow;
-        }
 
-        public EducationalInstitution(string name, string description, string locationID,
-            ICollection<string> buildingsIDs, EducationalInstitution parentInstitution = null) : this(name, description, locationID, parentInstitution)
-        {
             CreateAndAddBuildings(buildingsIDs);
+            CreateAndAddAdmins(adminsIDs);
         }
 
         public EducationalInstitution()
@@ -103,10 +104,7 @@ namespace EducationalInstitutionAPI.Data
             if (addBuildingsIDs is not null && addBuildingsIDs.Count > 0)
             {
                 foreach (var buildingID in addBuildingsIDs)
-                {
-                    EducationalInstitutionBuilding newBuilding = new(buildingID, EducationalInstitutionID);
-                    Buildings.Add(newBuilding);
-                }
+                    Buildings.Add(new(buildingID, EducationalInstitutionID));
             }
         }
 
@@ -119,6 +117,28 @@ namespace EducationalInstitutionAPI.Data
                     var building = Buildings.SingleOrDefault(b => b.BuildingID == buildingID);
                     if (building is not null)
                         Buildings.Remove(building);
+                }
+            }
+        }
+
+        public void CreateAndAddAdmins(ICollection<Guid> addAdminsIDs)
+        {
+            if (addAdminsIDs is not null && addAdminsIDs.Count > 0)
+            {
+                foreach (var adminID in addAdminsIDs)
+                    Admins.Add(new(adminID, EducationalInstitutionID));
+            }
+        }
+
+        public void RemoveAdmins(ICollection<Guid> removeAdminsIDs)
+        {
+            if (removeAdminsIDs is not null && removeAdminsIDs.Count > 0)
+            {
+                foreach (var adminID in removeAdminsIDs)
+                {
+                    var admin = Admins.SingleOrDefault(a => a.AdminID == adminID);
+                    if (admin is not null)
+                        Admins.Remove(admin);
                 }
             }
         }
