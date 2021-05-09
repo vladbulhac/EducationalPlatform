@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository
+namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository
 {
     /// <summary>
     /// Defines specific operations over the set of <see cref="EducationalInstitution"/> entities
     /// </summary>
-    public interface IEducationalInstitutionRepository : ICommandsRepository<EducationalInstitution>
+    public interface IEducationalInstitutionRepository : IRepository<EducationalInstitution>
     {
         /// <summary>
         /// Gets an entity, including its related entities, based on a unique identifier if it exists in the database

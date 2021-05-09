@@ -11,7 +11,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingRepository
+namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuilding_Repository
 {
     /// <summary>
     /// Contains concrete implementations of the methods that execute Queries and Commands over the <see cref="EducationalInstitutionBuilding"/> entities
@@ -41,27 +41,25 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingR
                 dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB") ?? throw new ArgumentNullException(nameof(dbConnection));
         }
 
-        public async Task<bool> DeleteAsync(string buildingID, CancellationToken cancellationToken = default)
+        public async Task<bool> DeleteAsync(string buildingID, Guid educationalInstitutionID, CancellationToken cancellationToken = default)
         {
-            var educationalInstitutionBuilding = await context.EducationalInstitutionsBuildings
-                                                                .SingleOrDefaultAsync(eib => eib.BuildingID == buildingID, cancellationToken);
+            var educationalInstitutionBuilding = await context.Buildings
+                                                                .SingleOrDefaultAsync(eib => eib.BuildingID == buildingID && eib.EducationalInstitutionID == educationalInstitutionID, cancellationToken);
 
             if (educationalInstitutionBuilding is null) return false;
 
-            context.EducationalInstitutionsBuildings.Remove(educationalInstitutionBuilding);
+            context.Buildings.Remove(educationalInstitutionBuilding);
             return true;
         }
 
-        public async Task<bool> DeleteAsync(ICollection<string> buildingsIDs, CancellationToken cancellationToken = default)
+        public async Task<bool> DeleteAsync(ICollection<string> buildingsIDs, Guid educationalInstitutionID, CancellationToken cancellationToken = default)
         {
-            var educationalInstitutionBuildings = await context.EducationalInstitutionsBuildings
-                                                              .Where(eib => buildingsIDs.Contains(eib.BuildingID)).ToListAsync(cancellationToken);
+            var buildings = await context.Buildings.Where(eib => buildingsIDs.Contains(eib.BuildingID) && eib.EducationalInstitutionID == educationalInstitutionID)
+                                                    .ToListAsync(cancellationToken);
 
-            if (educationalInstitutionBuildings is null || educationalInstitutionBuildings.Count == 0) return false;
+            if (buildings is null || buildings.Count == 0) return false;
 
-            for (int buildingIndex = 0; buildingIndex < educationalInstitutionBuildings.Count; buildingIndex++)
-                context.EducationalInstitutionsBuildings.Remove(educationalInstitutionBuildings[buildingIndex]);
-
+            context.Buildings.RemoveRange(buildings);
             return true;
         }
 
@@ -73,7 +71,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingR
 
                 var queryResult = await connection.QueryAsync<EducationalInstitutionBaseQueryResult>(@"
                                                                        SELECT e.EducationalInstitutionID, e.Name, e.Description
-                                                                       FROM EducationalInstitutionsBuildings b
+                                                                       FROM Buildings b
                                                                        JOIN EducationalInstitutions e ON b.EducationalInstitutionID=e.EducationalInstitutionID
                                                                        WHERE b.BuildingID=@ID AND b.EntityAccess_IsDisabled=0 AND e.EntityAccess_IsDisabled=0
                                                                        ORDER BY e.Name",

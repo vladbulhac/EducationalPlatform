@@ -1,10 +1,11 @@
 ﻿using EducationalInstitutionAPI.Data;
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingRepository
+namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuilding_Repository
 {
     /// <summary>
     /// Defines specific operations over the set of <see cref="EducationalInstitutionBuilding"/> entities
@@ -19,8 +20,8 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuildingR
         /// <returns>NULL if the entity has not been found, a record type <see cref="GetAllEducationalInstitutionsWithSameBuildingQueryResult"/> otherwise</returns>
         public Task<GetAllEducationalInstitutionsWithSameBuildingQueryResult> GetAllEducationalInstitutionsWithSameBuildingAsync(string buildingID, CancellationToken cancellationToken = default);
 
-        public Task<bool> DeleteAsync(string buildingID, CancellationToken cancellationToken = default);
+        public Task<bool> DeleteAsync(string buildingID, Guid educationalInstitutionID, CancellationToken cancellationToken = default);
 
-        public Task<bool> DeleteAsync(ICollection<string> buildingsIDs, CancellationToken cancellationToken = default);
+        public Task<bool> DeleteAsync(ICollection<string> buildingsIDs, Guid educationalInstitutionID, CancellationToken cancellationToken = default);
     }
 }

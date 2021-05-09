@@ -8,7 +8,7 @@ namespace EducationalInstitutionAPI.Repositories
     /// Defines the methods that execute operations of type Create, Update and Delete over a database
     /// </summary>
     /// <typeparam name="TEntity">Entity type</typeparam>
-    public interface ICommandsRepository<TEntity> where TEntity : class
+    public interface IRepository<TEntity> where TEntity : class
     {
         /// <summary>
         /// Inserts a new <typeparamref name="TEntity"/> entity in the database

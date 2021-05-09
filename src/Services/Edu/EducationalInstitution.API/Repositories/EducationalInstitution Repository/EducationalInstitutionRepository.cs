@@ -11,7 +11,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepository
+namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository
 {
     /// <summary>
     /// Contains concrete implementations of the methods that execute Queries and Commands over the <see cref="EducationalInstitution"/> entities
@@ -125,7 +125,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
                                     FROM EducationalInstitutions e
                                     LEFT JOIN EducationalInstitutions ce ON ce.ParentInstitutionEducationalInstitutionID=e.EducationalInstitutionID AND ce.EntityAccess_IsDisabled=0
                                     LEFT JOIN EducationalInstitutions pe ON e.ParentInstitutionEducationalInstitutionID=pe.EducationalInstitutionID AND pe.EntityAccess_IsDisabled=0
-                                    LEFT JOIN EducationalInstitutionsBuildings b ON e.EducationalInstitutionID=b.EducationalInstitutionID AND b.EntityAccess_IsDisabled=0
+                                    LEFT JOIN Buildings b ON e.EducationalInstitutionID=b.EducationalInstitutionID AND b.EntityAccess_IsDisabled=0
                                     WHERE e.EducationalInstitutionID=@ID AND e.EntityAccess_IsDisabled=0
                                     ORDER BY e.Name, ParentName",
                                     new { ID = educationalInstitutionID });
@@ -164,7 +164,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionRepositor
                 var queryResult = await connection.QueryAsync<dynamic>(
                                                                     @"SELECT e.EducationalInstitutionID, e.Name, e.Description, b.BuildingID
                                                                        FROM EducationalInstitutions e
-                                                                       LEFT JOIN EducationalInstitutionsBuildings b ON e.EducationalInstitutionID=b.EducationalInstitutionID AND b.EntityAccess_IsDisabled=0
+                                                                       LEFT JOIN Buildings b ON e.EducationalInstitutionID=b.EducationalInstitutionID AND b.EntityAccess_IsDisabled=0
                                                                        WHERE e.LocationID=@ID AND e.EntityAccess_IsDisabled=0
                                                                        ORDER BY e.Name",
                                                                     new { ID = locationID });
