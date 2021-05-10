@@ -1,23 +1,23 @@
 ﻿using EducationalInstitution.API.IntegrationTests.Utils;
-using EducationalInstitutionAPI.Repositories.EducationalInstitutionBuilding_Repository;
+using EducationalInstitutionAPI.Repositories.EducationalInstitutionBuilding_Repository.Query_Repository;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
+namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests.BuildingRepository_Tests
 {
     [Collection("Database collection")]
-    public class EducationalInstitutionBuildingRepositoryTests
+    public class EducationalInstitutionBuildingQueryRepositoryTests
     {
         private readonly DatabaseFixture dbFixture;
-        private readonly IEducationalInstitutionBuildingRepository repository;
+        private readonly IEducationalInstitutionBuildingQueryRepository repository;
 
         /// <remarks>Called before each test</remarks>
-        public EducationalInstitutionBuildingRepositoryTests(DatabaseFixture dbFixture)
+        public EducationalInstitutionBuildingQueryRepositoryTests(DatabaseFixture dbFixture)
         {
             this.dbFixture = dbFixture;
-            repository = new EducationalInstitutionBuildingRepository(dbFixture.DbConnection);
+            repository = new EducationalInstitutionBuildingQueryRepository(dbFixture.DbConnection);
         }
 
         [IgnoreWhenDatabaseIsNotLoaded]

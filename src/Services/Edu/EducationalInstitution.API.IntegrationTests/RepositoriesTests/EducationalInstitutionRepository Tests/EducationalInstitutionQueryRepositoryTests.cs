@@ -1,25 +1,25 @@
 ﻿using EducationalInstitution.API.IntegrationTests.Utils;
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
-using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository;
+using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Query_Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests
+namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests.EducationalInstitutionRepository_Tests
 {
     [Collection("Database collection")]
-    public class EducationalInstitutionRepositoryTests
+    public class EducationalInstitutionQueryRepositoryTests
     {
         private readonly DatabaseFixture dbFixture;
-        private IEducationalInstitutionRepository repository;
+        private IEducationalInstitutionQueryRepository repository;
 
         /// <remarks>Called before each test</remarks>
-        public EducationalInstitutionRepositoryTests(DatabaseFixture dbFixture)
+        public EducationalInstitutionQueryRepositoryTests(DatabaseFixture dbFixture)
         {
             this.dbFixture = dbFixture;
-            repository = new EducationalInstitutionRepository(dbFixture.DbConnection);
+            repository = new EducationalInstitutionQueryRepository(dbFixture.DbConnection);
         }
 
         #region GetByIDAsync() TESTS
