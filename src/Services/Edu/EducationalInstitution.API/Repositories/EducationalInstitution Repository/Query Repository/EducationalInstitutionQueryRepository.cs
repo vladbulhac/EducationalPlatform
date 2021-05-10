@@ -1,56 +1,26 @@
 ﻿using Dapper;
 using EducationalInstitutionAPI.Data;
-using EducationalInstitutionAPI.Data.Contexts;
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
 using EducationalInstitutionAPI.Utils;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository
+namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Query_Repository
 {
-    /// <summary>
-    /// Contains concrete implementations of the methods that execute Queries and Commands over the <see cref="EducationalInstitution"/> entities
-    /// </summary>
-    public class EducationalInstitutionRepository : IEducationalInstitutionRepository
+    public class EducationalInstitutionQueryRepository : IEducationalInstitutionQueryRepository
     {
-        private readonly DataContext context;
         private readonly string dbConnection;
 
-        public EducationalInstitutionRepository(DataContext context) => this.context = context ?? throw new ArgumentNullException(nameof(context));
-
-        public EducationalInstitutionRepository(string connectionString = null)
+        public EducationalInstitutionQueryRepository(string connectionString = null)
         {
             if (!string.IsNullOrEmpty(connectionString))
                 dbConnection = connectionString;
             else
                 dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB") ?? throw new Exception("No connection string has been found!");
-        }
-
-        public EducationalInstitutionRepository(DataContext context, string connectionString = null)
-        {
-            this.context = context ?? throw new ArgumentNullException(nameof(context));
-
-            if (!string.IsNullOrEmpty(connectionString))
-                dbConnection = connectionString;
-            else
-                dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB") ?? throw new Exception("No connection string has been found!");
-        }
-
-        public async Task CreateAsync(EducationalInstitution data, CancellationToken cancellationToken = default) => await context.EducationalInstitutions.AddAsync(data, cancellationToken);
-
-        public async Task<bool> DeleteAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default)
-        {
-            var educationalInstitution = await context.EducationalInstitutions.SingleOrDefaultAsync(eduI => eduI.EducationalInstitutionID == educationalInstitutionID, cancellationToken);
-
-            if (educationalInstitution is null) return false;
-
-            context.EducationalInstitutions.Remove(educationalInstitution);
-            return true;
         }
 
         public async Task<ICollection<GetEducationalInstitutionQueryResult>> GetAllLikeNameAsync(string name, int offsetValue = 0, int resultsCount = 1, CancellationToken cancellationToken = default)
@@ -190,109 +160,6 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
                         };*/
 
             #endregion Entity Framework Core LINQ
-        }
-
-        public async Task<ICollection<GetEducationalInstitutionQueryResult>> GetFromCollectionOfIDsAsync(ICollection<Guid> IDs, CancellationToken cancellationToken = default)
-        {
-            return await context.EducationalInstitutions
-                                 .Where(eduI => IDs.Contains(eduI.EducationalInstitutionID))
-                                 .Select(ei => new GetEducationalInstitutionQueryResult()
-                                 {
-                                     EducationalInstitutionID = ei.EducationalInstitutionID,
-                                     LocationID = ei.LocationID,
-                                     Name = ei.Name,
-                                     Description = ei.Description
-                                 })
-                                 .ToListAsync(cancellationToken);
-        }
-
-        public async Task<bool> UpdateAsync(EducationalInstitution data, CancellationToken cancellationToken = default)
-        {
-            var educationalInstitution = await context.EducationalInstitutions
-                                                      .SingleOrDefaultAsync(eduI => eduI.EducationalInstitutionID == data.EducationalInstitutionID, cancellationToken);
-
-            if (educationalInstitution is null) return false;
-
-            educationalInstitution.Update(data.Name, data.Description, data.LocationID);
-            return true;
-        }
-
-        public async Task<bool> UpdateEntireLocationAsync(Guid educationalInstitutionID, string locationID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken)
-        {
-            var educationalInstitution = await context.EducationalInstitutions
-                                                     .SingleOrDefaultAsync(ei => ei.EducationalInstitutionID == educationalInstitutionID, cancellationToken);
-
-            if (educationalInstitution is null) return false;
-
-            educationalInstitution.UpdateEntireLocation(locationID, addBuildingsIDs, removeBuildingsIDs);
-            return true;
-        }
-
-        public async Task<bool> UpdateLocationAsync(Guid educationalInstitutionID, string locationID, CancellationToken cancellationToken)
-        {
-            var educationalInstitution = await context.EducationalInstitutions
-                                                     .SingleOrDefaultAsync(ei => ei.EducationalInstitutionID == educationalInstitutionID, cancellationToken);
-
-            if (educationalInstitution is null) return false;
-
-            educationalInstitution.UpdateLocation(locationID);
-            return true;
-        }
-
-        public async Task<bool> UpdateBuildingsAsync(Guid educationalInstitutionID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken)
-        {
-            var educationalInstitution = await context.EducationalInstitutions
-                                                    .SingleOrDefaultAsync(ei => ei.EducationalInstitutionID == educationalInstitutionID, cancellationToken);
-
-            if (educationalInstitution is null) return false;
-
-            educationalInstitution.CreateAndAddBuildings(addBuildingsIDs);
-            educationalInstitution.RemoveBuildings(removeBuildingsIDs);
-            return true;
-        }
-
-        public async Task<bool> UpdateNameAsync(Guid educationalInstitutionID, string name, CancellationToken cancellationToken)
-        {
-            var educationalInstitution = await context.EducationalInstitutions
-                                                    .SingleOrDefaultAsync(ei => ei.EducationalInstitutionID == educationalInstitutionID, cancellationToken);
-
-            if (educationalInstitution is null) return false;
-
-            educationalInstitution.UpdateName(name);
-            return true;
-        }
-
-        public async Task<bool> UpdateDescriptionAsync(Guid educationalInstitutionID, string description, CancellationToken cancellationToken)
-        {
-            var educationalInstitution = await context.EducationalInstitutions
-                                                    .SingleOrDefaultAsync(ei => ei.EducationalInstitutionID == educationalInstitutionID, cancellationToken);
-
-            if (educationalInstitution is null) return false;
-
-            educationalInstitution.UpdateDescription(description);
-            return true;
-        }
-
-        public async Task<bool> UpdateNameAndDescriptionAsync(Guid educationalInstitutionID, string name, string description, CancellationToken cancellationToken)
-        {
-            var educationalInstitution = await context.EducationalInstitutions
-                                                        .SingleOrDefaultAsync(ei => ei.EducationalInstitutionID == educationalInstitutionID, cancellationToken);
-
-            if (educationalInstitution is null) return false;
-
-            educationalInstitution.Update(name, description);
-            return true;
-        }
-
-        public async Task<bool> UpdateParentInstitutionAsync(Guid educationalInstitutionID, EducationalInstitution parentInstitution, CancellationToken cancellationToken = default)
-        {
-            var educationalInstitution = await context.EducationalInstitutions
-                                                        .SingleOrDefaultAsync(ei => ei.EducationalInstitutionID == educationalInstitutionID, cancellationToken);
-
-            if (educationalInstitution is null) return false;
-
-            educationalInstitution.UpdateParentInstitution(parentInstitution);
-            return true;
         }
 
         #region GetAllByLocationAsync() query result map methods

@@ -1,45 +1,38 @@
 ﻿using EducationalInstitutionAPI.Data;
-using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository
+namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Command_Repository
 {
     /// <summary>
-    /// Defines specific operations over the set of <see cref="EducationalInstitution"/> entities
+    /// Defines specific command operations over the set of <see cref="EducationalInstitution"/> entities
     /// </summary>
-    public interface IEducationalInstitutionRepository : IRepository<EducationalInstitution>
+    public interface IEducationalInstitutionCommandRepository
     {
         /// <summary>
-        /// Gets an entity, including its related entities, based on a unique identifier if it exists in the database
+        /// Inserts a new <see cref="EducationalInstitution"/> entity in the database
         /// </summary>
+        /// <param name="data">An object that encapsulates the data to be inserted in the database</param>
         /// <param name="cancellationToken">Cancels the operation _______</param>
-        /// <returns>NULL if the entity has not been found, a record type <see cref="GetEducationalInstitutionByIDQueryResult"/> otherwise</returns>
-        public Task<GetEducationalInstitutionByIDQueryResult> GetByIDAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default);
-
-        /// <param name="cancellationToken">Cancels the operation ______</param>
-        /// <returns>NULL if the entity has not been found, a record type <see cref="GetAllEducationalInstitutionsByLocationQueryResult"/> otherwise</returns>
-        public Task<GetAllEducationalInstitutionsByLocationQueryResult> GetAllByLocationAsync(string locationID, CancellationToken cancellationToken = default);
+        public Task CreateAsync(EducationalInstitution data, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Gets a collection with at most <paramref name="resultsCount"/> entities that contain <paramref name="name"/>
+        /// Updates the fields of an entity with the given <see cref="EducationalInstitution"> and saves the changes in the database
         /// </summary>
-        /// <param name="name">Text based on which the lookup is made</param>
-        /// <param name="offsetValue">Skips a specified number of results</param>
-        /// <param name="resultsCount">Number of results to be fetched</param>
-        /// <param name="cancellationToken">Cancels the operation ______</param>
-        /// <returns>NULL if no entities have been found, a collection of records of type <see cref="GetEducationalInstitutionQueryResult"/> otherwise</returns>
-        public Task<ICollection<GetEducationalInstitutionQueryResult>> GetAllLikeNameAsync(string name, int offsetValue, int resultsCount, CancellationToken cancellationToken = default);
+        /// <param name="data">An object that encapsulates the new values that are used for updating the entity from the database</param>
+        /// <param name="cancellationToken">Cancels the operation ________</param>
+        /// <returns>True if the entity has been found and updated, False if the entity has not been found in the database</returns>
+        public Task<bool> UpdateAsync(EducationalInstitution data, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Gets the entities that have a unique identifier in the <paramref name="IDs"/> collection
+        /// Removes an entity from the database
         /// </summary>
-        /// <param name="IDs">List of identifiers based on which the lookup is made</param>
-        /// <param name="cancellationToken">Cancels the operation ______</param>
-        /// <returns>NULL if no entities have been found, a collection of records of type <see cref="GetEducationalInstitutionQueryResult"/> otherwise</returns>
-        public Task<ICollection<GetEducationalInstitutionQueryResult>> GetFromCollectionOfIDsAsync(ICollection<Guid> IDs, CancellationToken cancellationToken = default);
+        /// <param name="ID">Identifies the data that has to be removed</param>
+        /// <param name="cancellationToken">Cancels the operation _______</param>
+        /// <returns>True if the entity has been found and removed, False if the entity has not been found in the database</returns>
+        public Task<bool> DeleteAsync(Guid ID, CancellationToken cancellationToken = default);
 
         /// <param name="cancellationToken">Cancels the operation _______</param>
         /// <returns>True if the entity has been found and updated, False if the entity has not been found in the database</returns>
