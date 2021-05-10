@@ -1,8 +1,8 @@
 ﻿using EducationalInstitutionAPI.Data;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
-using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository;
-using EducationalInstitutionAPI.Unit_of_Work;
+using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Command_Repository;
+using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -20,10 +20,10 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// </summary>
         private readonly ILogger<UpdateEducationalInstitutionCommandHandler> logger;
 
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWorkForCommands unitOfWork;
 
         /// <exception cref="ArgumentNullException"/>
-        public UpdateEducationalInstitutionCommandHandler(IUnitOfWork unitOfWork, ILogger<UpdateEducationalInstitutionCommandHandler> logger)
+        public UpdateEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWork, ILogger<UpdateEducationalInstitutionCommandHandler> logger)
         {
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -36,7 +36,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"/>
-        public async Task<Response> Handle(DTOEducationalInstitutionUpdateCommand request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(DTOEducationalInstitutionUpdateCommand request, CancellationToken cancellationToken = default)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
 
@@ -66,7 +66,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                     "Could not update the Educational Institution with the given data: {0}, using {1} with {2}'s method: {3}, error details => {4}",
                     JsonConvert.SerializeObject(request),
                     unitOfWork.GetType(),
-                    unitOfWork.UsingEducationalInstitutionRepository().GetType(),
+                    unitOfWork.UsingEducationalInstitutionCommandRepository().GetType(),
                     GetNameOfRepositoryMethodThatWasCalledInHandler(request),
                     e.Message
                 );
@@ -86,17 +86,17 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             switch (request.UpdateName)
             {
                 case true when request.UpdateDescription:
-                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
+                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionCommandRepository()
                                                         .UpdateNameAndDescriptionAsync(request.EducationalInstitutionID, request.Name, request.Description, cancellationToken);
                     break;
 
                 case false when request.UpdateDescription:
-                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
+                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionCommandRepository()
                                                          .UpdateDescriptionAsync(request.EducationalInstitutionID, request.Description, cancellationToken);
                     break;
 
                 default:
-                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
+                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionCommandRepository()
                                                         .UpdateNameAsync(request.EducationalInstitutionID, request.Name, cancellationToken);
                     break;
             }
@@ -111,9 +111,9 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         {
             switch (request.UpdateName)
             {
-                case true when request.UpdateDescription: return nameof(IEducationalInstitutionRepository.UpdateNameAndDescriptionAsync);
-                case false when request.UpdateDescription: return nameof(IEducationalInstitutionRepository.UpdateDescriptionAsync);
-                default: return nameof(IEducationalInstitutionRepository.UpdateNameAsync);
+                case true when request.UpdateDescription: return nameof(IEducationalInstitutionCommandRepository.UpdateNameAndDescriptionAsync);
+                case false when request.UpdateDescription: return nameof(IEducationalInstitutionCommandRepository.UpdateDescriptionAsync);
+                default: return nameof(IEducationalInstitutionCommandRepository.UpdateNameAsync);
             }
         }
     }

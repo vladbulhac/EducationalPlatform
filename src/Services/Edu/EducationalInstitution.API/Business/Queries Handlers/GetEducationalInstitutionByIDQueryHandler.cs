@@ -2,8 +2,8 @@
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Queries;
-using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository;
-using EducationalInstitutionAPI.Unit_of_Work;
+using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Query_Repository;
+using EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
@@ -20,10 +20,10 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
         /// </summary>
         private readonly ILogger<GetEducationalInstitutionByIDQueryHandler> logger;
 
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWorkForQueries unitOfWork;
 
         /// <exception cref="ArgumentNullException"/>
-        public GetEducationalInstitutionByIDQueryHandler(IUnitOfWork unitOfWork, ILogger<GetEducationalInstitutionByIDQueryHandler> logger)
+        public GetEducationalInstitutionByIDQueryHandler(IUnitOfWorkForQueries unitOfWork, ILogger<GetEducationalInstitutionByIDQueryHandler> logger)
         {
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -42,34 +42,31 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
         /// </list>
         /// </returns>
         /// <exception cref="ArgumentNullException"/>
-        public async Task<Response<GetEducationalInstitutionByIDQueryResult>> Handle(DTOEducationalInstitutionByIDQuery request, CancellationToken cancellationToken)
+        public async Task<Response<GetEducationalInstitutionByIDQueryResult>> Handle(DTOEducationalInstitutionByIDQuery request, CancellationToken cancellationToken = default)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
 
             try
             {
-                using (unitOfWork)
-                {
-                    var educationalInstitution = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                            .GetByIDAsync(request.EducationalInstitutionID, cancellationToken);
+                var educationalInstitution = await unitOfWork.UsingEducationalInstitutionQueryRepository()
+                                                        .GetByIDAsync(request.EducationalInstitutionID, cancellationToken);
 
-                    if (educationalInstitution is null)
-                        return new()
-                        {
-                            Data = null,
-                            OperationStatus = false,
-                            StatusCode = HttpStatusCode.NotFound,
-                            Message = $"Educational Institution with the following ID: {request.EducationalInstitutionID} has not been found!"
-                        };
-
+                if (educationalInstitution is null)
                     return new()
                     {
-                        Data = educationalInstitution,
-                        OperationStatus = true,
-                        StatusCode = HttpStatusCode.OK,
-                        Message = string.Empty
+                        Data = null,
+                        OperationStatus = false,
+                        StatusCode = HttpStatusCode.NotFound,
+                        Message = $"Educational Institution with the following ID: {request.EducationalInstitutionID} has not been found!"
                     };
-                }
+
+                return new()
+                {
+                    Data = educationalInstitution,
+                    OperationStatus = true,
+                    StatusCode = HttpStatusCode.OK,
+                    Message = string.Empty
+                };
             }
             catch (Exception e)
             {
@@ -77,7 +74,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
                     "Could not find an Educational Institution with ID: {0}, using {1}'s method: {2}, error details => {3}",
                     request.EducationalInstitutionID,
                     unitOfWork.GetType(),
-                    nameof(IEducationalInstitutionRepository.GetByIDAsync),
+                    nameof(IEducationalInstitutionQueryRepository.GetByIDAsync),
                     e.Message);
 
                 return new()

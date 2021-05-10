@@ -1,8 +1,10 @@
 ﻿using EducationalInstitutionAPI.Data;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
-using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository;
-using EducationalInstitutionAPI.Unit_of_Work;
+using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Command_Repository;
+using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Query_Repository;
+using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
+using EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -20,13 +22,15 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// </summary>
         private readonly ILogger<UpdateEducationalInstitutionParentCommandHandler> logger;
 
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWorkForCommands unitOfWorkCommand;
+        private readonly IUnitOfWorkForQueries unitOfWorkQuery;
 
         /// <exception cref="ArgumentNullException"/>
-        public UpdateEducationalInstitutionParentCommandHandler(IUnitOfWork unitOfWork, ILogger<UpdateEducationalInstitutionParentCommandHandler> logger)
+        public UpdateEducationalInstitutionParentCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IUnitOfWorkForQueries unitOfWorkQuery, ILogger<UpdateEducationalInstitutionParentCommandHandler> logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            this.unitOfWorkCommand = unitOfWorkCommand ?? throw new ArgumentNullException(nameof(unitOfWorkCommand));
+            this.unitOfWorkQuery = unitOfWorkQuery ?? throw new ArgumentNullException(nameof(unitOfWorkQuery));
         }
 
         /// <summary>
@@ -43,15 +47,15 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// </list>
         /// </returns>
         /// <exception cref="ArgumentNullException"/>
-        public async Task<Response> Handle(DTOEducationalInstitutionParentUpdateCommand request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(DTOEducationalInstitutionParentUpdateCommand request, CancellationToken cancellationToken = default)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
 
             try
             {
-                using (unitOfWork)
+                using (unitOfWorkCommand)
                 {
-                    var parentInstitution = await unitOfWork.UsingEducationalInstitutionRepository()
+                    var parentInstitution = await unitOfWorkQuery.UsingEducationalInstitutionQueryRepository()
                                                            .GetEntityByIDAsync(request.ParentInstitutionID, cancellationToken);
 
                     if (parentInstitution is null)
@@ -62,7 +66,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                             Message = $"The Parent Educational Institution with the following ID: {request.ParentInstitutionID} has not been found!"
                         };
 
-                    var isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
+                    var isEntityUpdated = await unitOfWorkCommand.UsingEducationalInstitutionCommandRepository()
                                                             .UpdateParentInstitutionAsync(request.EducationalInstitutionID, parentInstitution, cancellationToken);
 
                     if (!isEntityUpdated)
@@ -86,10 +90,10 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                 logger.LogError(
                    "Could not update the Educational Institution with the given data: {0}, using {1} with {2}'s method: {3} and {4}, error details => {5}",
                    JsonConvert.SerializeObject(request),
-                   unitOfWork.GetType(),
-                   unitOfWork.UsingEducationalInstitutionRepository().GetType(),
-                   nameof(IEducationalInstitutionRepository.GetEntityByIDAsync),
-                   nameof(IEducationalInstitutionRepository.UpdateParentInstitutionAsync),
+                   unitOfWorkCommand.GetType(),
+                   unitOfWorkCommand.UsingEducationalInstitutionCommandRepository().GetType(),
+                   nameof(IEducationalInstitutionQueryRepository.GetEntityByIDAsync),
+                   nameof(IEducationalInstitutionCommandRepository.UpdateParentInstitutionAsync),
                    e.Message
                    );
 

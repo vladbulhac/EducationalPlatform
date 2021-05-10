@@ -1,8 +1,8 @@
 ﻿using EducationalInstitutionAPI.Data;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
-using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository;
-using EducationalInstitutionAPI.Unit_of_Work;
+using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Command_Repository;
+using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -20,10 +20,10 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// </summary>
         private readonly ILogger<UpdateEducationalInstitutionLocationCommandHandler> logger;
 
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWorkForCommands unitOfWork;
 
         /// <exception cref="ArgumentNullException"/>
-        public UpdateEducationalInstitutionLocationCommandHandler(IUnitOfWork unitOfWork, ILogger<UpdateEducationalInstitutionLocationCommandHandler> logger)
+        public UpdateEducationalInstitutionLocationCommandHandler(IUnitOfWorkForCommands unitOfWork, ILogger<UpdateEducationalInstitutionLocationCommandHandler> logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
@@ -42,7 +42,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// </list>
         /// </returns>
         /// <exception cref="ArgumentNullException"/>
-        public async Task<Response> Handle(DTOEducationalInstitutionLocationUpdateCommand request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(DTOEducationalInstitutionLocationUpdateCommand request, CancellationToken cancellationToken = default)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
 
@@ -72,7 +72,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                    "Could not update the Educational Institution with the given data: {0}, using {1} with {2}'s method: {3}, error details => {4}",
                    JsonConvert.SerializeObject(request),
                    unitOfWork.GetType(),
-                   unitOfWork.UsingEducationalInstitutionRepository().GetType(),
+                   unitOfWork.UsingEducationalInstitutionCommandRepository().GetType(),
                    GetNameOfRepositoryMethodThatWasCalledInHandler(request),
                    e.Message
                    );
@@ -92,17 +92,17 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             switch (request.UpdateLocation)
             {
                 case true when request.UpdateBuildings:
-                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
+                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionCommandRepository()
                                                 .UpdateEntireLocationAsync(request.EducationalInstitutionID, request.LocationID, request.AddBuildingsIDs, request.RemoveBuildingsIDs, cancellationToken);
                     break;
 
                 case false when request.UpdateBuildings:
-                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
+                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionCommandRepository()
                                                 .UpdateBuildingsAsync(request.EducationalInstitutionID, request.AddBuildingsIDs, request.RemoveBuildingsIDs, cancellationToken);
                     break;
 
                 default:
-                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionRepository()
+                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionCommandRepository()
                                                 .UpdateLocationAsync(request.EducationalInstitutionID, request.LocationID, cancellationToken);
                     break;
             }
@@ -117,9 +117,9 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         {
             switch (request.UpdateLocation)
             {
-                case true when request.UpdateBuildings: return nameof(IEducationalInstitutionRepository.UpdateEntireLocationAsync);
-                case false when request.UpdateBuildings: return nameof(IEducationalInstitutionRepository.UpdateBuildingsAsync);
-                default: return nameof(IEducationalInstitutionRepository.UpdateLocationAsync);
+                case true when request.UpdateBuildings: return nameof(IEducationalInstitutionCommandRepository.UpdateEntireLocationAsync);
+                case false when request.UpdateBuildings: return nameof(IEducationalInstitutionCommandRepository.UpdateBuildingsAsync);
+                default: return nameof(IEducationalInstitutionCommandRepository.UpdateLocationAsync);
             }
         }
     }

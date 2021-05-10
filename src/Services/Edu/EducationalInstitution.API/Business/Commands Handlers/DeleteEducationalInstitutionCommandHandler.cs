@@ -2,8 +2,9 @@
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Commands_Results;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
-using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository;
-using EducationalInstitutionAPI.Unit_of_Work;
+using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Query_Repository;
+using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
+using EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
@@ -20,13 +21,15 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// </summary>
         private readonly ILogger<DeleteEducationalInstitutionCommandHandler> logger;
 
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWorkForCommands unitOfWorkCommand;
+        private readonly IUnitOfWorkForQueries unitOfWorkQuery;
 
         /// <exception cref="ArgumentNullException"/>
-        public DeleteEducationalInstitutionCommandHandler(IUnitOfWork unitOfWork, ILogger<DeleteEducationalInstitutionCommandHandler> logger)
+        public DeleteEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IUnitOfWorkForQueries unitOfWorkQuery, ILogger<DeleteEducationalInstitutionCommandHandler> logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            this.unitOfWorkCommand = unitOfWorkCommand ?? throw new ArgumentNullException(nameof(unitOfWorkCommand));
+            this.unitOfWorkQuery = unitOfWorkQuery ?? throw new ArgumentNullException(nameof(unitOfWorkQuery));
         }
 
         /// <summary>
@@ -47,9 +50,9 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
             try
             {
-                using (unitOfWork)
+                using (unitOfWorkCommand)
                 {
-                    var educationalInstitution = await unitOfWork.UsingEducationalInstitutionRepository()
+                    var educationalInstitution = await unitOfWorkQuery.UsingEducationalInstitutionQueryRepository()
                                                                  .GetEntityByIDAsync(request.EducationalInstitutionID, cancellationToken);
 
                     if (educationalInstitution is null)
@@ -64,7 +67,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                     }
 
                     educationalInstitution.EntityAccess.ScheduleForDeletion();
-                    await unitOfWork.SaveChangesAsync(cancellationToken);
+                    await unitOfWorkCommand.SaveChangesAsync(cancellationToken);
 
                     return new()
                     {
@@ -80,9 +83,9 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                 logger.LogError(
                     "Could not schedule for deletion the Educational Institution with ID: {0}, using {1} with {2}'s method: {3}, error details => {4}",
                     request.EducationalInstitutionID,
-                    unitOfWork.GetType(),
-                    unitOfWork.UsingEducationalInstitutionRepository().GetType(),
-                    nameof(IEducationalInstitutionRepository.GetEntityByIDAsync),
+                    unitOfWorkCommand.GetType(),
+                    unitOfWorkCommand.UsingEducationalInstitutionCommandRepository().GetType(),
+                    nameof(IEducationalInstitutionQueryRepository.GetEntityByIDAsync),
                     e.Message
                     );
 

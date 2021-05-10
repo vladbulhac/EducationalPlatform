@@ -2,8 +2,8 @@
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Queries;
-using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository;
-using EducationalInstitutionAPI.Unit_of_Work;
+using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Query_Repository;
+using EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -21,10 +21,10 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
         /// </summary>
         private readonly ILogger<GetAllEducationalInstitutionsByNameQueryHandler> logger;
 
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWorkForQueries unitOfWork;
 
         /// <exception cref="ArgumentNullException"/>
-        public GetAllEducationalInstitutionsByNameQueryHandler(IUnitOfWork unitOfWork, ILogger<GetAllEducationalInstitutionsByNameQueryHandler> logger)
+        public GetAllEducationalInstitutionsByNameQueryHandler(IUnitOfWorkForQueries unitOfWork, ILogger<GetAllEducationalInstitutionsByNameQueryHandler> logger)
         {
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -43,34 +43,31 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
         /// </list>
         /// </returns>
         /// <exception cref="ArgumentNullException"/>
-        public async Task<Response<GetAllEducationalInstitutionsByNameQueryResult>> Handle(DTOEducationalInstitutionsByNameQuery request, CancellationToken cancellationToken)
+        public async Task<Response<GetAllEducationalInstitutionsByNameQueryResult>> Handle(DTOEducationalInstitutionsByNameQuery request, CancellationToken cancellationToken = default)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
 
             try
             {
-                using (unitOfWork)
-                {
-                    var educationalInstitutions = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                            .GetAllLikeNameAsync(request.Name, request.OffsetValue, request.ResultsCount, cancellationToken);
+                var educationalInstitutions = await unitOfWork.UsingEducationalInstitutionQueryRepository()
+                                                        .GetAllLikeNameAsync(request.Name, request.OffsetValue, request.ResultsCount, cancellationToken);
 
-                    if (educationalInstitutions is null || educationalInstitutions.Count == 0)
-                        return new()
-                        {
-                            Data = null,
-                            OperationStatus = false,
-                            StatusCode = HttpStatusCode.NotFound,
-                            Message = $"Could not find any Educational Institution with a name like: {request.Name}!"
-                        };
-
+                if (educationalInstitutions is null || educationalInstitutions.Count == 0)
                     return new()
                     {
-                        Data = new() { EducationalInstitutions = educationalInstitutions },
-                        OperationStatus = true,
-                        StatusCode = HttpStatusCode.OK,
-                        Message = string.Empty
+                        Data = null,
+                        OperationStatus = false,
+                        StatusCode = HttpStatusCode.NotFound,
+                        Message = $"Could not find any Educational Institution with a name like: {request.Name}!"
                     };
-                }
+
+                return new()
+                {
+                    Data = new() { EducationalInstitutions = educationalInstitutions },
+                    OperationStatus = true,
+                    StatusCode = HttpStatusCode.OK,
+                    Message = string.Empty
+                };
             }
             catch (Exception e)
             {
@@ -78,8 +75,8 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
                     "Could not find any Educational Institution with the given data: {0}, using {1} and {2}'s method: {3}, error details => {4}",
                     JsonConvert.SerializeObject(request),
                     unitOfWork.GetType(),
-                    unitOfWork.UsingEducationalInstitutionRepository().GetType(),
-                    nameof(IEducationalInstitutionRepository.GetAllLikeNameAsync),
+                    unitOfWork.UsingEducationalInstitutionQueryRepository().GetType(),
+                    nameof(IEducationalInstitutionQueryRepository.GetAllLikeNameAsync),
                     e.Message
                     );
 

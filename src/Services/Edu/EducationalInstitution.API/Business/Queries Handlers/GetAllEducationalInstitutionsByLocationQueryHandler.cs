@@ -2,8 +2,8 @@
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Queries;
-using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository;
-using EducationalInstitutionAPI.Unit_of_Work;
+using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Query_Repository;
+using EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
@@ -20,10 +20,10 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
         /// </summary>
         private readonly ILogger<GetAllEducationalInstitutionsByLocationQueryHandler> logger;
 
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWorkForQueries unitOfWork;
 
         /// <exception cref="ArgumentNullException"/>
-        public GetAllEducationalInstitutionsByLocationQueryHandler(IUnitOfWork unitOfWork, ILogger<GetAllEducationalInstitutionsByLocationQueryHandler> logger)
+        public GetAllEducationalInstitutionsByLocationQueryHandler(IUnitOfWorkForQueries unitOfWork, ILogger<GetAllEducationalInstitutionsByLocationQueryHandler> logger)
         {
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -43,34 +43,31 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
         /// </list>
         /// </returns>
         /// <exception cref="ArgumentNullException"/>
-        public async Task<Response<GetAllEducationalInstitutionsByLocationQueryResult>> Handle(DTOEducationalInstitutionByLocationQuery request, CancellationToken cancellationToken)
+        public async Task<Response<GetAllEducationalInstitutionsByLocationQueryResult>> Handle(DTOEducationalInstitutionByLocationQuery request, CancellationToken cancellationToken = default)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
 
             try
             {
-                using (unitOfWork)
-                {
-                    var educationalInstitutions = await unitOfWork.UsingEducationalInstitutionRepository()
-                                                            .GetAllByLocationAsync(request.LocationID, cancellationToken);
+                var educationalInstitutions = await unitOfWork.UsingEducationalInstitutionQueryRepository()
+                                                        .GetAllByLocationAsync(request.LocationID, cancellationToken);
 
-                    if (educationalInstitutions is null || educationalInstitutions.EducationalInstitutions.Count == 0)
-                        return new()
-                        {
-                            Data = null,
-                            OperationStatus = false,
-                            StatusCode = HttpStatusCode.NotFound,
-                            Message = $"No Educational Institution with the following LocationID: {request.LocationID} has been found!"
-                        };
-
+                if (educationalInstitutions is null || educationalInstitutions.EducationalInstitutions.Count == 0)
                     return new()
                     {
-                        Data = educationalInstitutions,
-                        OperationStatus = true,
-                        StatusCode = HttpStatusCode.OK,
-                        Message = string.Empty
+                        Data = null,
+                        OperationStatus = false,
+                        StatusCode = HttpStatusCode.NotFound,
+                        Message = $"No Educational Institution with the following LocationID: {request.LocationID} has been found!"
                     };
-                }
+
+                return new()
+                {
+                    Data = educationalInstitutions,
+                    OperationStatus = true,
+                    StatusCode = HttpStatusCode.OK,
+                    Message = string.Empty
+                };
             }
             catch (Exception e)
             {
@@ -78,8 +75,8 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
                     "Could not find an Educational Institution with LocationID: {0}, using {1} with {2}'s method: {3}, error details => {4}",
                     request.LocationID,
                     unitOfWork.GetType(),
-                    unitOfWork.UsingEducationalInstitutionRepository().GetType(),
-                    nameof(IEducationalInstitutionRepository.GetAllByLocationAsync),
+                    unitOfWork.UsingEducationalInstitutionQueryRepository().GetType(),
+                    nameof(IEducationalInstitutionQueryRepository.GetAllByLocationAsync),
                     e.Message
                     );
 

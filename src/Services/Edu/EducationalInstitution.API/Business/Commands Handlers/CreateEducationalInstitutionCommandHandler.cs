@@ -2,8 +2,9 @@
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Commands_Results;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
-using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository;
-using EducationalInstitutionAPI.Unit_of_Work;
+using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Command_Repository;
+using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
+using EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -21,13 +22,15 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// </summary>
         private readonly ILogger<CreateEducationalInstitutionCommandHandler> logger;
 
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWorkForCommands unitOfWorkCommand;
+        private readonly IUnitOfWorkForQueries unitOfWorkQuery;
 
         /// <exception cref="ArgumentNullException"/>
-        public CreateEducationalInstitutionCommandHandler(IUnitOfWork unitOfWork, ILogger<CreateEducationalInstitutionCommandHandler> logger)
+        public CreateEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IUnitOfWorkForQueries unitOfWorkQuery, ILogger<CreateEducationalInstitutionCommandHandler> logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            this.unitOfWorkCommand = unitOfWorkCommand ?? throw new ArgumentNullException(nameof(unitOfWorkCommand));
+            this.unitOfWorkQuery = unitOfWorkQuery ?? throw new ArgumentNullException(nameof(unitOfWorkQuery));
         }
 
         /// <summary>
@@ -43,17 +46,17 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// </list>
         /// </returns>
         /// <exception cref="ArgumentNullException"/>
-        public async Task<Response<EducationalInstitutionCommandResult>> Handle(DTOEducationalInstitutionCreateCommand request, CancellationToken cancellationToken)
+        public async Task<Response<EducationalInstitutionCommandResult>> Handle(DTOEducationalInstitutionCreateCommand request, CancellationToken cancellationToken = default)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
 
             try
             {
-                using (unitOfWork)
+                using (unitOfWorkCommand)
                 {
                     EducationalInstitution parentInstitution = null;
                     if (request.ParentInstitutionID != default)
-                        parentInstitution = await unitOfWork.UsingEducationalInstitutionRepository()
+                        parentInstitution = await unitOfWorkQuery.UsingEducationalInstitutionQueryRepository()
                                                             .GetEntityByIDAsync(request.ParentInstitutionID, cancellationToken);
 
                     EducationalInstitution newEducationalInstitution = new(
@@ -65,9 +68,9 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                                                                             parentInstitution
                                                                             );
 
-                    await unitOfWork.UsingEducationalInstitutionRepository()
+                    await unitOfWorkCommand.UsingEducationalInstitutionCommandRepository()
                                             .CreateAsync(newEducationalInstitution, cancellationToken);
-                    await unitOfWork.SaveChangesAsync(cancellationToken);
+                    await unitOfWorkCommand.SaveChangesAsync(cancellationToken);
 
                     if (parentInstitution is null && request.ParentInstitutionID != default)
                         return new()
@@ -92,9 +95,9 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                 logger.LogError(
                     "Could not create an Educational Institution with the request data: {0}, using {1} with {2}'s method: {3}, error details => {4}",
                     JsonConvert.SerializeObject(request),
-                    unitOfWork.GetType(),
-                    unitOfWork.UsingEducationalInstitutionRepository().GetType(),
-                    nameof(IEducationalInstitutionRepository.CreateAsync),
+                    unitOfWorkCommand.GetType(),
+                    unitOfWorkCommand.UsingEducationalInstitutionCommandRepository().GetType(),
+                    nameof(IEducationalInstitutionCommandRepository.CreateAsync),
                     e.Message
                     );
 
