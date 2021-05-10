@@ -42,16 +42,6 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Validation_Handler_
         }
 
         [Fact]
-        public void GivenAValidTypeDTOEducationalInstitutionsFromCollectionOfIDsQuery_ShouldReturnAnInstanceOfDTOEducationalInstitutionsFromCollectionOfIDsQueryValidator()
-        {
-            //Act
-            var validator = ValidationFactory.CreateValidator<DTOEducationalInstitutionsFromCollectionOfIDsQuery>();
-
-            //Assert
-            Assert.IsType<DTOEducationalInstitutionsFromCollectionOfIDsQueryValidator>(validator);
-        }
-
-        [Fact]
         public void GivenAValidTypeDTOEducationalInstitutionCreateCommand_ShouldReturnAnInstanceOfDTOEducationalInstitutionCreateCommandValidator()
         {
             //Act

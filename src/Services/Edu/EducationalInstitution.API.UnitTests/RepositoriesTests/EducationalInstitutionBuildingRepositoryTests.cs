@@ -1,13 +1,7 @@
-﻿using EducationalInstitutionAPI.Data.Contexts;
-using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
-using EducationalInstitutionAPI.Repositories.EducationalInstitutionBuilding_Repository;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace EducationalInstitution.API.UnitTests.RepositoriesTests
+﻿namespace EducationalInstitution.API.UnitTests.RepositoriesTests
 {
-    public class EducationalInstitutionBuildingRepositoryTests : IClassFixture<TestDataFromJSONParser>
+    /* Commented due to the new split in commands and queries repositories
+     * public class EducationalInstitutionBuildingRepositoryTests : IClassFixture<TestDataFromJSONParser>
     {
         private readonly DbContextOptions<DataContext> dbOptions;
         private readonly TestDataFromJSONParser testDataHelper;
@@ -95,5 +89,5 @@ namespace EducationalInstitution.API.UnitTests.RepositoriesTests
             //Assert
             Assert.Equal(0, result.EducationalInstitutions.Count);
         }
-    }
+    }*/
 }
