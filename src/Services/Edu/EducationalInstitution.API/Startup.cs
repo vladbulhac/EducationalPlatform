@@ -1,7 +1,8 @@
 using EducationalInstitutionAPI.Business.Validation_Handler;
 using EducationalInstitutionAPI.Data.Contexts;
 using EducationalInstitutionAPI.Grpc;
-using EducationalInstitutionAPI.Unit_of_Work;
+using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
+using EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -87,7 +88,8 @@ namespace EducationalInstitutionAPI
         {
             services.AddTransient<IValidationHandler, ValidationHandler>();
             //services.AddTransient<IEducationalInstitutionRepository, EducationalInstitutionRepository>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUnitOfWorkForCommands, UnitOfWorkForCommands>();
+            services.AddTransient<IUnitOfWorkForQueries, UnitOfWorkForQueries>();
 
             return services;
         }
