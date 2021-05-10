@@ -10,6 +10,7 @@ message EducationalInstitutionCreateRequest{
 	string location_id=3;
 	repeated string buildings=4;
 	Uuid parent_institution_id=5;
+	repeated Uuid admins_ids=6;
 }
 
 message EducationalInstitutionDeleteRequest{
