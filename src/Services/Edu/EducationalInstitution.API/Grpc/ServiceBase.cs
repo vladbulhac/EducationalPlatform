@@ -10,7 +10,7 @@ namespace EducationalInstitutionAPI.Grpc
         /// <remarks>
         /// Sets <see cref="ServerCallContext.StatusCode"/> to <see cref="StatusCode.Aborted"/> and the trailer to <see cref="HttpStatusCode.InternalServerError"/>
         /// </remarks>
-        protected void HandleException<TClass>(ILogger<TClass> logger, ref ServerCallContext context, string error_message, params object[] error_message_substitutes)
+        protected void HandleException<TClass>(ILogger<TClass> logger, ref ServerCallContext context, string error_message, params object[] error_message_substitutes) where TClass : ServiceBase
         {
             logger.LogError(error_message, error_message_substitutes);
             SetStatusAndTrailersOfContext(ref context, StatusCode.Aborted, "An error occurred while processing the request!", ((int)HttpStatusCode.InternalServerError).ToString());
@@ -18,11 +18,10 @@ namespace EducationalInstitutionAPI.Grpc
 
         protected void SetStatusAndTrailersOfContext(ref ServerCallContext context, StatusCode code, string message, string httpStatusCode)
         {
-            context.Status = new(code, message);
-            context.ResponseTrailers.AddMultiple(new (string key, string value)[2] {
-                    ("Message",message),
-                    ("HttpStatusCode", httpStatusCode)
-                });
+            SetStatusAndTrailersOfContext(ref context, code, message, new (string key, string value)[2] {
+                                                                        ("Message",message),
+                                                                        ("HttpStatusCode", httpStatusCode)
+                                                                    });
         }
 
         protected void SetStatusAndTrailersOfContext(ref ServerCallContext context, StatusCode code, string message, (string key, string value)[] trailers_data)
@@ -34,10 +33,10 @@ namespace EducationalInstitutionAPI.Grpc
         /// <remarks>
         /// Sets <see cref="ServerCallContext.StatusCode"/> to <see cref="StatusCode.InvalidArgument"/> and the trailer to <see cref="HttpStatusCode.BadRequest"/>
         /// </remarks>
-        protected void SetStatusAndTrailersOfContextWhenValidationFails(ref ServerCallContext context, string validationErrors) => SetStatusAndTrailersOfContext(
-                                                                                                                                                        ref context,
-                                                                                                                                                        StatusCode.InvalidArgument,
-                                                                                                                                                        validationErrors,
-                                                                                                                                                        ((int)HttpStatusCode.BadRequest).ToString());
+        protected void SetStatusAndTrailersOfContextWhenValidationFails(ref ServerCallContext context, string validationErrors)
+                    => SetStatusAndTrailersOfContext(ref context,
+                                                  StatusCode.InvalidArgument,
+                                                  validationErrors,
+                                                  ((int)HttpStatusCode.BadRequest).ToString());
     }
 }
