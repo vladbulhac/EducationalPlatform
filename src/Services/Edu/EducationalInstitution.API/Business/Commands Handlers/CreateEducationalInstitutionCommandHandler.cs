@@ -3,6 +3,7 @@ using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Commands_Resul
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
 using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Command_Repository;
+using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Query_Repository;
 using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
 using EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work;
 using MediatR;
@@ -15,20 +16,15 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Business.Commands_Handlers
 {
-    public class CreateEducationalInstitutionCommandHandler : IRequestHandler<DTOEducationalInstitutionCreateCommand, Response<EducationalInstitutionCommandResult>>
+    public class CreateEducationalInstitutionCommandHandler : HandlerBase<CreateEducationalInstitutionCommandHandler>,
+                                                              IRequestHandler<DTOEducationalInstitutionCreateCommand, Response<EducationalInstitutionCommandResult>>
     {
-        /// <summary>
-        /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
-        /// </summary>
-        private readonly ILogger<CreateEducationalInstitutionCommandHandler> logger;
-
         private readonly IUnitOfWorkForCommands unitOfWorkCommand;
         private readonly IUnitOfWorkForQueries unitOfWorkQuery;
 
         /// <exception cref="ArgumentNullException"/>
-        public CreateEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IUnitOfWorkForQueries unitOfWorkQuery, ILogger<CreateEducationalInstitutionCommandHandler> logger)
+        public CreateEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IUnitOfWorkForQueries unitOfWorkQuery, ILogger<CreateEducationalInstitutionCommandHandler> logger) : base(logger)
         {
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.unitOfWorkCommand = unitOfWorkCommand ?? throw new ArgumentNullException(nameof(unitOfWorkCommand));
             this.unitOfWorkQuery = unitOfWorkQuery ?? throw new ArgumentNullException(nameof(unitOfWorkQuery));
         }
@@ -92,22 +88,18 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             }
             catch (Exception e)
             {
-                logger.LogError(
-                    "Could not create an Educational Institution with the request data: {0}, using {1} with {2}'s method: {3}, error details => {4}",
-                    JsonConvert.SerializeObject(request),
+                return HandleException<Response<EducationalInstitutionCommandResult>>(
+                    error_message: "Could not create an Educational Institution with the request data: {0}, using {1} with {2}'s method: {3} and {4} with {5}'s method: {6}, error details => {7}",
+                     response_message: "An error occurred while creating the Educational Institution with the given data!",
+                     JsonConvert.SerializeObject(request),
                     unitOfWorkCommand.GetType(),
                     unitOfWorkCommand.UsingEducationalInstitutionCommandRepository().GetType(),
                     nameof(IEducationalInstitutionCommandRepository.CreateAsync),
+                    unitOfWorkQuery.GetType(),
+                    unitOfWorkQuery.UsingEducationalInstitutionQueryRepository().GetType(),
+                    nameof(IEducationalInstitutionQueryRepository.GetEntityByIDAsync),
                     e.Message
                     );
-
-                return new()
-                {
-                    Data = null,
-                    OperationStatus = false,
-                    StatusCode = HttpStatusCode.InternalServerError,
-                    Message = "An error occurred while creating the Educational Institution with the given data!"
-                };
             }
         }
     }

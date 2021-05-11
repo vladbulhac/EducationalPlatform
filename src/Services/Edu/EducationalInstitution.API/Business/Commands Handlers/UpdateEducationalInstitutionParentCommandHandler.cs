@@ -15,20 +15,15 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Business.Commands_Handlers
 {
-    public class UpdateEducationalInstitutionParentCommandHandler : IRequestHandler<DTOEducationalInstitutionParentUpdateCommand, Response>
+    public class UpdateEducationalInstitutionParentCommandHandler : HandlerBase<UpdateEducationalInstitutionParentCommandHandler>,
+                                                                    IRequestHandler<DTOEducationalInstitutionParentUpdateCommand, Response>
     {
-        /// <summary>
-        /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
-        /// </summary>
-        private readonly ILogger<UpdateEducationalInstitutionParentCommandHandler> logger;
-
         private readonly IUnitOfWorkForCommands unitOfWorkCommand;
         private readonly IUnitOfWorkForQueries unitOfWorkQuery;
 
         /// <exception cref="ArgumentNullException"/>
-        public UpdateEducationalInstitutionParentCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IUnitOfWorkForQueries unitOfWorkQuery, ILogger<UpdateEducationalInstitutionParentCommandHandler> logger)
+        public UpdateEducationalInstitutionParentCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IUnitOfWorkForQueries unitOfWorkQuery, ILogger<UpdateEducationalInstitutionParentCommandHandler> logger) : base(logger)
         {
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.unitOfWorkCommand = unitOfWorkCommand ?? throw new ArgumentNullException(nameof(unitOfWorkCommand));
             this.unitOfWorkQuery = unitOfWorkQuery ?? throw new ArgumentNullException(nameof(unitOfWorkQuery));
         }
@@ -87,22 +82,15 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             }
             catch (Exception e)
             {
-                logger.LogError(
-                   "Could not update the Educational Institution with the given data: {0}, using {1} with {2}'s method: {3} and {4}, error details => {5}",
-                   JsonConvert.SerializeObject(request),
-                   unitOfWorkCommand.GetType(),
-                   unitOfWorkCommand.UsingEducationalInstitutionCommandRepository().GetType(),
-                   nameof(IEducationalInstitutionQueryRepository.GetEntityByIDAsync),
-                   nameof(IEducationalInstitutionCommandRepository.UpdateParentInstitutionAsync),
-                   e.Message
-                   );
-
-                return new()
-                {
-                    OperationStatus = false,
-                    StatusCode = HttpStatusCode.InternalServerError,
-                    Message = $"An error occurred while updating the Educational Institution with the following ID: {request.EducationalInstitutionID}!"
-                };
+                return HandleException<Response>(
+                        error_message: "Could not update the Educational Institution with the given data: {0}, using {1} with {2}'s method: {3} and {4}, error details => {5}",
+                        response_message: "An error occurred while updating the Educational Institution with the following ID: {0}!",
+                        JsonConvert.SerializeObject(request),
+                        unitOfWorkCommand.GetType(),
+                        unitOfWorkCommand.UsingEducationalInstitutionCommandRepository().GetType(),
+                        nameof(IEducationalInstitutionQueryRepository.GetEntityByIDAsync),
+                        nameof(IEducationalInstitutionCommandRepository.UpdateParentInstitutionAsync),
+                        e.Message);
             }
         }
     }

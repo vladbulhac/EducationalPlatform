@@ -13,20 +13,15 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Business.Commands_Handlers
 {
-    public class UpdateEducationalInstitutionCommandHandler : IRequestHandler<DTOEducationalInstitutionUpdateCommand, Response>
+    public class UpdateEducationalInstitutionCommandHandler : HandlerBase<UpdateEducationalInstitutionCommandHandler>,
+                                                              IRequestHandler<DTOEducationalInstitutionUpdateCommand, Response>
     {
-        /// <summary>
-        /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
-        /// </summary>
-        private readonly ILogger<UpdateEducationalInstitutionCommandHandler> logger;
-
         private readonly IUnitOfWorkForCommands unitOfWork;
 
         /// <exception cref="ArgumentNullException"/>
-        public UpdateEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWork, ILogger<UpdateEducationalInstitutionCommandHandler> logger)
+        public UpdateEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWork, ILogger<UpdateEducationalInstitutionCommandHandler> logger) : base(logger)
         {
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>
@@ -62,21 +57,15 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             }
             catch (Exception e)
             {
-                logger.LogError(
-                    "Could not update the Educational Institution with the given data: {0}, using {1} with {2}'s method: {3}, error details => {4}",
+                return HandleException<Response>(
+                    error_message: "Could not update the Educational Institution with the given data: {0}, using {1} with {2}'s method: {3}, error details => {4}",
+                    response_message: "An error occurred while updating the Educational Institution with the following ID: {0}!",
                     JsonConvert.SerializeObject(request),
                     unitOfWork.GetType(),
                     unitOfWork.UsingEducationalInstitutionCommandRepository().GetType(),
                     GetNameOfRepositoryMethodThatWasCalledInHandler(request),
                     e.Message
-                );
-
-                return new()
-                {
-                    OperationStatus = false,
-                    StatusCode = HttpStatusCode.InternalServerError,
-                    Message = $"An error occurred while updating the Educational Institution with the following ID: {request.EducationalInstitutionID}!"
-                };
+                    );
             }
         }
 

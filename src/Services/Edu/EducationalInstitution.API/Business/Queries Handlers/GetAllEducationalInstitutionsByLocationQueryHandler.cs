@@ -13,20 +13,15 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Business.Queries_Handlers
 {
-    public class GetAllEducationalInstitutionsByLocationQueryHandler : IRequestHandler<DTOEducationalInstitutionByLocationQuery, Response<GetAllEducationalInstitutionsByLocationQueryResult>>
+    public class GetAllEducationalInstitutionsByLocationQueryHandler : HandlerBase<GetAllEducationalInstitutionsByLocationQueryHandler>,
+                                                                       IRequestHandler<DTOEducationalInstitutionByLocationQuery, Response<GetAllEducationalInstitutionsByLocationQueryResult>>
     {
-        /// <summary>
-        /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
-        /// </summary>
-        private readonly ILogger<GetAllEducationalInstitutionsByLocationQueryHandler> logger;
-
         private readonly IUnitOfWorkForQueries unitOfWork;
 
         /// <exception cref="ArgumentNullException"/>
-        public GetAllEducationalInstitutionsByLocationQueryHandler(IUnitOfWorkForQueries unitOfWork, ILogger<GetAllEducationalInstitutionsByLocationQueryHandler> logger)
+        public GetAllEducationalInstitutionsByLocationQueryHandler(IUnitOfWorkForQueries unitOfWork, ILogger<GetAllEducationalInstitutionsByLocationQueryHandler> logger) : base(logger)
         {
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>
@@ -71,22 +66,14 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
             }
             catch (Exception e)
             {
-                logger.LogError(
-                    "Could not find an Educational Institution with LocationID: {0}, using {1} with {2}'s method: {3}, error details => {4}",
-                    request.LocationID,
-                    unitOfWork.GetType(),
-                    unitOfWork.UsingEducationalInstitutionQueryRepository().GetType(),
-                    nameof(IEducationalInstitutionQueryRepository.GetAllByLocationAsync),
-                    e.Message
-                    );
-
-                return new()
-                {
-                    Data = null,
-                    OperationStatus = false,
-                    StatusCode = HttpStatusCode.InternalServerError,
-                    Message = $"An error occurred while searching for the Educational Institution with the following LocationID: {request.LocationID}!"
-                };
+                return HandleException<Response<GetAllEducationalInstitutionsByLocationQueryResult>>(
+                            error_message: "Could not find an Educational Institution with LocationID: {0}, using {1} with {2}'s method: {3}, error details => {4}",
+                            response_message: "An error occurred while searching for the Educational Institution with the following LocationID: {0}!",
+                            request.LocationID,
+                            unitOfWork.GetType(),
+                            unitOfWork.UsingEducationalInstitutionQueryRepository().GetType(),
+                            nameof(IEducationalInstitutionQueryRepository.GetAllByLocationAsync),
+                            e.Message);
             }
         }
     }

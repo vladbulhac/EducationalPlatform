@@ -14,20 +14,15 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Business.Commands_Handlers
 {
-    public class DeleteEducationalInstitutionCommandHandler : IRequestHandler<DTOEducationalInstitutionDeleteCommand, Response<DeleteEducationalInstitutionCommandResult>>
+    public class DeleteEducationalInstitutionCommandHandler : HandlerBase<DeleteEducationalInstitutionCommandHandler>,
+                                                              IRequestHandler<DTOEducationalInstitutionDeleteCommand, Response<DeleteEducationalInstitutionCommandResult>>
     {
-        /// <summary>
-        /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
-        /// </summary>
-        private readonly ILogger<DeleteEducationalInstitutionCommandHandler> logger;
-
         private readonly IUnitOfWorkForCommands unitOfWorkCommand;
         private readonly IUnitOfWorkForQueries unitOfWorkQuery;
 
         /// <exception cref="ArgumentNullException"/>
-        public DeleteEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IUnitOfWorkForQueries unitOfWorkQuery, ILogger<DeleteEducationalInstitutionCommandHandler> logger)
+        public DeleteEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IUnitOfWorkForQueries unitOfWorkQuery, ILogger<DeleteEducationalInstitutionCommandHandler> logger) : base(logger)
         {
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.unitOfWorkCommand = unitOfWorkCommand ?? throw new ArgumentNullException(nameof(unitOfWorkCommand));
             this.unitOfWorkQuery = unitOfWorkQuery ?? throw new ArgumentNullException(nameof(unitOfWorkQuery));
         }
@@ -80,22 +75,17 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             }
             catch (Exception e)
             {
-                logger.LogError(
-                    "Could not schedule for deletion the Educational Institution with ID: {0}, using {1} with {2}'s method: {3}, error details => {4}",
-                    request.EducationalInstitutionID,
-                    unitOfWorkCommand.GetType(),
-                    unitOfWorkCommand.UsingEducationalInstitutionCommandRepository().GetType(),
-                    nameof(IEducationalInstitutionQueryRepository.GetEntityByIDAsync),
-                    e.Message
-                    );
-
-                return new()
-                {
-                    Data = null,
-                    OperationStatus = false,
-                    StatusCode = HttpStatusCode.InternalServerError,
-                    Message = $"An error occurred while scheduling for deletion the Educational Institution with the following ID: {request.EducationalInstitutionID}!"
-                };
+                return HandleException<Response<DeleteEducationalInstitutionCommandResult>>(
+                                         error_message: "Could not schedule for deletion the Educational Institution with ID: {0}, using {1} with {2} and {3} with {4}'s method: {5}, error details => {6}",
+                                         response_message: "An error occurred while scheduling for deletion the Educational Institution with the following ID: {0}!",
+                                        request.EducationalInstitutionID,
+                                        unitOfWorkCommand.GetType(),
+                                        unitOfWorkCommand.UsingEducationalInstitutionCommandRepository().GetType(),
+                                        unitOfWorkQuery.GetType(),
+                                        unitOfWorkQuery.UsingEducationalInstitutionQueryRepository().GetType(),
+                                        nameof(IEducationalInstitutionQueryRepository.GetEntityByIDAsync),
+                                        e.Message
+                                        );
             }
         }
     }

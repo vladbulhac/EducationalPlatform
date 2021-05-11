@@ -14,20 +14,15 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Business.Queries_Handlers
 {
-    public class GetAllEducationalInstitutionsByNameQueryHandler : IRequestHandler<DTOEducationalInstitutionsByNameQuery, Response<GetAllEducationalInstitutionsByNameQueryResult>>
+    public class GetAllEducationalInstitutionsByNameQueryHandler : HandlerBase<GetAllEducationalInstitutionsByNameQueryHandler>,
+                                                                   IRequestHandler<DTOEducationalInstitutionsByNameQuery, Response<GetAllEducationalInstitutionsByNameQueryResult>>
     {
-        /// <summary>
-        /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
-        /// </summary>
-        private readonly ILogger<GetAllEducationalInstitutionsByNameQueryHandler> logger;
-
         private readonly IUnitOfWorkForQueries unitOfWork;
 
         /// <exception cref="ArgumentNullException"/>
-        public GetAllEducationalInstitutionsByNameQueryHandler(IUnitOfWorkForQueries unitOfWork, ILogger<GetAllEducationalInstitutionsByNameQueryHandler> logger)
+        public GetAllEducationalInstitutionsByNameQueryHandler(IUnitOfWorkForQueries unitOfWork, ILogger<GetAllEducationalInstitutionsByNameQueryHandler> logger) : base(logger)
         {
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>
@@ -71,22 +66,16 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
             }
             catch (Exception e)
             {
-                logger.LogError(
-                    "Could not find any Educational Institution with the given data: {0}, using {1} and {2}'s method: {3}, error details => {4}",
-                    JsonConvert.SerializeObject(request),
-                    unitOfWork.GetType(),
-                    unitOfWork.UsingEducationalInstitutionQueryRepository().GetType(),
-                    nameof(IEducationalInstitutionQueryRepository.GetAllLikeNameAsync),
-                    e.Message
-                    );
-
-                return new()
-                {
-                    Data = null,
-                    OperationStatus = false,
-                    StatusCode = HttpStatusCode.InternalServerError,
-                    Message = $"An error occurred while searching for any Educational Institution with a name like: {request.Name}!"
-                };
+                return HandleException<Response<GetAllEducationalInstitutionsByNameQueryResult>>(
+                                error_message: "Could not find any Educational Institution with the given data: {0}, using {1} and {2}'s method: {3}, error details => {4}",
+                                response_message: "An error occurred while searching for any Educational Institution with a name like: {5}!",
+                                JsonConvert.SerializeObject(request),
+                                unitOfWork.GetType(),
+                                unitOfWork.UsingEducationalInstitutionQueryRepository().GetType(),
+                                nameof(IEducationalInstitutionQueryRepository.GetAllLikeNameAsync),
+                                e.Message,
+                                request.Name
+                                );
             }
         }
     }

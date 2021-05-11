@@ -13,20 +13,15 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Business.Queries_Handlers
 {
-    public class GetEducationalInstitutionByIDQueryHandler : IRequestHandler<DTOEducationalInstitutionByIDQuery, Response<GetEducationalInstitutionByIDQueryResult>>
+    public class GetEducationalInstitutionByIDQueryHandler : HandlerBase<GetEducationalInstitutionByIDQueryHandler>,
+                                                             IRequestHandler<DTOEducationalInstitutionByIDQuery, Response<GetEducationalInstitutionByIDQueryResult>>
     {
-        /// <summary>
-        /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
-        /// </summary>
-        private readonly ILogger<GetEducationalInstitutionByIDQueryHandler> logger;
-
         private readonly IUnitOfWorkForQueries unitOfWork;
 
         /// <exception cref="ArgumentNullException"/>
-        public GetEducationalInstitutionByIDQueryHandler(IUnitOfWorkForQueries unitOfWork, ILogger<GetEducationalInstitutionByIDQueryHandler> logger)
+        public GetEducationalInstitutionByIDQueryHandler(IUnitOfWorkForQueries unitOfWork, ILogger<GetEducationalInstitutionByIDQueryHandler> logger) : base(logger)
         {
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>
@@ -70,20 +65,13 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
             }
             catch (Exception e)
             {
-                logger.LogError(
-                    "Could not find an Educational Institution with ID: {0}, using {1}'s method: {2}, error details => {3}",
-                    request.EducationalInstitutionID,
-                    unitOfWork.GetType(),
-                    nameof(IEducationalInstitutionQueryRepository.GetByIDAsync),
-                    e.Message);
-
-                return new()
-                {
-                    Data = null,
-                    OperationStatus = false,
-                    StatusCode = HttpStatusCode.InternalServerError,
-                    Message = $"An error occurred while searching for the Educational Institution with the following ID: {request.EducationalInstitutionID}!"
-                };
+                return HandleException<Response<GetEducationalInstitutionByIDQueryResult>>(
+                            error_message: "Could not find an Educational Institution with ID: {0}, using {1}'s method: {2}, error details => {3}",
+                            response_message: "An error occurred while searching for the Educational Institution with the following ID: {0}!",
+                            request.EducationalInstitutionID,
+                            unitOfWork.GetType(),
+                            nameof(IEducationalInstitutionQueryRepository.GetByIDAsync),
+                            e.Message);
             }
         }
     }
