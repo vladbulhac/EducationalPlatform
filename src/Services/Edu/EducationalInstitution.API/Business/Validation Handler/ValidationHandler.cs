@@ -15,7 +15,7 @@ namespace EducationalInstitutionAPI.Business.Validation_Handler
         {
             try
             {
-                var validator = ValidationFactory.CreateValidator<T>();
+                var validator = ValidatorFactory.CreateValidator<T>();
                 var validationResult = validator.Validate(request);
 
                 if (!validationResult.IsValid)

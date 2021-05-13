@@ -1,21 +1,18 @@
 ﻿using EducationalInstitutionAPI.Utils.Custom_Exceptions;
 using FluentValidation;
 using System;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace EducationalInstitutionAPI.Business.Validation_Handler
 {
-    /// <summary>
-    /// Defines a method that creates a validator object based on the type of a Data Transfer Object
-    /// </summary>
-    public static class ValidationFactory
+    public static class ValidatorFactory
     {
-        private static readonly ConcurrentDictionary<Type, Type> dtoToValidatorMap;
+        private static readonly IDictionary<Type, Type> dtoToValidatorMap;
 
-        static ValidationFactory()
+        static ValidatorFactory()
         {
-            dtoToValidatorMap = new();
+            dtoToValidatorMap = new Dictionary<Type, Type>();
             MapDTOsToValidators();
         }
 
@@ -50,7 +47,6 @@ namespace EducationalInstitutionAPI.Business.Validation_Handler
         /// <summary>
         /// Instantiates, based on <typeparamref name="T"/>, a concrete validator class that extends <see cref="AbstractValidator{T}"/> from the <see cref="FluentValidation"/> package
         /// </summary>
-        /// <remarks>The project must have the FluentValidation package installed</remarks>
         /// <typeparam name="T">A Data Transfer Object type whose fields you want to validate</typeparam>
         /// <returns>A validator object of a class that extends <see cref="AbstractValidator{T}"/> from the <see cref="FluentValidation"/> package</returns>
         /// <exception cref="RequestTypeNotSupportedException">Thrown when a validator of <typeparamref name="T"/> has not been declared</exception>
