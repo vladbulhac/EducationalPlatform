@@ -1,6 +1,7 @@
 ﻿using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Query_Repository;
 using EducationalInstitutionAPI.Repositories.EducationalInstitutionAdmin_Repository.Query_Repostiory;
 using EducationalInstitutionAPI.Repositories.EducationalInstitutionBuilding_Repository.Query_Repository;
+using EducationalInstitutionAPI.Utils;
 using System;
 
 namespace EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work
@@ -13,7 +14,13 @@ namespace EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work
         public IEducationalInstitutionBuildingQueryRepository BuildingRepository { get; private set; }
         public IEducationalInstitutionAdminQueryRepository AdminRepository { get; private set; }
 
-        public UnitOfWorkForQueries(string connectionString) => this.connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
+        public UnitOfWorkForQueries(string connectionString = null)
+        {
+            if (string.IsNullOrEmpty(connectionString))
+                this.connectionString = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB") ?? throw new ArgumentNullException(nameof(connectionString));
+            else
+                this.connectionString = connectionString;
+        }
 
         public IEducationalInstitutionQueryRepository UsingEducationalInstitutionQueryRepository()
         {
