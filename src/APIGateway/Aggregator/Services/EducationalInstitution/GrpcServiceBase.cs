@@ -1,27 +1,34 @@
 ﻿using Aggregator.DTOs;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Threading.Tasks;
 
 namespace Aggregator.Services.EducationalInstitution
 {
-    public abstract class GrpcServiceBase
+    public abstract class GrpcServiceBase<TService> where TService : class
     {
-        private readonly ILogger logger;
+        protected readonly ILogger<TService> logger;
 
-        protected GrpcServiceBase(ILogger logger)
-        {
-            this.logger = logger;
-        }
+        protected GrpcServiceBase(ILogger<TService> logger)
+                    => this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
         protected async Task<GrpcCallResponse<T>> MakeUnaryCallAndGetResponseAsync<T>(AsyncUnaryCall<T> request_call)
         {
-            var response = await request_call.ResponseAsync;
-            var trailers = request_call.GetTrailers();
+            try
+            {
+                var response = await request_call.ResponseAsync;
+                var trailers = request_call.GetTrailers();
 
-            logger.LogDebug("Grpc call ended with response: {@response}", response);
+                logger.LogDebug("gRPC call ended with response: {@response}", response);
 
-            return new() { Body = response, Trailers = trailers };
+                return new() { Body = response, Trailers = trailers };
+            }
+            catch (Exception e)
+            {
+                logger.LogError($"Could not finish the gRPC call successfully, error details => {e.Message}");
+                return new() { Body = default, Trailers = new() };
+            }
         }
     }
 }

@@ -10,9 +10,20 @@ message EducationalInstitutionCreateRequest{
 	string location_id=3;
 	repeated string buildings=4;
 	Uuid parent_institution_id=5;
+	repeated Uuid admins_ids=6;
+}
+
+message EducationalInstitutionDeleteRequest{
+	Uuid educational_institution_id=1;
 }
 
 //Query Requests
 message EducationalInstitutionGetByIdRequest{
 	Uuid educational_institution_id=1;
+}
+
+message EducationalInstitutionGetByNameRequest{
+	string name=1;
+	int32 offset_value=2;
+	int32 results_count=3;
 }

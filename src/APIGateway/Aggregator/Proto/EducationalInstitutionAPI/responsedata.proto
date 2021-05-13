@@ -8,6 +8,10 @@ message BaseCommandResult{
 	Uuid educational_institution_id=1;
 }
 
+message DeleteCommandResult{
+	google.protobuf.Timestamp date_for_permanent_deletion=1;
+}
+
 message GetByIDQueryResult{
 	string name=1;
 	string description=2;
@@ -16,6 +20,13 @@ message GetByIDQueryResult{
 	BaseQueryResult parent_institution=5;
 	repeated string buildings=6;
 	repeated BaseQueryResult child_institutions=7;
+}
+
+message GetByNameResult{
+	Uuid educational_institution_id=1;
+	string name=2;
+	string description=3;
+	string location_id=4;
 }
 
 message BaseQueryResult{
