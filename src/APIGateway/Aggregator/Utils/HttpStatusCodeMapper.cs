@@ -7,7 +7,7 @@ namespace Aggregator.Utils
 {
     public static class HttpStatusCodeMapper
     {
-        private static ConcurrentDictionary<ProtoHttpStatusCode, HttpStatusCode> httpStatusCodeToProtoMap;
+        private static readonly ConcurrentDictionary<ProtoHttpStatusCode, HttpStatusCode> httpStatusCodeToProtoMap;
 
         static HttpStatusCodeMapper() => httpStatusCodeToProtoMap = new();
 

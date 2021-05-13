@@ -1,4 +1,5 @@
-﻿using Grpc.Core;
+﻿using Aggregator.DTOs;
+using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace Aggregator.Utils
             }
             catch (RpcException e)
             {
-                logger.LogError("Error encountered during a Grpc call: {Status} - {Message}", e.Status, e.Message);
+                logger.LogError("Error encountered during a gRPC call: {Status} - {Message}", e.Status, e.Message);
                 return default;
             }
         }
