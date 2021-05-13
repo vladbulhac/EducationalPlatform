@@ -5,7 +5,9 @@ using Aggregator.DTOs.EducationalInstitutionDTOs.Responses;
 using Aggregator.EducationalInstitutionAPI.Proto;
 using EducationaInstitutionAPI.Utils;
 using Google.Protobuf.Collections;
+using Grpc.Core;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 
 namespace Aggregator.Utils
@@ -30,14 +32,17 @@ namespace Aggregator.Utils
             };
             request.Buildings.Add(request_data.BuildingsIDs);
 
+            foreach (var adminID in request_data.AdminsIDs)
+                request.AdminsIds.Add(adminID.ToProtoUuid());
+
             return request;
         }
 
         /// <remarks>If <see cref="Metadata"/> contains elements then the request failed</remarks>
         public static Response<DTOCreateEducationalInstitutionResponse> MapGrpcCallResponse(this GrpcCallResponse<EducationalInstitutionCreateResponse> grpcCallResponse)
         {
-            if (grpcCallResponse.Trailers.Count > 0)
-                return GetTrailersFromGrpcResponse<EducationalInstitutionCreateResponse, Response<DTOCreateEducationalInstitutionResponse>>(grpcCallResponse);
+            var failedGrpcCallResponse = HandleFailedGrpcCall<Response<DTOCreateEducationalInstitutionResponse>, EducationalInstitutionCreateResponse>(grpcCallResponse);
+            if (failedGrpcCallResponse != default) return failedGrpcCallResponse;
 
             return new()
             {
@@ -50,8 +55,8 @@ namespace Aggregator.Utils
 
         public static Response<DTOGetEducationalInstitutionByIDResponse> MapGrpcCallResponse(this GrpcCallResponse<EducationalInstitutionGetResponse> grpcCallResponse)
         {
-            if (grpcCallResponse.Trailers.Count > 0)
-                return GetTrailersFromGrpcResponse<EducationalInstitutionGetResponse, Response<DTOGetEducationalInstitutionByIDResponse>>(grpcCallResponse);
+            var failedGrpcCallResponse = HandleFailedGrpcCall<Response<DTOGetEducationalInstitutionByIDResponse>, EducationalInstitutionGetResponse>(grpcCallResponse);
+            if (failedGrpcCallResponse != default) return failedGrpcCallResponse;
 
             return new()
             {
@@ -106,6 +111,27 @@ namespace Aggregator.Utils
                 StatusCode = (HttpStatusCode)int.Parse(grpcCallResponse.Trailers.Get("httpstatuscode").Value),
                 Message = grpcCallResponse.Trailers.Get("message").Value
             };
+        }
+
+        /// <summary>
+        /// Handles a grpc call whose <paramref name="grpcCallResponse"/> failed by returning <see cref="Metadata">Trailers</see> or a null Body
+        /// </summary>
+        /// <returns>
+        /// <list type="table">
+        /// <item> <typeparamref name="TResponse"/> if <paramref name="grpcCallResponse"/> has <see cref="Metadata">Trailers</see> </item>
+        /// <item> <typeparamref name="TResponse"/> if <paramref name="grpcCallResponse"/>.Body is null </item>
+        /// <item> Default <typeparamref name="TResponse"/> if the grpc call did not fail </item>
+        /// </list>
+        /// </returns>
+        private static TResponse HandleFailedGrpcCall<TResponse, TIn>(GrpcCallResponse<TIn> grpcCallResponse) where TIn : class where TResponse : Response, new()
+        {
+            if (grpcCallResponse.Trailers.Count > 0)
+                return GetTrailersFromGrpcResponse<TIn, TResponse>(grpcCallResponse);
+
+            if (grpcCallResponse.Body is null)
+                return new() { StatusCode = HttpStatusCode.InternalServerError, Message = "An error occurred while trying to reach a service needed for this request!" };
+
+            return default;
         }
     }
 }
