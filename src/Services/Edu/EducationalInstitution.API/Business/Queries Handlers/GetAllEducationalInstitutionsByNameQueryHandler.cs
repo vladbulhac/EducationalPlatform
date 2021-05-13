@@ -21,9 +21,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
 
         /// <exception cref="ArgumentNullException"/>
         public GetAllEducationalInstitutionsByNameQueryHandler(IUnitOfWorkForQueries unitOfWork, ILogger<GetAllEducationalInstitutionsByNameQueryHandler> logger) : base(logger)
-        {
-            this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-        }
+            => this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
 
         /// <summary>
         /// Tries to get one or more <see cref="EducationalInstitution"/>s whose Name's contain a given string

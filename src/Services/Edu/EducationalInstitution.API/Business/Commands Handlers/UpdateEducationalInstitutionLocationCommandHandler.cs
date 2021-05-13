@@ -20,12 +20,10 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
         /// <exception cref="ArgumentNullException"/>
         public UpdateEducationalInstitutionLocationCommandHandler(IUnitOfWorkForCommands unitOfWork, ILogger<UpdateEducationalInstitutionLocationCommandHandler> logger) : base(logger)
-        {
-            this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-        }
+            => this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
 
         /// <summary>
-        /// Tries to update the locationID and/or the BuildingsIDs of an <see cref="EducationalInstitution"/> entity
+        /// Tries to update the LocationID and/or the BuildingsIDs of an <see cref="EducationalInstitution"/> entity
         /// </summary>
         /// <param name="cancellationToken">Cancels the operation ____________</param>
         /// <returns>

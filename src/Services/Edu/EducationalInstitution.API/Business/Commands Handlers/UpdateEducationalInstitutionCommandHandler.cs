@@ -20,9 +20,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
         /// <exception cref="ArgumentNullException"/>
         public UpdateEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWork, ILogger<UpdateEducationalInstitutionCommandHandler> logger) : base(logger)
-        {
-            this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-        }
+            => this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
 
         /// <summary>
         /// Tries to update the name and/or description of an <see cref="EducationalInstitution"/> entity

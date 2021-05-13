@@ -20,9 +20,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
 
         /// <exception cref="ArgumentNullException"/>
         public GetEducationalInstitutionByIDQueryHandler(IUnitOfWorkForQueries unitOfWork, ILogger<GetEducationalInstitutionByIDQueryHandler> logger) : base(logger)
-        {
-            this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-        }
+            => this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
 
         /// <summary>
         /// Tries to get an <see cref="EducationalInstitution"/> by EducationalInstitutionID
