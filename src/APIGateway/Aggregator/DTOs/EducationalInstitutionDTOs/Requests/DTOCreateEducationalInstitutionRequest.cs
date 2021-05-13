@@ -10,5 +10,6 @@ namespace Aggregator.DTOs.EducationalInstitutionDTOs.Requests
         public string LocationID { get; init; }
         public ICollection<string> BuildingsIDs { get; init; }
         public Guid? ParentInstitutionID { get; init; }
+        public ICollection<Guid> AdminsIDs { get; init; }
     }
 }
