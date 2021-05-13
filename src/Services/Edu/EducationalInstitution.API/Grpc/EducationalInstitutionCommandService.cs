@@ -48,7 +48,7 @@ namespace EducationalInstitutionAPI.Grpc
         /// </returns>
         public override async Task<EducationalInstitutionCreateResponse> CreateEducationalInstitution(EducationalInstitutionCreateRequest request, ServerCallContext context)
         {
-            logger.LogInformation("Begin grpc call EducationalInstitutionCommandService.CreateEducationalInstitution");
+            logger.LogInformation("Begin gRPC call EducationalInstitutionCommandService.CreateEducationalInstitution");
 
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
@@ -57,7 +57,7 @@ namespace EducationalInstitutionAPI.Grpc
 
             if (!validationHandler.IsRequestValid(mappedRequest, out string validationErrors))
             {
-                SetStatusAndTrailersOfContext(ref context, StatusCode.InvalidArgument, validationErrors, ((int)HttpStatusCode.BadRequest).ToString());
+                SetStatusAndTrailersOfContext(ref context, StatusCode.InvalidArgument, validationErrors, HttpStatusCode.BadRequest);
                 return new();
             }
 
@@ -78,7 +78,7 @@ namespace EducationalInstitutionAPI.Grpc
                     };
                 }
                 else
-                    SetStatusAndTrailersOfContext(ref context, StatusCode.Aborted, result.Message, ((int)result.StatusCode).ToString());
+                    SetStatusAndTrailersOfContext(ref context, StatusCode.Aborted, result.Message, result.StatusCode);
             }
             catch (Exception e)
             {
@@ -141,7 +141,7 @@ namespace EducationalInstitutionAPI.Grpc
                     };
                 }
                 else
-                    SetStatusAndTrailersOfContext(ref context, StatusCode.Aborted, result.Message, ((int)result.StatusCode).ToString());
+                    SetStatusAndTrailersOfContext(ref context, StatusCode.Aborted, result.Message, result.StatusCode);
             }
             catch (Exception e)
             {

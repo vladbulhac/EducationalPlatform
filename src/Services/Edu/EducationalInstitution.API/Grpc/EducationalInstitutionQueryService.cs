@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Grpc
 {
+    /// <summary>
+    /// Implements the methods that handle the Remote Call Procedure requests
+    /// </summary>
     public class EducationalInstitutionQueryService : Query.QueryBase
     {
         private readonly IMediator mediator;
@@ -75,9 +78,9 @@ namespace EducationalInstitutionAPI.Grpc
                 }
                 else
                 if (result.StatusCode == HttpStatusCode.NotFound)
-                    SetStatusAndTrailersOfContext(ref context, StatusCode.NotFound, result.Message, result.StatusCode.ToString());
+                    SetStatusAndTrailersOfContext(ref context, StatusCode.NotFound, result.Message, result.StatusCode);
                 else
-                    SetStatusAndTrailersOfContext(ref context, StatusCode.Aborted, result.Message, result.StatusCode.ToString());
+                    SetStatusAndTrailersOfContext(ref context, StatusCode.Aborted, result.Message, result.StatusCode);
             }
             catch (Exception e)
             {
@@ -142,9 +145,9 @@ namespace EducationalInstitutionAPI.Grpc
                 }
                 else
                 if (result.StatusCode == HttpStatusCode.NotFound)
-                    SetStatusAndTrailersOfContext(ref context, StatusCode.NotFound, result.Message, result.StatusCode.ToString());
+                    SetStatusAndTrailersOfContext(ref context, StatusCode.NotFound, result.Message, result.StatusCode);
                 else
-                    SetStatusAndTrailersOfContext(ref context, StatusCode.Aborted, result.Message, result.StatusCode.ToString());
+                    SetStatusAndTrailersOfContext(ref context, StatusCode.Aborted, result.Message, result.StatusCode);
             }
             catch (Exception e)
             {

@@ -13,14 +13,14 @@ namespace EducationalInstitutionAPI.Grpc
         protected void HandleException<TClass>(ILogger<TClass> logger, ref ServerCallContext context, string error_message, params object[] error_message_substitutes) where TClass : ServiceBase
         {
             logger.LogError(error_message, error_message_substitutes);
-            SetStatusAndTrailersOfContext(ref context, StatusCode.Aborted, "An error occurred while processing the request!", ((int)HttpStatusCode.InternalServerError).ToString());
+            SetStatusAndTrailersOfContext(ref context, StatusCode.Aborted, "An error occurred while processing the request!", HttpStatusCode.InternalServerError);
         }
 
-        protected void SetStatusAndTrailersOfContext(ref ServerCallContext context, StatusCode code, string message, string httpStatusCode)
+        protected void SetStatusAndTrailersOfContext(ref ServerCallContext context, StatusCode code, string message, HttpStatusCode httpStatusCode)
         {
             SetStatusAndTrailersOfContext(ref context, code, message, new (string key, string value)[2] {
                                                                         ("Message",message),
-                                                                        ("HttpStatusCode", httpStatusCode)
+                                                                        ("HttpStatusCode", ((int)httpStatusCode).ToString())
                                                                     });
         }
 
@@ -37,6 +37,6 @@ namespace EducationalInstitutionAPI.Grpc
                     => SetStatusAndTrailersOfContext(ref context,
                                                   StatusCode.InvalidArgument,
                                                   validationErrors,
-                                                  ((int)HttpStatusCode.BadRequest).ToString());
+                                                  HttpStatusCode.BadRequest);
     }
 }
