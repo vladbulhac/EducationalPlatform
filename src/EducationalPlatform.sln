@@ -18,6 +18,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EducationalInstitution.API", "EducationalInstitution.API", "{FBE31979-2CEB-4948-A19D-DF3838C4CCC6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationalInstitution.API", "Services\Edu\EducationalInstitution.API\EducationalInstitution.API.csproj", "{4D78AD09-7093-4388-9C26-4BB5035B96CD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{54BDA6F8-1AE6-4809-ABEB-CEB1A3C69C78} = {54BDA6F8-1AE6-4809-ABEB-CEB1A3C69C78}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F44B118E-426B-4764-B852-20120D0F23A0}"
 EndProject
@@ -28,6 +31,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notification.API", "Notification.API", "{C15AF18F-6EDC-4DAD-B507-4B8670427514}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notification.API", "Services\Notification\Notification.API\Notification.API.csproj", "{D0D0C318-84BD-4373-BEEF-75C54484A04A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{54BDA6F8-1AE6-4809-ABEB-CEB1A3C69C78} = {54BDA6F8-1AE6-4809-ABEB-CEB1A3C69C78}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQEventBus", "EventBus\RabbitMQEventBus\RabbitMQEventBus.csproj", "{54BDA6F8-1AE6-4809-ABEB-CEB1A3C69C78}"
 EndProject
