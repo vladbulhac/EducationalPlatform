@@ -23,6 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\EventBus\RabbitMQEventBus\RabbitMQEventBus.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="RabbitMQEventBus">
       <HintPath>..\..\..\EventBus\RabbitMQEventBus\bin\Debug\net5.0\RabbitMQEventBus.dll</HintPath>
     </Reference>
