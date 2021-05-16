@@ -7,6 +7,12 @@ namespace EducationalInstitutionAPI.Utils
     /// </summary>
     public static class ConfigurationHelper
     {
+        /// <summary>
+        /// Retrieves the value of <paramref name="key"/> from appsettings.json
+        /// </summary>
+        /// <remarks>
+        /// Nested keys can be search by using ':' , for example GetCurrentSettings("parentKey:descendantKey")
+        /// </remarks>
         public static string GetCurrentSettings(string key)
         {
             var builder = new ConfigurationBuilder()
