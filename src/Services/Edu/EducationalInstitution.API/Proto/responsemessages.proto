@@ -1,7 +1,6 @@
 syntax = "proto3";
 import "Proto/statuscodes.proto";
 import "Proto/responsedata.proto";
-import "google/protobuf/timestamp.proto";
 
 option csharp_namespace = "EducationalInstitutionAPI.Proto";
 
