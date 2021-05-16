@@ -11,7 +11,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using RabbitMQ.Client;
+using RabbitMQEventBus;
+using RabbitMQEventBus.Abstractions;
+using RabbitMQEventBus.ConnectionHandler;
 using Serilog;
 
 namespace EducationalInstitutionAPI
@@ -26,10 +31,7 @@ namespace EducationalInstitutionAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddGrpc(options =>
-            {
-                options.EnableDetailedErrors = true;
-            });
+            services.AddGrpc(options => options.EnableDetailedErrors = true);
 
             services.AddControllers();
 
@@ -53,7 +55,7 @@ namespace EducationalInstitutionAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Educational Institution API", Version = "v1" });
             });
 
-            services.RegisterProjectServices();
+            services.RegisterProjectServices(Configuration);
 
             services.AddMediatR(typeof(Startup));
         }
@@ -63,33 +65,54 @@ namespace EducationalInstitutionAPI
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Educational Institution API v1"));
+                app.UseDeveloperExceptionPage()
+                   .UseSwagger()
+                   .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Educational Institution API v1"));
             }
 
-            app.UseHttpsRedirection();
-
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseSerilogRequestLogging();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints => endpoints.RegisterGrpcServices());
+            app.UseHttpsRedirection()
+               .UseStaticFiles()
+               .UseRouting()
+               .UseSerilogRequestLogging()
+               .UseAuthorization()
+               .UseEndpoints(endpoints => endpoints.RegisterGrpcServices());
         }
     }
 
     public static class StartupExtensionMethods
     {
-        public static IServiceCollection RegisterProjectServices(this IServiceCollection services)
+        public static IServiceCollection RegisterProjectServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<IValidationHandler, ValidationHandler>();
-            //services.AddTransient<IEducationalInstitutionRepository, EducationalInstitutionRepository>();
-            services.AddTransient<IUnitOfWorkForCommands, UnitOfWorkForCommands>();
-            services.AddTransient<IUnitOfWorkForQueries, UnitOfWorkForQueries>();
+            services.AddEventBus(configuration)
+                    .AddTransient<IValidationHandler, ValidationHandler>()
+                    .AddTransient<IUnitOfWorkForQueries, UnitOfWorkForQueries>()
+                    .AddTransient<IUnitOfWorkForCommands, UnitOfWorkForCommands>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddSingleton<IPersistentConnectionHandler>(serviceProvider =>
+            {
+                var logger = serviceProvider.GetRequiredService<ILogger<PersistentConnectionHandler>>();
+
+                var factory = new ConnectionFactory
+                {
+                    HostName = configuration.GetSection("EventBus")["HostName"],
+                    DispatchConsumersAsync = true
+                };
+
+                return new PersistentConnectionHandler(logger, factory);
+            })
+            .AddSingleton<IEventBus, EventBus>(serviceProvider =>
+            {
+                var logger = serviceProvider.GetRequiredService<ILogger<EventBus>>();
+                var queueName = configuration.GetSection("EventBus")["QueueName"];
+                var connectionHandler = serviceProvider.GetRequiredService<IPersistentConnectionHandler>();
+
+                return new(queueName, logger, connectionHandler, services);
+            });
 
             return services;
         }
