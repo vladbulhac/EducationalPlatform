@@ -56,6 +56,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                          dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -97,6 +98,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                          dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -138,6 +140,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                          dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -179,6 +182,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                          dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -220,6 +224,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                          dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -261,6 +266,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                          dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -303,6 +309,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                          dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -345,6 +352,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                          dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -387,6 +395,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                          dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -429,6 +438,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                          dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -468,6 +478,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                          dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -507,6 +518,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                          dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -546,6 +558,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                          dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -585,6 +598,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                          dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -600,6 +614,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             //Arrange
             CreateEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                     dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                    dependenciesHelper.mockEventBus.Object,
                                                                     dependenciesHelper.mockLogger.Object);
 
             //Assert
@@ -612,6 +627,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             //Assert
             Assert.Throws<ArgumentNullException>(() => new CreateEducationalInstitutionCommandHandler(null,
                                                                                                         dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                                                        dependenciesHelper.mockEventBus.Object,
                                                                                                         dependenciesHelper.mockLogger.Object));
         }
 
@@ -621,6 +637,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             //Assert
             Assert.Throws<ArgumentNullException>(() => new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                                                         null,
+                                                                                                        dependenciesHelper.mockEventBus.Object,
                                                                                                         dependenciesHelper.mockLogger.Object));
         }
 
@@ -630,7 +647,18 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             //Assert
             Assert.Throws<ArgumentNullException>(() => new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                                                         dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                                                        dependenciesHelper.mockEventBus.Object,
                                                                                                         null));
+        }
+
+        [Fact]
+        public void GivenANullArgumentEventBusToTheRequestHandlerConstructor_ShouldThrowArgumentNullException()
+        {
+            //Assert
+            Assert.Throws<ArgumentNullException>(() => new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
+                                                                                                        dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                                                        null,
+                                                                                                        dependenciesHelper.mockLogger.Object));
         }
     }
 }

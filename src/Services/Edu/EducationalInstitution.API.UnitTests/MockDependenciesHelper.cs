@@ -11,6 +11,7 @@ using Grpc.Core;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;
+using RabbitMQEventBus.Abstractions;
 
 namespace EducationalInstitution.API.UnitTests
 {
@@ -18,7 +19,7 @@ namespace EducationalInstitution.API.UnitTests
     /// Contains a collection of mocked types used in unit testing
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class MockDependenciesHelper<T>
+    public class MockDependenciesHelper<T> where T : class
     {
         public readonly Mock<IEducationalInstitutionCommandRepository> mockEducationalInstitutionCommandRepository;
         public readonly Mock<IEducationalInstitutionQueryRepository> mockEducationalInstitutionQueryRepository;
@@ -29,6 +30,8 @@ namespace EducationalInstitution.API.UnitTests
 
         public readonly Mock<IUnitOfWorkForCommands> mockUnitOfWorkCommand;
         public readonly Mock<IUnitOfWorkForQueries> mockUnitOfWorkQuery;
+
+        public readonly Mock<IEventBus> mockEventBus;
 
         public readonly Mock<ILogger<T>> mockLogger;
         public readonly Mock<IMediator> mockMediator;
@@ -46,6 +49,8 @@ namespace EducationalInstitution.API.UnitTests
 
             mockUnitOfWorkCommand = new();
             mockUnitOfWorkQuery = new();
+
+            mockEventBus = new();
 
             mockLogger = new();
             mockMediator = new();
