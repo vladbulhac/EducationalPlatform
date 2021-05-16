@@ -53,17 +53,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\EventBus\RabbitMQEventBus\RabbitMQEventBus.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Protobuf Include="Proto\commandervices.proto" GrpcServices="Server" />
     <Protobuf Include="Proto\queryservices.proto" GrpcServices="Server" />
     <Protobuf Include="Proto\requestmessages.proto" GrpcServices="Server" />
     <Protobuf Include="Proto\responsedata.proto" GrpcServices="Server" />
     <Protobuf Include="Proto\responsemessages.proto" GrpcServices="Server" />
     <Protobuf Include="Proto\statuscodes.proto" GrpcServices="Server" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="RabbitMQEventBus">
-      <HintPath>..\..\..\EventBus\RabbitMQEventBus\bin\Debug\net5.0\RabbitMQEventBus.dll</HintPath>
-    </Reference>
   </ItemGroup>
 </Project>
