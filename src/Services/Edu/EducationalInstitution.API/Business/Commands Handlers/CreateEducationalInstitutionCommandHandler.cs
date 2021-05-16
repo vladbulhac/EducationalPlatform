@@ -1,4 +1,5 @@
-﻿using EducationalInstitutionAPI.Data;
+﻿using EducationalInstitutionAPI.Business.IntegrationEvents_Handlers;
+using EducationalInstitutionAPI.Data;
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Commands_Results;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
@@ -9,6 +10,7 @@ using EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using RabbitMQEventBus.Abstractions;
 using System;
 using System.Net;
 using System.Threading;
@@ -21,12 +23,14 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
     {
         private readonly IUnitOfWorkForCommands unitOfWorkCommand;
         private readonly IUnitOfWorkForQueries unitOfWorkQuery;
+        private readonly IEventBus eventBus;
 
         /// <exception cref="ArgumentNullException"/>
-        public CreateEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IUnitOfWorkForQueries unitOfWorkQuery, ILogger<CreateEducationalInstitutionCommandHandler> logger) : base(logger)
+        public CreateEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IUnitOfWorkForQueries unitOfWorkQuery, IEventBus eventBus, ILogger<CreateEducationalInstitutionCommandHandler> logger) : base(logger)
         {
             this.unitOfWorkCommand = unitOfWorkCommand ?? throw new ArgumentNullException(nameof(unitOfWorkCommand));
             this.unitOfWorkQuery = unitOfWorkQuery ?? throw new ArgumentNullException(nameof(unitOfWorkQuery));
+            this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
         }
 
         /// <summary>
@@ -76,6 +80,17 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                             StatusCode = HttpStatusCode.MultiStatus,
                             Message = $"The Educational Institution has been successfully created but the Parent Institution with the following ID: {request.ParentInstitutionID} has not been found!"
                         };
+
+                    AssignedAdminsToEducationalInstitutionIntegrationEvent @event = new()
+                    {
+                        Message = "You were given admin rights for an Educational Institution recently created!",
+                        ToNotify = request.AdminsIDs,
+                        Url = $"/edu/{newEducationalInstitution.EducationalInstitutionID}",
+                        TriggeredByAction = "Create",
+                        TriggeredByService_Name = "Educational Institution API"
+                    };
+
+                    eventBus.Publish(@event);
 
                     return new()
                     {
