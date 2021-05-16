@@ -1,9 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\src",
-    "\\src\\Services"
+    ""
   ],
-  "SelectedNode": "\\src\\Services\\Identity",
+  "SelectedNode": "\\Student.API.sln",
   "PreviewInSolutionExplorer": false
 }

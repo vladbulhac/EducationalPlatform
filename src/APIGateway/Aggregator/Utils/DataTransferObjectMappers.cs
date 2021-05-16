@@ -7,7 +7,6 @@ using EducationaInstitutionAPI.Utils;
 using Google.Protobuf.Collections;
 using Grpc.Core;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 
 namespace Aggregator.Utils

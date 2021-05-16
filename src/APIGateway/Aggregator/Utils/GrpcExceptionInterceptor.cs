@@ -1,5 +1,4 @@
-﻿using Aggregator.DTOs;
-using Grpc.Core;
+﻿using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
