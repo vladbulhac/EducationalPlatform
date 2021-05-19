@@ -229,7 +229,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         public void GivenAValidRequestOfTypeDTOEducationalInstitutionByLocationQuery_ShouldReturnTrue()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByLocationQuery() { LocationID = "6050efcd87e2647ab7ac443e" };
+            var request = new DTOEducationalInstitutionsByLocationQuery() { LocationID = "6050efcd87e2647ab7ac443e" };
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out _);
@@ -242,7 +242,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         public void GivenAValidRequestOfTypeDTOEducationalInstitutionByLocationQuery_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByLocationQuery() { LocationID = "6050efcd87e2647ab7ac443e" };
+            var request = new DTOEducationalInstitutionsByLocationQuery() { LocationID = "6050efcd87e2647ab7ac443e" };
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -255,7 +255,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithEmptyLocationID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByLocationQuery() { LocationID = string.Empty };
+            var request = new DTOEducationalInstitutionsByLocationQuery() { LocationID = string.Empty };
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out _);
@@ -268,7 +268,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithEmptyLocationID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByLocationQuery() { LocationID = string.Empty };
+            var request = new DTOEducationalInstitutionsByLocationQuery() { LocationID = string.Empty };
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -281,7 +281,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         public void GivenAanInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithLocationIDOfLengthNot24_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByLocationQuery() { LocationID = "eIdL14F9" };
+            var request = new DTOEducationalInstitutionsByLocationQuery() { LocationID = "eIdL14F9" };
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -294,7 +294,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithLocationIDOfLengthNot24_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByLocationQuery() { LocationID = "eIdL14F9" };
+            var request = new DTOEducationalInstitutionsByLocationQuery() { LocationID = "eIdL14F9" };
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
@@ -307,7 +307,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithLocationIDThatContainsProhibitedCharacters_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByLocationQuery() { LocationID = "6050efcd87e2647ab7ac443~" };
+            var request = new DTOEducationalInstitutionsByLocationQuery() { LocationID = "6050efcd87e2647ab7ac443~" };
 
             //Act
             var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
@@ -320,7 +320,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithLocationIDThatContainsProhibitedCharacters_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByLocationQuery() { LocationID = "6050efcd87e2647ab7ac443~" };
+            var request = new DTOEducationalInstitutionsByLocationQuery() { LocationID = "6050efcd87e2647ab7ac443~" };
 
             //Act
             validationHandler.IsRequestValid(request, out string validationErrors);
