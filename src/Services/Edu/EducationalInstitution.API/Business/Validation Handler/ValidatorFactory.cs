@@ -23,23 +23,22 @@ namespace EducationalInstitutionAPI.Business.Validation_Handler
         {
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
             {
-                if (type.IsClass && !type.IsAbstract && IsSubclassOfGeneric(type, typeof(AbstractValidator<>)))
+                if (type.IsClass && !type.IsAbstract && type.IsSubclassOfGeneric(typeof(AbstractValidator<>)))
                     dtoToValidatorMap.TryAdd(type.BaseType.GetGenericArguments()[0], type);
             }
         }
 
         /// <summary>
-        /// Searches for <paramref name="genericType"/> in the collection of inherited classes by <paramref name="typeToCheck"/>
+        /// Searches for <paramref name="lookedUpGenericType"/> in the inherited classes by <paramref name="type"/>
         /// </summary>
-        /// <see cref="https://stackoverflow.com/questions/457676/check-if-a-class-is-derived-from-a-generic-class"/>
-        private static bool IsSubclassOfGeneric(Type typeToCheck, Type genericType)
+        private static bool IsSubclassOfGeneric(this Type type, Type lookedUpGenericType)
         {
-            while (typeToCheck != null && typeToCheck != typeof(object))
+            while (type is not null && type != typeof(object))
             {
-                var currentType = typeToCheck.IsGenericType ? typeToCheck.GetGenericTypeDefinition() : typeToCheck;
-                if (genericType == currentType) return true;
+                if (type.IsGenericType && type.GetGenericTypeDefinition() == lookedUpGenericType)
+                    return true;
 
-                typeToCheck = typeToCheck.BaseType;
+                type = type.BaseType;
             }
             return false;
         }
