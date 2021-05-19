@@ -78,26 +78,26 @@ namespace EducationalInstitutionAPI.Data
             }
         }
 
-        public void UpdateParentInstitution(EducationalInstitution newParentInstitution) => ParentInstitution = newParentInstitution;
+        public void SetParentInstitution(EducationalInstitution newParentInstitution) => ParentInstitution = newParentInstitution;
 
-        public void Update(string name, string description, string locationID)
+        public void SetNameAndDescription(string name, string description)
         {
-            Name = name;
-            Description = description;
-            LocationID = locationID;
+            SetName(name);
+            SetDescription(description);
         }
 
-        public void Update(string name, string description)
+        public void SetName(string name) => Name = name ?? Name;
+
+        public void SetDescription(string description) => Description = description ?? "NO_DESCRIPTION";
+
+        public void SetEntireLocation(string locationID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs)
         {
-            Name = name;
-            Description = description;
+            SetLocation(locationID);
+            CreateAndAddBuildings(addBuildingsIDs);
+            RemoveBuildings(removeBuildingsIDs);
         }
 
-        public void UpdateName(string name) => Name = name;
-
-        public void UpdateDescription(string description) => Description = description;
-
-        public void UpdateLocation(string locationID) => LocationID = locationID;
+        public void SetLocation(string locationID) => LocationID = locationID ?? "LOCATION_UNKNOWN";
 
         public void CreateAndAddBuildings(ICollection<string> addBuildingsIDs)
         {
@@ -116,7 +116,7 @@ namespace EducationalInstitutionAPI.Data
                 {
                     var building = Buildings.SingleOrDefault(b => b.BuildingID == buildingID);
                     if (building is not null)
-                        Buildings.Remove(building);
+                        building.EntityAccess.ScheduleForDeletion();
                 }
             }
         }
@@ -141,13 +141,6 @@ namespace EducationalInstitutionAPI.Data
                         Admins.Remove(admin);
                 }
             }
-        }
-
-        public void UpdateEntireLocation(string locationID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs)
-        {
-            LocationID = locationID;
-            CreateAndAddBuildings(addBuildingsIDs);
-            RemoveBuildings(removeBuildingsIDs);
         }
     }
 }
