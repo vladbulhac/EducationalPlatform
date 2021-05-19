@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace EducationalInstitutionAPI.Business.Queries_Handlers
 {
     public class GetAllEducationalInstitutionsByLocationQueryHandler : HandlerBase<GetAllEducationalInstitutionsByLocationQueryHandler>,
-                                                                       IRequestHandler<DTOEducationalInstitutionByLocationQuery, Response<GetAllEducationalInstitutionsByLocationQueryResult>>
+                                                                       IRequestHandler<DTOEducationalInstitutionsByLocationQuery, Response<GetAllEducationalInstitutionsByLocationQueryResult>>
     {
         private readonly IUnitOfWorkForQueries unitOfWork;
 
@@ -36,7 +36,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
         /// </list>
         /// </returns>
         /// <exception cref="ArgumentNullException"/>
-        public async Task<Response<GetAllEducationalInstitutionsByLocationQueryResult>> Handle(DTOEducationalInstitutionByLocationQuery request, CancellationToken cancellationToken = default)
+        public async Task<Response<GetAllEducationalInstitutionsByLocationQueryResult>> Handle(DTOEducationalInstitutionsByLocationQuery request, CancellationToken cancellationToken = default)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
 

@@ -27,3 +27,7 @@ message EducationalInstitutionGetByNameRequest{
 	int32 offset_value=2;
 	int32 results_count=3;
 }
+
+message EducationalInstitutionsGetByLocationRequest{
+	string location_id=1;
+}

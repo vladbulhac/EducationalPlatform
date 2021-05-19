@@ -1,10 +1,6 @@
 ﻿using EducationalInstitutionAPI.Data.Helpers;
 using EducationalInstitutionAPI.Utils;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace EducationalInstitution.API.UnitTests.Models_Tests

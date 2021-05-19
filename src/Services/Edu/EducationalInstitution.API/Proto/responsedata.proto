@@ -28,6 +28,13 @@ message GetByNameResult{
 	string location_id=4;
 }
 
+message GetByLocationResult{
+	Uuid educational_institution_id=1;
+	string name=2;
+	string description=3;
+	repeated string buildings=4;
+}
+
 message BaseQueryResult{
 	Uuid educational_institution_id=1;
 	string name=2;

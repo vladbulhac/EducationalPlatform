@@ -87,5 +87,28 @@ namespace EducationalInstitutionAPI.Utils.Mappers
 
             return educationalInstitutions;
         }
+
+        public static DTOEducationalInstitutionsByLocationQuery MapToDTOEducationalInstitutionsByLocationQuery(this EducationalInstitutionsGetByLocationRequest request)
+        {
+            return new()
+            {
+                LocationID = request.LocationId
+            };
+        }
+
+        public static ICollection<GetByLocationResult> MapToGetByLocationResult(this GetAllEducationalInstitutionsByLocationQueryResult result)
+        {
+            List<GetByLocationResult> educationalInstitutions = new(result.EducationalInstitutions.Count);
+            foreach (var educationalInstitution in result.EducationalInstitutions)
+                educationalInstitutions.Add(new()
+                {
+                    EducationalInstitutionId = educationalInstitution.EducationalInstitutionID.ToProtoUuid(),
+                    Name = educationalInstitution.Name,
+                    Buildings = { educationalInstitution.BuildingsIDs },
+                    Description = educationalInstitution.Description,
+                });
+
+            return educationalInstitutions;
+        }
     }
 }

@@ -1295,7 +1295,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 ResultsCount = 1
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(request, out It.Ref<string>.IsAny)).Returns(false);
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByNameQuery>(), out It.Ref<string>.IsAny)).Returns(false);
 
             EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
 
@@ -1317,7 +1317,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 ResultsCount = 1
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(request, out It.Ref<string>.IsAny)).Returns(false);
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByNameQuery>(), out It.Ref<string>.IsAny)).Returns(false);
 
             EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
 
@@ -1328,7 +1328,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             Assert.False(result.OperationStatus);
         }
 
-        /*[Fact]
+        [Fact]
         public async Task GivenAnInvalidEducationalInstitutionGetByNameRequest_ThatFailsValidation_ToGetAllEducationalInstitutionsByNameMethod_ShouldReturnDefaultStatusCode()
         {
             //Arrange
@@ -1339,7 +1339,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 ResultsCount = 1
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(request, out It.Ref<string>.IsAny)).Returns(false);
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByNameQuery>(), out It.Ref<string>.IsAny)).Returns(false);
 
             EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
 
@@ -1348,7 +1348,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
 
             //Assert
             Assert.Equal(ProtoHttpStatusCode.Default, result.StatusCode);
-        }*/
+        }
 
         [Fact]
         public async Task GivenAnInvalidEducationalInstitutionGetByNameRequest_ThatFailsValidation_ToGetAllEducationalInstitutionsByNameMethod_ShouldReturnEmptyMessage()
@@ -1361,7 +1361,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 ResultsCount = 1
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(request, out It.Ref<string>.IsAny)).Returns(false);
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByNameQuery>(), out It.Ref<string>.IsAny)).Returns(false);
 
             EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
 
@@ -1621,5 +1621,618 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         #endregion GetAllEducationalInstitutionsByNameMethod TESTS
+
+        #region GetAllEducationalInstitutionsByLocationMethod TESTS
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByLocationRequest_ToGetAllEducationalInstitutionsByLocationMethod_ShouldReturnEducationalInstitutionsGetByLocationResponse()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = "location123" };
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsByLocationQueryResult>()
+            {
+                Data = new()
+                {
+                    EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { new()
+                                            { Name="testName",
+                                            Description="testDescription",
+                                            BuildingsIDs=new List<string>(){"testBuilding"},
+                                            EducationalInstitutionID=Guid.NewGuid()
+                                            }
+                    }
+                },
+                StatusCode = HttpStatusCode.OK,
+                Message = string.Empty,
+                OperationStatus = true
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.IsType<EducationalInstitutionsGetByLocationResponse>(result);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByLocationRequest_ToGetAllEducationalInstitutionsByLocationMethod_ShouldReturnTrueOperationStatus()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = "location123" };
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsByLocationQueryResult>()
+            {
+                Data = new()
+                {
+                    EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { new()
+                                            { Name="testName",
+                                            Description="testDescription",
+                                            BuildingsIDs=new List<string>(){"testBuilding"},
+                                            EducationalInstitutionID=Guid.NewGuid()
+                                            }
+                    }
+                },
+                StatusCode = HttpStatusCode.OK,
+                Message = string.Empty,
+                OperationStatus = true
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.True(result.OperationStatus);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByLocationRequest_ToGetAllEducationalInstitutionsByLocationMethod_ShouldReturnStatusCodeOK()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = "location123" };
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsByLocationQueryResult>()
+            {
+                Data = new()
+                {
+                    EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { new()
+                                            { Name="testName",
+                                            Description="testDescription",
+                                            BuildingsIDs=new List<string>(){"testBuilding"},
+                                            EducationalInstitutionID=Guid.NewGuid()
+                                            }
+                    }
+                },
+                StatusCode = HttpStatusCode.OK,
+                Message = string.Empty,
+                OperationStatus = true
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal(HttpStatusCode.OK.MapToEquivalentProtoHttpStatusCodeOrOK(), result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByLocationRequest_ToGetAllEducationalInstitutionsByLocationMethod_ShouldReturnEmptyMessage()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = "location123" };
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsByLocationQueryResult>()
+            {
+                Data = new()
+                {
+                    EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { new()
+                                            { Name="testName",
+                                            Description="testDescription",
+                                            BuildingsIDs=new List<string>(){"testBuilding"},
+                                            EducationalInstitutionID=Guid.NewGuid()
+                                            }
+                    }
+                },
+                StatusCode = HttpStatusCode.OK,
+                Message = string.Empty,
+                OperationStatus = true
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Empty(result.Message);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByLocationRequest_ToGetAllEducationalInstitutionsByLocationMethod_ShouldReturnDataCollectionWithOneElement()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = "location123" };
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsByLocationQueryResult>()
+            {
+                Data = new()
+                {
+                    EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { new()
+                                            { Name="testName",
+                                            Description="testDescription",
+                                            BuildingsIDs=new List<string>(){"testBuilding"},
+                                            EducationalInstitutionID=Guid.NewGuid()
+                                            }
+                    }
+                },
+                StatusCode = HttpStatusCode.OK,
+                Message = string.Empty,
+                OperationStatus = true
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Single(result.Data);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByLocationRequest_ToGetAllEducationalInstitutionsByLocationMethod_ShouldReturnDataCollectionWithExpectedName()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = "location123" };
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsByLocationQueryResult>()
+            {
+                Data = new()
+                {
+                    EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { new()
+                                            { Name="testName",
+                                            Description="testDescription",
+                                            BuildingsIDs=new List<string>(){"testBuilding"},
+                                            EducationalInstitutionID=Guid.NewGuid()
+                                            }
+                    }
+                },
+                StatusCode = HttpStatusCode.OK,
+                Message = string.Empty,
+                OperationStatus = true
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal("testName", result.Data[0].Name);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByLocationRequest_ToGetAllEducationalInstitutionsByLocationMethod_ShouldReturnDataCollectionWithExpectedEducationalInstitutionID()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = "location123" };
+            var resultEducationalInstitutionID = Guid.NewGuid();
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsByLocationQueryResult>()
+            {
+                Data = new()
+                {
+                    EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { new()
+                                            { Name="testName",
+                                            Description="testDescription",
+                                            BuildingsIDs=new List<string>(){"testBuilding"},
+                                            EducationalInstitutionID=resultEducationalInstitutionID
+                                            }
+                    }
+                },
+                StatusCode = HttpStatusCode.OK,
+                Message = string.Empty,
+                OperationStatus = true
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal(resultEducationalInstitutionID, result.Data[0].EducationalInstitutionId.ToGuid());
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByLocationRequest_ToGetAllEducationalInstitutionsByLocationMethod_ShouldReturnDataCollectionWithExpectedDescription()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = "location123" };
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsByLocationQueryResult>()
+            {
+                Data = new()
+                {
+                    EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { new()
+                                            { Name="testName",
+                                            Description="testDescription",
+                                            BuildingsIDs=new List<string>(){"testBuilding"},
+                                            EducationalInstitutionID=Guid.NewGuid()
+                                            }
+                    }
+                },
+                StatusCode = HttpStatusCode.OK,
+                Message = string.Empty,
+                OperationStatus = true
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal("testDescription", result.Data[0].Description);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByLocationRequest_ToGetAllEducationalInstitutionsByLocationMethod_ShouldReturnDataCollectionWithOneElementBuildingsIDsCollection()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = "location123" };
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsByLocationQueryResult>()
+            {
+                Data = new()
+                {
+                    EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { new()
+                                            { Name="testName",
+                                            Description="testDescription",
+                                            BuildingsIDs=new List<string>(){"testBuilding"},
+                                            EducationalInstitutionID=Guid.NewGuid()
+                                            }
+                    }
+                },
+                StatusCode = HttpStatusCode.OK,
+                Message = string.Empty,
+                OperationStatus = true
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Single(result.Data[0].Buildings);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByLocationRequest_ToGetAllEducationalInstitutionsByLocationMethod_ShouldReturnDataCollectionWithExpectedBuildingID()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = "location123" };
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsByLocationQueryResult>()
+            {
+                Data = new()
+                {
+                    EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { new()
+                                            { Name="testName",
+                                            Description="testDescription",
+                                            BuildingsIDs=new List<string>(){"testBuilding"},
+                                            EducationalInstitutionID=Guid.NewGuid()
+                                            }
+                    }
+                },
+                StatusCode = HttpStatusCode.OK,
+                Message = string.Empty,
+                OperationStatus = true
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal("testBuilding", result.Data[0].Buildings[0]);
+        }
+
+        [Fact]
+        public async Task GivenAnInvalidEducationalInstitutionsGetByLocationRequest_ThatFailsValidation_ToGetAllEducationalInstitutionsByLocationMethod_ShouldReturnEmptyData()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = string.Empty };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(false);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Empty(result.Data);
+        }
+
+        [Fact]
+        public async Task GivenAnInvalidEducationalInstitutionsGetByLocationRequest_ThatFailsValidation_ToGetAllEducationalInstitutionsByLocationMethod_ShouldReturnFalseOperationStatus()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = string.Empty };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(false);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.False(result.OperationStatus);
+        }
+
+        [Fact]
+        public async Task GivenAnInvalidEducationalInstitutionsGetByLocationRequest_ThatFailsValidation_ToGetAllEducationalInstitutionsByLocationMethod_ShouldReturnEmptyMessage()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = string.Empty };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(false);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Empty(result.Message);
+        }
+
+        [Fact]
+        public async Task GivenAnInvalidEducationalInstitutionsGetByLocationRequest_ThatFailsValidation_ToGetAllEducationalInstitutionsByLocationMethod_ShouldReturnStatusCodeDefault()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = string.Empty };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(false);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal(ProtoHttpStatusCode.Default, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByLocationRequest_WithIDThatDoesntExistInDatabase_ToGetAllEducationalInstitutionsByLocationMethod_ShouldReturnEmptyData()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = "location123" };
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsByLocationQueryResult>()
+            {
+                Data = new(),
+                StatusCode = HttpStatusCode.NotFound,
+                Message = $"No Educational Institution with the following LocationID: {request.LocationId} has been found!",
+                OperationStatus = false
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Empty(result.Data);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByLocationRequest_WithIDThatDoesntExistInDatabase_ToGetAllEducationalInstitutionsByLocationMethod_ShouldReturnFalseOperationStatus()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = "location123" };
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsByLocationQueryResult>()
+            {
+                Data = new(),
+                StatusCode = HttpStatusCode.NotFound,
+                Message = $"No Educational Institution with the following LocationID: {request.LocationId} has been found!",
+                OperationStatus = false
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.False(result.OperationStatus);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByLocationRequest_WithIDThatDoesntExistInDatabase_ToGetAllEducationalInstitutionsByLocationMethod_ShouldReturnEmptyMessage()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = "location123" };
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsByLocationQueryResult>()
+            {
+                Data = new(),
+                StatusCode = HttpStatusCode.NotFound,
+                Message = $"No Educational Institution with the following LocationID: {request.LocationId} has been found!",
+                OperationStatus = false
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Empty(result.Message);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByLocationRequest_WithIDThatDoesntExistInDatabase_ToGetAllEducationalInstitutionsByLocationMethod_ShouldReturnDefaultStatusCode()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = "location123" };
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsByLocationQueryResult>()
+            {
+                Data = new(),
+                StatusCode = HttpStatusCode.NotFound,
+                Message = $"No Educational Institution with the following LocationID: {request.LocationId} has been found!",
+                OperationStatus = false
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal(ProtoHttpStatusCode.Default, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByLocationRequest_ToGetAllEducationalInstitutionsByLocationMethod_AnExceptionIsCaughtInHandler_ShouldReturnDefaultStatusCode()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = "location123" };
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsByLocationQueryResult>()
+            {
+                Data = new(),
+                StatusCode = HttpStatusCode.InternalServerError,
+                Message = $"An error occurred while searching for the Educational Institution with the following LocationID: {request.LocationId}!",
+                OperationStatus = false
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal(ProtoHttpStatusCode.Default, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByLocationRequest_ToGetAllEducationalInstitutionsByLocationMethod_AnExceptionIsCaughtInHandler_ShouldReturnEmptyData()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = "location123" };
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsByLocationQueryResult>()
+            {
+                Data = new(),
+                StatusCode = HttpStatusCode.InternalServerError,
+                Message = $"An error occurred while searching for the Educational Institution with the following LocationID: {request.LocationId}!",
+                OperationStatus = false
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Empty(result.Data);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByLocationRequest_ToGetAllEducationalInstitutionsByLocationMethod_AnExceptionIsCaughtInHandler_ShouldReturnEmptyMessage()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = "location123" };
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsByLocationQueryResult>()
+            {
+                Data = new(),
+                StatusCode = HttpStatusCode.InternalServerError,
+                Message = $"An error occurred while searching for the Educational Institution with the following LocationID: {request.LocationId}!",
+                OperationStatus = false
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Empty(result.Message);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByLocationRequest_ToGetAllEducationalInstitutionsByLocationMethod_AnExceptionIsCaughtInHandler_ShouldReturnFalseOperationStatus()
+        {
+            //Arrange
+            EducationalInstitutionsGetByLocationRequest request = new() { LocationId = "location123" };
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsByLocationQueryResult>()
+            {
+                Data = new(),
+                StatusCode = HttpStatusCode.InternalServerError,
+                Message = $"An error occurred while searching for the Educational Institution with the following LocationID: {request.LocationId}!",
+                OperationStatus = false
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            EducationalInstitutionQueryService handler = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.False(result.OperationStatus);
+        }
+
+        #endregion GetAllEducationalInstitutionsByLocationMethod TESTS
     }
 }

@@ -20,8 +20,8 @@ namespace EducationalInstitutionAPI.Grpc
     public class EducationalInstitutionCommandService : Command.CommandBase
     {
         private readonly IMediator mediator;
-        private readonly ILogger<EducationalInstitutionCommandService> logger;
         private readonly IValidationHandler validationHandler;
+        private readonly ILogger<EducationalInstitutionCommandService> logger;
 
         public EducationalInstitutionCommandService(IMediator mediator, ILogger<EducationalInstitutionCommandService> logger, IValidationHandler validationHandler)
         {
@@ -83,11 +83,11 @@ namespace EducationalInstitutionAPI.Grpc
             catch (Exception e)
             {
                 HandleException(logger,
-                    ref context,
-                    "Could not create an Educational Institution with the request data: {0}, using {1}, error details => {2}",
-                    JsonConvert.SerializeObject(request),
-                    mediator.GetType(),
-                    e.Message);
+                                ref context,
+                                "Could not create an Educational Institution with the request data: {0}, using {1}, error details => {2}",
+                                JsonConvert.SerializeObject(request),
+                                mediator.GetType(),
+                                e.Message);
             }
 
             return new();
@@ -146,11 +146,11 @@ namespace EducationalInstitutionAPI.Grpc
             catch (Exception e)
             {
                 HandleException(logger,
-                    ref context,
-                    "Could not schedule for deletion the Educational Institution with the request data: {0}, using {1}, error details => {2}",
-                    JsonConvert.SerializeObject(request),
-                    mediator.GetType(),
-                    e.Message);
+                                ref context,
+                                "Could not schedule for deletion the Educational Institution with the request data: {0}, using {1}, error details => {2}",
+                                JsonConvert.SerializeObject(request),
+                                mediator.GetType(),
+                                e.Message);
             }
 
             return new();
