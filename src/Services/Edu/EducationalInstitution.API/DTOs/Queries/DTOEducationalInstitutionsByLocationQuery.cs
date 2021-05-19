@@ -3,7 +3,7 @@ using MediatR;
 
 namespace EducationalInstitutionAPI.DTOs.Queries
 {
-    public class DTOEducationalInstitutionByLocationQuery : IRequest<Response<GetAllEducationalInstitutionsByLocationQueryResult>>
+    public class DTOEducationalInstitutionsByLocationQuery : IRequest<Response<GetAllEducationalInstitutionsByLocationQueryResult>>
     {
         public string LocationID { get; init; }
     }

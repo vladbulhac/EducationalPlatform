@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace EducationalInstitutionAPI.DTOs.Validators.Queries_Validators
 {
-    public class DTOEducationalInstitutionByLocationQueryValidator : AbstractValidator<DTOEducationalInstitutionByLocationQuery>
+    public class DTOEducationalInstitutionByLocationQueryValidator : AbstractValidator<DTOEducationalInstitutionsByLocationQuery>
     {
         /// <summary>
         /// Initializes the rules based on which the validation is made
