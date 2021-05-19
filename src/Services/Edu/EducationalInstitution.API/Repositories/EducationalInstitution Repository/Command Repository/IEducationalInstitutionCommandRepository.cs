@@ -19,14 +19,6 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
         public Task CreateAsync(EducationalInstitution data, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Updates the fields of an entity with the given <see cref="EducationalInstitution"> and saves the changes in the database
-        /// </summary>
-        /// <param name="data">An object that encapsulates the new values that are used for updating the entity from the database</param>
-        /// <param name="cancellationToken">Cancels the operation ________</param>
-        /// <returns>True if the entity has been found and updated, False if the entity has not been found in the database</returns>
-        public Task<bool> UpdateAsync(EducationalInstitution data, CancellationToken cancellationToken = default);
-
-        /// <summary>
         /// Removes an entity from the database
         /// </summary>
         /// <param name="ID">Identifies the data that has to be removed</param>

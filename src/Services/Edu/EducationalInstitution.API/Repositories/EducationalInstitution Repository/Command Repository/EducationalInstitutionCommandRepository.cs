@@ -29,17 +29,6 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
             return true;
         }
 
-        public async Task<bool> UpdateAsync(EducationalInstitution data, CancellationToken cancellationToken = default)
-        {
-            var educationalInstitution = await context.EducationalInstitutions
-                                                      .SingleOrDefaultAsync(eduI => eduI.EducationalInstitutionID == data.EducationalInstitutionID, cancellationToken);
-
-            if (educationalInstitution is null) return false;
-
-            educationalInstitution.Update(data.Name, data.Description, data.LocationID);
-            return true;
-        }
-
         public async Task<bool> UpdateEntireLocationAsync(Guid educationalInstitutionID, string locationID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken)
         {
             var educationalInstitution = await context.EducationalInstitutions
@@ -47,7 +36,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
 
             if (educationalInstitution is null) return false;
 
-            educationalInstitution.UpdateEntireLocation(locationID, addBuildingsIDs, removeBuildingsIDs);
+            educationalInstitution.SetEntireLocation(locationID, addBuildingsIDs, removeBuildingsIDs);
             return true;
         }
 
@@ -58,7 +47,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
 
             if (educationalInstitution is null) return false;
 
-            educationalInstitution.UpdateLocation(locationID);
+            educationalInstitution.SetLocation(locationID);
             return true;
         }
 
@@ -81,7 +70,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
 
             if (educationalInstitution is null) return false;
 
-            educationalInstitution.UpdateName(name);
+            educationalInstitution.SetName(name);
             return true;
         }
 
@@ -92,7 +81,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
 
             if (educationalInstitution is null) return false;
 
-            educationalInstitution.UpdateDescription(description);
+            educationalInstitution.SetDescription(description);
             return true;
         }
 
@@ -103,7 +92,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
 
             if (educationalInstitution is null) return false;
 
-            educationalInstitution.Update(name, description);
+            educationalInstitution.SetNameAndDescription(name, description);
             return true;
         }
 
@@ -114,7 +103,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
 
             if (educationalInstitution is null) return false;
 
-            educationalInstitution.UpdateParentInstitution(parentInstitution);
+            educationalInstitution.SetParentInstitution(parentInstitution);
             return true;
         }
     }
