@@ -13,7 +13,8 @@ using Xunit;
 
 namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Tests
 {
-    public class GetEducationalInstitutionByNameQueryHandlerTests : IClassFixture<MockDependenciesHelper<GetAllEducationalInstitutionsByNameQueryHandler>>, IClassFixture<TestDataFromJSONParser>
+    public class GetEducationalInstitutionByNameQueryHandlerTests : IClassFixture<MockDependenciesHelper<GetAllEducationalInstitutionsByNameQueryHandler>>,
+                                                                    IClassFixture<TestDataFromJSONParser>
     {
         private readonly TestDataFromJSONParser testDataHelper;
         private readonly IList<GetEducationalInstitutionQueryResult> queryResult;

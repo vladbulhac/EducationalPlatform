@@ -45,9 +45,9 @@ namespace EducationalInstitution.API.UnitTests
 
         private void SetupEducationalInstitutions()
         {
-            EducationalInstitutions[0].UpdateParentInstitution(EducationalInstitutions[1]);
-            EducationalInstitutions[1].UpdateParentInstitution(EducationalInstitutions[2]);
-            EducationalInstitutions[2].UpdateParentInstitution(EducationalInstitutions[3]);
+            EducationalInstitutions[0].SetParentInstitution(EducationalInstitutions[1]);
+            EducationalInstitutions[1].SetParentInstitution(EducationalInstitutions[2]);
+            EducationalInstitutions[2].SetParentInstitution(EducationalInstitutions[3]);
         }
     }
 }

@@ -12,7 +12,8 @@ using Xunit;
 
 namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_Tests
 {
-    public class UpdateEducationalInstitutionEntireLocationCommandHandlerTests : IClassFixture<MockDependenciesHelper<UpdateEducationalInstitutionLocationCommandHandler>>, IClassFixture<TestDataFromJSONParser>
+    public class UpdateEducationalInstitutionEntireLocationCommandHandlerTests : IClassFixture<MockDependenciesHelper<UpdateEducationalInstitutionLocationCommandHandler>>,
+                                                                                 IClassFixture<TestDataFromJSONParser>
     {
         private readonly TestDataFromJSONParser testDataHelper;
         private readonly MockDependenciesHelper<UpdateEducationalInstitutionLocationCommandHandler> dependenciesHelper;

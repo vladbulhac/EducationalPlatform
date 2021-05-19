@@ -11,7 +11,8 @@ using Xunit;
 
 namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Tests
 {
-    public class GetEducationalInstitutionByIDQueryHandlerTests : IClassFixture<MockDependenciesHelper<GetEducationalInstitutionByIDQueryHandler>>, IClassFixture<TestDataFromJSONParser>
+    public class GetEducationalInstitutionByIDQueryHandlerTests : IClassFixture<MockDependenciesHelper<GetEducationalInstitutionByIDQueryHandler>>,
+                                                                  IClassFixture<TestDataFromJSONParser>
     {
         private readonly TestDataFromJSONParser testDataHelper;
         private readonly GetEducationalInstitutionByIDQueryResult queryResult;

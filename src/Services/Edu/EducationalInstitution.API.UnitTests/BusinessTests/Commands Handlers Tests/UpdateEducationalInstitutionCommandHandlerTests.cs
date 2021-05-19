@@ -10,7 +10,8 @@ using Xunit;
 
 namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_Tests
 {
-    public class UpdateEducationalInstitutionCommandHandlerTests : IClassFixture<MockDependenciesHelper<UpdateEducationalInstitutionCommandHandler>>, IClassFixture<TestDataFromJSONParser>
+    public class UpdateEducationalInstitutionCommandHandlerTests : IClassFixture<MockDependenciesHelper<UpdateEducationalInstitutionCommandHandler>>,
+                                                                   IClassFixture<TestDataFromJSONParser>
     {
         private readonly TestDataFromJSONParser testDataHelper;
         private readonly MockDependenciesHelper<UpdateEducationalInstitutionCommandHandler> dependenciesHelper;

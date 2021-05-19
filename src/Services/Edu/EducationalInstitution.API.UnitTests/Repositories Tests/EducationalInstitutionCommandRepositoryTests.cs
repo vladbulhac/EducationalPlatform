@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EducationalInstitution.API.UnitTests.RepositoriesTests
+namespace EducationalInstitution.API.UnitTests.Repositories_Tests
 {
     public class EducationalInstitutionCommandRepositoryTests : IClassFixture<TestDataFromJSONParser>
     {

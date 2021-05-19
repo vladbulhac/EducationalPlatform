@@ -13,7 +13,8 @@ using Xunit;
 
 namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Tests
 {
-    public class GetEducationalInstitutionByLocationQueryHandlerTests : IClassFixture<MockDependenciesHelper<GetAllEducationalInstitutionsByLocationQueryHandler>>, IClassFixture<TestDataFromJSONParser>
+    public class GetEducationalInstitutionByLocationQueryHandlerTests : IClassFixture<MockDependenciesHelper<GetAllEducationalInstitutionsByLocationQueryHandler>>,
+                                                                        IClassFixture<TestDataFromJSONParser>
     {
         private readonly TestDataFromJSONParser testDataHelper;
         private readonly GetAllEducationalInstitutionsByLocationQueryResult queryResult;
@@ -43,7 +44,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         {
             //Arrange
             string locationID = "location1";
-            DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
+            DTOEducationalInstitutionsByLocationQuery request = new() { LocationID = locationID };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
@@ -64,7 +65,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         {
             //Arrange
             string locationID = "location1";
-            DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
+            DTOEducationalInstitutionsByLocationQuery request = new() { LocationID = locationID };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
@@ -85,7 +86,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         {
             //Arrange
             string locationID = "location1";
-            DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
+            DTOEducationalInstitutionsByLocationQuery request = new() { LocationID = locationID };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
@@ -106,7 +107,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         {
             //Arrange
             string locationID = "location1";
-            DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
+            DTOEducationalInstitutionsByLocationQuery request = new() { LocationID = locationID };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
@@ -127,7 +128,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         {
             //Arrange
             string locationID = "location1";
-            DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
+            DTOEducationalInstitutionsByLocationQuery request = new() { LocationID = locationID };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
@@ -148,7 +149,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         {
             //Arrange
             string locationID = "location1";
-            DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
+            DTOEducationalInstitutionsByLocationQuery request = new() { LocationID = locationID };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
@@ -173,7 +174,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         {
             //Arrange
             string locationID = "e32Loq4";
-            DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
+            DTOEducationalInstitutionsByLocationQuery request = new() { LocationID = locationID };
 
             GetAllEducationalInstitutionsByLocationQueryResult repositoryTaskResult = null;
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
@@ -195,7 +196,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         {
             //Arrange
             string locationID = "e32Loq4";
-            DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
+            DTOEducationalInstitutionsByLocationQuery request = new() { LocationID = locationID };
 
             GetAllEducationalInstitutionsByLocationQueryResult repositoryTaskResult = null;
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
@@ -217,7 +218,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         {
             //Arrange
             string locationID = "e32Loq4";
-            DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
+            DTOEducationalInstitutionsByLocationQuery request = new() { LocationID = locationID };
 
             GetAllEducationalInstitutionsByLocationQueryResult repositoryTaskResult = null;
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
@@ -239,7 +240,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         {
             //Arrange
             string locationID = "e32Loq4";
-            DTOEducationalInstitutionByLocationQuery request = new() { LocationID = locationID };
+            DTOEducationalInstitutionsByLocationQuery request = new() { LocationID = locationID };
 
             GetAllEducationalInstitutionsByLocationQueryResult repositoryTaskResult = null;
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())

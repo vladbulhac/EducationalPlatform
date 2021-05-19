@@ -25,7 +25,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Validation_Handler_
         public void GivenAValidTypeDTOEducationalInstitutionByLocationQuery_ShouldReturnAnInstanceOfDTOEducationalInstitutionByLocationQueryValidator()
         {
             //Act
-            var validator = ValidatorFactory.CreateValidator<DTOEducationalInstitutionByLocationQuery>();
+            var validator = ValidatorFactory.CreateValidator<DTOEducationalInstitutionsByLocationQuery>();
 
             //Assert
             Assert.IsType<DTOEducationalInstitutionByLocationQueryValidator>(validator);

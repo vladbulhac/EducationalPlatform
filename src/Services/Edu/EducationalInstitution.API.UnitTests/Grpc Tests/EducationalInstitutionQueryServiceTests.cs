@@ -15,7 +15,8 @@ using Xunit;
 
 namespace EducationalInstitution.API.UnitTests.Grpc_Tests
 {
-    public class EducationalInstitutionQueryServiceTests : IClassFixture<MockDependenciesHelper<EducationalInstitutionQueryService>>, IClassFixture<TestDataFromJSONParser>
+    public class EducationalInstitutionQueryServiceTests : IClassFixture<MockDependenciesHelper<EducationalInstitutionQueryService>>,
+                                                           IClassFixture<TestDataFromJSONParser>
     {
         private readonly MockDependenciesHelper<EducationalInstitutionQueryService> dependenciesHelper;
         private readonly TestDataFromJSONParser testDataHelper;

@@ -1,4 +1,4 @@
-﻿namespace EducationalInstitution.API.UnitTests.RepositoriesTests
+﻿namespace EducationalInstitution.API.UnitTests.Repositories_Tests
 {
     /* Commented due to the new split in commands and queries repositories
      * public class EducationalInstitutionBuildingRepositoryTests : IClassFixture<TestDataFromJSONParser>
