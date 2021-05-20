@@ -1,4 +1,5 @@
 ﻿using EducationalInstitutionAPI.Data;
+using EducationalInstitutionAPI.Data.Events_Definitions;
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Commands_Results;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
@@ -7,7 +8,9 @@ using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
 using EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using RabbitMQEventBus.Abstractions;
 using System;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,12 +22,14 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
     {
         private readonly IUnitOfWorkForCommands unitOfWorkCommand;
         private readonly IUnitOfWorkForQueries unitOfWorkQuery;
+        private readonly IEventBus eventBus;
 
         /// <exception cref="ArgumentNullException"/>
-        public DeleteEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IUnitOfWorkForQueries unitOfWorkQuery, ILogger<DeleteEducationalInstitutionCommandHandler> logger) : base(logger)
+        public DeleteEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IUnitOfWorkForQueries unitOfWorkQuery, IEventBus eventBus, ILogger<DeleteEducationalInstitutionCommandHandler> logger) : base(logger)
         {
             this.unitOfWorkCommand = unitOfWorkCommand ?? throw new ArgumentNullException(nameof(unitOfWorkCommand));
             this.unitOfWorkQuery = unitOfWorkQuery ?? throw new ArgumentNullException(nameof(unitOfWorkQuery));
+            this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
         }
 
         /// <summary>
@@ -63,6 +68,20 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
                     educationalInstitution.EntityAccess.ScheduleForDeletion();
                     await unitOfWorkCommand.SaveChangesAsync(cancellationToken);
+
+                    NotifyAdminsOfEducationalInstitutionDeletionScheduledDateIntegrationEvent @event = new()
+                    {
+                        Message = $"The Educational Institution with ID: {educationalInstitution.EducationalInstitutionID} has been scheduled for deletion on: {educationalInstitution.EntityAccess.DateForPermanentDeletion.Value}!",
+                        ToNotify = educationalInstitution.Admins.Select(a => a.AdminID).ToList(),
+                        Url = string.Empty,
+                        TriggeredBy = new()
+                        {
+                            ServiceName = this.GetType().Namespace.Split('.')[0],
+                            Action = "Delete"
+                        }
+                    };
+
+                    eventBus.Publish(@event);
 
                     return new()
                     {
