@@ -17,6 +17,11 @@ message EducationalInstitutionDeleteRequest{
 	Uuid educational_institution_id=1;
 }
 
+message EducationalInstitutionParentUpdateRequest{
+	Uuid educational_institution_id=1;
+	Uuid parent_institution_id=2;
+}
+
 //Query Requests
 message EducationalInstitutionGetByIdRequest{
 	Uuid educational_institution_id=1;

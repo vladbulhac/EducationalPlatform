@@ -41,5 +41,14 @@ namespace EducationalInstitutionAPI.Utils.Mappers
         {
             return new() { EducationalInstitutionID = request.EducationalInstitutionId.ToGuid() };
         }
+
+        public static DTOEducationalInstitutionParentUpdateCommand MapToDTOEducationalInstitutionParentUpdateCommand(this EducationalInstitutionParentUpdateRequest request)
+        {
+            return new()
+            {
+                EducationalInstitutionID = request.EducationalInstitutionId.ToGuid(),
+                ParentInstitutionID = request.ParentInstitutionId.ToGuid()
+            };
+        }
     }
 }

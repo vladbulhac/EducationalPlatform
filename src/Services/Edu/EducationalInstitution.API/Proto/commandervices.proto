@@ -7,5 +7,6 @@ option csharp_namespace = "EducationalInstitutionAPI.Proto";
 service Command{
 	rpc CreateEducationalInstitution(EducationalInstitutionCreateRequest) returns (EducationalInstitutionCreateResponse);
 	rpc DeleteEducationalInstitution(EducationalInstitutionDeleteRequest) returns (EducationalInstitutionDeleteResponse);
+	rpc UpdateEducationalInstitutionParent(EducationalInstitutionParentUpdateRequest) returns (EducationalInstitutionParentUpdateResponse);
 }
 

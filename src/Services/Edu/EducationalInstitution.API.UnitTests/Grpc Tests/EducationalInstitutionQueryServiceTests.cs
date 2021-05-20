@@ -3,7 +3,7 @@ using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Queries;
 using EducationalInstitutionAPI.Grpc;
 using EducationalInstitutionAPI.Proto;
-using EducationalInstitutionAPI.Utils;
+using EducationalInstitutionAPI.Utils.Mappers;
 using Google.Protobuf.WellKnownTypes;
 using Moq;
 using System;
@@ -1281,7 +1281,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var result = await handler.GetAllEducationalInstitutionsByName(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
-            Assert.Equal(HttpStatusCode.OK.MapToEquivalentProtoHttpStatusCodeOrOK(), result.StatusCode);
+            Assert.Equal(ProtoHttpStatusCode.Ok, result.StatusCode);
         }
 
         [Fact]
@@ -1723,7 +1723,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var result = await handler.GetAllEducationalInstitutionsByLocation(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
-            Assert.Equal(HttpStatusCode.OK.MapToEquivalentProtoHttpStatusCodeOrOK(), result.StatusCode);
+            Assert.Equal(ProtoHttpStatusCode.Ok, result.StatusCode);
         }
 
         [Fact]

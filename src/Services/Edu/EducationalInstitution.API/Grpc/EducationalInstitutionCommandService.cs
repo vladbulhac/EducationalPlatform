@@ -1,7 +1,6 @@
 ﻿using EducationalInstitutionAPI.Business.Commands_Handlers;
 using EducationalInstitutionAPI.Business.Validation_Handler;
 using EducationalInstitutionAPI.Proto;
-using EducationalInstitutionAPI.Utils;
 using EducationalInstitutionAPI.Utils.Mappers;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
@@ -78,7 +77,7 @@ namespace EducationalInstitutionAPI.Grpc
                     };
                 }
                 else
-                    SetStatusAndTrailersOfContext(ref context, StatusCode.Aborted, result.Message, result.StatusCode);
+                    SetStatusAndTrailersOfContext(ref context, result.StatusCode.ToRPCCallContextStatusCode(), result.Message, result.StatusCode);
             }
             catch (Exception e)
             {
@@ -141,7 +140,7 @@ namespace EducationalInstitutionAPI.Grpc
                     };
                 }
                 else
-                    SetStatusAndTrailersOfContext(ref context, StatusCode.Aborted, result.Message, result.StatusCode);
+                    SetStatusAndTrailersOfContext(ref context, result.StatusCode.ToRPCCallContextStatusCode(), result.Message, result.StatusCode);
             }
             catch (Exception e)
             {
@@ -150,6 +149,67 @@ namespace EducationalInstitutionAPI.Grpc
                                 "Could not schedule for deletion the Educational Institution with the request data: {0}, using {1}, error details => {2}",
                                 JsonConvert.SerializeObject(request),
                                 mediator.GetType(),
+                                e.Message);
+            }
+
+            return new();
+        }
+
+        /// <summary>
+        /// Overrides the auto generated Remote Call Procedure method from proto file, validates the request fields and sends it to the <see cref="Mediator"/> to handle it
+        /// </summary>
+        /// <returns>
+        /// In addition to the returned <see cref="HttpStatusCode">HttpStatusCodes</see> by <see cref="UpdateEducationalInstitutionParentCommandHandler">handler</see>:
+        /// <list type="bullet">
+        /// <item><see cref="HttpStatusCode.BadRequest">BadRequest</see> if <paramref name="request"/>'s fields fail the validation process</item>
+        /// </list>
+        /// <see cref="ServerCallContext"/>'s Status is also set, before returning from method, to:
+        /// <list type="bullet">
+        /// <item><see cref="StatusCode.OK">OK</see> if successful</item>
+        /// <item><see cref="StatusCode.InvalidArgument">InvalidArgument</see> if the validation process fails</item>
+        /// <item><see cref="StatusCode.Aborted">Aborted</see> if the request fails or an exception is caught</item>
+        /// </list>
+        /// If the request fails (e.g an Exception is thrown somewhere) then <see cref="ServerCallContext"/>'s ResponseTrailers are set with a message and <see cref="HttpStatusCode"/>
+        /// </returns>
+        public override async Task<EducationalInstitutionParentUpdateResponse> UpdateEducationalInstitutionParent(EducationalInstitutionParentUpdateRequest request, ServerCallContext context)
+        {
+            logger.LogInformation("Begin grpc call EducationalInstitutionCommandService.UpdateEducationalInstitutionParent");
+
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            if (context is null) throw new ArgumentNullException(nameof(context));
+
+            var mappedRequest = request.MapToDTOEducationalInstitutionParentUpdateCommand();
+
+            if (!validationHandler.IsRequestValid(mappedRequest, out string validationErrors))
+            {
+                SetStatusAndTrailersOfContextWhenValidationFails(ref context, validationErrors);
+                return new();
+            }
+
+            try
+            {
+                var result = await mediator.Send(mappedRequest);
+
+                if (result.OperationStatus)
+                {
+                    context.Status = new(StatusCode.OK, "Educational Institution's parent has been successfully updated!");
+                    return new()
+                    {
+                        Message = result.Message,
+                        OperationStatus = result.OperationStatus,
+                        StatusCode = result.StatusCode.MapToEquivalentProtoHttpStatusCodeOrOK()
+                    };
+                }
+                else
+                    SetStatusAndTrailersOfContext(ref context, result.StatusCode.ToRPCCallContextStatusCode(), result.Message, result.StatusCode);
+            }
+            catch (Exception e)
+            {
+                HandleException(logger,
+                                ref context,
+                                "Could not update the parent of the Educational Institution with the request data: {0}, using {1}, error details=> {2}",
+                                mediator.GetType(),
+                                JsonConvert.SerializeObject(request),
                                 e.Message);
             }
 

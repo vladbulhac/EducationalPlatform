@@ -19,6 +19,12 @@ message EducationalInstitutionDeleteResponse{
 	ProtoHttpStatusCode status_code=4;
 }
 
+message EducationalInstitutionParentUpdateResponse{
+	bool operation_status=1;
+	string message=2;
+	ProtoHttpStatusCode status_code=3;
+}
+
 //Query Responses
 message EducationalInstitutionGetResponse{
 	GetByIDQueryResult data=1;
