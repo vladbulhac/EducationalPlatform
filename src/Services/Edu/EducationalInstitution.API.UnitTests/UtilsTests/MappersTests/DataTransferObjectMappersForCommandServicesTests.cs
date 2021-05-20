@@ -1,6 +1,5 @@
 ﻿using EducationalInstitutionAPI.DTOs.Commands;
 using EducationalInstitutionAPI.Proto;
-using EducationalInstitutionAPI.Utils;
 using EducationalInstitutionAPI.Utils.Mappers;
 using System;
 using System.Linq;

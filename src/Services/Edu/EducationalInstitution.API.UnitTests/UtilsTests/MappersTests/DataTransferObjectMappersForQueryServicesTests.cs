@@ -1,7 +1,6 @@
 ﻿using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
 using EducationalInstitutionAPI.DTOs.Queries;
 using EducationalInstitutionAPI.Proto;
-using EducationalInstitutionAPI.Utils;
 using EducationalInstitutionAPI.Utils.Mappers;
 using System;
 using System.Collections.Generic;

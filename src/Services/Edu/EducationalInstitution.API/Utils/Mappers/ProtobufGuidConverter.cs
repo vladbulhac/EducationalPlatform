@@ -2,7 +2,7 @@
 using System;
 using System.Buffers.Binary;
 
-namespace EducationalInstitutionAPI.Utils
+namespace EducationalInstitutionAPI.Utils.Mappers
 {
     /// <summary>
     /// Contains methods that are used to convert <see cref="Guid"/> to the protocol buffer language and vice versa

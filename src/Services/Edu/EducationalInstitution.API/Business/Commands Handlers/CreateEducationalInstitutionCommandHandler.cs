@@ -86,8 +86,11 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                         Message = "You were given admin rights for an Educational Institution recently created!",
                         ToNotify = request.AdminsIDs,
                         Url = $"/edu/{newEducationalInstitution.EducationalInstitutionID}",
-                        TriggeredByAction = "Create",
-                        TriggeredByService_Name = "Educational Institution API"
+                        TriggeredBy = new()
+                        {
+                            ServiceName = this.GetType().Namespace.Split('.')[0],
+                            Action = "Create"
+                        }
                     };
 
                     eventBus.Publish(@event);

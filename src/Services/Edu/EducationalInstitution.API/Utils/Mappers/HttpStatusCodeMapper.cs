@@ -3,7 +3,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Net;
 
-namespace EducationalInstitutionAPI.Utils
+namespace EducationalInstitutionAPI.Utils.Mappers
 {
     public static class HttpStatusCodeMapper
     {

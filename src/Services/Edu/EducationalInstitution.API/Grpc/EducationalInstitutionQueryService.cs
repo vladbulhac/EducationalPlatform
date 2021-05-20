@@ -1,7 +1,6 @@
 ﻿using EducationalInstitutionAPI.Business.Queries_Handlers;
 using EducationalInstitutionAPI.Business.Validation_Handler;
 using EducationalInstitutionAPI.Proto;
-using EducationalInstitutionAPI.Utils;
 using EducationalInstitutionAPI.Utils.Mappers;
 using Grpc.Core;
 using MediatR;
@@ -77,10 +76,7 @@ namespace EducationalInstitutionAPI.Grpc
                     };
                 }
                 else
-                if (result.StatusCode == HttpStatusCode.NotFound)
-                    SetStatusAndTrailersOfContext(ref context, StatusCode.NotFound, result.Message, result.StatusCode);
-                else
-                    SetStatusAndTrailersOfContext(ref context, StatusCode.Aborted, result.Message, result.StatusCode);
+                    SetStatusAndTrailersOfContext(ref context, result.StatusCode.ToRPCCallContextStatusCode(), result.Message, result.StatusCode);
             }
             catch (Exception e)
             {
@@ -143,10 +139,7 @@ namespace EducationalInstitutionAPI.Grpc
                     };
                 }
                 else
-                if (result.StatusCode == HttpStatusCode.NotFound)
-                    SetStatusAndTrailersOfContext(ref context, StatusCode.NotFound, result.Message, result.StatusCode);
-                else
-                    SetStatusAndTrailersOfContext(ref context, StatusCode.Aborted, result.Message, result.StatusCode);
+                    SetStatusAndTrailersOfContext(ref context, result.StatusCode.ToRPCCallContextStatusCode(), result.Message, result.StatusCode);
             }
             catch (Exception e)
             {
@@ -207,11 +200,7 @@ namespace EducationalInstitutionAPI.Grpc
                         Message = result.Message
                     };
                 }
-                else
-                if (result.StatusCode == HttpStatusCode.NotFound)
-                    SetStatusAndTrailersOfContext(ref context, StatusCode.NotFound, result.Message, result.StatusCode);
-                else
-                    SetStatusAndTrailersOfContext(ref context, StatusCode.Aborted, result.Message, result.StatusCode);
+                SetStatusAndTrailersOfContext(ref context, result.StatusCode.ToRPCCallContextStatusCode(), result.Message, result.StatusCode);
             }
             catch (Exception e)
             {

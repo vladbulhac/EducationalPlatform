@@ -1,9 +1,9 @@
 ﻿using EducationalInstitutionAPI.Proto;
-using EducationalInstitutionAPI.Utils;
+using EducationalInstitutionAPI.Utils.Mappers;
 using System.Net;
 using Xunit;
 
-namespace EducationalInstitution.API.UnitTests.UtilsTests
+namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
 {
     public class HttpStatusCodeMapperTests
     {
