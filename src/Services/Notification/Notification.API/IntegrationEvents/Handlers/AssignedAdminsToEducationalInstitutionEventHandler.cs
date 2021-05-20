@@ -28,10 +28,10 @@ namespace Notification.API.IntegrationEvents.Handlers
             {
                 Event eventEntity = new()
                 {
-                    TriggeredByAction = @event.TriggeredByAction,
+                    TriggeredByAction = @event.TriggeredBy.Action,
                     Url = @event.Url,
                     TimeIssued = @event.TimeIssued,
-                    IssuedBy = @event.TriggeredByService_Name,
+                    IssuedBy = @event.TriggeredBy.ServiceName,
                     Message = @event.Message
                 };
 

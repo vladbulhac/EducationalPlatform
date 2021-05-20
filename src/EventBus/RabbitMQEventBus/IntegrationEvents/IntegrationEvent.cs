@@ -5,8 +5,7 @@ namespace RabbitMQEventBus.IntegrationEvents
     public record IntegrationEvent
     {
         public DateTime TimeIssued { get; private set; }
-        public string TriggeredByAction { get; init; }
-        public string TriggeredByService_Name { get; init; }
+        public EventTrigger TriggeredBy { get; init; }
         public string Url { get; init; }
         public string Message { get; init; }
 
@@ -14,5 +13,11 @@ namespace RabbitMQEventBus.IntegrationEvents
         {
             TimeIssued = DateTime.UtcNow;
         }
+    }
+
+    public record EventTrigger
+    {
+        public string Action { get; init; }
+        public string ServiceName { get; init; }
     }
 }
