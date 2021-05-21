@@ -17,6 +17,14 @@ message EducationalInstitutionDeleteRequest{
 	Uuid educational_institution_id=1;
 }
 
+message EducationalInstitutionUpdateRequest{
+	Uuid educational_institution_id=1;
+	bool update_name=2;
+	string name=3;
+	bool update_description=4;
+	string description=5;
+}
+
 message EducationalInstitutionParentUpdateRequest{
 	Uuid educational_institution_id=1;
 	Uuid parent_institution_id=2;

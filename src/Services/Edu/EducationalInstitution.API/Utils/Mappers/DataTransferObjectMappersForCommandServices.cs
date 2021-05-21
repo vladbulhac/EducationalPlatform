@@ -63,5 +63,17 @@ namespace EducationalInstitutionAPI.Utils.Mappers
                 RemoveBuildingsIDs = request.RemoveBuildingsIds
             };
         }
+
+        public static DTOEducationalInstitutionUpdateCommand MapToDTOEducationalInstitutionUpdateCommand(this EducationalInstitutionUpdateRequest request)
+        {
+            return new()
+            {
+                EducationalInstitutionID = request.EducationalInstitutionId.ToGuid(),
+                UpdateName = request.UpdateName,
+                Name = request.Name,
+                UpdateDescription = request.UpdateDescription,
+                Description = request.Description
+            };
+        }
     }
 }
