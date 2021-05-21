@@ -6,6 +6,7 @@ using EducationalInstitutionAPI.Proto;
 using EducationalInstitutionAPI.Utils.Mappers;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -917,7 +918,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         #region UpdateEducationalInstitutionParentMethod TESTS
 
         [Fact]
-        public async Task GivenAValidEducationalInstitutionParentUpdateRequest_ToUpdateEducationalInstitutionParentMethod_ShouldReturnEducationalInstitutionParentUpdateResponseType()
+        public async Task GivenAValidEducationalInstitutionParentUpdateRequest_ToUpdateEducationalInstitutionParentMethod_ShouldReturnEducationalInstitutionUpdateResponseType()
         {
             //Arrange
             var educationalInstitutionID = Guid.NewGuid();
@@ -944,7 +945,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var result = await service.UpdateEducationalInstitutionParent(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
-            Assert.IsType<EducationalInstitutionParentUpdateResponse>(result);
+            Assert.IsType<EducationalInstitutionUpdateResponse>(result);
         }
 
         [Fact]
@@ -1296,5 +1297,404 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         #endregion UpdateEducationalInstitutionParentMethod TESTS
+
+        #region UpdateEducationalInstitutionLocationMethod TESTS
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionLocationUpdateRequest_ToUpdateEducationalInstitutionLocationMethod_ShouldReturnEducationalInstitutionUpdateResponseType()
+        {
+            //Arrange
+            EducationalInstitutionLocationUpdateRequest request = new()
+            {
+                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                UpdateLocation = true,
+                LocationId = "newLocation123",
+                UpdateBuildings = true,
+                AddBuildingsIds = { new List<string>() { "newBuilding123" } },
+                RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
+            };
+            var expectedMediatorResult = new Response()
+            {
+                Message = string.Empty,
+                OperationStatus = true,
+                StatusCode = HttpStatusCode.NoContent
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.IsType<EducationalInstitutionUpdateResponse>(result);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionLocationUpdateRequest_ToUpdateEducationalInstitutionLocationMethod_ShouldReturnEmptyMessage()
+        {
+            //Arrange
+            EducationalInstitutionLocationUpdateRequest request = new()
+            {
+                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                UpdateLocation = true,
+                LocationId = "newLocation123",
+                UpdateBuildings = true,
+                AddBuildingsIds = { new List<string>() { "newBuilding123" } },
+                RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
+            };
+            var expectedMediatorResult = new Response()
+            {
+                Message = string.Empty,
+                OperationStatus = true,
+                StatusCode = HttpStatusCode.NoContent
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Empty(result.Message);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionLocationUpdateRequest_ToUpdateEducationalInstitutionLocationMethod_ShouldReturnTrueOperationStatus()
+        {
+            //Arrange
+            EducationalInstitutionLocationUpdateRequest request = new()
+            {
+                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                UpdateLocation = true,
+                LocationId = "newLocation123",
+                UpdateBuildings = true,
+                AddBuildingsIds = { new List<string>() { "newBuilding123" } },
+                RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
+            };
+            var expectedMediatorResult = new Response()
+            {
+                Message = string.Empty,
+                OperationStatus = true,
+                StatusCode = HttpStatusCode.NoContent
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.True(result.OperationStatus);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionLocationUpdateRequest_ToUpdateEducationalInstitutionLocationMethod_ShouldReturnStatusCodeNoContent()
+        {
+            //Arrange
+            EducationalInstitutionLocationUpdateRequest request = new()
+            {
+                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                UpdateLocation = true,
+                LocationId = "newLocation123",
+                UpdateBuildings = true,
+                AddBuildingsIds = { new List<string>() { "newBuilding123" } },
+                RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
+            };
+            var expectedMediatorResult = new Response()
+            {
+                Message = string.Empty,
+                OperationStatus = true,
+                StatusCode = HttpStatusCode.NoContent
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal(ProtoHttpStatusCode.NoContent, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionLocationUpdateRequest_ToUpdateEducationalInstitutionLocationMethod_AnExceptionIsCaughtInHandler_ShouldReturnDefaultStatusCode()
+        {
+            //Arrange
+            EducationalInstitutionLocationUpdateRequest request = new()
+            {
+                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                UpdateLocation = true,
+                LocationId = "newLocation123",
+                UpdateBuildings = true,
+                AddBuildingsIds = { new List<string>() { "newBuilding123" } },
+                RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
+            };
+            var expectedMediatorResult = new Response()
+            {
+                Message = $"An error occurred while updating the Educational Institution with the following ID: {request.EducationalInstitutionId.ToGuid()}!",
+                OperationStatus = false,
+                StatusCode = HttpStatusCode.InternalServerError
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal(ProtoHttpStatusCode.Default, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionLocationUpdateRequest_ToUpdateEducationalInstitutionLocationMethod_AnExceptionIsCaughtInHandler_ShouldReturnEmptyMessage()
+        {
+            //Arrange
+            EducationalInstitutionLocationUpdateRequest request = new()
+            {
+                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                UpdateLocation = true,
+                LocationId = "newLocation123",
+                UpdateBuildings = true,
+                AddBuildingsIds = { new List<string>() { "newBuilding123" } },
+                RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
+            };
+            var expectedMediatorResult = new Response()
+            {
+                Message = $"An error occurred while updating the Educational Institution with the following ID: {request.EducationalInstitutionId.ToGuid()}!",
+                OperationStatus = false,
+                StatusCode = HttpStatusCode.InternalServerError
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Empty(result.Message);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionLocationUpdateRequest_ToUpdateEducationalInstitutionLocationMethod_AnExceptionIsCaughtInHandler_ShouldReturnFalseOperationStatus()
+        {
+            //Arrange
+            EducationalInstitutionLocationUpdateRequest request = new()
+            {
+                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                UpdateLocation = true,
+                LocationId = "newLocation123",
+                UpdateBuildings = true,
+                AddBuildingsIds = { new List<string>() { "newBuilding123" } },
+                RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
+            };
+            var expectedMediatorResult = new Response()
+            {
+                Message = $"An error occurred while updating the Educational Institution with the following ID: {request.EducationalInstitutionId.ToGuid()}!",
+                OperationStatus = false,
+                StatusCode = HttpStatusCode.InternalServerError
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.False(result.OperationStatus);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionLocationUpdateRequest_IDDoesntExistInDatabase_ToUpdateEducationalInstitutionLocationMethod_ShouldReturnStatusCodeDefault()
+        {
+            //Arrange
+            EducationalInstitutionLocationUpdateRequest request = new()
+            {
+                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                UpdateLocation = true,
+                LocationId = "newLocation123",
+                UpdateBuildings = true,
+                AddBuildingsIds = { new List<string>() { "newBuilding123" } },
+                RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
+            };
+            var expectedMediatorResult = new Response()
+            {
+                Message = $"Educational Institution with the following ID: {request.EducationalInstitutionId.ToGuid()} has not been found!",
+                OperationStatus = false,
+                StatusCode = HttpStatusCode.NotFound
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal(ProtoHttpStatusCode.Default, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionLocationUpdateRequest_IDDoesntExistInDatabase_ToUpdateEducationalInstitutionLocationMethod_ShouldReturnFalseOperationStatus()
+        {
+            //Arrange
+            EducationalInstitutionLocationUpdateRequest request = new()
+            {
+                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                UpdateLocation = true,
+                LocationId = "newLocation123",
+                UpdateBuildings = true,
+                AddBuildingsIds = { new List<string>() { "newBuilding123" } },
+                RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
+            };
+            var expectedMediatorResult = new Response()
+            {
+                Message = $"Educational Institution with the following ID: {request.EducationalInstitutionId.ToGuid()} has not been found!",
+                OperationStatus = false,
+                StatusCode = HttpStatusCode.NotFound
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.False(result.OperationStatus);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionLocationUpdateRequest_IDDoesntExistInDatabase_ToUpdateEducationalInstitutionLocationMethod_ShouldReturnEmptyMessage()
+        {
+            //Arrange
+            EducationalInstitutionLocationUpdateRequest request = new()
+            {
+                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                UpdateLocation = true,
+                LocationId = "newLocation123",
+                UpdateBuildings = true,
+                AddBuildingsIds = { new List<string>() { "newBuilding123" } },
+                RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
+            };
+            var expectedMediatorResult = new Response()
+            {
+                Message = $"Educational Institution with the following ID: {request.EducationalInstitutionId.ToGuid()} has not been found!",
+                OperationStatus = false,
+                StatusCode = HttpStatusCode.NotFound
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+
+            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Empty(result.Message);
+        }
+
+        [Fact]
+        public async Task GivenAnInvalidEducationalInstitutionLocationUpdateRequest_ThatFailsValidation_ToUpdateEducationalInstitutionLocationMethod_ShouldReturnEmptyMessage()
+        {
+            //Arrange
+            EducationalInstitutionLocationUpdateRequest request = new()
+            {
+                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                UpdateLocation = true,
+                LocationId = "newLocation123",
+                UpdateBuildings = true,
+                AddBuildingsIds = { new List<string>() { "newBuilding123" } },
+                RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(false);
+
+            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Empty(result.Message);
+        }
+
+        [Fact]
+        public async Task GivenAnInvalidEducationalInstitutionLocationUpdateRequest_ThatFailsValidation_ToUpdateEducationalInstitutionLocationMethod_ShouldReturnFalseOperationStatus()
+        {
+            //Arrange
+            EducationalInstitutionLocationUpdateRequest request = new()
+            {
+                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                UpdateLocation = true,
+                LocationId = "newLocation123",
+                UpdateBuildings = true,
+                AddBuildingsIds = { new List<string>() { "newBuilding123" } },
+                RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(false);
+
+            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.False(result.OperationStatus);
+        }
+
+        [Fact]
+        public async Task GivenAnInvalidEducationalInstitutionLocationUpdateRequest_ThatFailsValidation_ToUpdateEducationalInstitutionLocationMethod_ShouldReturnDefaultStatusCode()
+        {
+            //Arrange
+            EducationalInstitutionLocationUpdateRequest request = new()
+            {
+                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                UpdateLocation = true,
+                LocationId = "newLocation123",
+                UpdateBuildings = true,
+                AddBuildingsIds = { new List<string>() { "newBuilding123" } },
+                RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(false);
+
+            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+
+            //Act
+            var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal(ProtoHttpStatusCode.Default, result.StatusCode);
+        }
+
+        #endregion UpdateEducationalInstitutionLocationMethod TESTS
     }
 }

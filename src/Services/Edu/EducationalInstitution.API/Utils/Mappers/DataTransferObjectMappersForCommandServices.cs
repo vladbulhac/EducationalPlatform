@@ -50,5 +50,18 @@ namespace EducationalInstitutionAPI.Utils.Mappers
                 ParentInstitutionID = request.ParentInstitutionId.ToGuid()
             };
         }
+
+        public static DTOEducationalInstitutionLocationUpdateCommand MapToDTOEducationalInstitutionLocationUpdateCommand(this EducationalInstitutionLocationUpdateRequest request)
+        {
+            return new()
+            {
+                EducationalInstitutionID = request.EducationalInstitutionId.ToGuid(),
+                UpdateLocation = request.UpdateLocation,
+                LocationID = request.LocationId,
+                UpdateBuildings = request.UpdateBuildings,
+                AddBuildingsIDs = request.AddBuildingsIds,
+                RemoveBuildingsIDs = request.RemoveBuildingsIds
+            };
+        }
     }
 }

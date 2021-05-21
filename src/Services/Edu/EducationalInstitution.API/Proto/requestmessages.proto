@@ -22,6 +22,15 @@ message EducationalInstitutionParentUpdateRequest{
 	Uuid parent_institution_id=2;
 }
 
+message EducationalInstitutionLocationUpdateRequest{
+	Uuid educational_institution_id=1;
+    bool update_location=2;
+	string location_id=3;
+	bool update_buildings=4;
+    repeated string add_buildings_ids=5;
+    repeated string remove_buildings_ids=6;
+}
+
 //Query Requests
 message EducationalInstitutionGetByIdRequest{
 	Uuid educational_institution_id=1;
