@@ -83,7 +83,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
                     AssignedAdminsToEducationalInstitutionIntegrationEvent @event = new()
                     {
-                        Message = "You were given admin rights for an Educational Institution recently created!",
+                        Message = "You were given admin rights for a recenlty created Educational Institution!",
                         ToNotify = request.AdminsIDs,
                         Url = $"/edu/{newEducationalInstitution.EducationalInstitutionID}",
                         TriggeredBy = new()
