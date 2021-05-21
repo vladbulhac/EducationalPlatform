@@ -27,7 +27,14 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// </summary>
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// An <see cref="Response{TData}">object</see> with HttpStatusCode:
+        /// <list type="bullet">
+        /// <item><see cref="HttpStatusCode.NoContent">NoContent</see> if operation is successful</item>
+        /// <item><see cref="HttpStatusCode.NotFound">NotFound</see> if the <see cref="EducationalInstitution"/> has not been found</item>
+        /// <item><see cref="HttpStatusCode.InternalServerError">InternalServerError</see> if the entity could not be updated</item>
+        /// </list>
+        /// </returns>
         /// <exception cref="ArgumentNullException"/>
         public async Task<Response> Handle(DTOEducationalInstitutionUpdateCommand request, CancellationToken cancellationToken = default)
         {
