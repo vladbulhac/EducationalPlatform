@@ -1,4 +1,6 @@
 ﻿using EducationalInstitutionAPI.Data;
+using EducationalInstitutionAPI.Data.Helpers;
+using EducationalInstitutionAPI.Data.Repositories_results;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -26,6 +28,9 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
         /// <returns>True if the entity has been found and removed, False if the entity has not been found in the database</returns>
         public Task<bool> DeleteAsync(Guid ID, CancellationToken cancellationToken = default);
 
+        /// <returns>An empty collection if the entity has not been found, otherwise a collection of admin ids that are notified of the event</returns>
+        public Task<DeleteCommandRepositoryResult> ScheduleForDeletionAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default);
+
         /// <param name="cancellationToken">Cancels the operation _______</param>
         /// <returns>True if the entity has been found and updated, False if the entity has not been found in the database</returns>
         public Task<bool> UpdateEntireLocationAsync(Guid educationalInstitutionID, string locationID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken = default);
@@ -40,15 +45,15 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
 
         /// <param name="cancellationToken">Cancels the operation _________</param>
         /// <returns>True if the entity has been found and updated, False if the entity has not been found in the database</returns>
-        public Task<bool> UpdateNameAsync(Guid educationalInstitutionID, string name, CancellationToken cancellationToken = default);
+        public Task<CommandRepositoryResult> UpdateNameAsync(Guid educationalInstitutionID, string name, CancellationToken cancellationToken = default);
 
         /// <param name="cancellationToken">Cancels the operation _______</param>
         /// <returns>True if the entity has been found and updated, False if the entity has not been found in the database</returns>
-        public Task<bool> UpdateDescriptionAsync(Guid educationalInstitutionID, string description, CancellationToken cancellationToken = default);
+        public Task<CommandRepositoryResult> UpdateDescriptionAsync(Guid educationalInstitutionID, string description, CancellationToken cancellationToken = default);
 
         /// <param name="cancellationToken">Cancels the operation ______</param>
         /// <returns>True if the entity has been found and updated, False if the entity has not been found in the database</returns>
-        public Task<bool> UpdateNameAndDescriptionAsync(Guid educationalInstitutionID, string name, string description, CancellationToken cancellationToken = default);
+        public Task<CommandRepositoryResult> UpdateNameAndDescriptionAsync(Guid educationalInstitutionID, string name, string description, CancellationToken cancellationToken = default);
 
         /// <param name="cancellationToken">Cancels the operation ____________</param>
         /// <returns>True if the entity has been found and updated, False if the entity has not been found in the database</returns>
