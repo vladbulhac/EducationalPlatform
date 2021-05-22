@@ -1,10 +1,11 @@
 ﻿using EducationalInstitutionAPI.Business.Commands_Handlers;
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Commands_Results;
+using EducationalInstitutionAPI.Data.Repositories_results;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
-using EducationalInstitutionAPI.Utils;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             this.testDataHelper = testDataHelper;
         }
 
-        #region One object contains the input id TESTS
+        #region An entity exists for the input ID TESTS
 
         [Fact]
         public async Task GivenAnID_ShouldReturnAResponseThatIncludesAStatusCodeAcceptedField()
@@ -41,6 +42,8 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(mr => mr.GetEntityByIDAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
                                               .ReturnsAsync(testDataHelper.EducationalInstitutions[0]);
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(cr => cr.ScheduleForDeletionAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
+                                                                        .ReturnsAsync(new DeleteCommandRepositoryResult(DateTime.UtcNow, new List<Guid>(1) { Guid.NewGuid() }));
 
             DeleteEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                     dependenciesHelper.mockUnitOfWorkQuery.Object,
@@ -67,7 +70,9 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                             .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
 
             dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(mr => mr.GetEntityByIDAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
-                                              .ReturnsAsync(testDataHelper.EducationalInstitutions[0]);
+                                                                        .ReturnsAsync(testDataHelper.EducationalInstitutions[0]);
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(cr => cr.ScheduleForDeletionAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
+                                                                        .ReturnsAsync(new DeleteCommandRepositoryResult(DateTime.UtcNow, new List<Guid>(1) { Guid.NewGuid() }));
 
             DeleteEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                     dependenciesHelper.mockUnitOfWorkQuery.Object,
@@ -95,6 +100,8 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(mr => mr.GetEntityByIDAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
                                               .ReturnsAsync(testDataHelper.EducationalInstitutions[0]);
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(cr => cr.ScheduleForDeletionAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
+                                                                        .ReturnsAsync(new DeleteCommandRepositoryResult(DateTime.UtcNow, new List<Guid>(1) { Guid.NewGuid() }));
 
             DeleteEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                     dependenciesHelper.mockUnitOfWorkQuery.Object,
@@ -122,6 +129,8 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(mr => mr.GetEntityByIDAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
                                               .ReturnsAsync(testDataHelper.EducationalInstitutions[0]);
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(cr => cr.ScheduleForDeletionAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
+                                                                        .ReturnsAsync(new DeleteCommandRepositoryResult(DateTime.UtcNow, new List<Guid>(1) { Guid.NewGuid() }));
 
             DeleteEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                     dependenciesHelper.mockUnitOfWorkQuery.Object,
@@ -136,7 +145,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAnID_ShouldReturnAResponseThatIncludesDataWithA_DateForPermanentDeletionSetToADayInTheFutureField()
+        public async Task GivenAnID_ShouldReturnAResponseThatIncludesDataWithExpectedDateForPermanentDeletion()
         {
             //Arrange
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
@@ -150,19 +159,20 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(mr => mr.GetEntityByIDAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
                                               .ReturnsAsync(testDataHelper.EducationalInstitutions[0]);
 
+            var scheduledForDeletionDate = DateTime.UtcNow;
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(cr => cr.ScheduleForDeletionAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
+                                                                        .ReturnsAsync(new DeleteCommandRepositoryResult(scheduledForDeletionDate, new List<Guid>(1) { Guid.NewGuid() }));
+
             DeleteEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                     dependenciesHelper.mockUnitOfWorkQuery.Object,
                                                                     dependenciesHelper.mockEventBus.Object,
                                                                     dependenciesHelper.mockLogger.Object);
 
-            var daysFromConfigFile = ConfigurationHelper.GetCurrentSettings("DaysUntilDeletion");
-            int days = int.Parse(daysFromConfigFile);
-
             //Act
             var result = await handler.Handle(request);
 
             //Assert
-            Assert.Equal(DateTime.UtcNow.Date.AddDays(days), result.Data.DateForPermanentDeletion);
+            Assert.Equal(scheduledForDeletionDate, result.Data.DateForPermanentDeletion);
         }
 
         [Fact]
@@ -180,6 +190,9 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(mr => mr.GetEntityByIDAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
                                               .ReturnsAsync(testDataHelper.EducationalInstitutions[0]);
 
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(cr => cr.ScheduleForDeletionAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
+                                                                        .ReturnsAsync(new DeleteCommandRepositoryResult(DateTime.UtcNow, new List<Guid>(1) { Guid.NewGuid() }));
+
             DeleteEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                     dependenciesHelper.mockUnitOfWorkQuery.Object,
                                                                     dependenciesHelper.mockEventBus.Object,
@@ -192,7 +205,127 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             Assert.True(result.OperationStatus);
         }
 
-        #endregion One object contains the input id TESTS
+        #endregion An entity exists for the input ID TESTS
+
+        #region No entity is found for the input ID TESTS
+
+        [Fact]
+        public async Task GivenAnID_ThatDoesntExistInDatabase_ShouldReturnStatusCodeNotFound()
+        {
+            //Arrange
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            DTOEducationalInstitutionDeleteCommand request = new() { EducationalInstitutionID = educationalInstitutionID };
+
+            dependenciesHelper.mockUnitOfWorkCommand.Setup(muk => muk.UsingEducationalInstitutionCommandRepository())
+                                                            .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
+            dependenciesHelper.mockUnitOfWorkQuery.Setup(muk => muk.UsingEducationalInstitutionQueryRepository())
+                                                            .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
+
+            dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(mr => mr.GetEntityByIDAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
+                                              .ReturnsAsync(testDataHelper.EducationalInstitutions[0]);
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(cr => cr.ScheduleForDeletionAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
+                                                                        .Returns(Task.FromResult<DeleteCommandRepositoryResult>(default));
+
+            DeleteEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
+                                                                    dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                    dependenciesHelper.mockEventBus.Object,
+                                                                    dependenciesHelper.mockLogger.Object);
+
+            //Act
+            var result = await handler.Handle(request);
+
+            //Assert
+            Assert.Equal(HttpStatusCode.NotFound, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GivenAnID_ThatDoesntExistInDatabase_ShouldReturnExpectedMessage()
+        {
+            //Arrange
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            DTOEducationalInstitutionDeleteCommand request = new() { EducationalInstitutionID = educationalInstitutionID };
+
+            dependenciesHelper.mockUnitOfWorkCommand.Setup(muk => muk.UsingEducationalInstitutionCommandRepository())
+                                                            .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
+            dependenciesHelper.mockUnitOfWorkQuery.Setup(muk => muk.UsingEducationalInstitutionQueryRepository())
+                                                            .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
+
+            dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(mr => mr.GetEntityByIDAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
+                                              .ReturnsAsync(testDataHelper.EducationalInstitutions[0]);
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(cr => cr.ScheduleForDeletionAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
+                                                                        .Returns(Task.FromResult<DeleteCommandRepositoryResult>(default));
+
+            DeleteEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
+                                                                    dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                    dependenciesHelper.mockEventBus.Object,
+                                                                    dependenciesHelper.mockLogger.Object);
+
+            //Act
+            var result = await handler.Handle(request);
+
+            //Assert
+            Assert.Equal($"Educational Institution with the following ID: {request.EducationalInstitutionID} has not been found!", result.Message);
+        }
+
+        [Fact]
+        public async Task GivenAnID_ThatDoesntExistInDatabase_ShouldReturnFalseOperationStatus()
+        {
+            //Arrange
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            DTOEducationalInstitutionDeleteCommand request = new() { EducationalInstitutionID = educationalInstitutionID };
+
+            dependenciesHelper.mockUnitOfWorkCommand.Setup(muk => muk.UsingEducationalInstitutionCommandRepository())
+                                                            .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
+            dependenciesHelper.mockUnitOfWorkQuery.Setup(muk => muk.UsingEducationalInstitutionQueryRepository())
+                                                            .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
+
+            dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(mr => mr.GetEntityByIDAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
+                                              .ReturnsAsync(testDataHelper.EducationalInstitutions[0]);
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(cr => cr.ScheduleForDeletionAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
+                                                                        .Returns(Task.FromResult<DeleteCommandRepositoryResult>(default));
+
+            DeleteEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
+                                                                    dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                    dependenciesHelper.mockEventBus.Object,
+                                                                    dependenciesHelper.mockLogger.Object);
+
+            //Act
+            var result = await handler.Handle(request);
+
+            //Assert
+            Assert.False(result.OperationStatus);
+        }
+
+        [Fact]
+        public async Task GivenAnID_ThatDoesntExistInDatabase_ShouldReturnNullData()
+        {
+            //Arrange
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            DTOEducationalInstitutionDeleteCommand request = new() { EducationalInstitutionID = educationalInstitutionID };
+
+            dependenciesHelper.mockUnitOfWorkCommand.Setup(muk => muk.UsingEducationalInstitutionCommandRepository())
+                                                            .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
+            dependenciesHelper.mockUnitOfWorkQuery.Setup(muk => muk.UsingEducationalInstitutionQueryRepository())
+                                                            .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
+
+            dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(mr => mr.GetEntityByIDAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
+                                              .ReturnsAsync(testDataHelper.EducationalInstitutions[0]);
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(cr => cr.ScheduleForDeletionAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
+                                                                        .Returns(Task.FromResult<DeleteCommandRepositoryResult>(default));
+
+            DeleteEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
+                                                                    dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                    dependenciesHelper.mockEventBus.Object,
+                                                                    dependenciesHelper.mockLogger.Object);
+
+            //Act
+            var result = await handler.Handle(request);
+
+            //Assert
+            Assert.Null(result.Data);
+        }
+
+        #endregion No entity is found for the input ID TESTS
 
         [Fact]
         public async Task GivenANullArgumentRequestToTheRequestHandlerHandleMethod_ShouldThrowArgumentNullException()
