@@ -1,4 +1,6 @@
 ﻿using EducationalInstitutionAPI.Data;
+using EducationalInstitutionAPI.Data.Events_Definitions;
+using EducationalInstitutionAPI.Data.Repositories_results;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
 using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Command_Repository;
@@ -6,6 +8,7 @@ using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using RabbitMQEventBus.Abstractions;
 using System;
 using System.Net;
 using System.Threading;
@@ -17,10 +20,14 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                                                               IRequestHandler<DTOEducationalInstitutionUpdateCommand, Response>
     {
         private readonly IUnitOfWorkForCommands unitOfWork;
+        private readonly IEventBus eventBus;
 
         /// <exception cref="ArgumentNullException"/>
-        public UpdateEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWork, ILogger<UpdateEducationalInstitutionCommandHandler> logger) : base(logger)
-            => this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+        public UpdateEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWork, IEventBus eventBus, ILogger<UpdateEducationalInstitutionCommandHandler> logger) : base(logger)
+        {
+            this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+        }
 
         /// <summary>
         /// Tries to update the name and/or description of an <see cref="EducationalInstitution"/> entity
@@ -44,13 +51,30 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             {
                 using (unitOfWork)
                 {
-                    if (!await IsEducationalInstitutionUpdatedAndSavedToDatabase(request, cancellationToken))
+                    var commandResult = await UpdateEducationalInstitution(request, cancellationToken);
+                    if (commandResult == default)
                         return new()
                         {
                             OperationStatus = false,
                             StatusCode = HttpStatusCode.NotFound,
                             Message = $"Educational Institution with the following ID: {request.EducationalInstitutionID} has not been found!"
                         };
+
+                    await unitOfWork.SaveChangesAsync(cancellationToken);
+
+                    NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent @event = new()
+                    {
+                        Message = "An Educational Institution has been recently updated!",
+                        Url = $"/edu/{request.EducationalInstitutionID}",
+                        ToNotify = commandResult.AdminsToNotify,
+                        TriggeredBy = new()
+                        {
+                            Action = "Update",
+                            ServiceName = this.GetType().Namespace.Split('.')[0]
+                        }
+                    };
+
+                    eventBus.Publish(@event);
 
                     return new()
                     {
@@ -74,31 +98,22 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             }
         }
 
-        private async Task<bool> IsEducationalInstitutionUpdatedAndSavedToDatabase(DTOEducationalInstitutionUpdateCommand request, CancellationToken cancellationToken)
+        private async Task<CommandRepositoryResult> UpdateEducationalInstitution(DTOEducationalInstitutionUpdateCommand request, CancellationToken cancellationToken)
         {
-            bool isEntityUpdated;
             switch (request.UpdateName)
             {
                 case true when request.UpdateDescription:
-                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionCommandRepository()
+                    return await unitOfWork.UsingEducationalInstitutionCommandRepository()
                                                         .UpdateNameAndDescriptionAsync(request.EducationalInstitutionID, request.Name, request.Description, cancellationToken);
-                    break;
 
                 case false when request.UpdateDescription:
-                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionCommandRepository()
+                    return await unitOfWork.UsingEducationalInstitutionCommandRepository()
                                                          .UpdateDescriptionAsync(request.EducationalInstitutionID, request.Description, cancellationToken);
-                    break;
 
                 default:
-                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionCommandRepository()
+                    return await unitOfWork.UsingEducationalInstitutionCommandRepository()
                                                         .UpdateNameAsync(request.EducationalInstitutionID, request.Name, cancellationToken);
-                    break;
             }
-
-            if (isEntityUpdated)
-                await unitOfWork.SaveChangesAsync(cancellationToken);
-
-            return isEntityUpdated;
         }
 
         private static string GetNameOfRepositoryMethodThatWasCalledInHandler(DTOEducationalInstitutionUpdateCommand request)
