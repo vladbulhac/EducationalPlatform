@@ -10,7 +10,6 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using RabbitMQEventBus.Abstractions;
 using System;
-using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -52,11 +51,9 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             {
                 using (unitOfWorkCommand)
                 {
-                    var educationalInstitution = await unitOfWorkQuery.UsingEducationalInstitutionQueryRepository()
-                                                                 .GetEntityByIDAsync(request.EducationalInstitutionID, cancellationToken);
-
-                    if (educationalInstitution is null)
-                    {
+                    var commandResult = await unitOfWorkCommand.UsingEducationalInstitutionCommandRepository()
+                                                               .ScheduleForDeletionAsync(request.EducationalInstitutionID, cancellationToken);
+                    if (commandResult == default)
                         return new()
                         {
                             Data = null,
@@ -64,15 +61,13 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                             StatusCode = HttpStatusCode.NotFound,
                             Message = $"Educational Institution with the following ID: {request.EducationalInstitutionID} has not been found!"
                         };
-                    }
 
-                    educationalInstitution.EntityAccess.ScheduleForDeletion();
                     await unitOfWorkCommand.SaveChangesAsync(cancellationToken);
 
                     NotifyAdminsOfEducationalInstitutionDeletionScheduledDateIntegrationEvent @event = new()
                     {
-                        Message = $"The Educational Institution with ID: {educationalInstitution.EducationalInstitutionID} has been scheduled for deletion on: {educationalInstitution.EntityAccess.DateForPermanentDeletion.Value}!",
-                        ToNotify = educationalInstitution.Admins.Select(a => a.AdminID).ToList(),
+                        Message = $"The Educational Institution with ID: {request.EducationalInstitutionID} has been scheduled for deletion on: {commandResult.ScheduledDateForDeletion}!",
+                        ToNotify = commandResult.AdminsToNotify,
                         Url = string.Empty,
                         TriggeredBy = new()
                         {
@@ -85,7 +80,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
                     return new()
                     {
-                        Data = new() { DateForPermanentDeletion = educationalInstitution.EntityAccess.DateForPermanentDeletion.Value.ToUniversalTime() },
+                        Data = new() { DateForPermanentDeletion = commandResult.ScheduledDateForDeletion },
                         OperationStatus = true,
                         StatusCode = HttpStatusCode.Accepted,
                         Message = string.Empty
