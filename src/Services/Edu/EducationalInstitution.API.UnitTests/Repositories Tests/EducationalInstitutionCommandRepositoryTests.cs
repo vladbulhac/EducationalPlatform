@@ -34,8 +34,6 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
             repository = new EducationalInstitutionCommandRepository(dbContext);
         }
 
-        #region CreateAsync() TESTS
-
         [Fact]
         public async Task GivenAnEducationalInstitution_ToCreateAsyncMethod_ShouldAddItToTheCollectionOfEntities()
         {
@@ -62,18 +60,14 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
             Assert.Contains(newEducationalInstitution, dbContext.EducationalInstitutions);
         }
 
-        #endregion CreateAsync() TESTS
-
-        #region UpdateAsync() TESTS
-
         [Fact]
-        public async Task GivenAValidID_LocationID_BuildingsIDs_ToUpdateAsyncMethod_ShouldReturnTrue()
+        public async Task GivenAValidID_LocationID_BuildingsIDs_ToUpdateEntireLocationAsyncMethod_ShouldReturnCollectionWithExpectedAdminsIDs()
         {
             //Arrange
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
             string locationID = "Update_Test_LocationID";
-            var addBuildingsIDs = new List<string>() { "Update_Test_Building_ID1",
-                    "Update_Test_Building_ID2" };
+            var addBuildingsIDs = new List<string>() { "Update_Test_Building_ID1", "Update_Test_Building_ID2" };
             var removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAtOrDefault(0).BuildingID };
 
             //Act
@@ -81,14 +75,50 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
             dbContext.SaveChanges();
 
             //Assert
-            Assert.True(result);
+            Assert.Equal(adminsIDs, result.AdminsToNotify);
         }
 
         [Fact]
-        public async Task GivenAValidID_LocationID_ToUpdateAsyncMethod_ShouldReturnTheNewLocationID()
+        public async Task GivenAValidID_LocationID_BuildingsIDs_ToUpdateEntireLocationAsyncMethod_ShouldReturnCollectionOfAdminsIDsWithOneElement()
         {
             //Arrange
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+            string locationID = "Update_Test_LocationID";
+            var addBuildingsIDs = new List<string>() { "Update_Test_Building_ID21", "Update_Test_Building_ID22" };
+            var removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAtOrDefault(0).BuildingID };
+
+            //Act
+            var result = await repository.UpdateEntireLocationAsync(educationalInstitutionID, locationID, addBuildingsIDs, removeBuildingsIDs);
+            dbContext.SaveChanges();
+
+            //Assert
+            Assert.Single(result.AdminsToNotify);
+        }
+
+        [Fact]
+        public async Task GivenAValidID_LocationID_BuildingsIDs_IDDoesntExistInDatabase_ToUpdateEntireLocationAsyncMethod_ShouldReturnDefault()
+        {
+            //Arrange
+            Guid educationalInstitutionID = Guid.NewGuid();
+            string locationID = "Update_Test_LocationID";
+            var addBuildingsIDs = new List<string>() { "Update_Test_Building_ID1", "Update_Test_Building_ID2" };
+            var removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAtOrDefault(0).BuildingID };
+
+            //Act
+            var result = await repository.UpdateEntireLocationAsync(educationalInstitutionID, locationID, addBuildingsIDs, removeBuildingsIDs);
+            dbContext.SaveChanges();
+
+            //Assert
+            Assert.Equal(default, result);
+        }
+
+        [Fact]
+        public async Task GivenAValidID_LocationID_ToUpdateLocationAsyncMethod_ShouldReturnTheNewLocationID()
+        {
+            //Arrange
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
             string locationID = "Update_Test_LocationID";
 
             //Act
@@ -99,9 +129,69 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
             Assert.Equal(locationID, dbContext.EducationalInstitutions.SingleOrDefault(ei => ei.EducationalInstitutionID == educationalInstitutionID).LocationID);
         }
 
-        #endregion UpdateAsync() TESTS
+        [Fact]
+        public async Task GivenAValidID_LocationID_ToUpdateLocationAsyncMethod_ShouldReturnACollectionOfAdminsIDs()
+        {
+            //Arrange
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+            string locationID = "Update_Test_LocationID";
 
-        #region DeleteAsync() TESTS
+            //Act
+            var result = await repository.UpdateLocationAsync(educationalInstitutionID, locationID);
+            dbContext.SaveChanges();
+
+            //Assert
+            Assert.Equal(adminsIDs, result.AdminsToNotify);
+        }
+
+        [Fact]
+        public async Task GivenAValidID_LocationID_IDDoesntExistInDatabase_ToUpdateLocationAsyncMethod_ShouldReturnDefault()
+        {
+            //Arrange
+            Guid educationalInstitutionID = Guid.NewGuid();
+            string locationID = "Update_Test_LocationID";
+
+            //Act
+            var result = await repository.UpdateLocationAsync(educationalInstitutionID, locationID);
+            dbContext.SaveChanges();
+
+            //Assert
+            Assert.Equal(default, result);
+        }
+
+        [Fact]
+        public async Task GivenAValidID_BuildingsIDs_IDDoesntExistInDatabase_ToUpdateBuildingsAsyncMethod_ShouldReturnDefault()
+        {
+            //Arrange
+            Guid educationalInstitutionID = Guid.NewGuid();
+            var addBuildingsIDs = new List<string>() { "Update_Test_Building_ID101", "Update_Test_Building_ID201" };
+            var removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAtOrDefault(0).BuildingID };
+
+            //Act
+            var result = await repository.UpdateBuildingsAsync(educationalInstitutionID, addBuildingsIDs, removeBuildingsIDs);
+            dbContext.SaveChanges();
+
+            //Assert
+            Assert.Equal(default, result);
+        }
+
+        [Fact]
+        public async Task GivenAValidID_BuildingsIDs_ToUpdateBuildingsAsyncMethod_ShouldReturnCollectionOfAdminsIDs()
+        {
+            //Arrange
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+            var addBuildingsIDs = new List<string>() { "Update_Test_Building_ID101", "Update_Test_Building_ID201" };
+            var removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAtOrDefault(0).BuildingID };
+
+            //Act
+            var result = await repository.UpdateBuildingsAsync(educationalInstitutionID, addBuildingsIDs, removeBuildingsIDs);
+            dbContext.SaveChanges();
+
+            //Assert
+            Assert.Equal(adminsIDs, result.AdminsToNotify);
+        }
 
         [Fact]
         public async Task GivenAValidID_ToDeleteAsyncMethod_ShouldReturnTrue()
@@ -156,7 +246,7 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         }
 
         [Fact]
-        public async Task GivenAnInvalidID_ToDeleteAsyncMethod_ShouldRemoveFalse()
+        public async Task GivenAnInvalidID_ToDeleteAsyncMethod_ShouldReturnFalse()
         {
             //Arrange
             Guid educationalInstitutionID = new("5b426f94-d83f-4af0-a578-a09116eff0b7");
@@ -168,8 +258,6 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
             //Assert
             Assert.False(result);
         }
-
-        #endregion DeleteAsync() TESTS
 
         /*       Commented due to the new split of repositories in commands and queries
          *       #region GetEntityByIDAsync() TESTS
