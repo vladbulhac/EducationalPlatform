@@ -41,35 +41,35 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
             return new(educationalInstitution.EntityAccess.DateForPermanentDeletion.Value.ToUniversalTime(), educationalInstitution.Admins.Select(a => a.AdminID).ToList());
         }
 
-        public async Task<bool> UpdateEntireLocationAsync(Guid educationalInstitutionID, string locationID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken)
+        public async Task<CommandRepositoryResult> UpdateEntireLocationAsync(Guid educationalInstitutionID, string locationID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken)
         {
             var educationalInstitution = await GetEducationalInstitution(educationalInstitutionID, cancellationToken);
 
-            if (educationalInstitution is null) return false;
+            if (educationalInstitution is null) return default;
 
             educationalInstitution.SetEntireLocation(locationID, addBuildingsIDs, removeBuildingsIDs);
-            return true;
+            return new(educationalInstitution.Admins.Select(a => a.AdminID).ToList());
         }
 
-        public async Task<bool> UpdateLocationAsync(Guid educationalInstitutionID, string locationID, CancellationToken cancellationToken)
+        public async Task<CommandRepositoryResult> UpdateLocationAsync(Guid educationalInstitutionID, string locationID, CancellationToken cancellationToken)
         {
             var educationalInstitution = await GetEducationalInstitution(educationalInstitutionID, cancellationToken);
 
-            if (educationalInstitution is null) return false;
+            if (educationalInstitution is null) return default;
 
             educationalInstitution.SetLocation(locationID);
-            return true;
+            return new(educationalInstitution.Admins.Select(a => a.AdminID).ToList());
         }
 
-        public async Task<bool> UpdateBuildingsAsync(Guid educationalInstitutionID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken)
+        public async Task<CommandRepositoryResult> UpdateBuildingsAsync(Guid educationalInstitutionID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken)
         {
             var educationalInstitution = await GetEducationalInstitution(educationalInstitutionID, cancellationToken);
 
-            if (educationalInstitution is null) return false;
+            if (educationalInstitution is null) return default;
 
             educationalInstitution.CreateAndAddBuildings(addBuildingsIDs);
             educationalInstitution.RemoveBuildings(removeBuildingsIDs);
-            return true;
+            return new(educationalInstitution.Admins.Select(a => a.AdminID).ToList());
         }
 
         public async Task<CommandRepositoryResult> UpdateNameAsync(Guid educationalInstitutionID, string name, CancellationToken cancellationToken)
