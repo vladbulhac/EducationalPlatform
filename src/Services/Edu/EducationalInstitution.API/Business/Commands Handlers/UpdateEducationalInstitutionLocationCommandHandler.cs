@@ -1,4 +1,6 @@
 ﻿using EducationalInstitutionAPI.Data;
+using EducationalInstitutionAPI.Data.Events_Definitions;
+using EducationalInstitutionAPI.Data.Repositories_results;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
 using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Command_Repository;
@@ -6,6 +8,7 @@ using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using RabbitMQEventBus.Abstractions;
 using System;
 using System.Net;
 using System.Threading;
@@ -17,10 +20,14 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                                                                       IRequestHandler<DTOEducationalInstitutionLocationUpdateCommand, Response>
     {
         private readonly IUnitOfWorkForCommands unitOfWork;
+        private readonly IEventBus eventBus;
 
         /// <exception cref="ArgumentNullException"/>
-        public UpdateEducationalInstitutionLocationCommandHandler(IUnitOfWorkForCommands unitOfWork, ILogger<UpdateEducationalInstitutionLocationCommandHandler> logger) : base(logger)
-            => this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+        public UpdateEducationalInstitutionLocationCommandHandler(IUnitOfWorkForCommands unitOfWork, IEventBus eventBus, ILogger<UpdateEducationalInstitutionLocationCommandHandler> logger) : base(logger)
+        {
+            this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+        }
 
         /// <summary>
         /// Tries to update the LocationID and/or the BuildingsIDs of an <see cref="EducationalInstitution"/> entity
@@ -43,13 +50,30 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             {
                 using (unitOfWork)
                 {
-                    if (!await IsEducationalInstitutionUpdatedAndSavedToDatabase(request, cancellationToken))
+                    var commandResult = await IsEducationalInstitutionUpdatedAndSavedToDatabase(request, cancellationToken);
+
+                    if (commandResult == default)
                         return new()
                         {
                             OperationStatus = false,
                             StatusCode = HttpStatusCode.NotFound,
                             Message = $"Educational Institution with the following ID: {request.EducationalInstitutionID} has not been found!"
                         };
+
+                    await unitOfWork.SaveChangesAsync(cancellationToken);
+
+                    NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent @event = new()
+                    {
+                        Message = "An Educational Institution's location has been recently updated!",
+                        TriggeredBy = new()
+                        {
+                            Action = "Update",
+                            ServiceName = this.GetType().Namespace.Split('.')[0]
+                        },
+                        Url = $"/edu/{request.EducationalInstitutionID}",
+                        ToNotify = commandResult.AdminsToNotify,
+                    };
+                    eventBus.Publish(@event);
 
                     return new()
                     {
@@ -73,31 +97,22 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             }
         }
 
-        private async Task<bool> IsEducationalInstitutionUpdatedAndSavedToDatabase(DTOEducationalInstitutionLocationUpdateCommand request, CancellationToken cancellationToken)
+        private async Task<CommandRepositoryResult> IsEducationalInstitutionUpdatedAndSavedToDatabase(DTOEducationalInstitutionLocationUpdateCommand request, CancellationToken cancellationToken)
         {
-            bool isEntityUpdated;
             switch (request.UpdateLocation)
             {
                 case true when request.UpdateBuildings:
-                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionCommandRepository()
+                    return await unitOfWork.UsingEducationalInstitutionCommandRepository()
                                                 .UpdateEntireLocationAsync(request.EducationalInstitutionID, request.LocationID, request.AddBuildingsIDs, request.RemoveBuildingsIDs, cancellationToken);
-                    break;
 
                 case false when request.UpdateBuildings:
-                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionCommandRepository()
+                    return await unitOfWork.UsingEducationalInstitutionCommandRepository()
                                                 .UpdateBuildingsAsync(request.EducationalInstitutionID, request.AddBuildingsIDs, request.RemoveBuildingsIDs, cancellationToken);
-                    break;
 
                 default:
-                    isEntityUpdated = await unitOfWork.UsingEducationalInstitutionCommandRepository()
+                    return await unitOfWork.UsingEducationalInstitutionCommandRepository()
                                                 .UpdateLocationAsync(request.EducationalInstitutionID, request.LocationID, cancellationToken);
-                    break;
             }
-
-            if (isEntityUpdated)
-                await unitOfWork.SaveChangesAsync(cancellationToken);
-
-            return isEntityUpdated;
         }
 
         private static string GetNameOfRepositoryMethodThatWasCalledInHandler(DTOEducationalInstitutionLocationUpdateCommand request)
