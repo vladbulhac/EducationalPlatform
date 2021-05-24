@@ -1,13 +1,14 @@
 ﻿using EducationalInstitutionAPI.Data;
+using EducationalInstitutionAPI.Data.Events_Definitions;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
 using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Command_Repository;
 using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Query_Repository;
 using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
-using EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using RabbitMQEventBus.Abstractions;
 using System;
 using System.Net;
 using System.Threading;
@@ -19,13 +20,13 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                                                                     IRequestHandler<DTOEducationalInstitutionParentUpdateCommand, Response>
     {
         private readonly IUnitOfWorkForCommands unitOfWorkCommand;
-        private readonly IUnitOfWorkForQueries unitOfWorkQuery;
+        private readonly IEventBus eventBus;
 
         /// <exception cref="ArgumentNullException"/>
-        public UpdateEducationalInstitutionParentCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IUnitOfWorkForQueries unitOfWorkQuery, ILogger<UpdateEducationalInstitutionParentCommandHandler> logger) : base(logger)
+        public UpdateEducationalInstitutionParentCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IEventBus eventBus, ILogger<UpdateEducationalInstitutionParentCommandHandler> logger) : base(logger)
         {
             this.unitOfWorkCommand = unitOfWorkCommand ?? throw new ArgumentNullException(nameof(unitOfWorkCommand));
-            this.unitOfWorkQuery = unitOfWorkQuery ?? throw new ArgumentNullException(nameof(unitOfWorkQuery));
+            this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
         }
 
         /// <summary>
@@ -36,8 +37,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// An <see cref="Response{TData}">object</see> with HttpStatusCode:
         /// <list type="bullet">
         /// <item><see cref="HttpStatusCode.NoContent">NoContent</see> if operation is successful</item>
-        /// <item><see cref="HttpStatusCode.NotFound">NotFound</see> if no <see cref="EducationalInstitution"/> has been found for the provided ParentInstitutionID</item>
-        /// <item><see cref="HttpStatusCode.NotFound">NotFound</see> if no <see cref="EducationalInstitution"/> has been found for the provided EducationalInstitutionID</item>
+        /// <item><see cref="HttpStatusCode.NotFound">NotFound</see> if no <see cref="EducationalInstitution"/> has been found for the provided EducationalInstitutionID or ParentInstitutionID</item>
         /// <item><see cref="HttpStatusCode.InternalServerError">InternalServerError</see> if the entity could not be updated</item>
         /// </list>
         /// </returns>
@@ -50,27 +50,31 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             {
                 using (unitOfWorkCommand)
                 {
-                    var parentInstitution = await unitOfWorkQuery.UsingEducationalInstitutionQueryRepository()
-                                                           .GetEntityByIDAsync(request.ParentInstitutionID, cancellationToken);
+                    var commandResult = await unitOfWorkCommand.UsingEducationalInstitutionCommandRepository()
+                                                               .UpdateParentInstitutionAsync(request.EducationalInstitutionID, request.ParentInstitutionID, cancellationToken);
 
-                    if (parentInstitution is null)
+                    if (commandResult == default)
                         return new()
                         {
                             OperationStatus = false,
                             StatusCode = HttpStatusCode.NotFound,
-                            Message = $"The Parent Educational Institution with the following ID: {request.ParentInstitutionID} has not been found!"
+                            Message = $"The Educational Institution with the ID: {request.EducationalInstitutionID} or the Parent Educational Institution with the ID: {request.ParentInstitutionID} has not been found!"
                         };
 
-                    var isEntityUpdated = await unitOfWorkCommand.UsingEducationalInstitutionCommandRepository()
-                                                            .UpdateParentInstitutionAsync(request.EducationalInstitutionID, parentInstitution, cancellationToken);
+                    await unitOfWorkCommand.SaveChangesAsync(cancellationToken);
 
-                    if (!isEntityUpdated)
-                        return new()
+                    NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent @event = new()
+                    {
+                        Message = "An Educational Institution's parent has been recently updated!",
+                        TriggeredBy = new()
                         {
-                            OperationStatus = false,
-                            StatusCode = HttpStatusCode.NotFound,
-                            Message = $"Educational Institution with the following ID: {request.EducationalInstitutionID} has not been found!"
-                        };
+                            Action = "Update",
+                            ServiceName = this.GetType().Namespace.Split('.')[0]
+                        },
+                        Url = $"/edu/{request.EducationalInstitutionID}",
+                        ToNotify = commandResult.AdminsToNotify,
+                    };
+                    eventBus.Publish(@event);
 
                     return new()
                     {
@@ -84,7 +88,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             {
                 return HandleException<Response>(
                         error_message: "Could not update the Educational Institution with the given data: {0}, using {1} with {2}'s method: {3} and {4}, error details => {5}",
-                        response_message: "An error occurred while updating the Educational Institution with the following ID: {0}!",
+                        response_message: "An error occurred while updating the parent of the Educational Institution with the following ID: {0}!",
                         JsonConvert.SerializeObject(request),
                         unitOfWorkCommand.GetType(),
                         unitOfWorkCommand.UsingEducationalInstitutionCommandRepository().GetType(),

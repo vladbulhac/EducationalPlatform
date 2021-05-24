@@ -1,7 +1,9 @@
 ﻿using EducationalInstitutionAPI.Business.Commands_Handlers;
+using EducationalInstitutionAPI.Data.Repositories_results;
 using EducationalInstitutionAPI.DTOs.Commands;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,16 +36,12 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             dependenciesHelper.mockUnitOfWorkCommand.Setup(uok => uok.UsingEducationalInstitutionCommandRepository())
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
-            dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
-                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(r => r.GetEntityByIDAsync(request.ParentInstitutionID, It.IsAny<CancellationToken>()))
-                                                .ReturnsAsync(testDataHelper.EducationalInstitutions[1]);
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(r => r.UpdateParentInstitutionAsync(request.EducationalInstitutionID, testDataHelper.EducationalInstitutions[1], It.IsAny<CancellationToken>()))
-                                                .ReturnsAsync(true);
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(r => r.UpdateParentInstitutionAsync(request.EducationalInstitutionID, testDataHelper.EducationalInstitutions[1].EducationalInstitutionID, It.IsAny<CancellationToken>()))
+                                                .ReturnsAsync(new CommandRepositoryResult(new List<Guid>() { Guid.NewGuid() }));
 
             var handler = new UpdateEducationalInstitutionParentCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                                dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                                dependenciesHelper.mockEventBus.Object,
                                                                                 dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -65,16 +63,12 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             dependenciesHelper.mockUnitOfWorkCommand.Setup(uok => uok.UsingEducationalInstitutionCommandRepository())
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
-            dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
-                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(r => r.GetEntityByIDAsync(request.ParentInstitutionID, It.IsAny<CancellationToken>()))
-                                                .ReturnsAsync(testDataHelper.EducationalInstitutions[1]);
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(r => r.UpdateParentInstitutionAsync(request.EducationalInstitutionID, testDataHelper.EducationalInstitutions[1], It.IsAny<CancellationToken>()))
-                                                .ReturnsAsync(true);
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(r => r.UpdateParentInstitutionAsync(request.EducationalInstitutionID, testDataHelper.EducationalInstitutions[1].EducationalInstitutionID, It.IsAny<CancellationToken>()))
+                                                .ReturnsAsync(new CommandRepositoryResult(new List<Guid>() { Guid.NewGuid() }));
 
             var handler = new UpdateEducationalInstitutionParentCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                                dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                                dependenciesHelper.mockEventBus.Object,
                                                                                 dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -96,16 +90,12 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             dependenciesHelper.mockUnitOfWorkCommand.Setup(uok => uok.UsingEducationalInstitutionCommandRepository())
                                                      .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
-            dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
-                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(r => r.GetEntityByIDAsync(request.ParentInstitutionID, It.IsAny<CancellationToken>()))
-                                                .ReturnsAsync(testDataHelper.EducationalInstitutions[1]);
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(r => r.UpdateParentInstitutionAsync(request.EducationalInstitutionID, testDataHelper.EducationalInstitutions[1], It.IsAny<CancellationToken>()))
-                                                .ReturnsAsync(true);
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(r => r.UpdateParentInstitutionAsync(request.EducationalInstitutionID, testDataHelper.EducationalInstitutions[1].EducationalInstitutionID, It.IsAny<CancellationToken>()))
+                                                .ReturnsAsync(new CommandRepositoryResult(new List<Guid>() { Guid.NewGuid() }));
 
             var handler = new UpdateEducationalInstitutionParentCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                                dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                                dependenciesHelper.mockEventBus.Object,
                                                                                 dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -116,7 +106,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithParentInstitutionIDNotInDatabase_ShouldReturnAResponseThatIncludesAStatusCodeNotFoundField()
+        public async Task GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithEducationalInstitutionOrParentIDNotInDatabase_ShouldReturnAResponseThatIncludesAStatusCodeNotFoundField()
         {
             //Arrange
             DTOEducationalInstitutionParentUpdateCommand request = new()
@@ -127,14 +117,11 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             dependenciesHelper.mockUnitOfWorkCommand.Setup(uok => uok.UsingEducationalInstitutionCommandRepository())
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
-            dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
-                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(r => r.GetEntityByIDAsync(request.ParentInstitutionID, It.IsAny<CancellationToken>()))
-                                                .Returns(Task.FromResult<EducationalInstitutionAPI.Data.EducationalInstitution>(null));
-
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(r => r.UpdateParentInstitutionAsync(request.EducationalInstitutionID, testDataHelper.EducationalInstitutions[1].EducationalInstitutionID, It.IsAny<CancellationToken>()))
+                                                           .ReturnsAsync((CommandRepositoryResult)default);
             var handler = new UpdateEducationalInstitutionParentCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                                dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                                dependenciesHelper.mockEventBus.Object,
                                                                                 dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -145,7 +132,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithParentInstitutionIDNotInDatabase_ShouldReturnAResponseThatIncludesAMessageField()
+        public async Task GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithEducationalInstitutionOrParentIDNotInDatabase_ShouldReturnAResponseThatIncludesAMessageField()
         {
             //Arrange
             DTOEducationalInstitutionParentUpdateCommand request = new()
@@ -156,25 +143,22 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             dependenciesHelper.mockUnitOfWorkCommand.Setup(uok => uok.UsingEducationalInstitutionCommandRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
-            dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
-                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(r => r.GetEntityByIDAsync(request.ParentInstitutionID, It.IsAny<CancellationToken>()))
-                                                .Returns(Task.FromResult<EducationalInstitutionAPI.Data.EducationalInstitution>(null));
-
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(r => r.UpdateParentInstitutionAsync(request.EducationalInstitutionID, testDataHelper.EducationalInstitutions[1].EducationalInstitutionID, It.IsAny<CancellationToken>()))
+                                                           .ReturnsAsync((CommandRepositoryResult)default);
             var handler = new UpdateEducationalInstitutionParentCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                                dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                                dependenciesHelper.mockEventBus.Object,
                                                                                 dependenciesHelper.mockLogger.Object);
 
             //Act
             var result = await handler.Handle(request);
 
             //Assert
-            Assert.Equal($"The Parent Educational Institution with the following ID: {request.ParentInstitutionID} has not been found!", result.Message);
+            Assert.Equal($"The Educational Institution with the ID: {request.EducationalInstitutionID} or the Parent Educational Institution with the ID: {request.ParentInstitutionID} has not been found!", result.Message);
         }
 
         [Fact]
-        public async Task GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithParentInstitutionIDNotInDatabase_ShouldReturnAResponseThatIncludesAFalseOperationStatusField()
+        public async Task GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithEducationalInstitutionOrParentIDNotInDatabase_ShouldReturnAResponseThatIncludesAFalseOperationStatusField()
         {
             //Arrange
             DTOEducationalInstitutionParentUpdateCommand request = new()
@@ -185,14 +169,11 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             dependenciesHelper.mockUnitOfWorkCommand.Setup(uok => uok.UsingEducationalInstitutionCommandRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
-            dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
-                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(r => r.GetEntityByIDAsync(request.ParentInstitutionID, It.IsAny<CancellationToken>()))
-                                                .Returns(Task.FromResult<EducationalInstitutionAPI.Data.EducationalInstitution>(null));
-
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(r => r.UpdateParentInstitutionAsync(request.EducationalInstitutionID, testDataHelper.EducationalInstitutions[1].EducationalInstitutionID, It.IsAny<CancellationToken>()))
+                                                           .ReturnsAsync((CommandRepositoryResult)default);
             var handler = new UpdateEducationalInstitutionParentCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                                dependenciesHelper.mockUnitOfWorkQuery.Object,
+                                                                                dependenciesHelper.mockEventBus.Object,
                                                                                 dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -200,99 +181,6 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
 
             //Assert
             Assert.False(result.OperationStatus);
-        }
-
-        [Fact]
-        public async Task GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithEducationalInstitutionIDNotInDatabase_ShouldReturnAResponseThatIncludesAStatusCodeNotFoundField()
-        {
-            //Arrange
-            DTOEducationalInstitutionParentUpdateCommand request = new()
-            {
-                EducationalInstitutionID = Guid.NewGuid(),
-                ParentInstitutionID = testDataHelper.EducationalInstitutions[1].EducationalInstitutionID
-            };
-
-            dependenciesHelper.mockUnitOfWorkCommand.Setup(uok => uok.UsingEducationalInstitutionCommandRepository())
-                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
-            dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
-                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
-
-            dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(r => r.GetEntityByIDAsync(request.ParentInstitutionID, It.IsAny<CancellationToken>()))
-                                                .ReturnsAsync(testDataHelper.EducationalInstitutions[1]);
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(r => r.UpdateParentInstitutionAsync(request.EducationalInstitutionID, testDataHelper.EducationalInstitutions[1], It.IsAny<CancellationToken>()))
-                                                .ReturnsAsync(false);
-
-            var handler = new UpdateEducationalInstitutionParentCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                                dependenciesHelper.mockUnitOfWorkQuery.Object,
-                                                                                dependenciesHelper.mockLogger.Object);
-
-            //Act
-            var result = await handler.Handle(request);
-
-            //Assert
-            Assert.Equal(HttpStatusCode.NotFound, result.StatusCode);
-        }
-
-        [Fact]
-        public async Task GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithEducationalInstitutionIDNotInDatabase_ShouldReturnAResponseThatIncludesAFalseOperationStatusField()
-        {
-            //Arrange
-            DTOEducationalInstitutionParentUpdateCommand request = new()
-            {
-                EducationalInstitutionID = Guid.NewGuid(),
-                ParentInstitutionID = testDataHelper.EducationalInstitutions[1].EducationalInstitutionID
-            };
-
-            dependenciesHelper.mockUnitOfWorkCommand.Setup(uok => uok.UsingEducationalInstitutionCommandRepository())
-                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
-            dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
-                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
-
-            dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(r => r.GetEntityByIDAsync(request.ParentInstitutionID, It.IsAny<CancellationToken>()))
-                                                .ReturnsAsync(testDataHelper.EducationalInstitutions[1]);
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(r => r.UpdateParentInstitutionAsync(request.EducationalInstitutionID, testDataHelper.EducationalInstitutions[1], It.IsAny<CancellationToken>()))
-                                                .ReturnsAsync(false);
-
-            var handler = new UpdateEducationalInstitutionParentCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                                dependenciesHelper.mockUnitOfWorkQuery.Object,
-                                                                                dependenciesHelper.mockLogger.Object);
-
-            //Act
-            var result = await handler.Handle(request);
-
-            //Assert
-            Assert.False(result.OperationStatus);
-        }
-
-        [Fact]
-        public async Task GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithEducationalInstitutionIDNotInDatabase_ShouldReturnAResponseThatIncludesAMessageField()
-        {
-            //Arrange
-            DTOEducationalInstitutionParentUpdateCommand request = new()
-            {
-                EducationalInstitutionID = Guid.NewGuid(),
-                ParentInstitutionID = testDataHelper.EducationalInstitutions[1].EducationalInstitutionID
-            };
-
-            dependenciesHelper.mockUnitOfWorkCommand.Setup(uok => uok.UsingEducationalInstitutionCommandRepository())
-                                                      .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
-            dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
-                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
-
-            dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(r => r.GetEntityByIDAsync(request.ParentInstitutionID, It.IsAny<CancellationToken>()))
-                                                .ReturnsAsync(testDataHelper.EducationalInstitutions[1]);
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(r => r.UpdateParentInstitutionAsync(request.EducationalInstitutionID, testDataHelper.EducationalInstitutions[1], It.IsAny<CancellationToken>()))
-                                                .ReturnsAsync(false);
-
-            var handler = new UpdateEducationalInstitutionParentCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                                dependenciesHelper.mockUnitOfWorkQuery.Object,
-                                                                                dependenciesHelper.mockLogger.Object);
-
-            //Act
-            var result = await handler.Handle(request);
-
-            //Assert
-            Assert.Equal($"Educational Institution with the following ID: {request.EducationalInstitutionID} has not been found!", result.Message);
         }
     }
 }
