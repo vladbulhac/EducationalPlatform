@@ -5,7 +5,6 @@ using Notification.API.Repositories;
 using RabbitMQEventBus.IntegrationEvents;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Notification.API.IntegrationEvents.Handlers
