@@ -43,6 +43,6 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
 
         /// <param name="cancellationToken">Cancels the operation ____________</param>
         /// <returns>True if the entity has been found and updated, False if the entity has not been found in the database</returns>
-        public Task<bool> UpdateParentInstitutionAsync(Guid educationalInstitutionID, EducationalInstitution parentInstitution, CancellationToken cancellationToken = default);
+        public Task<CommandRepositoryResult> UpdateParentInstitutionAsync(Guid educationalInstitutionID, Guid parentInstitutionID, CancellationToken cancellationToken = default);
     }
 }

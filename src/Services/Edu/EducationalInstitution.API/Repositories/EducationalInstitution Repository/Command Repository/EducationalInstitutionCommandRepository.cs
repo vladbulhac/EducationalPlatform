@@ -41,7 +41,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
             return new(educationalInstitution.EntityAccess.DateForPermanentDeletion.Value.ToUniversalTime(), educationalInstitution.Admins.Select(a => a.AdminID).ToList());
         }
 
-        public async Task<CommandRepositoryResult> UpdateEntireLocationAsync(Guid educationalInstitutionID, string locationID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken)
+        public async Task<CommandRepositoryResult> UpdateEntireLocationAsync(Guid educationalInstitutionID, string locationID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken = default)
         {
             var educationalInstitution = await GetEducationalInstitution(educationalInstitutionID, cancellationToken);
 
@@ -51,7 +51,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
             return new(educationalInstitution.Admins.Select(a => a.AdminID).ToList());
         }
 
-        public async Task<CommandRepositoryResult> UpdateLocationAsync(Guid educationalInstitutionID, string locationID, CancellationToken cancellationToken)
+        public async Task<CommandRepositoryResult> UpdateLocationAsync(Guid educationalInstitutionID, string locationID, CancellationToken cancellationToken = default)
         {
             var educationalInstitution = await GetEducationalInstitution(educationalInstitutionID, cancellationToken);
 
@@ -61,7 +61,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
             return new(educationalInstitution.Admins.Select(a => a.AdminID).ToList());
         }
 
-        public async Task<CommandRepositoryResult> UpdateBuildingsAsync(Guid educationalInstitutionID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken)
+        public async Task<CommandRepositoryResult> UpdateBuildingsAsync(Guid educationalInstitutionID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken = default)
         {
             var educationalInstitution = await GetEducationalInstitution(educationalInstitutionID, cancellationToken);
 
@@ -72,7 +72,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
             return new(educationalInstitution.Admins.Select(a => a.AdminID).ToList());
         }
 
-        public async Task<CommandRepositoryResult> UpdateNameAsync(Guid educationalInstitutionID, string name, CancellationToken cancellationToken)
+        public async Task<CommandRepositoryResult> UpdateNameAsync(Guid educationalInstitutionID, string name, CancellationToken cancellationToken = default)
         {
             var educationalInstitution = await GetEducationalInstitution(educationalInstitutionID, cancellationToken);
 
@@ -82,7 +82,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
             return new(educationalInstitution.Admins.Select(a => a.AdminID).ToList());
         }
 
-        public async Task<CommandRepositoryResult> UpdateDescriptionAsync(Guid educationalInstitutionID, string description, CancellationToken cancellationToken)
+        public async Task<CommandRepositoryResult> UpdateDescriptionAsync(Guid educationalInstitutionID, string description, CancellationToken cancellationToken = default)
         {
             var educationalInstitution = await GetEducationalInstitution(educationalInstitutionID, cancellationToken);
 
@@ -92,7 +92,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
             return new(educationalInstitution.Admins.Select(a => a.AdminID).ToList());
         }
 
-        public async Task<CommandRepositoryResult> UpdateNameAndDescriptionAsync(Guid educationalInstitutionID, string name, string description, CancellationToken cancellationToken)
+        public async Task<CommandRepositoryResult> UpdateNameAndDescriptionAsync(Guid educationalInstitutionID, string name, string description, CancellationToken cancellationToken = default)
         {
             var educationalInstitution = await GetEducationalInstitution(educationalInstitutionID, cancellationToken);
 
@@ -102,14 +102,16 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
             return new(educationalInstitution.Admins.Select(a => a.AdminID).ToList());
         }
 
-        public async Task<bool> UpdateParentInstitutionAsync(Guid educationalInstitutionID, EducationalInstitution parentInstitution, CancellationToken cancellationToken = default)
+        public async Task<CommandRepositoryResult> UpdateParentInstitutionAsync(Guid educationalInstitutionID, Guid parentInstitutionID, CancellationToken cancellationToken = default)
         {
-            var educationalInstitution = await GetEducationalInstitution(educationalInstitutionID, cancellationToken);
+            var parentInstitution = await GetEducationalInstitution(parentInstitutionID, cancellationToken);
+            if (parentInstitution is null) return default;
 
-            if (educationalInstitution is null) return false;
+            var educationalInstitution = await GetEducationalInstitution(educationalInstitutionID, cancellationToken);
+            if (educationalInstitution is null) return default;
 
             educationalInstitution.SetParentInstitution(parentInstitution);
-            return true;
+            return new(educationalInstitution.Admins.Select(a => a.AdminID).ToList());
         }
 
         private async Task<EducationalInstitution> GetEducationalInstitution(Guid educationalInstitutionID, CancellationToken cancellationToken = default)
