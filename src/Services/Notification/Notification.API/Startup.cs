@@ -73,6 +73,8 @@ namespace Notification.API
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
             eventBus.Subscribe<AssignedAdminsToEducationalInstitutionIntegrationEvent, AssignedAdminsToEducationalInstitutionEventHandler>();
+            eventBus.Subscribe<NotifyAdminsOfEducationalInstitutionDeletionScheduledDateIntegrationEvent, NotifyAdminsOfEducationalInstitutionDeletionScheduledDateEventHandler>();
+            eventBus.Subscribe<NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent, NotifyAdminsOfEducationalInstitutionUpdateEventHandler>();
         }
     }
 
@@ -103,6 +105,8 @@ namespace Notification.API
             });
 
             services.AddTransient<AssignedAdminsToEducationalInstitutionEventHandler>();
+            services.AddTransient<NotifyAdminsOfEducationalInstitutionUpdateEventHandler>();
+            services.AddTransient<NotifyAdminsOfEducationalInstitutionDeletionScheduledDateEventHandler>();
 
             return services;
         }
