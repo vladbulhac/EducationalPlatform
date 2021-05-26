@@ -16,8 +16,6 @@ namespace EducationalInstitutionAPI.DTOs.Validators.Commands_Validators
                              .WithMessage("{PropertyName} was empty or null!");
 
             RuleFor(v => v.ParentInstitutionID)
-                             .NotEmpty()
-                             .WithMessage("{PropertyName} was empty or null!")
                              .NotEqual(v => v.EducationalInstitutionID)
                              .WithMessage("Parent Institution ID was the same as Educational Institution ID!");
         }
