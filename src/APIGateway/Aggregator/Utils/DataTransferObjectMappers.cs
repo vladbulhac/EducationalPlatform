@@ -16,45 +16,72 @@ namespace Aggregator.Utils
     /// </summary>
     public static class DataTransferObjectMappers
     {
-        public static EducationalInstitutionCreateRequest MapToDTOEducationalInstitutionCreateRequest(this DTOCreateEducationalInstitutionRequest request_data)
+        public static EducationalInstitutionCreateRequest MapToEducationalInstitutionCreateRequest(this DTOCreateEducationalInstitutionRequest requestData)
         {
             Uuid parentInstitutionID = null;
-            if (request_data.ParentInstitutionID.HasValue)
-                parentInstitutionID = request_data.ParentInstitutionID.Value.ToProtoUuid();
+            if (requestData.ParentInstitutionID.HasValue)
+                parentInstitutionID = requestData.ParentInstitutionID.Value.ToProtoUuid();
 
             EducationalInstitutionCreateRequest request = new()
             {
-                Name = request_data.Name,
-                Description = request_data.Description,
-                LocationId = request_data.LocationID,
+                Name = requestData.Name,
+                Description = requestData.Description,
+                LocationId = requestData.LocationID,
                 ParentInstitutionId = parentInstitutionID
             };
-            request.Buildings.Add(request_data.BuildingsIDs);
+            request.Buildings.Add(requestData.BuildingsIDs);
 
-            foreach (var adminID in request_data.AdminsIDs)
+            foreach (var adminID in requestData.AdminsIDs)
                 request.AdminsIds.Add(adminID.ToProtoUuid());
 
             return request;
         }
 
         /// <remarks>If <see cref="Metadata"/> contains elements then the request failed</remarks>
-        public static Response<DTOCreateEducationalInstitutionResponse> MapGrpcCallResponse(this GrpcCallResponse<EducationalInstitutionCreateResponse> grpcCallResponse)
+        public static Response<CreateEducationalInstitutionResponse> MapGrpcCallResponse(this GrpcCallResponse<EducationalInstitutionCreateResponse> grpcCallResponse)
         {
-            var failedGrpcCallResponse = HandleFailedGrpcCall<Response<DTOCreateEducationalInstitutionResponse>, EducationalInstitutionCreateResponse>(grpcCallResponse);
+            var failedGrpcCallResponse = HandleFailedGrpcCall<Response<CreateEducationalInstitutionResponse>, EducationalInstitutionCreateResponse>(grpcCallResponse);
             if (failedGrpcCallResponse != default) return failedGrpcCallResponse;
 
             return new()
             {
                 Data = new() { EducationalInstitutionID = grpcCallResponse.Body.Data.EducationalInstitutionId.ToGuid() },
                 Message = grpcCallResponse.Body.Message,
-                StatusCode = grpcCallResponse.Body.StatusCode.MapToEquivalentProtoHttpStatusCodeOrOK(),
+                StatusCode = grpcCallResponse.Body.StatusCode.ConvertToHttpStatusCode(),
                 OperationStatus = grpcCallResponse.Body.OperationStatus
             };
         }
 
-        public static Response<DTOGetEducationalInstitutionByIDResponse> MapGrpcCallResponse(this GrpcCallResponse<EducationalInstitutionGetResponse> grpcCallResponse)
+        public static Response<DeleteEducationalInstitutionResponse> MapGrpcCallResponse(this GrpcCallResponse<EducationalInstitutionDeleteResponse> grpcCallResponse)
         {
-            var failedGrpcCallResponse = HandleFailedGrpcCall<Response<DTOGetEducationalInstitutionByIDResponse>, EducationalInstitutionGetResponse>(grpcCallResponse);
+            var failedGrpcCallResponse = HandleFailedGrpcCall<Response<DeleteEducationalInstitutionResponse>, EducationalInstitutionDeleteResponse>(grpcCallResponse);
+            if (failedGrpcCallResponse != default) return failedGrpcCallResponse;
+
+            return new()
+            {
+                Data = new() { DateForPermanentDeletion = grpcCallResponse.Body.Data.DateForPermanentDeletion.ToDateTime() },
+                Message = grpcCallResponse.Body.Message,
+                StatusCode = grpcCallResponse.Body.StatusCode.ConvertToHttpStatusCode(),
+                OperationStatus = grpcCallResponse.Body.OperationStatus
+            };
+        }
+
+        public static Response MapGrpcCallResponse(this GrpcCallResponse<EducationalInstitutionUpdateResponse> grpcCallResponse)
+        {
+            var failedGrpcCallResponse = HandleFailedGrpcCall<Response, EducationalInstitutionUpdateResponse>(grpcCallResponse);
+            if (failedGrpcCallResponse != default) return failedGrpcCallResponse;
+
+            return new()
+            {
+                Message = grpcCallResponse.Body.Message,
+                OperationStatus = grpcCallResponse.Body.OperationStatus,
+                StatusCode = grpcCallResponse.Body.StatusCode.ConvertToHttpStatusCode()
+            };
+        }
+
+        public static Response<GetEducationalInstitutionByIDResponse> MapGrpcCallResponse(this GrpcCallResponse<EducationalInstitutionGetResponse> grpcCallResponse)
+        {
+            var failedGrpcCallResponse = HandleFailedGrpcCall<Response<GetEducationalInstitutionByIDResponse>, EducationalInstitutionGetResponse>(grpcCallResponse);
             if (failedGrpcCallResponse != default) return failedGrpcCallResponse;
 
             return new()
@@ -69,13 +96,78 @@ namespace Aggregator.Utils
                     ChildInstitutions = MapInstitutions(grpcCallResponse.Body.Data.ChildInstitutions),
                     ParentInstitution = MapInstitution(grpcCallResponse.Body.Data.ParentInstitution)
                 },
-                StatusCode = grpcCallResponse.Body.StatusCode.MapToEquivalentProtoHttpStatusCodeOrOK(),
+                StatusCode = grpcCallResponse.Body.StatusCode.ConvertToHttpStatusCode(),
                 OperationStatus = grpcCallResponse.Body.OperationStatus,
                 Message = grpcCallResponse.Body.Message
             };
         }
 
-        private static DTOEducationalInstitutionBaseResponse MapInstitution(BaseQueryResult institution)
+        public static Response<GetAllEducationalInstitutionsByNameResponse> MapGrpcCallResponse(this GrpcCallResponse<EducationalInstitutionGetByNameResponse> grpcCallResponse)
+        {
+            var failedGrpcCallResponse = HandleFailedGrpcCall<Response<GetAllEducationalInstitutionsByNameResponse>, EducationalInstitutionGetByNameResponse>(grpcCallResponse);
+            if (failedGrpcCallResponse != default) return failedGrpcCallResponse;
+
+            return new()
+            {
+                Data = new() { EducationalInstitutions = MapInstitutions(grpcCallResponse.Body.Data) },
+                OperationStatus = grpcCallResponse.Body.OperationStatus,
+                StatusCode = grpcCallResponse.Body.StatusCode.ConvertToHttpStatusCode(),
+                Message = grpcCallResponse.Body.Message
+            };
+        }
+
+        public static Response<GetAllEducationalInstitutionsByLocationResponse> MapGrpcCallResponse(this GrpcCallResponse<EducationalInstitutionsGetByLocationResponse> grpcCallResponse)
+        {
+            var failedGrpcCallResponse = HandleFailedGrpcCall<Response<GetAllEducationalInstitutionsByLocationResponse>, EducationalInstitutionsGetByLocationResponse>(grpcCallResponse);
+            if (failedGrpcCallResponse != default) return failedGrpcCallResponse;
+
+            return new()
+            {
+                Data = new() { EducationalInstitutions = MapInstitutions(grpcCallResponse.Body.Data) },
+                Message = grpcCallResponse.Body.Message,
+                OperationStatus = grpcCallResponse.Body.OperationStatus,
+                StatusCode = grpcCallResponse.Body.StatusCode.ConvertToHttpStatusCode()
+            };
+        }
+
+        private static ICollection<EducationalInstitutionByLocationResponse> MapInstitutions(RepeatedField<GetByLocationResult> institutions)
+        {
+            if (institutions is null) return default;
+
+            List<EducationalInstitutionByLocationResponse> mappedInstitutions = new(institutions.Count);
+            for (int i = 0; i < institutions.Count; i++)
+            {
+                mappedInstitutions.Add(new()
+                {
+                    EducationalInstitutionID = institutions[i].EducationalInstitutionId.ToGuid(),
+                    Name = institutions[i].Name,
+                    Description = institutions[i].Description,
+                    Buildings = institutions[i].Buildings
+                });
+            }
+
+            return mappedInstitutions;
+        }
+
+        private static ICollection<EducationalInstitutionByNameResponse> MapInstitutions(RepeatedField<GetByNameResult> institutions)
+        {
+            if (institutions is null) return default;
+
+            List<EducationalInstitutionByNameResponse> mappedInstitutions = new(institutions.Count);
+            for (int i = 0; i < institutions.Count; i++)
+            {
+                mappedInstitutions.Add(new()
+                {
+                    EducationalInstitutionID = institutions[i].EducationalInstitutionId.ToGuid(),
+                    Description = institutions[i].Description,
+                    Name = institutions[i].Name,
+                    LocationID = institutions[i].LocationId
+                });
+            }
+            return mappedInstitutions;
+        }
+
+        private static EducationalInstitutionBaseResponse MapInstitution(BaseQueryResult institution)
         {
             if (institution is null) return null;
 
@@ -87,11 +179,11 @@ namespace Aggregator.Utils
             };
         }
 
-        private static ICollection<DTOEducationalInstitutionBaseResponse> MapInstitutions(RepeatedField<BaseQueryResult> institutions)
+        private static ICollection<EducationalInstitutionBaseResponse> MapInstitutions(RepeatedField<BaseQueryResult> institutions)
         {
-            if (institutions is null) return new List<DTOEducationalInstitutionBaseResponse>(0);
+            if (institutions is null) return new List<EducationalInstitutionBaseResponse>(0);
 
-            List<DTOEducationalInstitutionBaseResponse> mappedInstitutions = new(institutions.Count);
+            List<EducationalInstitutionBaseResponse> mappedInstitutions = new(institutions.Count);
             for (int i = 0; i < institutions.Count; i++)
                 mappedInstitutions.Add(new()
                 {
@@ -101,15 +193,6 @@ namespace Aggregator.Utils
                 });
 
             return mappedInstitutions;
-        }
-
-        private static TOut GetTrailersFromGrpcResponse<TIn, TOut>(GrpcCallResponse<TIn> grpcCallResponse) where TIn : class where TOut : Response, new()
-        {
-            return new()
-            {
-                StatusCode = (HttpStatusCode)int.Parse(grpcCallResponse.Trailers.Get("httpstatuscode").Value),
-                Message = grpcCallResponse.Trailers.Get("message").Value
-            };
         }
 
         /// <summary>
@@ -131,6 +214,15 @@ namespace Aggregator.Utils
                 return new() { StatusCode = HttpStatusCode.InternalServerError, Message = "An error occurred while trying to reach a service needed for this request!" };
 
             return default;
+        }
+
+        private static TOut GetTrailersFromGrpcResponse<TIn, TOut>(GrpcCallResponse<TIn> grpcCallResponse) where TIn : class where TOut : Response, new()
+        {
+            return new()
+            {
+                StatusCode = (HttpStatusCode)int.Parse(grpcCallResponse.Trailers.Get("httpstatuscode").Value),
+                Message = grpcCallResponse.Trailers.Get("message").Value
+            };
         }
     }
 }
