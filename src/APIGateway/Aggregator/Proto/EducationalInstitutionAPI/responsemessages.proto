@@ -19,6 +19,12 @@ message EducationalInstitutionDeleteResponse{
 	ProtoHttpStatusCode status_code=4;
 }
 
+message EducationalInstitutionUpdateResponse{
+	bool operation_status=1;
+	string message=2;
+	ProtoHttpStatusCode status_code=3;
+}
+
 //Query Responses
 message EducationalInstitutionGetResponse{
 	GetByIDQueryResult data=1;
@@ -29,6 +35,13 @@ message EducationalInstitutionGetResponse{
 
 message EducationalInstitutionGetByNameResponse{
 	repeated GetByNameResult data=1;
+	bool operation_status=2;
+	string message=3;
+	ProtoHttpStatusCode status_code=4;
+}
+
+message EducationalInstitutionsGetByLocationResponse{
+	repeated GetByLocationResult data=1;
 	bool operation_status=2;
 	string message=3;
 	ProtoHttpStatusCode status_code=4;
