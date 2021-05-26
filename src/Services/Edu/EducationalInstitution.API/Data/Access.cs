@@ -1,7 +1,7 @@
 ﻿using EducationalInstitutionAPI.Utils;
 using System;
 
-namespace EducationalInstitutionAPI.Data.Helpers
+namespace EducationalInstitutionAPI.Data
 {
     /// <summary>
     /// Defines if an entity can be returned as a request response or it must be removed from the database based on the <see cref="DateForPermanentDeletion"/>'s value
