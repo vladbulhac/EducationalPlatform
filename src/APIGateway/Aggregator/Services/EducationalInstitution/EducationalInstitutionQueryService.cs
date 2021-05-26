@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Aggregator.Services.EducationalInstitution
 {
-    public class EducationalInstitutionQueryService : GrpcServiceBase<EducationalInstitutionQueryService>, IEducationalInstitutionQueryService
+    public class EducationalInstitutionQueryService : GrpcServiceBase<EducationalInstitutionQueryService>,
+                                                      IEducationalInstitutionQueryService
     {
         private readonly Query.QueryClient client;
 
@@ -18,6 +19,24 @@ namespace Aggregator.Services.EducationalInstitution
             logger.LogDebug("gRPC client created, calls server with request: {@request}", request);
 
             var request_call = client.GetEducationalInstitutionByIDAsync(request);
+
+            return await MakeUnaryCallAndGetResponseAsync(request_call);
+        }
+
+        public async Task<GrpcCallResponse<EducationalInstitutionGetByNameResponse>> GetAllEducationalInstitutionsByNameAsync(EducationalInstitutionGetByNameRequest request)
+        {
+            logger.LogDebug("gRPC client created, calls server with request: {@request}", request);
+
+            var request_call = client.GetAllEducationalInstitutionsByNameAsync(request);
+
+            return await MakeUnaryCallAndGetResponseAsync(request_call);
+        }
+
+        public async Task<GrpcCallResponse<EducationalInstitutionsGetByLocationResponse>> GetAllEducationalInstitutionsByLocationAsync(EducationalInstitutionsGetByLocationRequest request)
+        {
+            logger.LogDebug("gRPC client created, calls server with request: {@request}", request);
+
+            var request_call = client.GetAllEducationalInstitutionsByLocationAsync(request);
 
             return await MakeUnaryCallAndGetResponseAsync(request_call);
         }
