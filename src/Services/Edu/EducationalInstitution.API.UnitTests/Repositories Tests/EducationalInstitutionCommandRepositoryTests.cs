@@ -194,6 +194,108 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         }
 
         [Fact]
+        public async Task GivenAValidEducationalInstitutionID_ParentID_ToUpdateParentAsyncMethod_ShouldReturnCollectionOfAdminsIDs()
+        {
+            //Arrange
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[3].EducationalInstitutionID;
+
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+
+            //Act
+            var result = await repository.UpdateParentInstitutionAsync(educationalInstitutionID, parentInstitutionID);
+            dbContext.SaveChanges();
+
+            //Assert
+            Assert.Equal(adminsIDs, result.AdminsToNotify);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionID_ParentID_ToUpdateParentAsyncMethod_ShouldHaveTheNewParentInstitution()
+        {
+            //Arrange
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[3].EducationalInstitutionID;
+
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+
+            //Act
+            var result = await repository.UpdateParentInstitutionAsync(educationalInstitutionID, parentInstitutionID);
+            dbContext.SaveChanges();
+
+            //Assert
+            Assert.Equal(testDataHelper.EducationalInstitutions[3], dbContext.EducationalInstitutions.Single(ei => ei.EducationalInstitutionID == educationalInstitutionID).ParentInstitution);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionID_DefaultParentID_ToUpdateParentAsyncMethod_ShouldCollectionOfAdminsIDs()
+        {
+            //Arrange
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid parentInstitutionID = default;
+
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+
+            //Act
+            var result = await repository.UpdateParentInstitutionAsync(educationalInstitutionID, parentInstitutionID);
+            dbContext.SaveChanges();
+
+            //Assert
+            Assert.Equal(adminsIDs, result.AdminsToNotify);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionID_DefaultParentID_ToUpdateParentAsyncMethod_ShouldHaveNoParentInstitution()
+        {
+            //Arrange
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid parentInstitutionID = default;
+
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+
+            //Act
+            var result = await repository.UpdateParentInstitutionAsync(educationalInstitutionID, parentInstitutionID);
+            dbContext.SaveChanges();
+
+            //Assert
+            Assert.Null(dbContext.EducationalInstitutions.Single(ei => ei.EducationalInstitutionID == educationalInstitutionID).ParentInstitution);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionID_ParentID_IDDoesntExistInDatabase_ToUpdateParentAsyncMethod_ShouldReturnDefault()
+        {
+            //Arrange
+            Guid educationalInstitutionID = Guid.NewGuid();
+            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[3].EducationalInstitutionID;
+
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+
+            //Act
+            var result = await repository.UpdateParentInstitutionAsync(educationalInstitutionID, parentInstitutionID);
+            dbContext.SaveChanges();
+
+            //Assert
+            Assert.Equal(default, result);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionID_ParentID_ParentIDDoesntExistInDatabase_ToUpdateParentAsyncMethod_ShouldReturnDefault()
+        {
+            //Arrange
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid parentInstitutionID = Guid.NewGuid();
+
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+
+            //Act
+            var result = await repository.UpdateParentInstitutionAsync(educationalInstitutionID, parentInstitutionID);
+            dbContext.SaveChanges();
+
+            //Assert
+            Assert.Equal(default, result);
+        }
+
+        [Fact]
         public async Task GivenAValidID_ToDeleteAsyncMethod_ShouldReturnTrue()
         {
             //Arrange
@@ -257,6 +359,97 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
 
             //Assert
             Assert.False(result);
+        }
+
+        [Fact]
+        public async Task GivenAValidID_ToScheduleForDeletionAsyncMethod_ShouldReturnCollectionOfAdminsIDs()
+        {
+            //Arrange
+            var educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+
+            //Act
+            var result = await repository.ScheduleForDeletionAsync(educationalInstitutionID);
+
+            //Assert
+            Assert.Equal(adminsIDs, result.AdminsToNotify);
+
+            //Clean up
+            UndoDeletion(educationalInstitutionID);
+        }
+
+        [Fact]
+        public async Task GivenAValidID_ToScheduleForDeletionAsyncMethod_ShouldReturnExpectedScheduledDateForDeletion_Day()
+        {
+            //Arrange
+            var educationalInstitutionID = testDataHelper.EducationalInstitutions[1].EducationalInstitutionID;
+            var adminsIDs = testDataHelper.EducationalInstitutions[1].Admins.Select(a => a.AdminID).ToList();
+
+            //Act
+            var result = await repository.ScheduleForDeletionAsync(educationalInstitutionID);
+
+            //Assert
+            Assert.Equal(DateTime.UtcNow.AddDays(30).Day, result.ScheduledDateForDeletion.Day);
+
+            //Clean up
+            UndoDeletion(educationalInstitutionID);
+        }
+
+        [Fact]
+        public async Task GivenAValidID_ToScheduleForDeletionAsyncMethod_ShouldReturnExpectedScheduledDateForDeletion_Month()
+        {
+            //Arrange
+            var educationalInstitutionID = testDataHelper.EducationalInstitutions[2].EducationalInstitutionID;
+            var adminsIDs = testDataHelper.EducationalInstitutions[2].Admins.Select(a => a.AdminID).ToList();
+
+            //Act
+            var result = await repository.ScheduleForDeletionAsync(educationalInstitutionID);
+
+            //Assert
+            Assert.Equal(DateTime.UtcNow.AddDays(30).Month, result.ScheduledDateForDeletion.Month);
+
+            //Clean up
+            UndoDeletion(educationalInstitutionID);
+        }
+
+        [Fact]
+        public async Task GivenAValidID_ToScheduleForDeletionAsyncMethod_ShouldReturnExpectedScheduledDateForDeletion_Year()
+        {
+            //Arrange
+            var educationalInstitutionID = testDataHelper.EducationalInstitutions[3].EducationalInstitutionID;
+            var adminsIDs = testDataHelper.EducationalInstitutions[3].Admins.Select(a => a.AdminID).ToList();
+
+            //Act
+            var result = await repository.ScheduleForDeletionAsync(educationalInstitutionID);
+
+            //Assert
+            Assert.Equal(DateTime.UtcNow.AddDays(30).Year, result.ScheduledDateForDeletion.Year);
+
+            //Clean up
+            UndoDeletion(educationalInstitutionID);
+        }
+
+        [Fact]
+        public async Task GivenAValidID_ToScheduleForDeletionAsyncMethod_ShouldHaveTrueEntityAccessIsDisabled()
+        {
+            //Arrange
+            var educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+
+            //Act
+            var result = await repository.ScheduleForDeletionAsync(educationalInstitutionID);
+
+            //Assert
+            Assert.True(dbContext.EducationalInstitutions.Single(ei => ei.EducationalInstitutionID == educationalInstitutionID).EntityAccess.IsDisabled);
+
+            //Clean up
+            UndoDeletion(educationalInstitutionID);
+        }
+
+        private void UndoDeletion(Guid id)
+        {
+            var educationalInstitution = dbContext.EducationalInstitutions.Single(e => e.EducationalInstitutionID == id);
+            educationalInstitution.EntityAccess.RemoveDeletionSchedule();
         }
 
         /*       Commented due to the new split of repositories in commands and queries
