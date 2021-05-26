@@ -4,14 +4,16 @@ using EducationalInstitutionAPI.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EducationalInstitutionAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210526180802_NewIndexes")]
+    partial class NewIndexes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,12 +74,6 @@ namespace EducationalInstitutionAPI.Migrations
                     b.Property<Guid>("EducationalInstitutionID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("DateForPermanentDeletion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDisabled")
-                        .HasColumnType("bit");
-
                     b.HasKey("AdminID", "EducationalInstitutionID");
 
                     b.HasIndex("EducationalInstitutionID");
@@ -92,12 +88,6 @@ namespace EducationalInstitutionAPI.Migrations
 
                     b.Property<Guid>("EducationalInstitutionID")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DateForPermanentDeletion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDisabled")
-                        .HasColumnType("bit");
 
                     b.HasKey("BuildingID", "EducationalInstitutionID");
 
@@ -123,7 +113,33 @@ namespace EducationalInstitutionAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("EducationalInstitutionAPI.Data.Helpers.Access", "EntityAccess", b1 =>
+                        {
+                            b1.Property<Guid>("EducationalInstitutionAdminAdminID")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("EducationalInstitutionAdminEducationalInstitutionID")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime?>("DateForPermanentDeletion")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<bool>("IsDisabled")
+                                .HasColumnType("bit");
+
+                            b1.HasKey("EducationalInstitutionAdminAdminID", "EducationalInstitutionAdminEducationalInstitutionID");
+
+                            b1.HasIndex("IsDisabled", "DateForPermanentDeletion");
+
+                            b1.ToTable("Admins");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EducationalInstitutionAdminAdminID", "EducationalInstitutionAdminEducationalInstitutionID");
+                        });
+
                     b.Navigation("EducationalInstitution");
+
+                    b.Navigation("EntityAccess");
                 });
 
             modelBuilder.Entity("EducationalInstitutionAPI.Data.EducationalInstitutionBuilding", b =>
@@ -134,7 +150,33 @@ namespace EducationalInstitutionAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("EducationalInstitutionAPI.Data.Helpers.Access", "EntityAccess", b1 =>
+                        {
+                            b1.Property<string>("EducationalInstitutionBuildingBuildingID")
+                                .HasColumnType("nvarchar(450)");
+
+                            b1.Property<Guid>("EducationalInstitutionBuildingEducationalInstitutionID")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime?>("DateForPermanentDeletion")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<bool>("IsDisabled")
+                                .HasColumnType("bit");
+
+                            b1.HasKey("EducationalInstitutionBuildingBuildingID", "EducationalInstitutionBuildingEducationalInstitutionID");
+
+                            b1.HasIndex("IsDisabled", "DateForPermanentDeletion");
+
+                            b1.ToTable("Buildings");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EducationalInstitutionBuildingBuildingID", "EducationalInstitutionBuildingEducationalInstitutionID");
+                        });
+
                     b.Navigation("EducationalInstitution");
+
+                    b.Navigation("EntityAccess");
                 });
 
             modelBuilder.Entity("EducationalInstitutionAPI.Data.EducationalInstitution", b =>

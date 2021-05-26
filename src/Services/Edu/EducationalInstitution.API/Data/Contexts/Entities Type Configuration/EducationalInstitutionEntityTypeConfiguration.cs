@@ -7,14 +7,11 @@ namespace EducationalInstitutionAPI.Data.Contexts.Entities_Type_Configuration
     {
         public void Configure(EntityTypeBuilder<EducationalInstitution> builder)
         {
-            builder.OwnsOne(ei => ei.EntityAccess, access =>
-                        {
-                            access.Property(a => a.IsDisabled).IsRequired();
-                            access.HasIndex(a => new { a.DateForPermanentDeletion, a.IsDisabled });
-                        });
-
             builder.HasKey(ei => ei.EducationalInstitutionID);
-            builder.HasIndex(ei => new { ei.LocationID, ei.EducationalInstitutionID });
+            builder.HasIndex(ei => new { ei.EducationalInstitutionID, ei.IsDisabled });
+            builder.HasIndex(ei => new { ei.LocationID, ei.EducationalInstitutionID, ei.IsDisabled });
+            builder.HasIndex(ei => new { ei.Name, ei.LocationID, ei.IsDisabled, ei.EducationalInstitutionID, ei.Description });
+
             builder.HasOne(ei => ei.ParentInstitution)
                     .WithMany(ei => ei.ChildInstitutions);
 

@@ -1,4 +1,4 @@
-﻿using EducationalInstitutionAPI.Data.Helpers;
+﻿using EducationalInstitutionAPI.Data;
 using EducationalInstitutionAPI.Utils;
 using System;
 using Xunit;

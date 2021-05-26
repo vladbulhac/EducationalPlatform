@@ -32,7 +32,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
                 var queryResult = await connection.QueryAsync<GetEducationalInstitutionQueryResult>
                                                                 (@"SELECT EducationalInstitutionID, Name, Description, LocationID
                                                                 FROM EducationalInstitutions
-                                                                WHERE Name LIKE @Name + '%' AND EntityAccess_IsDisabled=0
+                                                                WHERE Name LIKE @Name + '%' AND IsDisabled=0
                                                                 ORDER BY Name
                                                                 OFFSET @Offset ROWS
                                                                 FETCH NEXT @Results ROWS ONLY",
@@ -69,7 +69,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
                 return await connection.QuerySingleOrDefaultAsync<EducationalInstitution>(
                                                                         @"SELECT EducationalInstitutionID, Name, Description, LocationID, JoinDate
                                                                           FROM EducationalInstitutions
-                                                                          WHERE EducationalInstitutionID=@ID AND EntityAccess_IsDisabled=0",
+                                                                          WHERE EducationalInstitutionID=@ID AND IsDisabled=0",
                                                                         new { ID = educationalInstitutionID });
             }
 
@@ -93,10 +93,10 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
                                              pe.Name as ParentName, pe.Description as ParentDescription,
                                              b.BuildingID
                                     FROM EducationalInstitutions e
-                                    LEFT JOIN EducationalInstitutions ce ON ce.ParentInstitutionEducationalInstitutionID=e.EducationalInstitutionID AND ce.EntityAccess_IsDisabled=0
-                                    LEFT JOIN EducationalInstitutions pe ON e.ParentInstitutionEducationalInstitutionID=pe.EducationalInstitutionID AND pe.EntityAccess_IsDisabled=0
-                                    LEFT JOIN Buildings b ON e.EducationalInstitutionID=b.EducationalInstitutionID AND b.EntityAccess_IsDisabled=0
-                                    WHERE e.EducationalInstitutionID=@ID AND e.EntityAccess_IsDisabled=0
+                                    LEFT JOIN EducationalInstitutions ce ON ce.ParentInstitutionEducationalInstitutionID=e.EducationalInstitutionID AND ce.IsDisabled=0
+                                    LEFT JOIN EducationalInstitutions pe ON e.ParentInstitutionEducationalInstitutionID=pe.EducationalInstitutionID AND pe.IsDisabled=0
+                                    LEFT JOIN Buildings b ON e.EducationalInstitutionID=b.EducationalInstitutionID AND b.IsDisabled=0
+                                    WHERE e.EducationalInstitutionID=@ID AND e.IsDisabled=0
                                     ORDER BY e.Name, ParentName",
                                     new { ID = educationalInstitutionID });
 
@@ -134,8 +134,8 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
                 var queryResult = await connection.QueryAsync<dynamic>(
                                                                     @"SELECT e.EducationalInstitutionID, e.Name, e.Description, b.BuildingID
                                                                        FROM EducationalInstitutions e
-                                                                       LEFT JOIN Buildings b ON e.EducationalInstitutionID=b.EducationalInstitutionID AND b.EntityAccess_IsDisabled=0
-                                                                       WHERE e.LocationID=@ID AND e.EntityAccess_IsDisabled=0
+                                                                       LEFT JOIN Buildings b ON e.EducationalInstitutionID=b.EducationalInstitutionID AND b.IsDisabled=0
+                                                                       WHERE e.LocationID=@ID AND e.IsDisabled=0
                                                                        ORDER BY e.Name",
                                                                     new { ID = locationID });
 

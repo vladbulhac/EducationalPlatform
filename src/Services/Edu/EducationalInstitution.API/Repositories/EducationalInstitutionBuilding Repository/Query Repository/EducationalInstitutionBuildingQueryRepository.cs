@@ -31,7 +31,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionBuilding_
                                                                        SELECT e.EducationalInstitutionID, e.Name, e.Description
                                                                        FROM Buildings b
                                                                        JOIN EducationalInstitutions e ON b.EducationalInstitutionID=e.EducationalInstitutionID
-                                                                       WHERE b.BuildingID=@ID AND b.EntityAccess_IsDisabled=0 AND e.EntityAccess_IsDisabled=0
+                                                                       WHERE b.BuildingID=@ID AND b.IsDisabled=0 AND e.IsDisabled=0
                                                                        ORDER BY e.Name",
                                                                        new { ID = buildingID });
 

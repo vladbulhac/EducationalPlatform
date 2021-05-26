@@ -37,8 +37,8 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
 
             if (educationalInstitution is null) return default;
 
-            educationalInstitution.EntityAccess.ScheduleForDeletion();
-            return new(educationalInstitution.EntityAccess.DateForPermanentDeletion.Value.ToUniversalTime(), educationalInstitution.Admins.Select(a => a.AdminID).ToList());
+            educationalInstitution.ScheduleForDeletion();
+            return new(educationalInstitution.DateForPermanentDeletion.Value.ToUniversalTime(), educationalInstitution.Admins.Select(a => a.AdminID).ToList());
         }
 
         public async Task<CommandRepositoryResult> UpdateEntireLocationAsync(Guid educationalInstitutionID, string locationID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken = default)
@@ -114,7 +114,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
             var educationalInstitution = await context.EducationalInstitutions
                                                             .Include(ei => ei.Admins)
                                                             .Include(ei => ei.ParentInstitution)
-                                                            .Where(ei => !ei.EntityAccess.IsDisabled && ei.EducationalInstitutionID == educationalInstitutionID)
+                                                            .Where(ei => !ei.IsDisabled && ei.EducationalInstitutionID == educationalInstitutionID)
                                                             .SingleOrDefaultAsync(cancellationToken);
             if (educationalInstitution is null) return default;
 
@@ -124,13 +124,13 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
 
         private async Task<EducationalInstitution> GetEducationalInstitution(Guid educationalInstitutionID, CancellationToken cancellationToken = default)
             => await context.EducationalInstitutions.Include(ei => ei.Admins)
-                                                    .Where(ei => !ei.EntityAccess.IsDisabled && ei.EducationalInstitutionID == educationalInstitutionID)
+                                                    .Where(ei => !ei.IsDisabled && ei.EducationalInstitutionID == educationalInstitutionID)
                                                     .SingleOrDefaultAsync(cancellationToken);
 
         private async Task<EducationalInstitution> GetEducationalInstitutionIncludingBuildings(Guid educationalInstitutionID, CancellationToken cancellationToken = default)
             => await context.EducationalInstitutions.Include(ei => ei.Admins)
                                                     .Include(ei => ei.Buildings)
-                                                    .Where(ei => !ei.EntityAccess.IsDisabled && ei.EducationalInstitutionID == educationalInstitutionID)
+                                                    .Where(ei => !ei.IsDisabled && ei.EducationalInstitutionID == educationalInstitutionID)
                                                     .SingleOrDefaultAsync(cancellationToken);
     }
 }

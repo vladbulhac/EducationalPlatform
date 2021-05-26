@@ -1,14 +1,12 @@
-﻿using EducationalInstitutionAPI.Data.Helpers;
-using System;
+﻿using System;
 
 namespace EducationalInstitutionAPI.Data
 {
-    public class EducationalInstitutionAdmin
+    public class EducationalInstitutionAdmin : Access
     {
         public Guid AdminID { get; init; }
         public Guid EducationalInstitutionID { get; init; }
         public EducationalInstitution EducationalInstitution { get; init; }
-        public Access EntityAccess { get; private set; }
 
         public EducationalInstitutionAdmin()
         {
@@ -18,7 +16,6 @@ namespace EducationalInstitutionAPI.Data
         {
             AdminID = adminID;
             EducationalInstitutionID = educationalInstitutionID;
-            EntityAccess = new();
         }
     }
 }

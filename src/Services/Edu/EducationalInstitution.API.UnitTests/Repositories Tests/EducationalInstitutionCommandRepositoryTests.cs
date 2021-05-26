@@ -440,7 +440,7 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
             var result = await repository.ScheduleForDeletionAsync(educationalInstitutionID);
 
             //Assert
-            Assert.True(dbContext.EducationalInstitutions.Single(ei => ei.EducationalInstitutionID == educationalInstitutionID).EntityAccess.IsDisabled);
+            Assert.True(dbContext.EducationalInstitutions.Single(ei => ei.EducationalInstitutionID == educationalInstitutionID).IsDisabled);
 
             //Clean up
             UndoDeletion(educationalInstitutionID);
@@ -449,7 +449,7 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         private void UndoDeletion(Guid id)
         {
             var educationalInstitution = dbContext.EducationalInstitutions.Single(e => e.EducationalInstitutionID == id);
-            educationalInstitution.EntityAccess.RemoveDeletionSchedule();
+            educationalInstitution.RemoveDeletionSchedule();
         }
 
         /*       Commented due to the new split of repositories in commands and queries

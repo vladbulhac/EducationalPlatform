@@ -276,23 +276,6 @@ namespace EducationalInstitution.API.UnitTests.Models_Tests
         }
 
         [Fact]
-        public void GivenAName_Description_LocationID_BuildingsIDs_AdminsIDs_ToConstructor_ShouldReturnNotNullEntityAccess()
-        {
-            //Arrange
-            string name = "eduTest";
-            string description = "eduDescription";
-            string locationID = "location123";
-            var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
-
-            //Act
-            EducationalInstitutionAPI.Data.EducationalInstitution educationalInstituion = new(name, description, locationID, buildingsIDs, adminsIDs);
-
-            //Assert
-            Assert.NotNull(educationalInstituion.EntityAccess);
-        }
-
-        [Fact]
         public void GivenAName_Description_LocationID_BuildingsIDs_AdminsIDs_ToConstructor_ShouldReturnFalseEntityAccessIsDisabled()
         {
             //Arrange
@@ -306,7 +289,7 @@ namespace EducationalInstitution.API.UnitTests.Models_Tests
             EducationalInstitutionAPI.Data.EducationalInstitution educationalInstituion = new(name, description, locationID, buildingsIDs, adminsIDs);
 
             //Assert
-            Assert.False(educationalInstituion.EntityAccess.IsDisabled);
+            Assert.False(educationalInstituion.IsDisabled);
         }
 
         [Fact]
@@ -323,7 +306,7 @@ namespace EducationalInstitution.API.UnitTests.Models_Tests
             EducationalInstitutionAPI.Data.EducationalInstitution educationalInstituion = new(name, description, locationID, buildingsIDs, adminsIDs);
 
             //Assert
-            Assert.Null(educationalInstituion.EntityAccess.DateForPermanentDeletion);
+            Assert.Null(educationalInstituion.DateForPermanentDeletion);
         }
 
         [Fact]
@@ -661,7 +644,7 @@ namespace EducationalInstitution.API.UnitTests.Models_Tests
             educationalInstituion.SetEntireLocation(newLocationID, addBuildingsIDs, removeBuildingsIDs);
 
             //Assert
-            Assert.True(educationalInstituion.Buildings.Where(b => b.BuildingID == removeBuildingsIDs[0]).Select(b => b.EntityAccess.IsDisabled).Single());
+            Assert.True(educationalInstituion.Buildings.Where(b => b.BuildingID == removeBuildingsIDs[0]).Select(b => b.IsDisabled).Single());
         }
 
         [Fact]
@@ -804,7 +787,7 @@ namespace EducationalInstitution.API.UnitTests.Models_Tests
             educationalInstituion.RemoveBuildings(removeBuildingsIDs);
 
             //Assert
-            Assert.True(educationalInstituion.Buildings.ElementAt(0).EntityAccess.IsDisabled);
+            Assert.True(educationalInstituion.Buildings.ElementAt(0).IsDisabled);
         }
 
         [Fact]
@@ -827,7 +810,7 @@ namespace EducationalInstitution.API.UnitTests.Models_Tests
             educationalInstituion.RemoveBuildings(removeBuildingsIDs);
 
             //Assert
-            Assert.Equal(expectedDateForPermanentDeletion.Date, educationalInstituion.Buildings.ElementAt(0).EntityAccess.DateForPermanentDeletion.Value.Date);
+            Assert.Equal(expectedDateForPermanentDeletion.Date, educationalInstituion.Buildings.ElementAt(0).DateForPermanentDeletion.Value.Date);
         }
 
         [Fact]
@@ -850,7 +833,7 @@ namespace EducationalInstitution.API.UnitTests.Models_Tests
             educationalInstituion.RemoveBuildings(removeBuildingsIDs);
 
             //Assert
-            Assert.Equal(expectedDateForPermanentDeletion.Day, educationalInstituion.Buildings.ElementAt(0).EntityAccess.DateForPermanentDeletion.Value.Day);
+            Assert.Equal(expectedDateForPermanentDeletion.Day, educationalInstituion.Buildings.ElementAt(0).DateForPermanentDeletion.Value.Day);
         }
 
         [Fact]

@@ -1,11 +1,10 @@
-﻿using EducationalInstitutionAPI.Data.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace EducationalInstitutionAPI.Data
 {
-    public class EducationalInstitution
+    public class EducationalInstitution : Access
     {
         public Guid EducationalInstitutionID { get; init; }
         public string Name { get; private set; }
@@ -30,8 +29,6 @@ namespace EducationalInstitutionAPI.Data
 
         public ICollection<EducationalInstitutionAdmin> Admins { get; private set; }
 
-        public Access EntityAccess { get; }
-
         public EducationalInstitution(string name, string description, string locationID,
             ICollection<string> buildingsIDs, ICollection<Guid> adminsIDs, EducationalInstitution parentInstitution = null)
         {
@@ -40,7 +37,6 @@ namespace EducationalInstitutionAPI.Data
             EducationalInstitutionID = Guid.NewGuid();
             LocationID = locationID ?? "LOCATION_UNKNOWN";
             JoinDate = DateTime.UtcNow;
-            EntityAccess = new();
 
             Buildings = new HashSet<EducationalInstitutionBuilding>();
             ChildInstitutions = new HashSet<EducationalInstitution>();
@@ -116,7 +112,7 @@ namespace EducationalInstitutionAPI.Data
                 {
                     var building = Buildings.SingleOrDefault(b => b.BuildingID == buildingID);
                     if (building is not null)
-                        building.EntityAccess.ScheduleForDeletion();
+                        building.ScheduleForDeletion();
                 }
             }
         }

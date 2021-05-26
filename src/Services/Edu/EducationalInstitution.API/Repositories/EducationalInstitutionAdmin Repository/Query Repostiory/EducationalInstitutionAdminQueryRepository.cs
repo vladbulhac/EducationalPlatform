@@ -30,7 +30,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitutionAdmin_Rep
                 var queryResult = await connection.QueryAsync<Guid>(@"
                                                                 SELECT AdminID
                                                                 FROM Admins
-                                                                WHERE EducationalInstitutionID=@ID AND EntityAccess_IsDisabled=0",
+                                                                WHERE EducationalInstitutionID=@ID AND IsDisabled=0",
                                                                 new { ID = educationalInstitutionID });
 
                 return new() { AdminsIDs = queryResult.ToList() };
