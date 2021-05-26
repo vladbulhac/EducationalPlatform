@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Aggregator.Services.EducationalInstitution
 {
-    public class EducationalInstitutionCommandService : GrpcServiceBase<EducationalInstitutionCommandService>, IEducationalInstitutionCommandService
+    public class EducationalInstitutionCommandService : GrpcServiceBase<EducationalInstitutionCommandService>,
+                                                        IEducationalInstitutionCommandService
     {
         private readonly Command.CommandClient client;
 
@@ -18,6 +19,42 @@ namespace Aggregator.Services.EducationalInstitution
             logger.LogDebug("gRPC client created, calls server with request: {@request}", request);
 
             var request_call = client.CreateEducationalInstitutionAsync(request);
+
+            return await MakeUnaryCallAndGetResponseAsync(request_call);
+        }
+
+        public async Task<GrpcCallResponse<EducationalInstitutionUpdateResponse>> UpdateEducationalInstitutionAsync(EducationalInstitutionUpdateRequest request)
+        {
+            logger.LogDebug("gRPC client created, calls server with request: {@request}", request);
+
+            var request_call = client.UpdateEducationalInstitutionAsync(request);
+
+            return await MakeUnaryCallAndGetResponseAsync(request_call);
+        }
+
+        public async Task<GrpcCallResponse<EducationalInstitutionUpdateResponse>> UpdateEducationalInstitutionParentAsync(EducationalInstitutionParentUpdateRequest request)
+        {
+            logger.LogDebug("gRPC client created, calls server with request: {@request}", request);
+
+            var request_call = client.UpdateEducationalInstitutionParentAsync(request);
+
+            return await MakeUnaryCallAndGetResponseAsync(request_call);
+        }
+
+        public async Task<GrpcCallResponse<EducationalInstitutionUpdateResponse>> UpdateEducationalInstitutionLocationAsync(EducationalInstitutionLocationUpdateRequest request)
+        {
+            logger.LogDebug("gRPC client created, calls server with request: {@request}", request);
+
+            var request_call = client.UpdateEducationalInstitutionLocationAsync(request);
+
+            return await MakeUnaryCallAndGetResponseAsync(request_call);
+        }
+
+        public async Task<GrpcCallResponse<EducationalInstitutionDeleteResponse>> DeleteEducationalInstitutionAsync(EducationalInstitutionDeleteRequest request)
+        {
+            logger.LogDebug("gRPC client created, calls server with request: {@request}", request);
+
+            var request_call = client.DeleteEducationalInstitutionAsync(request);
 
             return await MakeUnaryCallAndGetResponseAsync(request_call);
         }
