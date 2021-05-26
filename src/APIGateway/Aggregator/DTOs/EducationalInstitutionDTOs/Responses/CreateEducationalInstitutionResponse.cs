@@ -2,7 +2,7 @@
 
 namespace Aggregator.DTOs.EducationalInstitutionDTOs.Responses
 {
-    public record DTOCreateEducationalInstitutionResponse
+    public record CreateEducationalInstitutionResponse
     {
         public Guid EducationalInstitutionID { get; init; }
     }
