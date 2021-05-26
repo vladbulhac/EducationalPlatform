@@ -43,7 +43,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
 
         public async Task<CommandRepositoryResult> UpdateEntireLocationAsync(Guid educationalInstitutionID, string locationID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken = default)
         {
-            var educationalInstitution = await GetEducationalInstitution(educationalInstitutionID, cancellationToken);
+            var educationalInstitution = await GetEducationalInstitutionIncludingBuildings(educationalInstitutionID, cancellationToken);
 
             if (educationalInstitution is null) return default;
 
@@ -63,7 +63,7 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
 
         public async Task<CommandRepositoryResult> UpdateBuildingsAsync(Guid educationalInstitutionID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken = default)
         {
-            var educationalInstitution = await GetEducationalInstitution(educationalInstitutionID, cancellationToken);
+            var educationalInstitution = await GetEducationalInstitutionIncludingBuildings(educationalInstitutionID, cancellationToken);
 
             if (educationalInstitution is null) return default;
 
@@ -104,10 +104,18 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
 
         public async Task<CommandRepositoryResult> UpdateParentInstitutionAsync(Guid educationalInstitutionID, Guid parentInstitutionID, CancellationToken cancellationToken = default)
         {
-            var parentInstitution = await GetEducationalInstitution(parentInstitutionID, cancellationToken);
-            if (parentInstitution is null) return default;
+            EducationalInstitution parentInstitution = null;
+            if (parentInstitutionID != default)
+            {
+                parentInstitution = await GetEducationalInstitution(parentInstitutionID, cancellationToken);
+                if (parentInstitution is null) return default;
+            }
 
-            var educationalInstitution = await GetEducationalInstitution(educationalInstitutionID, cancellationToken);
+            var educationalInstitution = await context.EducationalInstitutions
+                                                            .Include(ei => ei.Admins)
+                                                            .Include(ei => ei.ParentInstitution)
+                                                            .Where(ei => !ei.EntityAccess.IsDisabled && ei.EducationalInstitutionID == educationalInstitutionID)
+                                                            .SingleOrDefaultAsync(cancellationToken);
             if (educationalInstitution is null) return default;
 
             educationalInstitution.SetParentInstitution(parentInstitution);
@@ -116,6 +124,13 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
 
         private async Task<EducationalInstitution> GetEducationalInstitution(Guid educationalInstitutionID, CancellationToken cancellationToken = default)
             => await context.EducationalInstitutions.Include(ei => ei.Admins)
-                                                    .SingleOrDefaultAsync(ei => ei.EducationalInstitutionID == educationalInstitutionID, cancellationToken);
+                                                    .Where(ei => !ei.EntityAccess.IsDisabled && ei.EducationalInstitutionID == educationalInstitutionID)
+                                                    .SingleOrDefaultAsync(cancellationToken);
+
+        private async Task<EducationalInstitution> GetEducationalInstitutionIncludingBuildings(Guid educationalInstitutionID, CancellationToken cancellationToken = default)
+            => await context.EducationalInstitutions.Include(ei => ei.Admins)
+                                                    .Include(ei => ei.Buildings)
+                                                    .Where(ei => !ei.EntityAccess.IsDisabled && ei.EducationalInstitutionID == educationalInstitutionID)
+                                                    .SingleOrDefaultAsync(cancellationToken);
     }
 }
