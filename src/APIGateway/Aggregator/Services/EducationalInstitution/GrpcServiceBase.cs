@@ -13,12 +13,12 @@ namespace Aggregator.Services.EducationalInstitution
         protected GrpcServiceBase(ILogger<TService> logger)
                     => this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-        protected async Task<GrpcCallResponse<T>> MakeUnaryCallAndGetResponseAsync<T>(AsyncUnaryCall<T> request_call)
+        protected async Task<GrpcCallResponse<T>> MakeUnaryCallAndGetResponseAsync<T>(AsyncUnaryCall<T> call)
         {
             try
             {
-                var response = await request_call.ResponseAsync;
-                var trailers = request_call.GetTrailers();
+                var response = await call.ResponseAsync;
+                var trailers = call.GetTrailers();
 
                 logger.LogDebug("gRPC call ended with response: {@response}", response);
 
