@@ -1275,40 +1275,6 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithDefaultParentInstitutionID_ShouldReturnFalse()
-        {
-            //Arrange
-            var request = new DTOEducationalInstitutionParentUpdateCommand()
-            {
-                EducationalInstitutionID = Guid.NewGuid(),
-                ParentInstitutionID = default
-            };
-
-            //Act
-            var result = validationHandler.IsRequestValid(request, out string validationErrors);
-
-            //Assert
-            Assert.False(result);
-        }
-
-        [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithDefaultParentInstitutionID_ShouldReturnValidationErrors()
-        {
-            //Arrange
-            var request = new DTOEducationalInstitutionParentUpdateCommand()
-            {
-                EducationalInstitutionID = Guid.NewGuid(),
-                ParentInstitutionID = default
-            };
-
-            //Act
-            var result = validationHandler.IsRequestValid(request, out string validationErrors);
-
-            //Assert
-            Assert.Equal(" Property ParentInstitutionID failed validation. Error was: Parent Institution ID was empty or null!", validationErrors);
-        }
-
-        [Fact]
         public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithParentInstitutionIDSameAsEducationalInstitutionID_ShouldReturnFalse()
         {
             //Arrange
