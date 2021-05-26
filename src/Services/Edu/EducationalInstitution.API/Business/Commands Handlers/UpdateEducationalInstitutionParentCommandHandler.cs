@@ -88,7 +88,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             {
                 return HandleException<Response>(
                         error_message: "Could not update the Educational Institution with the given data: {0}, using {1} with {2}'s method: {3} and {4}, error details => {5}",
-                        response_message: "An error occurred while updating the parent of the Educational Institution with the following ID: {0}!",
+                        response_message: "An error occurred while updating the parent of the Educational Institution with the given data!",
                         JsonConvert.SerializeObject(request),
                         unitOfWorkCommand.GetType(),
                         unitOfWorkCommand.UsingEducationalInstitutionCommandRepository().GetType(),
