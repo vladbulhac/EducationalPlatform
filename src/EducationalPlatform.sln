@@ -44,6 +44,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DatabaseCleaner", "DatabaseCleaner", "{6B73B25E-52C1-415D-B8B5-985557FF210C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseCleanerService", "Services\DatabaseCleaner\DatabaseCleanerService\DatabaseCleanerService.csproj", "{723DCC1B-1A84-4E7E-A767-BEB499E8929E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +78,10 @@ Global
 		{54BDA6F8-1AE6-4809-ABEB-CEB1A3C69C78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54BDA6F8-1AE6-4809-ABEB-CEB1A3C69C78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54BDA6F8-1AE6-4809-ABEB-CEB1A3C69C78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{723DCC1B-1A84-4E7E-A767-BEB499E8929E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{723DCC1B-1A84-4E7E-A767-BEB499E8929E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{723DCC1B-1A84-4E7E-A767-BEB499E8929E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{723DCC1B-1A84-4E7E-A767-BEB499E8929E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +100,8 @@ Global
 		{C15AF18F-6EDC-4DAD-B507-4B8670427514} = {D05C3A76-9C97-4699-8EFB-F455B0FD6A31}
 		{D0D0C318-84BD-4373-BEEF-75C54484A04A} = {C15AF18F-6EDC-4DAD-B507-4B8670427514}
 		{54BDA6F8-1AE6-4809-ABEB-CEB1A3C69C78} = {2E86A1B0-96E4-4E73-B726-EC5B6AEAD444}
+		{6B73B25E-52C1-415D-B8B5-985557FF210C} = {D05C3A76-9C97-4699-8EFB-F455B0FD6A31}
+		{723DCC1B-1A84-4E7E-A767-BEB499E8929E} = {6B73B25E-52C1-415D-B8B5-985557FF210C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0755839D-14ED-4C54-BEB8-32CC5B50A3B4}
