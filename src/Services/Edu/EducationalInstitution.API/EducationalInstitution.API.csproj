@@ -54,6 +54,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\EventBus\RabbitMQEventBus\RabbitMQEventBus.csproj" />
+    <ProjectReference Include="..\..\DatabaseCleaner\DatabaseCleanerService\DatabaseCleanerService.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,3 +1,4 @@
+using DatabaseCleanerService;
 using EducationalInstitutionAPI.Business.Validation_Handler;
 using EducationalInstitutionAPI.Data.Contexts;
 using EducationalInstitutionAPI.Grpc;
@@ -86,7 +87,14 @@ namespace EducationalInstitutionAPI
             services.AddEventBus(configuration)
                     .AddTransient<IValidationHandler, ValidationHandler>()
                     .AddTransient<IUnitOfWorkForQueries, UnitOfWorkForQueries>()
-                    .AddTransient<IUnitOfWorkForCommands, UnitOfWorkForCommands>();
+                    .AddTransient<IUnitOfWorkForCommands, UnitOfWorkForCommands>()
+                    .AddHostedService(serviceProvider =>
+                    {
+                        var connectionString = configuration.GetSection("ConnectionStrings")["ConnectionToWriteDB"];
+                        var logger = serviceProvider.GetRequiredService<ILogger<Worker>>();
+
+                        return new Worker(connectionString, retryInHours: 12, logger);
+                    });
 
             return services;
         }
