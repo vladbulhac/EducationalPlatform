@@ -1307,7 +1307,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             var result = validationHandler.IsRequestValid(request, out string validationErrors);
 
             //Assert
-            Assert.Equal(" Property ParentInstitutionID failed validation. Error was: Parent Institution ID was the same as Educational Institution ID!", validationErrors);
+            Assert.Equal(" Property ParentInstitutionID failed validation. Error was: ParentInstitutionID was the same as EducationalInstitutionID!", validationErrors);
         }
 
         #endregion Request of type DTOEducationalInstitutionParentUpdateCommand TESTS
