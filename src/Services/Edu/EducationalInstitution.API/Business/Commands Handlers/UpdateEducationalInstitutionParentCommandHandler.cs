@@ -19,13 +19,13 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
     public class UpdateEducationalInstitutionParentCommandHandler : HandlerBase<UpdateEducationalInstitutionParentCommandHandler>,
                                                                     IRequestHandler<DTOEducationalInstitutionParentUpdateCommand, Response>
     {
-        private readonly IUnitOfWorkForCommands unitOfWorkCommand;
+        private readonly IUnitOfWorkForCommands unitOfWork;
         private readonly IEventBus eventBus;
 
         /// <exception cref="ArgumentNullException"/>
-        public UpdateEducationalInstitutionParentCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IEventBus eventBus, ILogger<UpdateEducationalInstitutionParentCommandHandler> logger) : base(logger)
+        public UpdateEducationalInstitutionParentCommandHandler(IUnitOfWorkForCommands unitOfWork, IEventBus eventBus, ILogger<UpdateEducationalInstitutionParentCommandHandler> logger) : base(logger)
         {
-            this.unitOfWorkCommand = unitOfWorkCommand ?? throw new ArgumentNullException(nameof(unitOfWorkCommand));
+            this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
         }
 
@@ -34,7 +34,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// </summary>
         /// <param name="cancellationToken">Cancels the operation ____________</param>
         /// <returns>
-        /// An <see cref="Response{TData}">object</see> with HttpStatusCode:
+        /// An <see cref="Response">object</see> with HttpStatusCode:
         /// <list type="bullet">
         /// <item><see cref="HttpStatusCode.NoContent">NoContent</see> if operation is successful</item>
         /// <item><see cref="HttpStatusCode.NotFound">NotFound</see> if no <see cref="EducationalInstitution"/> has been found for the provided EducationalInstitutionID or ParentInstitutionID</item>
@@ -48,9 +48,9 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
             try
             {
-                using (unitOfWorkCommand)
+                using (unitOfWork)
                 {
-                    var commandResult = await unitOfWorkCommand.UsingEducationalInstitutionCommandRepository()
+                    var commandResult = await unitOfWork.UsingEducationalInstitutionCommandRepository()
                                                                .UpdateParentInstitutionAsync(request.EducationalInstitutionID, request.ParentInstitutionID, cancellationToken);
 
                     if (commandResult == default)
@@ -61,7 +61,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                             Message = $"The Educational Institution with the ID: {request.EducationalInstitutionID} or the Parent Educational Institution with the ID: {request.ParentInstitutionID} has not been found!"
                         };
 
-                    await unitOfWorkCommand.SaveChangesAsync(cancellationToken);
+                    await unitOfWork.SaveChangesAsync(cancellationToken);
 
                     NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent @event = new()
                     {
@@ -75,13 +75,6 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                         ToNotify = commandResult.AdminsToNotify,
                     };
                     eventBus.Publish(@event);
-
-                    return new()
-                    {
-                        OperationStatus = true,
-                        StatusCode = HttpStatusCode.NoContent,
-                        Message = string.Empty
-                    };
                 }
             }
             catch (Exception e)
@@ -90,12 +83,19 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                         error_message: "Could not update the Educational Institution with the given data: {0}, using {1} with {2}'s method: {3} and {4}, error details => {5}",
                         response_message: "An error occurred while updating the parent of the Educational Institution with the given data!",
                         JsonConvert.SerializeObject(request),
-                        unitOfWorkCommand.GetType(),
-                        unitOfWorkCommand.UsingEducationalInstitutionCommandRepository().GetType(),
+                        unitOfWork.GetType(),
+                        unitOfWork.UsingEducationalInstitutionCommandRepository().GetType(),
                         nameof(IEducationalInstitutionQueryRepository.GetEntityByIDAsync),
                         nameof(IEducationalInstitutionCommandRepository.UpdateParentInstitutionAsync),
                         e.Message);
             }
+
+            return new()
+            {
+                OperationStatus = true,
+                StatusCode = HttpStatusCode.NoContent,
+                Message = string.Empty
+            };
         }
     }
 }

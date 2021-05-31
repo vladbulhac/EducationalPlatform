@@ -35,7 +35,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <returns>
-        /// An <see cref="Response{TData}">object</see> with HttpStatusCode:
+        /// An <see cref="Response">object</see> with HttpStatusCode:
         /// <list type="bullet">
         /// <item><see cref="HttpStatusCode.NoContent">NoContent</see> if operation is successful</item>
         /// <item><see cref="HttpStatusCode.NotFound">NotFound</see> if the <see cref="EducationalInstitution"/> has not been found</item>
@@ -75,13 +75,6 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                     };
 
                     eventBus.Publish(@event);
-
-                    return new()
-                    {
-                        OperationStatus = true,
-                        StatusCode = HttpStatusCode.NoContent,
-                        Message = string.Empty
-                    };
                 }
             }
             catch (Exception e)
@@ -96,6 +89,13 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                     e.Message
                     );
             }
+
+            return new()
+            {
+                OperationStatus = true,
+                StatusCode = HttpStatusCode.NoContent,
+                Message = string.Empty
+            };
         }
 
         private async Task<CommandRepositoryResult> UpdateEducationalInstitution(DTOEducationalInstitutionUpdateCommand request, CancellationToken cancellationToken)

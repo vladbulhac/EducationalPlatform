@@ -34,7 +34,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         /// </summary>
         /// <param name="cancellationToken">Cancels the operation ____________</param>
         /// <returns>
-        /// An <see cref="Response{TData}">object</see> with HttpStatusCode:
+        /// An <see cref="Response">object</see> with HttpStatusCode:
         /// <list type="bullet">
         /// <item><see cref="HttpStatusCode.NoContent">NoContent</see> if operation is successful</item>
         /// <item><see cref="HttpStatusCode.NotFound">NotFound</see> if no <see cref="EducationalInstitution"/> has been found for the provided id</item>
@@ -74,13 +74,6 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                         ToNotify = commandResult.AdminsToNotify,
                     };
                     eventBus.Publish(@event);
-
-                    return new()
-                    {
-                        OperationStatus = true,
-                        StatusCode = HttpStatusCode.NoContent,
-                        Message = string.Empty
-                    };
                 }
             }
             catch (Exception e)
@@ -95,6 +88,13 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                             e.Message
                             );
             }
+
+            return new()
+            {
+                OperationStatus = true,
+                StatusCode = HttpStatusCode.NoContent,
+                Message = string.Empty
+            };
         }
 
         private async Task<CommandRepositoryResult> IsEducationalInstitutionUpdatedAndSavedToDatabase(DTOEducationalInstitutionLocationUpdateCommand request, CancellationToken cancellationToken)
