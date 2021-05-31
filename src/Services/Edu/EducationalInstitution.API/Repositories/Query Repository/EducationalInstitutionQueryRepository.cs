@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Query_Repository
+namespace EducationalInstitutionAPI.Repositories.Query_Repository
 {
     public class EducationalInstitutionQueryRepository : IEducationalInstitutionQueryRepository
     {

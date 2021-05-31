@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Command_Repository
+namespace EducationalInstitutionAPI.Repositories.Command_Repository
 {
     /// <summary>
     /// Contains concrete implementations of the methods that execute commands over the <see cref="EducationalInstitution"/> entities

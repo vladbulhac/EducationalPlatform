@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Command_Repository
+namespace EducationalInstitutionAPI.Repositories.Command_Repository
 {
     /// <summary>
     /// Defines specific command operations over the set of <see cref="EducationalInstitution"/> entities
