@@ -631,5 +631,156 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests.Educatio
         }
 
         #endregion GetAllLikeNameAsync() TESTS
+
+        #region GetAllAdminsForEducationalInstitutionAsync() TESTS
+
+        [IgnoreWhenDatabaseIsNotLoaded]
+        public async Task GivenAValidEducationalInstitutionID_ToGetAllAdminsForEducationalInstitutionAsyncMethod_WithIDThatDoesntExistInDatabse_ShouldReturnAnEmptyCollection()
+        {
+            //Arrange
+            var educationalInstitutionID = new Guid("9a0b8def-c8f0-43a4-b6da-030affb9683d");
+
+            //Act
+            var result = await repository.GetAllAdminsForEducationalInstitutionAsync(educationalInstitutionID);
+
+            //Assert
+            Assert.Empty(result.AdminsIDs);
+        }
+
+        [IgnoreWhenDatabaseIsNotLoaded]
+        public async Task GivenAValidEducationalInstitutionID_ToGetAllAdminsForEducationalInstitutionAsyncMethod_ShouldReturnACollectionWithTwoElements()
+        {
+            //Arrange
+            var educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[3].EducationalInstitutionID;
+
+            //Act
+            var result = await repository.GetAllAdminsForEducationalInstitutionAsync(educationalInstitutionID);
+
+            //Assert
+            Assert.Equal(2, result.AdminsIDs.Count);
+        }
+
+        [IgnoreWhenDatabaseIsNotLoaded]
+        public async Task GivenAValidEducationalInstitutionID_ToGetAllAdminsForEducationalInstitutionAsyncMethod_ShouldReturnACollectionWithExpectedID()
+        {
+            //Arrange
+            var educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[3].EducationalInstitutionID;
+
+            //Act
+            var result = await repository.GetAllAdminsForEducationalInstitutionAsync(educationalInstitutionID);
+
+            //Assert
+            Assert.Contains(new Guid("9a0b8def-c8f0-43a4-b6da-030affb9683d"), result.AdminsIDs);
+        }
+
+        #endregion GetAllAdminsForEducationalInstitutionAsync() TESTS
+
+        #region GetAllEducationalInstitutionsWithSameBuildingAsync() TESTS
+
+        [IgnoreWhenDatabaseIsNotLoaded]
+        public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldReturnACollectionWithTwoElements()
+        {
+            //Arrange
+            string buildingId = "6050efcd87e2647ab7ac443e";
+
+            //Act
+            var result = await repository.GetAllEducationalInstitutionsWithSameBuildingAsync(buildingId);
+
+            //Assert
+            Assert.Equal(2, result.EducationalInstitutions.Count);
+        }
+
+        [IgnoreWhenDatabaseIsNotLoaded]
+        public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldContainAnEntityWithName_UniversityofTesting()
+        {
+            //Arrange
+            string buildingId = "6050efcd87e2647ab7ac443e";
+
+            //Act
+            var result = await repository.GetAllEducationalInstitutionsWithSameBuildingAsync(buildingId);
+
+            //Assert
+            Assert.Contains(result.EducationalInstitutions, ei => ei.Name.Equals("University of Testing"));
+        }
+
+        [IgnoreWhenDatabaseIsNotLoaded]
+        public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldContainAnEntityWithName_UniversityofTestingOne()
+        {
+            //Arrange
+            string buildingId = "6050efcd87e2647ab7ac443e";
+
+            //Act
+            var result = await repository.GetAllEducationalInstitutionsWithSameBuildingAsync(buildingId);
+
+            //Assert
+            Assert.Contains(result.EducationalInstitutions, ei => ei.Name.Equals("University of Testing One"));
+        }
+
+        [IgnoreWhenDatabaseIsNotLoaded]
+        public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldContainAnEntityWithDescription_Testdata()
+        {
+            //Arrange
+            string buildingId = "6050efcd87e2647ab7ac443e";
+
+            //Act
+            var result = await repository.GetAllEducationalInstitutionsWithSameBuildingAsync(buildingId);
+
+            //Assert
+            Assert.Contains(result.EducationalInstitutions, ei => ei.Description.Equals("Test data"));
+        }
+
+        [IgnoreWhenDatabaseIsNotLoaded]
+        public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldContainAnEntityWithDescription_TestMoreData()
+        {
+            //Arrange
+            string buildingId = "6050efcd87e2647ab7ac443e";
+
+            //Act
+            var result = await repository.GetAllEducationalInstitutionsWithSameBuildingAsync(buildingId);
+
+            //Assert
+            Assert.Contains(result.EducationalInstitutions, ei => ei.Description.Equals("Test More Data"));
+        }
+
+        [IgnoreWhenDatabaseIsNotLoaded]
+        public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldReturnTheFirstEntityWithAGuidID()
+        {
+            //Arrange
+            string buildingId = "6050efcd87e2647ab7ac443e";
+
+            //Act
+            var result = await repository.GetAllEducationalInstitutionsWithSameBuildingAsync(buildingId);
+
+            //Assert
+            Assert.NotEqual(Guid.Empty, result.EducationalInstitutions.ElementAt(0).EducationalInstitutionID);
+        }
+
+        [IgnoreWhenDatabaseIsNotLoaded]
+        public async Task GivenAValidBuildingID_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldReturnTheSecondEntityWithAGuidID()
+        {
+            //Arrange
+            string buildingId = "6050efcd87e2647ab7ac443e";
+
+            //Act
+            var result = await repository.GetAllEducationalInstitutionsWithSameBuildingAsync(buildingId);
+
+            //Assert
+            Assert.NotEqual(Guid.Empty, result.EducationalInstitutions.ElementAt(1).EducationalInstitutionID);
+        }
+
+        [IgnoreWhenDatabaseIsNotLoaded]
+        public async Task GivenAnInvalidBuildingID_ThatDoesntExistInDatabase_ToGetAllEducationalInstitutionsWithSameBuildingAsyncMethod_ShouldReturnAnEmptyCollection()
+        {
+            //Arrange
+            string buildingId = "6050efcd87e2647ab7ac443F";
+
+            //Act
+            var result = await repository.GetAllEducationalInstitutionsWithSameBuildingAsync(buildingId);
+
+            //Assert
+            Assert.Empty(result.EducationalInstitutions);
+        }
+
+        #endregion GetAllEducationalInstitutionsWithSameBuildingAsync() TESTS
     }
 }
