@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EducationalInstitutionAPI.Data.Repositories_results
+namespace EducationalInstitutionAPI.Data.Repository_Results
 {
     public class UpdateAdminsCommandRepositoryResult
     {
