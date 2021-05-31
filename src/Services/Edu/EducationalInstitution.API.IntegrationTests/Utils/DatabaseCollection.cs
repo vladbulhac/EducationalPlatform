@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace EducationalInstitution.API.IntegrationTests
+namespace EducationalInstitution.API.IntegrationTests.Utils
 {
     [CollectionDefinition("Database collection")]
     public class DatabaseCollection : ICollectionFixture<DatabaseFixture>

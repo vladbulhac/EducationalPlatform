@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
-namespace EducationalInstitution.API.IntegrationTests
+namespace EducationalInstitution.API.IntegrationTests.Utils
 {
     public class DatabaseFixture : IDisposable
     {
