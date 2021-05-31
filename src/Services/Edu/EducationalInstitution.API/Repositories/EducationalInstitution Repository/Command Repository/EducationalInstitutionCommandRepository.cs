@@ -122,6 +122,17 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
             return new(educationalInstitution.Admins.Select(a => a.AdminID).ToList());
         }
 
+        public async Task<UpdateAdminsCommandRepositoryResult> UpdateAdminsAsync(Guid educationalInstitutionID, ICollection<Guid> addAdminsIDs, ICollection<Guid> removeAdminsIDs, CancellationToken cancellationToken = default)
+        {
+            var educationalInstitution = await GetEducationalInstitution(educationalInstitutionID, cancellationToken);
+            if (educationalInstitution is null) return default;
+
+            educationalInstitution.CreateAndAddAdmins(addAdminsIDs);
+            educationalInstitution.RemoveAdmins(removeAdminsIDs);
+
+            return new(educationalInstitution.Admins.Select(a => a.AdminID).Except(addAdminsIDs).ToList(), addAdminsIDs, removeAdminsIDs);
+        }
+
         private async Task<EducationalInstitution> GetEducationalInstitution(Guid educationalInstitutionID, CancellationToken cancellationToken = default)
             => await context.EducationalInstitutions.Include(ei => ei.Admins)
                                                     .Where(ei => !ei.IsDisabled && ei.EducationalInstitutionID == educationalInstitutionID)
