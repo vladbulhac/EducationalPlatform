@@ -8,9 +8,10 @@ namespace EducationalInstitutionAPI.Data.Contexts.Entities_Type_Configuration
         public void Configure(EntityTypeBuilder<EducationalInstitution> builder)
         {
             builder.HasKey(ei => ei.EducationalInstitutionID);
-            builder.HasIndex(ei => new { ei.EducationalInstitutionID, ei.IsDisabled });
-            builder.HasIndex(ei => new { ei.LocationID, ei.EducationalInstitutionID, ei.IsDisabled });
-            builder.HasIndex(ei => new { ei.Name, ei.LocationID, ei.IsDisabled, ei.EducationalInstitutionID, ei.Description });
+            builder.HasIndex(ei => new { ei.EducationalInstitutionID, ei.IsDisabled }).IsUnique();
+            builder.HasIndex(ei => new { ei.LocationID, ei.EducationalInstitutionID, ei.IsDisabled }).IsUnique();
+            builder.HasIndex(ei => new { ei.Name, ei.LocationID, ei.IsDisabled, ei.EducationalInstitutionID, ei.Description }).IsUnique();
+            builder.HasIndex(ei => ei.Name).IsUnique();
 
             builder.HasOne(ei => ei.ParentInstitution)
                     .WithMany(ei => ei.ChildInstitutions);
