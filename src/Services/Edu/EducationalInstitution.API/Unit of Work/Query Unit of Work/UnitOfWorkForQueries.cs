@@ -1,6 +1,4 @@
 ﻿using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Query_Repository;
-using EducationalInstitutionAPI.Repositories.EducationalInstitutionAdmin_Repository.Query_Repostiory;
-using EducationalInstitutionAPI.Repositories.EducationalInstitutionBuilding_Repository.Query_Repository;
 using EducationalInstitutionAPI.Utils;
 using System;
 
@@ -11,8 +9,6 @@ namespace EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work
         private readonly string connectionString;
 
         public IEducationalInstitutionQueryRepository EducationalInstitutionQueryRepository { get; private set; }
-        public IEducationalInstitutionBuildingQueryRepository BuildingRepository { get; private set; }
-        public IEducationalInstitutionAdminQueryRepository AdminRepository { get; private set; }
 
         public UnitOfWorkForQueries(string connectionString = null)
         {
@@ -28,22 +24,6 @@ namespace EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work
                 EducationalInstitutionQueryRepository = new EducationalInstitutionQueryRepository(connectionString);
 
             return EducationalInstitutionQueryRepository;
-        }
-
-        public IEducationalInstitutionBuildingQueryRepository UsingEducationalInstitutionBuildingRepository()
-        {
-            if (BuildingRepository is null)
-                BuildingRepository = new EducationalInstitutionBuildingQueryRepository(connectionString);
-
-            return BuildingRepository;
-        }
-
-        public IEducationalInstitutionAdminQueryRepository UsingEducationalInstitutionAdminQueryRepository()
-        {
-            if (AdminRepository is null)
-                AdminRepository = new EducationalInstitutionAdminQueryRepository(connectionString);
-
-            return AdminRepository;
         }
     }
 }
