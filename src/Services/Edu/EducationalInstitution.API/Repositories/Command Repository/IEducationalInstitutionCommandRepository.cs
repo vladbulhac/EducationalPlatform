@@ -1,5 +1,5 @@
 ﻿using EducationalInstitutionAPI.Data;
-using EducationalInstitutionAPI.Data.Repositories_results;
+using EducationalInstitutionAPI.Data.Repository_Results;
 using System;
 using System.Collections.Generic;
 using System.Threading;

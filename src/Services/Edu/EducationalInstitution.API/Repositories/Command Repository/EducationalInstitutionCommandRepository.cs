@@ -1,6 +1,6 @@
 ﻿using EducationalInstitutionAPI.Data;
 using EducationalInstitutionAPI.Data.Contexts;
-using EducationalInstitutionAPI.Data.Repositories_results;
+using EducationalInstitutionAPI.Data.Repository_Results;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

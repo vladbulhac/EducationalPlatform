@@ -1,6 +1,6 @@
 ﻿using EducationalInstitutionAPI.Business.Commands_Handlers;
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Commands_Results;
-using EducationalInstitutionAPI.Data.Repositories_results;
+using EducationalInstitutionAPI.Data.Repository_Results;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
 using Moq;

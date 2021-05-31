@@ -1,7 +1,7 @@
 ﻿using EducationalInstitutionAPI.Business.IntegrationEvents_Handlers;
 using EducationalInstitutionAPI.Data;
 using EducationalInstitutionAPI.Data.Events_Definitions;
-using EducationalInstitutionAPI.Data.Repositories_results;
+using EducationalInstitutionAPI.Data.Repository_Results;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
 using EducationalInstitutionAPI.Repositories.Command_Repository;
