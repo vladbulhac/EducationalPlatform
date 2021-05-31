@@ -11,6 +11,8 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
 {
     public class DataTransferObjectMappersForQueryServicesTests
     {
+        #region MapToEducationalInstitutionGetResponse extension method TESTS
+
         [Fact]
         public void GivenGetEducationalInstitutionByIDQueryResult_ShouldReturnGetByIDQueryResult()
         {
@@ -559,6 +561,10 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             Assert.Null(mappedResult.ParentInstitution);
         }
 
+        #endregion MapToEducationalInstitutionGetResponse extension method TESTS
+
+        #region MapToDTOEducationalInstitutionByIDQuery extension method TESTS
+
         [Fact]
         public void GivenEducationalInstitutionGetByIdRequest_ShouldReturnDTOEducationalInstitutionByIDQuery()
         {
@@ -594,6 +600,10 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             //Assert
             Assert.Equal(educationalInstitutionID, mappedRequest.EducationalInstitutionID);
         }
+
+        #endregion MapToDTOEducationalInstitutionByIDQuery extension method TESTS
+
+        #region MapToDTOEducationalInstitutionsByNameQuery extension method TESTS
 
         [Fact]
         public void GivenEducationalInstitutionGetByNameRequest_ShouldReturnExpectedName()
@@ -657,6 +667,10 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             //Assert
             Assert.Equal(resultsCount, mappedRequest.ResultsCount);
         }
+
+        #endregion MapToDTOEducationalInstitutionsByNameQuery extension method TESTS
+
+        #region MapToGetByNameResult extension method TESTS
 
         [Fact]
         public void GivenGetAllEducationalInstitutionsByNameQueryResult_ShouldReturnACollectionWithOneElement()
@@ -795,5 +809,171 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             //Assert
             Assert.Empty(mappedResult);
         }
+
+        #endregion MapToGetByNameResult extension method TESTS
+
+        #region MapToGetByLocationResult extension method TESTS
+
+        [Fact]
+        public void GivenGetAllEducationalInstitutionsByLocationQueryResult_ShouldReturnCollectionWithOneElement()
+        {
+            //Arrange
+            GetEducationalInstitutionByLocationQueryResult queryResult = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                Name = "testName",
+                Description = "testDescription",
+                BuildingsIDs = new List<string>() { "building123" }
+            };
+
+            GetAllEducationalInstitutionsByLocationQueryResult result = new()
+            {
+                EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { queryResult }
+            };
+
+            //Act
+            var mappedResult = result.MapToGetByLocationResult();
+
+            //Assert
+            Assert.Single(mappedResult);
+        }
+
+        [Fact]
+        public void GivenGetAllEducationalInstitutionsByLocationQueryResult_ShouldReturnExpectedID()
+        {
+            //Arrange
+            GetEducationalInstitutionByLocationQueryResult queryResult = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                Name = "testName",
+                Description = "testDescription",
+                BuildingsIDs = new List<string>() { "building123" }
+            };
+
+            GetAllEducationalInstitutionsByLocationQueryResult result = new()
+            {
+                EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { queryResult }
+            };
+
+            //Act
+            var mappedResult = result.MapToGetByLocationResult();
+
+            //Assert
+            Assert.Equal(queryResult.EducationalInstitutionID.ToProtoUuid(), mappedResult.ElementAt(0).EducationalInstitutionId);
+        }
+
+        [Fact]
+        public void GivenGetAllEducationalInstitutionsByLocationQueryResult_ShouldReturnExpectedName()
+        {
+            //Arrange
+            GetEducationalInstitutionByLocationQueryResult queryResult = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                Name = "testName",
+                Description = "testDescription",
+                BuildingsIDs = new List<string>() { "building123" }
+            };
+
+            GetAllEducationalInstitutionsByLocationQueryResult result = new()
+            {
+                EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { queryResult }
+            };
+
+            //Act
+            var mappedResult = result.MapToGetByLocationResult();
+
+            //Assert
+            Assert.Equal(queryResult.Name, mappedResult.ElementAt(0).Name);
+        }
+
+        [Fact]
+        public void GivenGetAllEducationalInstitutionsByLocationQueryResult_ShouldReturnExpectedDescription()
+        {
+            //Arrange
+            GetEducationalInstitutionByLocationQueryResult queryResult = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                Name = "testName",
+                Description = "testDescription",
+                BuildingsIDs = new List<string>() { "building123" }
+            };
+
+            GetAllEducationalInstitutionsByLocationQueryResult result = new()
+            {
+                EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { queryResult }
+            };
+
+            //Act
+            var mappedResult = result.MapToGetByLocationResult();
+
+            //Assert
+            Assert.Equal(queryResult.Description, mappedResult.ElementAt(0).Description);
+        }
+
+        [Fact]
+        public void GivenGetAllEducationalInstitutionsByLocationQueryResult_ShouldReturnBuildingsCollectionWithOneElement()
+        {
+            //Arrange
+            GetEducationalInstitutionByLocationQueryResult queryResult = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                Name = "testName",
+                Description = "testDescription",
+                BuildingsIDs = new List<string>() { "building123" }
+            };
+
+            GetAllEducationalInstitutionsByLocationQueryResult result = new()
+            {
+                EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { queryResult }
+            };
+
+            //Act
+            var mappedResult = result.MapToGetByLocationResult();
+
+            //Assert
+            Assert.Single(mappedResult.ElementAt(0).Buildings);
+        }
+
+        [Fact]
+        public void GivenGetAllEducationalInstitutionsByLocationQueryResult_ShouldReturnBuildingsCollectionWithExpectedID()
+        {
+            //Arrange
+            GetEducationalInstitutionByLocationQueryResult queryResult = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                Name = "testName",
+                Description = "testDescription",
+                BuildingsIDs = new List<string>() { "building123" }
+            };
+
+            GetAllEducationalInstitutionsByLocationQueryResult result = new()
+            {
+                EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { queryResult }
+            };
+
+            //Act
+            var mappedResult = result.MapToGetByLocationResult();
+
+            //Assert
+            Assert.Equal(queryResult.BuildingsIDs.ElementAt(0), mappedResult.ElementAt(0).Buildings[0]);
+        }
+
+        [Fact]
+        public void GivenGetAllEducationalInstitutionsByLocationQueryResult_WithEmptyCollection_ShouldReturnEmptyCollection()
+        {
+            //Arrange
+            GetAllEducationalInstitutionsByLocationQueryResult result = new()
+            {
+                EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>()
+            };
+
+            //Act
+            var mappedResult = result.MapToGetByLocationResult();
+
+            //Assert
+            Assert.Empty(mappedResult);
+        }
+
+        #endregion MapToGetByLocationResult extension method TESTS
     }
 }
