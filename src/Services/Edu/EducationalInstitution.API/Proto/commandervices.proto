@@ -8,6 +8,7 @@ service Command{
 	rpc CreateEducationalInstitution(EducationalInstitutionCreateRequest) returns (EducationalInstitutionCreateResponse);
 	rpc DeleteEducationalInstitution(EducationalInstitutionDeleteRequest) returns (EducationalInstitutionDeleteResponse);
 	rpc UpdateEducationalInstitution(EducationalInstitutionUpdateRequest) returns (EducationalInstitutionUpdateResponse);
+	rpc UpdateEducationalInstitutionAdmin(EducationalInstitutionAdminUpdateRequest) returns (EducationalInstitutionUpdateResponse);
 	rpc UpdateEducationalInstitutionParent(EducationalInstitutionParentUpdateRequest) returns (EducationalInstitutionUpdateResponse);
 	rpc UpdateEducationalInstitutionLocation(EducationalInstitutionLocationUpdateRequest) returns (EducationalInstitutionUpdateResponse);
 }
