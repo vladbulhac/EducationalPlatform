@@ -1514,8 +1514,6 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             Assert.Empty(validationErrors);
         }
 
-        /* ---THROWS Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')---
-         * ---WHEN UpdateLocation is false---
         [Fact]
         public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyLocationID_ShouldReturnTrue()
         {
@@ -1526,7 +1524,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 UpdateLocation = false,
                 LocationID = string.Empty,
                 UpdateBuildings = true,
-                BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509" }
+                AddBuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509" }
             };
 
             //Act
@@ -1534,7 +1532,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
 
             //Assert
             Assert.True(validationResult);
-        }*/
+        }
 
         [Fact]
         public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithDuplicateBuildingsIDs_ShouldReturnFalse()
@@ -1906,7 +1904,420 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             Assert.Equal(" Property AddBuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
         }
 
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithSameIDOnAddBuildingsIDsAndRemoveBuildingsIDs_ShouldReturnFalse()
+        {
+            //Arrange
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                AddBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
+                RemoveBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out _);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithSameIDOnAddBuildingsIDsAndRemoveBuildingsIDs_ShouldReturnAStringWithValidationErrors()
+        {
+            //Arrange
+            var buildingID = "10Fc4a7f1e00F1BDebAe4501";
+            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                UpdateLocation = true,
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                UpdateBuildings = true,
+                AddBuildingsIDs = new List<string>() { buildingID },
+                RemoveBuildingsIDs = new List<string>() { buildingID }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal($" Property AddBuildingsIDs[0] failed validation. Error was: AddBuildingsIDs' {buildingID} was also found in RemoveBuildingsIDs!", validationErrors);
+        }
+
         #endregion Request of type DTOEducationalInstitutionLocationUpdateCommand TESTS
+
+        #region Request of Type DTOEducationalInstitutionAdminUpdateCommand TESTS
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_ShouldReturnTrue()
+        {
+            //Arrange
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.True(validationResult);
+        }
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_ShouldReturnEmptyValidationErrorsString()
+        {
+            //Arrange
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Empty(validationErrors);
+        }
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithNullAddAdminsIDsCollection_ShouldReturnTrue()
+        {
+            //Arrange
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                AddAdminsIDs = null,
+                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.True(validationResult);
+        }
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithNullAddAdminsIDsCollection_ShouldReturnEmptyValidationErrorsString()
+        {
+            //Arrange
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                AddAdminsIDs = null,
+                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Empty(validationErrors);
+        }
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithNullRemoveAdminsIDsCollection_ShouldReturnTrue()
+        {
+            //Arrange
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                RemoveAdminsIDs = null
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.True(validationResult);
+        }
+
+        [Fact]
+        public void GivenAValidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithNullRemoveAdminsIDsCollection_ShouldReturnEmptyValidationErrorsString()
+        {
+            //Arrange
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                RemoveAdminsIDs = null
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Empty(validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDefaultID_ShouldReturnFalse()
+        {
+            //Arrange
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = default,
+                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDefaultID_ShouldReturnAStringWithValidationError()
+        {
+            //Arrange
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = default,
+                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithBothCollectionsNull_ShouldReturnFalse()
+        {
+            //Arrange
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                AddAdminsIDs = null,
+                RemoveAdminsIDs = null
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithBothCollectionsNull_ShouldReturnAStringWithValidationErrors()
+        {
+            //Arrange
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                AddAdminsIDs = null,
+                RemoveAdminsIDs = null
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property RemoveAdminsIDs failed validation. Error was: Both AddAdminsIDs and RemoveAdminsIDs collections are empty!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithSameAdminIDOnBothCollections_ShouldReturnFalse()
+        {
+            //Arrange
+            var adminID = Guid.NewGuid();
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                AddAdminsIDs = new List<Guid>() { adminID },
+                RemoveAdminsIDs = new List<Guid>() { adminID }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithSameAdminIDOnBothCollections_ShouldReturnAStringWithValidationErrors()
+        {
+            //Arrange
+            var adminID = Guid.NewGuid();
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                AddAdminsIDs = new List<Guid>() { adminID },
+                RemoveAdminsIDs = new List<Guid>() { adminID }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal($" Property RemoveAdminsIDs[0] failed validation. Error was: RemoveAdminsIDs' {adminID} was also found in AddAdminsIDs!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDuplicateIDInAddAdminsIDsCollection_ShouldReturnFalse()
+        {
+            //Arrange
+            var adminID = Guid.NewGuid();
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                AddAdminsIDs = new List<Guid>() { adminID, adminID },
+                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDuplicateIDInAddAdminsIDsCollection_ShouldReturnAStringWithValidationErrors()
+        {
+            //Arrange
+            var adminID = Guid.NewGuid();
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                AddAdminsIDs = new List<Guid>() { adminID, adminID },
+                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property AddAdminsIDs failed validation. Error was: AddAdminsIDs contains duplicate values!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDuplicateIDInRemoveAdminsIDsCollection_ShouldReturnFalse()
+        {
+            //Arrange
+            var adminID = Guid.NewGuid();
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                RemoveAdminsIDs = new List<Guid>() { adminID, adminID }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDuplicateIDInRemoveAdminsIDsCollection_ShouldReturnAStringWithValidationErrors()
+        {
+            //Arrange
+            var adminID = Guid.NewGuid();
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                RemoveAdminsIDs = new List<Guid>() { adminID, adminID }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property RemoveAdminsIDs failed validation. Error was: RemoveAdminsIDs contains duplicate values!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDefaultIDInAddAdminsIDs_ShouldReturnFalse()
+        {
+            //Arrange
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                AddAdminsIDs = new List<Guid>() { default },
+                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDefaultIDInAddAdminsIDs_ShouldReturnAStringWithValidationErrors()
+        {
+            //Arrange
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                AddAdminsIDs = new List<Guid>() { default },
+                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property AddAdminsIDs[0] failed validation. Error was: AddAdminsIDs contains an invalid ID!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDefaultIDInRemoveAdminsIDs_ShouldReturnFalse()
+        {
+            //Arrange
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                RemoveAdminsIDs = new List<Guid>() { default }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDefaultIDInRemoveAdminsIDs_ShouldReturnAStringWithValidationErrors()
+        {
+            //Arrange
+            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                RemoveAdminsIDs = new List<Guid>() { default }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property RemoveAdminsIDs[0] failed validation. Error was: RemoveAdminsIDs contains an invalid ID!", validationErrors);
+        }
+
+        #endregion Request of Type DTOEducationalInstitutionAdminUpdateCommand TESTS
 
         #region Request of Type DTOEducationalInstiutionDeleteCommand TESTS
 
