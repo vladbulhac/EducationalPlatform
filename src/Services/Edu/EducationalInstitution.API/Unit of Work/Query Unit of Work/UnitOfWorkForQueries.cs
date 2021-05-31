@@ -1,4 +1,4 @@
-﻿using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Query_Repository;
+﻿using EducationalInstitutionAPI.Repositories.Query_Repository;
 using EducationalInstitutionAPI.Utils;
 using System;
 

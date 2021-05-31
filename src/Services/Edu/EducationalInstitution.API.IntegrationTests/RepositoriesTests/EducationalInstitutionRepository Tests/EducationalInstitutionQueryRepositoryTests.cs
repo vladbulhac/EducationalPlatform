@@ -1,6 +1,6 @@
 ﻿using EducationalInstitution.API.IntegrationTests.Utils;
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
-using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Query_Repository;
+using EducationalInstitutionAPI.Repositories.Query_Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;

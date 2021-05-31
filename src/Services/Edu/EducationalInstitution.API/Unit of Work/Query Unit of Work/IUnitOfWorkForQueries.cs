@@ -1,4 +1,4 @@
-﻿using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Query_Repository;
+﻿using EducationalInstitutionAPI.Repositories.Query_Repository;
 
 namespace EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work
 {

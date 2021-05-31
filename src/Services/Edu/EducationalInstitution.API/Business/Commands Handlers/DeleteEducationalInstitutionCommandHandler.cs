@@ -3,7 +3,7 @@ using EducationalInstitutionAPI.Data.Events_Definitions;
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Commands_Results;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
-using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Query_Repository;
+using EducationalInstitutionAPI.Repositories.Query_Repository;
 using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
 using EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work;
 using MediatR;

@@ -4,7 +4,7 @@ using EducationalInstitutionAPI.Data.Events_Definitions;
 using EducationalInstitutionAPI.Data.Repositories_results;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
-using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Command_Repository;
+using EducationalInstitutionAPI.Repositories.Command_Repository;
 using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;

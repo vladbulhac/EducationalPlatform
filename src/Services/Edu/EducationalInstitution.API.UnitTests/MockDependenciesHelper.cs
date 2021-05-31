@@ -1,6 +1,6 @@
 ﻿using EducationalInstitutionAPI.Business.Validation_Handler;
-using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Command_Repository;
-using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Query_Repository;
+using EducationalInstitutionAPI.Repositories.Command_Repository;
+using EducationalInstitutionAPI.Repositories.Query_Repository;
 using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
 using EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work;
 using Grpc.Core;

@@ -1,4 +1,4 @@
-﻿using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Command_Repository;
+﻿using EducationalInstitutionAPI.Repositories.Command_Repository;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

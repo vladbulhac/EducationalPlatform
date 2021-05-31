@@ -1,5 +1,5 @@
 ﻿using EducationalInstitutionAPI.Data.Contexts;
-using EducationalInstitutionAPI.Repositories.EducationalInstitution_Repository.Command_Repository;
+using EducationalInstitutionAPI.Repositories.Command_Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
