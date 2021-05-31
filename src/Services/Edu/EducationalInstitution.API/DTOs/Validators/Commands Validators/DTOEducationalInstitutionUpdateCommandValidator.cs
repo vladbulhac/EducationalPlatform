@@ -11,25 +11,25 @@ namespace EducationalInstitutionAPI.DTOs.Validators.Commands_Validators
         public DTOEducationalInstitutionUpdateCommandValidator()
         {
             CascadeMode = CascadeMode.Stop;
-            RuleFor(v => v.EducationalInstitutionID)
+            RuleFor(dto => dto.EducationalInstitutionID)
                               .NotEmpty()
                               .WithMessage("{PropertyName} was empty or null!");
 
-            When(v => v.UpdateName == true, () =>
+            When(dto => dto.UpdateName == true, () =>
             {
-                RuleFor(v => v.Name)
+                RuleFor(dto => dto.Name)
                                .NotEmpty()
                                 .WithMessage("{PropertyName} was empty or null!")
                                .Length(2, 128)
                                 .WithMessage("{PropertyName}'s length was not between 2-128 characters!");
             }).Otherwise(() =>
             {
-                RuleFor(v => v.UpdateDescription)
+                RuleFor(dto => dto.UpdateDescription)
                         .Equal(true)
                             .WithMessage("Both update fields are set to false!");
             });
 
-            When(v => v.UpdateDescription == true, () =>
+            When(dto => dto.UpdateDescription == true, () =>
             {
                 RuleFor(v => v.Description)
                              .NotEmpty()

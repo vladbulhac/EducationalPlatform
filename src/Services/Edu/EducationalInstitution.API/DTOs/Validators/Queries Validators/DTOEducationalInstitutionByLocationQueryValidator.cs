@@ -11,7 +11,7 @@ namespace EducationalInstitutionAPI.DTOs.Validators.Queries_Validators
         public DTOEducationalInstitutionByLocationQueryValidator()
         {
             CascadeMode = CascadeMode.Stop;
-            RuleFor(v => v.LocationID)
+            RuleFor(dto => dto.LocationID)
                                 .NotEmpty()
                                     .WithMessage("{PropertyName} was empty or null!")
                                 .Matches(@"\b[a-fA-F0-9]{24}$")

@@ -11,13 +11,13 @@ namespace EducationalInstitutionAPI.DTOs.Validators.Commands_Validators
         public DTOEducationalInstitutionParentUpdateCommandValidator()
         {
             CascadeMode = CascadeMode.Stop;
-            RuleFor(v => v.EducationalInstitutionID)
+            RuleFor(dto => dto.EducationalInstitutionID)
                              .NotEmpty()
                              .WithMessage("{PropertyName} was empty or null!");
 
-            RuleFor(v => v.ParentInstitutionID)
+            RuleFor(dto => dto.ParentInstitutionID)
                              .NotEqual(v => v.EducationalInstitutionID)
-                             .WithMessage("Parent Institution ID was the same as Educational Institution ID!");
+                             .WithMessage(dto => $"{nameof(dto.ParentInstitutionID)} was the same as {nameof(dto.EducationalInstitutionID)}!");
         }
     }
 }

@@ -12,60 +12,67 @@ namespace EducationalInstitutionAPI.DTOs.Validators.Commands_Validators
         public DTOEducationalInstitutionLocationUpdateCommandValidator()
         {
             CascadeMode = CascadeMode.Stop;
-            RuleFor(v => v.EducationalInstitutionID)
+            RuleFor(dto => dto.EducationalInstitutionID)
                               .NotEmpty()
                               .WithMessage("{PropertyName} was empty or null!");
 
-            When(v => v.UpdateBuildings == true, () =>
+            When(dto => dto.UpdateBuildings == true, () =>
             {
-                When(v => v.AddBuildingsIDs is not null && v.AddBuildingsIDs.Count > 0, () =>
+                When(dto => dto.AddBuildingsIDs is not null && dto.AddBuildingsIDs.Count > 0, () =>
                 {
-                    RuleFor(v => v.AddBuildingsIDs)
-                                   .Must((i, x) => NotContainDuplicates(x))
-                                    .WithMessage("AddBuildingsIDs can't contain duplicates!");
+                    RuleFor(dto => dto.AddBuildingsIDs)
+                                   .Must((dto, collection) => NotContainDuplicates(collection))
+                                    .WithMessage(dto => $"{nameof(dto.AddBuildingsIDs)} can't contain duplicates!");
 
-                    RuleForEach(v => v.AddBuildingsIDs)
+                    RuleForEach(dto => dto.AddBuildingsIDs)
                                     .NotEmpty()
                                         .WithMessage("BuildingID was empty or null!")
                                     .Matches(@"\b[a-fA-F0-9]{24}$")
                                         .WithMessage("BuildingID contains characters that are not supported and/or the length is not exactly 24!")
-                                    .NotEqual(req => req.LocationID)
-                                        .When(v => v.UpdateLocation == true)
-                                        .WithMessage("BuildingID was the same as LocationID!");
+                                    .NotEqual(dto => dto.LocationID)
+                                        .When(dto => dto.UpdateLocation == true)
+                                        .WithMessage(dto => $"BuildingID was the same as {nameof(dto.LocationID)}!");
                 });
 
-                When(v => v.RemoveBuildingsIDs is not null && v.RemoveBuildingsIDs.Count > 0, () =>
+                When(dto => dto.RemoveBuildingsIDs is not null && dto.RemoveBuildingsIDs.Count > 0, () =>
                 {
-                    RuleFor(v => v.RemoveBuildingsIDs)
-                                 .Must((i, x) => NotContainDuplicates(x))
-                                  .WithMessage("BuildingsIDs can't contain duplicates!");
+                    RuleFor(dto => dto.RemoveBuildingsIDs)
+                                 .Must((dto, collection) => NotContainDuplicates(collection))
+                                  .WithMessage(dto => $"{nameof(dto.RemoveBuildingsIDs)} can't contain duplicates!");
 
-                    RuleForEach(v => v.RemoveBuildingsIDs)
+                    RuleForEach(dto => dto.RemoveBuildingsIDs)
                                 .NotEmpty()
                                     .WithMessage("BuildingID was empty or null!")
                                 .Matches(@"\b[a-fA-F0-9]{24}$")
                                     .WithMessage("BuildingID contains characters that are not supported and/or the length is not exactly 24!")
-                                .NotEqual(req => req.LocationID)
-                                    .When(v => v.UpdateLocation == true)
-                                    .WithMessage("BuildingID was the same as LocationID!");
+                                .NotEqual(dto => dto.LocationID)
+                                    .When(dto => dto.UpdateLocation == true)
+                                    .WithMessage(dto => $"BuildingID was the same as {nameof(dto.LocationID)}!");
                 }).Otherwise(() =>
                 {
-                    RuleFor(v => v.AddBuildingsIDs)
+                    RuleFor(dto => dto.AddBuildingsIDs)
                                       .NotEmpty()
-                                          .WithMessage("Both AddBuildingsIDs and RemoveBuildingsIDs collections are empty!");
+                                          .WithMessage(dto => $"Both {nameof(dto.AddBuildingsIDs)} and {nameof(dto.RemoveBuildingsIDs)} collections are empty!");
+                });
+
+                When(dto => dto.AddBuildingsIDs is not null && dto.AddBuildingsIDs.Count > 0 && dto.RemoveBuildingsIDs is not null && dto.RemoveBuildingsIDs.Count > 0, () =>
+                {
+                    RuleForEach(dto => dto.AddBuildingsIDs)
+                            .Must((dto, element) => !dto.RemoveBuildingsIDs.Contains(element))
+                                .WithMessage((dto, element) => $"{nameof(dto.AddBuildingsIDs)}' {element} was also found in {nameof(dto.RemoveBuildingsIDs)}!");
                 });
             });
 
-            When(v => v.UpdateLocation == true, () =>
+            When(dto => dto.UpdateLocation == true, () =>
             {
-                RuleFor(v => v.LocationID)
+                RuleFor(dto => dto.LocationID)
                                    .NotEmpty()
                                     .WithMessage("{PropertyName} was empty or null!")
                                    .Matches(@"\b[a-fA-F0-9]{24}$")
                                     .WithMessage("{PropertyName} contains characters that are not supported and/or the length is not exactly 24!");
             }).Otherwise(() =>
             {
-                RuleFor(v => v.UpdateBuildings)
+                RuleFor(dto => dto.UpdateBuildings)
                             .Equal(true)
                                 .WithMessage("Both location and buildings update fields are false!");
             });

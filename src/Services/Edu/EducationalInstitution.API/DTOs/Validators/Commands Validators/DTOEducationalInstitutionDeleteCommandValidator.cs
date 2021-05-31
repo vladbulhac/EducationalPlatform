@@ -11,7 +11,7 @@ namespace EducationalInstitutionAPI.DTOs.Validators.Commands_Validators
         public DTOEducationalInstitutionDeleteCommandValidator()
         {
             CascadeMode = CascadeMode.Stop;
-            RuleFor(v => v.EducationalInstitutionID)
+            RuleFor(dto => dto.EducationalInstitutionID)
                               .NotEmpty()
                                 .WithMessage("{PropertyName} was empty or null!");
         }
