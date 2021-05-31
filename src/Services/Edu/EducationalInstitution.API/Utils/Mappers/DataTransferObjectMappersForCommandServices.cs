@@ -3,6 +3,7 @@ using EducationalInstitutionAPI.Proto;
 using Google.Protobuf.Collections;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EducationalInstitutionAPI.Utils.Mappers
 {
@@ -40,6 +41,16 @@ namespace EducationalInstitutionAPI.Utils.Mappers
         public static DTOEducationalInstitutionDeleteCommand MapToDTOEducationalInstitutionDeleteCommand(this EducationalInstitutionDeleteRequest request)
         {
             return new() { EducationalInstitutionID = request.EducationalInstitutionId.ToGuid() };
+        }
+
+        public static DTOEducationalInstitutionAdminUpdateCommand MapToDTOEducationalInstitutionAdminUpdateCommand(this EducationalInstitutionAdminUpdateRequest request)
+        {
+            return new()
+            {
+                EducationalInstitutionID = request.EducationalInstitutionId.ToGuid(),
+                AddAdminsIDs = request.AddAdminsIds.Select(element => element.ToGuid()).ToList(),
+                RemoveAdminsIDs = request.RemoveAdminsIds.Select(element => element.ToGuid()).ToList()
+            };
         }
 
         public static DTOEducationalInstitutionParentUpdateCommand MapToDTOEducationalInstitutionParentUpdateCommand(this EducationalInstitutionParentUpdateRequest request)
