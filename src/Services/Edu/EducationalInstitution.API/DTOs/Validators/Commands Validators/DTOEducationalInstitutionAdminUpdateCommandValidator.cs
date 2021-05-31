@@ -9,7 +9,7 @@ namespace EducationalInstitutionAPI.DTOs.Validators.Commands_Validators
         public DTOEducationalInstitutionAdminUpdateCommandValidator()
         {
             CascadeMode = CascadeMode.Stop;
-            RuleFor(v => v.EducationalInstitutionID)
+            RuleFor(dto => dto.EducationalInstitutionID)
                               .NotEmpty()
                               .WithMessage("{PropertyName} was empty or null!");
 
