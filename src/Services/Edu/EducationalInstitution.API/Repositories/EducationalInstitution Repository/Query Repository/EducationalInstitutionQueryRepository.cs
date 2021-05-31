@@ -40,24 +40,6 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
 
                 return queryResult.ToList();
             }
-
-            #region Entity Framework Core LINQ
-
-            /*return await context.EducationalInstitutions
-                                 .Where(ei => ei.Name.Contains(name) && ei.EntityAccess.IsDisabled==false)
-                                 .Select(ei => new GetEducationalInstitutionQueryResult()
-                                 {
-                                     EducationalInstitutionID = ei.EducationalInstitutionID,
-                                     Description = ei.Description,
-                                     LocationID = ei.LocationID,
-                                     Name = ei.Name
-                                 })
-                                 .Skip(offsetValue)
-                                 .Take(resultsCount)
-                                 .OrderBy(ei=>ei.Name)
-                                 .ToListAsync(cancellationToken);*/
-
-            #endregion Entity Framework Core LINQ
         }
 
         public async Task<EducationalInstitution> GetEntityByIDAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default)
@@ -72,13 +54,6 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
                                                                           WHERE EducationalInstitutionID=@ID AND IsDisabled=0",
                                                                         new { ID = educationalInstitutionID });
             }
-
-            #region Entity Framework Core LINQ
-
-            /*return await context.EducationalInstitutions
-                                 .SingleOrDefaultAsync(ei => ei.EducationalInstitutionID == educationalInstitutionID, cancellationToken);*/
-
-            #endregion Entity Framework Core LINQ
         }
 
         public async Task<GetEducationalInstitutionByIDQueryResult> GetByIDAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default)
@@ -102,27 +77,6 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
 
                 return MapQueryResultToGetEducationalInstitutionByIDQueryResult(queryResult.ToList());
             }
-
-            #region Entity Framework Core LINQ
-
-            /*return await context.EducationalInstitutions
-                                                 .Where(eduI => eduI.EducationalInstitutionID == educationalInstitutionID && eduI.EntityAccess.IsDisabled == false)
-                                                 .Include(ei => ei.Buildings.Where(b=>b.EntityAccess_IsDisabled==false))
-                                                 .Include(ei => ei.ChildInstitutions.Where(c=>c.EntityAccess_IsDisabled==false))
-                                                 .Include(ei => ei.ParentInstitution.Where(p=>p.EntityAccess_IsDisabled==false))
-                                                 .Select(ei => new GetEducationalInstitutionByIDQueryResult()
-                                                 {
-                                                     BuildingsIDs = ei.Buildings.Select(b => b.BuildingID).ToList(),
-                                                     Description = ei.Description,
-                                                     Name = ei.Name,
-                                                     LocationID = ei.LocationID,
-                                                     ChildInstitutions = ei.ChildInstitutions.Select(ci => new EducationalInstitutionBaseQueryResult(ci.EducationalInstitutionID, ci.Name, ci.Description)).ToList(),
-                                                     ParentInstitution = new EducationalInstitutionBaseQueryResult(ei.ParentInstitution.EducationalInstitutionID, ei.ParentInstitution.Name, ei.ParentInstitution.Description),
-                                                     JoinDate = ei.JoinDate
-                                                 })
-                                                 .SingleOrDefaultAsync(cancellationToken);*/
-
-            #endregion Entity Framework Core LINQ
         }
 
         public async Task<GetAllEducationalInstitutionsByLocationQueryResult> GetAllByLocationAsync(string locationID, CancellationToken cancellationToken = default)
@@ -141,25 +95,40 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
 
                 return MapQueryResultToGetAllEducationalInstitutionsByLocationQueryResult(queryResult.ToList());
             }
+        }
 
-            #region Entity Framework Core LINQ
+        public async Task<GetAllEducationalInstitutionsWithSameBuildingQueryResult> GetAllEducationalInstitutionsWithSameBuildingAsync(string buildingID, CancellationToken cancellationToken = default)
+        {
+            await using (var connection = new SqlConnection(dbConnection))
+            {
+                await connection.OpenAsync(cancellationToken);
 
-            /*            return new()
-                        {
-                            EducationalInstitutions = await context.EducationalInstitutions
-                                                                    .Where(ei => ei.LocationID == locationID && ei.EntityAccess.IsDisabled == false)
-                                                                    .Include(ei => ei.Buildings.Where(b => b.EntityAccess.IsDisabled == false))
-                                                                    .Select(ei => new GetEducationalInstitutionByLocationQueryResult()
-                                                                    {
-                                                                        Name = ei.Name,
-                                                                        BuildingsIDs = ei.Buildings.Select(b => b.BuildingID).ToList(),
-                                                                        Description = ei.Description,
-                                                                        EducationalInstitutionID = ei.EducationalInstitutionID
-                                                                    })
-                                                                  .ToListAsync(cancellationToken)
-                        };*/
+                var queryResult = await connection.QueryAsync<EducationalInstitutionBaseQueryResult>(@"
+                                                                       SELECT e.EducationalInstitutionID, e.Name, e.Description
+                                                                       FROM Buildings b
+                                                                       JOIN EducationalInstitutions e ON b.EducationalInstitutionID=e.EducationalInstitutionID
+                                                                       WHERE b.BuildingID=@ID AND b.IsDisabled=0 AND e.IsDisabled=0
+                                                                       ORDER BY e.Name",
+                                                                       new { ID = buildingID });
 
-            #endregion Entity Framework Core LINQ
+                return new() { EducationalInstitutions = queryResult.ToList() };
+            }
+        }
+
+        public async Task<GetAllEducationalInstitutionAdminsQueryResult> GetAllAdminsForEducationalInstitutionAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default)
+        {
+            await using (var connection = new SqlConnection(dbConnection))
+            {
+                await connection.OpenAsync(cancellationToken);
+
+                var queryResult = await connection.QueryAsync<Guid>(@"
+                                                                SELECT AdminID
+                                                                FROM Admins
+                                                                WHERE EducationalInstitutionID=@ID AND IsDisabled=0",
+                                                                new { ID = educationalInstitutionID });
+
+                return new() { AdminsIDs = queryResult.ToList() };
+            }
         }
 
         #region GetAllByLocationAsync() query result map methods

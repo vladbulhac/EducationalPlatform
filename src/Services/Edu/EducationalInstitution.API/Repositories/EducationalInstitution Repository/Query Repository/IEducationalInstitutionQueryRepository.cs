@@ -37,5 +37,13 @@ namespace EducationalInstitutionAPI.Repositories.EducationalInstitution_Reposito
         /// <param name="cancellationToken">Cancels the operation ______</param>
         /// <returns>NULL if no entities have been found, a collection of records of type <see cref="GetEducationalInstitutionQueryResult"/> otherwise</returns>
         public Task<ICollection<GetEducationalInstitutionQueryResult>> GetAllLikeNameAsync(string name, int offsetValue, int resultsCount, CancellationToken cancellationToken = default);
+
+        /// <param name="cancellationToken">Cancels the operation ______</param>
+        /// <returns>NULL if the entity has not been found, a record type <see cref="GetAllEducationalInstitutionsWithSameBuildingQueryResult"/> otherwise</returns>
+        public Task<GetAllEducationalInstitutionsWithSameBuildingQueryResult> GetAllEducationalInstitutionsWithSameBuildingAsync(string buildingID, CancellationToken cancellationToken = default);
+
+        /// <param name="cancellationToken">Cancels the operation ______</param>
+        /// <returns>NULL if the entity has not been found, a record type <see cref="GetAllEducationalInstitutionAdminsQueryResult"/> otherwise </returns>
+        public Task<GetAllEducationalInstitutionAdminsQueryResult> GetAllAdminsForEducationalInstitutionAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default);
     }
 }
