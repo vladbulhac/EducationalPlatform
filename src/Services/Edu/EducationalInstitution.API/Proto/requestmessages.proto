@@ -25,6 +25,12 @@ message EducationalInstitutionUpdateRequest{
 	string description=5;
 }
 
+message EducationalInstitutionAdminUpdateRequest{
+	Uuid educational_institution_id=1;
+	repeated Uuid add_admins_ids=2;
+	repeated Uuid remove_admins_ids=3;
+}
+
 message EducationalInstitutionParentUpdateRequest{
 	Uuid educational_institution_id=1;
 	Uuid parent_institution_id=2;
