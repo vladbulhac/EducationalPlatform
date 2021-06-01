@@ -11,7 +11,7 @@ namespace EducationalInstitution.API.UnitTests
     /// </summary>
     public class TestDataFromJSONParser
     {
-        public IList<EducationalInstitutionAPI.Data.EducationalInstitution> EducationalInstitutions { get; set; }
+        public IList<EducationalInstitutionAPI.Data.EducationalInstitution> EducationalInstitutions { get; private set; }
 
         public TestDataFromJSONParser()
         {
