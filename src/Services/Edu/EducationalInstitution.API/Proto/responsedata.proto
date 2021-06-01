@@ -41,6 +41,9 @@ message BaseQueryResult{
 	string description=3;
 }
 
+message GetAdminsResult{
+	Uuid admins_ids=1;
+}
 // A UUID, encoded in accordance with section 4.1.2 of RFC 4122.
 message Uuid {
 	// The high 64 bits of the UUID - MSB -> LSB: time_low (32 bits) | time_mid (16 bits) | time_hi_and_version (16 bits).
