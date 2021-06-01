@@ -42,6 +42,16 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Validation_Handler_
         }
 
         [Fact]
+        public void GivenAValidTypeDTOAdminsByEducationalInstitutionIdQuery_ShouldReturnAnInstanceOfDTOAdminsByEducationalInstitutionIDQueryValidator()
+        {
+            //Act
+            var validator = ValidatorFactory.CreateValidator<DTOAdminsByEducationalInstitutionIDQuery>();
+
+            //Assert
+            Assert.IsType<DTOAdminsByEducationalInstitutionIDQueryValidator>(validator);
+        }
+
+        [Fact]
         public void GivenAValidTypeDTOEducationalInstitutionCreateCommand_ShouldReturnAnInstanceOfDTOEducationalInstitutionCreateCommandValidator()
         {
             //Act
@@ -89,6 +99,16 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Validation_Handler_
 
             //Assert
             Assert.IsType<DTOEducationalInstitutionUpdateCommandValidator>(validator);
+        }
+
+        [Fact]
+        public void GivenAValidTypeDTOEducationalInstitutionAdminUpdateCommand_ShouldReturnAnInstanceOfDTOEducationalInstitutionAdminUpdateCommandValidator()
+        {
+            //Act
+            var validator = ValidatorFactory.CreateValidator<DTOEducationalInstitutionAdminUpdateCommand>();
+
+            //Assert
+            Assert.IsType<DTOEducationalInstitutionAdminUpdateCommandValidator>(validator);
         }
 
         [Fact]
