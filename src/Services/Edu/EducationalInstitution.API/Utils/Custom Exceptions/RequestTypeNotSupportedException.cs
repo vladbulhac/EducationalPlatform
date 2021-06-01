@@ -3,7 +3,7 @@
 namespace EducationalInstitutionAPI.Utils.Custom_Exceptions
 {
     /// <summary>
-    /// Defines an Exception type that is thrown when a <see cref="FluentValidation"/> validator has not been created for a Data Transfer Object
+    /// Defines an Exception type that is thrown when a validator has not been found for a Data Transfer Object
     /// </summary>
     public class RequestTypeNotSupportedException : Exception
     {

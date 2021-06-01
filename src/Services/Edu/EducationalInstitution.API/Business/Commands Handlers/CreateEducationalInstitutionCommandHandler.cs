@@ -25,7 +25,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         private readonly IUnitOfWorkForQueries unitOfWorkQuery;
         private readonly IEventBus eventBus;
 
-        /// <exception cref="ArgumentNullException"/>
+        /// <inheritdoc cref="HandlerBase{THandler}.HandlerBase"/>
         public CreateEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IUnitOfWorkForQueries unitOfWorkQuery, IEventBus eventBus, ILogger<CreateEducationalInstitutionCommandHandler> logger) : base(logger)
         {
             this.unitOfWorkCommand = unitOfWorkCommand ?? throw new ArgumentNullException(nameof(unitOfWorkCommand));

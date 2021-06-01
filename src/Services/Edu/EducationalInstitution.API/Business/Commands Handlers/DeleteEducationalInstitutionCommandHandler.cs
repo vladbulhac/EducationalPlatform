@@ -23,7 +23,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         private readonly IUnitOfWorkForQueries unitOfWorkQuery;
         private readonly IEventBus eventBus;
 
-        /// <exception cref="ArgumentNullException"/>
+        /// <inheritdoc cref="HandlerBase{THandler}.HandlerBase"/>
         public DeleteEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IUnitOfWorkForQueries unitOfWorkQuery, IEventBus eventBus, ILogger<DeleteEducationalInstitutionCommandHandler> logger) : base(logger)
         {
             this.unitOfWorkCommand = unitOfWorkCommand ?? throw new ArgumentNullException(nameof(unitOfWorkCommand));

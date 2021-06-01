@@ -11,7 +11,7 @@ namespace EducationalInstitutionAPI.Utils
         /// Retrieves the value of <paramref name="key"/> from appsettings.json
         /// </summary>
         /// <remarks>
-        /// Nested keys can be search by using ':' , for example GetCurrentSettings("parentKey:descendantKey")
+        /// <i>Nested keys can be search by using ':' , for example GetCurrentSettings("parentKey:descendantKey")</i>
         /// </remarks>
         public static string GetCurrentSettings(string key)
         {

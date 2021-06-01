@@ -5,9 +5,6 @@ namespace EducationalInstitutionAPI.DTOs.Validators.Queries_Validators
 {
     public class DTOEducationalInstitutionsByNameQueryValidator : AbstractValidator<DTOEducationalInstitutionsByNameQuery>
     {
-        /// <summary>
-        /// Initializes the rules based on which the validation is made
-        /// </summary>
         public DTOEducationalInstitutionsByNameQueryValidator()
         {
             CascadeMode = CascadeMode.Stop;

@@ -8,7 +8,7 @@ using System.Linq;
 namespace EducationalInstitutionAPI.Utils.Mappers
 {
     /// <summary>
-    /// Contains mappers used in Command services
+    /// Contains extension methods used in rpc Command services to map between an rpc request message and a dto
     /// </summary>
     public static partial class DataTransferObjectMappers
     {
@@ -39,52 +39,42 @@ namespace EducationalInstitutionAPI.Utils.Mappers
         }
 
         public static DTOEducationalInstitutionDeleteCommand MapToDTOEducationalInstitutionDeleteCommand(this EducationalInstitutionDeleteRequest request)
-        {
-            return new() { EducationalInstitutionID = request.EducationalInstitutionId.ToGuid() };
-        }
+                    => new() { EducationalInstitutionID = request.EducationalInstitutionId.ToGuid() };
 
         public static DTOEducationalInstitutionAdminUpdateCommand MapToDTOEducationalInstitutionAdminUpdateCommand(this EducationalInstitutionAdminUpdateRequest request)
-        {
-            return new()
-            {
-                EducationalInstitutionID = request.EducationalInstitutionId.ToGuid(),
-                AddAdminsIDs = request.AddAdminsIds.Select(element => element.ToGuid()).ToList(),
-                RemoveAdminsIDs = request.RemoveAdminsIds.Select(element => element.ToGuid()).ToList()
-            };
-        }
+                => new()
+                {
+                    EducationalInstitutionID = request.EducationalInstitutionId.ToGuid(),
+                    AddAdminsIDs = request.AddAdminsIds.Select(element => element.ToGuid()).ToList(),
+                    RemoveAdminsIDs = request.RemoveAdminsIds.Select(element => element.ToGuid()).ToList()
+                };
 
         public static DTOEducationalInstitutionParentUpdateCommand MapToDTOEducationalInstitutionParentUpdateCommand(this EducationalInstitutionParentUpdateRequest request)
-        {
-            return new()
-            {
-                EducationalInstitutionID = request.EducationalInstitutionId.ToGuid(),
-                ParentInstitutionID = request.ParentInstitutionId.ToGuid()
-            };
-        }
+                => new()
+                {
+                    EducationalInstitutionID = request.EducationalInstitutionId.ToGuid(),
+                    ParentInstitutionID = request.ParentInstitutionId.ToGuid()
+                };
 
         public static DTOEducationalInstitutionLocationUpdateCommand MapToDTOEducationalInstitutionLocationUpdateCommand(this EducationalInstitutionLocationUpdateRequest request)
-        {
-            return new()
-            {
-                EducationalInstitutionID = request.EducationalInstitutionId.ToGuid(),
-                UpdateLocation = request.UpdateLocation,
-                LocationID = request.LocationId,
-                UpdateBuildings = request.UpdateBuildings,
-                AddBuildingsIDs = request.AddBuildingsIds,
-                RemoveBuildingsIDs = request.RemoveBuildingsIds
-            };
-        }
+                => new()
+                {
+                    EducationalInstitutionID = request.EducationalInstitutionId.ToGuid(),
+                    UpdateLocation = request.UpdateLocation,
+                    LocationID = request.LocationId,
+                    UpdateBuildings = request.UpdateBuildings,
+                    AddBuildingsIDs = request.AddBuildingsIds,
+                    RemoveBuildingsIDs = request.RemoveBuildingsIds
+                };
 
         public static DTOEducationalInstitutionUpdateCommand MapToDTOEducationalInstitutionUpdateCommand(this EducationalInstitutionUpdateRequest request)
-        {
-            return new()
-            {
-                EducationalInstitutionID = request.EducationalInstitutionId.ToGuid(),
-                UpdateName = request.UpdateName,
-                Name = request.Name,
-                UpdateDescription = request.UpdateDescription,
-                Description = request.Description
-            };
-        }
+                => new()
+                {
+                    EducationalInstitutionID = request.EducationalInstitutionId.ToGuid(),
+                    UpdateName = request.UpdateName,
+                    Name = request.Name,
+                    UpdateDescription = request.UpdateDescription,
+                    Description = request.Description
+                };
     }
 }

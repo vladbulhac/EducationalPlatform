@@ -8,7 +8,7 @@ namespace EducationalInstitutionAPI.Business.Validation_Handler
 {
     public class ValidationHandler : HandlerBase<ValidationHandler>, IValidationHandler
     {
-        /// <exception cref="ArgumentNullException"/>
+        /// <inheritdoc cref="HandlerBase{THandler}.HandlerBase"/>
         public ValidationHandler(ILogger<ValidationHandler> logger) : base(logger) { }
 
         public bool IsRequestValid<T>(T request, out string validationErrors)

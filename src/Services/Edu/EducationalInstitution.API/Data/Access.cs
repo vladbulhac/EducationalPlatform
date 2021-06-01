@@ -4,9 +4,15 @@ using System;
 namespace EducationalInstitutionAPI.Data
 {
     /// <summary>
-    /// Defines if an entity can be returned as a request response or it must be removed from the database based on the <see cref="DateForPermanentDeletion"/>'s value
+    /// Defines if an entity can be returned as a request response or
+    /// it must be removed from the database based on the <see cref="DateForPermanentDeletion"/>'s value
     /// </summary>
-    /// <remarks>All entities that are to be removed and include an object of this class will remain in the database for a determined amount of time in case the deletion operation must be reverted</remarks>
+    /// <remarks>
+    /// <i>
+    /// All entities that are to be removed will remain in the database
+    /// for a determined amount of time in case the deletion operation must be reverted
+    /// </i>
+    /// </remarks>
     public class Access
     {
         /// <value>True if the entity is scheduled for deletion, False otherwise</value>
@@ -25,9 +31,11 @@ namespace EducationalInstitutionAPI.Data
         }
 
         /// <summary>
-        /// Sets the <see cref="IsDisabled"/> field and generates a date when the entity will be removed from the database
+        /// Sets <see cref="IsDisabled"/> to true and generates a date when the entity will be removed from the database
         /// </summary>
-        /// <remarks>A "DaysUntilDeletion" property must be declared in the appsettings.json</remarks>
+        /// <remarks>
+        /// <i>A "DaysUntilDeletion" property must be declared in the appsettings.json</i>
+        /// </remarks>
         public void ScheduleForDeletion()
         {
             IsDisabled = true;
@@ -39,7 +47,7 @@ namespace EducationalInstitutionAPI.Data
         }
 
         /// <summary>
-        /// Sets the <see cref="IsDisabled"/> field and clears <see cref="DateForPermanentDeletion"/>
+        /// Sets <see cref="IsDisabled"/> to false and <see cref="DateForPermanentDeletion"/> to null
         /// </summary>
         public void RemoveDeletionSchedule()
         {

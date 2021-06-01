@@ -14,7 +14,6 @@ namespace EducationalInstitution.API.UnitTests
     /// <summary>
     /// Contains a collection of mocked types used in unit testing
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     public class MockDependenciesHelper<T> where T : class
     {
         public readonly Mock<IEducationalInstitutionCommandRepository> mockEducationalInstitutionCommandRepository;

@@ -23,7 +23,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         private readonly IUnitOfWorkForCommands unitOfWork;
         private readonly IEventBus eventBus;
 
-        /// <exception cref="ArgumentNullException"/>
+        /// <inheritdoc cref="HandlerBase{THandler}.HandlerBase"/>
         public UpdateEducationalInstitutionAdminCommandHandler(IUnitOfWorkForCommands unitOfWork, IEventBus eventBus, ILogger<UpdateEducationalInstitutionAdminCommandHandler> logger) : base(logger)
         {
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
@@ -95,7 +95,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             AssignedAdminsToEducationalInstitutionIntegrationEvent @newAdminsEvent = new()
             {
                 Message = "You were given admin rights for an Educational Institution!",
-                ToNotify = notificationData.newAdminsToNotify,
+                ToNotify = notificationData.NewAdminsToNotify,
                 Url = $"/edu/{educationalInstitutionID}",
                 TriggeredBy = new()
                 {
@@ -108,7 +108,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent @existingAdminsEvent = new()
             {
                 Message = "Educational Institution's admins were updated!",
-                ToNotify = notificationData.existingAdminsToNotify,
+                ToNotify = notificationData.ExistingAdminsToNotify,
                 Url = $"/edu/{educationalInstitutionID}",
                 TriggeredBy = new()
                 {
@@ -121,7 +121,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent @removedAdminsEvent = new()
             {
                 Message = "Your admin rights for an Educational Institution were revoked!",
-                ToNotify = notificationData.removedAdminsToNotify,
+                ToNotify = notificationData.RemovedAdminsToNotify,
                 Url = $"/edu/{educationalInstitutionID}",
                 TriggeredBy = new()
                 {

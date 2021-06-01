@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace EducationalInstitutionAPI.Data.Repository_Results
 {
+    /// <inheritdoc cref="CommandRepositoryResult"/>
     public record DeleteCommandRepositoryResult : CommandRepositoryResult
     {
         public DateTime ScheduledDateForDeletion { get; init; }

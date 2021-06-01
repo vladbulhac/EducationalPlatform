@@ -22,7 +22,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         private readonly IUnitOfWorkForCommands unitOfWork;
         private readonly IEventBus eventBus;
 
-        /// <exception cref="ArgumentNullException"/>
+        /// <inheritdoc cref="HandlerBase{THandler}.HandlerBase"/>
         public UpdateEducationalInstitutionParentCommandHandler(IUnitOfWorkForCommands unitOfWork, IEventBus eventBus, ILogger<UpdateEducationalInstitutionParentCommandHandler> logger) : base(logger)
         {
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));

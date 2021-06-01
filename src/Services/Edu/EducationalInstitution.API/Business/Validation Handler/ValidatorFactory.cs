@@ -6,6 +6,9 @@ using System.Reflection;
 
 namespace EducationalInstitutionAPI.Business.Validation_Handler
 {
+    /// <summary>
+    /// Exposes a method that instantiates a validator class based on a given type
+    /// </summary>
     public static class ValidatorFactory
     {
         private static readonly IDictionary<Type, Type> dtoToValidatorMap;

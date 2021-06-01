@@ -2,9 +2,6 @@
 
 namespace EducationalInstitutionAPI.Data
 {
-    /// <summary>
-    /// Defines an association between a Building and an <see cref="EducationalInstitution"/>
-    /// </summary>
     public class EducationalInstitutionBuilding : Access
     {
         public Guid EducationalInstitutionID { get; init; }

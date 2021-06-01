@@ -10,24 +10,22 @@ namespace EducationalInstitutionAPI.Business
     /// </summary>
     public abstract class HandlerBase<THandler> where THandler : class
     {
-        /// <summary>
-        /// Outputs to a file information about the state of the machine when an error/exception occurs during an operation
-        /// </summary>
         private readonly ILogger<THandler> logger;
 
+        /// <exception cref="ArgumentNullException"/>
         protected HandlerBase(ILogger<THandler> logger) => this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
         /// <summary>
-        /// Logs the error and creates a <typeparamref name="TResponse"/> object
+        /// Logs the error and creates a <typeparamref name="TReturn"/> object
         /// </summary>
-        /// <typeparam name="TResponse">The return type of the method where the exception was caught</typeparam>
+        /// <typeparam name="TReturn">The return type of the method where the exception was caught</typeparam>
         /// <param name="error_message">The logged message</param>
-        /// <param name="response_message">Assigned to the Message field of <typeparamref name="TResponse"/></param>
+        /// <param name="response_message">Assigned to the Message field of <typeparamref name="TReturn"/></param>
         /// <param name="error_message_substitutes">Arguments used in the composite format of <paramref name="error_message"/></param>
         /// <returns>
-        /// <typeparamref name="TResponse"/> with StatusCode: <see cref="HttpStatusCode.InternalServerError">500</see> and Message: <paramref name="response_message"/>
+        /// <typeparamref name="TReturn"/> with StatusCode: <see cref="HttpStatusCode.InternalServerError">500</see> and Message: <paramref name="response_message"/>
         /// </returns>
-        protected TResponse HandleException<TResponse>(string error_message, string response_message, params object[] error_message_substitutes) where TResponse : Response, new()
+        protected TReturn HandleException<TReturn>(string error_message, string response_message, params object[] error_message_substitutes) where TReturn : Response, new()
         {
             logger.LogError(error_message, error_message_substitutes);
             return new() { StatusCode = HttpStatusCode.InternalServerError, Message = string.Format(response_message, error_message_substitutes) };

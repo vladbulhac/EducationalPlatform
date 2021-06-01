@@ -10,13 +10,12 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Repositories.Command_Repository
 {
-    /// <summary>
-    /// Contains concrete implementations of the methods that execute commands over the <see cref="EducationalInstitution"/> entities
-    /// </summary>
+    /// <inheritdoc cref="IEducationalInstitutionCommandRepository"/>
     public class EducationalInstitutionCommandRepository : IEducationalInstitutionCommandRepository
     {
         private readonly DataContext context;
 
+        /// <exception cref="ArgumentNullException"/>
         public EducationalInstitutionCommandRepository(DataContext context) => this.context = context ?? throw new ArgumentNullException(nameof(context));
 
         public async Task CreateAsync(EducationalInstitution data, CancellationToken cancellationToken = default) => await context.EducationalInstitutions.AddAsync(data, cancellationToken);
