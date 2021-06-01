@@ -59,3 +59,7 @@ message EducationalInstitutionGetByNameRequest{
 message EducationalInstitutionsGetByLocationRequest{
 	string location_id=1;
 }
+
+message AdminsGetByEducationalInstitutionIdRequest{
+	Uuid educational_institution_id=1;
+}
