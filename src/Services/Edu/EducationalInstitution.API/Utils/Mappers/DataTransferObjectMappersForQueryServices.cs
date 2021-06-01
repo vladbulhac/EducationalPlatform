@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace EducationalInstitutionAPI.Utils.Mappers
 {
     /// <summary>
-    /// Contains mappers used in Query services
+    /// Contains extension methods used in rpc Query services to map between an rpc request message and a dto
     /// </summary>
     public static partial class DataTransferObjectMappers
     {
@@ -56,12 +56,10 @@ namespace EducationalInstitutionAPI.Utils.Mappers
         }
 
         public static DTOEducationalInstitutionByIDQuery MapToDTOEducationalInstitutionByIDQuery(this EducationalInstitutionGetByIdRequest request)
-        {
-            return new()
-            {
-                EducationalInstitutionID = request.EducationalInstitutionId.ToGuid()
-            };
-        }
+                => new()
+                {
+                    EducationalInstitutionID = request.EducationalInstitutionId.ToGuid()
+                };
 
         public static DTOEducationalInstitutionsByNameQuery MapToDTOEducationalInstitutionsByNameQuery(this EducationalInstitutionGetByNameRequest request)
         {
@@ -89,12 +87,10 @@ namespace EducationalInstitutionAPI.Utils.Mappers
         }
 
         public static DTOEducationalInstitutionsByLocationQuery MapToDTOEducationalInstitutionsByLocationQuery(this EducationalInstitutionsGetByLocationRequest request)
-        {
-            return new()
-            {
-                LocationID = request.LocationId
-            };
-        }
+                => new()
+                {
+                    LocationID = request.LocationId
+                };
 
         public static ICollection<GetByLocationResult> MapToGetByLocationResult(this GetAllEducationalInstitutionsByLocationQueryResult result)
         {
@@ -110,5 +106,11 @@ namespace EducationalInstitutionAPI.Utils.Mappers
 
             return educationalInstitutions;
         }
+
+        public static DTOAdminsByEducationalInstitutionIDQuery MapToDTOAdminsByEducationalInstitutionIDQuery(this AdminsGetByEducationalInstitutionIdRequest request)
+                => new()
+                {
+                    EducationalInstitutionID = request.EducationalInstitutionId.ToGuid()
+                };
     }
 }
