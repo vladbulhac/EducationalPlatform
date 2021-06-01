@@ -14,7 +14,7 @@ namespace EducationalInstitutionAPI.Utils.Mappers
         /// <summary>
         /// Extension method that maps a <see cref="HttpStatusCode"/> to an equivalent <see cref="ProtoHttpStatusCode"/> if it can otherwise it maps to <see cref="ProtoHttpStatusCode.Ok"/>
         /// </summary>
-        public static ProtoHttpStatusCode MapToEquivalentProtoHttpStatusCodeOrOK(this HttpStatusCode code)
+        public static ProtoHttpStatusCode ToProtoHttpStatusCode(this HttpStatusCode code)
         {
             ProtoHttpStatusCode protoHttpStatusCode;
             if (!protoToNetHttpStatusCodeMap.ContainsKey(code))
