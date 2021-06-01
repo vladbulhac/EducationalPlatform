@@ -11,10 +11,12 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Repositories.Query_Repository
 {
+    /// <inheritdoc cref="IEducationalInstitutionQueryRepository"/>
     public class EducationalInstitutionQueryRepository : IEducationalInstitutionQueryRepository
     {
         private readonly string dbConnection;
 
+        /// <exception cref="Exception"/>
         public EducationalInstitutionQueryRepository(string connectionString = null)
         {
             if (!string.IsNullOrEmpty(connectionString))
@@ -115,7 +117,7 @@ namespace EducationalInstitutionAPI.Repositories.Query_Repository
             }
         }
 
-        public async Task<GetAllEducationalInstitutionAdminsQueryResult> GetAllAdminsForEducationalInstitutionAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default)
+        public async Task<GetAllAdminsOfEducationalInstitutionQueryResult> GetAllAdminsForEducationalInstitutionAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default)
         {
             await using (var connection = new SqlConnection(dbConnection))
             {

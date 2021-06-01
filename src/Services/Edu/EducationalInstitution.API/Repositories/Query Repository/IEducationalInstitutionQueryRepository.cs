@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Repositories.Query_Repository
 {
+    /// <summary>
+    /// Contains methods that are used in retrieving data from the database
+    /// </summary>
     public interface IEducationalInstitutionQueryRepository
     {
         /// <summary>
@@ -44,6 +47,6 @@ namespace EducationalInstitutionAPI.Repositories.Query_Repository
 
         /// <param name="cancellationToken">Cancels the operation ______</param>
         /// <returns>NULL if the entity has not been found, a record type <see cref="GetAllEducationalInstitutionAdminsQueryResult"/> otherwise </returns>
-        public Task<GetAllEducationalInstitutionAdminsQueryResult> GetAllAdminsForEducationalInstitutionAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default);
+        public Task<GetAllAdminsOfEducationalInstitutionQueryResult> GetAllAdminsForEducationalInstitutionAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default);
     }
 }
