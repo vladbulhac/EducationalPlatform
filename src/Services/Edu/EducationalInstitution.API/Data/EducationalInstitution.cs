@@ -15,15 +15,19 @@ namespace EducationalInstitutionAPI.Data
 
         ///<summary>Contains the Educational Institutions that are part of the current Educational Institution</summary>
         /// <remarks>
+        /// <i>
         /// <para>For example an university can have multiple faculties that are part of it</para>
         /// OPTIONAL
+        /// </i>
         /// </remarks>
         public ICollection<EducationalInstitution> ChildInstitutions { get; private set; }
 
         ///<summary>Contains the Educational Institution that is the parent of this entity</summary>
         /// <remarks>
+        /// <i>
         /// <para>For example a faculty can have an university as a parent</para>
         /// OPTIONAL
+        /// </i>
         /// </remarks>
         public EducationalInstitution ParentInstitution { get; private set; }
 
@@ -134,7 +138,7 @@ namespace EducationalInstitutionAPI.Data
                 {
                     var admin = Admins.SingleOrDefault(a => a.AdminID == adminID);
                     if (admin is not null)
-                        Admins.Remove(admin);
+                        admin.ScheduleForDeletion();
                 }
             }
         }

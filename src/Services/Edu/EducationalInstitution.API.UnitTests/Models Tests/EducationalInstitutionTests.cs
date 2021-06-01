@@ -904,7 +904,7 @@ namespace EducationalInstitution.API.UnitTests.Models_Tests
             educationalInstituion.RemoveAdmins(adminsIDs);
 
             //Assert
-            Assert.Empty(educationalInstituion.Admins);
+            Assert.Empty(educationalInstituion.Admins.Where(a => a.IsDisabled == false));
         }
 
         [Fact]
