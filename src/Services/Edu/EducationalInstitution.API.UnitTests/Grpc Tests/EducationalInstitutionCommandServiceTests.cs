@@ -14,15 +14,16 @@ using Xunit;
 
 namespace EducationalInstitution.API.UnitTests.Grpc_Tests
 {
-    public class EducationalInstitutionCommandServiceTests : IClassFixture<MockDependenciesHelper<EducationalInstitutionCommandService>>
+    public class EducationalInstitutionCommandServiceTests : SetupRPCServicesHelper<EducationalInstitutionCommandService>,
+                                                             IClassFixture<MockDependenciesHelper<EducationalInstitutionCommandService>>
     {
-        private readonly MockDependenciesHelper<EducationalInstitutionCommandService> dependenciesHelper;
+        private readonly EducationalInstitutionCommandService service;
 
         /// <remarks>Called before each test</remarks>
-        public EducationalInstitutionCommandServiceTests(MockDependenciesHelper<EducationalInstitutionCommandService> dependenciesHelper)
-        {
-            this.dependenciesHelper = dependenciesHelper;
-        }
+        public EducationalInstitutionCommandServiceTests(MockDependenciesHelper<EducationalInstitutionCommandService> dependenciesHelper) : base(dependenciesHelper)
+                => service = new(dependenciesHelper.mockMediator.Object,
+                                dependenciesHelper.mockLogger.Object,
+                                dependenciesHelper.mockValidationHandler.Object);
 
         #region CreateEducationalInstitutionMethod TESTS
 
@@ -608,17 +609,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var educationalInstitutionID = Guid.NewGuid();
             EducationalInstitutionDeleteRequest request = new() { EducationalInstitutionId = educationalInstitutionID.ToProtoUuid() };
 
-            Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult = new()
-            {
-                Data = new() { DateForPermanentDeletion = DateTime.UtcNow },
-                OperationStatus = true,
-                Message = string.Empty,
-                StatusCode = HttpStatusCode.Accepted
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            DeleteEducationalInstitutionMethod_Setup(out Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult);
 
             //Act
             var result = await service.DeleteEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -634,18 +625,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var educationalInstitutionID = Guid.NewGuid();
             EducationalInstitutionDeleteRequest request = new() { EducationalInstitutionId = educationalInstitutionID.ToProtoUuid() };
 
-            Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult = new()
-            {
-                Data = new() { DateForPermanentDeletion = DateTime.UtcNow },
-                OperationStatus = true,
-                Message = string.Empty,
-                StatusCode = HttpStatusCode.Accepted
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
-
+            DeleteEducationalInstitutionMethod_Setup(out Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult);
             //Act
             var result = await service.DeleteEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
 
@@ -660,17 +640,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var educationalInstitutionID = Guid.NewGuid();
             EducationalInstitutionDeleteRequest request = new() { EducationalInstitutionId = educationalInstitutionID.ToProtoUuid() };
 
-            Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult = new()
-            {
-                Data = new() { DateForPermanentDeletion = DateTime.UtcNow },
-                OperationStatus = true,
-                Message = string.Empty,
-                StatusCode = HttpStatusCode.Accepted
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            DeleteEducationalInstitutionMethod_Setup(out Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult);
 
             //Act
             var result = await service.DeleteEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -686,17 +656,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var educationalInstitutionID = Guid.NewGuid();
             EducationalInstitutionDeleteRequest request = new() { EducationalInstitutionId = educationalInstitutionID.ToProtoUuid() };
 
-            Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult = new()
-            {
-                Data = new() { DateForPermanentDeletion = DateTime.UtcNow },
-                OperationStatus = true,
-                Message = string.Empty,
-                StatusCode = HttpStatusCode.Accepted
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            DeleteEducationalInstitutionMethod_Setup(out Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult);
 
             //Act
             var result = await service.DeleteEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -712,7 +672,18 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var educationalInstitutionID = Guid.NewGuid();
             EducationalInstitutionDeleteRequest request = new() { EducationalInstitutionId = educationalInstitutionID.ToProtoUuid() };
 
-            Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult = new()
+            DeleteEducationalInstitutionMethod_Setup(out Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult);
+
+            //Act
+            var result = await service.DeleteEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal(ProtoHttpStatusCode.Accepted, result.StatusCode);
+        }
+
+        private void DeleteEducationalInstitutionMethod_Setup(out Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult)
+        {
+            expectedMediatorResult = new()
             {
                 Data = new() { DateForPermanentDeletion = DateTime.UtcNow },
                 OperationStatus = true,
@@ -720,15 +691,10 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 StatusCode = HttpStatusCode.Accepted
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
-
-            //Act
-            var result = await service.DeleteEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
-
-            //Assert
-            Assert.Equal(ProtoHttpStatusCode.Accepted, result.StatusCode);
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), out It.Ref<string>.IsAny))
+                                                    .Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), It.IsAny<CancellationToken>()))
+                                            .ReturnsAsync(expectedMediatorResult);
         }
 
         [Fact]
@@ -738,17 +704,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var educationalInstitutionID = Guid.NewGuid();
             EducationalInstitutionDeleteRequest request = new() { EducationalInstitutionId = educationalInstitutionID.ToProtoUuid() };
 
-            Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult = new()
-            {
-                Data = null,
-                OperationStatus = false,
-                Message = $"Educational Institution with the following ID: {educationalInstitutionID} has not been found!",
-                StatusCode = HttpStatusCode.NotFound
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            DeleteEducationalInstitutionMethod_SetupToNotFindEntity(educationalInstitutionID);
 
             //Act
             var result = await service.DeleteEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -764,17 +720,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var educationalInstitutionID = Guid.NewGuid();
             EducationalInstitutionDeleteRequest request = new() { EducationalInstitutionId = educationalInstitutionID.ToProtoUuid() };
 
-            Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult = new()
-            {
-                Data = null,
-                OperationStatus = false,
-                Message = $"Educational Institution with the following ID: {educationalInstitutionID} has not been found!",
-                StatusCode = HttpStatusCode.NotFound
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            DeleteEducationalInstitutionMethod_SetupToNotFindEntity(educationalInstitutionID);
 
             //Act
             var result = await service.DeleteEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -790,23 +736,27 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var educationalInstitutionID = Guid.NewGuid();
             EducationalInstitutionDeleteRequest request = new() { EducationalInstitutionId = educationalInstitutionID.ToProtoUuid() };
 
-            Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult = new()
-            {
-                Data = null,
-                OperationStatus = false,
-                Message = $"Educational Institution with the following ID: {educationalInstitutionID} has not been found!",
-                StatusCode = HttpStatusCode.NotFound
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            DeleteEducationalInstitutionMethod_SetupToNotFindEntity(educationalInstitutionID);
 
             //Act
             var result = await service.DeleteEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
             Assert.Null(result.Data);
+        }
+
+        private void DeleteEducationalInstitutionMethod_SetupToNotFindEntity(Guid id)
+        {
+            Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult = new()
+            {
+                Data = null,
+                OperationStatus = false,
+                Message = $"Educational Institution with the following ID: {id} has not been found!",
+                StatusCode = HttpStatusCode.NotFound
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
         }
 
         [Fact]
@@ -816,17 +766,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             Guid educationalInstitutionID = default;
             EducationalInstitutionDeleteRequest request = new() { EducationalInstitutionId = educationalInstitutionID.ToProtoUuid() };
 
-            Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult = new()
-            {
-                Data = null,
-                OperationStatus = false,
-                Message = $"Educational Institution with the following ID: {educationalInstitutionID} has not been found!",
-                StatusCode = HttpStatusCode.NotFound
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), out It.Ref<string>.IsAny)).Returns(false);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionDeleteCommand>();
 
             //Act
             var result = await service.DeleteEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -842,17 +782,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             Guid educationalInstitutionID = default;
             EducationalInstitutionDeleteRequest request = new() { EducationalInstitutionId = educationalInstitutionID.ToProtoUuid() };
 
-            Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult = new()
-            {
-                Data = null,
-                OperationStatus = false,
-                Message = $"Educational Institution with the following ID: {educationalInstitutionID} has not been found!",
-                StatusCode = HttpStatusCode.NotFound
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), out It.Ref<string>.IsAny)).Returns(false);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionDeleteCommand>();
 
             //Act
             var result = await service.DeleteEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -868,17 +798,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             Guid educationalInstitutionID = default;
             EducationalInstitutionDeleteRequest request = new() { EducationalInstitutionId = educationalInstitutionID.ToProtoUuid() };
 
-            Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult = new()
-            {
-                Data = null,
-                OperationStatus = false,
-                Message = $"Educational Institution with the following ID: {educationalInstitutionID} has not been found!",
-                StatusCode = HttpStatusCode.NotFound
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), out It.Ref<string>.IsAny)).Returns(false);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionDeleteCommand>();
 
             //Act
             var result = await service.DeleteEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -894,17 +814,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             Guid educationalInstitutionID = default;
             EducationalInstitutionDeleteRequest request = new() { EducationalInstitutionId = educationalInstitutionID.ToProtoUuid() };
 
-            Response<DeleteEducationalInstitutionCommandResult> expectedMediatorResult = new()
-            {
-                Data = null,
-                OperationStatus = false,
-                Message = $"Educational Institution with the following ID: {educationalInstitutionID} has not been found!",
-                StatusCode = HttpStatusCode.NotFound
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), out It.Ref<string>.IsAny)).Returns(false);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionDeleteCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionDeleteCommand>();
 
             //Act
             var result = await service.DeleteEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -929,17 +839,8 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 UpdateDescription = true,
                 Description = "newDescription"
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = string.Empty,
-                OperationStatus = true,
-                StatusCode = HttpStatusCode.NoContent
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionMethod_Setup();
 
             //Act
             var result = await service.UpdateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -960,17 +861,8 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 UpdateDescription = true,
                 Description = "newDescription"
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = string.Empty,
-                OperationStatus = true,
-                StatusCode = HttpStatusCode.NoContent
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionMethod_Setup();
 
             //Act
             var result = await service.UpdateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -991,17 +883,8 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 UpdateDescription = true,
                 Description = "newDescription"
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = string.Empty,
-                OperationStatus = true,
-                StatusCode = HttpStatusCode.NoContent
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionMethod_Setup();
 
             //Act
             var result = await service.UpdateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1022,17 +905,8 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 UpdateDescription = true,
                 Description = "newDescription"
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = string.Empty,
-                OperationStatus = true,
-                StatusCode = HttpStatusCode.NoContent
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionMethod_Setup();
 
             //Act
             var result = await service.UpdateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1041,29 +915,37 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             Assert.Equal(ProtoHttpStatusCode.NoContent, result.StatusCode);
         }
 
+        private void UpdateEducationalInstitutionMethod_Setup()
+        {
+            var expectedMediatorResult = new Response()
+            {
+                Message = string.Empty,
+                OperationStatus = true,
+                StatusCode = HttpStatusCode.NoContent
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), out It.Ref<string>.IsAny))
+                                                    .Returns(true);
+
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), It.IsAny<CancellationToken>()))
+                                            .ReturnsAsync(expectedMediatorResult);
+        }
+
         [Fact]
         public async Task GivenAValidEducationalInstitutionUpdateRequest_IDDoesntExistInDatabase_ToUpdateEducationalInstitutionMethod_ShouldReturnStatusCodeDefault()
         {
             //Arrange
+            var educationalInstitutionID = Guid.NewGuid();
             EducationalInstitutionUpdateRequest request = new()
             {
-                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                EducationalInstitutionId = educationalInstitutionID.ToProtoUuid(),
                 UpdateName = true,
                 Name = "newName",
                 UpdateDescription = true,
                 Description = "newDescription"
             };
-            var expectedMediatorResult = new Response()
-            {
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.NotFound,
-                Message = $"Educational Institution with the following ID: {request.EducationalInstitutionId} has not been found!"
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionMethod_SetupToNotFindEntity(educationalInstitutionID);
 
             //Act
             var result = await service.UpdateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1076,25 +958,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionUpdateRequest_IDDoesntExistInDatabase_ToUpdateEducationalInstitutionMethod_ShouldReturnEmptyMessage()
         {
             //Arrange
+            var educationalInstitutionID = Guid.NewGuid();
             EducationalInstitutionUpdateRequest request = new()
             {
-                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                EducationalInstitutionId = educationalInstitutionID.ToProtoUuid(),
                 UpdateName = true,
                 Name = "newName",
                 UpdateDescription = true,
                 Description = "newDescription"
             };
-            var expectedMediatorResult = new Response()
-            {
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.NotFound,
-                Message = $"Educational Institution with the following ID: {request.EducationalInstitutionId} has not been found!"
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionMethod_SetupToNotFindEntity(educationalInstitutionID);
 
             //Act
             var result = await service.UpdateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1107,25 +981,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionUpdateRequest_IDDoesntExistInDatabase_ToUpdateEducationalInstitutionMethod_ShouldReturnFalseOperationStatus()
         {
             //Arrange
+            var educationalInstitutionID = Guid.NewGuid();
             EducationalInstitutionUpdateRequest request = new()
             {
-                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                EducationalInstitutionId = educationalInstitutionID.ToProtoUuid(),
                 UpdateName = true,
                 Name = "newName",
                 UpdateDescription = true,
                 Description = "newDescription"
             };
-            var expectedMediatorResult = new Response()
-            {
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.NotFound,
-                Message = $"Educational Institution with the following ID: {request.EducationalInstitutionId} has not been found!"
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionMethod_SetupToNotFindEntity(educationalInstitutionID);
 
             //Act
             var result = await service.UpdateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1134,29 +1000,51 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             Assert.False(result.OperationStatus);
         }
 
+        private void UpdateEducationalInstitutionMethod_SetupToNotFindEntity(Guid id)
+        {
+            var expectedMediatorResult = new Response()
+            {
+                OperationStatus = false,
+                StatusCode = HttpStatusCode.NotFound,
+                Message = $"Educational Institution with the following ID: {id} has not been found!"
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), out It.Ref<string>.IsAny))
+                                                    .Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), It.IsAny<CancellationToken>()))
+                                            .ReturnsAsync(expectedMediatorResult);
+        }
+
+        private void UpdateEducationalInstitutionMethod_Setup(Guid id)
+        {
+            var expectedMediatorResult = new Response()
+            {
+                OperationStatus = false,
+                StatusCode = HttpStatusCode.NotFound,
+                Message = $"An error occurred while updating the Educational Institution with the following ID: {id}!"
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), out It.Ref<string>.IsAny))
+                                                    .Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), It.IsAny<CancellationToken>()))
+                                           .ReturnsAsync(expectedMediatorResult);
+        }
+
         [Fact]
         public async Task GivenAValidEducationalInstitutionUpdateRequest_ToUpdateEducationalInstitutionMethod_AnExceptionIsCaughtInHandler_ShouldReturnStatusCodeDefault()
         {
             //Arrange
+            var educationalInstitutionID = Guid.NewGuid();
             EducationalInstitutionUpdateRequest request = new()
             {
-                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                EducationalInstitutionId = educationalInstitutionID.ToProtoUuid(),
                 UpdateName = true,
                 Name = "newName",
                 UpdateDescription = true,
                 Description = "newDescription"
             };
-            var expectedMediatorResult = new Response()
-            {
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.NotFound,
-                Message = "An error occurred while updating the Educational Institution with the following ID: {0}!"
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionMethod_Setup(educationalInstitutionID);
 
             //Act
             var result = await service.UpdateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1169,25 +1057,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionUpdateRequest_ToUpdateEducationalInstitutionMethod_AnExceptionIsCaughtInHandler_ShouldReturnEmptyMessage()
         {
             //Arrange
+            var educationalInstitutionID = Guid.NewGuid();
             EducationalInstitutionUpdateRequest request = new()
             {
-                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                EducationalInstitutionId = educationalInstitutionID.ToProtoUuid(),
                 UpdateName = true,
                 Name = "newName",
                 UpdateDescription = true,
                 Description = "newDescription"
             };
-            var expectedMediatorResult = new Response()
-            {
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.NotFound,
-                Message = "An error occurred while updating the Educational Institution with the following ID: {0}!"
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionMethod_Setup(educationalInstitutionID);
 
             //Act
             var result = await service.UpdateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1200,25 +1080,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionUpdateRequest_ToUpdateEducationalInstitutionMethod_AnExceptionIsCaughtInHandler_ShouldReturnFalseOperationStatus()
         {
             //Arrange
+            var educationalInstitutionID = Guid.NewGuid();
             EducationalInstitutionUpdateRequest request = new()
             {
-                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                EducationalInstitutionId = educationalInstitutionID.ToProtoUuid(),
                 UpdateName = true,
                 Name = "newName",
                 UpdateDescription = true,
                 Description = "newDescription"
             };
-            var expectedMediatorResult = new Response()
-            {
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.NotFound,
-                Message = "An error occurred while updating the Educational Institution with the following ID: {0}!"
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionMethod_Setup(educationalInstitutionID);
 
             //Act
             var result = await service.UpdateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1240,9 +1112,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 Description = string.Empty
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(false);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionUpdateCommand>();
 
             //Act
             var result = await service.UpdateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1264,9 +1134,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 Description = string.Empty
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(false);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionUpdateCommand>();
 
             //Act
             var result = await service.UpdateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1288,9 +1156,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 Description = string.Empty
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(false);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionUpdateCommand>();
 
             //Act
             var result = await service.UpdateEducationalInstitution(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1313,22 +1179,8 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
                 RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = string.Empty,
-                OperationStatus = true,
-                StatusCode = HttpStatusCode.NoContent
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), out It.Ref<string>.IsAny))
-                                                    .Returns(true);
-
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), It.IsAny<CancellationToken>()))
-                                            .ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object,
-                                                                    dependenciesHelper.mockLogger.Object,
-                                                                    dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionAdminMethod_Setup();
 
             //Act
             var result = await service.UpdateEducationalInstitutionAdmin(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1347,22 +1199,8 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
                 RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = string.Empty,
-                OperationStatus = true,
-                StatusCode = HttpStatusCode.NoContent
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), out It.Ref<string>.IsAny))
-                                                    .Returns(true);
-
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), It.IsAny<CancellationToken>()))
-                                            .ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object,
-                                                                    dependenciesHelper.mockLogger.Object,
-                                                                    dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionAdminMethod_Setup();
 
             //Act
             var result = await service.UpdateEducationalInstitutionAdmin(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1381,22 +1219,8 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
                 RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = string.Empty,
-                OperationStatus = true,
-                StatusCode = HttpStatusCode.NoContent
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), out It.Ref<string>.IsAny))
-                                                    .Returns(true);
-
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), It.IsAny<CancellationToken>()))
-                                            .ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object,
-                                                                    dependenciesHelper.mockLogger.Object,
-                                                                    dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionAdminMethod_Setup();
 
             //Act
             var result = await service.UpdateEducationalInstitutionAdmin(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1415,6 +1239,18 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
                 RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
             };
+
+            UpdateEducationalInstitutionAdminMethod_Setup();
+
+            //Act
+            var result = await service.UpdateEducationalInstitutionAdmin(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal(ProtoHttpStatusCode.NoContent, result.StatusCode);
+        }
+
+        private void UpdateEducationalInstitutionAdminMethod_Setup()
+        {
             var expectedMediatorResult = new Response()
             {
                 Message = string.Empty,
@@ -1427,44 +1263,21 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
 
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), It.IsAny<CancellationToken>()))
                                             .ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object,
-                                                                    dependenciesHelper.mockLogger.Object,
-                                                                    dependenciesHelper.mockValidationHandler.Object);
-
-            //Act
-            var result = await service.UpdateEducationalInstitutionAdmin(request, dependenciesHelper.mockServerCallContext.Object);
-
-            //Assert
-            Assert.Equal(ProtoHttpStatusCode.NoContent, result.StatusCode);
         }
 
         [Fact]
         public async Task GivenAValidEducationalInstitutionAdminUpdateRequest_IDDoesntExistInDatabase_ToUpdateEducationalInstitutionAdminMethod_ShouldReturnStatusCodeDefault()
         {
             //Arrange
+            var educationalInstitutionID = Guid.NewGuid();
             EducationalInstitutionAdminUpdateRequest request = new()
             {
-                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                EducationalInstitutionId = educationalInstitutionID.ToProtoUuid(),
                 AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
                 RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = $"Educational Institution with the following ID: {request.EducationalInstitutionId} has not been found!",
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.NotFound
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), out It.Ref<string>.IsAny))
-                                                    .Returns(true);
-
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), It.IsAny<CancellationToken>()))
-                                            .ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object,
-                                                                    dependenciesHelper.mockLogger.Object,
-                                                                    dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionAdminMethod_SetupToNotFindEntity(educationalInstitutionID);
 
             //Act
             var result = await service.UpdateEducationalInstitutionAdmin(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1477,28 +1290,15 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionAdminUpdateRequest_IDDoesntExistInDatabase_ToUpdateEducationalInstitutionAdminMethod_ShouldReturnEmptyMessage()
         {
             //Arrange
+            var educationalInstitutionID = Guid.NewGuid();
             EducationalInstitutionAdminUpdateRequest request = new()
             {
-                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                EducationalInstitutionId = educationalInstitutionID.ToProtoUuid(),
                 AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
                 RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = $"Educational Institution with the following ID: {request.EducationalInstitutionId} has not been found!",
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.NotFound
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), out It.Ref<string>.IsAny))
-                                                    .Returns(true);
-
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), It.IsAny<CancellationToken>()))
-                                            .ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object,
-                                                                    dependenciesHelper.mockLogger.Object,
-                                                                    dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionAdminMethod_SetupToNotFindEntity(educationalInstitutionID);
 
             //Act
             var result = await service.UpdateEducationalInstitutionAdmin(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1511,15 +1311,28 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionAdminUpdateRequest_IDDoesntExistInDatabase_ToUpdateEducationalInstitutionAdminMethod_ShouldReturnFalseOperationStatus()
         {
             //Arrange
+            var educationalInstitutionID = Guid.NewGuid();
             EducationalInstitutionAdminUpdateRequest request = new()
             {
-                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                EducationalInstitutionId = educationalInstitutionID.ToProtoUuid(),
                 AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
                 RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
             };
+
+            UpdateEducationalInstitutionAdminMethod_SetupToNotFindEntity(educationalInstitutionID);
+
+            //Act
+            var result = await service.UpdateEducationalInstitutionAdmin(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.False(result.OperationStatus);
+        }
+
+        private void UpdateEducationalInstitutionAdminMethod_SetupToNotFindEntity(Guid id)
+        {
             var expectedMediatorResult = new Response()
             {
-                Message = $"Educational Institution with the following ID: {request.EducationalInstitutionId} has not been found!",
+                Message = $"Educational Institution with the following ID: {id} has not been found!",
                 OperationStatus = false,
                 StatusCode = HttpStatusCode.NotFound
             };
@@ -1529,16 +1342,6 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
 
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), It.IsAny<CancellationToken>()))
                                             .ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object,
-                                                                    dependenciesHelper.mockLogger.Object,
-                                                                    dependenciesHelper.mockValidationHandler.Object);
-
-            //Act
-            var result = await service.UpdateEducationalInstitutionAdmin(request, dependenciesHelper.mockServerCallContext.Object);
-
-            //Assert
-            Assert.False(result.OperationStatus);
         }
 
         [Fact]
@@ -1551,18 +1354,8 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
                 RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = "An error occurred while updating the Educational Institution's admins with the given data!",
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.InternalServerError
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), out It.Ref<string>.IsAny))
-                                                    .Returns(true);
-
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), It.IsAny<CancellationToken>()))
-                                            .ReturnsAsync(expectedMediatorResult);
+            UpdateEducationalInstitutionAdminMethod_SetupWhenAnExceptionIsCaughtInHandler();
 
             var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object,
                                                                     dependenciesHelper.mockLogger.Object,
@@ -1585,22 +1378,8 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
                 RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = "An error occurred while updating the Educational Institution's admins with the given data!",
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.InternalServerError
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), out It.Ref<string>.IsAny))
-                                                    .Returns(true);
-
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), It.IsAny<CancellationToken>()))
-                                            .ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object,
-                                                                    dependenciesHelper.mockLogger.Object,
-                                                                    dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionAdminMethod_SetupWhenAnExceptionIsCaughtInHandler();
 
             //Act
             var result = await service.UpdateEducationalInstitutionAdmin(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1619,6 +1398,18 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
                 RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
             };
+
+            UpdateEducationalInstitutionAdminMethod_SetupWhenAnExceptionIsCaughtInHandler();
+
+            //Act
+            var result = await service.UpdateEducationalInstitutionAdmin(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal(ProtoHttpStatusCode.Default, result.StatusCode);
+        }
+
+        private void UpdateEducationalInstitutionAdminMethod_SetupWhenAnExceptionIsCaughtInHandler()
+        {
             var expectedMediatorResult = new Response()
             {
                 Message = "An error occurred while updating the Educational Institution's admins with the given data!",
@@ -1631,16 +1422,6 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
 
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), It.IsAny<CancellationToken>()))
                                             .ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object,
-                                                                    dependenciesHelper.mockLogger.Object,
-                                                                    dependenciesHelper.mockValidationHandler.Object);
-
-            //Act
-            var result = await service.UpdateEducationalInstitutionAdmin(request, dependenciesHelper.mockServerCallContext.Object);
-
-            //Assert
-            Assert.Equal(ProtoHttpStatusCode.Default, result.StatusCode);
         }
 
         [Fact]
@@ -1654,15 +1435,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), out It.Ref<string>.IsAny))
-                                                    .Returns(true);
-
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), It.IsAny<CancellationToken>()))
-                                            .ThrowsAsync(new InvalidOperationException("Test"));
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object,
-                                                                    dependenciesHelper.mockLogger.Object,
-                                                                    dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionAdminMethod_SetupMediatorToThrowException();
 
             //Act
             var result = await service.UpdateEducationalInstitutionAdmin(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1682,15 +1455,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), out It.Ref<string>.IsAny))
-                                                    .Returns(true);
-
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), It.IsAny<CancellationToken>()))
-                                            .ThrowsAsync(new InvalidOperationException("Test"));
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object,
-                                                                    dependenciesHelper.mockLogger.Object,
-                                                                    dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionAdminMethod_SetupMediatorToThrowException();
 
             //Act
             var result = await service.UpdateEducationalInstitutionAdmin(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1710,21 +1475,22 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), out It.Ref<string>.IsAny))
-                                                    .Returns(true);
-
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), It.IsAny<CancellationToken>()))
-                                            .ThrowsAsync(new InvalidOperationException("Test"));
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object,
-                                                                    dependenciesHelper.mockLogger.Object,
-                                                                    dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionAdminMethod_SetupMediatorToThrowException();
 
             //Act
             var result = await service.UpdateEducationalInstitutionAdmin(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
             Assert.Empty(result.Message);
+        }
+
+        private void UpdateEducationalInstitutionAdminMethod_SetupMediatorToThrowException()
+        {
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), out It.Ref<string>.IsAny))
+                                                   .Returns(true);
+
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), It.IsAny<CancellationToken>()))
+                                            .ThrowsAsync(new InvalidOperationException("Test"));
         }
 
         [Fact]
@@ -1738,12 +1504,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), out It.Ref<string>.IsAny))
-                                                    .Returns(false);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object,
-                                                                    dependenciesHelper.mockLogger.Object,
-                                                                    dependenciesHelper.mockValidationHandler.Object);
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionAdminUpdateCommand>();
 
             //Act
             var result = await service.UpdateEducationalInstitutionAdmin(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1763,12 +1524,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), out It.Ref<string>.IsAny))
-                                                    .Returns(false);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object,
-                                                                    dependenciesHelper.mockLogger.Object,
-                                                                    dependenciesHelper.mockValidationHandler.Object);
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionAdminUpdateCommand>();
 
             //Act
             var result = await service.UpdateEducationalInstitutionAdmin(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1788,12 +1544,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionAdminUpdateCommand>(), out It.Ref<string>.IsAny))
-                                                    .Returns(false);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object,
-                                                                    dependenciesHelper.mockLogger.Object,
-                                                                    dependenciesHelper.mockValidationHandler.Object);
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionAdminUpdateCommand>();
 
             //Act
             var result = await service.UpdateEducationalInstitutionAdmin(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1818,17 +1569,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
 
-            var expectedMediatorResult = new Response()
-            {
-                Message = string.Empty,
-                OperationStatus = true,
-                StatusCode = HttpStatusCode.NoContent
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionParentMethod_Setup();
 
             //Act
             var result = await service.UpdateEducationalInstitutionParent(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1849,17 +1590,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
 
-            var expectedMediatorResult = new Response()
-            {
-                Message = string.Empty,
-                OperationStatus = true,
-                StatusCode = HttpStatusCode.NoContent
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionParentMethod_Setup();
 
             //Act
             var result = await service.UpdateEducationalInstitutionParent(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1880,17 +1611,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
 
-            var expectedMediatorResult = new Response()
-            {
-                Message = string.Empty,
-                OperationStatus = true,
-                StatusCode = HttpStatusCode.NoContent
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionParentMethod_Setup();
 
             //Act
             var result = await service.UpdateEducationalInstitutionParent(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1911,6 +1632,17 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
 
+            UpdateEducationalInstitutionParentMethod_Setup();
+
+            //Act
+            var result = await service.UpdateEducationalInstitutionParent(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal(ProtoHttpStatusCode.NoContent, result.StatusCode);
+        }
+
+        private void UpdateEducationalInstitutionParentMethod_Setup()
+        {
             var expectedMediatorResult = new Response()
             {
                 Message = string.Empty,
@@ -1918,16 +1650,10 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 StatusCode = HttpStatusCode.NoContent
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
-
-            //Act
-            var result = await service.UpdateEducationalInstitutionParent(request, dependenciesHelper.mockServerCallContext.Object);
-
-            //Assert
-            Assert.Equal(ProtoHttpStatusCode.NoContent, result.StatusCode);
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), out It.Ref<string>.IsAny))
+                                                    .Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), It.IsAny<CancellationToken>()))
+                                            .ReturnsAsync(expectedMediatorResult);
         }
 
         [Fact]
@@ -1942,17 +1668,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
 
-            var expectedMediatorResult = new Response()
-            {
-                Message = $"The Parent Educational Institution with the following ID: {request.ParentInstitutionId} has not been found!",
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.NotFound
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionParentMethod_SetupToNotFindParentEntity(parentInstitutionID);
 
             //Act
             var result = await service.UpdateEducationalInstitutionParent(request, dependenciesHelper.mockServerCallContext.Object);
@@ -1973,17 +1689,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
 
-            var expectedMediatorResult = new Response()
-            {
-                Message = $"The Parent Educational Institution with the following ID: {request.ParentInstitutionId} has not been found!",
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.NotFound
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionParentMethod_SetupToNotFindParentEntity(parentInstitutionID);
 
             //Act
             var result = await service.UpdateEducationalInstitutionParent(request, dependenciesHelper.mockServerCallContext.Object);
@@ -2004,23 +1710,41 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
 
-            var expectedMediatorResult = new Response()
-            {
-                Message = $"The Parent Educational Institution with the following ID: {request.ParentInstitutionId} has not been found!",
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.NotFound
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionParentMethod_SetupToNotFindParentEntity(parentInstitutionID);
 
             //Act
             var result = await service.UpdateEducationalInstitutionParent(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
             Assert.Equal(ProtoHttpStatusCode.Default, result.StatusCode);
+        }
+
+        private void UpdateEducationalInstitutionParentMethod_SetupToNotFindParentEntity(Guid parentID)
+        {
+            var expectedMediatorResult = new Response()
+            {
+                Message = $"The Parent Educational Institution with the following ID: {parentID} has not been found!",
+                OperationStatus = false,
+                StatusCode = HttpStatusCode.NotFound
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
+        }
+
+        private void UpdateEducationalInstitutionParentMethod_Setup(Guid id)
+        {
+            var expectedMediatorResult = new Response()
+            {
+                Message = $"An error occurred while updating the Educational Institution with the following ID: {id}!",
+                OperationStatus = false,
+                StatusCode = HttpStatusCode.InternalServerError
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), out It.Ref<string>.IsAny))
+                                                    .Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), It.IsAny<CancellationToken>()))
+                                            .ReturnsAsync(expectedMediatorResult);
         }
 
         [Fact]
@@ -2035,17 +1759,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
 
-            var expectedMediatorResult = new Response()
-            {
-                Message = $"An error occurred while updating the Educational Institution with the following ID: {educationalInstitutionID}!",
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.InternalServerError
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionParentMethod_Setup(educationalInstitutionID);
 
             //Act
             var result = await service.UpdateEducationalInstitutionParent(request, dependenciesHelper.mockServerCallContext.Object);
@@ -2066,17 +1780,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
 
-            var expectedMediatorResult = new Response()
-            {
-                Message = $"An error occurred while updating the Educational Institution with the following ID: {educationalInstitutionID}!",
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.InternalServerError
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionParentMethod_Setup(educationalInstitutionID);
 
             //Act
             var result = await service.UpdateEducationalInstitutionParent(request, dependenciesHelper.mockServerCallContext.Object);
@@ -2097,17 +1801,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
 
-            var expectedMediatorResult = new Response()
-            {
-                Message = $"An error occurred while updating the Educational Institution with the following ID: {educationalInstitutionID}!",
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.InternalServerError
-            };
-
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionParentMethod_Setup(educationalInstitutionID);
 
             //Act
             var result = await service.UpdateEducationalInstitutionParent(request, dependenciesHelper.mockServerCallContext.Object);
@@ -2128,9 +1822,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(false);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionParentUpdateCommand>();
 
             //Act
             var result = await service.UpdateEducationalInstitutionParent(request, dependenciesHelper.mockServerCallContext.Object);
@@ -2151,9 +1843,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(false);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionParentUpdateCommand>();
 
             //Act
             var result = await service.UpdateEducationalInstitutionParent(request, dependenciesHelper.mockServerCallContext.Object);
@@ -2174,9 +1864,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionParentUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(false);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionParentUpdateCommand>();
 
             //Act
             var result = await service.UpdateEducationalInstitutionParent(request, dependenciesHelper.mockServerCallContext.Object);
@@ -2202,17 +1890,8 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 AddBuildingsIds = { new List<string>() { "newBuilding123" } },
                 RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = string.Empty,
-                OperationStatus = true,
-                StatusCode = HttpStatusCode.NoContent
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionLocationMethod_Setup();
 
             //Act
             var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
@@ -2234,17 +1913,8 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 AddBuildingsIds = { new List<string>() { "newBuilding123" } },
                 RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = string.Empty,
-                OperationStatus = true,
-                StatusCode = HttpStatusCode.NoContent
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionLocationMethod_Setup();
 
             //Act
             var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
@@ -2266,17 +1936,8 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 AddBuildingsIds = { new List<string>() { "newBuilding123" } },
                 RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = string.Empty,
-                OperationStatus = true,
-                StatusCode = HttpStatusCode.NoContent
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionLocationMethod_Setup();
 
             //Act
             var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
@@ -2298,17 +1959,8 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 AddBuildingsIds = { new List<string>() { "newBuilding123" } },
                 RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = string.Empty,
-                OperationStatus = true,
-                StatusCode = HttpStatusCode.NoContent
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionLocationMethod_Setup();
 
             //Act
             var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
@@ -2317,30 +1969,37 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             Assert.Equal(ProtoHttpStatusCode.NoContent, result.StatusCode);
         }
 
+        private void UpdateEducationalInstitutionLocationMethod_Setup()
+        {
+            var expectedMediatorResult = new Response()
+            {
+                Message = string.Empty,
+                OperationStatus = true,
+                StatusCode = HttpStatusCode.NoContent
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny))
+                                                    .Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>()))
+                                            .ReturnsAsync(expectedMediatorResult);
+        }
+
         [Fact]
         public async Task GivenAValidEducationalInstitutionLocationUpdateRequest_ToUpdateEducationalInstitutionLocationMethod_AnExceptionIsCaughtInHandler_ShouldReturnDefaultStatusCode()
         {
             //Arrange
+            var id = Guid.NewGuid();
             EducationalInstitutionLocationUpdateRequest request = new()
             {
-                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                EducationalInstitutionId = id.ToProtoUuid(),
                 UpdateLocation = true,
                 LocationId = "newLocation123",
                 UpdateBuildings = true,
                 AddBuildingsIds = { new List<string>() { "newBuilding123" } },
                 RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = $"An error occurred while updating the Educational Institution with the following ID: {request.EducationalInstitutionId.ToGuid()}!",
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.InternalServerError
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionLocationMethod_SetupWhenAnExceptionIsCaughtInHandler(id);
 
             //Act
             var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
@@ -2353,26 +2012,18 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionLocationUpdateRequest_ToUpdateEducationalInstitutionLocationMethod_AnExceptionIsCaughtInHandler_ShouldReturnEmptyMessage()
         {
             //Arrange
+            var id = Guid.NewGuid();
             EducationalInstitutionLocationUpdateRequest request = new()
             {
-                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                EducationalInstitutionId = id.ToProtoUuid(),
                 UpdateLocation = true,
                 LocationId = "newLocation123",
                 UpdateBuildings = true,
                 AddBuildingsIds = { new List<string>() { "newBuilding123" } },
                 RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = $"An error occurred while updating the Educational Institution with the following ID: {request.EducationalInstitutionId.ToGuid()}!",
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.InternalServerError
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionLocationMethod_SetupWhenAnExceptionIsCaughtInHandler(id);
 
             //Act
             var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
@@ -2385,26 +2036,18 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionLocationUpdateRequest_ToUpdateEducationalInstitutionLocationMethod_AnExceptionIsCaughtInHandler_ShouldReturnFalseOperationStatus()
         {
             //Arrange
+            var id = Guid.NewGuid();
             EducationalInstitutionLocationUpdateRequest request = new()
             {
-                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                EducationalInstitutionId = id.ToProtoUuid(),
                 UpdateLocation = true,
                 LocationId = "newLocation123",
                 UpdateBuildings = true,
                 AddBuildingsIds = { new List<string>() { "newBuilding123" } },
                 RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = $"An error occurred while updating the Educational Institution with the following ID: {request.EducationalInstitutionId.ToGuid()}!",
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.InternalServerError
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionLocationMethod_SetupWhenAnExceptionIsCaughtInHandler(id);
 
             //Act
             var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
@@ -2413,30 +2056,37 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             Assert.False(result.OperationStatus);
         }
 
+        private void UpdateEducationalInstitutionLocationMethod_SetupWhenAnExceptionIsCaughtInHandler(Guid id)
+        {
+            var expectedMediatorResult = new Response()
+            {
+                Message = $"An error occurred while updating the Educational Institution with the following ID: {id}!",
+                OperationStatus = false,
+                StatusCode = HttpStatusCode.InternalServerError
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny))
+                                                    .Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>()))
+                                           .ReturnsAsync(expectedMediatorResult);
+        }
+
         [Fact]
         public async Task GivenAValidEducationalInstitutionLocationUpdateRequest_IDDoesntExistInDatabase_ToUpdateEducationalInstitutionLocationMethod_ShouldReturnStatusCodeDefault()
         {
             //Arrange
+            var id = Guid.NewGuid();
             EducationalInstitutionLocationUpdateRequest request = new()
             {
-                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                EducationalInstitutionId = id.ToProtoUuid(),
                 UpdateLocation = true,
                 LocationId = "newLocation123",
                 UpdateBuildings = true,
                 AddBuildingsIds = { new List<string>() { "newBuilding123" } },
                 RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = $"Educational Institution with the following ID: {request.EducationalInstitutionId.ToGuid()} has not been found!",
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.NotFound
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionLocationMethod_SetupToNotFindEntity(id);
 
             //Act
             var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
@@ -2449,26 +2099,18 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionLocationUpdateRequest_IDDoesntExistInDatabase_ToUpdateEducationalInstitutionLocationMethod_ShouldReturnFalseOperationStatus()
         {
             //Arrange
+            var id = Guid.NewGuid();
             EducationalInstitutionLocationUpdateRequest request = new()
             {
-                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                EducationalInstitutionId = id.ToProtoUuid(),
                 UpdateLocation = true,
                 LocationId = "newLocation123",
                 UpdateBuildings = true,
                 AddBuildingsIds = { new List<string>() { "newBuilding123" } },
                 RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = $"Educational Institution with the following ID: {request.EducationalInstitutionId.ToGuid()} has not been found!",
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.NotFound
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionLocationMethod_SetupToNotFindEntity(id);
 
             //Act
             var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
@@ -2481,32 +2123,39 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionLocationUpdateRequest_IDDoesntExistInDatabase_ToUpdateEducationalInstitutionLocationMethod_ShouldReturnEmptyMessage()
         {
             //Arrange
+            var id = Guid.NewGuid();
             EducationalInstitutionLocationUpdateRequest request = new()
             {
-                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                EducationalInstitutionId = id.ToProtoUuid(),
                 UpdateLocation = true,
                 LocationId = "newLocation123",
                 UpdateBuildings = true,
                 AddBuildingsIds = { new List<string>() { "newBuilding123" } },
                 RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
             };
-            var expectedMediatorResult = new Response()
-            {
-                Message = $"Educational Institution with the following ID: {request.EducationalInstitutionId.ToGuid()} has not been found!",
-                OperationStatus = false,
-                StatusCode = HttpStatusCode.NotFound
-            };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(true);
-            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            UpdateEducationalInstitutionLocationMethod_SetupToNotFindEntity(id);
 
             //Act
             var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
             Assert.Empty(result.Message);
+        }
+
+        private void UpdateEducationalInstitutionLocationMethod_SetupToNotFindEntity(Guid id)
+        {
+            var expectedMediatorResult = new Response()
+            {
+                Message = $"Educational Institution with the following ID: {id} has not been found!",
+                OperationStatus = false,
+                StatusCode = HttpStatusCode.NotFound
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny))
+                                                    .Returns(true);
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), It.IsAny<CancellationToken>()))
+                                            .ReturnsAsync(expectedMediatorResult);
         }
 
         [Fact]
@@ -2523,9 +2172,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(false);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionLocationUpdateCommand>();
 
             //Act
             var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
@@ -2548,9 +2195,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(false);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionLocationUpdateCommand>();
 
             //Act
             var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
@@ -2573,9 +2218,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 RemoveBuildingsIds = { new List<string>() { "oldBuilding012" } }
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionLocationUpdateCommand>(), out It.Ref<string>.IsAny)).Returns(false);
-
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionLocationUpdateCommand>();
 
             //Act
             var result = await service.UpdateEducationalInstitutionLocation(request, dependenciesHelper.mockServerCallContext.Object);
