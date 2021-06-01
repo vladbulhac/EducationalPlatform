@@ -331,6 +331,62 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
 
         #endregion Request of type DTOEducationalInstitutionByLocationQuery TESTS
 
+        #region Request of type DTOAdminsByEducationalInstitutionIDQuery TESTS
+
+        [Fact]
+        public void GivenAValidDTOAdminsByEducationalInstitutionIDQuery_ShouldReturnTrue()
+        {
+            //Arrange
+            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out _);
+
+            //Assert
+            Assert.True(validationResult);
+        }
+
+        [Fact]
+        public void GivenAValidDTOAdminsByEducationalInstitutionIDQuery_ShouldReturnEmptyValidationErrorsString()
+        {
+            //Arrange
+            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Empty(validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidDTOAdminsByEducationalInstitutionIDQuery_WithDefaultID_ShouldReturnFalse()
+        {
+            //Arrange
+            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = default };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out _);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidDTOAdminsByEducationalInstitutionIDQuery_WithDefaultID_ShouldReturnAStringWithValidationError()
+        {
+            //Arrange
+            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = default };
+
+            //Act
+            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: EducationalInstitutionID is empty, null or default!", validationErrors);
+        }
+
+        #endregion Request of type DTOAdminsByEducationalInstitutionIDQuery TESTS
+
         #region Request of type DTOEducationalInstitutionCreateCommand TESTS
 
         [Fact]
