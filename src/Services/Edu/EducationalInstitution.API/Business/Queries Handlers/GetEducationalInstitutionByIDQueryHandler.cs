@@ -41,10 +41,10 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
 
             try
             {
-                var educationalInstitution = await unitOfWork.UsingEducationalInstitutionQueryRepository()
+                var queryResult = await unitOfWork.UsingEducationalInstitutionQueryRepository()
                                                         .GetByIDAsync(request.EducationalInstitutionID, cancellationToken);
 
-                if (educationalInstitution is null)
+                if (queryResult == default)
                     return new()
                     {
                         Data = null,
@@ -55,7 +55,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
 
                 return new()
                 {
-                    Data = educationalInstitution,
+                    Data = queryResult,
                     OperationStatus = true,
                     StatusCode = HttpStatusCode.OK,
                     Message = string.Empty

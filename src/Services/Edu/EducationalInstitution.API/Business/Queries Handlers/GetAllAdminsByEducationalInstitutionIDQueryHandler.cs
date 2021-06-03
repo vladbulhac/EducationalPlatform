@@ -41,10 +41,10 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
 
             try
             {
-                var admins = await unitOfWork.UsingEducationalInstitutionQueryRepository()
+                var queryResult = await unitOfWork.UsingEducationalInstitutionQueryRepository()
                                              .GetAllAdminsForEducationalInstitutionAsync(request.EducationalInstitutionID, cancellationToken);
 
-                if (admins is null || admins.AdminsIDs.Count == 0)
+                if (queryResult == default || queryResult.AdminsIDs.Count == 0)
                     return new()
                     {
                         Data = null,
@@ -55,7 +55,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
 
                 return new()
                 {
-                    Data = admins,
+                    Data = queryResult,
                     OperationStatus = true,
                     StatusCode = HttpStatusCode.OK,
                     Message = string.Empty

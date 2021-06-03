@@ -42,10 +42,10 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
 
             try
             {
-                var educationalInstitutions = await unitOfWork.UsingEducationalInstitutionQueryRepository()
+                var queryResult = await unitOfWork.UsingEducationalInstitutionQueryRepository()
                                                         .GetAllLikeNameAsync(request.Name, request.OffsetValue, request.ResultsCount, cancellationToken);
 
-                if (educationalInstitutions is null || educationalInstitutions.Count == 0)
+                if (queryResult == default || queryResult.EducationalInstitutions.Count == 0)
                     return new()
                     {
                         Data = null,
@@ -56,7 +56,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
 
                 return new()
                 {
-                    Data = new() { EducationalInstitutions = educationalInstitutions },
+                    Data = queryResult,
                     OperationStatus = true,
                     StatusCode = HttpStatusCode.OK,
                     Message = string.Empty
