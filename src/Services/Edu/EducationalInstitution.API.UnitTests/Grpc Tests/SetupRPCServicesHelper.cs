@@ -13,7 +13,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
 
         protected void SetupMockedDependenciesToFailValidation<DTO>() where DTO : class
         {
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTO>(), out It.Ref<string>.IsAny))
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTO>(), out It.Ref<string>.IsAny))
                                                       .Returns(false);
         }
     }

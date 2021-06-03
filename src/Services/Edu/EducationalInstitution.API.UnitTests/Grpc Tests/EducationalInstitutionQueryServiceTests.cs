@@ -241,7 +241,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 Message = string.Empty
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionByIDQuery>(), out It.Ref<string>.IsAny))
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOEducationalInstitutionByIDQuery>(), out It.Ref<string>.IsAny))
                                                     .Returns(true);
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionByIDQuery>(), It.IsAny<CancellationToken>()))
                                             .ReturnsAsync(expectedMediatorResult);
@@ -335,7 +335,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 Message = string.Empty
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionByIDQuery>(), out It.Ref<string>.IsAny))
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOEducationalInstitutionByIDQuery>(), out It.Ref<string>.IsAny))
                                                     .Returns(true);
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionByIDQuery>(), It.IsAny<CancellationToken>()))
                                             .ReturnsAsync(expectedMediatorResult);
@@ -395,7 +395,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 Message = string.Empty
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionByIDQuery>(), out It.Ref<string>.IsAny))
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOEducationalInstitutionByIDQuery>(), out It.Ref<string>.IsAny))
                                                     .Returns(true);
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionByIDQuery>(), It.IsAny<CancellationToken>()))
                                             .ReturnsAsync(expectedMediatorResult);
@@ -426,7 +426,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 Message = string.Empty
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionByIDQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOEducationalInstitutionByIDQuery>(), out It.Ref<string>.IsAny)).Returns(true);
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionByIDQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
 
             EducationalInstitutionQueryService service = new(dependenciesHelper.mockMediator.Object, dependenciesHelper.mockLogger.Object, dependenciesHelper.mockValidationHandler.Object);
@@ -454,7 +454,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 Message = $"Educational Institution with the following ID: {id} has not been found!"
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionByIDQuery>(), out It.Ref<string>.IsAny)).Returns(false);
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOEducationalInstitutionByIDQuery>(), out It.Ref<string>.IsAny)).Returns(false);
 
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionByIDQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
 
@@ -483,7 +483,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 Message = $"An error occurred while searching for the Educational Institution with the following ID: {id}!"
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionByIDQuery>(), out It.Ref<string>.IsAny)).Returns(false);
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOEducationalInstitutionByIDQuery>(), out It.Ref<string>.IsAny)).Returns(false);
 
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionByIDQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
 
@@ -504,7 +504,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             var id = educationalInstitution.EducationalInstitutionID;
             EducationalInstitutionGetByIdRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionByIDQuery>(), out It.Ref<string>.IsAny)).Returns(false);
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOEducationalInstitutionByIDQuery>(), out It.Ref<string>.IsAny)).Returns(false);
 
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionByIDQuery>(), It.IsAny<CancellationToken>())).ThrowsAsync(new Exception());
 
@@ -805,7 +805,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 StatusCode = HttpStatusCode.OK
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByNameQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOEducationalInstitutionsByNameQuery>(), out It.Ref<string>.IsAny)).Returns(true);
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByNameQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
         }
 
@@ -979,7 +979,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 StatusCode = HttpStatusCode.NotFound
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByNameQuery>(), out It.Ref<string>.IsAny))
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOEducationalInstitutionsByNameQuery>(), out It.Ref<string>.IsAny))
                                                     .Returns(true);
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByNameQuery>(), It.IsAny<CancellationToken>()))
                                            .ReturnsAsync(expectedMediatorResult);
@@ -1075,7 +1075,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 StatusCode = HttpStatusCode.InternalServerError
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByNameQuery>(), out It.Ref<string>.IsAny))
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOEducationalInstitutionsByNameQuery>(), out It.Ref<string>.IsAny))
                                                     .Returns(true);
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByNameQuery>(), It.IsAny<CancellationToken>()))
                                             .ReturnsAsync(expectedMediatorResult);
@@ -1255,7 +1255,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 OperationStatus = true
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny))
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny))
                                                     .Returns(true);
 
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>()))
@@ -1392,7 +1392,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 OperationStatus = false
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
         }
 
@@ -1466,7 +1466,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 OperationStatus = false
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), out It.Ref<string>.IsAny)).Returns(true);
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByLocationQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(expectedMediatorResult);
         }
 
@@ -1564,7 +1564,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 StatusCode = HttpStatusCode.OK
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOAdminsByEducationalInstitutionIDQuery>(), out It.Ref<string>.IsAny))
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOAdminsByEducationalInstitutionIDQuery>(), out It.Ref<string>.IsAny))
                                                      .Returns(true);
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOAdminsByEducationalInstitutionIDQuery>(), It.IsAny<CancellationToken>()))
                                            .ReturnsAsync(expectedMediatorResult);
@@ -1712,7 +1712,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                 StatusCode = HttpStatusCode.NotFound
             };
 
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOAdminsByEducationalInstitutionIDQuery>(), out It.Ref<string>.IsAny))
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOAdminsByEducationalInstitutionIDQuery>(), out It.Ref<string>.IsAny))
                                                      .Returns(true);
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOAdminsByEducationalInstitutionIDQuery>(), It.IsAny<CancellationToken>()))
                                            .ReturnsAsync(expectedMediatorResult);
@@ -1788,7 +1788,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
 
         private void GetAllAdminsByEducationalInstitutionIDMethod_SetupToThrowAnException()
         {
-            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsRequestValid(It.IsAny<DTOAdminsByEducationalInstitutionIDQuery>(), out It.Ref<string>.IsAny))
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOAdminsByEducationalInstitutionIDQuery>(), out It.Ref<string>.IsAny))
                                                      .Returns(true);
             dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOAdminsByEducationalInstitutionIDQuery>(), It.IsAny<CancellationToken>()))
                                            .ThrowsAsync(new ArgumentNullException());

@@ -11,12 +11,12 @@ namespace EducationalInstitutionAPI.Business.Validation_Handler
         /// <inheritdoc cref="HandlerBase{THandler}.HandlerBase"/>
         public ValidationHandler(ILogger<ValidationHandler> logger) : base(logger) { }
 
-        public bool IsRequestValid<T>(T request, out string validationErrors)
+        public bool IsDataTransferObjectValid<T>(T dto, out string validationErrors)
         {
             try
             {
                 var validator = ValidatorFactory.CreateValidator<T>();
-                var validationResult = validator.Validate(request);
+                var validationResult = validator.Validate(dto);
 
                 if (!validationResult.IsValid)
                     validationErrors = GetValidationErrors(validationResult);
@@ -31,8 +31,8 @@ namespace EducationalInstitutionAPI.Business.Validation_Handler
 
                 return HandleException(
                             error_message: "Could not validate the request: {0} with the type: {1}, error details => {2}",
-                                            JsonConvert.SerializeObject(request),
-                                            request.GetType(),
+                                            JsonConvert.SerializeObject(dto),
+                                            dto.GetType(),
                                             e.Message);
             }
         }

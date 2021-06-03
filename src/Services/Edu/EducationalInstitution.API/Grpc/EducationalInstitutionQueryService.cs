@@ -33,9 +33,8 @@ namespace EducationalInstitutionAPI.Grpc
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 
-            var mappedRequest = request.MapToDTOEducationalInstitutionByIDQuery();
-
-            if (!validationHandler.IsRequestValid(mappedRequest, out string validationErrors))
+            var dto = request.MapToDTOEducationalInstitutionByIDQuery();
+            if (!validationHandler.IsDataTransferObjectValid(dto, out string validationErrors))
             {
                 SetStatusAndTrailersOfContextWhenValidationFails(ref context, validationErrors);
                 return new();
@@ -43,7 +42,7 @@ namespace EducationalInstitutionAPI.Grpc
 
             try
             {
-                var result = await mediator.Send(mappedRequest);
+                var result = await mediator.Send(dto);
 
                 if (result.OperationStatus)
                 {
@@ -81,9 +80,8 @@ namespace EducationalInstitutionAPI.Grpc
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 
-            var mappedRequest = request.MapToDTOEducationalInstitutionsByNameQuery();
-
-            if (!validationHandler.IsRequestValid(mappedRequest, out string validationErrors))
+            var dto = request.MapToDTOEducationalInstitutionsByNameQuery();
+            if (!validationHandler.IsDataTransferObjectValid(dto, out string validationErrors))
             {
                 SetStatusAndTrailersOfContextWhenValidationFails(ref context, validationErrors);
                 return new();
@@ -91,7 +89,7 @@ namespace EducationalInstitutionAPI.Grpc
 
             try
             {
-                var result = await mediator.Send(mappedRequest);
+                var result = await mediator.Send(dto);
 
                 if (result.OperationStatus)
                 {
@@ -129,8 +127,8 @@ namespace EducationalInstitutionAPI.Grpc
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 
-            var mappedRequest = request.MapToDTOEducationalInstitutionsByLocationQuery();
-            if (!validationHandler.IsRequestValid(mappedRequest, out string validationErrors))
+            var dto = request.MapToDTOEducationalInstitutionsByLocationQuery();
+            if (!validationHandler.IsDataTransferObjectValid(dto, out string validationErrors))
             {
                 SetStatusAndTrailersOfContextWhenValidationFails(ref context, validationErrors);
                 return new();
@@ -138,7 +136,7 @@ namespace EducationalInstitutionAPI.Grpc
 
             try
             {
-                var result = await mediator.Send(mappedRequest);
+                var result = await mediator.Send(dto);
 
                 if (result.OperationStatus)
                 {
@@ -173,8 +171,8 @@ namespace EducationalInstitutionAPI.Grpc
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 
-            var mappedRequest = request.MapToDTOAdminsByEducationalInstitutionIDQuery();
-            if (!validationHandler.IsRequestValid(mappedRequest, out string validationErrors))
+            var dto = request.MapToDTOAdminsByEducationalInstitutionIDQuery();
+            if (!validationHandler.IsDataTransferObjectValid(dto, out string validationErrors))
             {
                 SetStatusAndTrailersOfContextWhenValidationFails(ref context, validationErrors);
                 return new();
@@ -182,7 +180,7 @@ namespace EducationalInstitutionAPI.Grpc
 
             try
             {
-                var result = await mediator.Send(mappedRequest);
+                var result = await mediator.Send(dto);
 
                 if (result.OperationStatus)
                 {
