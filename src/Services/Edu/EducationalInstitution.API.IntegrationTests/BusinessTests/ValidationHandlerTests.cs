@@ -21,326 +21,326 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             validationHandler = new ValidationHandler(mockLogger.Object);
         }
 
-        #region Request of type DTOEducationalInstitutionByIDQuery TESTS
+        #region DTOEducationalInstitutionByIDQuery TESTS
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionByIDQuery_ShouldReturnTrue()
+        public void GivenAValidDTOEducationalInstitutionByIDQuery_ShouldReturnTrue()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByIDQuery() { EducationalInstitutionID = Guid.NewGuid() };
+            var dto = new DTOEducationalInstitutionByIDQuery { EducationalInstitutionID = Guid.NewGuid() };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out _);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.True(validationResult);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionByIDQuery_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidDTOEducationalInstitutionByIDQuery_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByIDQuery() { EducationalInstitutionID = Guid.NewGuid() };
+            var dto = new DTOEducationalInstitutionByIDQuery { EducationalInstitutionID = Guid.NewGuid() };
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByIDQuery_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionByIDQuery_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByIDQuery() { EducationalInstitutionID = default };
+            var dto = new DTOEducationalInstitutionByIDQuery { EducationalInstitutionID = default };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out _);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByIDQuery_WithDefaultEducationalInstitutionID_ShouldReturnAStringWithTheErrorsFound()
+        public void GivenAnInvalidDTOEducationalInstitutionByIDQuery_WithDefaultEducationalInstitutionID_ShouldReturnAStringWithTheErrorsFound()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionByIDQuery() { EducationalInstitutionID = default };
+            var dto = new DTOEducationalInstitutionByIDQuery { EducationalInstitutionID = default };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
         }
 
-        #endregion Request of type DTOEducationalInstitutionByIDQuery TESTS
+        #endregion DTOEducationalInstitutionByIDQuery TESTS
 
-        #region Request of type DTOEducationalInstitutionByNameQuery TESTS
+        #region DTOEducationalInstitutionByNameQuery TESTS
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionByNameQuery_ShouldReturnTrue()
+        public void GivenAValidDTOEducationalInstitutionByNameQuery_ShouldReturnTrue()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByNameQuery() { Name = "University", OffsetValue = 0, ResultsCount = 1 };
+            var dto = new DTOEducationalInstitutionsByNameQuery { Name = "University", OffsetValue = 0, ResultsCount = 1 };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out _);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.True(validationResult);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionByNameQuery_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidDTOEducationalInstitutionByNameQuery_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByNameQuery() { Name = "University", OffsetValue = 0, ResultsCount = 1 };
+            var dto = new DTOEducationalInstitutionsByNameQuery { Name = "University", OffsetValue = 0, ResultsCount = 1 };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByNameQuery_WithNullName_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionByNameQuery_WithNullName_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByNameQuery() { Name = null, OffsetValue = 0, ResultsCount = 1 };
+            var dto = new DTOEducationalInstitutionsByNameQuery { Name = null, OffsetValue = 0, ResultsCount = 1 };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out _);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByNameQuery_WithEmptyName_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionByNameQuery_WithEmptyName_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByNameQuery() { Name = string.Empty, OffsetValue = 0, ResultsCount = 1 };
+            var dto = new DTOEducationalInstitutionsByNameQuery { Name = string.Empty, OffsetValue = 0, ResultsCount = 1 };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out _);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByNameQuery_WithEmptyName_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionByNameQuery_WithEmptyName_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByNameQuery() { Name = string.Empty, OffsetValue = 0, ResultsCount = 1 };
+            var dto = new DTOEducationalInstitutionsByNameQuery { Name = string.Empty, OffsetValue = 0, ResultsCount = 1 };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property Name failed validation. Error was: Name was empty or null!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByNameQuery_WithNullName_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionByNameQuery_WithNullName_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByNameQuery() { Name = null, OffsetValue = 0, ResultsCount = 1 };
+            var dto = new DTOEducationalInstitutionsByNameQuery { Name = null, OffsetValue = 0, ResultsCount = 1 };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property Name failed validation. Error was: Name was empty or null!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByNameQuery_WithNameOfLengthOne_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionByNameQuery_WithNameOfLengthOne_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByNameQuery() { Name = "a", OffsetValue = 0, ResultsCount = 1 };
+            var dto = new DTOEducationalInstitutionsByNameQuery { Name = "a", OffsetValue = 0, ResultsCount = 1 };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property Name failed validation. Error was: Name's length was not between 2-128 characters!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByNameQuery_WithNegativeOffsetValue_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionByNameQuery_WithNegativeOffsetValue_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByNameQuery() { Name = "University", OffsetValue = -1, ResultsCount = 1 };
+            var dto = new DTOEducationalInstitutionsByNameQuery { Name = "University", OffsetValue = -1, ResultsCount = 1 };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByNameQuery_WithNegativeOffsetValue_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionByNameQuery_WithNegativeOffsetValue_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByNameQuery() { Name = "University", OffsetValue = -1, ResultsCount = 1 };
+            var dto = new DTOEducationalInstitutionsByNameQuery { Name = "University", OffsetValue = -1, ResultsCount = 1 };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property OffsetValue failed validation. Error was: Offset Value was not between 0 and 150!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByNameQuery_WithZeroResultsCount_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionByNameQuery_WithZeroResultsCount_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByNameQuery() { Name = "University", OffsetValue = 0, ResultsCount = 0 };
+            var dto = new DTOEducationalInstitutionsByNameQuery { Name = "University", OffsetValue = 0, ResultsCount = 0 };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByNameQuery_WithZeroResultsCount_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionByNameQuery_WithZeroResultsCount_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByNameQuery() { Name = "University", OffsetValue = 0, ResultsCount = 0 };
+            var dto = new DTOEducationalInstitutionsByNameQuery { Name = "University", OffsetValue = 0, ResultsCount = 0 };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property ResultsCount failed validation. Error was: Results Count was not between 1 and 100!", validationErrors);
         }
 
-        #endregion Request of type DTOEducationalInstitutionByNameQuery TESTS
+        #endregion DTOEducationalInstitutionByNameQuery TESTS
 
-        #region Request of type DTOEducationalInstitutionByLocationQuery TESTS
+        #region DTOEducationalInstitutionByLocationQuery TESTS
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionByLocationQuery_ShouldReturnTrue()
+        public void GivenAValidDTOEducationalInstitutionByLocationQuery_ShouldReturnTrue()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByLocationQuery() { LocationID = "6050efcd87e2647ab7ac443e" };
+            var dto = new DTOEducationalInstitutionsByLocationQuery { LocationID = "6050efcd87e2647ab7ac443e" };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out _);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.True(validationResult);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionByLocationQuery_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidDTOEducationalInstitutionByLocationQuery_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByLocationQuery() { LocationID = "6050efcd87e2647ab7ac443e" };
+            var dto = new DTOEducationalInstitutionsByLocationQuery { LocationID = "6050efcd87e2647ab7ac443e" };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithEmptyLocationID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionByLocationQuery_WithEmptyLocationID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByLocationQuery() { LocationID = string.Empty };
+            var dto = new DTOEducationalInstitutionsByLocationQuery { LocationID = string.Empty };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out _);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithEmptyLocationID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionByLocationQuery_WithEmptyLocationID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByLocationQuery() { LocationID = string.Empty };
+            var dto = new DTOEducationalInstitutionsByLocationQuery { LocationID = string.Empty };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property LocationID failed validation. Error was: Location ID was empty or null!", validationErrors);
         }
 
         [Fact]
-        public void GivenAanInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithLocationIDOfLengthNot24_ShouldReturnFalse()
+        public void GivenAanInvalidDTOEducationalInstitutionByLocationQuery_WithLocationIDOfLengthNot24_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByLocationQuery() { LocationID = "eIdL14F9" };
+            var dto = new DTOEducationalInstitutionsByLocationQuery { LocationID = "eIdL14F9" };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithLocationIDOfLengthNot24_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionByLocationQuery_WithLocationIDOfLengthNot24_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByLocationQuery() { LocationID = "eIdL14F9" };
+            var dto = new DTOEducationalInstitutionsByLocationQuery { LocationID = "eIdL14F9" };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property LocationID failed validation. Error was: Location ID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithLocationIDThatContainsProhibitedCharacters_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionByLocationQuery_WithLocationIDThatContainsProhibitedCharacters_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByLocationQuery() { LocationID = "6050efcd87e2647ab7ac443~" };
+            var dto = new DTOEducationalInstitutionsByLocationQuery { LocationID = "6050efcd87e2647ab7ac443~" };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionByLocationQuery_WithLocationIDThatContainsProhibitedCharacters_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionByLocationQuery_WithLocationIDThatContainsProhibitedCharacters_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionsByLocationQuery() { LocationID = "6050efcd87e2647ab7ac443~" };
+            var dto = new DTOEducationalInstitutionsByLocationQuery { LocationID = "6050efcd87e2647ab7ac443~" };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property LocationID failed validation. Error was: Location ID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
         }
 
-        #endregion Request of type DTOEducationalInstitutionByLocationQuery TESTS
+        #endregion DTOEducationalInstitutionByLocationQuery TESTS
 
-        #region Request of type DTOAdminsByEducationalInstitutionIDQuery TESTS
+        #region DTOAdminsByEducationalInstitutionIDQuery TESTS
 
         [Fact]
         public void GivenAValidDTOAdminsByEducationalInstitutionIDQuery_ShouldReturnTrue()
         {
             //Arrange
-            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
+            var dto = new DTOAdminsByEducationalInstitutionIDQuery { EducationalInstitutionID = Guid.NewGuid() };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out _);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.True(validationResult);
@@ -350,10 +350,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         public void GivenAValidDTOAdminsByEducationalInstitutionIDQuery_ShouldReturnEmptyValidationErrorsString()
         {
             //Arrange
-            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
+            var dto = new DTOAdminsByEducationalInstitutionIDQuery { EducationalInstitutionID = Guid.NewGuid() };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
@@ -363,10 +363,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         public void GivenAnInvalidDTOAdminsByEducationalInstitutionIDQuery_WithDefaultID_ShouldReturnFalse()
         {
             //Arrange
-            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = default };
+            var dto = new DTOAdminsByEducationalInstitutionIDQuery { EducationalInstitutionID = default };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out _);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -376,45 +376,132 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         public void GivenAnInvalidDTOAdminsByEducationalInstitutionIDQuery_WithDefaultID_ShouldReturnAStringWithValidationError()
         {
             //Arrange
-            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = default };
+            var dto = new DTOAdminsByEducationalInstitutionIDQuery { EducationalInstitutionID = default };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: EducationalInstitutionID is empty, null or default!", validationErrors);
         }
 
-        #endregion Request of type DTOAdminsByEducationalInstitutionIDQuery TESTS
+        #endregion DTOAdminsByEducationalInstitutionIDQuery TESTS
 
-        #region Request of type DTOEducationalInstitutionCreateCommand TESTS
+        #region DTOEducationalInstitutionsByBuildingQuery TEST
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionCreateCommand_ShouldReturnTrue()
+        public void GivenAValidDTOEducationalInstitutionsByBuildingQuery_ShouldReturnTrue()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
-            {
-                Name = "Name",
-                Description = "Description",
-                LocationID = "10Fc4a7f1e00f1BDebAe4509",
-                BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
-                ParentInstitutionID = Guid.NewGuid()
-            };
+            var dto = new DTOEducationalInstitutionsByBuildingQuery { BuildingID = "12AEDa09344151BbdDefF134" };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out _);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.True(validationResult);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionCreateCommand_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidDTOEducationalInstitutionsByBuildingQuery_ShouldReturnEmptyValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionsByBuildingQuery { BuildingID = "12AEDa09344151BbdDefF134" };
+
+            //Act
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+
+            //Assert
+            Assert.Empty(validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidDTOEducationalInstitutionsByBuildingQuery_WithEmptyBuildingID_ShouldReturnFalse()
+        {
+            //Arrange
+            var dto = new DTOEducationalInstitutionsByBuildingQuery { BuildingID = string.Empty };
+
+            //Act
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidDTOEducationalInstitutionsByBuildingQuery_WithEmptyBuildingID_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var dto = new DTOEducationalInstitutionsByBuildingQuery { BuildingID = string.Empty };
+
+            //Act
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property BuildingID failed validation. Error was: Building ID was empty or null!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidDTOEducationalInstitutionsByBuildingQuery_WithBuildingIDLengthNot24_ShouldReturnFalse()
+        {
+            //Arrange
+            var dto = new DTOEducationalInstitutionsByBuildingQuery { BuildingID = "a1234b" };
+
+            //Act
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidDTOEducationalInstitutionsByBuildingQuery_WithBuildingIDLengthNot24_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var dto = new DTOEducationalInstitutionsByBuildingQuery { BuildingID = "a1234b" };
+
+            //Act
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property BuildingID failed validation. Error was: Building ID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidDTOEducationalInstitutionsByBuildingQuery_WithBuildingIDContainingCharactersOutOfTheAlphabet_ShouldReturnFalse()
+        {
+            //Arrange
+            var dto = new DTOEducationalInstitutionsByBuildingQuery { BuildingID = "12AEDa09344151BbdDefF13Q" };
+
+            //Act
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidDTOEducationalInstitutionsByBuildingQuery_WithBuildingIDContainingCharactersOutOfTheAlphabet_ShouldReturnValidationErrors()
+        {
+            //Arrange
+            var dto = new DTOEducationalInstitutionsByBuildingQuery { BuildingID = "12AEDa09344151BbdDefF13Q" };
+
+            //Act
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+
+            //Assert
+            Assert.Equal(" Property BuildingID failed validation. Error was: Building ID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
+        }
+
+        #endregion DTOEducationalInstitutionsByBuildingQuery TEST
+
+        #region DTOEducationalInstitutionCreateCommand TESTS
+
+        [Fact]
+        public void GivenAValidDTOEducationalInstitutionCreateCommand_ShouldReturnTrue()
+        {
+            //Arrange
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -425,17 +512,38 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
+
+            //Assert
+            Assert.True(validationResult);
+        }
+
+        [Fact]
+        public void GivenAValidDTOEducationalInstitutionCreateCommand_ShouldReturnAnEmptyValidationErrorsString()
+        {
+            //Arrange
+            var dto = new DTOEducationalInstitutionCreateCommand
+            {
+                Name = "Name",
+                Description = "Description",
+                LocationID = "10Fc4a7f1e00f1BDebAe4509",
+                BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
+                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                ParentInstitutionID = Guid.NewGuid()
+            };
+
+            //Act
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyName_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyName_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = string.Empty,
                 Description = "Description",
@@ -446,17 +554,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyName_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyName_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = string.Empty,
                 Description = "Description",
@@ -467,17 +575,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property Name failed validation. Error was: Name was empty or null!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthName_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthName_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "N",
                 Description = "Description",
@@ -488,17 +596,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthName_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthName_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "N",
                 Description = "Description",
@@ -509,17 +617,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property Name failed validation. Error was: Name's length was not between 2-128 characters!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyDescription_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyDescription_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = string.Empty,
@@ -530,17 +638,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyDescription_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyDescription_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = string.Empty,
@@ -551,17 +659,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property Description failed validation. Error was: Description was empty or null!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthDescription_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthDescription_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = "D",
@@ -572,17 +680,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthDescription_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthDescription_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = "D",
@@ -593,17 +701,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property Description failed validation. Error was: Description's length was not between 2-500 characters!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -614,17 +722,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -635,17 +743,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property BuildingsIDs[0] failed validation. Error was: BuildingID was empty or null!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -656,17 +764,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -677,17 +785,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property BuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithOutOfBoundsAlphabetBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithOutOfBoundsAlphabetBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -698,17 +806,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithOutOfBoundsAlphabetBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithOutOfBoundsAlphabetBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -719,17 +827,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property BuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithBuildingIDEqualsLocationID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithBuildingIDEqualsLocationID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -740,17 +848,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithBuildingIDEqualsLocationID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithBuildingIDEqualsLocationID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -761,17 +869,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property BuildingsIDs[0] failed validation. Error was: BuildingID was the same as LocationID!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyBuildingsIDs_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyBuildingsIDs_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -782,17 +890,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyBuildingsIDs_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyBuildingsIDs_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -803,17 +911,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property BuildingsIDs failed validation. Error was: BuildingsIDs was empty or null!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyAdminsIDs_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyAdminsIDs_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -824,17 +932,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithEmptyAdminsIDs_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyAdminsIDs_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -845,17 +953,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property AdminsIDs failed validation. Error was: AdminsIDs was empty or null!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithDefaultAdminID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithDefaultAdminID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -866,17 +974,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionCreateCommand_WithDefaultAdminID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithDefaultAdminID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionCreateCommand()
+            var dto = new DTOEducationalInstitutionCreateCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -887,21 +995,21 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property AdminsIDs[0] failed validation. Error was: AdminID was empty or null!", validationErrors);
         }
 
-        #endregion Request of type DTOEducationalInstitutionCreateCommand TESTS
+        #endregion DTOEducationalInstitutionCreateCommand TESTS
 
-        #region Request of type DTOEducationalInstitutionUpdateCommand TESTS
+        #region DTOEducationalInstitutionUpdateCommand TESTS
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionUpdateCommand_ShouldReturnTrue()
+        public void GivenAValidDTOEducationalInstitutionUpdateCommand_ShouldReturnTrue()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionUpdateCommand()
+            var dto = new DTOEducationalInstitutionUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -911,17 +1019,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out _);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.True(validationResult);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionUpdateCommand_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidDTOEducationalInstitutionUpdateCommand_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionUpdateCommand()
+            var dto = new DTOEducationalInstitutionUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -931,17 +1039,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithFalseUpdateNameAndEmptyName_ShouldReturnTrue()
+        public void GivenAValidDTOEducationalInstitutionUpdateCommand_WithFalseUpdateNameAndEmptyName_ShouldReturnTrue()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionUpdateCommand()
+            var dto = new DTOEducationalInstitutionUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = false,
@@ -951,17 +1059,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out _);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.True(validationResult);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithFalseUpdateNameAndEmptyName_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidDTOEducationalInstitutionUpdateCommand_WithFalseUpdateNameAndEmptyName_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionUpdateCommand()
+            var dto = new DTOEducationalInstitutionUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = false,
@@ -971,17 +1079,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithFalseUpdateDescriptionAndEmptyDescription_ShouldReturnTrue()
+        public void GivenAValidDTOEducationalInstitutionUpdateCommand_WithFalseUpdateDescriptionAndEmptyDescription_ShouldReturnTrue()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionUpdateCommand()
+            var dto = new DTOEducationalInstitutionUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -992,17 +1100,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out _);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.True(validationResult);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithFalseUpdateDescriptionAndEmptyDescription_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidDTOEducationalInstitutionUpdateCommand_WithFalseUpdateDescriptionAndEmptyDescription_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionUpdateCommand()
+            var dto = new DTOEducationalInstitutionUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1012,17 +1120,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithFalseUpdateDescriptionAndFalseUpdateName_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithFalseUpdateDescriptionAndFalseUpdateName_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionUpdateCommand()
+            var dto = new DTOEducationalInstitutionUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = false,
@@ -1032,17 +1140,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out _);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithFalseUpdateDescriptionAndFalseUpdateName_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithFalseUpdateDescriptionAndFalseUpdateName_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionUpdateCommand()
+            var dto = new DTOEducationalInstitutionUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = false,
@@ -1052,17 +1160,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property UpdateDescription failed validation. Error was: Both update fields are set to false!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionUpdateCommand()
+            var dto = new DTOEducationalInstitutionUpdateCommand
             {
                 EducationalInstitutionID = default,
                 UpdateName = true,
@@ -1072,17 +1180,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionUpdateCommand()
+            var dto = new DTOEducationalInstitutionUpdateCommand
             {
                 EducationalInstitutionID = default,
                 UpdateName = true,
@@ -1092,17 +1200,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithEmptyName_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithEmptyName_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionUpdateCommand()
+            var dto = new DTOEducationalInstitutionUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1112,17 +1220,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithEmptyName_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithEmptyName_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionUpdateCommand()
+            var dto = new DTOEducationalInstitutionUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1132,17 +1240,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property Name failed validation. Error was: Name was empty or null!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithOutOfBoundsNameLength_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithOutOfBoundsNameLength_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionUpdateCommand()
+            var dto = new DTOEducationalInstitutionUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1152,17 +1260,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithOutOfBoundsNameLength_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithOutOfBoundsNameLength_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionUpdateCommand()
+            var dto = new DTOEducationalInstitutionUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1172,17 +1280,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property Name failed validation. Error was: Name's length was not between 2-128 characters!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithEmptyDescription_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithEmptyDescription_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionUpdateCommand()
+            var dto = new DTOEducationalInstitutionUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1192,17 +1300,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithEmptyDescription_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithEmptyDescription_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionUpdateCommand()
+            var dto = new DTOEducationalInstitutionUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1212,7 +1320,7 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property Description failed validation. Error was: Description was empty or null!", validationErrors);
@@ -1232,17 +1340,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(request, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithOutOfBoundsDescriptionLength_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithOutOfBoundsDescriptionLength_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionUpdateCommand()
+            var dto = new DTOEducationalInstitutionUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1252,129 +1360,129 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property Description failed validation. Error was: Description's length was not between 2-500 characters!", validationErrors);
         }
 
-        #endregion Request of type DTOEducationalInstitutionUpdateCommand TESTS
+        #endregion DTOEducationalInstitutionUpdateCommand TESTS
 
-        #region Request of type DTOEducationalInstitutionParentUpdateCommand TESTS
+        #region DTOEducationalInstitutionParentUpdateCommand TESTS
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_ShouldReturnTrue()
+        public void GivenAValidDTOEducationalInstitutionParentUpdateCommand_ShouldReturnTrue()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionParentUpdateCommand()
+            var dto = new DTOEducationalInstitutionParentUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
             //Act
-            var result = validationHandler.IsRequestValid(request, out string validationErrors);
+            var result = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.True(result);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidDTOEducationalInstitutionParentUpdateCommand_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionParentUpdateCommand()
+            var dto = new DTOEducationalInstitutionParentUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
             //Act
-            var result = validationHandler.IsRequestValid(request, out string validationErrors);
+            var result = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionParentUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionParentUpdateCommand()
+            var dto = new DTOEducationalInstitutionParentUpdateCommand
             {
                 EducationalInstitutionID = default,
                 ParentInstitutionID = Guid.NewGuid()
             };
 
             //Act
-            var result = validationHandler.IsRequestValid(request, out string validationErrors);
+            var result = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(result);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionParentUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionParentUpdateCommand()
+            var dto = new DTOEducationalInstitutionParentUpdateCommand
             {
                 EducationalInstitutionID = default,
                 ParentInstitutionID = Guid.NewGuid()
             };
 
             //Act
-            var result = validationHandler.IsRequestValid(request, out string validationErrors);
+            var result = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithParentInstitutionIDSameAsEducationalInstitutionID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionParentUpdateCommand_WithParentInstitutionIDSameAsEducationalInstitutionID_ShouldReturnFalse()
         {
             //Arrange
             var id = Guid.NewGuid();
-            var request = new DTOEducationalInstitutionParentUpdateCommand()
+            var dto = new DTOEducationalInstitutionParentUpdateCommand
             {
                 EducationalInstitutionID = id,
                 ParentInstitutionID = id
             };
 
             //Act
-            var result = validationHandler.IsRequestValid(request, out string validationErrors);
+            var result = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(result);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionParentUpdateCommand_WithParentInstitutionIDSameAsEducationalInstitutionID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionParentUpdateCommand_WithParentInstitutionIDSameAsEducationalInstitutionID_ShouldReturnValidationErrors()
         {
             //Arrange
             var id = Guid.NewGuid();
-            var request = new DTOEducationalInstitutionParentUpdateCommand()
+            var dto = new DTOEducationalInstitutionParentUpdateCommand
             {
                 EducationalInstitutionID = id,
                 ParentInstitutionID = id
             };
 
             //Act
-            var result = validationHandler.IsRequestValid(request, out string validationErrors);
+            var result = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property ParentInstitutionID failed validation. Error was: ParentInstitutionID was the same as EducationalInstitutionID!", validationErrors);
         }
 
-        #endregion Request of type DTOEducationalInstitutionParentUpdateCommand TESTS
+        #endregion DTOEducationalInstitutionParentUpdateCommand TESTS
 
-        #region Request of type DTOEducationalInstitutionLocationUpdateCommand TESTS
+        #region DTOEducationalInstitutionLocationUpdateCommand TESTS
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_ShouldReturnTrue()
+        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_ShouldReturnTrue()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1384,17 +1492,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out _);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.True(validationResult);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1404,17 +1512,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = default,
                 UpdateLocation = true,
@@ -1424,17 +1532,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = default,
                 UpdateLocation = true,
@@ -1444,17 +1552,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithEmptyBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1464,17 +1572,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithEmptyBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1484,17 +1592,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property AddBuildingsIDs[0] failed validation. Error was: BuildingID was empty or null!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyLocationID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithEmptyLocationID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1504,17 +1612,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyLocationID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithEmptyLocationID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1524,17 +1632,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property LocationID failed validation. Error was: Location ID was empty or null!", validationErrors);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyBuildings_ShouldReturnTrue()
+        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_WithEmptyBuildings_ShouldReturnTrue()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1544,17 +1652,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.True(validationResult);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyBuildings_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_WithEmptyBuildings_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1564,17 +1672,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyLocationID_ShouldReturnTrue()
+        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_WithEmptyLocationID_ShouldReturnTrue()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = false,
@@ -1584,17 +1692,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.True(validationResult);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithDuplicateBuildingsIDs_ShouldReturnFalse()
+        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_WithDuplicateBuildingsIDs_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1604,17 +1712,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithDuplicateBuildingsIDs_ShouldReturnValidationErrors()
+        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_WithDuplicateBuildingsIDs_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1624,17 +1732,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property AddBuildingsIDs failed validation. Error was: AddBuildingsIDs can't contain duplicates!", validationErrors);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithFalseUpdateLocationAndUpdateBuildings_ShouldReturnFalse()
+        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_WithFalseUpdateLocationAndUpdateBuildings_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = false,
@@ -1644,17 +1752,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithFalseUpdateLocationAndUpdateBuildings_ShouldReturnValidationErrors()
+        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_WithFalseUpdateLocationAndUpdateBuildings_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = false,
@@ -1664,17 +1772,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property UpdateBuildings failed validation. Error was: Both location and buildings update fields are false!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithDuplicateBuildingsIDs_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithDuplicateBuildingsIDs_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1684,17 +1792,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithDuplicateBuildingsIDs_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithDuplicateBuildingsIDs_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1704,17 +1812,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property AddBuildingsIDs failed validation. Error was: AddBuildingsIDs can't contain duplicates!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithBothAddBuiildingsIDsAndRemoveBuildingsIDsEmpty_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithBothAddBuiildingsIDsAndRemoveBuildingsIDsEmpty_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1725,17 +1833,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithBothAddBuiildingsIDsAndRemoveBuildingsIDsEmpty_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithBothAddBuiildingsIDsAndRemoveBuildingsIDsEmpty_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1746,17 +1854,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property AddBuildingsIDs failed validation. Error was: Both AddBuildingsIDs and RemoveBuildingsIDs collections are empty!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyRemoveBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithEmptyRemoveBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1766,17 +1874,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithEmptyRemoveBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithEmptyRemoveBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1786,17 +1894,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property RemoveBuildingsIDs[0] failed validation. Error was: BuildingID was empty or null!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithOutOfBoundsCharactersInRemoveBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithOutOfBoundsCharactersInRemoveBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1807,17 +1915,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithOutOfBoundsCharactersInRemoveBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithOutOfBoundsCharactersInRemoveBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1828,17 +1936,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property RemoveBuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithOutOfBoundsCharactersInAddBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithOutOfBoundsCharactersInAddBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1849,17 +1957,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithOutOfBoundsCharactersInAddBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithOutOfBoundsCharactersInAddBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1870,17 +1978,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property AddBuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithLengthGreaterThan24InRemoveBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithLengthGreaterThan24InRemoveBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1891,17 +1999,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithLengthGreaterThan24InRemoveBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithLengthGreaterThan24InRemoveBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1912,17 +2020,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property RemoveBuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithLengthGreaterThan24InAddBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithLengthGreaterThan24InAddBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1933,17 +2041,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithLengthGreaterThan24InAddBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithLengthGreaterThan24InAddBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1954,17 +2062,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property AddBuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithSameIDOnAddBuildingsIDsAndRemoveBuildingsIDs_ShouldReturnFalse()
+        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_WithSameIDOnAddBuildingsIDsAndRemoveBuildingsIDs_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1975,18 +2083,18 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out _);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionLocationUpdateCommand_WithSameIDOnAddBuildingsIDsAndRemoveBuildingsIDs_ShouldReturnAStringWithValidationErrors()
+        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_WithSameIDOnAddBuildingsIDsAndRemoveBuildingsIDs_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
             var buildingID = "10Fc4a7f1e00F1BDebAe4501";
-            var request = new DTOEducationalInstitutionLocationUpdateCommand()
+            var dto = new DTOEducationalInstitutionLocationUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1997,21 +2105,21 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal($" Property AddBuildingsIDs[0] failed validation. Error was: AddBuildingsIDs' {buildingID} was also found in RemoveBuildingsIDs!", validationErrors);
         }
 
-        #endregion Request of type DTOEducationalInstitutionLocationUpdateCommand TESTS
+        #endregion DTOEducationalInstitutionLocationUpdateCommand TESTS
 
-        #region Request of Type DTOEducationalInstitutionAdminUpdateCommand TESTS
+        #region DTOEducationalInstitutionAdminUpdateCommand TESTS
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_ShouldReturnTrue()
+        public void GivenAValidDTOEducationalInstitutionAdminUpdateCommand_ShouldReturnTrue()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2019,17 +2127,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.True(validationResult);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_ShouldReturnEmptyValidationErrorsString()
+        public void GivenAValidDTOEducationalInstitutionAdminUpdateCommand_ShouldReturnEmptyValidationErrorsString()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2037,17 +2145,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithNullAddAdminsIDsCollection_ShouldReturnTrue()
+        public void GivenAValidDTOEducationalInstitutionAdminUpdateCommand_WithNullAddAdminsIDsCollection_ShouldReturnTrue()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = null,
@@ -2055,17 +2163,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.True(validationResult);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithNullAddAdminsIDsCollection_ShouldReturnEmptyValidationErrorsString()
+        public void GivenAValidDTOEducationalInstitutionAdminUpdateCommand_WithNullAddAdminsIDsCollection_ShouldReturnEmptyValidationErrorsString()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = null,
@@ -2073,17 +2181,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithNullRemoveAdminsIDsCollection_ShouldReturnTrue()
+        public void GivenAValidDTOEducationalInstitutionAdminUpdateCommand_WithNullRemoveAdminsIDsCollection_ShouldReturnTrue()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2091,17 +2199,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.True(validationResult);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithNullRemoveAdminsIDsCollection_ShouldReturnEmptyValidationErrorsString()
+        public void GivenAValidDTOEducationalInstitutionAdminUpdateCommand_WithNullRemoveAdminsIDsCollection_ShouldReturnEmptyValidationErrorsString()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2109,17 +2217,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDefaultID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDefaultID_ShouldReturnFalse()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = default,
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2127,17 +2235,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDefaultID_ShouldReturnAStringWithValidationError()
+        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDefaultID_ShouldReturnAStringWithValidationError()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = default,
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2145,17 +2253,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithBothCollectionsNull_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithBothCollectionsNull_ShouldReturnFalse()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = null,
@@ -2163,17 +2271,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithBothCollectionsNull_ShouldReturnAStringWithValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithBothCollectionsNull_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = null,
@@ -2181,18 +2289,18 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property RemoveAdminsIDs failed validation. Error was: Both AddAdminsIDs and RemoveAdminsIDs collections are empty!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithSameAdminIDOnBothCollections_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithSameAdminIDOnBothCollections_ShouldReturnFalse()
         {
             //Arrange
             var adminID = Guid.NewGuid();
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { adminID },
@@ -2200,18 +2308,18 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithSameAdminIDOnBothCollections_ShouldReturnAStringWithValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithSameAdminIDOnBothCollections_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
             var adminID = Guid.NewGuid();
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { adminID },
@@ -2219,18 +2327,18 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal($" Property RemoveAdminsIDs[0] failed validation. Error was: RemoveAdminsIDs' {adminID} was also found in AddAdminsIDs!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDuplicateIDInAddAdminsIDsCollection_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDuplicateIDInAddAdminsIDsCollection_ShouldReturnFalse()
         {
             //Arrange
             var adminID = Guid.NewGuid();
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { adminID, adminID },
@@ -2238,18 +2346,18 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDuplicateIDInAddAdminsIDsCollection_ShouldReturnAStringWithValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDuplicateIDInAddAdminsIDsCollection_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
             var adminID = Guid.NewGuid();
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { adminID, adminID },
@@ -2257,18 +2365,18 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property AddAdminsIDs failed validation. Error was: AddAdminsIDs contains duplicate values!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDuplicateIDInRemoveAdminsIDsCollection_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDuplicateIDInRemoveAdminsIDsCollection_ShouldReturnFalse()
         {
             //Arrange
             var adminID = Guid.NewGuid();
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2276,18 +2384,18 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDuplicateIDInRemoveAdminsIDsCollection_ShouldReturnAStringWithValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDuplicateIDInRemoveAdminsIDsCollection_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
             var adminID = Guid.NewGuid();
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2295,17 +2403,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property RemoveAdminsIDs failed validation. Error was: RemoveAdminsIDs contains duplicate values!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDefaultIDInAddAdminsIDs_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDefaultIDInAddAdminsIDs_ShouldReturnFalse()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { default },
@@ -2313,17 +2421,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDefaultIDInAddAdminsIDs_ShouldReturnAStringWithValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDefaultIDInAddAdminsIDs_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { default },
@@ -2331,17 +2439,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property AddAdminsIDs[0] failed validation. Error was: AddAdminsIDs contains an invalid ID!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDefaultIDInRemoveAdminsIDs_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDefaultIDInRemoveAdminsIDs_ShouldReturnFalse()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2349,17 +2457,17 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionAdminUpdateCommand_WithDefaultIDInRemoveAdminsIDs_ShouldReturnAStringWithValidationErrors()
+        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDefaultIDInRemoveAdminsIDs_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            var dto = new DTOEducationalInstitutionAdminUpdateCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2367,68 +2475,68 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property RemoveAdminsIDs[0] failed validation. Error was: RemoveAdminsIDs contains an invalid ID!", validationErrors);
         }
 
-        #endregion Request of Type DTOEducationalInstitutionAdminUpdateCommand TESTS
+        #endregion DTOEducationalInstitutionAdminUpdateCommand TESTS
 
-        #region Request of Type DTOEducationalInstiutionDeleteCommand TESTS
+        #region DTOEducationalInstiutionDeleteCommand TESTS
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionDeleteCommand_ShouldReturnTrue()
+        public void GivenAValidDTOEducationalInstitutionDeleteCommand_ShouldReturnTrue()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionDeleteCommand() { EducationalInstitutionID = Guid.NewGuid() };
+            var dto = new DTOEducationalInstitutionDeleteCommand { EducationalInstitutionID = Guid.NewGuid() };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out _);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.True(validationResult);
         }
 
         [Fact]
-        public void GivenAValidRequestOfTypeDTOEducationalInstitutionDeleteCommand_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidDTOEducationalInstitutionDeleteCommand_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionDeleteCommand() { EducationalInstitutionID = Guid.NewGuid() };
+            var dto = new DTOEducationalInstitutionDeleteCommand { EducationalInstitutionID = Guid.NewGuid() };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionDeleteCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
+        public void GivenAnInvalidDTOEducationalInstitutionDeleteCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionDeleteCommand() { EducationalInstitutionID = default };
+            var dto = new DTOEducationalInstitutionDeleteCommand { EducationalInstitutionID = default };
 
             //Act
-            var validationResult = validationHandler.IsRequestValid(request, out _);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionDeleteCommand_WithDefaultEducationalInstitutionID_ShouldReturnAStringWithTheErrorsFound()
+        public void GivenAnInvalidDTOEducationalInstitutionDeleteCommand_WithDefaultEducationalInstitutionID_ShouldReturnAStringWithTheErrorsFound()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionDeleteCommand() { EducationalInstitutionID = default };
+            var dto = new DTOEducationalInstitutionDeleteCommand { EducationalInstitutionID = default };
 
             //Act
-            validationHandler.IsRequestValid(request, out string validationErrors);
+            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
         }
 
-        #endregion Request of Type DTOEducationalInstiutionDeleteCommand TESTS
+        #endregion DTOEducationalInstiutionDeleteCommand TESTS
     }
 }
