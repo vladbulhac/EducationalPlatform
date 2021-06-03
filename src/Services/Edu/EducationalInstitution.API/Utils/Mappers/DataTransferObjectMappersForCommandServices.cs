@@ -39,7 +39,7 @@ namespace EducationalInstitutionAPI.Utils.Mappers
         }
 
         public static DTOEducationalInstitutionDeleteCommand MapToDTOEducationalInstitutionDeleteCommand(this EducationalInstitutionDeleteRequest request)
-                    => new() { EducationalInstitutionID = request.EducationalInstitutionId.ToGuid() };
+                => new() { EducationalInstitutionID = request.EducationalInstitutionId.ToGuid() };
 
         public static DTOEducationalInstitutionAdminUpdateCommand MapToDTOEducationalInstitutionAdminUpdateCommand(this EducationalInstitutionAdminUpdateRequest request)
                 => new()

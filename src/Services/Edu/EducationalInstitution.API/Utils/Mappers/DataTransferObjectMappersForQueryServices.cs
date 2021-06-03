@@ -62,14 +62,12 @@ namespace EducationalInstitutionAPI.Utils.Mappers
                 };
 
         public static DTOEducationalInstitutionsByNameQuery MapToDTOEducationalInstitutionsByNameQuery(this EducationalInstitutionGetByNameRequest request)
-        {
-            return new()
-            {
-                Name = request.Name,
-                OffsetValue = request.OffsetValue,
-                ResultsCount = request.ResultsCount
-            };
-        }
+                => new()
+                {
+                    Name = request.Name,
+                    OffsetValue = request.OffsetValue,
+                    ResultsCount = request.ResultsCount
+                };
 
         public static ICollection<GetByNameResult> MapToGetByNameResult(this GetAllEducationalInstitutionsByNameQueryResult result)
         {
