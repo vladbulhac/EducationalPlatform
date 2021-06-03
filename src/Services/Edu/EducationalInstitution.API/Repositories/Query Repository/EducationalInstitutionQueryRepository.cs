@@ -25,7 +25,7 @@ namespace EducationalInstitutionAPI.Repositories.Query_Repository
                 dbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:ConnectionToWriteDB") ?? throw new Exception("No connection string has been found!");
         }
 
-        public async Task<ICollection<GetEducationalInstitutionQueryResult>> GetAllLikeNameAsync(string name, int offsetValue = 0, int resultsCount = 1, CancellationToken cancellationToken = default)
+        public async Task<GetAllEducationalInstitutionsByNameQueryResult> GetAllLikeNameAsync(string name, int offsetValue = 0, int resultsCount = 1, CancellationToken cancellationToken = default)
         {
             await using (var connection = new SqlConnection(dbConnection))
             {
@@ -40,7 +40,7 @@ namespace EducationalInstitutionAPI.Repositories.Query_Repository
                                                                 FETCH NEXT @Results ROWS ONLY",
                                                             new { Name = name, Offset = offsetValue, Results = resultsCount });
 
-                return queryResult.ToList();
+                return new() { EducationalInstitutions = queryResult.ToList() };
             }
         }
 

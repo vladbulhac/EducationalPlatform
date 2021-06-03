@@ -477,7 +477,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests.Educatio
             var result = await repository.GetAllLikeNameAsync(name, offsetValue, resultsCount);
 
             //Assert
-            Assert.Equal(2, result.Count);
+            Assert.Equal(2, result.EducationalInstitutions.Count);
         }
 
         [IgnoreWhenDatabaseIsNotLoaded]
@@ -492,7 +492,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests.Educatio
             var result = await repository.GetAllLikeNameAsync(name, offsetValue, resultsCount);
 
             //Assert
-            Assert.Contains(result, ei => ei.Name.Equals("University of Testing"));
+            Assert.Contains(result.EducationalInstitutions, ei => ei.Name.Equals("University of Testing"));
         }
 
         [IgnoreWhenDatabaseIsNotLoaded]
@@ -507,7 +507,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests.Educatio
             var result = await repository.GetAllLikeNameAsync(name, offsetValue, resultsCount);
 
             //Assert
-            Assert.Contains(result, ei => ei.Description.Equals("Test data"));
+            Assert.Contains(result.EducationalInstitutions, ei => ei.Description.Equals("Test data"));
         }
 
         [IgnoreWhenDatabaseIsNotLoaded]
@@ -522,7 +522,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests.Educatio
             var result = await repository.GetAllLikeNameAsync(name, offsetValue, resultsCount);
 
             //Assert
-            Assert.Contains(result, ei => ei.Name.Equals("University of Testing One"));
+            Assert.Contains(result.EducationalInstitutions, ei => ei.Name.Equals("University of Testing One"));
         }
 
         [IgnoreWhenDatabaseIsNotLoaded]
@@ -537,7 +537,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests.Educatio
             var result = await repository.GetAllLikeNameAsync(name, offsetValue, resultsCount);
 
             //Assert
-            Assert.Contains(result, ei => ei.Description.Equals("Test More Data"));
+            Assert.Contains(result.EducationalInstitutions, ei => ei.Description.Equals("Test More Data"));
         }
 
         [IgnoreWhenDatabaseIsNotLoaded]
@@ -552,7 +552,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests.Educatio
             var result = await repository.GetAllLikeNameAsync(name, offsetValue, resultsCount);
 
             //Assert
-            Assert.Equal(1, result.Count);
+            Assert.Equal(1, result.EducationalInstitutions.Count);
         }
 
         [IgnoreWhenDatabaseIsNotLoaded]
@@ -567,7 +567,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests.Educatio
             var result = await repository.GetAllLikeNameAsync(name, offsetValue, resultsCount);
 
             //Assert
-            Assert.Equal("University of Testing", result.ElementAt(0).Name);
+            Assert.Equal("University of Testing", result.EducationalInstitutions.ElementAt(0).Name);
         }
 
         [IgnoreWhenDatabaseIsNotLoaded]
@@ -582,7 +582,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests.Educatio
             var result = await repository.GetAllLikeNameAsync(name, offsetValue, resultsCount);
 
             //Assert
-            Assert.Equal(1, result.Count);
+            Assert.Equal(1, result.EducationalInstitutions.Count);
         }
 
         [IgnoreWhenDatabaseIsNotLoaded]
@@ -597,7 +597,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests.Educatio
             var result = await repository.GetAllLikeNameAsync(name, offsetValue, resultsCount);
 
             //Assert
-            Assert.Equal("University of Testing One", result.ElementAt(0).Name);
+            Assert.Equal("University of Testing One", result.EducationalInstitutions.ElementAt(0).Name);
         }
 
         [IgnoreWhenDatabaseIsNotLoaded]
@@ -612,7 +612,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests.Educatio
             var result = await repository.GetAllLikeNameAsync(name, offsetValue, resultsCount);
 
             //Assert
-            Assert.Empty(result);
+            Assert.Empty(result.EducationalInstitutions);
         }
 
         [IgnoreWhenDatabaseIsNotLoaded]
@@ -627,7 +627,7 @@ namespace EducationalInstitution.API.IntegrationTests.RepositoriesTests.Educatio
             var result = await repository.GetAllLikeNameAsync(name, offsetValue, resultsCount);
 
             //Assert
-            Assert.Empty(result);
+            Assert.Empty(result.EducationalInstitutions);
         }
 
         #endregion GetAllLikeNameAsync() TESTS
