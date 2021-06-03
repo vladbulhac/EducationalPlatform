@@ -3,6 +3,7 @@ using EducationalInstitutionAPI.Data.Events_Definitions;
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Commands_Results;
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Commands;
+using EducationalInstitutionAPI.Repositories.Command_Repository;
 using EducationalInstitutionAPI.Repositories.Query_Repository;
 using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
 using EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work;
@@ -20,14 +21,12 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                                                               IRequestHandler<DTOEducationalInstitutionDeleteCommand, Response<DeleteEducationalInstitutionCommandResult>>
     {
         private readonly IUnitOfWorkForCommands unitOfWorkCommand;
-        private readonly IUnitOfWorkForQueries unitOfWorkQuery;
         private readonly IEventBus eventBus;
 
         /// <inheritdoc cref="HandlerBase{THandler}.HandlerBase"/>
-        public DeleteEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IUnitOfWorkForQueries unitOfWorkQuery, IEventBus eventBus, ILogger<DeleteEducationalInstitutionCommandHandler> logger) : base(logger)
+        public DeleteEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWorkCommand, IEventBus eventBus, ILogger<DeleteEducationalInstitutionCommandHandler> logger) : base(logger)
         {
             this.unitOfWorkCommand = unitOfWorkCommand ?? throw new ArgumentNullException(nameof(unitOfWorkCommand));
-            this.unitOfWorkQuery = unitOfWorkQuery ?? throw new ArgumentNullException(nameof(unitOfWorkQuery));
             this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
         }
 
@@ -90,14 +89,12 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             catch (Exception e)
             {
                 return HandleException<Response<DeleteEducationalInstitutionCommandResult>>(
-                                         error_message: "Could not schedule for deletion the Educational Institution with ID: {0}, using {1} with {2} and {3} with {4}'s method: {5}, error details => {6}",
+                                         error_message: "Could not schedule for deletion the Educational Institution with ID: {0}, using {1} and {2} with {3}, error details => {4}",
                                          response_message: "An error occurred while scheduling for deletion the Educational Institution with the following ID: {0}!",
                                         request.EducationalInstitutionID,
                                         unitOfWorkCommand.GetType(),
                                         unitOfWorkCommand.UsingEducationalInstitutionCommandRepository().GetType(),
-                                        unitOfWorkQuery.GetType(),
-                                        unitOfWorkQuery.UsingEducationalInstitutionQueryRepository().GetType(),
-                                        nameof(IEducationalInstitutionQueryRepository.GetEntityByIDAsync),
+                                        nameof(IEducationalInstitutionCommandRepository.ScheduleForDeletionAsync),
                                         e.Message
                                         );
             }
