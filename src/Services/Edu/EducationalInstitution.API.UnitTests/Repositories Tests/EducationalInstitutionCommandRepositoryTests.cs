@@ -451,5 +451,31 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
             var educationalInstitution = dbContext.EducationalInstitutions.Single(e => e.EducationalInstitutionID == id);
             educationalInstitution.RemoveDeletionSchedule();
         }
+
+        [Fact]
+        public async Task GivenAValidID_ToGetEducationalInstitutionIncludingAdminsAsyncMethod_ShouldReturnExpectedEntity()
+        {
+            //Arrange
+            var id = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+
+            //Act
+            var result = await repository.GetEducationalInstitutionIncludingAdminsAsync(id);
+
+            //Assert
+            Assert.Equal(result, testDataHelper.EducationalInstitutions[0]);
+        }
+
+        [Fact]
+        public async Task GivenAnInvalidID_ToGetEducationalInstitutionIncludingAdminsAsyncMethod_ShouldReturnNull()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+
+            //Act
+            var result = await repository.GetEducationalInstitutionIncludingAdminsAsync(id);
+
+            //Assert
+            Assert.Null(result);
+        }
     }
 }
