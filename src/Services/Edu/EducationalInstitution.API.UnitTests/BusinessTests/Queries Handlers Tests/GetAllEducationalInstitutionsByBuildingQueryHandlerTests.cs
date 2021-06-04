@@ -3,14 +3,9 @@ using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Result
 using EducationalInstitutionAPI.DTOs;
 using EducationalInstitutionAPI.DTOs.Queries;
 using Moq;
-using Moq.Language;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;

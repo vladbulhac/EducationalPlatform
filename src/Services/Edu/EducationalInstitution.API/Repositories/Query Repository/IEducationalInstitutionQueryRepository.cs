@@ -1,7 +1,6 @@
 ﻿using EducationalInstitutionAPI.Data;
 using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -1,9 +1,5 @@
 ﻿using EducationalInstitutionAPI.DTOs.Queries;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.DTOs.Validators.Queries_Validators
 {
