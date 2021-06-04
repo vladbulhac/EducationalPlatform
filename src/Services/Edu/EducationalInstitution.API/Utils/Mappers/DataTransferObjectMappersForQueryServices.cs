@@ -55,6 +55,9 @@ namespace EducationalInstitutionAPI.Utils.Mappers
             }
         }
 
+        public static DTOEducationalInstitutionsByBuildingQuery MapToDTOEducationalInstitutionsByBuildingQuery(this EducationalInstitutionsGetByBuildingRequest request)
+                => new() { BuildingID = request.BuildingId };
+
         public static DTOEducationalInstitutionByIDQuery MapToDTOEducationalInstitutionByIDQuery(this EducationalInstitutionGetByIdRequest request)
                 => new()
                 {
@@ -79,6 +82,20 @@ namespace EducationalInstitutionAPI.Utils.Mappers
                     Name = educationalInstitution.Name,
                     Description = educationalInstitution.Description,
                     LocationId = educationalInstitution.LocationID
+                });
+
+            return educationalInstitutions;
+        }
+
+        public static ICollection<BaseQueryResult> MapToBaseQueryResult(this GetAllEducationalInstitutionsWithSameBuildingQueryResult result)
+        {
+            List<BaseQueryResult> educationalInstitutions = new(result.EducationalInstitutions.Count);
+            foreach (var educationalInstitution in result.EducationalInstitutions)
+                educationalInstitutions.Add(new()
+                {
+                    EducationalInstitutionId = educationalInstitution.EducationalInstitutionID.ToProtoUuid(),
+                    Name = educationalInstitution.Name,
+                    Description = educationalInstitution.Description
                 });
 
             return educationalInstitutions;
