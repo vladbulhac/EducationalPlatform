@@ -120,6 +120,53 @@ namespace EducationalInstitutionAPI.Grpc
         }
 
         /// <inheritdoc cref="EducationalInstitutionCommandService.CreateEducationalInstitution"/>
+        public override async Task<EducationalInstitutionsGetByBuildingResponse> GetAllEducationalInstitutionsByBuilding(EducationalInstitutionsGetByBuildingRequest request, ServerCallContext context)
+        {
+            logger.LogInformation("Begin grpc call EducationalInstitutionQueryService.GetAllEducationalInstitutionsByBuilding");
+
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            if (context is null) throw new ArgumentNullException(nameof(context));
+
+            var dto = request.MapToDTOEducationalInstitutionsByBuildingQuery();
+            if (!validationHandler.IsDataTransferObjectValid(dto, out string validationErrors))
+            {
+                SetStatusAndTrailersOfContextWhenValidationFails(ref context, validationErrors);
+                return new();
+            }
+
+            try
+            {
+                var result = await mediator.Send(dto);
+
+                if (result.OperationStatus)
+                {
+                    context.Status = new(StatusCode.OK, "Successfully retrieved Educational Institutions!");
+
+                    return new()
+                    {
+                        Data = { result.Data.MapToBaseQueryResult() },
+                        OperationStatus = result.OperationStatus,
+                        StatusCode = result.StatusCode.ToProtoHttpStatusCode(),
+                        Message = result.Message
+                    };
+                }
+                else
+                    SetStatusAndTrailersOfContext(ref context, result.StatusCode, result.Message);
+            }
+            catch (Exception e)
+            {
+                HandleException(logger,
+                                 ref context,
+                                 "Could not get any Educational Institution with the request data: {0}, using {1}, error details => {2}",
+                                 JsonConvert.SerializeObject(request),
+                                 mediator.GetType(),
+                                 e.Message);
+            }
+
+            return new();
+        }
+
+        /// <inheritdoc cref="EducationalInstitutionCommandService.CreateEducationalInstitution"/>
         public override async Task<EducationalInstitutionsGetByLocationResponse> GetAllEducationalInstitutionsByLocation(EducationalInstitutionsGetByLocationRequest request, ServerCallContext context)
         {
             logger.LogInformation("Begin grpc call EducationalInstitutionQueryService.GetAllEducationalInstitutionsByLocation");
