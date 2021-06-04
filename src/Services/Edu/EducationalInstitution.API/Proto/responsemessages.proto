@@ -40,6 +40,13 @@ message EducationalInstitutionGetByNameResponse{
 	ProtoHttpStatusCode status_code=4;
 }
 
+message EducationalInstitutionsGetByBuildingResponse{
+	repeated BaseQueryResult data=1;
+	bool operation_status=2;
+	string message=3;
+	ProtoHttpStatusCode status_code=4;
+}
+
 message EducationalInstitutionsGetByLocationResponse{
 	repeated GetByLocationResult data=1;
 	bool operation_status=2;
