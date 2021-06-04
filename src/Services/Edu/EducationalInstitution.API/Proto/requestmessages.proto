@@ -56,6 +56,11 @@ message EducationalInstitutionGetByNameRequest{
 	int32 results_count=3;
 }
 
+message EducationalInstitutionsGetByBuildingRequest
+{
+	string building_id=1;
+}
+
 message EducationalInstitutionsGetByLocationRequest{
 	string location_id=1;
 }
