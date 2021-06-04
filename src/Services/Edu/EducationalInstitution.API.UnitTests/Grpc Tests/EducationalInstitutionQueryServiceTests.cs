@@ -422,7 +422,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
                     BuildingsIDs = new List<string>() { "building1", "building2" }
                 },
                 OperationStatus = true,
-                StatusCode = System.Net.HttpStatusCode.Created,
+                StatusCode = HttpStatusCode.Created,
                 Message = string.Empty
             };
 
@@ -1471,6 +1471,383 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
         }
 
         #endregion GetAllEducationalInstitutionsByLocationMethod TESTS
+
+        #region GetAllEducationalInstitutionsByBuildingMethod TESTS
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByBuildingRequest_ToGetAllEducationalInstitutionsByBuildingMethod_ShouldReturnEducationalInstitutionsGetByBuildingResponseType()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new() { BuildingId = "building123" };
+
+            GetAllEducationalInstitutionsByBuildingMethod_Setup(out _);
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.IsType<EducationalInstitutionsGetByBuildingResponse>(result);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByBuildingRequest_ToGetAllEducationalInstitutionsByBuildingMethod_ShouldReturnTrueOperationStatus()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new() { BuildingId = "building123" };
+
+            GetAllEducationalInstitutionsByBuildingMethod_Setup(out _);
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.True(result.OperationStatus);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByBuildingRequest_ToGetAllEducationalInstitutionsByBuildingMethod_ShouldReturnStatusCodeOK()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new() { BuildingId = "building123" };
+
+            GetAllEducationalInstitutionsByBuildingMethod_Setup(out _);
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal(ProtoHttpStatusCode.Ok, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByBuildingRequest_ToGetAllEducationalInstitutionsByBuildingMethod_ShouldReturnEmptyMessage()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new() { BuildingId = "building123" };
+
+            GetAllEducationalInstitutionsByBuildingMethod_Setup(out _);
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Empty(result.Message);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByBuildingRequest_ToGetAllEducationalInstitutionsByBuildingMethod_ShouldReturnCollectionWithOneItem()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new() { BuildingId = "building123" };
+
+            GetAllEducationalInstitutionsByBuildingMethod_Setup(out _);
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Single(result.Data);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByBuildingRequest_ToGetAllEducationalInstitutionsByBuildingMethod_ShouldReturnExpectedEducationalInstitutionID()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new() { BuildingId = "building123" };
+
+            GetAllEducationalInstitutionsByBuildingMethod_Setup(out Response<GetAllEducationalInstitutionsWithSameBuildingQueryResult> expectedMediatorResult);
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+            var expectedID = expectedMediatorResult.Data
+                                                   .EducationalInstitutions
+                                                   .ElementAt(0)
+                                                   .EducationalInstitutionID
+                                                   .ToProtoUuid();
+
+            //Assert
+            Assert.Equal(expectedID, result.Data[0].EducationalInstitutionId);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByBuildingRequest_ToGetAllEducationalInstitutionsByBuildingMethod_ShouldReturnExpectedName()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new() { BuildingId = "building123" };
+
+            GetAllEducationalInstitutionsByBuildingMethod_Setup(out Response<GetAllEducationalInstitutionsWithSameBuildingQueryResult> expectedMediatorResult);
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+            var expectedName = expectedMediatorResult.Data
+                                                   .EducationalInstitutions
+                                                   .ElementAt(0)
+                                                   .Name;
+
+            //Assert
+            Assert.Equal(expectedName, result.Data[0].Name);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByBuildingRequest_ToGetAllEducationalInstitutionsByBuildingMethod_ShouldReturnExpectedDescription()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new() { BuildingId = "building123" };
+
+            GetAllEducationalInstitutionsByBuildingMethod_Setup(out Response<GetAllEducationalInstitutionsWithSameBuildingQueryResult> expectedMediatorResult);
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+            var expectedDescription = expectedMediatorResult.Data
+                                                   .EducationalInstitutions
+                                                   .ElementAt(0)
+                                                   .Description;
+
+            //Assert
+            Assert.Equal(expectedDescription, result.Data[0].Description);
+        }
+
+        private void GetAllEducationalInstitutionsByBuildingMethod_Setup(out Response<GetAllEducationalInstitutionsWithSameBuildingQueryResult> expectedMediatorResult)
+        {
+            expectedMediatorResult = new()
+            {
+                Data = new()
+                {
+                    EducationalInstitutions = new List<EducationalInstitutionBaseQueryResult>
+                        {
+                            new()
+                            {
+                                EducationalInstitutionID=Guid.NewGuid(),
+                                Name="testName",
+                                Description="testDescription"
+                            }
+                        }
+                },
+                StatusCode = HttpStatusCode.OK,
+                OperationStatus = true,
+                Message = string.Empty
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOEducationalInstitutionsByBuildingQuery>(),
+                                                                                              out It.Ref<string>.IsAny))
+                                                    .Returns(true);
+
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByBuildingQuery>(), It.IsAny<CancellationToken>()))
+                                            .ReturnsAsync(expectedMediatorResult);
+        }
+
+        [Fact]
+        public async Task GivenAnInvalidEducationalInstitutionsGetByBuildingRequest_ThatFailsValidation_ToGetAllEducationalInstitutionsByBuildingMethod_ShouldReturnFalseOperationStatus()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new();
+
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionsByBuildingQuery>();
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.False(result.OperationStatus);
+        }
+
+        [Fact]
+        public async Task GivenAnInvalidEducationalInstitutionsGetByBuildingRequest_ThatFailsValidation_ToGetAllEducationalInstitutionsByBuildingMethod_ShouldReturnEmptyMessage()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new();
+
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionsByBuildingQuery>();
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Empty(result.Message);
+        }
+
+        [Fact]
+        public async Task GivenAnInvalidEducationalInstitutionsGetByBuildingRequest_ThatFailsValidation_ToGetAllEducationalInstitutionsByBuildingMethod_ShouldReturnStatusCodeDefault()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new();
+
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionsByBuildingQuery>();
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal(ProtoHttpStatusCode.Default, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GivenAnInvalidEducationalInstitutionsGetByBuildingRequest_ThatFailsValidation_ToGetAllEducationalInstitutionsByBuildingMethod_ShouldReturnEmptyData()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new();
+
+            SetupMockedDependenciesToFailValidation<DTOEducationalInstitutionsByBuildingQuery>();
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Empty(result.Data);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByBuildingRequest_ToGetAllEducationalInstitutionsByBuildingMethod_IDIsDNotFoundInDatabase_ShouldReturnFalseOperationStatus()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new() { BuildingId = "building123" };
+
+            GetAllEducationalInstitutionsByBuildingMethod_SetupToNotFindAnyEntity(request.BuildingId);
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.False(result.OperationStatus);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByBuildingRequest_ToGetAllEducationalInstitutionsByBuildingMethod_IDIsDNotFoundInDatabase_ShouldReturnEmptyMessage()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new() { BuildingId = "building123" };
+
+            GetAllEducationalInstitutionsByBuildingMethod_SetupToNotFindAnyEntity(request.BuildingId);
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Empty(result.Message);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByBuildingRequest_ToGetAllEducationalInstitutionsByBuildingMethod_IDIsDNotFoundInDatabase_ShouldReturnDefaultStatusCode()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new() { BuildingId = "building123" };
+
+            GetAllEducationalInstitutionsByBuildingMethod_SetupToNotFindAnyEntity(request.BuildingId);
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal(ProtoHttpStatusCode.Default, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByBuildingRequest_ToGetAllEducationalInstitutionsByBuildingMethod_IDIsDNotFoundInDatabase_ShouldReturnEmptyData()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new() { BuildingId = "building123" };
+
+            GetAllEducationalInstitutionsByBuildingMethod_SetupToNotFindAnyEntity(request.BuildingId);
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Empty(result.Data);
+        }
+
+        private void GetAllEducationalInstitutionsByBuildingMethod_SetupToNotFindAnyEntity(string buildingID)
+        {
+            var expectedMediatorResult = new Response<GetAllEducationalInstitutionsWithSameBuildingQueryResult>
+            {
+                Data = new()
+                {
+                    EducationalInstitutions = new List<EducationalInstitutionBaseQueryResult>(0)
+                },
+                StatusCode = HttpStatusCode.NotFound,
+                OperationStatus = false,
+                Message = $"No Educational Institution that has a building: {buildingID} has been found!"
+            };
+
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOEducationalInstitutionsByBuildingQuery>(),
+                                                                                              out It.Ref<string>.IsAny))
+                                                    .Returns(true);
+
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByBuildingQuery>(), It.IsAny<CancellationToken>()))
+                                            .ReturnsAsync(expectedMediatorResult);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByBuildingRequest_ToGetAllEducationalInstitutionsByBuildingMethod_AnExceptionIsCaught_ShouldReturnEmptyData()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new() { BuildingId = "building123" };
+
+            GetAllEducationalInstitutionsByBuildingMethod_SetupMediatorToThrowException();
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Empty(result.Data);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByBuildingRequest_ToGetAllEducationalInstitutionsByBuildingMethod_AnExceptionIsCaught_ShouldReturnFalseOperationStatus()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new() { BuildingId = "building123" };
+
+            GetAllEducationalInstitutionsByBuildingMethod_SetupMediatorToThrowException();
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.False(result.OperationStatus);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByBuildingRequest_ToGetAllEducationalInstitutionsByBuildingMethod_AnExceptionIsCaught_ShouldReturnDefaultStatusCode()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new() { BuildingId = "building123" };
+
+            GetAllEducationalInstitutionsByBuildingMethod_SetupMediatorToThrowException();
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Equal(ProtoHttpStatusCode.Default, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GivenAValidEducationalInstitutionsGetByBuildingRequest_ToGetAllEducationalInstitutionsByBuildingMethod_AnExceptionIsCaught_ShouldReturnEmptyMessage()
+        {
+            //Arrange
+            EducationalInstitutionsGetByBuildingRequest request = new() { BuildingId = "building123" };
+
+            GetAllEducationalInstitutionsByBuildingMethod_SetupMediatorToThrowException();
+
+            //Act
+            var result = await service.GetAllEducationalInstitutionsByBuilding(request, dependenciesHelper.mockServerCallContext.Object);
+
+            //Assert
+            Assert.Empty(result.Message);
+        }
+
+        private void GetAllEducationalInstitutionsByBuildingMethod_SetupMediatorToThrowException()
+        {
+            dependenciesHelper.mockValidationHandler.Setup(vh => vh.IsDataTransferObjectValid(It.IsAny<DTOEducationalInstitutionsByBuildingQuery>(),
+                                                                                              out It.Ref<string>.IsAny))
+                                                    .Returns(true);
+
+            dependenciesHelper.mockMediator.Setup(m => m.Send(It.IsAny<DTOEducationalInstitutionsByBuildingQuery>(), It.IsAny<CancellationToken>()))
+                                            .ThrowsAsync(new ArgumentNullException("test"));
+        }
+
+        #endregion GetAllEducationalInstitutionsByBuildingMethod TESTS
 
         #region GetAllAdminsByEducationalInstitutionIDMethod TESTS
 
