@@ -41,3 +41,8 @@ message BaseQueryResult{
 	string name=2;
 	string description=3;
 }
+
+message GetAdminsResult{
+	Uuid admins_ids=1;
+}
+
