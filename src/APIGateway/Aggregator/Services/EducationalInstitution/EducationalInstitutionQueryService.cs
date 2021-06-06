@@ -40,5 +40,23 @@ namespace Aggregator.Services.EducationalInstitution
 
             return await MakeUnaryCallAndGetResponseAsync(request_call);
         }
+
+        public async Task<GrpcCallResponse<EducationalInstitutionsGetByBuildingResponse>> GetAllEducationalInstitutionsByBuildingAsync(EducationalInstitutionsGetByBuildingRequest request)
+        {
+            logger.LogDebug("gRPC client created, calls server with request: {@request}", request);
+
+            var request_call = client.GetAllEducationalInstitutionsByBuildingAsync(request);
+
+            return await MakeUnaryCallAndGetResponseAsync(request_call);
+        }
+
+        public async Task<GrpcCallResponse<AdminsGetByEducationalInstitutionIdResponse>> GetAllAdminsByEducationalInstitutionIDAsync(AdminsGetByEducationalInstitutionIdRequest request)
+        {
+            logger.LogDebug("gRPC client created, calls server with request: {@request}", request);
+
+            var request_call = client.GetAllAdminsByEducationalInstitutionIDAsync(request);
+
+            return await MakeUnaryCallAndGetResponseAsync(request_call);
+        }
     }
 }

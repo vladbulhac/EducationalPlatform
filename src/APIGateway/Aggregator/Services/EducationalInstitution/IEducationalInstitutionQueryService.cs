@@ -11,5 +11,9 @@ namespace Aggregator.Services.EducationalInstitution
         public Task<GrpcCallResponse<EducationalInstitutionGetByNameResponse>> GetAllEducationalInstitutionsByNameAsync(EducationalInstitutionGetByNameRequest request);
 
         public Task<GrpcCallResponse<EducationalInstitutionsGetByLocationResponse>> GetAllEducationalInstitutionsByLocationAsync(EducationalInstitutionsGetByLocationRequest request);
+
+        public Task<GrpcCallResponse<EducationalInstitutionsGetByBuildingResponse>> GetAllEducationalInstitutionsByBuildingAsync(EducationalInstitutionsGetByBuildingRequest request);
+
+        public Task<GrpcCallResponse<AdminsGetByEducationalInstitutionIdResponse>> GetAllAdminsByEducationalInstitutionIDAsync(AdminsGetByEducationalInstitutionIdRequest request);
     }
 }
