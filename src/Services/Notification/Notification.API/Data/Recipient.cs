@@ -12,10 +12,7 @@ namespace Notification.API.Data
         public Event Event { get; init; }
         public bool Seen { get; private set; }
 
-        public Recipient()
-        {
-            Seen = false;
-        }
+        public Recipient() => Seen = false;
 
         public Recipient(Guid personID, Guid eventID) : this()
         {
@@ -23,6 +20,6 @@ namespace Notification.API.Data
             EventID = eventID;
         }
 
-        public bool NotificationWasSeen() => Seen = true;
+        public void SetNotificationToSeen() => Seen = true;
     }
 }
