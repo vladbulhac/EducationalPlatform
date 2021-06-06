@@ -8,6 +8,7 @@ namespace EducationalInstitutionAPI.Data.Contexts.Entities_Type_Configuration
         public void Configure(EntityTypeBuilder<EducationalInstitutionAdmin> builder)
         {
             builder.HasKey(eia => new { eia.AdminID, eia.EducationalInstitutionID });
+            builder.HasIndex(eia => new { eia.EducationalInstitutionID, eia.IsDisabled, eia.AdminID }).IsUnique();
         }
     }
 }

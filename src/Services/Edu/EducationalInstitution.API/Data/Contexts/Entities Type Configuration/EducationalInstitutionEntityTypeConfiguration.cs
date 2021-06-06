@@ -10,8 +10,7 @@ namespace EducationalInstitutionAPI.Data.Contexts.Entities_Type_Configuration
             builder.HasKey(ei => ei.EducationalInstitutionID);
             builder.HasIndex(ei => new { ei.EducationalInstitutionID, ei.IsDisabled }).IsUnique();
             builder.HasIndex(ei => new { ei.LocationID, ei.EducationalInstitutionID, ei.IsDisabled }).IsUnique();
-            builder.HasIndex(ei => new { ei.Name, ei.LocationID, ei.IsDisabled, ei.EducationalInstitutionID, ei.Description }).IsUnique();
-            builder.HasIndex(ei => ei.Name).IsUnique();
+            builder.HasIndex(ei => new { ei.Name, ei.IsDisabled, ei.LocationID, ei.EducationalInstitutionID }).IsUnique();
 
             builder.HasOne(ei => ei.ParentInstitution)
                     .WithMany(ei => ei.ChildInstitutions);
