@@ -7,5 +7,7 @@ option csharp_namespace = "Aggregator.EducationalInstitutionAPI.Proto";
 service Query{
 	rpc GetEducationalInstitutionByID(EducationalInstitutionGetByIdRequest) returns (EducationalInstitutionGetResponse);
 	rpc GetAllEducationalInstitutionsByName(EducationalInstitutionGetByNameRequest) returns (EducationalInstitutionGetByNameResponse);
+	rpc GetAllAdminsByEducationalInstitutionID(AdminsGetByEducationalInstitutionIdRequest) returns (AdminsGetByEducationalInstitutionIdResponse);
+	rpc GetAllEducationalInstitutionsByBuilding(EducationalInstitutionsGetByBuildingRequest) returns (EducationalInstitutionsGetByBuildingResponse);
 	rpc GetAllEducationalInstitutionsByLocation(EducationalInstitutionsGetByLocationRequest) returns (EducationalInstitutionsGetByLocationResponse);
 }
