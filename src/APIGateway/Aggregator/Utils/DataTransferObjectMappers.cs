@@ -7,6 +7,7 @@ using EducationaInstitutionAPI.Utils;
 using Google.Protobuf.Collections;
 using Grpc.Core;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 
 namespace Aggregator.Utils
@@ -124,6 +125,42 @@ namespace Aggregator.Utils
             return new()
             {
                 Data = new() { EducationalInstitutions = MapInstitutions(grpcCallResponse.Body.Data) },
+                Message = grpcCallResponse.Body.Message,
+                OperationStatus = grpcCallResponse.Body.OperationStatus,
+                StatusCode = grpcCallResponse.Body.StatusCode.ConvertToHttpStatusCode()
+            };
+        }
+
+        public static Response<GetAllEducationalInstitutionsByBuildingResponse> MapGrpcCallResponse(this GrpcCallResponse<EducationalInstitutionsGetByBuildingResponse> grpcCallResponse)
+        {
+            var failedGrpcCallResponse = HandleFailedGrpcCall<Response<GetAllEducationalInstitutionsByBuildingResponse>, EducationalInstitutionsGetByBuildingResponse>(grpcCallResponse);
+            if (failedGrpcCallResponse != default) return failedGrpcCallResponse;
+
+            return new()
+            {
+                Data = new()
+                {
+                    EducationalInstitutions = grpcCallResponse.Body.Data.Select(ei => new EducationalInstitutionBaseResponse
+                    {
+                        EducationalInstitutionID = ei.EducationalInstitutionId.ToGuid(),
+                        Name = ei.Name,
+                        Description = ei.Description
+                    }).ToList()
+                },
+                Message = grpcCallResponse.Body.Message,
+                OperationStatus = grpcCallResponse.Body.OperationStatus,
+                StatusCode = grpcCallResponse.Body.StatusCode.ConvertToHttpStatusCode()
+            };
+        }
+
+        public static Response<GetAllAdminsByEducationalInstitutionIDResponse> MapGrpcCallResponse(this GrpcCallResponse<AdminsGetByEducationalInstitutionIdResponse> grpcCallResponse)
+        {
+            var failedGrpcCallResponse = HandleFailedGrpcCall<Response<GetAllAdminsByEducationalInstitutionIDResponse>, AdminsGetByEducationalInstitutionIdResponse>(grpcCallResponse);
+            if (failedGrpcCallResponse != default) return failedGrpcCallResponse;
+
+            return new()
+            {
+                Data = new() { Admins = grpcCallResponse.Body.Data.Select(a => a.ToGuid()).ToList() },
                 Message = grpcCallResponse.Body.Message,
                 OperationStatus = grpcCallResponse.Body.OperationStatus,
                 StatusCode = grpcCallResponse.Body.StatusCode.ConvertToHttpStatusCode()
