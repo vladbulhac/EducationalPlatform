@@ -61,7 +61,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
                     await unitOfWorkCommand.SaveChangesAsync(cancellationToken);
 
-                    NotifyAdminsOfEducationalInstitutionDeletionScheduledDateIntegrationEvent @event = new()
+                    NotifyAdminsOfEducationalInstitutionScheduledForDeletionIntegrationEvent @event = new()
                     {
                         Message = $"The Educational Institution with ID: {request.EducationalInstitutionID} has been scheduled for deletion on: {commandResult.ScheduledDateForDeletion}!",
                         ToNotify = commandResult.AdminsToNotify,
