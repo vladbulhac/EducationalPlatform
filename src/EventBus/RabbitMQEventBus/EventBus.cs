@@ -69,7 +69,7 @@ namespace RabbitMQEventBus
         }
 
         public void Subscribe<TEvent, THandler>() where TEvent : IntegrationEvent
-                                                  where THandler : class, IIntegrationEventHandler<TEvent>
+                                                  where THandler : IIntegrationEventHandler<TEvent>
         {
             if (!connectionHandler.CanEstablishConnection()) return;
 
@@ -105,7 +105,7 @@ namespace RabbitMQEventBus
         }
 
         private async Task ConsumerHandleReceivedEvent<TEvent, THandler>(object _, BasicDeliverEventArgs eventArgs) where TEvent : IntegrationEvent
-                                                                                                                    where THandler : class, IIntegrationEventHandler<TEvent>
+                                                                                                                    where THandler : IIntegrationEventHandler<TEvent>
         {
             try
             {
@@ -120,7 +120,7 @@ namespace RabbitMQEventBus
             }
             catch (Exception e)
             {
-                logger.LogError("Could not handle the received message, error details=>: {0}", e.Message);
+                logger.LogError("Could not handle the received message, error details => {0}", e.Message);
             }
         }
 
@@ -133,7 +133,7 @@ namespace RabbitMQEventBus
         }
 
         private static async Task ExecuteHandleMethod<TEvent, THandler>(THandler handler, TEvent integrationEvent) where TEvent : IntegrationEvent
-                                                                                                                   where THandler : class, IIntegrationEventHandler<TEvent>
+                                                                                                                   where THandler : IIntegrationEventHandler<TEvent>
         {
             var method = typeof(THandler).GetMethod("HandleEvent");
 
