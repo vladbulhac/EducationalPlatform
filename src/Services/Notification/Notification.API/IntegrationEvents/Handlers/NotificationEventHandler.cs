@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace Notification.API.IntegrationEvents.Handlers
 {
-    public class AssignedAdminsToEducationalInstitutionEventHandler : IIntegrationEventHandler<AssignedAdminsToEducationalInstitutionIntegrationEvent>
+    public class NotificationEventHandler<TEvent> : IIntegrationEventHandler<TEvent> where TEvent : NotificationIntegrationEvent
     {
         private readonly INotificationRepository repository;
-        private readonly ILogger<AssignedAdminsToEducationalInstitutionEventHandler> logger;
+        private readonly ILogger<NotificationEventHandler<TEvent>> logger;
 
-        public AssignedAdminsToEducationalInstitutionEventHandler(ILogger<AssignedAdminsToEducationalInstitutionEventHandler> logger, INotificationRepository repository)
+        public NotificationEventHandler(INotificationRepository repository, ILogger<NotificationEventHandler<TEvent>> logger)
         {
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task HandleEvent(AssignedAdminsToEducationalInstitutionIntegrationEvent @event)
+        public async Task HandleEvent(TEvent @event)
         {
             logger.LogInformation($"Received integration event: {@event} !");
 
@@ -29,6 +29,7 @@ namespace Notification.API.IntegrationEvents.Handlers
                 Event eventEntity = new()
                 {
                     TriggeredByAction = @event.TriggeredBy.Action,
+                    Name = @event.GetType().Name,
                     Url = @event.Url,
                     TimeIssued = @event.TimeIssued,
                     IssuedBy = @event.TriggeredBy.ServiceName,
@@ -43,7 +44,7 @@ namespace Notification.API.IntegrationEvents.Handlers
             }
             catch (Exception e)
             {
-                logger.LogError("Could not finish handling the following event: {0}, error details=>{1}", @event, e.Message);
+                logger.LogError("Could not finish handling the following event: {0}, error details => {1}", @event, e.Message);
             }
         }
     }

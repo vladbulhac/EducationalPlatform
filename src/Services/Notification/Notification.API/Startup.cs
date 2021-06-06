@@ -72,9 +72,18 @@ namespace Notification.API
         private static void EventBusSubscriptions(IApplicationBuilder app)
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
-            eventBus.Subscribe<AssignedAdminsToEducationalInstitutionIntegrationEvent, AssignedAdminsToEducationalInstitutionEventHandler>();
-            eventBus.Subscribe<NotifyAdminsOfEducationalInstitutionDeletionScheduledDateIntegrationEvent, NotifyAdminsOfEducationalInstitutionDeletionScheduledDateEventHandler>();
-            eventBus.Subscribe<NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent, NotifyAdminsOfEducationalInstitutionUpdateEventHandler>();
+
+            eventBus.Subscribe<AssignedAdminsToEducationalInstitutionIntegrationEvent,
+                               NotificationEventHandler<AssignedAdminsToEducationalInstitutionIntegrationEvent>>();
+
+            eventBus.Subscribe<NotifyAdminsOfEducationalInstitutionScheduledForDeletionIntegrationEvent,
+                               NotificationEventHandler<NotifyAdminsOfEducationalInstitutionScheduledForDeletionIntegrationEvent>>();
+
+            eventBus.Subscribe<NotifyAdminsOfNewEducationalInstitutionChildIntegrationEvent,
+                               NotificationEventHandler<NotifyAdminsOfNewEducationalInstitutionChildIntegrationEvent>>();
+
+            eventBus.Subscribe<NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent,
+                               NotificationEventHandler<NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent>>();
         }
     }
 
@@ -104,9 +113,10 @@ namespace Notification.API
                 return new(queueName, logger, connectionHandler, services);
             });
 
-            services.AddTransient<AssignedAdminsToEducationalInstitutionEventHandler>();
-            services.AddTransient<NotifyAdminsOfEducationalInstitutionUpdateEventHandler>();
-            services.AddTransient<NotifyAdminsOfEducationalInstitutionDeletionScheduledDateEventHandler>();
+            services.AddTransient<NotificationEventHandler<AssignedAdminsToEducationalInstitutionIntegrationEvent>>();
+            services.AddTransient<NotificationEventHandler<NotifyAdminsOfEducationalInstitutionScheduledForDeletionIntegrationEvent>>();
+            services.AddTransient<NotificationEventHandler<NotifyAdminsOfNewEducationalInstitutionChildIntegrationEvent>>();
+            services.AddTransient<NotificationEventHandler<NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent>>();
 
             return services;
         }
