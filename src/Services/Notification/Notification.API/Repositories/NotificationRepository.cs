@@ -15,24 +15,24 @@ namespace Notification.API.Repositories
         public NotificationRepository(NotificationContext context)
             => this.context = context ?? throw new ArgumentNullException(nameof(context));
 
-        public async Task<bool> RecipientSawTheEvent(Guid recipientID, CancellationToken cancellationToken)
+        public async Task<bool> RecipientSawTheEvent(Guid recipientID, CancellationToken cancellationToken = default)
         {
             var recipient = await context.Recipients.SingleOrDefaultAsync(r => r.RecipientID == recipientID, cancellationToken);
             if (recipient is null) return false;
 
-            recipient.NotificationWasSeen();
+            recipient.SetNotificationToSeen();
             await context.SaveChangesAsync(cancellationToken);
 
             return true;
         }
 
-        public async Task CreateEvent(Event eventEntity, CancellationToken cancellationToken)
+        public async Task CreateEvent(Event eventEntity, CancellationToken cancellationToken = default)
         {
             await context.AddAsync(eventEntity, cancellationToken);
             await context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<ICollection<PublicEvent>> GetUnseenEvents(Guid recipientID, CancellationToken cancellationToken)
+        public async Task<ICollection<PublicEvent>> GetUnseenEvents(Guid recipientID, CancellationToken cancellationToken = default)
         {
             return await context.Recipients.Include(r => r.Event)
                                            .Where(r => r.RecipientID == recipientID && !r.Seen)
