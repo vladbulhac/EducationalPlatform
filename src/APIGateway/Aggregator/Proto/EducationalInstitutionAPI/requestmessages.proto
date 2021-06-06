@@ -3,7 +3,7 @@ import "Proto/Common/uuid.proto";
 
 option csharp_namespace = "Aggregator.EducationalInstitutionAPI.Proto";
 
-//Command Requests
+///Command Requests
 message EducationalInstitutionCreateRequest{
 	string name=1;
 	string description=2;
@@ -23,6 +23,12 @@ message EducationalInstitutionUpdateRequest{
 	string name=3;
 	bool update_description=4;
 	string description=5;
+}
+
+message EducationalInstitutionAdminUpdateRequest{
+	Uuid educational_institution_id=1;
+	repeated Uuid add_admins_ids=2;
+	repeated Uuid remove_admins_ids=3;
 }
 
 message EducationalInstitutionParentUpdateRequest{
@@ -50,6 +56,14 @@ message EducationalInstitutionGetByNameRequest{
 	int32 results_count=3;
 }
 
+message EducationalInstitutionsGetByBuildingRequest{
+	string building_id=1;
+}
+
 message EducationalInstitutionsGetByLocationRequest{
 	string location_id=1;
+}
+
+message AdminsGetByEducationalInstitutionIdRequest{
+	Uuid educational_institution_id=1;
 }
