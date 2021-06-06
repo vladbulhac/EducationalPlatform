@@ -41,6 +41,15 @@ namespace Aggregator.Services.EducationalInstitution
             return await MakeUnaryCallAndGetResponseAsync(request_call);
         }
 
+        public async Task<GrpcCallResponse<EducationalInstitutionUpdateResponse>> UpdateEducationalInstitutionAdminAsync(EducationalInstitutionAdminUpdateRequest request)
+        {
+            logger.LogDebug("gRPC client created, calls server with request: {@request}", request);
+
+            var request_call = client.UpdateEducationalInstitutionAdminAsync(request);
+
+            return await MakeUnaryCallAndGetResponseAsync(request_call);
+        }
+
         public async Task<GrpcCallResponse<EducationalInstitutionUpdateResponse>> UpdateEducationalInstitutionLocationAsync(EducationalInstitutionLocationUpdateRequest request)
         {
             logger.LogDebug("gRPC client created, calls server with request: {@request}", request);
