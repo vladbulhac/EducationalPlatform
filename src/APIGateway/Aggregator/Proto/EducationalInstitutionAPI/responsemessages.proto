@@ -1,4 +1,5 @@
 syntax = "proto3";
+import "Proto/Common/uuid.proto";
 import "Proto/Common/statuscodes.proto";
 import "Proto/EducationalInstitutionAPI/responsedata.proto";
 
@@ -40,8 +41,22 @@ message EducationalInstitutionGetByNameResponse{
 	ProtoHttpStatusCode status_code=4;
 }
 
+message EducationalInstitutionsGetByBuildingResponse{
+	repeated BaseQueryResult data=1;
+	bool operation_status=2;
+	string message=3;
+	ProtoHttpStatusCode status_code=4;
+}
+
 message EducationalInstitutionsGetByLocationResponse{
 	repeated GetByLocationResult data=1;
+	bool operation_status=2;
+	string message=3;
+	ProtoHttpStatusCode status_code=4;
+}
+
+message AdminsGetByEducationalInstitutionIdResponse{
+	repeated Uuid data=1;
 	bool operation_status=2;
 	string message=3;
 	ProtoHttpStatusCode status_code=4;
