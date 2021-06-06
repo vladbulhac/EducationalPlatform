@@ -13,6 +13,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
+using edu = EducationalInstitutionAPI.Data;
 
 namespace EducationalInstitution.API.UnitTests.Grpc_Tests
 {
@@ -222,7 +223,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             Assert.Empty(result.Data.Buildings);
         }
 
-        private void GetEducationalInstitutionByIDMethod_Setup(EducationalInstitutionAPI.Data.EducationalInstitution educationalInstitution)
+        private void GetEducationalInstitutionByIDMethod_Setup(edu::EducationalInstitution educationalInstitution)
         {
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -316,7 +317,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             Assert.Equal(testDataHelper.EducationalInstitutions[1].Description, result.Data.ParentInstitution.Description);
         }
 
-        private void GetEducationalInstitutionByIDMethod_SetupWithParentInstitution(EducationalInstitutionAPI.Data.EducationalInstitution educationalInstitution)
+        private void GetEducationalInstitutionByIDMethod_SetupWithParentInstitution(edu::EducationalInstitution educationalInstitution)
         {
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {
@@ -376,7 +377,7 @@ namespace EducationalInstitution.API.UnitTests.Grpc_Tests
             Assert.Equal(testDataHelper.EducationalInstitutions[1].EducationalInstitutionID, convertedToGuidID);
         }
 
-        private void GetEducationalInstitutionByIDMethod_SetupWithChildInstitutions(EducationalInstitutionAPI.Data.EducationalInstitution educationalInstitution)
+        private void GetEducationalInstitutionByIDMethod_SetupWithChildInstitutions(edu::EducationalInstitution educationalInstitution)
         {
             var expectedMediatorResult = new Response<GetEducationalInstitutionByIDQueryResult>()
             {

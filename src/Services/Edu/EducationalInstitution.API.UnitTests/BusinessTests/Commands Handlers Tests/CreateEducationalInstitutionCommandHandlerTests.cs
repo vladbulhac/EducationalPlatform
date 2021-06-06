@@ -9,6 +9,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
+using edu = EducationalInstitutionAPI.Data;
 
 namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_Tests
 {
@@ -365,14 +366,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             Assert.Equal($"The Educational Institution has been successfully created but the Parent Institution with the following ID: {parentInstitutionID} has not been found!", result.Message);
         }
 
-        private void SetupMockedDependencies(EducationalInstitutionAPI.Data.EducationalInstitution expectedEntityReturned)
+        private void SetupMockedDependencies(edu::EducationalInstitution expectedEntityReturned)
         {
             dependenciesHelper.mockUnitOfWorkCommand.Setup(uok => uok.UsingEducationalInstitutionCommandRepository())
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
             dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(mr => mr.GetEducationalInstitutionIncludingAdminsAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
                                                                           .ReturnsAsync(expectedEntityReturned);
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(mr => mr.CreateAsync(It.IsAny<EducationalInstitutionAPI.Data.EducationalInstitution>(), It.IsAny<CancellationToken>()));
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(mr => mr.CreateAsync(It.IsAny<edu::EducationalInstitution>(), It.IsAny<CancellationToken>()));
         }
 
         private void SetupMockedDependencies()
@@ -380,7 +381,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             dependenciesHelper.mockUnitOfWorkCommand.Setup(uok => uok.UsingEducationalInstitutionCommandRepository())
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(mr => mr.CreateAsync(It.IsAny<EducationalInstitutionAPI.Data.EducationalInstitution>(), It.IsAny<CancellationToken>()));
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(mr => mr.CreateAsync(It.IsAny<edu::EducationalInstitution>(), It.IsAny<CancellationToken>()));
         }
 
         [Fact]

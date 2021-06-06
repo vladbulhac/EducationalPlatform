@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using edu = EducationalInstitutionAPI.Data;
 
 namespace EducationalInstitution.API.UnitTests
 {
@@ -11,7 +12,7 @@ namespace EducationalInstitution.API.UnitTests
     /// </summary>
     public class TestDataFromJSONParser
     {
-        public IList<EducationalInstitutionAPI.Data.EducationalInstitution> EducationalInstitutions { get; private set; }
+        public IList<edu::EducationalInstitution> EducationalInstitutions { get; private set; }
 
         public TestDataFromJSONParser()
         {
@@ -30,7 +31,7 @@ namespace EducationalInstitution.API.UnitTests
 
         private void ParseTheExtractedDataAndSaveItToList(dynamic jsonEducationalInstitutions)
         {
-            EducationalInstitutions = new List<EducationalInstitutionAPI.Data.EducationalInstitution>();
+            EducationalInstitutions = new List<edu::EducationalInstitution>();
             foreach (var educationalInstitution in jsonEducationalInstitutions.EducationalInstitutions)
             {
                 EducationalInstitutions.Add(new((

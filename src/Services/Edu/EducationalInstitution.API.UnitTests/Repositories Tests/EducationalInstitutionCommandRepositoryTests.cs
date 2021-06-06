@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
+using edu = EducationalInstitutionAPI.Data;
 
 namespace EducationalInstitution.API.UnitTests.Repositories_Tests
 {
@@ -38,7 +39,7 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         public async Task GivenAnEducationalInstitution_ToCreateAsyncMethod_ShouldAddItToTheCollectionOfEntities()
         {
             //Arrange
-            EducationalInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(
+            edu::EducationalInstitution newEducationalInstitution = new(
                 "Test_Name",
                 "Test_Description",
                 "Test_LocationID",
@@ -299,7 +300,7 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         public async Task GivenAValidID_ToDeleteAsyncMethod_ShouldReturnTrue()
         {
             //Arrange
-            EducationalInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(
+            edu::EducationalInstitution newEducationalInstitution = new(
                 "Test_Name",
                 "Test_Description",
                 "Test_LocationID",
@@ -325,7 +326,7 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         public async Task GivenAValidID_ToDeleteAsyncMethod_ShouldRemoveAnEntity()
         {
             //Arrange
-            EducationalInstitutionAPI.Data.EducationalInstitution newEducationalInstitution = new(
+            edu::EducationalInstitution newEducationalInstitution = new(
                 "Test_Name",
                 "Test_Description",
                 "Test_LocationID",
