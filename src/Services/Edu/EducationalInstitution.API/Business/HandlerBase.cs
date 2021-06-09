@@ -30,17 +30,5 @@ namespace EducationalInstitutionAPI.Business
             logger.LogError(error_message, error_message_substitutes);
             return new() { StatusCode = HttpStatusCode.InternalServerError, Message = string.Format(response_message, error_message_substitutes) };
         }
-
-        /// <summary>
-        /// Logs the error
-        /// </summary>
-        /// <param name="error_message">The logged message</param>
-        /// <param name="error_message_substitutes">Arguments used in the composite format of <paramref name="error_message"/></param>
-        /// <returns>False</returns>
-        protected bool HandleException(string error_message, params object[] error_message_substitutes)
-        {
-            logger.LogError(error_message, error_message_substitutes);
-            return false;
-        }
     }
 }
