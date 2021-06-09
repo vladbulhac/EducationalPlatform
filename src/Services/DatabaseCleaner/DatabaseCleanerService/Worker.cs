@@ -60,8 +60,8 @@ namespace DatabaseCleanerService
         private async Task<IEnumerable<string>> GetAllTablesFromDatabase(SqlConnection connection)
         {
             return await connection.QueryAsync<string>(@"SELECT TABLE_NAME
-                                                                FROM INFORMATION_SCHEMA.TABLES
-                                                                WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME NOT LIKE '__EFMigrationsHistory'");
+                                                         FROM INFORMATION_SCHEMA.TABLES
+                                                         WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME NOT LIKE '__EFMigrationsHistory'");
         }
 
         private async Task DeleteScheduledEntitiesForToday(SqlConnection connection, IEnumerable<string> tables)
