@@ -4,9 +4,7 @@ using System;
 
 namespace RabbitMQEventBus.ConnectionHandler
 {
-    /// <summary>
-    /// Handles the connection status, creation and closure
-    /// </summary>
+    /// <inheritdoc cref="IPersistentConnectionHandler"/>
     public class PersistentConnectionHandler : IPersistentConnectionHandler
     {
         private bool disposed;

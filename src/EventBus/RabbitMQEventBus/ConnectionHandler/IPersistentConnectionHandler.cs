@@ -3,6 +3,10 @@ using System;
 
 namespace RabbitMQEventBus.ConnectionHandler
 {
+    /// <summary>
+    /// <para> Keeps a connection open for the entire runtime of the application </para>
+    /// <para> Handles the connection status, creation and closure </para>
+    /// </summary>
     public interface IPersistentConnectionHandler : IDisposable
     {
         /// <summary>
