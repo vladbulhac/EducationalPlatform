@@ -6,6 +6,7 @@ using RabbitMQ.Client.Events;
 using RabbitMQEventBus.Abstractions;
 using RabbitMQEventBus.ConnectionHandler;
 using RabbitMQEventBus.IntegrationEvents;
+using RabbitMQEventBus.Subscription;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace RabbitMQEventBus
         private readonly string queueName;
         private IModel channelForReceivingEvents;
         private const string exchangeName = "event_bus";
+        private readonly ISubscriptionManager subscriptionManager;
         private readonly IPersistentConnectionHandler connectionHandler;
 
         public EventBus(string queueName, ILogger<EventBus> logger, IPersistentConnectionHandler connectionHandler, IServiceCollection services)
@@ -31,6 +33,7 @@ namespace RabbitMQEventBus
             this.connectionHandler = connectionHandler ?? throw new ArgumentNullException(nameof(connectionHandler));
 
             appServicesProvider = services.BuildServiceProvider();
+            subscriptionManager = new SubscriptionManager();
         }
 
         public void Publish(IntegrationEvent @event)
@@ -71,17 +74,20 @@ namespace RabbitMQEventBus
         public void Subscribe<TEvent, THandler>() where TEvent : IntegrationEvent
                                                   where THandler : IIntegrationEventHandler<TEvent>
         {
-            if (!connectionHandler.CanEstablishConnection()) return;
+            var eventType = typeof(TEvent);
+            if (!connectionHandler.CanEstablishConnection() || subscriptionManager.HasSubscription(eventType.Name)) return;
 
             if (channelForReceivingEvents == default || channelForReceivingEvents.IsClosed)
                 channelForReceivingEvents = connectionHandler.CreateChannel();
 
             logger.LogDebug("A channel was created successfully, continuing with Subscribing to event!");
 
-            PrepareChannelForSubscriptionToEvent(eventName: typeof(TEvent).Name);
+            PrepareChannelForSubscriptionToEvent(eventName: eventType.Name);
+
+            subscriptionManager.SaveSubscription(eventType, typeof(THandler));
 
             var consumer = new AsyncEventingBasicConsumer(channelForReceivingEvents);
-            consumer.Received += ConsumerHandleReceivedEvent<TEvent, THandler>;
+            consumer.Received += ConsumerHandleReceivedEvent;
 
             channelForReceivingEvents.BasicConsume(queueName,
                                                     autoAck: false,
@@ -94,28 +100,34 @@ namespace RabbitMQEventBus
                                                       type: ExchangeType.Direct);
 
             channelForReceivingEvents.QueueDeclare(queue: queueName,
-                                                    durable: true,
-                                                    exclusive: false,
-                                                    autoDelete: false,
-                                                    arguments: null);
+                                                   durable: true,
+                                                   exclusive: false,
+                                                   autoDelete: false,
+                                                   arguments: null);
 
             channelForReceivingEvents.QueueBind(queue: queueName,
                                                 exchange: exchangeName,
                                                 routingKey: eventName);
         }
 
-        private async Task ConsumerHandleReceivedEvent<TEvent, THandler>(object _, BasicDeliverEventArgs eventArgs) where TEvent : IntegrationEvent
-                                                                                                                    where THandler : IIntegrationEventHandler<TEvent>
+        private async Task ConsumerHandleReceivedEvent(object _, BasicDeliverEventArgs eventArgs)
         {
             try
             {
-                var integrationEvent = ExtractIntegrationEventData<TEvent>(eventArgs.Body);
-                var handler = appServicesProvider.GetRequiredService<THandler>();
+                var eventType = subscriptionManager.GetTypeOfEvent(eventArgs.RoutingKey);
+                var handlersTypes = subscriptionManager.GetHandlersOfEvent(eventArgs.RoutingKey);
 
-                await ExecuteHandleMethod(handler, integrationEvent);
+                if (eventType != default && handlersTypes.Count > 0)
+                {
+                    var integrationEvent = ExtractIntegrationEventData(eventType, eventArgs.Body);
 
-                channelForReceivingEvents.BasicAck(deliveryTag: eventArgs.DeliveryTag,
-                                                   multiple: false);
+                    foreach (var handlerType in handlersTypes)
+                        await ExecuteHandleMethod(handlerType, integrationEvent);
+
+                    channelForReceivingEvents.BasicAck(deliveryTag: eventArgs.DeliveryTag,
+                                                       multiple: false);
+                }
+
                 await Task.Yield();
             }
             catch (Exception e)
@@ -124,18 +136,18 @@ namespace RabbitMQEventBus
             }
         }
 
-        private static TEvent ExtractIntegrationEventData<TEvent>(ReadOnlyMemory<byte> eventBody) where TEvent : IntegrationEvent
+        private static object ExtractIntegrationEventData(Type eventType, ReadOnlyMemory<byte> eventBody)
         {
             var bodyCopy = eventBody.ToArray();
             var message = Encoding.UTF8.GetString(bodyCopy);
 
-            return JsonConvert.DeserializeObject<TEvent>(message);
+            return JsonConvert.DeserializeObject(message, eventType);
         }
 
-        private static async Task ExecuteHandleMethod<TEvent, THandler>(THandler handler, TEvent integrationEvent) where TEvent : IntegrationEvent
-                                                                                                                   where THandler : IIntegrationEventHandler<TEvent>
+        private async Task ExecuteHandleMethod(Type handlerType, object integrationEvent)
         {
-            var method = typeof(THandler).GetMethod("HandleEvent");
+            var method = handlerType.GetMethod("HandleEvent");
+            var handler = appServicesProvider.GetRequiredService(handlerType);
 
             await (Task)method.Invoke(handler, new object[] { integrationEvent });
         }
