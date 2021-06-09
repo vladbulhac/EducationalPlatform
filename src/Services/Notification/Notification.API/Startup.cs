@@ -37,7 +37,7 @@ namespace Notification.API
 
             services.AddTransient<INotificationRepository, NotificationRepository>();
 
-            services.EventBusServiceConfiguration(Configuration);
+            services.AddEventBusConfiguration(Configuration);
 
             services.AddControllers();
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Notification.API", Version = "v1" }));
@@ -66,30 +66,13 @@ namespace Notification.API
                 endpoints.MapControllers();
             });
 
-            EventBusSubscriptions(app);
-        }
-
-        private static void EventBusSubscriptions(IApplicationBuilder app)
-        {
-            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
-
-            eventBus.Subscribe<AssignedAdminsToEducationalInstitutionIntegrationEvent,
-                               NotificationEventHandler<AssignedAdminsToEducationalInstitutionIntegrationEvent>>();
-
-            eventBus.Subscribe<NotifyAdminsOfEducationalInstitutionScheduledForDeletionIntegrationEvent,
-                               NotificationEventHandler<NotifyAdminsOfEducationalInstitutionScheduledForDeletionIntegrationEvent>>();
-
-            eventBus.Subscribe<NotifyAdminsOfNewEducationalInstitutionChildIntegrationEvent,
-                               NotificationEventHandler<NotifyAdminsOfNewEducationalInstitutionChildIntegrationEvent>>();
-
-            eventBus.Subscribe<NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent,
-                               NotificationEventHandler<NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent>>();
+            app.AddEventBusSubscriptions();
         }
     }
 
     public static class StartupExtensionMethods
     {
-        public static IServiceCollection EventBusServiceConfiguration(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddEventBusConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IPersistentConnectionHandler>(serviceProvider =>
             {
@@ -119,6 +102,23 @@ namespace Notification.API
             services.AddTransient<NotificationEventHandler<NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent>>();
 
             return services;
+        }
+
+        public static void AddEventBusSubscriptions(this IApplicationBuilder app)
+        {
+            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+
+            eventBus.Subscribe<AssignedAdminsToEducationalInstitutionIntegrationEvent,
+                               NotificationEventHandler<AssignedAdminsToEducationalInstitutionIntegrationEvent>>();
+
+            eventBus.Subscribe<NotifyAdminsOfEducationalInstitutionScheduledForDeletionIntegrationEvent,
+                               NotificationEventHandler<NotifyAdminsOfEducationalInstitutionScheduledForDeletionIntegrationEvent>>();
+
+            eventBus.Subscribe<NotifyAdminsOfNewEducationalInstitutionChildIntegrationEvent,
+                               NotificationEventHandler<NotifyAdminsOfNewEducationalInstitutionChildIntegrationEvent>>();
+
+            eventBus.Subscribe<NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent,
+                               NotificationEventHandler<NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent>>();
         }
     }
 }
