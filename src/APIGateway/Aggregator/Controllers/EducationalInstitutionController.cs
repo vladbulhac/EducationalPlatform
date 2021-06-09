@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace Aggregator.Controllers
 {
     [ApiController]
-    [Route("v1/api/edu")]
+    [Route("api/v1/edu")]
     public class EducationalInstitutionController : ControllerBase
     {
         private readonly IEducationalInstitutionCommandService commandService;
