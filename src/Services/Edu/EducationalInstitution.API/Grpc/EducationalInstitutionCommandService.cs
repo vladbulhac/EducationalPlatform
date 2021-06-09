@@ -1,4 +1,4 @@
-﻿using EducationalInstitutionAPI.Business.Validation_Handler;
+﻿using DataValidation;
 using EducationalInstitutionAPI.Proto;
 using EducationalInstitutionAPI.Utils.Mappers;
 using Google.Protobuf.WellKnownTypes;
