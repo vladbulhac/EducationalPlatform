@@ -13,19 +13,6 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.HandlerBase_Tests
                 => this.dependenciesHelper = dependenciesHelper;
 
         [Fact]
-        public void GivenAnExceptionMessage_ShouldReturnFalse()
-        {
-            //Arrange
-            var exceptionMessage = "testException";
-
-            //Act
-            var result = HandleException(exceptionMessage);
-
-            //Assert
-            Assert.False(result);
-        }
-
-        [Fact]
         public void GivenAnExceptionMessage_ResponseMessage_ShouldReturnResponseType()
         {
             //Arrange
