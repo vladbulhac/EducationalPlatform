@@ -1,5 +1,5 @@
 using DatabaseCleanerService;
-using EducationalInstitutionAPI.Business.Validation_Handler;
+using DataValidation;
 using EducationalInstitutionAPI.Data.Contexts;
 using EducationalInstitutionAPI.Grpc;
 using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
@@ -85,6 +85,7 @@ namespace EducationalInstitutionAPI
         public static IServiceCollection RegisterProjectServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddEventBus(configuration)
+                    .AddSingleton(_ => new ValidatorFactory(typeof(Startup).Assembly))
                     .AddTransient<IValidationHandler, ValidationHandler>()
                     .AddTransient<IUnitOfWorkForQueries, UnitOfWorkForQueries>()
                     .AddTransient<IUnitOfWorkForCommands, UnitOfWorkForCommands>()
