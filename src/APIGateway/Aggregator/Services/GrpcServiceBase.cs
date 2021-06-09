@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace Aggregator.Services.EducationalInstitution
+namespace Aggregator.Services
 {
     public abstract class GrpcServiceBase<TService> where TService : class
     {
