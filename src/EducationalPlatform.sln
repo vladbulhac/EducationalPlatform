@@ -48,6 +48,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DatabaseCleaner", "Database
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseCleanerService", "Services\DatabaseCleaner\DatabaseCleanerService\DatabaseCleanerService.csproj", "{723DCC1B-1A84-4E7E-A767-BEB499E8929E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Validation", "Validation", "{1F23FA05-5C2B-4A96-9A63-28991143BF3B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataValidation", "Validation\DataValidation\DataValidation.csproj", "{066F5763-D161-42CA-A442-06A9FE601BD5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +86,10 @@ Global
 		{723DCC1B-1A84-4E7E-A767-BEB499E8929E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{723DCC1B-1A84-4E7E-A767-BEB499E8929E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{723DCC1B-1A84-4E7E-A767-BEB499E8929E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{066F5763-D161-42CA-A442-06A9FE601BD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{066F5763-D161-42CA-A442-06A9FE601BD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{066F5763-D161-42CA-A442-06A9FE601BD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{066F5763-D161-42CA-A442-06A9FE601BD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -102,6 +110,8 @@ Global
 		{54BDA6F8-1AE6-4809-ABEB-CEB1A3C69C78} = {2E86A1B0-96E4-4E73-B726-EC5B6AEAD444}
 		{6B73B25E-52C1-415D-B8B5-985557FF210C} = {D05C3A76-9C97-4699-8EFB-F455B0FD6A31}
 		{723DCC1B-1A84-4E7E-A767-BEB499E8929E} = {6B73B25E-52C1-415D-B8B5-985557FF210C}
+		{1F23FA05-5C2B-4A96-9A63-28991143BF3B} = {08FB3E93-7FD0-4904-AB07-B3EAF2311820}
+		{066F5763-D161-42CA-A442-06A9FE601BD5} = {1F23FA05-5C2B-4A96-9A63-28991143BF3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0755839D-14ED-4C54-BEB8-32CC5B50A3B4}
