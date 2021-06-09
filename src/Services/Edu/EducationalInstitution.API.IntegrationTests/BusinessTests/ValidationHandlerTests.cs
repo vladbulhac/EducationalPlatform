@@ -1,4 +1,5 @@
-﻿using EducationalInstitutionAPI.Business.Validation_Handler;
+﻿using DataValidation;
+using EducationalInstitutionAPI;
 using EducationalInstitutionAPI.DTOs.Commands;
 using EducationalInstitutionAPI.DTOs.Queries;
 using Microsoft.Extensions.Logging;
@@ -18,7 +19,9 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         public ValidationHandlerTests()
         {
             mockLogger = new();
-            validationHandler = new ValidationHandler(mockLogger.Object);
+
+            var applicationAssembly = typeof(Startup).Assembly;
+            validationHandler = new ValidationHandler(mockLogger.Object, new ValidatorFactory(applicationAssembly));
         }
 
         #region DTOEducationalInstitutionByIDQuery TESTS
@@ -1097,7 +1100,6 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
                 UpdateDescription = false,
                 Description = string.Empty,
             };
-            var validationHandler = new ValidationHandler(mockLogger.Object);
 
             //Act
             var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
