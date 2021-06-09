@@ -1,9 +1,10 @@
-﻿using EducationalInstitutionAPI.Business.Validation_Handler;
+﻿using DataValidation;
+using DataValidation.Exceptions;
+using EducationalInstitutionAPI;
 using EducationalInstitutionAPI.DTOs.Commands;
 using EducationalInstitutionAPI.DTOs.Queries;
 using EducationalInstitutionAPI.DTOs.Validators.Commands_Validators;
 using EducationalInstitutionAPI.DTOs.Validators.Queries_Validators;
-using EducationalInstitutionAPI.Utils.Custom_Exceptions;
 using System.Text;
 using Xunit;
 
@@ -11,11 +12,13 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Validation_Handler_
 {
     public class ValidatorFactoryTests
     {
+        private readonly ValidatorFactory validatorFactory = new(typeof(Startup).Assembly);
+
         [Fact]
         public void GivenAValidTypeDTOEducationalInstitutionByIDQuery_ShouldReturnAnInstanceOfDTOEducationalInstitutionByIDQueryValidator()
         {
             //Act
-            var validator = ValidatorFactory.CreateValidator<DTOEducationalInstitutionByIDQuery>();
+            var validator = validatorFactory.CreateValidator<DTOEducationalInstitutionByIDQuery>();
 
             //Assert
             Assert.IsType<DTOEducationalInstitutionByIDQueryValidator>(validator);
@@ -25,7 +28,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Validation_Handler_
         public void GivenAValidTypeDTOEducationalInstitutionByLocationQuery_ShouldReturnAnInstanceOfDTOEducationalInstitutionByLocationQueryValidator()
         {
             //Act
-            var validator = ValidatorFactory.CreateValidator<DTOEducationalInstitutionsByLocationQuery>();
+            var validator = validatorFactory.CreateValidator<DTOEducationalInstitutionsByLocationQuery>();
 
             //Assert
             Assert.IsType<DTOEducationalInstitutionByLocationQueryValidator>(validator);
@@ -35,7 +38,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Validation_Handler_
         public void GivenAValidTypeDTOEducationalInstitutionsByNameQuery_ShouldReturnAnInstanceOfDTOEducationalInstitutionsByNameQueryValidator()
         {
             //Act
-            var validator = ValidatorFactory.CreateValidator<DTOEducationalInstitutionsByNameQuery>();
+            var validator = validatorFactory.CreateValidator<DTOEducationalInstitutionsByNameQuery>();
 
             //Assert
             Assert.IsType<DTOEducationalInstitutionsByNameQueryValidator>(validator);
@@ -45,7 +48,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Validation_Handler_
         public void GivenAValidTypeDTOAdminsByEducationalInstitutionIdQuery_ShouldReturnAnInstanceOfDTOAdminsByEducationalInstitutionIDQueryValidator()
         {
             //Act
-            var validator = ValidatorFactory.CreateValidator<DTOAdminsByEducationalInstitutionIDQuery>();
+            var validator = validatorFactory.CreateValidator<DTOAdminsByEducationalInstitutionIDQuery>();
 
             //Assert
             Assert.IsType<DTOAdminsByEducationalInstitutionIDQueryValidator>(validator);
@@ -55,7 +58,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Validation_Handler_
         public void GivenAValidTypeDTOEducationalInstitutionsByBuildingQuery_ShouldReturnAnInstanceOfDTOEducationalInstitutionsByBuildingQueryValidator()
         {
             //Act
-            var validator = ValidatorFactory.CreateValidator<DTOEducationalInstitutionsByBuildingQuery>();
+            var validator = validatorFactory.CreateValidator<DTOEducationalInstitutionsByBuildingQuery>();
 
             //Assert
             Assert.IsType<DTOEducationalInstitutionsByBuildingQueryValidator>(validator);
@@ -65,7 +68,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Validation_Handler_
         public void GivenAValidTypeDTOEducationalInstitutionCreateCommand_ShouldReturnAnInstanceOfDTOEducationalInstitutionCreateCommandValidator()
         {
             //Act
-            var validator = ValidatorFactory.CreateValidator<DTOEducationalInstitutionCreateCommand>();
+            var validator = validatorFactory.CreateValidator<DTOEducationalInstitutionCreateCommand>();
 
             //Assert
             Assert.IsType<DTOEducationalInstitutionCreateCommandValidator>(validator);
@@ -75,7 +78,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Validation_Handler_
         public void GivenAValidTypeDTOEducationalInstitutionDeleteCommand_ShouldReturnAnInstanceOfDTOEducationalInstitutionDeleteCommandValidator()
         {
             //Act
-            var validator = ValidatorFactory.CreateValidator<DTOEducationalInstitutionDeleteCommand>();
+            var validator = validatorFactory.CreateValidator<DTOEducationalInstitutionDeleteCommand>();
 
             //Assert
             Assert.IsType<DTOEducationalInstitutionDeleteCommandValidator>(validator);
@@ -85,7 +88,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Validation_Handler_
         public void GivenAValidTypeDTOEducationalInstitutionLocationUpdateCommand_ShouldReturnAnInstanceOfDTOEducationalInstitutionLocationUpdateCommandValidator()
         {
             //Act
-            var validator = ValidatorFactory.CreateValidator<DTOEducationalInstitutionLocationUpdateCommand>();
+            var validator = validatorFactory.CreateValidator<DTOEducationalInstitutionLocationUpdateCommand>();
 
             //Assert
             Assert.IsType<DTOEducationalInstitutionLocationUpdateCommandValidator>(validator);
@@ -95,7 +98,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Validation_Handler_
         public void GivenAValidTypeDTOEducationalInstitutionParentUpdateCommand_ShouldReturnAnInstanceOfDTOEducationalInstitutionParentUpdateCommandValidator()
         {
             //Act
-            var validator = ValidatorFactory.CreateValidator<DTOEducationalInstitutionParentUpdateCommand>();
+            var validator = validatorFactory.CreateValidator<DTOEducationalInstitutionParentUpdateCommand>();
 
             //Assert
             Assert.IsType<DTOEducationalInstitutionParentUpdateCommandValidator>(validator);
@@ -105,7 +108,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Validation_Handler_
         public void GivenAValidTypeDTOEducationalInstitutionUpdateCommand_ShouldReturnAnInstanceOfDTOEducationalInstitutionUpdateCommandValidator()
         {
             //Act
-            var validator = ValidatorFactory.CreateValidator<DTOEducationalInstitutionUpdateCommand>();
+            var validator = validatorFactory.CreateValidator<DTOEducationalInstitutionUpdateCommand>();
 
             //Assert
             Assert.IsType<DTOEducationalInstitutionUpdateCommandValidator>(validator);
@@ -115,7 +118,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Validation_Handler_
         public void GivenAValidTypeDTOEducationalInstitutionAdminUpdateCommand_ShouldReturnAnInstanceOfDTOEducationalInstitutionAdminUpdateCommandValidator()
         {
             //Act
-            var validator = ValidatorFactory.CreateValidator<DTOEducationalInstitutionAdminUpdateCommand>();
+            var validator = validatorFactory.CreateValidator<DTOEducationalInstitutionAdminUpdateCommand>();
 
             //Assert
             Assert.IsType<DTOEducationalInstitutionAdminUpdateCommandValidator>(validator);
@@ -125,7 +128,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Validation_Handler_
         public void GivenAnInvalidType_ShouldThrowAnRequestTypeNotSupportedException()
         {
             //Assert
-            Assert.Throws<RequestTypeNotSupportedException>(() => ValidatorFactory.CreateValidator<StringBuilder>());
+            Assert.Throws<RequestTypeNotSupportedException>(() => validatorFactory.CreateValidator<StringBuilder>());
         }
     }
 }
