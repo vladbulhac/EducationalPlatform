@@ -9,10 +9,7 @@ namespace RabbitMQEventBus.IntegrationEvents
         public string Url { get; init; }
         public string Message { get; init; }
 
-        public IntegrationEvent()
-        {
-            TimeIssued = DateTime.UtcNow;
-        }
+        public IntegrationEvent() => TimeIssued = DateTime.UtcNow;
     }
 
     public record EventTrigger
