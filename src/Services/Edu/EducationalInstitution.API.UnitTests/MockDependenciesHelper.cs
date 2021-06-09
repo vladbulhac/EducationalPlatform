@@ -1,4 +1,4 @@
-﻿using EducationalInstitutionAPI.Business.Validation_Handler;
+﻿using DataValidation;
 using EducationalInstitutionAPI.Repositories.Command_Repository;
 using EducationalInstitutionAPI.Repositories.Query_Repository;
 using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
