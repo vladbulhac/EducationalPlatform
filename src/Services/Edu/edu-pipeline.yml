@@ -1,0 +1,110 @@
+variables:
+- name: BuildParameters.ArtifactName
+  value: drop
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - /src/Services/Edu
+name: $(date:yyyyMMdd)$(rev:.r)
+resources:
+  repositories:
+  - repository: self
+    type: git
+    ref: main
+jobs:
+- job: Job_1
+  displayName: Agent job 1
+  pool:
+    vmImage: windows-2019
+  steps:
+  - checkout: self
+    lfs: true
+  - task: NuGetToolInstaller@1
+    displayName: Use NuGet 5.8.1
+    enabled: False
+    inputs:
+      versionSpec: 5.8.1
+      checkLatest: true
+  - task: NuGetCommand@2
+    displayName: NuGet restore
+    enabled: False
+    inputs:
+      solution: src/EducationalPlatform.sln
+  - task: VSBuild@1
+    displayName: Build Solution
+    enabled: False
+    inputs:
+      solution: src\EducationalPlatform.sln
+      msbuildArgs: /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"
+      platform: $(BuildPlatform)
+      configuration: $(BuildConfiguration)
+  - task: DotNetCoreCLI@2
+    displayName: Restore
+    inputs:
+      command: restore
+      projects: src\Services\Edu\EducationalInstitution.API\EducationalInstitution.API.csproj
+  - task: DotNetCoreCLI@2
+    displayName: Build Educational Institution API
+    inputs:
+      projects: src\Services\Edu\EducationalInstitution.API\EducationalInstitution.API.csproj
+      arguments: --configuration $(BuildConfiguration)
+  - task: DotNetCoreCLI@2
+    displayName: Educational Institution API Unit Tests
+    inputs:
+      command: test
+      projects: src\Services\Edu\EducationalInstitution.API.UnitTests\EducationalInstitution.API.UnitTests.csproj
+      arguments: --configuration $(buildConfiguration)
+      workingDirectory: src/Services/Edu/EducationalInstitution.API.UnitTests
+  - task: DotNetCoreCLI@2
+    displayName: Educational Institution API Integration Tests
+    inputs:
+      command: test
+      projects: src\Services\Edu\EducationalInstitution.API.IntegrationTests\EducationalInstitution.API.IntegrationTests.csproj
+      arguments: --configuration $(buildConfiguration)
+      workingDirectory: src/Services/Edu/EducationalInstitution.API.IntegrationTests
+  - task: VSTest@2
+    displayName: VsTest - testAssemblies
+    enabled: False
+    inputs:
+      testAssemblyVer2: >-
+        **\*test*.dll
+
+        !**\*TestAdapter.dll
+
+        !**\obj\**
+
+        **\bin\$(BuildConfiguration)\**\*test*.dll
+
+
+        !**\bin\$(BuildConfiguration)\**\xunit.runner.visualstudio.testadapter.dll
+
+        !**\bin\$(BuildConfiguration)\**\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+  - task: VSTest@2
+    displayName: Test Assemblies
+    enabled: False
+    inputs:
+      testAssemblyVer2: >-
+        **\$(BuildConfiguration)\*test*.dll
+
+        !**\obj\**
+      platform: $(BuildPlatform)
+      configuration: $(BuildConfiguration)
+  - task: PublishSymbols@2
+    displayName: Publish symbols path
+    continueOnError: True
+    enabled: False
+    inputs:
+      SearchPattern: '**\bin\**\*.pdb'
+      PublishSymbols: false
+      SymbolServerType: TeamServices
+  - task: PublishBuildArtifacts@1
+    displayName: Publish Artifact
+    condition: succeededOrFailed()
+    inputs:
+      PathtoPublish: $(build.artifactstagingdirectory)
+      ArtifactName: $(BuildParameters.ArtifactName)
+      TargetPath: '\\my\share\$(Build.DefinitionName)\$(Build.BuildNumber)'
+...
