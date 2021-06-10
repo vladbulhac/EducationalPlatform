@@ -1,0 +1,39 @@
+variables:
+  - name: BuildParameters.RestoreBuildProjects
+    value: src/Services/Notification/Notification.API/Notification.API.csproj
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - /src/Services/Notification
+name: $(date:yyyyMMdd)$(rev:.r)
+resources:
+  repositories:
+    - repository: self
+      type: git
+      ref: main
+jobs:
+  - job: Job_1
+    displayName: Agent job 1
+    pool:
+      vmImage: windows-2019
+    steps:
+      - checkout: self
+      - task: DotNetCoreCLI@2
+        displayName: Restore
+        inputs:
+          command: restore
+          projects: $(BuildParameters.RestoreBuildProjects)
+      - task: DotNetCoreCLI@2
+        displayName: Build Notification API
+        inputs:
+          projects: src/Services/Notification/Notification.API/Notification.API.csproj
+          arguments: --configuration $(BuildConfiguration)
+      - task: PublishBuildArtifacts@1
+        displayName: Publish Artifact
+        condition: succeededOrFailed()
+        inputs:
+          PathtoPublish: $(build.artifactstagingdirectory)
+          TargetPath: '\\my\share\$(Build.DefinitionName)\$(Build.BuildNumber)'
