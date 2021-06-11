@@ -43,17 +43,24 @@ namespace DatabaseCleanerService
 
         private async void ExecuteAsync(object state)
         {
-            await using (var connection = new SqlConnection(dbConnectionString))
+            try
             {
-                await connection.OpenAsync();
+                await using (var connection = new SqlConnection(dbConnectionString))
+                {
+                    await connection.OpenAsync();
 
-                logger.LogDebug($"{this.GetType().Namespace} established connection to database with connection string: {dbConnectionString}... proceeding with deleting all entitites that are scheduled today for deletion!");
+                    logger.LogDebug($"{this.GetType().Namespace} established connection to database with connection string: {dbConnectionString}... proceeding with deleting all entitites that are scheduled today for deletion!");
 
-                var tables = await GetAllTablesFromDatabase(connection);
+                    var tables = await GetAllTablesFromDatabase(connection);
 
-                await DeleteScheduledEntitiesForToday(connection, tables);
+                    await DeleteScheduledEntitiesForToday(connection, tables);
 
-                logger.LogDebug("Database cleaned up... closing connection now");
+                    logger.LogDebug("Database cleaned up... closing connection now");
+                }
+            }
+            catch (Exception e)
+            {
+                logger.LogError($"Could not clean the database, error details => {e.Message}");
             }
         }
 
