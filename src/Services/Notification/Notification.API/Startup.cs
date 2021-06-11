@@ -15,6 +15,7 @@ using RabbitMQEventBus;
 using RabbitMQEventBus.Abstractions;
 using RabbitMQEventBus.ConnectionHandler;
 using Serilog;
+using System;
 
 namespace Notification.API
 {
@@ -81,7 +82,9 @@ namespace Notification.API
                 var factory = new ConnectionFactory()
                 {
                     HostName = configuration.GetSection("EventBus")["HostName"],
-                    DispatchConsumersAsync = true
+                    DispatchConsumersAsync = true,
+                    AutomaticRecoveryEnabled = true,
+                    NetworkRecoveryInterval = TimeSpan.FromMinutes(1)
                 };
 
                 return new PersistentConnectionHandler(logger, factory);
