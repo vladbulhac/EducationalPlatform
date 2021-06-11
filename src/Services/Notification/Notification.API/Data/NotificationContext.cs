@@ -9,7 +9,10 @@ namespace Notification.API.Data
         public virtual DbSet<Recipient> Recipients { get; set; }
 
         public NotificationContext(DbContextOptions<NotificationContext> options) : base(options)
-        { Database.Migrate(); }
+        {
+            if (Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
+                Database.Migrate();
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
