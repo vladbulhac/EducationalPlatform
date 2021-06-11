@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+   educationalinstitution-api:
+       environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=https://+:443;http://+:80
+            - ConnectionStrings__ConnectionToWriteDB=Server=sqldb;Database=ProjectOne.EducationalInstitutionsWrite;User Id=sa;Password=Pass@word;
+            - ConnectionStrings__IntegrationTestsDB=Server=sqldb;Database=ProjectOne.Testing;User Id=sa;Password=Pass@word;
+            - EventBus__HostName=rabbitmq
+       ports:
+            - "50001:80"
+            - "53001:443"
+   notification-api:
+       environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://0.0.0.0:80
+            - ConnectionStrings__ConnectionToNotificationDB=Server=sqldb;Database=ProjectOneNotifications;User Id=sa;Password=Pass@word;
+            - EventBus__HostName=rabbitmq
+       ports:
+            - "16780:80"
+   aggregator:
+       environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://0.0.0.0:80
+            - ServicesUrls__gRPCEdu=http://educationalinstitution-api:50001
+       ports:
+            - "61632:80"
+   sqldb:
+       environment:
+            - ACCEPT_EULA=Y
+            - MSSQL_SA_PASSWORD=Pass@word
+   rabbitmq:
+       ports:
+            - "15672:15672"
+            - "5672:5672"
