@@ -5,10 +5,22 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["DatabaseCleanerService.csproj", "."]
-RUN dotnet restore "./DatabaseCleanerService.csproj"
+
+COPY "EducationalPlatform.sln" "EducationalPlatform.sln"
+
+COPY "EventBus/RabbitMQEventBus/RabbitMQEventBus.csproj" "EventBus/RabbitMQEventBus/RabbitMQEventBus.csproj"
+COPY "Validation/DataValidation/DataValidation.csproj" "Validation/DataValidation/DataValidation.csproj"
+COPY "Services/DatabaseCleaner/DatabaseCleanerService/DatabaseCleanerService.csproj" "Services/DatabaseCleaner/DatabaseCleanerService/DatabaseCleanerService.csproj"
+COPY "Services/Edu/EducationalInstitution.API/EducationalInstitution.API.csproj" "Services/Edu/EducationalInstitution.API/EducationalInstitution.API.csproj"
+COPY "APIGateway/Aggregator/Aggregator.csproj" "APIGateway/Aggregator/Aggregator.csproj"
+COPY "Services/Notification/Notification.API/Notification.API.csproj" "Services/Notification/Notification.API/Notification.API.csproj"
+COPY "Services/Edu/EducationalInstitution.API.UnitTests/EducationalInstitution.API.UnitTests.csproj" "Services/Edu/EducationalInstitution.API.UnitTests/EducationalInstitution.API.UnitTests.csproj"
+COPY "Services/Edu/EducationalInstitution.API.IntegrationTests/EducationalInstitution.API.IntegrationTests.csproj" "Services/Edu/EducationalInstitution.API.IntegrationTests/EducationalInstitution.API.IntegrationTests.csproj"
+
+RUN dotnet restore "EducationalPlatform.sln"
+
 COPY . .
-WORKDIR "/src/."
+WORKDIR "/src/Services/DatabaseCleaner/DatabaseCleanerService"
 RUN dotnet build "DatabaseCleanerService.csproj" -c Release -o /app/build
 
 FROM build AS publish
