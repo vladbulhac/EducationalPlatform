@@ -19,6 +19,7 @@ using RabbitMQEventBus;
 using RabbitMQEventBus.Abstractions;
 using RabbitMQEventBus.ConnectionHandler;
 using Serilog;
+using System;
 
 namespace EducationalInstitutionAPI
 {
@@ -71,7 +72,7 @@ namespace EducationalInstitutionAPI
                    .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Educational Institution API v1"));
             }
 
-            app.UseHttpsRedirection()
+            app//.UseHttpsRedirection() commented in order to use the http url to make grpc calls when using docker
                .UseStaticFiles()
                .UseRouting()
                .UseSerilogRequestLogging()
@@ -109,7 +110,9 @@ namespace EducationalInstitutionAPI
                 var factory = new ConnectionFactory
                 {
                     HostName = configuration.GetSection("EventBus")["HostName"],
-                    DispatchConsumersAsync = true
+                    DispatchConsumersAsync = true,
+                    AutomaticRecoveryEnabled = true,
+                    NetworkRecoveryInterval = TimeSpan.FromMinutes(1)
                 };
 
                 return new PersistentConnectionHandler(logger, factory);
