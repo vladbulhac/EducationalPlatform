@@ -32,10 +32,10 @@ namespace Aggregator
             services.AddScoped<IEducationalInstitutionQueryService, EducationalInstitutionQueryService>();
             services.AddTransient<GrpcExceptionInterceptor>();
 
-            var uri = new Uri("https://localhost:53001");
-            services.AddGrpcClient<Query.QueryClient>(options => options.Address = uri)
+            var eduUri = new Uri(Configuration.GetSection("ServicesUrls")["gRPCEdu"]);
+            services.AddGrpcClient<Query.QueryClient>(options => options.Address = eduUri)
                     .AddInterceptor<GrpcExceptionInterceptor>();
-            services.AddGrpcClient<Command.CommandClient>(options => options.Address = uri)
+            services.AddGrpcClient<Command.CommandClient>(options => options.Address = eduUri)
                     .AddInterceptor<GrpcExceptionInterceptor>();
         }
 
