@@ -13,7 +13,7 @@ namespace EducationalInstitutionAPI.Data.Contexts
         public virtual DbSet<EducationalInstitutionAdmin> Admins { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
-        { }
+        { Database.Migrate(); }
 
         public DataContext()
         { }
