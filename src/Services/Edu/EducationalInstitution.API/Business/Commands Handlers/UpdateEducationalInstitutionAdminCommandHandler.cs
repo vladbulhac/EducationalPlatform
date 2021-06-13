@@ -78,8 +78,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                     unitOfWork.GetType(),
                     unitOfWork.UsingEducationalInstitutionCommandRepository().GetType(),
                     nameof(IEducationalInstitutionCommandRepository.UpdateAdminsAsync),
-                    e.Message
-                    );
+                    e.Message);
             }
 
             return new()

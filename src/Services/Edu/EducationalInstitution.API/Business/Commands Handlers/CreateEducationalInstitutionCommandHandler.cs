@@ -95,13 +95,12 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             {
                 return HandleException<Response<EducationalInstitutionCommandResult>>(
                     error_message: "Could not create an Educational Institution with the request data: {0}, using {1} with {2}'s method: {3}, error details => {4}",
-                     response_message: "An error occurred while creating the Educational Institution with the given data!",
-                     JsonConvert.SerializeObject(request),
+                    response_message: "An error occurred while creating the Educational Institution with the given data!",
+                    JsonConvert.SerializeObject(request),
                     unitOfWork.GetType(),
                     unitOfWork.UsingEducationalInstitutionCommandRepository().GetType(),
                     nameof(IEducationalInstitutionCommandRepository.CreateAsync),
-                    e.Message
-                    );
+                    e.Message);
             }
         }
 

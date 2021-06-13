@@ -87,14 +87,13 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
             catch (Exception e)
             {
                 return HandleException<Response<DeleteEducationalInstitutionCommandResult>>(
-                                         error_message: "Could not schedule for deletion the Educational Institution with ID: {0}, using {1} and {2} with {3}, error details => {4}",
-                                         response_message: "An error occurred while scheduling for deletion the Educational Institution with the following ID: {0}!",
-                                        request.EducationalInstitutionID,
-                                        unitOfWorkCommand.GetType(),
-                                        unitOfWorkCommand.UsingEducationalInstitutionCommandRepository().GetType(),
-                                        nameof(IEducationalInstitutionCommandRepository.ScheduleForDeletionAsync),
-                                        e.Message
-                                        );
+                         error_message: "Could not schedule for deletion the Educational Institution with ID: {0}, using {1} and {2} with {3}, error details => {4}",
+                         response_message: "An error occurred while scheduling for deletion the Educational Institution with the following ID: {0}!",
+                         request.EducationalInstitutionID,
+                         unitOfWorkCommand.GetType(),
+                         unitOfWorkCommand.UsingEducationalInstitutionCommandRepository().GetType(),
+                         nameof(IEducationalInstitutionCommandRepository.ScheduleForDeletionAsync),
+                         e.Message);
             }
         }
     }

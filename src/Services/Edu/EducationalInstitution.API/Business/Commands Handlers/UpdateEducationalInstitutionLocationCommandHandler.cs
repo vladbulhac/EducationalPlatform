@@ -85,8 +85,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
                             unitOfWork.GetType(),
                             unitOfWork.UsingEducationalInstitutionCommandRepository().GetType(),
                             GetNameOfRepositoryMethodThatWasCalledInHandler(request),
-                            e.Message
-                            );
+                            e.Message);
             }
 
             return new()

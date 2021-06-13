@@ -72,8 +72,7 @@ namespace EducationalInstitutionAPI.Business.Queries_Handlers
                                 unitOfWork.UsingEducationalInstitutionQueryRepository().GetType(),
                                 nameof(IEducationalInstitutionQueryRepository.GetAllLikeNameAsync),
                                 e.Message,
-                                request.Name
-                                );
+                                request.Name);
             }
         }
     }
