@@ -43,6 +43,7 @@ namespace RabbitMQEventBus.ConnectionHandler
                 }
             }
 
+            logger.LogInformation("A connection to RabbitMQ has been established!");
             return true;
         }
 
