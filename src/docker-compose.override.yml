@@ -5,8 +5,8 @@ services:
        environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - ASPNETCORE_URLS=https://+:443;http://+:80
-            - ConnectionStrings__ConnectionToWriteDB=Server=sqldb;Database=ProjectOne.EducationalInstitutionsWrite;User Id=sa;Password=Pass@word;
-            - ConnectionStrings__IntegrationTestsDB=Server=sqldb;Database=ProjectOne.Testing;User Id=sa;Password=Pass@word;
+            - ConnectionStrings__ConnectionToWriteDB=Server=sqldb;Database=ProjectOne.EducationalInstitutionsWrite;User Id=sa;Password=Pass@word;ConnectRetryInterval=30;
+            - ConnectionStrings__IntegrationTestsDB=Server=sqldb;Database=ProjectOne.Testing;User Id=sa;Password=Pass@word;ConnectRetryInterval=30;
             - EventBus__HostName=rabbitmq
        ports:
             - "50001:80"
@@ -15,7 +15,7 @@ services:
        environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - ASPNETCORE_URLS=http://0.0.0.0:80
-            - ConnectionStrings__ConnectionToNotificationDB=Server=sqldb;Database=ProjectOneNotifications;User Id=sa;Password=Pass@word;
+            - ConnectionStrings__ConnectionToNotificationDB=Server=sqldb;Database=ProjectOneNotifications;User Id=sa;Password=Pass@word;ConnectRetryInterval=30;
             - EventBus__HostName=rabbitmq
        ports:
             - "16780:80"
