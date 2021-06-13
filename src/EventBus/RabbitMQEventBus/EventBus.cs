@@ -132,7 +132,7 @@ namespace RabbitMQEventBus
             }
             catch (Exception e)
             {
-                logger.LogError("Could not handle the received message, error details => {0}", e.Message);
+                logger.LogError("An error occurred while handling the received event from RabbitMQ event bus, error details => {0}", e.Message);
             }
         }
 
