@@ -28,7 +28,7 @@ namespace EducationalInstitutionAPI.Grpc
         /// <inheritdoc cref="EducationalInstitutionCommandService.CreateEducationalInstitution"/>
         public override async Task<EducationalInstitutionGetResponse> GetEducationalInstitutionByID(EducationalInstitutionGetByIdRequest request, ServerCallContext context)
         {
-            logger.LogInformation("Begin grpc call EducationalInstitutionQueryService.GetEducationalInstitutionByID");
+            logger.LogInformation("EducationalInstitutionQueryService.GetEducationalInstitutionByID received gRPC request");
 
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
@@ -75,7 +75,7 @@ namespace EducationalInstitutionAPI.Grpc
         /// <inheritdoc cref="EducationalInstitutionCommandService.CreateEducationalInstitution"/>
         public override async Task<EducationalInstitutionGetByNameResponse> GetAllEducationalInstitutionsByName(EducationalInstitutionGetByNameRequest request, ServerCallContext context)
         {
-            logger.LogInformation("Begin grpc call EducationalInstitutionQueryService.GetAllEducationalInstitutionsByName");
+            logger.LogInformation("EducationalInstitutionQueryService.GetAllEducationalInstitutionsByName received gRPC request");
 
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
@@ -122,7 +122,7 @@ namespace EducationalInstitutionAPI.Grpc
         /// <inheritdoc cref="EducationalInstitutionCommandService.CreateEducationalInstitution"/>
         public override async Task<EducationalInstitutionsGetByBuildingResponse> GetAllEducationalInstitutionsByBuilding(EducationalInstitutionsGetByBuildingRequest request, ServerCallContext context)
         {
-            logger.LogInformation("Begin grpc call EducationalInstitutionQueryService.GetAllEducationalInstitutionsByBuilding");
+            logger.LogInformation("EducationalInstitutionQueryService.GetAllEducationalInstitutionsByBuilding received gRPC request");
 
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
@@ -169,7 +169,7 @@ namespace EducationalInstitutionAPI.Grpc
         /// <inheritdoc cref="EducationalInstitutionCommandService.CreateEducationalInstitution"/>
         public override async Task<EducationalInstitutionsGetByLocationResponse> GetAllEducationalInstitutionsByLocation(EducationalInstitutionsGetByLocationRequest request, ServerCallContext context)
         {
-            logger.LogInformation("Begin grpc call EducationalInstitutionQueryService.GetAllEducationalInstitutionsByLocation");
+            logger.LogInformation("EducationalInstitutionQueryService.GetAllEducationalInstitutionsByLocation received gRPC request");
 
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
@@ -215,6 +215,8 @@ namespace EducationalInstitutionAPI.Grpc
         /// <inheritdoc cref="EducationalInstitutionCommandService.CreateEducationalInstitution"/>
         public override async Task<AdminsGetByEducationalInstitutionIdResponse> GetAllAdminsByEducationalInstitutionID(AdminsGetByEducationalInstitutionIdRequest request, ServerCallContext context)
         {
+            logger.LogInformation("EducationalInstitutionQueryService.GetAllAdminsByEducationalInstitutionID received gRPC request");
+
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 

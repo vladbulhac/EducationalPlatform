@@ -43,8 +43,8 @@ namespace EducationalInstitutionAPI.Grpc
         /// </remarks>
         protected void SetStatusAndTrailersOfContextWhenValidationFails(ref ServerCallContext context, string validationErrors)
                     => SetStatusAndTrailersOfContext(ref context,
-                                                  StatusCode.InvalidArgument,
-                                                  validationErrors,
-                                                  HttpStatusCode.BadRequest);
+                                                     StatusCode.InvalidArgument,
+                                                     validationErrors,
+                                                     HttpStatusCode.BadRequest);
     }
 }

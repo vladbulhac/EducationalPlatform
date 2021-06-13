@@ -46,7 +46,7 @@ namespace EducationalInstitutionAPI.Grpc
         /// </returns>
         public override async Task<EducationalInstitutionCreateResponse> CreateEducationalInstitution(EducationalInstitutionCreateRequest request, ServerCallContext context)
         {
-            logger.LogInformation("Begin gRPC call EducationalInstitutionCommandService.CreateEducationalInstitution");
+            logger.LogInformation("EducationalInstitutionCommandService.CreateEducationalInstitution received gRPC request");
 
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
@@ -93,7 +93,7 @@ namespace EducationalInstitutionAPI.Grpc
         /// <inheritdoc cref="CreateEducationalInstitution"/>
         public override async Task<EducationalInstitutionDeleteResponse> DeleteEducationalInstitution(EducationalInstitutionDeleteRequest request, ServerCallContext context)
         {
-            logger.LogInformation("Begin grpc call EducationalInstitutionCommandService.DeleteEducationalInstitution");
+            logger.LogInformation("EducationalInstitutionCommandService.DeleteEducationalInstitution received gRPC request");
 
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
@@ -140,7 +140,7 @@ namespace EducationalInstitutionAPI.Grpc
         /// <inheritdoc cref="CreateEducationalInstitution"/>
         public override async Task<EducationalInstitutionUpdateResponse> UpdateEducationalInstitution(EducationalInstitutionUpdateRequest request, ServerCallContext context)
         {
-            logger.LogInformation("Begin grpc call EducationalInstitutionCommandService.UpdateEducationalInstitution");
+            logger.LogInformation("EducationalInstitutionCommandService.UpdateEducationalInstitution received gRPC request");
 
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
@@ -185,7 +185,7 @@ namespace EducationalInstitutionAPI.Grpc
         /// <inheritdoc cref="CreateEducationalInstitution"/>
         public override async Task<EducationalInstitutionUpdateResponse> UpdateEducationalInstitutionAdmin(EducationalInstitutionAdminUpdateRequest request, ServerCallContext context)
         {
-            logger.LogInformation("Begin grpc call EducationalInstitutionCommandService.UpdateEducationalInstitutionAdmin");
+            logger.LogInformation("EducationalInstitutionCommandService.UpdateEducationalInstitutionAdmin received gRPC request");
 
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
@@ -229,7 +229,7 @@ namespace EducationalInstitutionAPI.Grpc
         /// <inheritdoc cref="CreateEducationalInstitution"/>
         public override async Task<EducationalInstitutionUpdateResponse> UpdateEducationalInstitutionParent(EducationalInstitutionParentUpdateRequest request, ServerCallContext context)
         {
-            logger.LogInformation("Begin grpc call EducationalInstitutionCommandService.UpdateEducationalInstitutionParent");
+            logger.LogInformation("EducationalInstitutionCommandService.UpdateEducationalInstitutionParent received gRPC request");
 
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
@@ -274,7 +274,7 @@ namespace EducationalInstitutionAPI.Grpc
         /// <inheritdoc cref="CreateEducationalInstitution"/>
         public override async Task<EducationalInstitutionUpdateResponse> UpdateEducationalInstitutionLocation(EducationalInstitutionLocationUpdateRequest request, ServerCallContext context)
         {
-            logger.LogInformation("Begin grpc call EducationalInstitutionCommandService.UpdateEducationalInstitutionLocation");
+            logger.LogInformation("EducationalInstitutionCommandService.UpdateEducationalInstitutionLocation received gRPC request");
 
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
