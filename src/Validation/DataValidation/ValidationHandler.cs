@@ -6,6 +6,7 @@ using System.Text;
 
 namespace DataValidation
 {
+    /// <inheritdoc cref="IValidationHandler">
     public class ValidationHandler : IValidationHandler
     {
         private readonly ILogger<ValidationHandler> logger;
