@@ -10,8 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Proto\commandervices.proto" />
-    <None Remove="Proto\queryservices.proto" />
+    <None Remove="Proto\commandservice.proto" />
+    <None Remove="Proto\queryservice.proto" />
     <None Remove="Proto\requestmessages.proto" />
     <None Remove="Proto\responsedata.proto" />
     <None Remove="Proto\responsemessages.proto" />
@@ -59,8 +59,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Proto\commandervices.proto" GrpcServices="Server" />
-    <Protobuf Include="Proto\queryservices.proto" GrpcServices="Server" />
+    <Protobuf Include="Proto\commandservice.proto" GrpcServices="Server" />
+    <Protobuf Include="Proto\queryservice.proto" GrpcServices="Server" />
     <Protobuf Include="Proto\requestmessages.proto" GrpcServices="Server" />
     <Protobuf Include="Proto\responsedata.proto" GrpcServices="Server" />
     <Protobuf Include="Proto\responsemessages.proto" GrpcServices="Server" />

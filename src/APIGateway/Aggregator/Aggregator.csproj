@@ -9,8 +9,8 @@
 
   <ItemGroup>
     <None Remove="Proto\Common\uuid.proto" />
-    <None Remove="Proto\EducationalInstitutionAPI\commandervices.proto" />
-    <None Remove="Proto\EducationalInstitutionAPI\queryservices.proto" />
+    <None Remove="Proto\EducationalInstitutionAPI\commandservice.proto" />
+    <None Remove="Proto\EducationalInstitutionAPI\queryservice.proto" />
     <None Remove="Proto\EducationalInstitutionAPI\requestmessages.proto" />
     <None Remove="Proto\EducationalInstitutionAPI\responsedata.proto" />
     <None Remove="Proto\EducationalInstitutionAPI\responsemessages.proto" />
@@ -30,8 +30,8 @@
 
   <ItemGroup>
     <Protobuf Include="Proto\Common\uuid.proto" GrpcServices="Client" />
-    <Protobuf Include="Proto\EducationalInstitutionAPI\commandervices.proto" GrpcServices="Client" />
-    <Protobuf Include="Proto\EducationalInstitutionAPI\queryservices.proto" GrpcServices="Client" />
+    <Protobuf Include="Proto\EducationalInstitutionAPI\commandservice.proto" GrpcServices="Client" />
+    <Protobuf Include="Proto\EducationalInstitutionAPI\queryservice.proto" GrpcServices="Client" />
     <Protobuf Include="Proto\EducationalInstitutionAPI\requestmessages.proto" GrpcServices="Client" />
     <Protobuf Include="Proto\EducationalInstitutionAPI\responsedata.proto" GrpcServices="Client" />
     <Protobuf Include="Proto\EducationalInstitutionAPI\responsemessages.proto" GrpcServices="Client" />
