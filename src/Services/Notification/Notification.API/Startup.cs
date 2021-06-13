@@ -33,7 +33,9 @@ namespace Notification.API
         {
             services.AddDbContext<NotificationContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("ConnectionToNotificationDB"), providerOptions => providerOptions.EnableRetryOnFailure(1));
+                options.UseSqlServer(Configuration.GetConnectionString("ConnectionToNotificationDB"),
+                                     providerOptions => providerOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null));
+                options.LogTo(Console.WriteLine);
             });
 
             services.AddTransient<INotificationRepository, NotificationRepository>();
@@ -84,7 +86,7 @@ namespace Notification.API
                     HostName = configuration.GetSection("EventBus")["HostName"],
                     DispatchConsumersAsync = true,
                     AutomaticRecoveryEnabled = true,
-                    NetworkRecoveryInterval = TimeSpan.FromMinutes(1)
+                    NetworkRecoveryInterval = TimeSpan.FromSeconds(30)
                 };
 
                 return new PersistentConnectionHandler(logger, factory);
