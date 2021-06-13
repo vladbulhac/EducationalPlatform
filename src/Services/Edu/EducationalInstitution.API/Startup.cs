@@ -39,16 +39,19 @@ namespace EducationalInstitutionAPI
 
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("ConnectionToWriteDB"), providerOptions => providerOptions.EnableRetryOnFailure(1));
-            });
+                options.UseSqlServer(Configuration.GetConnectionString("ConnectionToWriteDB"),
+                                     providerOptions => providerOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null));
+
+                options.LogTo(Console.WriteLine);
+            }, ServiceLifetime.Scoped);
 
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins, builder =>
                 {
                     builder.AllowAnyOrigin()
-                            .AllowAnyHeader()
-                            .AllowAnyMethod();
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
                 });
             });
 
@@ -77,6 +80,7 @@ namespace EducationalInstitutionAPI
                .UseRouting()
                .UseSerilogRequestLogging()
                .UseAuthorization()
+               .ApplyMigrationsOnStartup()
                .UseEndpoints(endpoints => endpoints.RegisterGrpcServices());
         }
     }
@@ -112,7 +116,7 @@ namespace EducationalInstitutionAPI
                     HostName = configuration.GetSection("EventBus")["HostName"],
                     DispatchConsumersAsync = true,
                     AutomaticRecoveryEnabled = true,
-                    NetworkRecoveryInterval = TimeSpan.FromMinutes(1)
+                    NetworkRecoveryInterval = TimeSpan.FromSeconds(30)
                 };
 
                 return new PersistentConnectionHandler(logger, factory);
@@ -135,6 +139,19 @@ namespace EducationalInstitutionAPI
             endpoints.MapGrpcService<EducationalInstitutionQueryService>();
 
             return endpoints;
+        }
+
+        /// <remarks><i>
+        /// Without this extension method the database is not created and an exception is thrown if queries are executed with Dapper before a command
+        /// </i></remarks>>
+        public static IApplicationBuilder ApplyMigrationsOnStartup(this IApplicationBuilder app)
+        {
+            using var context = app.ApplicationServices.CreateScope()
+                                                       .ServiceProvider
+                                                       .GetRequiredService<DataContext>();
+            context.Database.Migrate();
+
+            return app;
         }
     }
 }

@@ -14,8 +14,8 @@ namespace EducationalInstitutionAPI.Data.Contexts
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-            if (Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
-                Database.Migrate();
+            /*if (Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
+                Database.Migrate();*/
         }
 
         public DataContext()
