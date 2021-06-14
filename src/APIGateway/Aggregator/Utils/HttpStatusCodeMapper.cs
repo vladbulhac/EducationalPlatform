@@ -7,20 +7,20 @@ namespace Aggregator.Utils
 {
     public static class HttpStatusCodeMapper
     {
-        private static readonly ConcurrentDictionary<ProtoHttpStatusCode, HttpStatusCode> httpStatusCodeToProtoMap;
+        private static readonly ConcurrentDictionary<ProtoHttpStatusCode, HttpStatusCode> protoToHttpStatusCodeMap;
 
-        static HttpStatusCodeMapper() => httpStatusCodeToProtoMap = new();
+        static HttpStatusCodeMapper() => protoToHttpStatusCodeMap = new();
 
         /// <summary>
         /// Extension method that maps a <see cref="ProtoHttpStatusCode"/> to an equivalent <see cref="HttpStatusCode"/> if it can otherwise it maps to <see cref="HttpStatusCode.OK"/>
         /// </summary>
-        public static HttpStatusCode ConvertToHttpStatusCode(this ProtoHttpStatusCode code)
+        public static HttpStatusCode ToHttpStatusCode(this ProtoHttpStatusCode code)
         {
             HttpStatusCode httpStatusCode;
-            if (!httpStatusCodeToProtoMap.TryGetValue(code, out httpStatusCode))
+            if (!protoToHttpStatusCodeMap.TryGetValue(code, out httpStatusCode))
             {
                 if (Enum.TryParse(code.ToString(), out httpStatusCode))
-                    httpStatusCodeToProtoMap.TryAdd(code, httpStatusCode);
+                    protoToHttpStatusCodeMap.TryAdd(code, httpStatusCode);
                 else
                     httpStatusCode = HttpStatusCode.OK;
             }

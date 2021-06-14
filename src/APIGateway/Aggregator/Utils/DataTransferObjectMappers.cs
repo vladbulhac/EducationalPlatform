@@ -48,7 +48,7 @@ namespace Aggregator.Utils
             {
                 Data = new() { EducationalInstitutionID = grpcCallResponse.Body.Data.EducationalInstitutionId.ToGuid() },
                 Message = grpcCallResponse.Body.Message,
-                StatusCode = grpcCallResponse.Body.StatusCode.ConvertToHttpStatusCode(),
+                StatusCode = grpcCallResponse.Body.StatusCode.ToHttpStatusCode(),
                 OperationStatus = grpcCallResponse.Body.OperationStatus
             };
         }
@@ -62,7 +62,7 @@ namespace Aggregator.Utils
             {
                 Data = new() { DateForPermanentDeletion = grpcCallResponse.Body.Data.DateForPermanentDeletion.ToDateTime() },
                 Message = grpcCallResponse.Body.Message,
-                StatusCode = grpcCallResponse.Body.StatusCode.ConvertToHttpStatusCode(),
+                StatusCode = grpcCallResponse.Body.StatusCode.ToHttpStatusCode(),
                 OperationStatus = grpcCallResponse.Body.OperationStatus
             };
         }
@@ -76,7 +76,7 @@ namespace Aggregator.Utils
             {
                 Message = grpcCallResponse.Body.Message,
                 OperationStatus = grpcCallResponse.Body.OperationStatus,
-                StatusCode = grpcCallResponse.Body.StatusCode.ConvertToHttpStatusCode()
+                StatusCode = grpcCallResponse.Body.StatusCode.ToHttpStatusCode()
             };
         }
 
@@ -97,7 +97,7 @@ namespace Aggregator.Utils
                     ChildInstitutions = MapInstitutions(grpcCallResponse.Body.Data.ChildInstitutions),
                     ParentInstitution = MapInstitution(grpcCallResponse.Body.Data.ParentInstitution)
                 },
-                StatusCode = grpcCallResponse.Body.StatusCode.ConvertToHttpStatusCode(),
+                StatusCode = grpcCallResponse.Body.StatusCode.ToHttpStatusCode(),
                 OperationStatus = grpcCallResponse.Body.OperationStatus,
                 Message = grpcCallResponse.Body.Message
             };
@@ -112,7 +112,7 @@ namespace Aggregator.Utils
             {
                 Data = new() { EducationalInstitutions = MapInstitutions(grpcCallResponse.Body.Data) },
                 OperationStatus = grpcCallResponse.Body.OperationStatus,
-                StatusCode = grpcCallResponse.Body.StatusCode.ConvertToHttpStatusCode(),
+                StatusCode = grpcCallResponse.Body.StatusCode.ToHttpStatusCode(),
                 Message = grpcCallResponse.Body.Message
             };
         }
@@ -127,7 +127,7 @@ namespace Aggregator.Utils
                 Data = new() { EducationalInstitutions = MapInstitutions(grpcCallResponse.Body.Data) },
                 Message = grpcCallResponse.Body.Message,
                 OperationStatus = grpcCallResponse.Body.OperationStatus,
-                StatusCode = grpcCallResponse.Body.StatusCode.ConvertToHttpStatusCode()
+                StatusCode = grpcCallResponse.Body.StatusCode.ToHttpStatusCode()
             };
         }
 
@@ -149,7 +149,7 @@ namespace Aggregator.Utils
                 },
                 Message = grpcCallResponse.Body.Message,
                 OperationStatus = grpcCallResponse.Body.OperationStatus,
-                StatusCode = grpcCallResponse.Body.StatusCode.ConvertToHttpStatusCode()
+                StatusCode = grpcCallResponse.Body.StatusCode.ToHttpStatusCode()
             };
         }
 
@@ -163,7 +163,7 @@ namespace Aggregator.Utils
                 Data = new() { Admins = grpcCallResponse.Body.Data.Select(a => a.ToGuid()).ToList() },
                 Message = grpcCallResponse.Body.Message,
                 OperationStatus = grpcCallResponse.Body.OperationStatus,
-                StatusCode = grpcCallResponse.Body.StatusCode.ConvertToHttpStatusCode()
+                StatusCode = grpcCallResponse.Body.StatusCode.ToHttpStatusCode()
             };
         }
 
@@ -242,7 +242,8 @@ namespace Aggregator.Utils
         /// <item> Default <typeparamref name="TResponse"/> if the grpc call did not fail </item>
         /// </list>
         /// </returns>
-        private static TResponse HandleFailedGrpcCall<TResponse, TIn>(GrpcCallResponse<TIn> grpcCallResponse) where TIn : class where TResponse : Response, new()
+        private static TResponse HandleFailedGrpcCall<TResponse, TIn>(GrpcCallResponse<TIn> grpcCallResponse) where TIn : class
+                                                                                                              where TResponse : Response, new()
         {
             if (grpcCallResponse.Trailers.Count > 0)
                 return GetTrailersFromGrpcResponse<TIn, TResponse>(grpcCallResponse);
@@ -253,7 +254,8 @@ namespace Aggregator.Utils
             return default;
         }
 
-        private static TOut GetTrailersFromGrpcResponse<TIn, TOut>(GrpcCallResponse<TIn> grpcCallResponse) where TIn : class where TOut : Response, new()
+        private static TOut GetTrailersFromGrpcResponse<TIn, TOut>(GrpcCallResponse<TIn> grpcCallResponse) where TIn : class
+                                                                                                           where TOut : Response, new()
         {
             return new()
             {
