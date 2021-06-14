@@ -7,8 +7,12 @@ using System.Reflection;
 namespace DataValidation
 {
     /// <summary>
-    /// Exposes a method that instantiates a validator class based on a given type
+    /// <para>Exposes a method that instantiates a validator class based on a given type</para>
+    /// <para>On instantiation it searches in the given <see cref="Assembly"/> for validators</para>
     /// </summary>
+    /// <remarks><i>
+    /// Must be registered as a Singleton service in the Dependency Injection Container
+    /// </i></remarks>
     public class ValidatorFactory
     {
         private readonly IDictionary<Type, Type> dtoToValidatorMap;
@@ -16,8 +20,9 @@ namespace DataValidation
 
         public ValidatorFactory(Assembly appAssembly)
         {
+            assembly = appAssembly ?? throw new ArgumentNullException(nameof(appAssembly));
             dtoToValidatorMap = new Dictionary<Type, Type>();
-            assembly = appAssembly;
+
             MapDTOsToValidators();
         }
 
@@ -29,7 +34,7 @@ namespace DataValidation
             foreach (var type in assembly.GetTypes())
             {
                 if (type.IsClass && !type.IsAbstract && type.IsSubclassOfGeneric(typeof(AbstractValidator<>)))
-                    dtoToValidatorMap.TryAdd(type.BaseType.GetGenericArguments()[0], type);
+                    dtoToValidatorMap.Add(type.BaseType.GetGenericArguments()[0], type);
             }
         }
 
@@ -41,9 +46,11 @@ namespace DataValidation
         /// <exception cref="RequestTypeNotSupportedException">Thrown when a validator of <typeparamref name="T"/> has not been declared</exception>
         public AbstractValidator<T> CreateValidator<T>()
         {
-            if (!dtoToValidatorMap.TryGetValue(typeof(T), out Type validatorClass))
+            var Ttype = typeof(T);
+            if (!dtoToValidatorMap.ContainsKey(Ttype))
                 throw new RequestTypeNotSupportedException(nameof(T));
 
+            Type validatorClass = dtoToValidatorMap[Ttype];
             return Activator.CreateInstance(validatorClass) as AbstractValidator<T>;
         }
     }
