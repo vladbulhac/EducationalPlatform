@@ -25,7 +25,7 @@ RUN dotnet restore "EducationalPlatform.sln"
 
 COPY . .
 WORKDIR "/src/Services/Edu/EducationalInstitution.API"
-RUN dotnet build "EducationalInstitution.API.csproj" -c Release -o /app/build
+RUN dotnet publish -c Release --no-restore -o /app
 
 FROM build as unittest
 WORKDIR /src/Services/Edu/EducationalInstitution.API.UnitTests
@@ -34,9 +34,8 @@ FROM build as integrationtest
 WORKDIR /src/Services/Edu/EducationalInstitution.API.IntegrationTests
 
 FROM build AS publish
-RUN dotnet publish "EducationalInstitution.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "EducationalInstitution.API.dll"]

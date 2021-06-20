@@ -24,12 +24,11 @@ RUN dotnet restore "EducationalPlatform.sln"
 
 COPY . .
 WORKDIR "/src/Services/Notification/Notification.API"
-RUN dotnet build "Notification.API.csproj" -c Release -o /app/build
+RUN dotnet publish -c Release --no-restore -o /app
 
 FROM build AS publish
-RUN dotnet publish "Notification.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "Notification.API.dll"]
