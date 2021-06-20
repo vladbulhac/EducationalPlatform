@@ -93,7 +93,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         {
             AssignedAdminsToEducationalInstitutionIntegrationEvent @newAdminsEvent = new()
             {
-                Message = "You were given admin rights for an Educational Institution!",
+                Message = "Admin rights granted for an Educational Institution!",
                 ToNotify = notificationData.NewAdminsToNotify,
                 Url = $"/edu/{educationalInstitutionID}",
                 TriggeredBy = new()
@@ -119,7 +119,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
 
             NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent @removedAdminsEvent = new()
             {
-                Message = "Your admin rights for an Educational Institution were revoked!",
+                Message = "Admin rights revoked for an Educational Institution!",
                 ToNotify = notificationData.RemovedAdminsToNotify,
                 Url = $"/edu/{educationalInstitutionID}",
                 TriggeredBy = new()

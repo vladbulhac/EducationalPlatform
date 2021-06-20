@@ -108,7 +108,7 @@ namespace EducationalInstitutionAPI.Business.Commands_Handlers
         {
             AssignedAdminsToEducationalInstitutionIntegrationEvent @newEntityEvent = new()
             {
-                Message = "You were given admin rights for a recenlty created Educational Institution!",
+                Message = "Admin rights granted for a recently created Educational Institution!",
                 ToNotify = newEntityAdmins,
                 Url = $"/edu/{newEntityID}",
                 TriggeredBy = new()
