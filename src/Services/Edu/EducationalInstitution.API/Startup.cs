@@ -142,7 +142,7 @@ namespace EducationalInstitutionAPI
         }
 
         /// <remarks><i>
-        /// Without this extension method the database is not created and an exception is thrown if queries are executed with Dapper before a command
+        /// Without this extension method the database is not created and an exception is thrown if queries are executed with Dapper before <see cref="DataContext"/> is instantiated
         /// </i></remarks>>
         public static IApplicationBuilder ApplyMigrationsOnStartup(this IApplicationBuilder app)
         {
