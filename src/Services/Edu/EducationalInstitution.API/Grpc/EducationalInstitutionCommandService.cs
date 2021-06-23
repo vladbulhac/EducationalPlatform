@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace EducationalInstitutionAPI.Grpc
 {
     /// <summary>
-    /// Implements the methods that handle the Remote Call Procedure requests
+    /// Implements the methods that handle the gRPC requests
     /// </summary>
     public class EducationalInstitutionCommandService : Command.CommandBase
     {
@@ -42,7 +42,7 @@ namespace EducationalInstitutionAPI.Grpc
         /// <item><see cref="StatusCode.InvalidArgument">InvalidArgument</see> if the validation process fails</item>
         /// <item><see cref="StatusCode.Aborted">Aborted</see> if the request fails or an exception is caught</item>
         /// </list>
-        /// <i>If the request fails (e.g an Exception is thrown somewhere) then <see cref="ServerCallContext"/>'s ResponseTrailers are set with a Message and <see cref="HttpStatusCode"/></i>
+        /// <i>If the request fails (e.g an Exception is caught by this method) then <see cref="ServerCallContext"/>'s ResponseTrailers are set with a Message and <see cref="HttpStatusCode"/></i>
         /// </returns>
         public override async Task<EducationalInstitutionCreateResponse> CreateEducationalInstitution(EducationalInstitutionCreateRequest request, ServerCallContext context)
         {
