@@ -1,4 +1,4 @@
-﻿using DataValidation;
+﻿using DataValidation.Abstractions;
 using EducationalInstitutionAPI.Proto;
 using EducationalInstitutionAPI.Utils.Mappers;
 using Grpc.Core;

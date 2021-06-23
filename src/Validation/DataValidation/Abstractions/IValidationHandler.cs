@@ -1,4 +1,4 @@
-﻿namespace DataValidation
+﻿namespace DataValidation.Abstractions
 {
     /// <summary>
     /// Defines a method that instantiates a validator class that validates all the fields of a given request

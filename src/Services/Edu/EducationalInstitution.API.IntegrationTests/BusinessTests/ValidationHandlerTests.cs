@@ -1,4 +1,5 @@
 ﻿using DataValidation;
+using DataValidation.Abstractions;
 using EducationalInstitutionAPI;
 using EducationalInstitutionAPI.DTOs.Commands;
 using EducationalInstitutionAPI.DTOs.Queries;

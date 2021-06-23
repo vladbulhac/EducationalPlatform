@@ -1,4 +1,5 @@
-﻿using FluentValidation.Results;
+﻿using DataValidation.Abstractions;
+using FluentValidation.Results;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
