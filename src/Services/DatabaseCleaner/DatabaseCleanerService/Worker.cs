@@ -86,7 +86,9 @@ namespace DatabaseCleanerService
                                                   todaysDate.Month,
                                                   todaysDate.Year);
 
-                await connection.QueryAsync(statement);
+                var nrRowsAffected = await connection.ExecuteAsync(statement);
+
+                logger.LogInformation($"{nrRowsAffected} rows have been deleted from {tablename} table!");
             }
         }
 
