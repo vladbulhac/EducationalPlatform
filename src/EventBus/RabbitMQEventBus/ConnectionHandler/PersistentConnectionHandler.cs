@@ -14,6 +14,8 @@ namespace RabbitMQEventBus.ConnectionHandler
         private readonly IConnectionFactory connectionFactory;
         private readonly ILogger<PersistentConnectionHandler> logger;
 
+        private IModel persistentChannel;
+
         private bool IsConnected { get => connection != null ? connection.IsOpen : false; }
 
         public PersistentConnectionHandler(ILogger<PersistentConnectionHandler> logger, IConnectionFactory connectionFactory)
@@ -33,6 +35,7 @@ namespace RabbitMQEventBus.ConnectionHandler
                         try
                         {
                             connection = connectionFactory.CreateConnection();
+                            logger.LogInformation("A connection to RabbitMQ has been established!");
                         }
                         catch (Exception e)
                         {
@@ -43,15 +46,27 @@ namespace RabbitMQEventBus.ConnectionHandler
                 }
             }
 
-            logger.LogInformation("A connection to RabbitMQ has been established!");
             return true;
         }
 
-        public IModel CreateChannel()
+        public IModel GetTransientChannel()
         {
             if (!IsConnected) return default;
 
             return connection.CreateModel();
+        }
+
+        public IModel GetPersistentChannel()
+        {
+            if (!IsConnected) return default;
+
+            if (persistentChannel == default || persistentChannel.IsClosed)
+            {
+                persistentChannel = connection.CreateModel();
+                logger.LogDebug("A persistent channel for receiving events was created successfully!");
+            }
+
+            return persistentChannel;
         }
 
         public void Dispose()
@@ -60,7 +75,9 @@ namespace RabbitMQEventBus.ConnectionHandler
             {
                 try
                 {
+                    persistentChannel.Dispose();
                     connection.Dispose();
+
                     disposed = true;
                 }
                 catch (Exception e)
