@@ -14,6 +14,8 @@ namespace RabbitMQEventBus.ConnectionHandler
         /// </summary>
         public bool CanEstablishConnection();
 
-        public IModel CreateChannel();
+        public IModel GetTransientChannel();
+
+        public IModel GetPersistentChannel();
     }
 }
