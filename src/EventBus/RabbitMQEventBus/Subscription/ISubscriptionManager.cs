@@ -1,6 +1,5 @@
 ﻿using RabbitMQEventBus.IntegrationEvents;
 using System;
-using System.Collections.Generic;
 
 namespace RabbitMQEventBus.Subscription
 {
@@ -11,10 +10,6 @@ namespace RabbitMQEventBus.Subscription
     {
         public void SaveSubscription(Type eventType, Type handler);
 
-        public ICollection<Type> GetHandlersOfEvent(string eventType);
-
-        public bool HasSubscription(string eventType);
-
-        public Type GetTypeOfEvent(string eventName);
+        public Subscription GetSubscriptionDetailsOfEvent(string eventName);
     }
 }
