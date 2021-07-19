@@ -1,5 +1,5 @@
 syntax = "proto3";
-import "Proto/responsedata.proto";
+import "Presentation/Proto/uuid.proto";
 
 option csharp_namespace = "EducationalInstitutionAPI.Proto";
 
