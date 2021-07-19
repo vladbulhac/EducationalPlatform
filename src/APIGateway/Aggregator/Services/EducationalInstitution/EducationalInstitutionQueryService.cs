@@ -16,7 +16,7 @@ namespace Aggregator.Services.EducationalInstitution
 
         public async Task<GrpcCallResponse<EducationalInstitutionGetResponse>> GetEducationalInstitutionByIDAsync(EducationalInstitutionGetByIdRequest request)
         {
-            logger.LogDebug("Query.QueryClient calls server with request: {@request}", request);
+            logger.LogDebug($"{nameof(EducationalInstitutionQueryService)}: {nameof(Query.QueryClient)} calls server with request: {request}");
 
             var request_call = client.GetEducationalInstitutionByIDAsync(request);
 
@@ -25,7 +25,7 @@ namespace Aggregator.Services.EducationalInstitution
 
         public async Task<GrpcCallResponse<EducationalInstitutionGetByNameResponse>> GetAllEducationalInstitutionsByNameAsync(EducationalInstitutionGetByNameRequest request)
         {
-            logger.LogDebug("Query.QueryClient calls server with request: {@request}", request);
+            logger.LogDebug($"{nameof(EducationalInstitutionQueryService)}: {nameof(Query.QueryClient)} calls server with request: {request}");
 
             var request_call = client.GetAllEducationalInstitutionsByNameAsync(request);
 
@@ -34,7 +34,7 @@ namespace Aggregator.Services.EducationalInstitution
 
         public async Task<GrpcCallResponse<EducationalInstitutionsGetByLocationResponse>> GetAllEducationalInstitutionsByLocationAsync(EducationalInstitutionsGetByLocationRequest request)
         {
-            logger.LogDebug("Query.QueryClient calls server with request: {@request}", request);
+            logger.LogDebug($"{nameof(EducationalInstitutionQueryService)}: {nameof(Query.QueryClient)} calls server with request: {request}");
 
             var request_call = client.GetAllEducationalInstitutionsByLocationAsync(request);
 
@@ -43,7 +43,7 @@ namespace Aggregator.Services.EducationalInstitution
 
         public async Task<GrpcCallResponse<EducationalInstitutionsGetByBuildingResponse>> GetAllEducationalInstitutionsByBuildingAsync(EducationalInstitutionsGetByBuildingRequest request)
         {
-            logger.LogDebug("Query.QueryClient calls server with request: {@request}", request);
+            logger.LogDebug($"{nameof(EducationalInstitutionQueryService)}: {nameof(Query.QueryClient)} calls server with request: {request}");
 
             var request_call = client.GetAllEducationalInstitutionsByBuildingAsync(request);
 
@@ -52,7 +52,7 @@ namespace Aggregator.Services.EducationalInstitution
 
         public async Task<GrpcCallResponse<AdminsGetByEducationalInstitutionIdResponse>> GetAllAdminsByEducationalInstitutionIDAsync(AdminsGetByEducationalInstitutionIdRequest request)
         {
-            logger.LogDebug("Query.QueryClient calls server with request: {@request}", request);
+            logger.LogDebug($"{nameof(EducationalInstitutionQueryService)}: {nameof(Query.QueryClient)} calls server with request: {request}");
 
             var request_call = client.GetAllAdminsByEducationalInstitutionIDAsync(request);
 

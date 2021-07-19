@@ -16,7 +16,7 @@ namespace Aggregator.Services.EducationalInstitution
 
         public async Task<GrpcCallResponse<EducationalInstitutionCreateResponse>> CreateEducationalInstitutionAsync(EducationalInstitutionCreateRequest request)
         {
-            logger.LogDebug("Command.CommandClient calls server with request: {@request}", request);
+            logger.LogDebug($"{nameof(EducationalInstitutionCommandService)}: {nameof(Command.CommandClient)} calls server with request: {request}");
 
             var request_call = client.CreateEducationalInstitutionAsync(request);
 
@@ -25,7 +25,7 @@ namespace Aggregator.Services.EducationalInstitution
 
         public async Task<GrpcCallResponse<EducationalInstitutionUpdateResponse>> UpdateEducationalInstitutionAsync(EducationalInstitutionUpdateRequest request)
         {
-            logger.LogDebug("Command.CommandClient calls server with request: {@request}", request);
+            logger.LogDebug($"{nameof(EducationalInstitutionCommandService)}: {nameof(Command.CommandClient)} calls server with request: {request}");
 
             var request_call = client.UpdateEducationalInstitutionAsync(request);
 
@@ -34,7 +34,7 @@ namespace Aggregator.Services.EducationalInstitution
 
         public async Task<GrpcCallResponse<EducationalInstitutionUpdateResponse>> UpdateEducationalInstitutionParentAsync(EducationalInstitutionParentUpdateRequest request)
         {
-            logger.LogDebug("Command.CommandClient calls server with request: {@request}", request);
+            logger.LogDebug($"{nameof(EducationalInstitutionCommandService)}: {nameof(Command.CommandClient)} calls server with request: {request}");
 
             var request_call = client.UpdateEducationalInstitutionParentAsync(request);
 
@@ -43,7 +43,7 @@ namespace Aggregator.Services.EducationalInstitution
 
         public async Task<GrpcCallResponse<EducationalInstitutionUpdateResponse>> UpdateEducationalInstitutionAdminAsync(EducationalInstitutionAdminUpdateRequest request)
         {
-            logger.LogDebug("Command.CommandClient calls server with request: {@request}", request);
+            logger.LogDebug($"{nameof(EducationalInstitutionCommandService)}: {nameof(Command.CommandClient)} calls server with request: {request}");
 
             var request_call = client.UpdateEducationalInstitutionAdminAsync(request);
 
@@ -52,7 +52,7 @@ namespace Aggregator.Services.EducationalInstitution
 
         public async Task<GrpcCallResponse<EducationalInstitutionUpdateResponse>> UpdateEducationalInstitutionLocationAsync(EducationalInstitutionLocationUpdateRequest request)
         {
-            logger.LogDebug("Command.CommandClient calls server with request: {@request}", request);
+            logger.LogDebug($"{nameof(EducationalInstitutionCommandService)}: {nameof(Command.CommandClient)} calls server with request: {request}");
 
             var request_call = client.UpdateEducationalInstitutionLocationAsync(request);
 
@@ -61,7 +61,7 @@ namespace Aggregator.Services.EducationalInstitution
 
         public async Task<GrpcCallResponse<EducationalInstitutionDeleteResponse>> DeleteEducationalInstitutionAsync(EducationalInstitutionDeleteRequest request)
         {
-            logger.LogDebug("Command.CommandClient calls server with request: {@request}", request);
+            logger.LogDebug($"{nameof(EducationalInstitutionCommandService)}: {nameof(Command.CommandClient)} calls server with request: {request}");
 
             var request_call = client.DeleteEducationalInstitutionAsync(request);
 
