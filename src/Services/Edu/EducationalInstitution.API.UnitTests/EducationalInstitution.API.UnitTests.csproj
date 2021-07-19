@@ -7,17 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\EducationalInstitutions.examples.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Resources\EducationalInstitutions.examples.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.8" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
     <PackageReference Include="Moq" Version="4.16.1" />
@@ -35,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\EventBus\RabbitMQEventBus\RabbitMQEventBus.csproj" />
+    <ProjectReference Include="..\EducationalInstitution.API.Tests.Shared\EducationalInstitution.API.Tests.Shared.csproj" />
     <ProjectReference Include="..\EducationalInstitution.API\EducationalInstitution.API.csproj" />
   </ItemGroup>
 </Project>
