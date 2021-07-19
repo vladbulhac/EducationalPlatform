@@ -36,7 +36,7 @@ namespace DataValidation
             }
             catch (Exception e)
             {
-                validationErrors = "An error occurred while trying to validate the request!";
+                validationErrors = "An error occurred while trying to validate the object!";
 
                 logger.LogError("Could not validate the request: {0} with the type: {1}, error details => {2}",
                                 JsonConvert.SerializeObject(dto),
