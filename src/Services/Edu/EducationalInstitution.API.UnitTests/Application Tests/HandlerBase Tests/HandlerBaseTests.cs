@@ -1,9 +1,8 @@
-﻿using EducationalInstitutionAPI.Business;
-using EducationalInstitutionAPI.DTOs;
+﻿using EducationalInstitution.Application;
 using System.Net;
 using Xunit;
 
-namespace EducationalInstitution.API.UnitTests.BusinessTests.HandlerBase_Tests
+namespace EducationalInstitution.API.UnitTests.Application_Tests.HandlerBase_Tests
 {
     public class HandlerBaseTests : HandlerBase<HandlerBaseTests>, IClassFixture<MockDependenciesHelper<HandlerBaseTests>>
     {
