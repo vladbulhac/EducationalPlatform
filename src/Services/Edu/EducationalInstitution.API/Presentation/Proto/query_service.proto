@@ -1,6 +1,6 @@
 syntax = "proto3";
-import "Proto/requestmessages.proto";
-import "Proto/responsemessages.proto";
+import "Presentation/Proto/request_messages.proto";
+import "Presentation/Proto/response_messages.proto";
 
 option csharp_namespace = "EducationalInstitutionAPI.Proto";
 
