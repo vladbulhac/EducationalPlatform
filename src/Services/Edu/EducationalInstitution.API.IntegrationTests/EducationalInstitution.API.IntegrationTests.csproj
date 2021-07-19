@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
+    <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EducationalInstitution.API.UnitTests\EducationalInstitution.API.UnitTests.csproj" />
+    <ProjectReference Include="..\EducationalInstitution.API.Tests.Shared\EducationalInstitution.API.Tests.Shared.csproj" />
     <ProjectReference Include="..\EducationalInstitution.API\EducationalInstitution.API.csproj" />
   </ItemGroup>
 </Project>
