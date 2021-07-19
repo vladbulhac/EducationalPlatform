@@ -1,511 +1,36 @@
 ﻿using DataValidation;
 using DataValidation.Abstractions;
-using EducationalInstitutionAPI;
-using EducationalInstitutionAPI.DTOs.Commands;
-using EducationalInstitutionAPI.DTOs.Queries;
+using EducationalInstitution.Application.Commands;
+using EducationalInstitution.Application.Commands.Validators;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace EducationalInstitution.API.IntegrationTests.BusinessTests
+namespace EducationalInstitution.API.IntegrationTests.Application_Tests
 {
-    public class ValidationHandlerTests
+    public class CommandsValidationTests
     {
         private readonly Mock<ILogger<ValidationHandler>> mockLogger;
         private readonly IValidationHandler validationHandler;
 
         /// <remarks>Called before each test</remarks>
-        public ValidationHandlerTests()
+        public CommandsValidationTests()
         {
             mockLogger = new();
 
-            var applicationAssembly = typeof(Startup).Assembly;
+            var applicationAssembly = typeof(CreateEducationalInstitutionCommandValidator).Assembly;
             validationHandler = new ValidationHandler(mockLogger.Object, new ValidatorFactory(applicationAssembly));
         }
 
-        #region DTOEducationalInstitutionByIDQuery TESTS
+        #region CreateEducationalInstitutionCommand TESTS
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionByIDQuery_ShouldReturnTrue()
+        public void GivenAValidCreateEducationalInstitutionCommand_ShouldReturnTrue()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionByIDQuery { EducationalInstitutionID = Guid.NewGuid() };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
-
-            //Assert
-            Assert.True(validationResult);
-        }
-
-        [Fact]
-        public void GivenAValidDTOEducationalInstitutionByIDQuery_ShouldReturnAnEmptyValidationErrorsString()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionByIDQuery { EducationalInstitutionID = Guid.NewGuid() };
-            //Act
-            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.Empty(validationErrors);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionByIDQuery_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionByIDQuery { EducationalInstitutionID = default };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
-
-            //Assert
-            Assert.False(validationResult);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionByIDQuery_WithDefaultEducationalInstitutionID_ShouldReturnAStringWithTheErrorsFound()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionByIDQuery { EducationalInstitutionID = default };
-
-            //Act
-            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
-        }
-
-        #endregion DTOEducationalInstitutionByIDQuery TESTS
-
-        #region DTOEducationalInstitutionByNameQuery TESTS
-
-        [Fact]
-        public void GivenAValidDTOEducationalInstitutionByNameQuery_ShouldReturnTrue()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByNameQuery { Name = "University", OffsetValue = 0, ResultsCount = 1 };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
-
-            //Assert
-            Assert.True(validationResult);
-        }
-
-        [Fact]
-        public void GivenAValidDTOEducationalInstitutionByNameQuery_ShouldReturnAnEmptyValidationErrorsString()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByNameQuery { Name = "University", OffsetValue = 0, ResultsCount = 1 };
-
-            //Act
-            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.Empty(validationErrors);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionByNameQuery_WithNullName_ShouldReturnFalse()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByNameQuery { Name = null, OffsetValue = 0, ResultsCount = 1 };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
-
-            //Assert
-            Assert.False(validationResult);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionByNameQuery_WithEmptyName_ShouldReturnFalse()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByNameQuery { Name = string.Empty, OffsetValue = 0, ResultsCount = 1 };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
-
-            //Assert
-            Assert.False(validationResult);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionByNameQuery_WithEmptyName_ShouldReturnValidationErrors()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByNameQuery { Name = string.Empty, OffsetValue = 0, ResultsCount = 1 };
-
-            //Act
-            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.Equal(" Property Name failed validation. Error was: Name was empty or null!", validationErrors);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionByNameQuery_WithNullName_ShouldReturnValidationErrors()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByNameQuery { Name = null, OffsetValue = 0, ResultsCount = 1 };
-
-            //Act
-            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.Equal(" Property Name failed validation. Error was: Name was empty or null!", validationErrors);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionByNameQuery_WithNameOfLengthOne_ShouldReturnValidationErrors()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByNameQuery { Name = "a", OffsetValue = 0, ResultsCount = 1 };
-
-            //Act
-            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.Equal(" Property Name failed validation. Error was: Name's length was not between 2-128 characters!", validationErrors);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionByNameQuery_WithNegativeOffsetValue_ShouldReturnFalse()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByNameQuery { Name = "University", OffsetValue = -1, ResultsCount = 1 };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.False(validationResult);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionByNameQuery_WithNegativeOffsetValue_ShouldReturnValidationErrors()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByNameQuery { Name = "University", OffsetValue = -1, ResultsCount = 1 };
-
-            //Act
-            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.Equal(" Property OffsetValue failed validation. Error was: Offset Value was not between 0 and 150!", validationErrors);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionByNameQuery_WithZeroResultsCount_ShouldReturnFalse()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByNameQuery { Name = "University", OffsetValue = 0, ResultsCount = 0 };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.False(validationResult);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionByNameQuery_WithZeroResultsCount_ShouldReturnValidationErrors()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByNameQuery { Name = "University", OffsetValue = 0, ResultsCount = 0 };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.Equal(" Property ResultsCount failed validation. Error was: Results Count was not between 1 and 100!", validationErrors);
-        }
-
-        #endregion DTOEducationalInstitutionByNameQuery TESTS
-
-        #region DTOEducationalInstitutionByLocationQuery TESTS
-
-        [Fact]
-        public void GivenAValidDTOEducationalInstitutionByLocationQuery_ShouldReturnTrue()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByLocationQuery { LocationID = "6050efcd87e2647ab7ac443e" };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
-
-            //Assert
-            Assert.True(validationResult);
-        }
-
-        [Fact]
-        public void GivenAValidDTOEducationalInstitutionByLocationQuery_ShouldReturnAnEmptyValidationErrorsString()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByLocationQuery { LocationID = "6050efcd87e2647ab7ac443e" };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.Empty(validationErrors);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionByLocationQuery_WithEmptyLocationID_ShouldReturnFalse()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByLocationQuery { LocationID = string.Empty };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
-
-            //Assert
-            Assert.False(validationResult);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionByLocationQuery_WithEmptyLocationID_ShouldReturnValidationErrors()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByLocationQuery { LocationID = string.Empty };
-
-            //Act
-            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.Equal(" Property LocationID failed validation. Error was: Location ID was empty or null!", validationErrors);
-        }
-
-        [Fact]
-        public void GivenAanInvalidDTOEducationalInstitutionByLocationQuery_WithLocationIDOfLengthNot24_ShouldReturnFalse()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByLocationQuery { LocationID = "eIdL14F9" };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.False(validationResult);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionByLocationQuery_WithLocationIDOfLengthNot24_ShouldReturnValidationErrors()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByLocationQuery { LocationID = "eIdL14F9" };
-
-            //Act
-            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.Equal(" Property LocationID failed validation. Error was: Location ID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionByLocationQuery_WithLocationIDThatContainsProhibitedCharacters_ShouldReturnFalse()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByLocationQuery { LocationID = "6050efcd87e2647ab7ac443~" };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.False(validationResult);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionByLocationQuery_WithLocationIDThatContainsProhibitedCharacters_ShouldReturnValidationErrors()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByLocationQuery { LocationID = "6050efcd87e2647ab7ac443~" };
-
-            //Act
-            validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.Equal(" Property LocationID failed validation. Error was: Location ID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
-        }
-
-        #endregion DTOEducationalInstitutionByLocationQuery TESTS
-
-        #region DTOAdminsByEducationalInstitutionIDQuery TESTS
-
-        [Fact]
-        public void GivenAValidDTOAdminsByEducationalInstitutionIDQuery_ShouldReturnTrue()
-        {
-            //Arrange
-            var dto = new DTOAdminsByEducationalInstitutionIDQuery { EducationalInstitutionID = Guid.NewGuid() };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
-
-            //Assert
-            Assert.True(validationResult);
-        }
-
-        [Fact]
-        public void GivenAValidDTOAdminsByEducationalInstitutionIDQuery_ShouldReturnEmptyValidationErrorsString()
-        {
-            //Arrange
-            var dto = new DTOAdminsByEducationalInstitutionIDQuery { EducationalInstitutionID = Guid.NewGuid() };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.Empty(validationErrors);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOAdminsByEducationalInstitutionIDQuery_WithDefaultID_ShouldReturnFalse()
-        {
-            //Arrange
-            var dto = new DTOAdminsByEducationalInstitutionIDQuery { EducationalInstitutionID = default };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
-
-            //Assert
-            Assert.False(validationResult);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOAdminsByEducationalInstitutionIDQuery_WithDefaultID_ShouldReturnAStringWithValidationError()
-        {
-            //Arrange
-            var dto = new DTOAdminsByEducationalInstitutionIDQuery { EducationalInstitutionID = default };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: EducationalInstitutionID is empty, null or default!", validationErrors);
-        }
-
-        #endregion DTOAdminsByEducationalInstitutionIDQuery TESTS
-
-        #region DTOEducationalInstitutionsByBuildingQuery TEST
-
-        [Fact]
-        public void GivenAValidDTOEducationalInstitutionsByBuildingQuery_ShouldReturnTrue()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByBuildingQuery { BuildingID = "12AEDa09344151BbdDefF134" };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.True(validationResult);
-        }
-
-        [Fact]
-        public void GivenAValidDTOEducationalInstitutionsByBuildingQuery_ShouldReturnEmptyValidationErrors()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByBuildingQuery { BuildingID = "12AEDa09344151BbdDefF134" };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.Empty(validationErrors);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionsByBuildingQuery_WithEmptyBuildingID_ShouldReturnFalse()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByBuildingQuery { BuildingID = string.Empty };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.False(validationResult);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionsByBuildingQuery_WithEmptyBuildingID_ShouldReturnValidationErrors()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByBuildingQuery { BuildingID = string.Empty };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.Equal(" Property BuildingID failed validation. Error was: Building ID was empty or null!", validationErrors);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionsByBuildingQuery_WithBuildingIDLengthNot24_ShouldReturnFalse()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByBuildingQuery { BuildingID = "a1234b" };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.False(validationResult);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionsByBuildingQuery_WithBuildingIDLengthNot24_ShouldReturnValidationErrors()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByBuildingQuery { BuildingID = "a1234b" };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.Equal(" Property BuildingID failed validation. Error was: Building ID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionsByBuildingQuery_WithBuildingIDContainingCharactersOutOfTheAlphabet_ShouldReturnFalse()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByBuildingQuery { BuildingID = "12AEDa09344151BbdDefF13Q" };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.False(validationResult);
-        }
-
-        [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionsByBuildingQuery_WithBuildingIDContainingCharactersOutOfTheAlphabet_ShouldReturnValidationErrors()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionsByBuildingQuery { BuildingID = "12AEDa09344151BbdDefF13Q" };
-
-            //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
-
-            //Assert
-            Assert.Equal(" Property BuildingID failed validation. Error was: Building ID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
-        }
-
-        #endregion DTOEducationalInstitutionsByBuildingQuery TEST
-
-        #region DTOEducationalInstitutionCreateCommand TESTS
-
-        [Fact]
-        public void GivenAValidDTOEducationalInstitutionCreateCommand_ShouldReturnTrue()
-        {
-            //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -523,10 +48,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionCreateCommand_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidCreateEducationalInstitutionCommand_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -544,10 +69,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyName_ShouldReturnFalse()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithEmptyName_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = string.Empty,
                 Description = "Description",
@@ -565,10 +90,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyName_ShouldReturnValidationErrors()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithEmptyName_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = string.Empty,
                 Description = "Description",
@@ -586,10 +111,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthName_ShouldReturnFalse()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithOutOfBoundsLengthName_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "N",
                 Description = "Description",
@@ -607,10 +132,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthName_ShouldReturnValidationErrors()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithOutOfBoundsLengthName_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "N",
                 Description = "Description",
@@ -628,10 +153,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyDescription_ShouldReturnFalse()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithEmptyDescription_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = string.Empty,
@@ -649,10 +174,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyDescription_ShouldReturnValidationErrors()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithEmptyDescription_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = string.Empty,
@@ -670,10 +195,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthDescription_ShouldReturnFalse()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithOutOfBoundsLengthDescription_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = "D",
@@ -691,10 +216,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthDescription_ShouldReturnValidationErrors()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithOutOfBoundsLengthDescription_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = "D",
@@ -712,10 +237,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithEmptyBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -733,10 +258,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithEmptyBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -754,10 +279,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithOutOfBoundsLengthBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -775,10 +300,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithOutOfBoundsLengthBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithOutOfBoundsLengthBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -796,10 +321,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithOutOfBoundsAlphabetBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithOutOfBoundsAlphabetBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -817,10 +342,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithOutOfBoundsAlphabetBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithOutOfBoundsAlphabetBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -838,10 +363,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithBuildingIDEqualsLocationID_ShouldReturnFalse()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithBuildingIDEqualsLocationID_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -859,10 +384,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithBuildingIDEqualsLocationID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithBuildingIDEqualsLocationID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -880,10 +405,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyBuildingsIDs_ShouldReturnFalse()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithEmptyBuildingsIDs_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -901,10 +426,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyBuildingsIDs_ShouldReturnValidationErrors()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithEmptyBuildingsIDs_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -922,10 +447,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyAdminsIDs_ShouldReturnFalse()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithEmptyAdminsIDs_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -943,10 +468,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithEmptyAdminsIDs_ShouldReturnValidationErrors()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithEmptyAdminsIDs_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -964,10 +489,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithDefaultAdminID_ShouldReturnFalse()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithDefaultAdminID_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -985,10 +510,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionCreateCommand_WithDefaultAdminID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithDefaultAdminID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionCreateCommand
+            var dto = new CreateEducationalInstitutionCommand
             {
                 Name = "Name",
                 Description = "Description",
@@ -1005,15 +530,15 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             Assert.Equal(" Property AdminsIDs[0] failed validation. Error was: AdminID was empty or null!", validationErrors);
         }
 
-        #endregion DTOEducationalInstitutionCreateCommand TESTS
+        #endregion CreateEducationalInstitutionCommand TESTS
 
-        #region DTOEducationalInstitutionUpdateCommand TESTS
+        #region UpdateEducationalInstitutionCommand TESTS
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionUpdateCommand_ShouldReturnTrue()
+        public void GivenAValidUpdateEducationalInstitutionCommand_ShouldReturnTrue()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionUpdateCommand
+            var dto = new UpdateEducationalInstitutionCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1030,10 +555,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionUpdateCommand_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidUpdateEducationalInstitutionCommand_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionUpdateCommand
+            var dto = new UpdateEducationalInstitutionCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1050,10 +575,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionUpdateCommand_WithFalseUpdateNameAndEmptyName_ShouldReturnTrue()
+        public void GivenAValidUpdateEducationalInstitutionCommand_WithFalseUpdateNameAndEmptyName_ShouldReturnTrue()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionUpdateCommand
+            var dto = new UpdateEducationalInstitutionCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = false,
@@ -1070,10 +595,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionUpdateCommand_WithFalseUpdateNameAndEmptyName_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidUpdateEducationalInstitutionCommand_WithFalseUpdateNameAndEmptyName_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionUpdateCommand
+            var dto = new UpdateEducationalInstitutionCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = false,
@@ -1090,10 +615,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionUpdateCommand_WithFalseUpdateDescriptionAndEmptyDescription_ShouldReturnTrue()
+        public void GivenAValidUpdateEducationalInstitutionCommand_WithFalseUpdateDescriptionAndEmptyDescription_ShouldReturnTrue()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionUpdateCommand
+            var dto = new UpdateEducationalInstitutionCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1110,10 +635,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionUpdateCommand_WithFalseUpdateDescriptionAndEmptyDescription_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidUpdateEducationalInstitutionCommand_WithFalseUpdateDescriptionAndEmptyDescription_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionUpdateCommand
+            var dto = new UpdateEducationalInstitutionCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1130,10 +655,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithFalseUpdateDescriptionAndFalseUpdateName_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionCommand_WithFalseUpdateDescriptionAndFalseUpdateName_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionUpdateCommand
+            var dto = new UpdateEducationalInstitutionCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = false,
@@ -1150,10 +675,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithFalseUpdateDescriptionAndFalseUpdateName_ShouldReturnValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionCommand_WithFalseUpdateDescriptionAndFalseUpdateName_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionUpdateCommand
+            var dto = new UpdateEducationalInstitutionCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = false,
@@ -1170,10 +695,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionUpdateCommand
+            var dto = new UpdateEducationalInstitutionCommand
             {
                 EducationalInstitutionID = default,
                 UpdateName = true,
@@ -1190,10 +715,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionCommand_WithDefaultEducationalInstitutionID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionUpdateCommand
+            var dto = new UpdateEducationalInstitutionCommand
             {
                 EducationalInstitutionID = default,
                 UpdateName = true,
@@ -1210,10 +735,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithEmptyName_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionCommand_WithEmptyName_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionUpdateCommand
+            var dto = new UpdateEducationalInstitutionCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1230,10 +755,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithEmptyName_ShouldReturnValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionCommand_WithEmptyName_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionUpdateCommand
+            var dto = new UpdateEducationalInstitutionCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1250,10 +775,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithOutOfBoundsNameLength_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionCommand_WithOutOfBoundsNameLength_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionUpdateCommand
+            var dto = new UpdateEducationalInstitutionCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1270,10 +795,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithOutOfBoundsNameLength_ShouldReturnValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionCommand_WithOutOfBoundsNameLength_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionUpdateCommand
+            var dto = new UpdateEducationalInstitutionCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1290,10 +815,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithEmptyDescription_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionCommand_WithEmptyDescription_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionUpdateCommand
+            var dto = new UpdateEducationalInstitutionCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1310,10 +835,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithEmptyDescription_ShouldReturnValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionCommand_WithEmptyDescription_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionUpdateCommand
+            var dto = new UpdateEducationalInstitutionCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1330,10 +855,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidRequestOfTypeDTOEducationalInstitutionUpdateCommand_WithOutOfBoundsDescriptionLength_ShouldReturnFalse()
+        public void GivenAnInvalidRequestOfTypeUpdateEducationalInstitutionCommand_WithOutOfBoundsDescriptionLength_ShouldReturnFalse()
         {
             //Arrange
-            var request = new DTOEducationalInstitutionUpdateCommand()
+            var request = new UpdateEducationalInstitutionCommand()
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1350,10 +875,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionUpdateCommand_WithOutOfBoundsDescriptionLength_ShouldReturnValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionCommand_WithOutOfBoundsDescriptionLength_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionUpdateCommand
+            var dto = new UpdateEducationalInstitutionCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateName = true,
@@ -1369,15 +894,15 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             Assert.Equal(" Property Description failed validation. Error was: Description's length was not between 2-500 characters!", validationErrors);
         }
 
-        #endregion DTOEducationalInstitutionUpdateCommand TESTS
+        #endregion UpdateEducationalInstitutionCommand TESTS
 
-        #region DTOEducationalInstitutionParentUpdateCommand TESTS
+        #region UpdateEducationalInstitutionParentCommand TESTS
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionParentUpdateCommand_ShouldReturnTrue()
+        public void GivenAValidUpdateEducationalInstitutionParentCommand_ShouldReturnTrue()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionParentUpdateCommand
+            var dto = new UpdateEducationalInstitutionParentCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 ParentInstitutionID = Guid.NewGuid()
@@ -1391,10 +916,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionParentUpdateCommand_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidUpdateEducationalInstitutionParentCommand_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionParentUpdateCommand
+            var dto = new UpdateEducationalInstitutionParentCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 ParentInstitutionID = Guid.NewGuid()
@@ -1408,10 +933,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionParentUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionParentCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionParentUpdateCommand
+            var dto = new UpdateEducationalInstitutionParentCommand
             {
                 EducationalInstitutionID = default,
                 ParentInstitutionID = Guid.NewGuid()
@@ -1425,10 +950,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionParentUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionParentCommand_WithDefaultEducationalInstitutionID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionParentUpdateCommand
+            var dto = new UpdateEducationalInstitutionParentCommand
             {
                 EducationalInstitutionID = default,
                 ParentInstitutionID = Guid.NewGuid()
@@ -1442,11 +967,11 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionParentUpdateCommand_WithParentInstitutionIDSameAsEducationalInstitutionID_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionParentCommand_WithParentInstitutionIDSameAsEducationalInstitutionID_ShouldReturnFalse()
         {
             //Arrange
             var id = Guid.NewGuid();
-            var dto = new DTOEducationalInstitutionParentUpdateCommand
+            var dto = new UpdateEducationalInstitutionParentCommand
             {
                 EducationalInstitutionID = id,
                 ParentInstitutionID = id
@@ -1460,11 +985,11 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionParentUpdateCommand_WithParentInstitutionIDSameAsEducationalInstitutionID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionParentCommand_WithParentInstitutionIDSameAsEducationalInstitutionID_ShouldReturnValidationErrors()
         {
             //Arrange
             var id = Guid.NewGuid();
-            var dto = new DTOEducationalInstitutionParentUpdateCommand
+            var dto = new UpdateEducationalInstitutionParentCommand
             {
                 EducationalInstitutionID = id,
                 ParentInstitutionID = id
@@ -1477,15 +1002,15 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             Assert.Equal(" Property ParentInstitutionID failed validation. Error was: ParentInstitutionID was the same as EducationalInstitutionID!", validationErrors);
         }
 
-        #endregion DTOEducationalInstitutionParentUpdateCommand TESTS
+        #endregion UpdateEducationalInstitutionParentCommand TESTS
 
-        #region DTOEducationalInstitutionLocationUpdateCommand TESTS
+        #region UpdateEducationalInstitutionLocationCommand TESTS
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_ShouldReturnTrue()
+        public void GivenAValidUpdateEducationalInstitutionLocationCommand_ShouldReturnTrue()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1502,10 +1027,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidUpdateEducationalInstitutionLocationCommand_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1522,10 +1047,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = default,
                 UpdateLocation = true,
@@ -1542,10 +1067,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithDefaultEducationalInstitutionID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithDefaultEducationalInstitutionID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = default,
                 UpdateLocation = true,
@@ -1562,10 +1087,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithEmptyBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithEmptyBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1582,10 +1107,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithEmptyBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithEmptyBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1602,10 +1127,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithEmptyLocationID_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithEmptyLocationID_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1622,10 +1147,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithEmptyLocationID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithEmptyLocationID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1642,10 +1167,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_WithEmptyBuildings_ShouldReturnTrue()
+        public void GivenAValidUpdateEducationalInstitutionLocationCommand_WithEmptyBuildings_ShouldReturnTrue()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1662,10 +1187,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_WithEmptyBuildings_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidUpdateEducationalInstitutionLocationCommand_WithEmptyBuildings_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1682,10 +1207,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_WithEmptyLocationID_ShouldReturnTrue()
+        public void GivenAValidUpdateEducationalInstitutionLocationCommand_WithEmptyLocationID_ShouldReturnTrue()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = false,
@@ -1702,10 +1227,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_WithDuplicateBuildingsIDs_ShouldReturnFalse()
+        public void GivenAValidUpdateEducationalInstitutionLocationCommand_WithDuplicateBuildingsIDs_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1722,10 +1247,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_WithDuplicateBuildingsIDs_ShouldReturnValidationErrors()
+        public void GivenAValidUpdateEducationalInstitutionLocationCommand_WithDuplicateBuildingsIDs_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1742,10 +1267,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_WithFalseUpdateLocationAndUpdateBuildings_ShouldReturnFalse()
+        public void GivenAValidUpdateEducationalInstitutionLocationCommand_WithFalseUpdateLocationAndUpdateBuildings_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = false,
@@ -1762,10 +1287,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_WithFalseUpdateLocationAndUpdateBuildings_ShouldReturnValidationErrors()
+        public void GivenAValidUpdateEducationalInstitutionLocationCommand_WithFalseUpdateLocationAndUpdateBuildings_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = false,
@@ -1782,10 +1307,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithDuplicateBuildingsIDs_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithDuplicateBuildingsIDs_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1802,10 +1327,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithDuplicateBuildingsIDs_ShouldReturnValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithDuplicateBuildingsIDs_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1822,10 +1347,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithBothAddBuiildingsIDsAndRemoveBuildingsIDsEmpty_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithBothAddBuiildingsIDsAndRemoveBuildingsIDsEmpty_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1843,10 +1368,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithBothAddBuiildingsIDsAndRemoveBuildingsIDsEmpty_ShouldReturnValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithBothAddBuiildingsIDsAndRemoveBuildingsIDsEmpty_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1864,10 +1389,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithEmptyRemoveBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithEmptyRemoveBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1884,10 +1409,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithEmptyRemoveBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithEmptyRemoveBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1904,10 +1429,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithOutOfBoundsCharactersInRemoveBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithOutOfBoundsCharactersInRemoveBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1925,10 +1450,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithOutOfBoundsCharactersInRemoveBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithOutOfBoundsCharactersInRemoveBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1946,10 +1471,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithOutOfBoundsCharactersInAddBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithOutOfBoundsCharactersInAddBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1967,10 +1492,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithOutOfBoundsCharactersInAddBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithOutOfBoundsCharactersInAddBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -1988,10 +1513,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithLengthGreaterThan24InRemoveBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithLengthGreaterThan24InRemoveBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -2009,10 +1534,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithLengthGreaterThan24InRemoveBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithLengthGreaterThan24InRemoveBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -2030,10 +1555,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithLengthGreaterThan24InAddBuildingID_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithLengthGreaterThan24InAddBuildingID_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -2051,10 +1576,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionLocationUpdateCommand_WithLengthGreaterThan24InAddBuildingID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionLocationCommand_WithLengthGreaterThan24InAddBuildingID_ShouldReturnValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -2072,10 +1597,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_WithSameIDOnAddBuildingsIDsAndRemoveBuildingsIDs_ShouldReturnFalse()
+        public void GivenAValidUpdateEducationalInstitutionLocationCommand_WithSameIDOnAddBuildingsIDsAndRemoveBuildingsIDs_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -2093,11 +1618,11 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionLocationUpdateCommand_WithSameIDOnAddBuildingsIDsAndRemoveBuildingsIDs_ShouldReturnAStringWithValidationErrors()
+        public void GivenAValidUpdateEducationalInstitutionLocationCommand_WithSameIDOnAddBuildingsIDsAndRemoveBuildingsIDs_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
             var buildingID = "10Fc4a7f1e00F1BDebAe4501";
-            var dto = new DTOEducationalInstitutionLocationUpdateCommand
+            var dto = new UpdateEducationalInstitutionLocationCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 UpdateLocation = true,
@@ -2114,15 +1639,15 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             Assert.Equal($" Property AddBuildingsIDs[0] failed validation. Error was: AddBuildingsIDs' {buildingID} was also found in RemoveBuildingsIDs!", validationErrors);
         }
 
-        #endregion DTOEducationalInstitutionLocationUpdateCommand TESTS
+        #endregion UpdateEducationalInstitutionLocationCommand TESTS
 
-        #region DTOEducationalInstitutionAdminUpdateCommand TESTS
+        #region UpdateEducationalInstitutionAdminsCommand TESTS
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionAdminUpdateCommand_ShouldReturnTrue()
+        public void GivenAValidUpdateEducationalInstitutionAdminsCommand_ShouldReturnTrue()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2137,10 +1662,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionAdminUpdateCommand_ShouldReturnEmptyValidationErrorsString()
+        public void GivenAValidUpdateEducationalInstitutionAdminsCommand_ShouldReturnEmptyValidationErrorsString()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2155,10 +1680,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionAdminUpdateCommand_WithNullAddAdminsIDsCollection_ShouldReturnTrue()
+        public void GivenAValidUpdateEducationalInstitutionAdminsCommand_WithNullAddAdminsIDsCollection_ShouldReturnTrue()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = null,
@@ -2173,10 +1698,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionAdminUpdateCommand_WithNullAddAdminsIDsCollection_ShouldReturnEmptyValidationErrorsString()
+        public void GivenAValidUpdateEducationalInstitutionAdminsCommand_WithNullAddAdminsIDsCollection_ShouldReturnEmptyValidationErrorsString()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = null,
@@ -2191,10 +1716,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionAdminUpdateCommand_WithNullRemoveAdminsIDsCollection_ShouldReturnTrue()
+        public void GivenAValidUpdateEducationalInstitutionAdminsCommand_WithNullRemoveAdminsIDsCollection_ShouldReturnTrue()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2209,10 +1734,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionAdminUpdateCommand_WithNullRemoveAdminsIDsCollection_ShouldReturnEmptyValidationErrorsString()
+        public void GivenAValidUpdateEducationalInstitutionAdminsCommand_WithNullRemoveAdminsIDsCollection_ShouldReturnEmptyValidationErrorsString()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2227,10 +1752,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDefaultID_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDefaultID_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = default,
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2245,10 +1770,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDefaultID_ShouldReturnAStringWithValidationError()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDefaultID_ShouldReturnAStringWithValidationError()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = default,
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2263,10 +1788,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithBothCollectionsNull_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithBothCollectionsNull_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = null,
@@ -2281,10 +1806,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithBothCollectionsNull_ShouldReturnAStringWithValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithBothCollectionsNull_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = null,
@@ -2299,11 +1824,11 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithSameAdminIDOnBothCollections_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithSameAdminIDOnBothCollections_ShouldReturnFalse()
         {
             //Arrange
             var adminID = Guid.NewGuid();
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { adminID },
@@ -2318,11 +1843,11 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithSameAdminIDOnBothCollections_ShouldReturnAStringWithValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithSameAdminIDOnBothCollections_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
             var adminID = Guid.NewGuid();
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { adminID },
@@ -2337,11 +1862,11 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDuplicateIDInAddAdminsIDsCollection_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDuplicateIDInAddAdminsIDsCollection_ShouldReturnFalse()
         {
             //Arrange
             var adminID = Guid.NewGuid();
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { adminID, adminID },
@@ -2356,11 +1881,11 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDuplicateIDInAddAdminsIDsCollection_ShouldReturnAStringWithValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDuplicateIDInAddAdminsIDsCollection_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
             var adminID = Guid.NewGuid();
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { adminID, adminID },
@@ -2375,11 +1900,11 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDuplicateIDInRemoveAdminsIDsCollection_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDuplicateIDInRemoveAdminsIDsCollection_ShouldReturnFalse()
         {
             //Arrange
             var adminID = Guid.NewGuid();
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2394,11 +1919,11 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDuplicateIDInRemoveAdminsIDsCollection_ShouldReturnAStringWithValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDuplicateIDInRemoveAdminsIDsCollection_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
             var adminID = Guid.NewGuid();
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2413,10 +1938,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDefaultIDInAddAdminsIDs_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDefaultIDInAddAdminsIDs_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { default },
@@ -2431,10 +1956,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDefaultIDInAddAdminsIDs_ShouldReturnAStringWithValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDefaultIDInAddAdminsIDs_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { default },
@@ -2449,10 +1974,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDefaultIDInRemoveAdminsIDs_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDefaultIDInRemoveAdminsIDs_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2467,10 +1992,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionAdminUpdateCommand_WithDefaultIDInRemoveAdminsIDs_ShouldReturnAStringWithValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDefaultIDInRemoveAdminsIDs_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionAdminUpdateCommand
+            var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -2484,15 +2009,15 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             Assert.Equal(" Property RemoveAdminsIDs[0] failed validation. Error was: RemoveAdminsIDs contains an invalid ID!", validationErrors);
         }
 
-        #endregion DTOEducationalInstitutionAdminUpdateCommand TESTS
+        #endregion UpdateEducationalInstitutionAdminsCommand TESTS
 
-        #region DTOEducationalInstiutionDeleteCommand TESTS
+        #region DisableEducationalInstitutionCommand TESTS
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionDeleteCommand_ShouldReturnTrue()
+        public void GivenAValidDisableEducationalInstitutionCommand_ShouldReturnTrue()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionDeleteCommand { EducationalInstitutionID = Guid.NewGuid() };
+            var dto = new DisableEducationalInstitutionCommand { EducationalInstitutionID = Guid.NewGuid() };
 
             //Act
             var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
@@ -2502,10 +2027,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAValidDTOEducationalInstitutionDeleteCommand_ShouldReturnAnEmptyValidationErrorsString()
+        public void GivenAValidDisableEducationalInstitutionCommand_ShouldReturnAnEmptyValidationErrorsString()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionDeleteCommand { EducationalInstitutionID = Guid.NewGuid() };
+            var dto = new DisableEducationalInstitutionCommand { EducationalInstitutionID = Guid.NewGuid() };
 
             //Act
             validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
@@ -2515,10 +2040,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionDeleteCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
+        public void GivenAnInvalidDisableEducationalInstitutionCommand_WithDefaultEducationalInstitutionID_ShouldReturnFalse()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionDeleteCommand { EducationalInstitutionID = default };
+            var dto = new DisableEducationalInstitutionCommand { EducationalInstitutionID = default };
 
             //Act
             var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
@@ -2528,10 +2053,10 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
         }
 
         [Fact]
-        public void GivenAnInvalidDTOEducationalInstitutionDeleteCommand_WithDefaultEducationalInstitutionID_ShouldReturnAStringWithTheErrorsFound()
+        public void GivenAnInvalidDisableEducationalInstitutionCommand_WithDefaultEducationalInstitutionID_ShouldReturnAStringWithTheErrorsFound()
         {
             //Arrange
-            var dto = new DTOEducationalInstitutionDeleteCommand { EducationalInstitutionID = default };
+            var dto = new DisableEducationalInstitutionCommand { EducationalInstitutionID = default };
 
             //Act
             validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
@@ -2540,6 +2065,6 @@ namespace EducationalInstitution.API.IntegrationTests.BusinessTests
             Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
         }
 
-        #endregion DTOEducationalInstiutionDeleteCommand TESTS
+        #endregion DisableEducationalInstitutionCommand TESTS
     }
 }
