@@ -22,7 +22,7 @@ namespace DatabaseCleanerService
         public Worker(string connectionString, int retryInHours, ILogger<Worker> logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.retryInHours = retryInHours <= 0 ? throw new Exception($"{nameof(retryInHours)} must be a positive number greater than 0!") : retryInHours;
+            this.retryInHours = retryInHours <= 0 ? throw new ArgumentOutOfRangeException(nameof(retryInHours), "Value must be greater than 0!") : retryInHours;
 
             if (string.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
             dbConnectionString = connectionString;
