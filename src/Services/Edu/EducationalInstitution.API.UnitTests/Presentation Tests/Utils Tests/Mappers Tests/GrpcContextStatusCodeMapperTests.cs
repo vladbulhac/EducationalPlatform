@@ -3,9 +3,9 @@ using Grpc.Core;
 using System.Net;
 using Xunit;
 
-namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
+namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Mappers_Tests
 {
-    public class RPCCallContextStatusCodeMapperTests
+    public class GrpcContextStatusCodeMapperTests
     {
         [Fact]
         public void GivenHttpStatusCodeNotFound_ShouldReturnStatusCodeNotFound()
@@ -14,7 +14,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             var code = HttpStatusCode.NotFound;
 
             //Act
-            var result = code.ToRPCCallContextStatusCode();
+            var result = code.ToGrpcContextStatusCode();
 
             //Assert
             Assert.Equal(StatusCode.NotFound, result);
@@ -27,7 +27,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             var code = HttpStatusCode.InternalServerError;
 
             //Act
-            var result = code.ToRPCCallContextStatusCode();
+            var result = code.ToGrpcContextStatusCode();
 
             //Assert
             Assert.Equal(StatusCode.Aborted, result);
@@ -40,7 +40,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             var code = HttpStatusCode.OK;
 
             //Act
-            var result = code.ToRPCCallContextStatusCode();
+            var result = code.ToGrpcContextStatusCode();
 
             //Assert
             Assert.Equal(StatusCode.OK, result);
@@ -53,7 +53,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             var code = HttpStatusCode.Accepted;
 
             //Act
-            var result = code.ToRPCCallContextStatusCode();
+            var result = code.ToGrpcContextStatusCode();
 
             //Assert
             Assert.Equal(StatusCode.OK, result);
