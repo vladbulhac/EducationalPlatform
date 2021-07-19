@@ -3,7 +3,7 @@ using EducationalInstitutionAPI.Utils.Mappers;
 using System.Net;
 using Xunit;
 
-namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
+namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Mappers_Tests
 {
     public class HttpStatusCodeMapperTests
     {

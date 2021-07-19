@@ -1,4 +1,4 @@
-﻿using EducationalInstitutionAPI.DTOs.Commands;
+﻿using EducationalInstitution.Application.Commands;
 using EducationalInstitutionAPI.Proto;
 using EducationalInstitutionAPI.Utils.Mappers;
 using System;
@@ -6,14 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
+namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Mappers_Tests
 {
     public class DataTransferObjectMappersForCommandServicesTests
     {
-        #region MapToDTOEducationalInstitutionCreateCommand extension method TESTS
+        #region MapToCreateEducationalInstitutionCommand extension method TESTS
 
         [Fact]
-        public void GivenAValidEducationalInstitutionCreateRequest_ShouldReturnDTOEducationalInstitutionCreateCommand()
+        public void GivenAValidEducationalInstitutionCreateRequest_ShouldReturnCreateEducationalInstitutionCommand()
         {
             //Arrange
             var parentInstitutionID = Guid.NewGuid();
@@ -29,10 +29,10 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             request.AdminsIds.Add(Guid.NewGuid().ToProtoUuid());
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionCreateCommand();
+            var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
 
             //Assert
-            Assert.IsType<DTOEducationalInstitutionCreateCommand>(mappedRequest);
+            Assert.IsType<CreateEducationalInstitutionCommand>(mappedRequest);
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             request.AdminsIds.Add(Guid.NewGuid().ToProtoUuid());
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionCreateCommand();
+            var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
 
             //Assert
             Assert.Equal(request.Name, mappedRequest.Name);
@@ -75,7 +75,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             request.AdminsIds.Add(Guid.NewGuid().ToProtoUuid());
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionCreateCommand();
+            var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
 
             //Assert
             Assert.Equal(request.Description, mappedRequest.Description);
@@ -98,7 +98,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             request.AdminsIds.Add(Guid.NewGuid().ToProtoUuid());
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionCreateCommand();
+            var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
 
             //Assert
             Assert.Equal(request.LocationId, mappedRequest.LocationID);
@@ -121,7 +121,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             request.AdminsIds.Add(Guid.NewGuid().ToProtoUuid());
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionCreateCommand();
+            var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
 
             //Assert
             Assert.Single(mappedRequest.BuildingsIDs);
@@ -144,7 +144,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             request.AdminsIds.Add(Guid.NewGuid().ToProtoUuid());
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionCreateCommand();
+            var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
 
             //Assert
             Assert.Equal(request.Buildings, mappedRequest.BuildingsIDs);
@@ -167,7 +167,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             request.AdminsIds.Add(Guid.NewGuid().ToProtoUuid());
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionCreateCommand();
+            var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
 
             //Assert
             Assert.Equal(parentInstitutionID, mappedRequest.ParentInstitutionID);
@@ -190,7 +190,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             request.AdminsIds.Add(Guid.NewGuid().ToProtoUuid());
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionCreateCommand();
+            var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
 
             //Assert
             Assert.Equal(default, mappedRequest.ParentInstitutionID);
@@ -214,7 +214,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             request.AdminsIds.Add(adminID.ToProtoUuid());
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionCreateCommand();
+            var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
 
             //Assert
             Assert.Single(mappedRequest.AdminsIDs);
@@ -238,28 +238,28 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             request.AdminsIds.Add(adminID.ToProtoUuid());
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionCreateCommand();
+            var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
 
             //Assert
             Assert.Equal(adminID, mappedRequest.AdminsIDs.ElementAt(0));
         }
 
-        #endregion MapToDTOEducationalInstitutionCreateCommand extension method TESTS
+        #endregion MapToCreateEducationalInstitutionCommand extension method TESTS
 
-        #region MapToDTOEducationalInstitutionDeleteCommand extension method TESTS
+        #region MapToDisableEducationalInstitutionCommand extension method TESTS
 
         [Fact]
-        public void GivenAnEducationalInstitutionDeleteRequest_ShouldReturnDTOEducationalInstitutionDeleteCommandType()
+        public void GivenAnEducationalInstitutionDeleteRequest_ShouldReturnDisableEducationalInstitutionCommandType()
         {
             //Arrange
             var id = Guid.NewGuid();
             EducationalInstitutionDeleteRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionDeleteCommand();
+            var mappedRequest = request.MapToDisableEducationalInstitutionCommand();
 
             //Assert
-            Assert.IsType<DTOEducationalInstitutionDeleteCommand>(mappedRequest);
+            Assert.IsType<DisableEducationalInstitutionCommand>(mappedRequest);
         }
 
         [Fact]
@@ -270,18 +270,18 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             EducationalInstitutionDeleteRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionDeleteCommand();
+            var mappedRequest = request.MapToDisableEducationalInstitutionCommand();
 
             //Assert
             Assert.Equal(mappedRequest.EducationalInstitutionID, id);
         }
 
-        #endregion MapToDTOEducationalInstitutionDeleteCommand extension method TESTS
+        #endregion MapToDisableEducationalInstitutionCommand extension method TESTS
 
-        #region MapToDTOEducationalInstitutionAdminUpdateCommand extension method TESTS
+        #region MapToUpdateUpdateEducationalInstitutionCommand extension method TESTS
 
         [Fact]
-        public void GivenEducationalInstitutionAdminUpdateRequest_ShouldReturnDTOEducationalInstitutionAdminUpdateCommandType()
+        public void GivenEducationalInstitutionAdminUpdateRequest_ShouldReturnUpdateEducationalInstitutionAdminsCommandType()
         {
             //Arrange
             var id = Guid.NewGuid();
@@ -296,10 +296,10 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionAdminUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionAdminsCommand();
 
             //Assert
-            Assert.IsType<DTOEducationalInstitutionAdminUpdateCommand>(mappedRequest);
+            Assert.IsType<UpdateEducationalInstitutionAdminsCommand>(mappedRequest);
         }
 
         [Fact]
@@ -318,7 +318,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionAdminUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionAdminsCommand();
 
             //Assert
             Assert.Equal(id, mappedRequest.EducationalInstitutionID);
@@ -340,7 +340,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionAdminUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionAdminsCommand();
 
             //Assert
             Assert.Equal(addAdminsID, mappedRequest.AddAdminsIDs);
@@ -362,7 +362,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionAdminUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionAdminsCommand();
 
             //Assert
             Assert.Equal(removeAdminsID, mappedRequest.RemoveAdminsIDs);
@@ -384,7 +384,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionAdminUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionAdminsCommand();
 
             //Assert
             Assert.Empty(mappedRequest.AddAdminsIDs);
@@ -406,18 +406,18 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionAdminUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionAdminsCommand();
 
             //Assert
             Assert.Empty(mappedRequest.RemoveAdminsIDs);
         }
 
-        #endregion MapToDTOEducationalInstitutionAdminUpdateCommand extension method TESTS
+        #endregion MapToUpdateUpdateEducationalInstitutionCommand extension method TESTS
 
-        #region MapToDTOEducationalInstitutionParentUpdateCommand extension method TESTS
+        #region MapToUpdateEducationalInstitutionParentCommand extension method TESTS
 
         [Fact]
-        public void GivenAnEducationalInstitutionParentUpdateRequest_ShouldReturnDTOEducationalInstitutionParentUpdateCommandType()
+        public void GivenAnEducationalInstitutionParentUpdateRequest_ShouldReturnUpdateEducationalInstitutionParentCommandType()
         {
             //Arrange
             var educationalInstitutionID = Guid.NewGuid();
@@ -430,10 +430,10 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionParentUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionParentCommand();
 
             //Assert
-            Assert.IsType<DTOEducationalInstitutionParentUpdateCommand>(mappedRequest);
+            Assert.IsType<UpdateEducationalInstitutionParentCommand>(mappedRequest);
         }
 
         [Fact]
@@ -450,7 +450,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionParentUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionParentCommand();
 
             //Assert
             Assert.Equal(educationalInstitutionID, mappedRequest.EducationalInstitutionID);
@@ -470,18 +470,18 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionParentUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionParentCommand();
 
             //Assert
             Assert.Equal(parentID, mappedRequest.ParentInstitutionID);
         }
 
-        #endregion MapToDTOEducationalInstitutionParentUpdateCommand extension method TESTS
+        #endregion MapToUpdateEducationalInstitutionParentCommand extension method TESTS
 
-        #region MapToDTOEducationalInstitutionLocationUpdateCommand extension method TESTS
+        #region MapToUpdateEducationalInstitutionLocationCommand extension method TESTS
 
         [Fact]
-        public void GivenAnEducationalInstitutionLocationUpdateRequest_ShouldReturnDTOEducationalInstitutionLocationUpdateCommandType()
+        public void GivenAnEducationalInstitutionLocationUpdateRequest_ShouldReturnUpdateEducationalInstitutionLocationCommandType()
         {
             //Arrange
             var id = Guid.NewGuid();
@@ -496,10 +496,10 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionLocationUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionLocationCommand();
 
             //Assert
-            Assert.IsType<DTOEducationalInstitutionLocationUpdateCommand>(mappedRequest);
+            Assert.IsType<UpdateEducationalInstitutionLocationCommand>(mappedRequest);
         }
 
         [Fact]
@@ -518,7 +518,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionLocationUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionLocationCommand();
 
             //Assert
             Assert.Equal(id, mappedRequest.EducationalInstitutionID);
@@ -540,7 +540,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionLocationUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionLocationCommand();
 
             //Assert
             Assert.Equal(request.UpdateLocation, mappedRequest.UpdateLocation);
@@ -562,7 +562,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionLocationUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionLocationCommand();
 
             //Assert
             Assert.Equal(request.LocationId, mappedRequest.LocationID);
@@ -584,7 +584,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionLocationUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionLocationCommand();
 
             //Assert
             Assert.Equal(request.UpdateBuildings, mappedRequest.UpdateBuildings);
@@ -606,7 +606,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionLocationUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionLocationCommand();
 
             //Assert
             Assert.Equal(request.AddBuildingsIds, mappedRequest.AddBuildingsIDs);
@@ -628,7 +628,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionLocationUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionLocationCommand();
 
             //Assert
             Assert.Equal(request.RemoveBuildingsIds, mappedRequest.RemoveBuildingsIDs);
@@ -649,7 +649,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionLocationUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionLocationCommand();
 
             //Assert
             Assert.Empty(mappedRequest.AddBuildingsIDs);
@@ -670,7 +670,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionLocationUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionLocationCommand();
 
             //Assert
             Assert.Empty(mappedRequest.RemoveBuildingsIDs);
@@ -691,18 +691,18 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionLocationUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionLocationCommand();
 
             //Assert
             Assert.Empty(mappedRequest.LocationID);
         }
 
-        #endregion MapToDTOEducationalInstitutionLocationUpdateCommand extension method TESTS
+        #endregion MapToUpdateEducationalInstitutionLocationCommand extension method TESTS
 
-        #region MapToDTOEducationalInstitutionUpdateCommand extension method TESTS
+        #region MapToUpdateEducationalInstitutionCommand extension method TESTS
 
         [Fact]
-        public void GivenAnEducationalInstitutionUpdateRequest_ShouldReturnDTOEducationalInstitutionUpdateCommandType()
+        public void GivenAnEducationalInstitutionUpdateRequest_ShouldReturnUpdateEducationalInstitutionCommandType()
         {
             //Arrange
             var id = Guid.NewGuid();
@@ -716,10 +716,10 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionCommand();
 
             //Assert
-            Assert.IsType<DTOEducationalInstitutionUpdateCommand>(mappedRequest);
+            Assert.IsType<UpdateEducationalInstitutionCommand>(mappedRequest);
         }
 
         [Fact]
@@ -737,7 +737,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionCommand();
 
             //Assert
             Assert.Equal(id, mappedRequest.EducationalInstitutionID);
@@ -758,7 +758,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionCommand();
 
             //Assert
             Assert.Equal(request.UpdateName, mappedRequest.UpdateName);
@@ -779,7 +779,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionCommand();
 
             //Assert
             Assert.Equal(request.Name, mappedRequest.Name);
@@ -800,7 +800,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionCommand();
 
             //Assert
             Assert.Equal(request.UpdateDescription, mappedRequest.UpdateDescription);
@@ -821,7 +821,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionCommand();
 
             //Assert
             Assert.Equal(request.Name, mappedRequest.Name);
@@ -842,12 +842,12 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionUpdateCommand();
+            var mappedRequest = request.MapToUpdateEducationalInstitutionCommand();
 
             //Assert
             Assert.Equal(request.Description, mappedRequest.Description);
         }
 
-        #endregion MapToDTOEducationalInstitutionUpdateCommand extension method TESTS
+        #endregion MapToUpdateEducationalInstitutionCommand extension method TESTS
     }
 }

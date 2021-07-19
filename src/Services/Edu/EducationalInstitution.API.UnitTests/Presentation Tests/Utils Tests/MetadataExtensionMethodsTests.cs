@@ -3,7 +3,7 @@ using Grpc.Core;
 using System.Linq;
 using Xunit;
 
-namespace EducationalInstitution.API.UnitTests.UtilsTests
+namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests
 {
     public class MetadataExtensionMethodsTests
     {

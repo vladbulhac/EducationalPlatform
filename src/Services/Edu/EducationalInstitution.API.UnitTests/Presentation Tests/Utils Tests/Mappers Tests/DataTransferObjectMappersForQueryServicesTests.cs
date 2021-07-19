@@ -1,5 +1,5 @@
-﻿using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
-using EducationalInstitutionAPI.DTOs.Queries;
+﻿using EducationalInstitution.Application.Queries;
+using EducationalInstitution.Infrastructure.Repositories.Query_Repository.Results;
 using EducationalInstitutionAPI.Proto;
 using EducationalInstitutionAPI.Utils.Mappers;
 using System;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
+namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Mappers_Tests
 {
     public class DataTransferObjectMappersForQueryServicesTests
     {
@@ -563,10 +563,10 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
 
         #endregion MapToEducationalInstitutionGetResponse extension method TESTS
 
-        #region MapToDTOEducationalInstitutionByIDQuery extension method TESTS
+        #region MapToGetEducationalInstitutionByIDQuery extension method TESTS
 
         [Fact]
-        public void GivenEducationalInstitutionGetByIdRequest_ShouldReturnDTOEducationalInstitutionByIDQuery()
+        public void GivenEducationalInstitutionGetByIdRequest_ShouldReturnGetEducationalInstitutionByIDQuery()
         {
             //Arrange
             var educationalInstitutionID = Guid.NewGuid();
@@ -577,10 +577,10 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionByIDQuery();
+            var mappedRequest = request.MapToGetEducationalInstitutionByIDQuery();
 
             //Assert
-            Assert.IsType<DTOEducationalInstitutionByIDQuery>(mappedRequest);
+            Assert.IsType<GetEducationalInstitutionByIDQuery>(mappedRequest);
         }
 
         [Fact]
@@ -595,15 +595,15 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionByIDQuery();
+            var mappedRequest = request.MapToGetEducationalInstitutionByIDQuery();
 
             //Assert
             Assert.Equal(educationalInstitutionID, mappedRequest.EducationalInstitutionID);
         }
 
-        #endregion MapToDTOEducationalInstitutionByIDQuery extension method TESTS
+        #endregion MapToGetEducationalInstitutionByIDQuery extension method TESTS
 
-        #region MapToDTOEducationalInstitutionsByNameQuery extension method TESTS
+        #region MapToGetAllEducationalInstitutionsByNameQuery extension method TESTS
 
         [Fact]
         public void GivenEducationalInstitutionGetByNameRequest_ShouldReturnExpectedName()
@@ -620,7 +620,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionsByNameQuery();
+            var mappedRequest = request.MapToGetAllEducationalInstitutionsByNameQuery();
 
             //Assert
             Assert.Equal(name, mappedRequest.Name);
@@ -641,7 +641,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionsByNameQuery();
+            var mappedRequest = request.MapToGetAllEducationalInstitutionsByNameQuery();
 
             //Assert
             Assert.Equal(offsetValue, mappedRequest.OffsetValue);
@@ -662,13 +662,13 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
             };
 
             //Act
-            var mappedRequest = request.MapToDTOEducationalInstitutionsByNameQuery();
+            var mappedRequest = request.MapToGetAllEducationalInstitutionsByNameQuery();
 
             //Assert
             Assert.Equal(resultsCount, mappedRequest.ResultsCount);
         }
 
-        #endregion MapToDTOEducationalInstitutionsByNameQuery extension method TESTS
+        #endregion MapToGetAllEducationalInstitutionsByNameQuery extension method TESTS
 
         #region MapToGetByNameResult extension method TESTS
 
@@ -815,7 +815,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
         #region MapToGetByLocationResult extension method TESTS
 
         [Fact]
-        public void GivenGetAllEducationalInstitutionsByLocationQueryResult_ShouldReturnCollectionWithOneElement()
+        public void GivenGetEducationalInstitutionByLocationQueryResult_ShouldReturnCollectionWithOneElement()
         {
             //Arrange
             GetEducationalInstitutionByLocationQueryResult queryResult = new()
@@ -839,7 +839,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
         }
 
         [Fact]
-        public void GivenGetAllEducationalInstitutionsByLocationQueryResult_ShouldReturnExpectedID()
+        public void GivenGetEducationalInstitutionByLocationQueryResult_ShouldReturnExpectedID()
         {
             //Arrange
             GetEducationalInstitutionByLocationQueryResult queryResult = new()
@@ -863,7 +863,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
         }
 
         [Fact]
-        public void GivenGetAllEducationalInstitutionsByLocationQueryResult_ShouldReturnExpectedName()
+        public void GivenGetEducationalInstitutionByLocationQueryResult_ShouldReturnExpectedName()
         {
             //Arrange
             GetEducationalInstitutionByLocationQueryResult queryResult = new()
@@ -887,7 +887,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
         }
 
         [Fact]
-        public void GivenGetAllEducationalInstitutionsByLocationQueryResult_ShouldReturnExpectedDescription()
+        public void GivenGetEducationalInstitutionByLocationQueryResult_ShouldReturnExpectedDescription()
         {
             //Arrange
             GetEducationalInstitutionByLocationQueryResult queryResult = new()
@@ -911,7 +911,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
         }
 
         [Fact]
-        public void GivenGetAllEducationalInstitutionsByLocationQueryResult_ShouldReturnBuildingsCollectionWithOneElement()
+        public void GivenGetEducationalInstitutionByLocationQueryResult_ShouldReturnBuildingsCollectionWithOneElement()
         {
             //Arrange
             GetEducationalInstitutionByLocationQueryResult queryResult = new()
@@ -935,7 +935,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
         }
 
         [Fact]
-        public void GivenGetAllEducationalInstitutionsByLocationQueryResult_ShouldReturnBuildingsCollectionWithExpectedID()
+        public void GivenGetEducationalInstitutionByLocationQueryResult_ShouldReturnBuildingsCollectionWithExpectedID()
         {
             //Arrange
             GetEducationalInstitutionByLocationQueryResult queryResult = new()
@@ -959,7 +959,7 @@ namespace EducationalInstitution.API.UnitTests.UtilsTests.MappersTests
         }
 
         [Fact]
-        public void GivenGetAllEducationalInstitutionsByLocationQueryResult_WithEmptyCollection_ShouldReturnEmptyCollection()
+        public void GivenGetEducationalInstitutionByLocationQueryResult_WithEmptyCollection_ShouldReturnEmptyCollection()
         {
             //Arrange
             GetAllEducationalInstitutionsByLocationQueryResult result = new()
