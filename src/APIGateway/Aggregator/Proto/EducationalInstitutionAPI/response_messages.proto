@@ -1,7 +1,7 @@
 syntax = "proto3";
 import "Proto/Common/uuid.proto";
-import "Proto/Common/statuscodes.proto";
-import "Proto/EducationalInstitutionAPI/responsedata.proto";
+import "Proto/Common/status_codes.proto";
+import "Proto/EducationalInstitutionAPI/response_messages_data.proto";
 
 option csharp_namespace = "Aggregator.EducationalInstitutionAPI.Proto";
 
