@@ -1,12 +1,12 @@
 ﻿using Moq;
 
-namespace EducationalInstitution.API.UnitTests.Grpc_Tests
+namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
 {
-    public abstract class SetupRPCServicesHelper<TTestedClass> where TTestedClass : class
+    public abstract class SetupGrpcServicesHelper<TTestedClass> where TTestedClass : class
     {
         protected readonly MockDependenciesHelper<TTestedClass> dependenciesHelper;
 
-        protected SetupRPCServicesHelper(MockDependenciesHelper<TTestedClass> dependenciesHelper)
+        protected SetupGrpcServicesHelper(MockDependenciesHelper<TTestedClass> dependenciesHelper)
         {
             this.dependenciesHelper = dependenciesHelper;
         }
