@@ -1,14 +1,15 @@
-﻿using EducationalInstitutionAPI.Data.Contexts;
-using EducationalInstitutionAPI.Repositories.Command_Repository;
+﻿using EducationalInstitution.API.Tests.Shared;
+using EducationalInstitution.Infrastructure;
+using EducationalInstitution.Infrastructure.Repositories.Command_Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-using edu = EducationalInstitutionAPI.Data;
+using Domain = EducationalInstitution.Domain.Models.Aggregates;
 
-namespace EducationalInstitution.API.UnitTests.Repositories_Tests
+namespace EducationalInstitution.API.UnitTests.Infrastructure_Tests.Repositories_Tests
 {
     public class EducationalInstitutionCommandRepositoryTests : IClassFixture<TestDataFromJSONParser>
     {
@@ -39,7 +40,7 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         public async Task GivenAnEducationalInstitution_ToCreateAsyncMethod_ShouldAddItToTheCollectionOfEntities()
         {
             //Arrange
-            edu::EducationalInstitution newEducationalInstitution = new(
+            Domain::EducationalInstitution newEducationalInstitution = new(
                 "Test_Name",
                 "Test_Description",
                 "Test_LocationID",
@@ -65,7 +66,7 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         public async Task GivenAValidID_LocationID_BuildingsIDs_ToUpdateEntireLocationAsyncMethod_ShouldReturnCollectionWithExpectedAdminsIDs()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
             string locationID = "Update_Test_LocationID";
             var addBuildingsIDs = new List<string>() { "Update_Test_Building_ID1", "Update_Test_Building_ID2" };
@@ -83,7 +84,7 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         public async Task GivenAValidID_LocationID_BuildingsIDs_ToUpdateEntireLocationAsyncMethod_ShouldReturnCollectionOfAdminsIDsWithOneElement()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
             string locationID = "Update_Test_LocationID";
             var addBuildingsIDs = new List<string>() { "Update_Test_Building_ID21", "Update_Test_Building_ID22" };
@@ -118,7 +119,7 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         public async Task GivenAValidID_LocationID_ToUpdateLocationAsyncMethod_ShouldReturnTheNewLocationID()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
             string locationID = "Update_Test_LocationID";
 
@@ -127,14 +128,14 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
             dbContext.SaveChanges();
 
             //Assert
-            Assert.Equal(locationID, dbContext.EducationalInstitutions.SingleOrDefault(ei => ei.EducationalInstitutionID == educationalInstitutionID).LocationID);
+            Assert.Equal(locationID, dbContext.EducationalInstitutions.SingleOrDefault(ei => ei.Id == educationalInstitutionID).LocationID);
         }
 
         [Fact]
         public async Task GivenAValidID_LocationID_ToUpdateLocationAsyncMethod_ShouldReturnACollectionOfAdminsIDs()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
             string locationID = "Update_Test_LocationID";
 
@@ -181,7 +182,7 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         public async Task GivenAValidID_BuildingsIDs_ToUpdateBuildingsAsyncMethod_ShouldReturnCollectionOfAdminsIDs()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
             var addBuildingsIDs = new List<string>() { "Update_Test_Building_ID101", "Update_Test_Building_ID201" };
             var removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAtOrDefault(0).BuildingID };
@@ -198,8 +199,8 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         public async Task GivenAValidEducationalInstitutionID_ParentID_ToUpdateParentAsyncMethod_ShouldReturnCollectionOfAdminsIDs()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
-            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[3].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
+            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[3].Id;
 
             var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
 
@@ -215,8 +216,8 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         public async Task GivenAValidEducationalInstitutionID_ParentID_ToUpdateParentAsyncMethod_ShouldHaveTheNewParentInstitution()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
-            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[3].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
+            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[3].Id;
 
             var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
 
@@ -225,14 +226,14 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
             dbContext.SaveChanges();
 
             //Assert
-            Assert.Equal(testDataHelper.EducationalInstitutions[3], dbContext.EducationalInstitutions.Single(ei => ei.EducationalInstitutionID == educationalInstitutionID).ParentInstitution);
+            Assert.Equal(testDataHelper.EducationalInstitutions[3], dbContext.EducationalInstitutions.Single(ei => ei.Id == educationalInstitutionID).ParentInstitution);
         }
 
         [Fact]
         public async Task GivenAValidEducationalInstitutionID_DefaultParentID_ToUpdateParentAsyncMethod_ShouldCollectionOfAdminsIDs()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             Guid parentInstitutionID = default;
 
             var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
@@ -249,7 +250,7 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         public async Task GivenAValidEducationalInstitutionID_DefaultParentID_ToUpdateParentAsyncMethod_ShouldHaveNoParentInstitution()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             Guid parentInstitutionID = default;
 
             var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
@@ -259,7 +260,7 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
             dbContext.SaveChanges();
 
             //Assert
-            Assert.Null(dbContext.EducationalInstitutions.Single(ei => ei.EducationalInstitutionID == educationalInstitutionID).ParentInstitution);
+            Assert.Null(dbContext.EducationalInstitutions.Single(ei => ei.Id == educationalInstitutionID).ParentInstitution);
         }
 
         [Fact]
@@ -267,7 +268,7 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         {
             //Arrange
             Guid educationalInstitutionID = Guid.NewGuid();
-            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[3].EducationalInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[3].Id;
 
             var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
 
@@ -283,7 +284,7 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         public async Task GivenAValidEducationalInstitutionID_ParentID_ParentIDDoesntExistInDatabase_ToUpdateParentAsyncMethod_ShouldReturnDefault()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             Guid parentInstitutionID = Guid.NewGuid();
 
             var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
@@ -297,76 +298,10 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         }
 
         [Fact]
-        public async Task GivenAValidID_ToDeleteAsyncMethod_ShouldReturnTrue()
-        {
-            //Arrange
-            edu::EducationalInstitution newEducationalInstitution = new(
-                "Test_Name",
-                "Test_Description",
-                "Test_LocationID",
-                new List<string>() {
-                    "Test_Building_ID1",
-                    "Test_Building_ID2"
-                },
-                new List<Guid>() { Guid.NewGuid() },
-                testDataHelper.EducationalInstitutions[0]);
-
-            await repository.CreateAsync(newEducationalInstitution);
-            dbContext.SaveChanges();
-
-            //Act
-            var result = await repository.DeleteAsync(newEducationalInstitution.EducationalInstitutionID);
-            dbContext.SaveChanges();
-
-            //Assert
-            Assert.True(result);
-        }
-
-        [Fact]
-        public async Task GivenAValidID_ToDeleteAsyncMethod_ShouldRemoveAnEntity()
-        {
-            //Arrange
-            edu::EducationalInstitution newEducationalInstitution = new(
-                "Test_Name",
-                "Test_Description",
-                "Test_LocationID",
-                new List<string>() {
-                    "Test_Building_ID1",
-                    "Test_Building_ID2"
-                },
-                new List<Guid>() { Guid.NewGuid() },
-                testDataHelper.EducationalInstitutions[0]);
-
-            await repository.CreateAsync(newEducationalInstitution);
-            dbContext.SaveChanges();
-
-            //Act
-            var result = await repository.DeleteAsync(newEducationalInstitution.EducationalInstitutionID);
-            dbContext.SaveChanges();
-
-            //Assert
-            Assert.DoesNotContain(newEducationalInstitution, dbContext.EducationalInstitutions);
-        }
-
-        [Fact]
-        public async Task GivenAnInvalidID_ToDeleteAsyncMethod_ShouldReturnFalse()
-        {
-            //Arrange
-            Guid educationalInstitutionID = new("5b426f94-d83f-4af0-a578-a09116eff0b7");
-
-            //Act
-            var result = await repository.DeleteAsync(educationalInstitutionID);
-            dbContext.SaveChanges();
-
-            //Assert
-            Assert.False(result);
-        }
-
-        [Fact]
         public async Task GivenAValidID_ToScheduleForDeletionAsyncMethod_ShouldReturnCollectionOfAdminsIDs()
         {
             //Arrange
-            var educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            var educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
 
             //Act
@@ -383,7 +318,7 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         public async Task GivenAValidID_ToScheduleForDeletionAsyncMethod_ShouldReturnExpectedScheduledDateForDeletion_Day()
         {
             //Arrange
-            var educationalInstitutionID = testDataHelper.EducationalInstitutions[1].EducationalInstitutionID;
+            var educationalInstitutionID = testDataHelper.EducationalInstitutions[1].Id;
             var adminsIDs = testDataHelper.EducationalInstitutions[1].Admins.Select(a => a.AdminID).ToList();
 
             //Act
@@ -400,7 +335,7 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         public async Task GivenAValidID_ToScheduleForDeletionAsyncMethod_ShouldReturnExpectedScheduledDateForDeletion_Month()
         {
             //Arrange
-            var educationalInstitutionID = testDataHelper.EducationalInstitutions[2].EducationalInstitutionID;
+            var educationalInstitutionID = testDataHelper.EducationalInstitutions[2].Id;
             var adminsIDs = testDataHelper.EducationalInstitutions[2].Admins.Select(a => a.AdminID).ToList();
 
             //Act
@@ -417,7 +352,7 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         public async Task GivenAValidID_ToScheduleForDeletionAsyncMethod_ShouldReturnExpectedScheduledDateForDeletion_Year()
         {
             //Arrange
-            var educationalInstitutionID = testDataHelper.EducationalInstitutions[3].EducationalInstitutionID;
+            var educationalInstitutionID = testDataHelper.EducationalInstitutions[3].Id;
             var adminsIDs = testDataHelper.EducationalInstitutions[3].Admins.Select(a => a.AdminID).ToList();
 
             //Act
@@ -434,14 +369,14 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
         public async Task GivenAValidID_ToScheduleForDeletionAsyncMethod_ShouldHaveTrueEntityAccessIsDisabled()
         {
             //Arrange
-            var educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            var educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
 
             //Act
             var result = await repository.ScheduleForDeletionAsync(educationalInstitutionID);
 
             //Assert
-            Assert.True(dbContext.EducationalInstitutions.Single(ei => ei.EducationalInstitutionID == educationalInstitutionID).IsDisabled);
+            Assert.True(dbContext.EducationalInstitutions.Single(ei => ei.Id == educationalInstitutionID).Access.IsDisabled);
 
             //Clean up
             UndoDeletion(educationalInstitutionID);
@@ -449,15 +384,15 @@ namespace EducationalInstitution.API.UnitTests.Repositories_Tests
 
         private void UndoDeletion(Guid id)
         {
-            var educationalInstitution = dbContext.EducationalInstitutions.Single(e => e.EducationalInstitutionID == id);
-            educationalInstitution.RemoveDeletionSchedule();
+            var educationalInstitution = dbContext.EducationalInstitutions.Single(e => e.Id == id);
+            educationalInstitution.ClearDeletionDate();
         }
 
         [Fact]
         public async Task GivenAValidID_ToGetEducationalInstitutionIncludingAdminsAsyncMethod_ShouldReturnExpectedEntity()
         {
             //Arrange
-            var id = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            var id = testDataHelper.EducationalInstitutions[0].Id;
 
             //Act
             var result = await repository.GetEducationalInstitutionIncludingAdminsAsync(id);
