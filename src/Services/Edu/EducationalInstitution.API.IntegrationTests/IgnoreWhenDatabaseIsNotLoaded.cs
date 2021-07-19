@@ -1,7 +1,7 @@
-﻿using EducationalInstitutionAPI.Utils;
+﻿using EducationalInstitution.API.Tests.Shared;
 using Xunit;
 
-namespace EducationalInstitution.API.IntegrationTests.Utils
+namespace EducationalInstitution.API.IntegrationTests
 {
     /// <summary>
     /// Controls when Integration Tests that use an external database can be triggered

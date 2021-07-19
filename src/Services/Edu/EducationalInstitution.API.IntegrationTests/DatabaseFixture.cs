@@ -1,11 +1,10 @@
-﻿using EducationalInstitution.API.UnitTests;
-using EducationalInstitutionAPI.Data.Contexts;
-using EducationalInstitutionAPI.Utils;
+﻿using EducationalInstitution.API.Tests.Shared;
+using EducationalInstitution.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
-namespace EducationalInstitution.API.IntegrationTests.Utils
+namespace EducationalInstitution.API.IntegrationTests
 {
     public class DatabaseFixture : IDisposable
     {
@@ -43,8 +42,8 @@ namespace EducationalInstitution.API.IntegrationTests.Utils
 
         private void CleanupDatabase()
         {
-            var testEducationalInstitution = Context.EducationalInstitutions.ToList();
-            Context.RemoveRange(testEducationalInstitution);
+            var testEducationalInstitutions = Context.EducationalInstitutions.ToList();
+            Context.RemoveRange(testEducationalInstitutions);
 
             var testBuilding = Context.Buildings.ToList();
             Context.RemoveRange(testBuilding);
