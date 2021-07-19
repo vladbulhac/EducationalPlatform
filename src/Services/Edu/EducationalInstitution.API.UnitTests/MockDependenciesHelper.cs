@@ -1,8 +1,8 @@
 ﻿using DataValidation.Abstractions;
-using EducationalInstitutionAPI.Repositories.Command_Repository;
-using EducationalInstitutionAPI.Repositories.Query_Repository;
-using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
-using EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work;
+using EducationalInstitution.Infrastructure.Repositories.Command_Repository;
+using EducationalInstitution.Infrastructure.Repositories.Query_Repository;
+using EducationalInstitution.Infrastructure.Unit_of_Work.Command_Unit_of_Work;
+using EducationalInstitution.Infrastructure.Unit_of_Work.Query_Unit_of_Work;
 using Grpc.Core;
 using MediatR;
 using Microsoft.Extensions.Logging;
