@@ -1,7 +1,8 @@
-﻿using EducationalInstitutionAPI.Business.Queries_Handlers;
-using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
-using EducationalInstitutionAPI.DTOs;
-using EducationalInstitutionAPI.DTOs.Queries;
+﻿using EducationalInstitution.API.Tests.Shared;
+using EducationalInstitution.Application;
+using EducationalInstitution.Application.Queries;
+using EducationalInstitution.Application.Queries.Handlers;
+using EducationalInstitution.Infrastructure.Repositories.Query_Repository.Results;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Tests
+namespace EducationalInstitution.API.UnitTests.Application_Tests.Queries_Tests.Handlers_Tests
 {
-    public class GetEducationalInstitutionByNameQueryHandlerTests : IClassFixture<MockDependenciesHelper<GetAllEducationalInstitutionsByNameQueryHandler>>,
+    public class GetAllEducationalInstitutionsByNameQueryHandlerTests : IClassFixture<MockDependenciesHelper<GetAllEducationalInstitutionsByNameQueryHandler>>,
                                                                     IClassFixture<TestDataFromJSONParser>
     {
         private readonly TestDataFromJSONParser testDataHelper;
@@ -21,19 +22,19 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         private readonly MockDependenciesHelper<GetAllEducationalInstitutionsByNameQueryHandler> dependenciesHelper;
 
         /// <remarks>Called before each test</remarks>
-        public GetEducationalInstitutionByNameQueryHandlerTests(MockDependenciesHelper<GetAllEducationalInstitutionsByNameQueryHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
+        public GetAllEducationalInstitutionsByNameQueryHandlerTests(MockDependenciesHelper<GetAllEducationalInstitutionsByNameQueryHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
         {
             this.dependenciesHelper = dependenciesHelper;
             this.testDataHelper = testDataHelper;
             queryResult = new List<GetEducationalInstitutionQueryResult>(2) {
                 new() {
-                EducationalInstitutionID=testDataHelper.EducationalInstitutions[0].EducationalInstitutionID,
+                EducationalInstitutionID=testDataHelper.EducationalInstitutions[0].Id,
                 Name = testDataHelper.EducationalInstitutions[0].Name,
                 Description = testDataHelper.EducationalInstitutions[0].Description,
                 LocationID = testDataHelper.EducationalInstitutions[0].LocationID
                 },
                 new(){
-                EducationalInstitutionID=testDataHelper.EducationalInstitutions[1].EducationalInstitutionID,
+                EducationalInstitutionID=testDataHelper.EducationalInstitutions[1].Id,
                 Name = testDataHelper.EducationalInstitutions[1].Name,
                 Description = testDataHelper.EducationalInstitutions[1].Description,
                 LocationID = testDataHelper.EducationalInstitutions[1].LocationID
@@ -51,7 +52,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
             int offsetValue = 0;
             int resultsCount = 1;
 
-            DTOEducationalInstitutionsByNameQuery request = new()
+            GetAllEducationalInstitutionsByNameQuery request = new()
             {
                 Name = name,
                 ResultsCount = resultsCount,
@@ -80,7 +81,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
             int offsetValue = 0;
             int resultsCount = 1;
 
-            DTOEducationalInstitutionsByNameQuery request = new()
+            GetAllEducationalInstitutionsByNameQuery request = new()
             {
                 Name = name,
                 ResultsCount = resultsCount,
@@ -109,7 +110,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
             int offsetValue = 0;
             int resultsCount = 1;
 
-            DTOEducationalInstitutionsByNameQuery request = new()
+            GetAllEducationalInstitutionsByNameQuery request = new()
             {
                 Name = name,
                 ResultsCount = resultsCount,
@@ -138,7 +139,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
             int offsetValue = 0;
             int resultsCount = 1;
 
-            DTOEducationalInstitutionsByNameQuery request = new()
+            GetAllEducationalInstitutionsByNameQuery request = new()
             {
                 Name = name,
                 ResultsCount = resultsCount,
@@ -167,7 +168,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
             int offsetValue = 0;
             int resultsCount = 1;
 
-            DTOEducationalInstitutionsByNameQuery request = new()
+            GetAllEducationalInstitutionsByNameQuery request = new()
             {
                 Name = name,
                 ResultsCount = resultsCount,
@@ -193,7 +194,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
                                                   .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(mr => mr.GetAllLikeNameAsync(It.IsAny<string>(),
+            dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(mr => mr.GetAllByNameAsync(It.IsAny<string>(),
                                                                                                             It.IsInRange(0, 150, Moq.Range.Inclusive),
                                                                                                             It.IsInRange(0, 100, Moq.Range.Inclusive),
                                                                                                             It.IsAny<CancellationToken>()))
@@ -209,7 +210,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uok => uok.UsingEducationalInstitutionQueryRepository())
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(mr => mr.GetAllLikeNameAsync(It.IsNotIn("University", "of", "Testing", "One"),
+            dependenciesHelper.mockEducationalInstitutionQueryRepository.Setup(mr => mr.GetAllByNameAsync(It.IsNotIn("University", "of", "Testing", "One"),
                                                                                                             It.IsInRange(0, 150, Moq.Range.Inclusive),
                                                                                                             It.IsInRange(0, 100, Moq.Range.Inclusive),
                                                                                                             It.IsAny<CancellationToken>()))
@@ -224,7 +225,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
             int offsetValue = 0;
             int resultsCount = 1;
 
-            DTOEducationalInstitutionsByNameQuery request = new()
+            GetAllEducationalInstitutionsByNameQuery request = new()
             {
                 Name = name,
                 ResultsCount = resultsCount,
@@ -251,7 +252,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
             int offsetValue = 0;
             int resultsCount = 1;
 
-            DTOEducationalInstitutionsByNameQuery request = new()
+            GetAllEducationalInstitutionsByNameQuery request = new()
             {
                 Name = name,
                 ResultsCount = resultsCount,
@@ -278,7 +279,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
             int offsetValue = 0;
             int resultsCount = 1;
 
-            DTOEducationalInstitutionsByNameQuery request = new()
+            GetAllEducationalInstitutionsByNameQuery request = new()
             {
                 Name = name,
                 ResultsCount = resultsCount,
@@ -305,7 +306,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
             int offsetValue = 0;
             int resultsCount = 1;
 
-            DTOEducationalInstitutionsByNameQuery request = new()
+            GetAllEducationalInstitutionsByNameQuery request = new()
             {
                 Name = name,
                 ResultsCount = resultsCount,
