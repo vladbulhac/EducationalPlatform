@@ -3,9 +3,9 @@ using System.Net;
 
 namespace EducationalInstitutionAPI.Utils.Mappers
 {
-    public static class RPCCallContextStatusCodeMapper
+    public static class GrpcContextStatusCodeMapper
     {
-        public static StatusCode ToRPCCallContextStatusCode(this HttpStatusCode code)
+        public static StatusCode ToGrpcContextStatusCode(this HttpStatusCode code)
         {
             switch (code)
             {
