@@ -1,7 +1,8 @@
-﻿using EducationalInstitutionAPI.Business.Commands_Handlers;
-using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Commands_Results;
-using EducationalInstitutionAPI.DTOs;
-using EducationalInstitutionAPI.DTOs.Commands;
+﻿using EducationalInstitution.API.Tests.Shared;
+using EducationalInstitution.Application;
+using EducationalInstitution.Application.Commands;
+using EducationalInstitution.Application.Commands.Handlers;
+using EducationalInstitution.Application.Commands.Results;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,9 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
-using edu = EducationalInstitutionAPI.Data;
+using Domain = EducationalInstitution.Domain.Models.Aggregates;
 
-namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_Tests
+namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.Handlers_Tests
 {
     public class CreateEducationalInstitutionCommandHandlerTests : IClassFixture<MockDependenciesHelper<CreateEducationalInstitutionCommandHandler>>,
                                                                    IClassFixture<TestDataFromJSONParser>
@@ -35,9 +36,9 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
             var adminsIDs = new List<Guid>() { Guid.NewGuid() };
-            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
 
-            DTOEducationalInstitutionCreateCommand request = new()
+            CreateEducationalInstitutionCommand request = new()
             {
                 Name = name,
                 Description = description,
@@ -69,9 +70,9 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
             var adminsIDs = new List<Guid>() { Guid.NewGuid() };
-            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
 
-            DTOEducationalInstitutionCreateCommand request = new()
+            CreateEducationalInstitutionCommand request = new()
             {
                 Name = name,
                 Description = description,
@@ -103,9 +104,9 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
             var adminsIDs = new List<Guid>() { Guid.NewGuid() };
-            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
 
-            DTOEducationalInstitutionCreateCommand request = new()
+            CreateEducationalInstitutionCommand request = new()
             {
                 Name = name,
                 Description = description,
@@ -125,7 +126,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             var result = await handler.Handle(request);
 
             //Assert
-            Assert.IsType<Response<EducationalInstitutionCommandResult>>(result);
+            Assert.IsType<Response<CreateEducationalInstitutionCommandResult>>(result);
         }
 
         [Fact]
@@ -137,9 +138,9 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
             var adminsIDs = new List<Guid>() { Guid.NewGuid() };
-            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
 
-            DTOEducationalInstitutionCreateCommand request = new()
+            CreateEducationalInstitutionCommand request = new()
             {
                 Name = name,
                 Description = description,
@@ -171,9 +172,9 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
             var adminsIDs = new List<Guid>() { Guid.NewGuid() };
-            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
 
-            DTOEducationalInstitutionCreateCommand request = new()
+            CreateEducationalInstitutionCommand request = new()
             {
                 Name = name,
                 Description = description,
@@ -193,7 +194,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             var result = await handler.Handle(request);
 
             //Assert
-            Assert.IsType<EducationalInstitutionCommandResult>(result.Data);
+            Assert.IsType<CreateEducationalInstitutionCommandResult>(result.Data);
         }
 
         [Fact]
@@ -205,9 +206,9 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
             var adminsIDs = new List<Guid>() { Guid.NewGuid() };
-            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
 
-            DTOEducationalInstitutionCreateCommand request = new()
+            CreateEducationalInstitutionCommand request = new()
             {
                 Name = name,
                 Description = description,
@@ -239,9 +240,9 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
             var adminsIDs = new List<Guid>() { Guid.NewGuid() };
-            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[1].EducationalInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[1].Id;
 
-            DTOEducationalInstitutionCreateCommand request = new()
+            CreateEducationalInstitutionCommand request = new()
             {
                 Name = name,
                 Description = description,
@@ -273,9 +274,9 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
             var adminsIDs = new List<Guid>() { Guid.NewGuid() };
-            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[1].EducationalInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[1].Id;
 
-            DTOEducationalInstitutionCreateCommand request = new()
+            CreateEducationalInstitutionCommand request = new()
             {
                 Name = name,
                 Description = description,
@@ -307,9 +308,9 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
             var adminsIDs = new List<Guid>() { Guid.NewGuid() };
-            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[1].EducationalInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[1].Id;
 
-            DTOEducationalInstitutionCreateCommand request = new()
+            CreateEducationalInstitutionCommand request = new()
             {
                 Name = name,
                 Description = description,
@@ -341,9 +342,9 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
             var adminsIDs = new List<Guid>() { Guid.NewGuid() };
-            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[1].EducationalInstitutionID;
+            Guid parentInstitutionID = testDataHelper.EducationalInstitutions[1].Id;
 
-            DTOEducationalInstitutionCreateCommand request = new()
+            CreateEducationalInstitutionCommand request = new()
             {
                 Name = name,
                 Description = description,
@@ -366,14 +367,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             Assert.Equal($"The Educational Institution has been successfully created but the Parent Institution with the following ID: {parentInstitutionID} has not been found!", result.Message);
         }
 
-        private void SetupMockedDependencies(edu::EducationalInstitution expectedEntityReturned)
+        private void SetupMockedDependencies(Domain::EducationalInstitution expectedEntityReturned)
         {
             dependenciesHelper.mockUnitOfWorkCommand.Setup(uok => uok.UsingEducationalInstitutionCommandRepository())
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
             dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(mr => mr.GetEducationalInstitutionIncludingAdminsAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
                                                                           .ReturnsAsync(expectedEntityReturned);
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(mr => mr.CreateAsync(It.IsAny<edu::EducationalInstitution>(), It.IsAny<CancellationToken>()));
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(mr => mr.CreateAsync(It.IsAny<Domain::EducationalInstitution>(), It.IsAny<CancellationToken>()));
         }
 
         private void SetupMockedDependencies()
@@ -381,7 +382,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             dependenciesHelper.mockUnitOfWorkCommand.Setup(uok => uok.UsingEducationalInstitutionCommandRepository())
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(mr => mr.CreateAsync(It.IsAny<edu::EducationalInstitution>(), It.IsAny<CancellationToken>()));
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(mr => mr.CreateAsync(It.IsAny<Domain::EducationalInstitution>(), It.IsAny<CancellationToken>()));
         }
 
         [Fact]
@@ -395,7 +396,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             var adminsIDs = new List<Guid>() { Guid.NewGuid() };
             Guid parentInstitutionID = Guid.Empty;
 
-            DTOEducationalInstitutionCreateCommand request = new()
+            CreateEducationalInstitutionCommand request = new()
             {
                 Name = name,
                 Description = description,
@@ -429,7 +430,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             var adminsIDs = new List<Guid>() { Guid.NewGuid() };
             Guid parentInstitutionID = Guid.Empty;
 
-            DTOEducationalInstitutionCreateCommand request = new()
+            CreateEducationalInstitutionCommand request = new()
             {
                 Name = name,
                 Description = description,
@@ -463,7 +464,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             var adminsIDs = new List<Guid>() { Guid.NewGuid() };
             Guid parentInstitutionID = Guid.Empty;
 
-            DTOEducationalInstitutionCreateCommand request = new()
+            CreateEducationalInstitutionCommand request = new()
             {
                 Name = name,
                 Description = description,
@@ -496,7 +497,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             var adminsIDs = new List<Guid>() { Guid.NewGuid() };
             Guid parentInstitutionID = Guid.Empty;
 
-            DTOEducationalInstitutionCreateCommand request = new()
+            CreateEducationalInstitutionCommand request = new()
             {
                 Name = name,
                 Description = description,
