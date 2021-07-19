@@ -1,5 +1,5 @@
-﻿using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
-using EducationalInstitutionAPI.DTOs.Queries;
+﻿using EducationalInstitution.Application.Queries;
+using EducationalInstitution.Infrastructure.Repositories.Query_Repository.Results;
 using EducationalInstitutionAPI.Proto;
 using Google.Protobuf.WellKnownTypes;
 using System.Collections.Generic;
@@ -55,16 +55,13 @@ namespace EducationalInstitutionAPI.Utils.Mappers
             }
         }
 
-        public static DTOEducationalInstitutionsByBuildingQuery MapToDTOEducationalInstitutionsByBuildingQuery(this EducationalInstitutionsGetByBuildingRequest request)
+        public static GetAllEducationalInstitutionsByBuildingQuery MapToGetAllEducationalInstitutionsByBuildingQuery(this EducationalInstitutionsGetByBuildingRequest request)
                 => new() { BuildingID = request.BuildingId };
 
-        public static DTOEducationalInstitutionByIDQuery MapToDTOEducationalInstitutionByIDQuery(this EducationalInstitutionGetByIdRequest request)
-                => new()
-                {
-                    EducationalInstitutionID = request.EducationalInstitutionId.ToGuid()
-                };
+        public static GetEducationalInstitutionByIDQuery MapToGetEducationalInstitutionByIDQuery(this EducationalInstitutionGetByIdRequest request)
+                => new() { EducationalInstitutionID = request.EducationalInstitutionId.ToGuid() };
 
-        public static DTOEducationalInstitutionsByNameQuery MapToDTOEducationalInstitutionsByNameQuery(this EducationalInstitutionGetByNameRequest request)
+        public static GetAllEducationalInstitutionsByNameQuery MapToGetAllEducationalInstitutionsByNameQuery(this EducationalInstitutionGetByNameRequest request)
                 => new()
                 {
                     Name = request.Name,
@@ -101,11 +98,8 @@ namespace EducationalInstitutionAPI.Utils.Mappers
             return educationalInstitutions;
         }
 
-        public static DTOEducationalInstitutionsByLocationQuery MapToDTOEducationalInstitutionsByLocationQuery(this EducationalInstitutionsGetByLocationRequest request)
-                => new()
-                {
-                    LocationID = request.LocationId
-                };
+        public static GetAllEducationalInstitutionsByLocationQuery MapToGetAllEducationalInstitutionsByLocationQuery(this EducationalInstitutionsGetByLocationRequest request)
+                => new() { LocationID = request.LocationId };
 
         public static ICollection<GetByLocationResult> MapToGetByLocationResult(this GetAllEducationalInstitutionsByLocationQueryResult result)
         {
@@ -122,10 +116,7 @@ namespace EducationalInstitutionAPI.Utils.Mappers
             return educationalInstitutions;
         }
 
-        public static DTOAdminsByEducationalInstitutionIDQuery MapToDTOAdminsByEducationalInstitutionIDQuery(this AdminsGetByEducationalInstitutionIdRequest request)
-                => new()
-                {
-                    EducationalInstitutionID = request.EducationalInstitutionId.ToGuid()
-                };
+        public static GetAllAdminsByEducationalInstitutionIDQuery MapToGetAllAdminsByEducationalInstitutionIDQuery(this AdminsGetByEducationalInstitutionIdRequest request)
+                => new() { EducationalInstitutionID = request.EducationalInstitutionId.ToGuid() };
     }
 }

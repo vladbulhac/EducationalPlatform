@@ -1,4 +1,4 @@
-﻿using EducationalInstitutionAPI.DTOs.Commands;
+﻿using EducationalInstitution.Application.Commands;
 using EducationalInstitutionAPI.Proto;
 using Google.Protobuf.Collections;
 using System;
@@ -12,7 +12,7 @@ namespace EducationalInstitutionAPI.Utils.Mappers
     /// </summary>
     public static partial class DataTransferObjectMappers
     {
-        public static DTOEducationalInstitutionCreateCommand MapToDTOEducationalInstitutionCreateCommand(this EducationalInstitutionCreateRequest request)
+        public static CreateEducationalInstitutionCommand MapToCreateEducationalInstitutionCommand(this EducationalInstitutionCreateRequest request)
         {
             Guid parentInstitutionID = default;
             if (request.ParentInstitutionId is not null)
@@ -38,10 +38,10 @@ namespace EducationalInstitutionAPI.Utils.Mappers
             return mappedIDs;
         }
 
-        public static DTOEducationalInstitutionDeleteCommand MapToDTOEducationalInstitutionDeleteCommand(this EducationalInstitutionDeleteRequest request)
+        public static DisableEducationalInstitutionCommand MapToDisableEducationalInstitutionCommand(this EducationalInstitutionDeleteRequest request)
                 => new() { EducationalInstitutionID = request.EducationalInstitutionId.ToGuid() };
 
-        public static DTOEducationalInstitutionAdminUpdateCommand MapToDTOEducationalInstitutionAdminUpdateCommand(this EducationalInstitutionAdminUpdateRequest request)
+        public static UpdateEducationalInstitutionAdminsCommand MapToUpdateEducationalInstitutionAdminsCommand(this EducationalInstitutionAdminUpdateRequest request)
                 => new()
                 {
                     EducationalInstitutionID = request.EducationalInstitutionId.ToGuid(),
@@ -49,14 +49,14 @@ namespace EducationalInstitutionAPI.Utils.Mappers
                     RemoveAdminsIDs = request.RemoveAdminsIds.Select(element => element.ToGuid()).ToList()
                 };
 
-        public static DTOEducationalInstitutionParentUpdateCommand MapToDTOEducationalInstitutionParentUpdateCommand(this EducationalInstitutionParentUpdateRequest request)
+        public static UpdateEducationalInstitutionParentCommand MapToUpdateEducationalInstitutionParentCommand(this EducationalInstitutionParentUpdateRequest request)
                 => new()
                 {
                     EducationalInstitutionID = request.EducationalInstitutionId.ToGuid(),
                     ParentInstitutionID = request.ParentInstitutionId.ToGuid()
                 };
 
-        public static DTOEducationalInstitutionLocationUpdateCommand MapToDTOEducationalInstitutionLocationUpdateCommand(this EducationalInstitutionLocationUpdateRequest request)
+        public static UpdateEducationalInstitutionLocationCommand MapToUpdateEducationalInstitutionLocationCommand(this EducationalInstitutionLocationUpdateRequest request)
                 => new()
                 {
                     EducationalInstitutionID = request.EducationalInstitutionId.ToGuid(),
@@ -67,7 +67,7 @@ namespace EducationalInstitutionAPI.Utils.Mappers
                     RemoveBuildingsIDs = request.RemoveBuildingsIds
                 };
 
-        public static DTOEducationalInstitutionUpdateCommand MapToDTOEducationalInstitutionUpdateCommand(this EducationalInstitutionUpdateRequest request)
+        public static UpdateEducationalInstitutionCommand MapToUpdateEducationalInstitutionCommand(this EducationalInstitutionUpdateRequest request)
                 => new()
                 {
                     EducationalInstitutionID = request.EducationalInstitutionId.ToGuid(),
