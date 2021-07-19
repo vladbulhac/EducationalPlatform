@@ -1,4 +1,4 @@
-﻿using EducationalInstitutionAPI.Grpc;
+﻿using EducationalInstitutionAPI.Presentation.Grpc;
 
 namespace EducationalInstitutionAPI.Proto
 {

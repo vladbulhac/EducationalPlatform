@@ -9,7 +9,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EducationalInstitutionAPI.Grpc
+namespace EducationalInstitutionAPI.Presentation.Grpc
 {
     /// <inheritdoc cref="EducationalInstitutionCommandService"/>
     public class EducationalInstitutionQueryService : Query.QueryBase
@@ -33,7 +33,7 @@ namespace EducationalInstitutionAPI.Grpc
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 
-            var dto = request.MapToDTOEducationalInstitutionByIDQuery();
+            var dto = request.MapToGetEducationalInstitutionByIDQuery();
             if (!validationHandler.IsDataTransferObjectValid(dto, out string validationErrors))
             {
                 SetStatusAndTrailersOfContextWhenValidationFails(ref context, validationErrors);
@@ -80,7 +80,7 @@ namespace EducationalInstitutionAPI.Grpc
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 
-            var dto = request.MapToDTOEducationalInstitutionsByNameQuery();
+            var dto = request.MapToGetAllEducationalInstitutionsByNameQuery();
             if (!validationHandler.IsDataTransferObjectValid(dto, out string validationErrors))
             {
                 SetStatusAndTrailersOfContextWhenValidationFails(ref context, validationErrors);
@@ -127,7 +127,7 @@ namespace EducationalInstitutionAPI.Grpc
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 
-            var dto = request.MapToDTOEducationalInstitutionsByBuildingQuery();
+            var dto = request.MapToGetAllEducationalInstitutionsByBuildingQuery();
             if (!validationHandler.IsDataTransferObjectValid(dto, out string validationErrors))
             {
                 SetStatusAndTrailersOfContextWhenValidationFails(ref context, validationErrors);
@@ -174,7 +174,7 @@ namespace EducationalInstitutionAPI.Grpc
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 
-            var dto = request.MapToDTOEducationalInstitutionsByLocationQuery();
+            var dto = request.MapToGetAllEducationalInstitutionsByLocationQuery();
             if (!validationHandler.IsDataTransferObjectValid(dto, out string validationErrors))
             {
                 SetStatusAndTrailersOfContextWhenValidationFails(ref context, validationErrors);
@@ -220,7 +220,7 @@ namespace EducationalInstitutionAPI.Grpc
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 
-            var dto = request.MapToDTOAdminsByEducationalInstitutionIDQuery();
+            var dto = request.MapToGetAllAdminsByEducationalInstitutionIDQuery();
             if (!validationHandler.IsDataTransferObjectValid(dto, out string validationErrors))
             {
                 SetStatusAndTrailersOfContextWhenValidationFails(ref context, validationErrors);
@@ -233,7 +233,7 @@ namespace EducationalInstitutionAPI.Grpc
 
                 if (result.OperationStatus)
                 {
-                    context.Status = new(result.StatusCode.ToRPCCallContextStatusCode(), "Successfully retrieved the admins of this Educational Institution!");
+                    context.Status = new(result.StatusCode.ToGrpcContextStatusCode(), "Successfully retrieved the admins of this Educational Institution!");
                     return new()
                     {
                         Data = { result.Data.AdminsIDs.Select(id => id.ToProtoUuid()).ToList() },

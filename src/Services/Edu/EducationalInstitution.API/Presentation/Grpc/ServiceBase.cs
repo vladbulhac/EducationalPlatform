@@ -4,7 +4,7 @@ using Grpc.Core;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
-namespace EducationalInstitutionAPI.Grpc
+namespace EducationalInstitutionAPI.Presentation.Grpc
 {
     public abstract class ServiceBase
     {
@@ -20,6 +20,9 @@ namespace EducationalInstitutionAPI.Grpc
                                          HttpStatusCode.InternalServerError);
         }
 
+        /// <summary>
+        /// Adds <paramref name="message"/> and <paramref name="httpStatusCode"/> trailers to the context
+        /// </summary>
         protected void SetStatusAndTrailersOfContext(ref ServerCallContext context, StatusCode code, string message, HttpStatusCode httpStatusCode)
               => SetStatusAndTrailersOfContext(ref context, code, message, new (string key, string value)[2] {
                                                                                 ("Message",message),
@@ -30,7 +33,7 @@ namespace EducationalInstitutionAPI.Grpc
         /// <i>Converts <paramref name="httpStatusCode"/> to equivalent <see cref="StatusCode"/></i>
         /// </remarks>
         protected void SetStatusAndTrailersOfContext(ref ServerCallContext context, HttpStatusCode httpStatusCode, string message)
-                => SetStatusAndTrailersOfContext(ref context, httpStatusCode.ToRPCCallContextStatusCode(), message, httpStatusCode);
+                => SetStatusAndTrailersOfContext(ref context, httpStatusCode.ToGrpcContextStatusCode(), message, httpStatusCode);
 
         protected void SetStatusAndTrailersOfContext(ref ServerCallContext context, StatusCode code, string message, (string key, string value)[] trailers_data)
         {

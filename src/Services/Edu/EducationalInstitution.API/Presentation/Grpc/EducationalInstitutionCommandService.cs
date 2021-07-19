@@ -10,7 +10,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace EducationalInstitutionAPI.Grpc
+namespace EducationalInstitutionAPI.Presentation.Grpc
 {
     /// <summary>
     /// Implements the methods that handle the gRPC requests
@@ -51,7 +51,7 @@ namespace EducationalInstitutionAPI.Grpc
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 
-            var dto = request.MapToDTOEducationalInstitutionCreateCommand();
+            var dto = request.MapToCreateEducationalInstitutionCommand();
             if (!validationHandler.IsDataTransferObjectValid(dto, out string validationErrors))
             {
                 SetStatusAndTrailersOfContext(ref context, StatusCode.InvalidArgument, validationErrors, HttpStatusCode.BadRequest);
@@ -64,7 +64,7 @@ namespace EducationalInstitutionAPI.Grpc
 
                 if (result.OperationStatus)
                 {
-                    context.Status = new(result.StatusCode.ToRPCCallContextStatusCode(), "Educational Institution has been successfully created!");
+                    context.Status = new(result.StatusCode.ToGrpcContextStatusCode(), "Educational Institution has been successfully created!");
 
                     return new()
                     {
@@ -75,7 +75,7 @@ namespace EducationalInstitutionAPI.Grpc
                     };
                 }
                 else
-                    SetStatusAndTrailersOfContext(ref context, result.StatusCode.ToRPCCallContextStatusCode(), result.Message, result.StatusCode);
+                    SetStatusAndTrailersOfContext(ref context, result.StatusCode.ToGrpcContextStatusCode(), result.Message, result.StatusCode);
             }
             catch (Exception e)
             {
@@ -98,7 +98,7 @@ namespace EducationalInstitutionAPI.Grpc
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 
-            var dto = request.MapToDTOEducationalInstitutionDeleteCommand();
+            var dto = request.MapToDisableEducationalInstitutionCommand();
             if (!validationHandler.IsDataTransferObjectValid(dto, out string validationErrors))
             {
                 SetStatusAndTrailersOfContextWhenValidationFails(ref context, validationErrors);
@@ -111,7 +111,7 @@ namespace EducationalInstitutionAPI.Grpc
 
                 if (result.OperationStatus)
                 {
-                    context.Status = new(result.StatusCode.ToRPCCallContextStatusCode(), "Educational Institution was successfully scheduled for deletion!");
+                    context.Status = new(result.StatusCode.ToGrpcContextStatusCode(), "Educational Institution was successfully scheduled for deletion!");
 
                     return new()
                     {
@@ -122,7 +122,7 @@ namespace EducationalInstitutionAPI.Grpc
                     };
                 }
                 else
-                    SetStatusAndTrailersOfContext(ref context, result.StatusCode.ToRPCCallContextStatusCode(), result.Message, result.StatusCode);
+                    SetStatusAndTrailersOfContext(ref context, result.StatusCode.ToGrpcContextStatusCode(), result.Message, result.StatusCode);
             }
             catch (Exception e)
             {
@@ -145,7 +145,7 @@ namespace EducationalInstitutionAPI.Grpc
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 
-            var dto = request.MapToDTOEducationalInstitutionUpdateCommand();
+            var dto = request.MapToUpdateEducationalInstitutionCommand();
             if (!validationHandler.IsDataTransferObjectValid(dto, out string validationErrors))
             {
                 SetStatusAndTrailersOfContextWhenValidationFails(ref context, validationErrors);
@@ -158,7 +158,7 @@ namespace EducationalInstitutionAPI.Grpc
 
                 if (result.OperationStatus)
                 {
-                    context.Status = new(result.StatusCode.ToRPCCallContextStatusCode(), "Educational Institution has been successfully updated!");
+                    context.Status = new(result.StatusCode.ToGrpcContextStatusCode(), "Educational Institution has been successfully updated!");
                     return new()
                     {
                         Message = result.Message,
@@ -167,7 +167,7 @@ namespace EducationalInstitutionAPI.Grpc
                     };
                 }
                 else
-                    SetStatusAndTrailersOfContext(ref context, result.StatusCode.ToRPCCallContextStatusCode(), result.Message, result.StatusCode);
+                    SetStatusAndTrailersOfContext(ref context, result.StatusCode.ToGrpcContextStatusCode(), result.Message, result.StatusCode);
             }
             catch (Exception e)
             {
@@ -190,7 +190,7 @@ namespace EducationalInstitutionAPI.Grpc
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 
-            var dto = request.MapToDTOEducationalInstitutionAdminUpdateCommand();
+            var dto = request.MapToUpdateEducationalInstitutionAdminsCommand();
             if (!validationHandler.IsDataTransferObjectValid(dto, out string validationErrors))
             {
                 SetStatusAndTrailersOfContextWhenValidationFails(ref context, validationErrors);
@@ -203,7 +203,7 @@ namespace EducationalInstitutionAPI.Grpc
 
                 if (result.OperationStatus)
                 {
-                    context.Status = new(result.StatusCode.ToRPCCallContextStatusCode(), "Educational Institution's admins were successfully updated!");
+                    context.Status = new(result.StatusCode.ToGrpcContextStatusCode(), "Educational Institution's admins were successfully updated!");
                     return new()
                     {
                         Message = result.Message,
@@ -212,7 +212,7 @@ namespace EducationalInstitutionAPI.Grpc
                     };
                 }
                 else
-                    SetStatusAndTrailersOfContext(ref context, result.StatusCode.ToRPCCallContextStatusCode(), result.Message, result.StatusCode);
+                    SetStatusAndTrailersOfContext(ref context, result.StatusCode.ToGrpcContextStatusCode(), result.Message, result.StatusCode);
             }
             catch (Exception e)
             {
@@ -234,7 +234,7 @@ namespace EducationalInstitutionAPI.Grpc
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 
-            var dto = request.MapToDTOEducationalInstitutionParentUpdateCommand();
+            var dto = request.MapToUpdateEducationalInstitutionParentCommand();
             if (!validationHandler.IsDataTransferObjectValid(dto, out string validationErrors))
             {
                 SetStatusAndTrailersOfContextWhenValidationFails(ref context, validationErrors);
@@ -247,7 +247,7 @@ namespace EducationalInstitutionAPI.Grpc
 
                 if (result.OperationStatus)
                 {
-                    context.Status = new(result.StatusCode.ToRPCCallContextStatusCode(), "Educational Institution's parent has been successfully updated!");
+                    context.Status = new(result.StatusCode.ToGrpcContextStatusCode(), "Educational Institution's parent has been successfully updated!");
                     return new()
                     {
                         Message = result.Message,
@@ -256,7 +256,7 @@ namespace EducationalInstitutionAPI.Grpc
                     };
                 }
                 else
-                    SetStatusAndTrailersOfContext(ref context, result.StatusCode.ToRPCCallContextStatusCode(), result.Message, result.StatusCode);
+                    SetStatusAndTrailersOfContext(ref context, result.StatusCode.ToGrpcContextStatusCode(), result.Message, result.StatusCode);
             }
             catch (Exception e)
             {
@@ -279,7 +279,7 @@ namespace EducationalInstitutionAPI.Grpc
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 
-            var dto = request.MapToDTOEducationalInstitutionLocationUpdateCommand();
+            var dto = request.MapToUpdateEducationalInstitutionLocationCommand();
             if (!validationHandler.IsDataTransferObjectValid(dto, out string validationErrors))
             {
                 SetStatusAndTrailersOfContextWhenValidationFails(ref context, validationErrors);
@@ -292,7 +292,7 @@ namespace EducationalInstitutionAPI.Grpc
 
                 if (result.OperationStatus)
                 {
-                    context.Status = new(result.StatusCode.ToRPCCallContextStatusCode(), "Educational Institution's location has been successfully updated!");
+                    context.Status = new(result.StatusCode.ToGrpcContextStatusCode(), "Educational Institution's location has been successfully updated!");
                     return new()
                     {
                         OperationStatus = result.OperationStatus,
@@ -301,7 +301,7 @@ namespace EducationalInstitutionAPI.Grpc
                     };
                 }
                 else
-                    SetStatusAndTrailersOfContext(ref context, result.StatusCode.ToRPCCallContextStatusCode(), result.Message, result.StatusCode);
+                    SetStatusAndTrailersOfContext(ref context, result.StatusCode.ToGrpcContextStatusCode(), result.Message, result.StatusCode);
             }
             catch (Exception e)
             {
