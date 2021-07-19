@@ -8,6 +8,7 @@ using RabbitMQEventBus.ConnectionHandler;
 using RabbitMQEventBus.IntegrationEvents;
 using RabbitMQEventBus.Subscription;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,6 +44,24 @@ namespace RabbitMQEventBus
             using var channelForPublishingThisEvent = connectionHandler.GetTransientChannel();
             logger.LogDebug("A channel was created successfully, continuing with Publishing the event!");
 
+            Publish(@event, channelForPublishingThisEvent);
+        }
+
+        public void PublishMultiple(IEnumerable<IntegrationEvent> @events)
+        {
+            if (!connectionHandler.CanEstablishConnection()) return;
+
+            using var channelForPublishingThisEvents = connectionHandler.GetTransientChannel();
+            logger.LogDebug("A channel was created successfully, continuing with Publishing the event!");
+
+            foreach (var @event in @events)
+                Publish(@event, channelForPublishingThisEvents);
+        }
+
+        #region Publish methods
+
+        private void Publish(IntegrationEvent @event, IModel channelForPublishingThisEvent)
+        {
             channelForPublishingThisEvent.ExchangeDeclare(exchange: exchangeName,
                                                           type: ExchangeType.Direct);
 
@@ -54,8 +73,6 @@ namespace RabbitMQEventBus
 
             logger.LogDebug($"A new {@event.GetType().Name} has been published to RabbitMQ!");
         }
-
-        #region Publish methods
 
         private static IBasicProperties ConfigureMessageProperties(IModel channel)
         {
