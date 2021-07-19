@@ -39,37 +39,19 @@ namespace DataValidation
         }
 
         /// <summary>
-        /// Instantiates, based on <typeparamref name="T"/>, a concrete validator class that extends <see cref="AbstractValidator{T}"/> from the <see cref="FluentValidation"/> package
+        /// Instantiates, based on <typeparamref name="Tdto"/>, a concrete validator class that extends <see cref="AbstractValidator{T}"/> from the <see cref="FluentValidation"/> package
         /// </summary>
-        /// <typeparam name="T">A Data Transfer Object type whose fields you want to validate</typeparam>
+        /// <typeparam name="Tdto">A Data Transfer Object type whose fields you want to validate</typeparam>
         /// <returns>A validator object of a class that extends <see cref="AbstractValidator{T}"/> from the <see cref="FluentValidation"/> package</returns>
-        /// <exception cref="RequestTypeNotSupportedException">Thrown when a validator of <typeparamref name="T"/> has not been declared</exception>
-        public AbstractValidator<T> CreateValidator<T>()
+        /// <exception cref="RequestTypeNotSupportedException">Thrown when a validator of <typeparamref name="Tdto"/> has not been declared</exception>
+        public AbstractValidator<Tdto> CreateValidator<Tdto>() where Tdto : class
         {
-            var Ttype = typeof(T);
+            var Ttype = typeof(Tdto);
             if (!dtoToValidatorMap.ContainsKey(Ttype))
-                throw new RequestTypeNotSupportedException(nameof(T));
+                throw new RequestTypeNotSupportedException(nameof(Tdto));
 
             Type validatorClass = dtoToValidatorMap[Ttype];
-            return Activator.CreateInstance(validatorClass) as AbstractValidator<T>;
-        }
-    }
-
-    public static class TypeExtensionMethods
-    {
-        /// <summary>
-        /// Searches for <paramref name="lookedUpGenericType"/> in the inherited classes by <paramref name="type"/>
-        /// </summary>
-        public static bool IsSubclassOfGeneric(this Type type, Type lookedUpGenericType)
-        {
-            while (type is not null && type != typeof(object))
-            {
-                if (type.IsGenericType && type.GetGenericTypeDefinition() == lookedUpGenericType)
-                    return true;
-
-                type = type.BaseType;
-            }
-            return false;
+            return Activator.CreateInstance(validatorClass) as AbstractValidator<Tdto>;
         }
     }
 }
