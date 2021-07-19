@@ -1,7 +1,8 @@
-﻿using EducationalInstitutionAPI.Business.Commands_Handlers;
-using EducationalInstitutionAPI.Data.Repository_Results;
-using EducationalInstitutionAPI.DTOs;
-using EducationalInstitutionAPI.DTOs.Commands;
+﻿using EducationalInstitution.API.Tests.Shared;
+using EducationalInstitution.Application;
+using EducationalInstitution.Application.Commands;
+using EducationalInstitution.Application.Commands.Handlers;
+using EducationalInstitution.Infrastructure.Repositories.Command_Repository.Results;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_Tests
+namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.Handlers_Tests
 {
     public class UpdateEducationalInstitutionCommandHandlerTests : IClassFixture<MockDependenciesHelper<UpdateEducationalInstitutionCommandHandler>>,
                                                                    IClassFixture<TestDataFromJSONParser>
@@ -28,14 +29,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         #region An entity exists for the input ID TESTS
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithNameDescription_ShouldReturnAResponseThatIncludesAStatusCodeNoContentField()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithNameDescription_ShouldReturnAResponseThatIncludesAStatusCodeNoContentField()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string name = "New_Name";
             string description = "New_Description";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
@@ -48,7 +49,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAndDescriptionAsync(educationalInstitutionID, name, description, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new CommandRepositoryResult(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -60,14 +61,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithNameDescription_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithNameDescription_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string name = "New_Name";
             string description = "New_Description";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
@@ -80,7 +81,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                      .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAndDescriptionAsync(educationalInstitutionID, name, description, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new CommandRepositoryResult(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -92,14 +93,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithNameDescription_ShouldReturnAResponseThatIncludesATrueOperationStatusField()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithNameDescription_ShouldReturnAResponseThatIncludesATrueOperationStatusField()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string name = "New_Name";
             string description = "New_Description";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
@@ -112,7 +113,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAndDescriptionAsync(educationalInstitutionID, name, description, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new CommandRepositoryResult(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -124,14 +125,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithNameDescription_ShouldReturnANonGenericTypeResponse()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithNameDescription_ShouldReturnANonGenericTypeResponse()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string name = "New_Name";
             string description = "New_Description";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
@@ -144,7 +145,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAndDescriptionAsync(educationalInstitutionID, name, description, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new CommandRepositoryResult(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -156,13 +157,13 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithName_ShouldReturnAResponseThatIncludesAStatusCodeNoContentField()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithName_ShouldReturnAResponseThatIncludesAStatusCodeNoContentField()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string name = "New_Name";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
@@ -175,7 +176,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAsync(educationalInstitutionID, name, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new CommandRepositoryResult(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -187,13 +188,13 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithName_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithName_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string name = "New_Name";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
@@ -206,7 +207,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAsync(educationalInstitutionID, name, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new CommandRepositoryResult(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -218,13 +219,13 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithName_ShouldReturnAResponseThatIncludesATrueOperationStatusField()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithName_ShouldReturnAResponseThatIncludesATrueOperationStatusField()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string name = "New_Name";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
@@ -237,7 +238,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAsync(educationalInstitutionID, name, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new CommandRepositoryResult(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -249,13 +250,13 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithName_ShouldReturnANonGenericTypeResponse()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithName_ShouldReturnANonGenericTypeResponse()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string name = "New_Name";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
@@ -268,7 +269,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAsync(educationalInstitutionID, name, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new CommandRepositoryResult(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -280,13 +281,13 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithDescription_ShouldReturnAResponseThatIncludesAStatusCodeNoContentField()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithDescription_ShouldReturnAResponseThatIncludesAStatusCodeNoContentField()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string description = "New_Description";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = false,
@@ -299,7 +300,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateDescriptionAsync(educationalInstitutionID, description, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new CommandRepositoryResult(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -311,13 +312,13 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithDescription_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithDescription_ShouldReturnAResponseThatIncludesAnEmptyMessageField()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string description = "New_Description";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = false,
@@ -330,7 +331,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                      .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateDescriptionAsync(educationalInstitutionID, description, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new CommandRepositoryResult(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -342,13 +343,13 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithDescription_ShouldReturnAResponseThatIncludesATrueOperationStatusField()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithDescription_ShouldReturnAResponseThatIncludesATrueOperationStatusField()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string description = "New_Description";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = false,
@@ -361,7 +362,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateDescriptionAsync(educationalInstitutionID, description, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new CommandRepositoryResult(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -373,13 +374,13 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithDescription_ShouldReturnANonGenericTypeResponse()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithDescription_ShouldReturnANonGenericTypeResponse()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string description = "New_Description";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = false,
@@ -392,7 +393,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateDescriptionAsync(educationalInstitutionID, description, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new CommandRepositoryResult(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -408,14 +409,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         #region No entity is found for the input ID TESTS
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithNameDescription_IDDoesntExistInDatabase_ShouldReturnFalseOperationStatus()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithNameDescription_IDDoesntExistInDatabase_ShouldReturnFalseOperationStatus()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string name = "New_Name";
             string description = "New_Description";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
@@ -428,7 +429,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAndDescriptionAsync(educationalInstitutionID, name, description, It.IsAny<CancellationToken>()))
-                                .Returns(Task.FromResult<CommandRepositoryResult>(default));
+                                .Returns(Task.FromResult<AfterCommandChangesDetails>(default));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -440,14 +441,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithNameDescription_IDDoesntExistInDatabase_ShouldReturnStatusCodeNotFound()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithNameDescription_IDDoesntExistInDatabase_ShouldReturnStatusCodeNotFound()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string name = "New_Name";
             string description = "New_Description";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
@@ -460,7 +461,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAndDescriptionAsync(educationalInstitutionID, name, description, It.IsAny<CancellationToken>()))
-                                .Returns(Task.FromResult<CommandRepositoryResult>(default));
+                                .Returns(Task.FromResult<AfterCommandChangesDetails>(default));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -472,14 +473,14 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithNameDescription_IDDoesntExistInDatabase_ShouldReturnExpectedMessage()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithNameDescription_IDDoesntExistInDatabase_ShouldReturnExpectedMessage()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string name = "New_Name";
             string description = "New_Description";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
@@ -492,7 +493,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAndDescriptionAsync(educationalInstitutionID, name, description, It.IsAny<CancellationToken>()))
-                                .Returns(Task.FromResult<CommandRepositoryResult>(default));
+                                .Returns(Task.FromResult<AfterCommandChangesDetails>(default));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -504,13 +505,13 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithName_IDDoesntExistInDatabase_ShouldReturnFalseOperationStatus()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithName_IDDoesntExistInDatabase_ShouldReturnFalseOperationStatus()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string name = "New_Name";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
@@ -523,7 +524,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAsync(educationalInstitutionID, name, It.IsAny<CancellationToken>()))
-                                .Returns(Task.FromResult<CommandRepositoryResult>(default));
+                                .Returns(Task.FromResult<AfterCommandChangesDetails>(default));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -535,13 +536,13 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithName_IDDoesntExistInDatabase_ShouldReturnStatusCodeNotFound()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithName_IDDoesntExistInDatabase_ShouldReturnStatusCodeNotFound()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string name = "New_Name";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
@@ -554,7 +555,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAsync(educationalInstitutionID, name, It.IsAny<CancellationToken>()))
-                                .Returns(Task.FromResult<CommandRepositoryResult>(default));
+                                .Returns(Task.FromResult<AfterCommandChangesDetails>(default));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -566,13 +567,13 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithName_IDDoesntExistInDatabase_ShouldReturnExpectedMessage()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithName_IDDoesntExistInDatabase_ShouldReturnExpectedMessage()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string name = "New_Name";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = true,
@@ -585,7 +586,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAsync(educationalInstitutionID, name, It.IsAny<CancellationToken>()))
-                                .Returns(Task.FromResult<CommandRepositoryResult>(default));
+                                .Returns(Task.FromResult<AfterCommandChangesDetails>(default));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -597,13 +598,13 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithDescription_IDDoesntExistInDatabase_ShouldReturnExpectedMessage()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithDescription_IDDoesntExistInDatabase_ShouldReturnExpectedMessage()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string description = "New_Description";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = false,
@@ -616,7 +617,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateDescriptionAsync(educationalInstitutionID, description, It.IsAny<CancellationToken>()))
-                                .Returns(Task.FromResult<CommandRepositoryResult>(default));
+                                .Returns(Task.FromResult<AfterCommandChangesDetails>(default));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -628,13 +629,13 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithDescription_IDDoesntExistInDatabase_ShouldReturnFalseOperationStatus()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithDescription_IDDoesntExistInDatabase_ShouldReturnFalseOperationStatus()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string description = "New_Description";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = false,
@@ -647,7 +648,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateDescriptionAsync(educationalInstitutionID, description, It.IsAny<CancellationToken>()))
-                                .Returns(Task.FromResult<CommandRepositoryResult>(default));
+                                .Returns(Task.FromResult<AfterCommandChangesDetails>(default));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -659,13 +660,13 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionUpdateCommand_WithDescription_IDDoesntExistInDatabase_ShouldReturnStatusCodeNotFound()
+        public async Task GivenAValidUpdateEducationalInstitutionCommand_WithDescription_IDDoesntExistInDatabase_ShouldReturnStatusCodeNotFound()
         {
             //Arrange
-            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID;
+            Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string description = "New_Description";
 
-            DTOEducationalInstitutionUpdateCommand request = new()
+            UpdateEducationalInstitutionCommand request = new()
             {
                 EducationalInstitutionID = educationalInstitutionID,
                 UpdateName = false,
@@ -678,7 +679,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateDescriptionAsync(educationalInstitutionID, description, It.IsAny<CancellationToken>()))
-                                .Returns(Task.FromResult<CommandRepositoryResult>(default));
+                                .Returns(Task.FromResult<AfterCommandChangesDetails>(default));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
