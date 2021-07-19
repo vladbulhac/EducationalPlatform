@@ -10,39 +10,40 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Proto\commandservice.proto" />
-    <None Remove="Proto\queryservice.proto" />
-    <None Remove="Proto\requestmessages.proto" />
-    <None Remove="Proto\responsedata.proto" />
-    <None Remove="Proto\responsemessages.proto" />
-    <None Remove="Proto\statuscodes.proto" />
+    <None Remove="Presentation\Proto\command_service.proto" />
+    <None Remove="Presentation\Proto\query_service.proto" />
+    <None Remove="Presentation\Proto\request_messages.proto" />
+    <None Remove="Presentation\Proto\response_messages.proto" />
+    <None Remove="Presentation\Proto\response_messages_data.proto" />
+    <None Remove="Presentation\Proto\status_codes.proto" />
+    <None Remove="Presentation\Proto\uuid.proto" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.90" />
-    <PackageReference Include="FluentValidation" Version="10.2.3" />
-    <PackageReference Include="FluentValidation.AspNetCore" Version="10.2.3" />
-    <PackageReference Include="Google.Protobuf" Version="3.17.2" />
-    <PackageReference Include="Grpc.AspNetCore" Version="2.37.0" />
-    <PackageReference Include="Grpc.Tools" Version="2.38.0">
+    <PackageReference Include="FluentValidation" Version="10.3.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.17.3" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.38.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.38.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.6">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.6">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="RabbitMQ.Client" Version="6.2.1" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
@@ -56,14 +57,18 @@
     <ProjectReference Include="..\..\..\EventBus\RabbitMQEventBus\RabbitMQEventBus.csproj" />
     <ProjectReference Include="..\..\..\Validation\DataValidation\DataValidation.csproj" />
     <ProjectReference Include="..\..\DatabaseCleaner\DatabaseCleanerService\DatabaseCleanerService.csproj" />
+    <ProjectReference Include="..\EducationalInstitution.Application\EducationalInstitution.Application.csproj" />
+    <ProjectReference Include="..\EducationalInstitution.Domain\EducationalInstitution.Domain.csproj" />
+    <ProjectReference Include="..\EducationalInstitution.Infrastructure\EducationalInstitution.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Proto\commandservice.proto" GrpcServices="Server" />
-    <Protobuf Include="Proto\queryservice.proto" GrpcServices="Server" />
-    <Protobuf Include="Proto\requestmessages.proto" GrpcServices="Server" />
-    <Protobuf Include="Proto\responsedata.proto" GrpcServices="Server" />
-    <Protobuf Include="Proto\responsemessages.proto" GrpcServices="Server" />
-    <Protobuf Include="Proto\statuscodes.proto" GrpcServices="Server" />
+    <Protobuf Include="Presentation\Proto\command_service.proto" GrpcServices="Server" />
+    <Protobuf Include="Presentation\Proto\query_service.proto" GrpcServices="Server" />
+    <Protobuf Include="Presentation\Proto\request_messages.proto" GrpcServices="Server" />
+    <Protobuf Include="Presentation\Proto\response_messages_data.proto" GrpcServices="Server" />
+    <Protobuf Include="Presentation\Proto\response_messages.proto" GrpcServices="Server" />
+    <Protobuf Include="Presentation\Proto\status_codes.proto" GrpcServices="Server" />
+    <Protobuf Include="Presentation\Proto\uuid.proto" GrpcServices="Server" />
   </ItemGroup>
 </Project>
