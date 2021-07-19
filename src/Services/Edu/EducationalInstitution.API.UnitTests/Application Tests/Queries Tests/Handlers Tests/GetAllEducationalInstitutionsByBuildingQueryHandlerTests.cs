@@ -1,7 +1,7 @@
-﻿using EducationalInstitutionAPI.Business.Queries_Handlers;
-using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
-using EducationalInstitutionAPI.DTOs;
-using EducationalInstitutionAPI.DTOs.Queries;
+﻿using EducationalInstitution.Application;
+using EducationalInstitution.Application.Queries;
+using EducationalInstitution.Application.Queries.Handlers;
+using EducationalInstitution.Infrastructure.Repositories.Query_Repository.Results;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Tests
+namespace EducationalInstitution.API.UnitTests.Application_Tests.Queries_Tests.Handlers_Tests
 {
     public class GetAllEducationalInstitutionsByBuildingQueryHandlerTests : IClassFixture<MockDependenciesHelper<GetAllEducationalInstitutionsByBuildingQueryHandler>>
     {
@@ -23,10 +23,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenADTOEducationalInstitutionsByBuildingQuery_ShouldReturnResponseOfGetAllEducationalInstitutionsWithSameBuildingQueryResultType()
+        public async Task GivenAGetAllEducationalInstitutionsByBuildingQuery_ShouldReturnResponseOfGetAllEducationalInstitutionsWithSameBuildingQueryResultType()
         {
             //Arrange
-            DTOEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
+            GetAllEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
 
             GetAllEducationalInstitutionsWithSameBuildingQueryResult expectedQueryResult = new()
             {
@@ -49,10 +49,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenADTOEducationalInstitutionsByBuildingQuery_ShouldReturnTrueOperationStatus()
+        public async Task GivenAGetAllEducationalInstitutionsByBuildingQuery_ShouldReturnTrueOperationStatus()
         {
             //Arrange
-            DTOEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
+            GetAllEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
 
             GetAllEducationalInstitutionsWithSameBuildingQueryResult expectedQueryResult = new()
             {
@@ -75,10 +75,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenADTOEducationalInstitutionsByBuildingQuery_ShouldReturnEmptyMessage()
+        public async Task GivenAGetAllEducationalInstitutionsByBuildingQuery_ShouldReturnEmptyMessage()
         {
             //Arrange
-            DTOEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
+            GetAllEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
 
             GetAllEducationalInstitutionsWithSameBuildingQueryResult expectedQueryResult = new()
             {
@@ -101,10 +101,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenADTOEducationalInstitutionsByBuildingQuery_ShouldReturnStatusCodeOk()
+        public async Task GivenAGetAllEducationalInstitutionsByBuildingQuery_ShouldReturnStatusCodeOk()
         {
             //Arrange
-            DTOEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
+            GetAllEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
 
             GetAllEducationalInstitutionsWithSameBuildingQueryResult expectedQueryResult = new()
             {
@@ -127,10 +127,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenADTOEducationalInstitutionsByBuildingQuery_ShouldReturnCollectionWithOneElement()
+        public async Task GivenAGetAllEducationalInstitutionsByBuildingQuery_ShouldReturnCollectionWithOneElement()
         {
             //Arrange
-            DTOEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
+            GetAllEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
 
             GetAllEducationalInstitutionsWithSameBuildingQueryResult expectedQueryResult = new()
             {
@@ -153,10 +153,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenADTOEducationalInstitutionsByBuildingQuery_ShouldReturnExpectedCollectionItems()
+        public async Task GivenAGetAllEducationalInstitutionsByBuildingQuery_ShouldReturnExpectedCollectionItems()
         {
             //Arrange
-            DTOEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
+            GetAllEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
 
             GetAllEducationalInstitutionsWithSameBuildingQueryResult expectedQueryResult = new()
             {
@@ -179,10 +179,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenADTOEducationalInstitutionsByBuildingQuery_NoEducationalInstitutionsEntityIsFound_ShouldReturnFalseOperationStatus()
+        public async Task GivenAGetAllEducationalInstitutionsByBuildingQuery_NoEducationalInstitutionsEntityIsFound_ShouldReturnFalseOperationStatus()
         {
             //Arrange
-            DTOEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
+            GetAllEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
 
             GetAllEducationalInstitutionsWithSameBuildingQueryResult expectedQueryResult = new()
             {
@@ -201,10 +201,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenADTOEducationalInstitutionsByBuildingQuery_NoEducationalInstitutionsEntityIsFound_ShouldReturnStatusCodeNotFound()
+        public async Task GivenAGetAllEducationalInstitutionsByBuildingQuery_NoEducationalInstitutionsEntityIsFound_ShouldReturnStatusCodeNotFound()
         {
             //Arrange
-            DTOEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
+            GetAllEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
 
             GetAllEducationalInstitutionsWithSameBuildingQueryResult expectedQueryResult = new()
             {
@@ -223,10 +223,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenADTOEducationalInstitutionsByBuildingQuery_NoEducationalInstitutionsEntityIsFound_ShouldReturnNullData()
+        public async Task GivenAGetAllEducationalInstitutionsByBuildingQuery_NoEducationalInstitutionsEntityIsFound_ShouldReturnNullData()
         {
             //Arrange
-            DTOEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
+            GetAllEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
 
             GetAllEducationalInstitutionsWithSameBuildingQueryResult expectedQueryResult = new()
             {
@@ -245,10 +245,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenADTOEducationalInstitutionsByBuildingQuery_NoEducationalInstitutionsEntityIsFound_ShouldReturnMessage()
+        public async Task GivenAGetAllEducationalInstitutionsByBuildingQuery_NoEducationalInstitutionsEntityIsFound_ShouldReturnMessage()
         {
             //Arrange
-            DTOEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
+            GetAllEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
 
             GetAllEducationalInstitutionsWithSameBuildingQueryResult expectedQueryResult = new()
             {
@@ -267,10 +267,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenADTOEducationalInstitutionsByBuildingQuery_AnExceptionIsCaught_ShouldReturnFalseOperationStatus()
+        public async Task GivenAGetAllEducationalInstitutionsByBuildingQuery_AnExceptionIsCaught_ShouldReturnFalseOperationStatus()
         {
             //Arrange
-            DTOEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
+            GetAllEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
 
             SetupRepositoryToThrowException();
 
@@ -284,10 +284,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenADTOEducationalInstitutionsByBuildingQuery_AnExceptionIsCaught_ShouldReturnStatusCodeInternalServerError()
+        public async Task GivenAGetAllEducationalInstitutionsByBuildingQuery_AnExceptionIsCaught_ShouldReturnStatusCodeInternalServerError()
         {
             //Arrange
-            DTOEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
+            GetAllEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
 
             SetupRepositoryToThrowException();
 
@@ -301,10 +301,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenADTOEducationalInstitutionsByBuildingQuery_AnExceptionIsCaught_ShouldReturnNullData()
+        public async Task GivenAGetAllEducationalInstitutionsByBuildingQuery_AnExceptionIsCaught_ShouldReturnNullData()
         {
             //Arrange
-            DTOEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
+            GetAllEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
 
             SetupRepositoryToThrowException();
 
@@ -318,10 +318,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenADTOEducationalInstitutionsByBuildingQuery_AnExceptionIsCaught_ShouldReturnMessage()
+        public async Task GivenAGetAllEducationalInstitutionsByBuildingQuery_AnExceptionIsCaught_ShouldReturnMessage()
         {
             //Arrange
-            DTOEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
+            GetAllEducationalInstitutionsByBuildingQuery dto = new() { BuildingID = "building123" };
 
             SetupRepositoryToThrowException();
 
