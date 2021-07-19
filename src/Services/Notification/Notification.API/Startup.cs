@@ -6,10 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Notification.API.Data;
-using Notification.API.IntegrationEvents.Events;
-using Notification.API.IntegrationEvents.Handlers;
-using Notification.API.Repositories;
+using Notification.Application.Integration_Events.Events;
+using Notification.Application.Integration_Events.Handlers;
+using Notification.Infrastructure;
+using Notification.Infrastructure.Repositories;
 using RabbitMQ.Client;
 using RabbitMQEventBus;
 using RabbitMQEventBus.Abstractions;
@@ -34,7 +34,11 @@ namespace Notification.API
             services.AddDbContext<NotificationContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("ConnectionToNotificationDB"),
-                                     providerOptions => providerOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null));
+                                     providerOptions =>
+                                     {
+                                         providerOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                                         providerOptions.MigrationsAssembly("Notification.Infrastructure");
+                                     });
                 options.LogTo(Console.WriteLine);
             });
 
