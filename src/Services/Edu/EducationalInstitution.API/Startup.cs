@@ -1,10 +1,12 @@
 using DatabaseCleanerService;
 using DataValidation;
 using DataValidation.Abstractions;
-using EducationalInstitutionAPI.Data.Contexts;
-using EducationalInstitutionAPI.Grpc;
-using EducationalInstitutionAPI.Unit_of_Work.Command_Unit_of_Work;
-using EducationalInstitutionAPI.Unit_of_Work.Query_Unit_of_Work;
+using EducationalInstitution.Application;
+using EducationalInstitution.Application.Commands.Validators;
+using EducationalInstitution.Infrastructure;
+using EducationalInstitution.Infrastructure.Unit_of_Work.Command_Unit_of_Work;
+using EducationalInstitution.Infrastructure.Unit_of_Work.Query_Unit_of_Work;
+using EducationalInstitutionAPI.Presentation.Grpc;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,7 +43,13 @@ namespace EducationalInstitutionAPI
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("ConnectionToWriteDB"),
-                                     providerOptions => providerOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null));
+                                     providerOptions =>
+                                     {
+                                         providerOptions.EnableRetryOnFailure(maxRetryCount: 10,
+                                                                              maxRetryDelay: TimeSpan.FromSeconds(30),
+                                                                              errorNumbersToAdd: null);
+                                         providerOptions.MigrationsAssembly("EducationalInstitution.Infrastructure");
+                                     });
 
                 options.LogTo(Console.WriteLine);
             }, ServiceLifetime.Scoped);
@@ -61,9 +69,9 @@ namespace EducationalInstitutionAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Educational Institution API", Version = "v1" });
             });
 
-            services.RegisterProjectServices(Configuration);
+            services.RegisterApplicationServices(Configuration);
 
-            services.AddMediatR(typeof(Startup));
+            services.AddMediatR(typeof(HandlerBase<>).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -88,19 +96,20 @@ namespace EducationalInstitutionAPI
 
     public static class StartupExtensionMethods
     {
-        public static IServiceCollection RegisterProjectServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection RegisterApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
+            var dbConnectionString = configuration.GetSection("ConnectionStrings")["ConnectionToWriteDB"];
+
             services.AddEventBus(configuration)
-                    .AddSingleton(_ => new ValidatorFactory(typeof(Startup).Assembly))
+                    .AddSingleton(_ => new ValidatorFactory(typeof(CreateEducationalInstitutionCommandValidator).Assembly))
                     .AddTransient<IValidationHandler, ValidationHandler>()
-                    .AddTransient<IUnitOfWorkForQueries, UnitOfWorkForQueries>()
+                    .AddTransient<IUnitOfWorkForQueries>(_ => new UnitOfWorkForQueries(dbConnectionString))
                     .AddTransient<IUnitOfWorkForCommands, UnitOfWorkForCommands>()
                     .AddHostedService(serviceProvider =>
                     {
-                        var connectionString = configuration.GetSection("ConnectionStrings")["ConnectionToWriteDB"];
                         var logger = serviceProvider.GetRequiredService<ILogger<Worker>>();
 
-                        return new Worker(connectionString, retryInHours: 12, logger);
+                        return new Worker(dbConnectionString, retryInHours: 12, logger);
                     });
 
             return services;
