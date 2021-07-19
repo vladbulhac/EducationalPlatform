@@ -1,7 +1,8 @@
-﻿using EducationalInstitutionAPI.Business.Commands_Handlers;
-using EducationalInstitutionAPI.Data.Repository_Results;
-using EducationalInstitutionAPI.DTOs;
-using EducationalInstitutionAPI.DTOs.Commands;
+﻿using EducationalInstitution.API.Tests.Shared;
+using EducationalInstitution.Application;
+using EducationalInstitution.Application.Commands;
+using EducationalInstitution.Application.Commands.Handlers;
+using EducationalInstitution.Infrastructure.Repositories.Command_Repository.Results;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -11,34 +12,34 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_Tests
+namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.Handlers_Tests
 {
-    public class UpdateEducationalInstitutionAdminCommandHandlerTests : IClassFixture<MockDependenciesHelper<UpdateEducationalInstitutionAdminCommandHandler>>,
-                                                                        IClassFixture<TestDataFromJSONParser>
+    public class UpdateEducationalInstitutionAdminsCommandHandlerTests : IClassFixture<MockDependenciesHelper<UpdateEducationalInstitutionAdminsCommandHandler>>,
+                                                                         IClassFixture<TestDataFromJSONParser>
 
     {
-        private readonly MockDependenciesHelper<UpdateEducationalInstitutionAdminCommandHandler> dependenciesHelper;
+        private readonly MockDependenciesHelper<UpdateEducationalInstitutionAdminsCommandHandler> dependenciesHelper;
         private readonly TestDataFromJSONParser testDataHelper;
 
         /// <remarks>Called before each test</remarks>
-        public UpdateEducationalInstitutionAdminCommandHandlerTests(MockDependenciesHelper<UpdateEducationalInstitutionAdminCommandHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
+        public UpdateEducationalInstitutionAdminsCommandHandlerTests(MockDependenciesHelper<UpdateEducationalInstitutionAdminsCommandHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
         {
             this.dependenciesHelper = dependenciesHelper;
             this.testDataHelper = testDataHelper;
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionAdminUpdateCommand_ShouldReturnAResponseType()
+        public async Task GivenAValidUpdateEducationalInstitutionAdminsCommand_ShouldReturnAResponseType()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            UpdateEducationalInstitutionAdminsCommand request = new()
             {
-                EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID,
+                EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id,
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
             };
 
-            var expectedUniOfWorkResponse = new UpdateAdminsCommandRepositoryResult(
+            var expectedUniOfWorkResponse = new AfterUpdateAdminsCommandChangesDetails(
                                                                                testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList(),
                                                                                request.AddAdminsIDs,
                                                                                request.RemoveAdminsIDs);
@@ -49,7 +50,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<Guid>>(), It.IsAny<ICollection<Guid>>(), It.IsAny<CancellationToken>()))
                                                                           .ReturnsAsync(expectedUniOfWorkResponse);
 
-            var handler = new UpdateEducationalInstitutionAdminCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
+            var handler = new UpdateEducationalInstitutionAdminsCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                               dependenciesHelper.mockEventBus.Object,
                                                                               dependenciesHelper.mockLogger.Object);
 
@@ -61,17 +62,17 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionAdminUpdateCommand_ShouldReturnEmptyMessage()
+        public async Task GivenAValidUpdateEducationalInstitutionAdminsCommand_ShouldReturnEmptyMessage()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            UpdateEducationalInstitutionAdminsCommand request = new()
             {
-                EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID,
+                EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id,
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
             };
 
-            var expectedUniOfWorkResponse = new UpdateAdminsCommandRepositoryResult(
+            var expectedUniOfWorkResponse = new AfterUpdateAdminsCommandChangesDetails(
                                                                                testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList(),
                                                                                request.AddAdminsIDs,
                                                                                request.RemoveAdminsIDs);
@@ -82,7 +83,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<Guid>>(), It.IsAny<ICollection<Guid>>(), It.IsAny<CancellationToken>()))
                                                                           .ReturnsAsync(expectedUniOfWorkResponse);
 
-            var handler = new UpdateEducationalInstitutionAdminCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
+            var handler = new UpdateEducationalInstitutionAdminsCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                               dependenciesHelper.mockEventBus.Object,
                                                                               dependenciesHelper.mockLogger.Object);
 
@@ -94,10 +95,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionAdminUpdateCommand_EntityIsNotFound_ShouldReturnFalseOperationStatus()
+        public async Task GivenAValidUpdateEducationalInstitutionAdminsCommand_EntityIsNotFound_ShouldReturnFalseOperationStatus()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            UpdateEducationalInstitutionAdminsCommand request = new()
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -108,9 +109,9 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
             dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<Guid>>(), It.IsAny<ICollection<Guid>>(), It.IsAny<CancellationToken>()))
-                                                                          .ReturnsAsync((UpdateAdminsCommandRepositoryResult)default);
+                                                                          .ReturnsAsync((AfterUpdateAdminsCommandChangesDetails)default);
 
-            var handler = new UpdateEducationalInstitutionAdminCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
+            var handler = new UpdateEducationalInstitutionAdminsCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                               dependenciesHelper.mockEventBus.Object,
                                                                               dependenciesHelper.mockLogger.Object);
 
@@ -122,10 +123,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionAdminUpdateCommand_EntityIsNotFound_ShouldReturnStatusCodeNotFound()
+        public async Task GivenAValidUpdateEducationalInstitutionAdminsCommand_EntityIsNotFound_ShouldReturnStatusCodeNotFound()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            UpdateEducationalInstitutionAdminsCommand request = new()
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -136,9 +137,9 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
             dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<Guid>>(), It.IsAny<ICollection<Guid>>(), It.IsAny<CancellationToken>()))
-                                                                          .ReturnsAsync((UpdateAdminsCommandRepositoryResult)default);
+                                                                          .ReturnsAsync((AfterUpdateAdminsCommandChangesDetails)default);
 
-            var handler = new UpdateEducationalInstitutionAdminCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
+            var handler = new UpdateEducationalInstitutionAdminsCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                               dependenciesHelper.mockEventBus.Object,
                                                                               dependenciesHelper.mockLogger.Object);
 
@@ -150,10 +151,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionAdminUpdateCommand_EntityIsNotFound_ShouldReturnMessage()
+        public async Task GivenAValidUpdateEducationalInstitutionAdminsCommand_EntityIsNotFound_ShouldReturnMessage()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            UpdateEducationalInstitutionAdminsCommand request = new()
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
@@ -164,9 +165,9 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
             dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<Guid>>(), It.IsAny<ICollection<Guid>>(), It.IsAny<CancellationToken>()))
-                                                                          .ReturnsAsync((UpdateAdminsCommandRepositoryResult)default);
+                                                                          .ReturnsAsync((AfterUpdateAdminsCommandChangesDetails)default);
 
-            var handler = new UpdateEducationalInstitutionAdminCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
+            var handler = new UpdateEducationalInstitutionAdminsCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                               dependenciesHelper.mockEventBus.Object,
                                                                               dependenciesHelper.mockLogger.Object);
 
@@ -178,17 +179,17 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionAdminUpdateCommand_ShouldReturnTrueOperationStatus()
+        public async Task GivenAValidUpdateEducationalInstitutionAdminsCommand_ShouldReturnTrueOperationStatus()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            UpdateEducationalInstitutionAdminsCommand request = new()
             {
-                EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID,
+                EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id,
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
             };
 
-            var expectedUniOfWorkResponse = new UpdateAdminsCommandRepositoryResult(
+            var expectedUniOfWorkResponse = new AfterUpdateAdminsCommandChangesDetails(
                                                                                testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList(),
                                                                                request.AddAdminsIDs,
                                                                                request.RemoveAdminsIDs);
@@ -199,7 +200,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<Guid>>(), It.IsAny<ICollection<Guid>>(), It.IsAny<CancellationToken>()))
                                                                           .ReturnsAsync(expectedUniOfWorkResponse);
 
-            var handler = new UpdateEducationalInstitutionAdminCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
+            var handler = new UpdateEducationalInstitutionAdminsCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                               dependenciesHelper.mockEventBus.Object,
                                                                               dependenciesHelper.mockLogger.Object);
 
@@ -211,17 +212,17 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         }
 
         [Fact]
-        public async Task GivenAValidDTOEducationalInstitutionAdminUpdateCommand_ShouldReturnStatusCodeNoContent()
+        public async Task GivenAValidUpdateEducationalInstitutionAdminsCommand_ShouldReturnStatusCodeNoContent()
         {
             //Arrange
-            DTOEducationalInstitutionAdminUpdateCommand request = new()
+            UpdateEducationalInstitutionAdminsCommand request = new()
             {
-                EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].EducationalInstitutionID,
+                EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id,
                 AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
                 RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
             };
 
-            var expectedUniOfWorkResponse = new UpdateAdminsCommandRepositoryResult(
+            var expectedUniOfWorkResponse = new AfterUpdateAdminsCommandChangesDetails(
                                                                                testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList(),
                                                                                request.AddAdminsIDs,
                                                                                request.RemoveAdminsIDs);
@@ -232,7 +233,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
             dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<Guid>>(), It.IsAny<ICollection<Guid>>(), It.IsAny<CancellationToken>()))
                                                                           .ReturnsAsync(expectedUniOfWorkResponse);
 
-            var handler = new UpdateEducationalInstitutionAdminCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
+            var handler = new UpdateEducationalInstitutionAdminsCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                               dependenciesHelper.mockEventBus.Object,
                                                                               dependenciesHelper.mockLogger.Object);
 
@@ -247,7 +248,7 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         public async Task GivenANullArgumentRequestToTheRequestHandlerHandleMethod_ShouldThrowArgumentNullException()
         {
             //Arrange
-            UpdateEducationalInstitutionAdminCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
+            UpdateEducationalInstitutionAdminsCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
             //Assert
             await Assert.ThrowsAsync<ArgumentNullException>(() => handler.Handle(null));
@@ -257,21 +258,21 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Commands_Handlers_T
         public void GivenANullArgumentRepositoryToTheRequestHandlerConstructor_ShouldThrowArgumentNullException()
         {
             //Assert
-            Assert.Throws<ArgumentNullException>(() => new UpdateEducationalInstitutionAdminCommandHandler(null, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object));
+            Assert.Throws<ArgumentNullException>(() => new UpdateEducationalInstitutionAdminsCommandHandler(null, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object));
         }
 
         [Fact]
         public void GivenANullArgumentEventBusToTheRequestHandlerConstructor_ShouldThrowArgumentNullException()
         {
             //Assert
-            Assert.Throws<ArgumentNullException>(() => new UpdateEducationalInstitutionAdminCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, null, dependenciesHelper.mockLogger.Object));
+            Assert.Throws<ArgumentNullException>(() => new UpdateEducationalInstitutionAdminsCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, null, dependenciesHelper.mockLogger.Object));
         }
 
         [Fact]
         public void GivenANullArgumentLoggerToTheRequestHandlerConstructor_ShouldThrowArgumentNullException()
         {
             //Assert
-            Assert.Throws<ArgumentNullException>(() => new UpdateEducationalInstitutionAdminCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, null));
+            Assert.Throws<ArgumentNullException>(() => new UpdateEducationalInstitutionAdminsCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, null));
         }
     }
 }
