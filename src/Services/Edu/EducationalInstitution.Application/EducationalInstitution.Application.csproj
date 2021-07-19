@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\EventBus\RabbitMQEventBus\RabbitMQEventBus.csproj" />
+    <ProjectReference Include="..\EducationalInstitution.Domain\EducationalInstitution.Domain.csproj" />
+    <ProjectReference Include="..\EducationalInstitution.Infrastructure\EducationalInstitution.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
