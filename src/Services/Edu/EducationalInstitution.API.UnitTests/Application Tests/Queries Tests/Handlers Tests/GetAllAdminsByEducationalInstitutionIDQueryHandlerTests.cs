@@ -1,7 +1,7 @@
-﻿using EducationalInstitutionAPI.Business.Queries_Handlers;
-using EducationalInstitutionAPI.Data.Queries_and_Commands_Results.Queries_Results;
-using EducationalInstitutionAPI.DTOs;
-using EducationalInstitutionAPI.DTOs.Queries;
+﻿using EducationalInstitution.Application;
+using EducationalInstitution.Application.Queries;
+using EducationalInstitution.Application.Queries.Handlers;
+using EducationalInstitution.Infrastructure.Repositories.Query_Repository.Results;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Tests
+namespace EducationalInstitution.API.UnitTests.Application_Tests.Queries_Tests.Handlers_Tests
 {
     public class GetAllAdminsByEducationalInstitutionIDQueryHandlerTests : IClassFixture<MockDependenciesHelper<GetAllAdminsByEducationalInstitutionIDQueryHandler>>
     {
@@ -23,10 +23,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenAValidDTOAdminsByEducationalInstitutionIDQuery_ShouldReturnResponseOfGetAllAdminsOfEducationalInstitutionQueryResultType()
+        public async Task GivenAValidGetAllAdminsByEducationalInstitutionIDQuery_ShouldReturnResponseOfGetAllAdminsOfEducationalInstitutionQueryResultType()
         {
             //Arrange
-            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
+            GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
             { AdminsIDs = new List<Guid>() { Guid.NewGuid() } };
@@ -46,10 +46,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenAValidDTOAdminsByEducationalInstitutionIDQuery_ShouldReturnTrueOperationStatus()
+        public async Task GivenAValidGetAllAdminsByEducationalInstitutionIDQuery_ShouldReturnTrueOperationStatus()
         {
             //Arrange
-            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
+            GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
             { AdminsIDs = new List<Guid>() { Guid.NewGuid() } };
@@ -69,10 +69,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenAValidDTOAdminsByEducationalInstitutionIDQuery_ShouldReturnEmptyMessage()
+        public async Task GivenAValidGetAllAdminsByEducationalInstitutionIDQuery_ShouldReturnEmptyMessage()
         {
             //Arrange
-            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
+            GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
             { AdminsIDs = new List<Guid>() { Guid.NewGuid() } };
@@ -92,10 +92,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenAValidDTOAdminsByEducationalInstitutionIDQuery_ShouldReturnStatusCodeOK()
+        public async Task GivenAValidGetAllAdminsByEducationalInstitutionIDQuery_ShouldReturnStatusCodeOK()
         {
             //Arrange
-            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
+            GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
             { AdminsIDs = new List<Guid>() { Guid.NewGuid() } };
@@ -115,10 +115,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenAValidDTOAdminsByEducationalInstitutionIDQuery_ShouldReturnExpectedData()
+        public async Task GivenAValidGetAllAdminsByEducationalInstitutionIDQuery_ShouldReturnExpectedData()
         {
             //Arrange
-            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
+            GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
             { AdminsIDs = new List<Guid>() { Guid.NewGuid() } };
@@ -138,10 +138,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenAValidDTOAdminsByEducationalInstitutionIDQuery_WithIDThatDoesntExistInDatabase_ShouldReturnFalseOperationStatus()
+        public async Task GivenAValidGetAllAdminsByEducationalInstitutionIDQuery_WithIDThatDoesntExistInDatabase_ShouldReturnFalseOperationStatus()
         {
             //Arrange
-            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
+            GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
             { AdminsIDs = new List<Guid>() };
@@ -161,10 +161,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenAValidDTOAdminsByEducationalInstitutionIDQuery_WithIDThatDoesntExistInDatabase_ShouldReturnStatusCodeNotFound()
+        public async Task GivenAValidGetAllAdminsByEducationalInstitutionIDQuery_WithIDThatDoesntExistInDatabase_ShouldReturnStatusCodeNotFound()
         {
             //Arrange
-            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
+            GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
             { AdminsIDs = new List<Guid>() };
@@ -184,10 +184,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenAValidDTOAdminsByEducationalInstitutionIDQuery_WithIDThatDoesntExistInDatabase_ShouldReturnNullData()
+        public async Task GivenAValidGetAllAdminsByEducationalInstitutionIDQuery_WithIDThatDoesntExistInDatabase_ShouldReturnNullData()
         {
             //Arrange
-            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
+            GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
             { AdminsIDs = new List<Guid>() };
@@ -207,10 +207,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenAValidDTOAdminsByEducationalInstitutionIDQuery_WithIDThatDoesntExistInDatabase_ShouldReturnExpectedMessage()
+        public async Task GivenAValidGetAllAdminsByEducationalInstitutionIDQuery_WithIDThatDoesntExistInDatabase_ShouldReturnExpectedMessage()
         {
             //Arrange
-            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
+            GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
             { AdminsIDs = new List<Guid>() };
@@ -230,10 +230,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenAValidDTOAdminsByEducationalInstitutionIDQuery_AnExceptionIsCaught_ShouldReturnFalseOperationStatus()
+        public async Task GivenAValidGetAllAdminsByEducationalInstitutionIDQuery_AnExceptionIsCaught_ShouldReturnFalseOperationStatus()
         {
             //Arrange
-            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
+            GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
             { AdminsIDs = new List<Guid>() };
@@ -253,10 +253,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenAValidDTOAdminsByEducationalInstitutionIDQuery_AnExceptionIsCaught_ShouldReturnStatusCodeInternalServerError()
+        public async Task GivenAValidGetAllAdminsByEducationalInstitutionIDQuery_AnExceptionIsCaught_ShouldReturnStatusCodeInternalServerError()
         {
             //Arrange
-            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
+            GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
             { AdminsIDs = new List<Guid>() };
@@ -276,10 +276,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenAValidDTOAdminsByEducationalInstitutionIDQuery_AnExceptionIsCaught_ShouldReturnNullData()
+        public async Task GivenAValidGetAllAdminsByEducationalInstitutionIDQuery_AnExceptionIsCaught_ShouldReturnNullData()
         {
             //Arrange
-            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
+            GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
             { AdminsIDs = new List<Guid>() };
@@ -299,10 +299,10 @@ namespace EducationalInstitution.API.UnitTests.BusinessTests.Queries_Handlers_Te
         }
 
         [Fact]
-        public async Task GivenAValidDTOAdminsByEducationalInstitutionIDQuery_AnExceptionIsCaught_ShouldReturnExpectedMessage()
+        public async Task GivenAValidGetAllAdminsByEducationalInstitutionIDQuery_AnExceptionIsCaught_ShouldReturnExpectedMessage()
         {
             //Arrange
-            DTOAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
+            GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
             { AdminsIDs = new List<Guid>() };
