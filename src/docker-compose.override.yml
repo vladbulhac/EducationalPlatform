@@ -4,18 +4,18 @@ services:
    educationalinstitution-api:
        environment:
             - ASPNETCORE_ENVIRONMENT=Development
-            - ASPNETCORE_URLS=https://+:443;http://+:80
-            - ConnectionStrings__ConnectionToWriteDB=Server=sqldb;Database=ProjectOne.EducationalInstitutionsWrite;User Id=sa;Password=Pass@word;ConnectRetryInterval=30;
-            - ConnectionStrings__IntegrationTestsDB=Server=sqldb;Database=ProjectOne.Testing;User Id=sa;Password=Pass@word;ConnectRetryInterval=30;
+            - ConnectionStrings__WritesDB=Server=edu-publisher;Database=ProjectOne.EducationalInstitutions.Writes;User Id=sa;Password=Pass@word;ConnectRetryInterval=30;
+            - ConnectionStrings__ReadsDB=Server=edu-subscriber;Database=ProjectOne.EducationalInstitutions.Reads;User Id=sa;Password=Pass@word;ConnectRetryInterval=30;
+            - ConnectionStrings__IntegrationTestsDB=Server=edu-publisher;Database=ProjectOne.EducationalInstitutions.Tests;User Id=sa;Password=Pass@word;ConnectRetryInterval=30;
             - EventBus__HostName=rabbitmq
        ports:
-            - "50001:80"
-            - "53001:443"
+            - "50001:50001"
+            - "53001:53001"
    notification-api:
        environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - ASPNETCORE_URLS=http://0.0.0.0:80
-            - ConnectionStrings__ConnectionToNotificationDB=Server=sqldb;Database=ProjectOne.Notifications;User Id=sa;Password=Pass@word;ConnectRetryInterval=30;
+            - ConnectionStrings__ConnectionToNotificationDB=Server=notification-sqldb;Database=ProjectOne.Notifications;User Id=sa;Password=Pass@word;ConnectRetryInterval=30;
             - EventBus__HostName=rabbitmq
        ports:
             - "16780:80"
@@ -26,10 +26,32 @@ services:
             - ServicesUrls__gRPCEdu=http://educationalinstitution-api:50001
        ports:
             - "61632:80"
-   sqldb:
+   edu-distributor:
        environment:
             - ACCEPT_EULA=Y
             - MSSQL_SA_PASSWORD=Pass@word
+            - MSSQL_AGENT_ENABLED=true
+       ports:
+            - "1451:1433"
+   edu-publisher:
+       environment:
+            - ACCEPT_EULA=Y
+            - MSSQL_SA_PASSWORD=Pass@word
+            - MSSQL_AGENT_ENABLED=true
+       ports:
+            - "1452:1433"
+   edu-subscriber:
+        environment:
+            - ACCEPT_EULA=Y
+            - MSSQL_SA_PASSWORD=Pass@word
+            - MSSQL_AGENT_ENABLED=true
+        ports:
+            - "1453:1433"
+   notification-sqldb:
+       environment:
+            - ACCEPT_EULA=Y
+            - MSSQL_SA_PASSWORD=Pass@word
+            - MSSQL_AGENT_ENABLED=true
    rabbitmq:
        ports:
             - "15672:15672"
