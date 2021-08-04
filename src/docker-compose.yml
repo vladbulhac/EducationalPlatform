@@ -1,7 +1,29 @@
 version: "3.9"
 services:
-    sqldb:
+    notification-sqldb:
         image: "mcr.microsoft.com/mssql/server:2019-latest"
+    edu-distributor:
+        build:
+            context: .
+            dockerfile: Services/Edu/EducationalInstitution.Infrastructure/Replication/Distributor/Dockerfile
+        container_name: 'edu-distributor'
+        hostname: 'edu-distributor'
+    edu-publisher:
+        build:
+            context: .
+            dockerfile: Services/Edu/EducationalInstitution.Infrastructure/Replication/Publisher/Dockerfile
+        depends_on:
+           - edu-distributor
+        container_name: 'edu-publisher'
+        hostname: 'edu-publisher'
+    edu-subscriber:
+        build: 
+            context: .
+            dockerfile: Services/Edu/EducationalInstitution.Infrastructure/Replication/Subscriber/Dockerfile
+        depends_on:
+            - edu-distributor
+        container_name: 'edu-subscriber'
+        hostname: 'edu-subscriber'
     rabbitmq:
         image: rabbitmq:3-management-alpine
     educationalinstitution-api:
@@ -9,14 +31,16 @@ services:
             context: .
             dockerfile: Services/Edu/EducationalInstitution.API/Dockerfile
         depends_on:
-            - sqldb
+            - edu-distributor
+            - edu-publisher
+            - edu-subscriber
             - rabbitmq
     notification-api:
         build: 
             context: .
             dockerfile: Services/Notification/Notification.API/Dockerfile
         depends_on:
-            - sqldb
+            - notification-sqldb
             - rabbitmq
     aggregator:
         build:
