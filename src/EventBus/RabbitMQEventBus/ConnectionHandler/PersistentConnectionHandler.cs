@@ -75,8 +75,11 @@ namespace RabbitMQEventBus.ConnectionHandler
             {
                 try
                 {
-                    persistentChannel.Dispose();
-                    connection.Dispose();
+                    if (persistentChannel is not null)
+                        persistentChannel.Dispose();
+
+                    if (connection is not null)
+                        connection.Dispose();
 
                     disposed = true;
                 }
