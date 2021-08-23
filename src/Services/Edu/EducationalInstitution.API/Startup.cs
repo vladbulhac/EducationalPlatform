@@ -1,4 +1,5 @@
-using DatabaseCleanerService;
+using DatabaseTasks.ApplyMigrations_Task;
+using DatabaseTasks.Cleanup_Task;
 using DataValidation;
 using DataValidation.Abstractions;
 using EducationalInstitution.Application;
@@ -16,13 +17,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using RabbitMQ.Client;
 using RabbitMQEventBus;
 using RabbitMQEventBus.Abstractions;
 using RabbitMQEventBus.ConnectionHandler;
 using Serilog;
 using System;
+using System.Collections.Generic;
 
 namespace EducationalInstitutionAPI
 {
@@ -38,9 +39,10 @@ namespace EducationalInstitutionAPI
         {
             services.AddGrpc(options => options.EnableDetailedErrors = true);
 
-            services.AddControllers();
+            var writesDBConnectionString = Configuration.GetConnectionString("WritesDB");
+            var readsDBConnectionString = Configuration.GetConnectionString("ReadsDB");
 
-            services.AddDatabasesContexts(Configuration);
+            services.AddDatabasesContexts(writesDBConnectionString);
 
             services.AddCors(options =>
             {
@@ -52,12 +54,7 @@ namespace EducationalInstitutionAPI
                 });
             });
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Educational Institution API", Version = "v1" });
-            });
-
-            services.RegisterApplicationServices(Configuration);
+            services.AddApplicationServices(Configuration, writesDBConnectionString, readsDBConnectionString);
 
             services.AddMediatR(typeof(HandlerBase<>).Assembly);
         }
@@ -67,41 +64,70 @@ namespace EducationalInstitutionAPI
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage()
-                   .UseSwagger()
-                   .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Educational Institution API v1"));
+                app.UseDeveloperExceptionPage();
             }
 
             app//.UseHttpsRedirection() commented in order to use the http url to make grpc calls when using docker
                .UseStaticFiles()
                .UseRouting()
                .UseSerilogRequestLogging()
-               .UseAuthorization()
-               .ApplyMigrationsOnStartup(Configuration)
-               .UseEndpoints(endpoints => endpoints.RegisterGrpcServices());
+               .AddEventBusSubscriptions()
+               .UseEndpoints(endpoints => endpoints.AddGrpcServices());
         }
     }
 
     public static class StartupExtensionMethods
     {
-        public static IServiceCollection RegisterApplicationServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration, string writesDBConnectionString, string readsDBConnectionString)
         {
-            var dbConnectionString = configuration.GetSection("ConnectionStrings")["ReadsDB"];
-
             services.AddEventBus(configuration)
+                    .AddDatabaseCleanupHostedService(writesDBConnectionString)
                     .AddSingleton(_ => new ValidatorFactory(typeof(CreateEducationalInstitutionCommandValidator).Assembly))
                     .AddTransient<IValidationHandler, ValidationHandler>()
-                    .AddTransient<IUnitOfWorkForQueries>(_ => new UnitOfWorkForQueries(dbConnectionString))
+                    .AddTransient<IUnitOfWorkForQueries>(_ => new UnitOfWorkForQueries(readsDBConnectionString))
                     .AddTransient<IUnitOfWorkForCommands, UnitOfWorkForCommands>()
-                    .AddHostedService(serviceProvider =>
-                    {
-                        var writesConnectionString = configuration.GetSection("ConnectionStrings")["WritesDB"];
-                        var logger = serviceProvider.GetRequiredService<ILogger<Worker>>();
-
-                        return new Worker(writesConnectionString, retryInHours: 12, logger);
-                    });
+                    .AddApplyEntityFrameworkMigrationsHostedService(readsDBConnectionString);
 
             return services;
+        }
+
+        public static IServiceCollection AddDatabaseCleanupHostedService(this IServiceCollection services, string connectionString)
+        {
+            return services.AddHostedService(serviceProvider =>
+                            {
+                                var logger = serviceProvider.GetRequiredService<ILogger<DatabaseCleanup>>();
+
+                                return new DatabaseCleanup(connectionString, retryInHours: 12, logger);
+                            });
+        }
+
+        public static IServiceCollection AddApplyEntityFrameworkMigrationsHostedService(this IServiceCollection services, string connectionString)
+        {
+            return services.AddHostedService(serviceProvider =>
+                            {
+                                var contexts = new List<DataContext>();
+
+                                var context = serviceProvider.CreateScope()
+                                                             .ServiceProvider
+                                                             .GetRequiredService<DataContext>();
+                                contexts.Add(context);
+
+                                //create new DataContext with the connection string to the read database
+                                var dbOptions = new DbContextOptionsBuilder<DataContext>()
+                                                    .UseSqlServer(connectionString, providerOptions =>
+                                                    {
+                                                        providerOptions.EnableRetryOnFailure(maxRetryCount: 10,
+                                                                                             maxRetryDelay: TimeSpan.FromSeconds(30),
+                                                                                             errorNumbersToAdd: null);
+
+                                                        providerOptions.MigrationsAssembly("EducationalInstitution.Infrastructure");
+                                                    });
+
+                                contexts.Add(new DataContext(dbOptions.Options));
+
+                                var logger = serviceProvider.GetRequiredService<ILogger<ApplyEFMigrationsToSQLServerDatabase>>();
+                                return new ApplyEFMigrationsToSQLServerDatabase(contexts, logger);
+                            });
         }
 
         public static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration)
@@ -132,7 +158,7 @@ namespace EducationalInstitutionAPI
             return services;
         }
 
-        public static IEndpointRouteBuilder RegisterGrpcServices(this IEndpointRouteBuilder endpoints)
+        public static IEndpointRouteBuilder AddGrpcServices(this IEndpointRouteBuilder endpoints)
         {
             endpoints.MapGrpcService<EducationalInstitutionCommandService>();
             endpoints.MapGrpcService<EducationalInstitutionQueryService>();
@@ -140,11 +166,11 @@ namespace EducationalInstitutionAPI
             return endpoints;
         }
 
-        public static IServiceCollection AddDatabasesContexts(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddDatabasesContexts(this IServiceCollection services, string connectionString)
         {
             services.AddDbContext<DataContext>(options =>
                     {
-                        options.UseSqlServer(configuration.GetConnectionString("WritesDB"),
+                        options.UseSqlServer(connectionString,
                                              providerOptions =>
                                              {
                                                  providerOptions.EnableRetryOnFailure(maxRetryCount: 10,
@@ -153,46 +179,17 @@ namespace EducationalInstitutionAPI
                                                  providerOptions.MigrationsAssembly("EducationalInstitution.Infrastructure");
                                              });
 
-                        options.LogTo(Console.WriteLine);
+                        //options.LogTo(Console.WriteLine);
                     }, ServiceLifetime.Scoped);
 
             return services;
         }
 
-        public static IApplicationBuilder ApplyMigrationsOnStartup(this IApplicationBuilder app, IConfiguration configuration)
+        public static IApplicationBuilder AddEventBusSubscriptions(this IApplicationBuilder app)
         {
-            ApplyMigrationsOnWriteDatabases(app);
-
-            ApplyMigrationsOnReadDatabases(configuration);
+            app.ApplicationServices.GetRequiredService<IEventBus>();
 
             return app;
-        }
-
-        private static void ApplyMigrationsOnWriteDatabases(IApplicationBuilder app)
-        {
-            using var writesContext = app.ApplicationServices.CreateScope()
-                                                             .ServiceProvider
-                                                             .GetRequiredService<DataContext>();
-            writesContext.Database.Migrate();
-        }
-
-        private static void ApplyMigrationsOnReadDatabases(IConfiguration configuration)
-        {
-            var dbConnectionString = configuration.GetSection("ConnectionStrings")["ReadsDB"];
-
-            var dbOptions = new DbContextOptionsBuilder<DataContext>()
-                                .UseSqlServer(dbConnectionString, providerOptions =>
-                                {
-                                    providerOptions.EnableRetryOnFailure(maxRetryCount: 10,
-                                                                         maxRetryDelay: TimeSpan.FromSeconds(30),
-                                                                         errorNumbersToAdd: null);
-
-                                    providerOptions.MigrationsAssembly("EducationalInstitution.Infrastructure");
-                                });
-
-            using var readsContext = new DataContext(dbOptions.Options);
-
-            readsContext.Database.Migrate();
         }
     }
 }
