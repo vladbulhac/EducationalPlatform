@@ -6,6 +6,8 @@
 -- Each Publisher is associated with a single database (known as a distribution database) at the Distributor.
 
 -- Configure Publisher:
+EXEC sp_addremotelogin 'edu-publisher','sa';
+
 -- tell the Publisher who the remote Distributor is
 EXEC sp_adddistributor @distributor = 'edu-distributor',
                        @password = 'Pass@word';

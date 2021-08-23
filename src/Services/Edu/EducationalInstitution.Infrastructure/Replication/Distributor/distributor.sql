@@ -5,13 +5,21 @@
 -- The distribution database stores replication status data, metadata about the publication, and, in some cases, acts as a queue for data moving from the Publisher to the Subscribers. 
 
 -- Configure remote Distributor:
+EXEC sp_addremotelogin 'edu-distributor','sa';
+
 -- mark this server as a Distributor
 EXEC sp_adddistributor @distributor = 'edu-distributor', -- name of the Distributor instance
                        @password = 'Pass@word'; -- password of the distributor_admin
 
 -- create the distribution database which stores procedures, schema, and metadata used in replication
-EXEC sp_adddistributiondb @database = 'distribution';
+EXEC sp_adddistributiondb @database = 'distribution',
+                          @security_mode = 0, -- uses SQL Server Authentication (0) because Windows Authentication (1) is not available by default in Linux containers(Docker)
+                          @login = 'sa',
+                          @password = 'Pass@word';
 
 -- tell the Distributor who the Publisher is 
 EXEC sp_adddistpublisher @publisher = 'edu-publisher', -- name of the Publisher instance
-                         @distribution_db = 'distribution';
+                         @distribution_db = 'distribution',
+                         @security_mode = 0, -- uses SQL Server Authentication (0) because Windows Authentication (1) is not available by default in Linux containers(Docker)
+                         @login = 'sa',
+                         @password = 'Pass@word';
