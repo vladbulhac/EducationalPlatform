@@ -35,6 +35,8 @@ namespace RabbitMQEventBus
 
             appServicesProvider = services.BuildServiceProvider();
             subscriptionManager = new SubscriptionManager();
+
+            connectionHandler.CanEstablishConnection();
         }
 
         public void Publish(IntegrationEvent @event)
@@ -52,7 +54,7 @@ namespace RabbitMQEventBus
             if (!connectionHandler.CanEstablishConnection()) return;
 
             using var channelForPublishingThisEvents = connectionHandler.GetTransientChannel();
-            logger.LogDebug("A channel was created successfully, continuing with Publishing the event!");
+            logger.LogDebug("A channel was created successfully, continuing with Publishing the events!");
 
             foreach (var @event in @events)
                 Publish(@event, channelForPublishingThisEvents);
@@ -182,7 +184,7 @@ namespace RabbitMQEventBus
 
         public void Dispose()
         {
-            if (!disposed)
+            if (!disposed && connectionHandler is not null)
             {
                 connectionHandler.Dispose();
                 disposed = true;
