@@ -1053,8 +1053,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     new List<Guid>() { Guid.NewGuid() });
 
             var expectedDateForPermanentDeletion = DateTime.UtcNow.Date;
-            var daysFromConfigFile = ConfigurationHelper.GetCurrentSettings("DaysUntilDeletion");
-            int days = int.Parse(daysFromConfigFile);
+            double days = 30;
             expectedDateForPermanentDeletion = expectedDateForPermanentDeletion.AddDays(days).ToUniversalTime();
 
             //Act
@@ -1076,8 +1075,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     new List<Guid>() { Guid.NewGuid() });
 
             var expectedDateForPermanentDeletion = DateTime.UtcNow.Date;
-            var daysFromConfigFile = ConfigurationHelper.GetCurrentSettings("DaysUntilDeletion");
-            int days = int.Parse(daysFromConfigFile);
+            double days = 30;
             expectedDateForPermanentDeletion = expectedDateForPermanentDeletion.AddDays(days).ToUniversalTime();
 
             //Act
