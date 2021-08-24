@@ -1,0 +1,7 @@
+{
+  "Tests": {
+    "ResourcesPaths": {
+      "EducationalInstitutionsFilePath": "Resources\\EducationalInstitutions.examples.json"
+    }
+  }
+}
