@@ -2,6 +2,7 @@
 using EducationalInstitution.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.IO;
 using System.Linq;
 
 namespace EducationalInstitution.API.IntegrationTests
@@ -15,12 +16,23 @@ namespace EducationalInstitution.API.IntegrationTests
         public DatabaseFixture()
         {
             testDataHelper = new();
-            DbConnection = ConfigurationHelper.GetCurrentSettings("ConnectionStrings:IntegrationTestsDB") ?? throw new Exception("Could not find the database connection string used for testing!");
+
+            DbConnection = ConfigurationHelper.GetCurrentSettings(key: "ConnectionStrings:IntegrationTestsDB",
+                                                                  directory: GetApplicationPath(),
+                                                                  "appsettings.json",
+                                                                  "appsettings.Development.json") ?? throw new Exception("Could not find the database connection string used for testing!");
 
             SetupContext();
 
             CleanupDatabase();
             SeedDatabase(testDataHelper);
+        }
+
+        private string GetApplicationPath()
+        {
+            string currentDirectory = Directory.GetCurrentDirectory();
+
+            return Path.Combine(Directory.GetParent(currentDirectory).Parent.Parent.Parent.FullName, "EducationalInstitution.API");
         }
 
         private void SetupContext()

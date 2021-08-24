@@ -16,7 +16,7 @@ namespace EducationalInstitution.API.IntegrationTests
 
         private static bool IsDatabaseLoaded()
         {
-            var IS_DBLOADED = ConfigurationHelper.GetCurrentSettings("Tests:IntegrationTestsVariables:IS_DBLOADED");
+            var IS_DBLOADED = ConfigurationHelper.GetCurrentSettings(key: "Tests:IntegrationTestsVariables:IS_DBLOADED", configFilenames: "tests_config.json");
             if (IS_DBLOADED is not null)
                 return bool.Parse(IS_DBLOADED);
 

@@ -15,12 +15,13 @@ namespace EducationalInstitution.API.Tests.Shared
 
         public TestDataFromJSONParser()
         {
-            var testDataPath = ConfigurationHelper.GetCurrentSettings("Tests:ResourcesPaths:EducationalInstitutionsFilePath") ?? throw new Exception("Could not find the test data file path in appsettings.json file!");
+            var testDataPath = ConfigurationHelper.GetCurrentSettings("Tests:ResourcesPaths:EducationalInstitutionsFilePath",
+                                                                      configFilenames: "tests_config.json") ?? throw new Exception("Could not find the test data file path in appsettings.json file!");
             GetEducationalInstitutionsFromJSONFile(testDataPath);
             SetupEducationalInstitutions();
         }
 
-        private void GetEducationalInstitutionsFromJSONFile(string path)
+        private void GetEducationalInstitutionsFromJSONFile(string path = "Resources\\EducationalInstitutions.examples.json")
         {
             string file = File.ReadAllText(path);
             dynamic jsonEducationalInstitutions = JsonConvert.DeserializeObject(file);
