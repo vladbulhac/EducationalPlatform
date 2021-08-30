@@ -49,7 +49,7 @@ namespace DatabaseTasks.Cleanup_Task
                 {
                     await connection.OpenAsync();
 
-                    logger.LogDebug($"{this.GetType().Namespace} established connection to database with connection string: {dbConnectionString}... proceeding with removing all entitites that are scheduled today for deletion!");
+                    logger.LogDebug($"{this.GetType().Namespace} established connection to database: {connection.DataSource} - {connection.Database}... proceeding with removing all entitites that are scheduled today for deletion!");
 
                     var tables = await GetAllTablesFromDatabase(connection);
 
