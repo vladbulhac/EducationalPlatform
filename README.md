@@ -1,4 +1,4 @@
-# ProjectOne
+# Educational Platform
 
 | Aggregator | Educational Institution API | Notification API |
 | ----------- | --------------------------- | ---------------- |
