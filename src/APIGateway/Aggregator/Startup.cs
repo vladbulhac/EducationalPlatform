@@ -1,12 +1,14 @@
+using Aggregator.Authorization;
 using Aggregator.EducationalInstitutionAPI.Proto;
+using Aggregator.Infrastructure;
 using Aggregator.Services.EducationalInstitution;
-using Aggregator.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using OpenIddict.Validation.AspNetCore;
 using Serilog;
 using System;
 using System.Net.Http;
@@ -25,12 +27,15 @@ namespace Aggregator
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOpenIDDictConfiguration(Configuration);
+
             services.AddControllers();
 
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Aggregator", Version = "v1" }));
 
             services.AddScoped<IEducationalInstitutionCommandService, EducationalInstitutionCommandService>()
-                    .AddScoped<IEducationalInstitutionQueryService, EducationalInstitutionQueryService>();
+                    .AddScoped<IEducationalInstitutionQueryService, EducationalInstitutionQueryService>()
+                    .AddScoped<IRequestAuthorizationService, RequestAuthorizationService>();
 
             services.AddGrpcClients(Configuration);
         }
@@ -45,12 +50,13 @@ namespace Aggregator
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Aggregator v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseSerilogRequestLogging();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
@@ -79,6 +85,36 @@ namespace Aggregator
             services.AddGrpcClient<Command.CommandClient>(options => options.Address = eduUri)
                     .ConfigureChannel(ch => ch.HttpHandler = httpHandler)
                     .AddInterceptor<GrpcExceptionInterceptor>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddOpenIDDictConfiguration(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAuthentication(options => options.DefaultAuthenticateScheme = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
+
+            var aggregator = configuration.GetSection("Identity")["name"];
+
+            services.AddOpenIddict()
+                    .AddValidation(options =>
+                    {
+                        // Note: the validation handler uses OpenID Connect discovery
+                        // to retrieve the address of the introspection endpoint.
+                        options.SetIssuer(configuration.GetSection("ServicesUrls")["identity"]);
+                        options.AddAudiences(aggregator, "educational_institution_api");
+
+                        // Configure the validation handler to use introspection and register the client
+                        // credentials used when communicating with the remote introspection endpoint.
+                        options.UseIntrospection()
+                               .SetClientId(aggregator)
+                               .SetClientSecret(configuration.GetSection("Identity")["secret"]);
+
+                        // Register the System.Net.Http integration.
+                        options.UseSystemNetHttp();
+
+                        // Register the ASP.NET Core host.
+                        options.UseAspNetCore();
+                    });
 
             return services;
         }
