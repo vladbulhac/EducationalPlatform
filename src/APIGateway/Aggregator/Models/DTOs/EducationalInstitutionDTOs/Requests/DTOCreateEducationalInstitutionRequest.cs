@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Aggregator.DTOs.EducationalInstitutionDTOs.Requests
+namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs.Requests
 {
     public record DTOCreateEducationalInstitutionRequest
     {

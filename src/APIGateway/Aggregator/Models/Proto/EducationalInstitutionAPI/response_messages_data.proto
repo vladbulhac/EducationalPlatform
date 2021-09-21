@@ -1,6 +1,6 @@
 syntax = "proto3";
 import "google/protobuf/timestamp.proto";
-import "Proto/Common/uuid.proto";
+import "Models/Proto/Common/uuid.proto";
 
 option csharp_namespace = "Aggregator.EducationalInstitutionAPI.Proto";
 

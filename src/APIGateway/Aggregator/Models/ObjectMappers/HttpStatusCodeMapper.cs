@@ -3,7 +3,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Net;
 
-namespace Aggregator.Utils
+namespace Aggregator.Models.ObjectMappers
 {
     public static class HttpStatusCodeMapper
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Aggregator.DTOs.EducationalInstitutionDTOs.Responses
+namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs.Responses
 {
     public record CreateEducationalInstitutionResponse
     {

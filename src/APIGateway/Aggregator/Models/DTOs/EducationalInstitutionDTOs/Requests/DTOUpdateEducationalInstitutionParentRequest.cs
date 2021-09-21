@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Aggregator.DTOs.EducationalInstitutionDTOs.Requests
+namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs.Requests
 {
     public record DTOUpdateEducationalInstitutionParentRequest
     {

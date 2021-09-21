@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Aggregator.DTOs.EducationalInstitutionDTOs.Responses
+namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs.Responses
 {
     public record GetAllEducationalInstitutionsByLocationResponse
     {

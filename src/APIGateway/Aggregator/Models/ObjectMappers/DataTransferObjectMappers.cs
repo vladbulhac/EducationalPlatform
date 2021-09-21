@@ -1,16 +1,15 @@
 ﻿using Aggregator.Common.Proto;
-using Aggregator.DTOs;
-using Aggregator.DTOs.EducationalInstitutionDTOs.Requests;
-using Aggregator.DTOs.EducationalInstitutionDTOs.Responses;
 using Aggregator.EducationalInstitutionAPI.Proto;
-using EducationaInstitutionAPI.Utils;
+using Aggregator.Models.DTOs;
+using Aggregator.Models.DTOs.EducationalInstitutionDTOs.Requests;
+using Aggregator.Models.DTOs.EducationalInstitutionDTOs.Responses;
 using Google.Protobuf.Collections;
 using Grpc.Core;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
-namespace Aggregator.Utils
+namespace Aggregator.Models.ObjectMappers
 {
     /// <summary>
     /// Contains extension methods that are used to map requests/responses

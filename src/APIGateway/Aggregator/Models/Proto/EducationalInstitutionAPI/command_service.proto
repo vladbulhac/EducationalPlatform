@@ -1,6 +1,6 @@
 syntax = "proto3";
-import "Proto/EducationalInstitutionAPI/request_messages.proto";
-import "Proto/EducationalInstitutionAPI/response_messages.proto";
+import "Models/Proto/EducationalInstitutionAPI/request_messages.proto";
+import "Models/Proto/EducationalInstitutionAPI/response_messages.proto";
 
 option csharp_namespace = "Aggregator.EducationalInstitutionAPI.Proto";
 

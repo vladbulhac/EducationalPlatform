@@ -2,7 +2,7 @@
 using System;
 using System.Buffers.Binary;
 
-namespace EducationaInstitutionAPI.Utils
+namespace Aggregator.Models.ObjectMappers
 {
     /// <summary>
     /// Contains methods that are used to convert <see cref="Guid"/> to the protocol buffer language and vice versa

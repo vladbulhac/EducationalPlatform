@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Aggregator.DTOs
+namespace Aggregator.Models.DTOs
 {
     /// <summary>
     /// Extends <see cref="Response"/> with a result object
