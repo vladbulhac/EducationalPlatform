@@ -1,6 +1,15 @@
 version: '3.9'
 
 services:
+   identity-api:
+       environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://0.0.0.0:41110
+            - ConnectionStrings__IdentityDB=Server=identity-sqldb;Database=ProjectOne.Identity;User Id=sa;Password=Pass@word;ConnectRetryInterval=30;
+            - Identity__Issuer=http://identity-api:41110
+            - EventBus__HostName=rabbitmq
+       ports:
+            - "41110:41110" 
    educationalinstitution-api:
        environment:
             - ASPNETCORE_ENVIRONMENT=Development
@@ -24,6 +33,7 @@ services:
             - ASPNETCORE_ENVIRONMENT=Development
             - ASPNETCORE_URLS=http://0.0.0.0:80
             - ServicesUrls__gRPCEdu=http://educationalinstitution-api:50001
+            - ServicesUrls__identity=http://identity-api:41110
        ports:
             - "61632:80"
    edu-distributor:
@@ -52,6 +62,13 @@ services:
             - ACCEPT_EULA=Y
             - MSSQL_SA_PASSWORD=Pass@word
             - MSSQL_AGENT_ENABLED=true
+   identity-sqldb:
+       environment:
+            - ACCEPT_EULA=Y
+            - MSSQL_SA_PASSWORD=Pass@word
+            - MSSQL_AGENT_ENABLED=true
+       ports:
+            - "1461:1433"
    rabbitmq:
        ports:
             - "15672:15672"
