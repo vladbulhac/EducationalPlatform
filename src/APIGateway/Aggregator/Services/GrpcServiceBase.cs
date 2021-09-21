@@ -1,4 +1,4 @@
-﻿using Aggregator.DTOs;
+﻿using Aggregator.Models;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
 using System;

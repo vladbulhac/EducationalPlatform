@@ -1,5 +1,5 @@
-﻿using Aggregator.DTOs;
-using Aggregator.EducationalInstitutionAPI.Proto;
+﻿using Aggregator.EducationalInstitutionAPI.Proto;
+using Aggregator.Models;
 using System.Threading.Tasks;
 
 namespace Aggregator.Services.EducationalInstitution
