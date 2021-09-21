@@ -1,12 +1,15 @@
-﻿using Aggregator.DTOs;
-using Aggregator.DTOs.EducationalInstitutionDTOs.Requests;
-using Aggregator.DTOs.EducationalInstitutionDTOs.Responses;
+﻿using Aggregator.Authorization;
+using Aggregator.Authorization.Policies;
 using Aggregator.EducationalInstitutionAPI.Proto;
+using Aggregator.Models.DTOs;
+using Aggregator.Models.DTOs.EducationalInstitutionDTOs.Requests;
+using Aggregator.Models.DTOs.EducationalInstitutionDTOs.Responses;
+using Aggregator.Models.ObjectMappers;
 using Aggregator.Services.EducationalInstitution;
-using Aggregator.Utils;
-using EducationaInstitutionAPI.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OpenIddict.Validation.AspNetCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,25 +18,33 @@ namespace Aggregator.Controllers
 {
     [ApiController]
     [Route("api/v1/edu")]
+    [Authorize(AuthenticationSchemes = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme)]
     public class EducationalInstitutionController : ControllerBase
     {
         private readonly IEducationalInstitutionCommandService commandService;
         private readonly IEducationalInstitutionQueryService queryService;
+        private readonly IRequestAuthorizationService authorizationService;
 
-        public EducationalInstitutionController(IEducationalInstitutionCommandService commandService, IEducationalInstitutionQueryService queryService)
+        public EducationalInstitutionController(IEducationalInstitutionCommandService commandService, IEducationalInstitutionQueryService queryService, IRequestAuthorizationService authorizationService)
         {
             this.commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
             this.queryService = queryService ?? throw new ArgumentNullException(nameof(queryService));
+            this.authorizationService = authorizationService ?? throw new ArgumentNullException(nameof(authorizationService));
         }
 
         [HttpPost]
         [Produces("application/json")]
+        [ProducesResponseType(typeof(ForbidResult), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(Response<CreateEducationalInstitutionResponse>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(Response<CreateEducationalInstitutionResponse>), StatusCodes.Status207MultiStatus)]
         [ProducesResponseType(typeof(Response<CreateEducationalInstitutionResponse>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(Response<CreateEducationalInstitutionResponse>), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Response<CreateEducationalInstitutionResponse>>> CreateAsync([FromBody] DTOCreateEducationalInstitutionRequest data)
         {
+            if (!authorizationService.IsRequestValid(User, new CreateEducationalInstitutionPolicy(), out ActionResult authorizationResponse))
+                return authorizationResponse;
+
             var mappedRequest = data.MapToEducationalInstitutionCreateRequest();
 
             var grpcCallResponse = await commandService.CreateEducationalInstitutionAsync(mappedRequest);
@@ -42,8 +53,7 @@ namespace Aggregator.Controllers
             return StatusCode((int)mappedResponse.StatusCode, mappedResponse);
         }
 
-        [HttpGet]
-        [Route("{id}")]
+        [HttpGet("{id}"), AllowAnonymous]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Response<GetEducationalInstitutionByIDResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Response<GetEducationalInstitutionByIDResponse>), StatusCodes.Status400BadRequest)]
@@ -59,8 +69,7 @@ namespace Aggregator.Controllers
             return StatusCode((int)mappedResponse.StatusCode, mappedResponse);
         }
 
-        [HttpGet]
-        [Route("location/{locationID}")]
+        [HttpGet("location/{locationID}"), AllowAnonymous]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Response<GetAllEducationalInstitutionsByLocationResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Response<GetAllEducationalInstitutionsByLocationResponse>), StatusCodes.Status400BadRequest)]
@@ -76,8 +85,7 @@ namespace Aggregator.Controllers
             return StatusCode((int)mappedResponse.StatusCode, mappedResponse);
         }
 
-        [HttpGet]
-        [Route("location/buildings/{buildingID}")]
+        [HttpGet("location/buildings/{buildingID}"), AllowAnonymous]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Response<GetAllEducationalInstitutionsByBuildingResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Response<GetAllEducationalInstitutionsByBuildingResponse>), StatusCodes.Status400BadRequest)]
@@ -93,7 +101,7 @@ namespace Aggregator.Controllers
             return StatusCode((int)mappedResponse.StatusCode, mappedResponse);
         }
 
-        [HttpGet("{name}&{offset}&{results}")]
+        [HttpGet("{name}&{offset}&{results}"), AllowAnonymous]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Response<GetAllEducationalInstitutionsByNameResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Response<GetAllEducationalInstitutionsByNameResponse>), StatusCodes.Status400BadRequest)]
@@ -114,8 +122,7 @@ namespace Aggregator.Controllers
             return StatusCode((int)mappedResponse.StatusCode, mappedResponse);
         }
 
-        [HttpGet]
-        [Route("{id}/admins")]
+        [HttpGet("{id}/admins"), AllowAnonymous]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Response<GetAllAdminsByEducationalInstitutionIDResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Response<GetAllAdminsByEducationalInstitutionIDResponse>), StatusCodes.Status400BadRequest)]
@@ -131,8 +138,7 @@ namespace Aggregator.Controllers
             return StatusCode((int)mappedResponse.StatusCode, mappedResponse);
         }
 
-        [HttpPatch]
-        [Route("{id}")]
+        [HttpPatch("{id}")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Response), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(Response), StatusCodes.Status400BadRequest)]
@@ -158,8 +164,7 @@ namespace Aggregator.Controllers
             return NoContent();
         }
 
-        [HttpPatch]
-        [Route("{id}/location")]
+        [HttpPatch("{id}/location")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Response), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(Response), StatusCodes.Status400BadRequest)]
@@ -186,8 +191,7 @@ namespace Aggregator.Controllers
             return NoContent();
         }
 
-        [HttpPatch]
-        [Route("{id}/parent")]
+        [HttpPatch("{id}/parent")]
         [ProducesResponseType(typeof(Response), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(Response), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(Response), StatusCodes.Status404NotFound)]
@@ -209,13 +213,12 @@ namespace Aggregator.Controllers
             return NoContent();
         }
 
-        [HttpPatch]
-        [Route("{id}/admins")]
+        [HttpPatch("{id}/admins")]
         [ProducesResponseType(typeof(Response), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(Response), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(Response), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(Response), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Response>> UpdateAdminAsync([FromRoute] Guid id, [FromBody] DTOUpdateEducationalInstitutionAdminRequest data)
+        public async Task<ActionResult<Response>> UpdateAdminsAsync([FromRoute] Guid id, [FromBody] DTOUpdateEducationalInstitutionAdminRequest data)
         {
             EducationalInstitutionAdminUpdateRequest request = new()
             {
@@ -233,8 +236,7 @@ namespace Aggregator.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
-        [Route("{id}")]
+        [HttpDelete("{id}")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Response<DeleteEducationalInstitutionResponse>), StatusCodes.Status202Accepted)]
         [ProducesResponseType(typeof(Response<DeleteEducationalInstitutionResponse>), StatusCodes.Status400BadRequest)]
@@ -242,6 +244,9 @@ namespace Aggregator.Controllers
         [ProducesResponseType(typeof(Response<DeleteEducationalInstitutionResponse>), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Response<DeleteEducationalInstitutionResponse>>> DeleteAsync([FromRoute] Guid id)
         {
+            if (!authorizationService.IsRequestValid(User, new DeleteEducationalInstitutionPolicy(), out ActionResult authorizationResponse))
+                return authorizationResponse;
+
             EducationalInstitutionDeleteRequest request = new() { EducationalInstitutionId = id.ToProtoUuid() };
 
             var grpcCallResponse = await commandService.DeleteEducationalInstitutionAsync(request);
