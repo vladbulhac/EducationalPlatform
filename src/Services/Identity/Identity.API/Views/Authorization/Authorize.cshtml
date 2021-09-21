@@ -1,0 +1,18 @@
+﻿@using Microsoft.Extensions.Primitives
+@model Identity.API.Models.AuthorizationViewModels.AuthorizeViewModel
+
+<div class="jumbotron">
+    <h1>Authorization required</h1>
+
+    <p class="lead text-left"><strong>@Model.ApplicationName</strong> wants to access your following data @Model.Scope, do you approve?</p>
+    <form asp-controller="Authorization" asp-action="Authorize" method="post">
+        @* Flow the request parameters so they can be received by the Accept/Reject actions: *@
+        @foreach (var parameter in Context.Request.HasFormContentType ? (IEnumerable<KeyValuePair<string, StringValues>>)Context.Request.Form : Context.Request.Query)
+        {
+            <input type="hidden" name="@parameter.Key" value="@parameter.Value" />
+        }
+
+        <input class="btn btn-lg btn-success" name="submit.Accept" type="submit" value="Yes" />
+        <input class="btn btn-lg btn-danger" name="submit.Deny" type="submit" value="No" />
+    </form>
+</div>
