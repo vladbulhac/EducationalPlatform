@@ -1,38 +1,53 @@
 trigger:
   branches:
     include:
-    - main
+      - main
   paths:
     include:
-    - /src/APIGateway
+      - /src/APIGateway
 name: $(date:yyyyMMdd)$(rev:.r)
 resources:
   repositories:
-  - repository: self
-    type: git
-    ref: main
+    - repository: self
+      type: git
+      ref: main
 jobs:
-- job: Job_1
-  displayName: Agent job 1
-  timeoutInMinutes: 7
-  pool:
-    vmImage: windows-2019
-  steps:
-  - checkout: self
-  - task: DotNetCoreCLI@2
-    displayName: Restore
-    inputs:
-      command: restore
-      projects: src/APIGateway/Aggregator/Aggregator.csproj
-  - task: DotNetCoreCLI@2
-    displayName: Build Aggregator
-    inputs:
-      projects: src/APIGateway/Aggregator/Aggregator.csproj
-      arguments: --configuration $(BuildConfiguration)
-  - task: PublishBuildArtifacts@1
-    displayName: Publish Artifact
-    condition: succeededOrFailed()
-    inputs:
-      PathtoPublish: $(build.artifactstagingdirectory)
-      TargetPath: '\\my\share\$(Build.DefinitionName)\$(Build.BuildNumber)'
-...
+  - job: Job_1
+    displayName: Agent job 1
+    timeoutInMinutes: 7
+    pool:
+      vmImage: windows-2019
+    steps:
+      - checkout: self
+      - task: NuGetToolInstaller@1
+        displayName: Use NuGet 5.8.1
+        inputs:
+          versionSpec: 5.8.1
+          checkLatest: true
+      - task: DotNetCoreCLI@2
+        displayName: Restore
+        inputs:
+          command: restore
+          projects: src/APIGateway/Aggregator/Aggregator.csproj
+      - task: DotNetCoreCLI@2
+        displayName: Build Aggregator
+        inputs:
+          projects: src/APIGateway/Aggregator/Aggregator.csproj
+          arguments: --configuration $(BuildConfiguration)
+      - task: DotNetCoreCLI@2
+        displayName: Aggregator Unit Tests
+        inputs:
+          command: test
+          projects: src/APIGateway/Aggregator.UnitTests/Aggregator.UnitTests.csproj
+          arguments: --configuration $(BuildConfiguration)
+      - task: DotNetCoreCLI@2
+        displayName: Publish
+        inputs:
+          command: publish
+          arguments: --configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)
+      - task: PublishBuildArtifacts@1
+        displayName: Publish Artifact
+        condition: succeededOrFailed()
+        inputs:
+          PathtoPublish: $(build.artifactstagingdirectory)
+          TargetPath: '\\my\share\$(Build.DefinitionName)\$(Build.BuildNumber)'
