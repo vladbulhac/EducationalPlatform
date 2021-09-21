@@ -13,6 +13,8 @@ COPY "EventBus/RabbitMQEventBus/RabbitMQEventBus.csproj" "EventBus/RabbitMQEvent
 COPY "Validation/DataValidation/DataValidation.csproj" "Validation/DataValidation/DataValidation.csproj"
 COPY "BackgroundTasks/DatabaseTasks/DatabaseTasks.csproj" "BackgroundTasks/DatabaseTasks/DatabaseTasks.csproj"
 
+COPY "APIGateway/Aggregator/Aggregator.csproj" "APIGateway/Aggregator/Aggregator.csproj"
+
 COPY "Services/Edu/EducationalInstitution.API.Tests.Shared/EducationalInstitution.API.Tests.Shared.csproj" "Services/Edu/EducationalInstitution.API.Tests.Shared/EducationalInstitution.API.Tests.Shared.csproj"
 COPY "Services/Edu/EducationalInstitution.API.UnitTests/EducationalInstitution.API.UnitTests.csproj" "Services/Edu/EducationalInstitution.API.UnitTests/EducationalInstitution.API.UnitTests.csproj"
 COPY "Services/Edu/EducationalInstitution.API.IntegrationTests/EducationalInstitution.API.IntegrationTests.csproj" "Services/Edu/EducationalInstitution.API.IntegrationTests/EducationalInstitution.API.IntegrationTests.csproj"
@@ -21,12 +23,14 @@ COPY "Services/Edu/EducationalInstitution.Application/EducationalInstitution.App
 COPY "Services/Edu/EducationalInstitution.Domain/EducationalInstitution.Domain.csproj" "Services/Edu/EducationalInstitution.Domain/EducationalInstitution.Domain.csproj"
 COPY "Services/Edu/EducationalInstitution.Infrastructure/EducationalInstitution.Infrastructure.csproj" "Services/Edu/EducationalInstitution.Infrastructure/EducationalInstitution.Infrastructure.csproj"
 
-COPY "APIGateway/Aggregator/Aggregator.csproj" "APIGateway/Aggregator/Aggregator.csproj"
-
 COPY "Services/Notification/Notification.API/Notification.API.csproj" "Services/Notification/Notification.API/Notification.API.csproj"
 COPY "Services/Notification/Notification.Application/Notification.Application.csproj" "Services/Notification/Notification.Application/Notification.Application.csproj"
 COPY "Services/Notification/Notification.Domain/Notification.Domain.csproj" "Services/Notification/Notification.Domain/Notification.Domain.csproj"
 COPY "Services/Notification/Notification.Infrastructure/Notification.Infrastructure.csproj" "Services/Notification/Notification.Infrastructure/Notification.Infrastructure.csproj"
+
+COPY "Services/Identity/Identity.API/Identity.API.csproj" "Services/Identity/Identity.API/Identity.API.csproj"
+
+COPY "docker-compose.dcproj" "docker-compose.dcproj"
 
 RUN dotnet restore "EducationalPlatform.sln"
 
