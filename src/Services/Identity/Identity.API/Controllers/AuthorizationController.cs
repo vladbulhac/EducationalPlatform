@@ -108,6 +108,8 @@ namespace Identity.API.Controllers
 
         private async Task<IActionResult> RedirectToLoginPage(OpenIddictRequest request)
         {
+            await Task.Yield();
+
             //removes the login prompt to avoid endless login -> authorization redirects
             var prompt = string.Join(" ", request.GetPrompts().Remove(Prompts.Login));
 
