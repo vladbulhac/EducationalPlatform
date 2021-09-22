@@ -96,7 +96,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
                 {
                     Message = "Admin rights granted for an Educational Institution!",
                     ToNotify = notificationData.NewAdminsToNotify,
-                    Url = $"/edu/{educationalInstitutionID}",
+                    Uri = $"/edu/{educationalInstitutionID}",
                     TriggeredBy = new()
                     {
                         ServiceName = this.GetType().Namespace.Split('.')[0],
@@ -111,7 +111,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
                 {
                     Message = "Admin rights revoked for an Educational Institution!",
                     ToNotify = notificationData.RemovedAdminsToNotify,
-                    Url = $"/edu/{educationalInstitutionID}",
+                    Uri = $"/edu/{educationalInstitutionID}",
                     TriggeredBy = new()
                     {
                         ServiceName = this.GetType().Namespace.Split('.')[0],
@@ -124,7 +124,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
             {
                 Message = "Educational Institution's admins were updated!",
                 ToNotify = notificationData.AdminsToNotify,
-                Url = $"/edu/{educationalInstitutionID}",
+                Uri = $"/edu/{educationalInstitutionID}",
                 TriggeredBy = new()
                 {
                     ServiceName = this.GetType().Namespace.Split('.')[0],

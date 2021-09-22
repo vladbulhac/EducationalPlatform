@@ -95,7 +95,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
                     Action = "Update",
                     ServiceName = this.GetType().Namespace.Split('.')[0]
                 },
-                Url = $"/edu/{educationalInstitutionID}",
+                Uri = $"/edu/{educationalInstitutionID}",
                 ToNotify = adminsToNotify,
             };
 

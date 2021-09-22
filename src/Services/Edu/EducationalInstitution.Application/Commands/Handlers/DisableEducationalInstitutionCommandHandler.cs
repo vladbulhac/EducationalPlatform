@@ -91,7 +91,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
             {
                 Message = $"The Educational Institution with ID: {educationalInstitutionID} has been scheduled for deletion on: {scheduledDateForDeletion}!",
                 ToNotify = adminsToNotify,
-                Url = string.Empty,
+                Uri = string.Empty,
                 TriggeredBy = new()
                 {
                     ServiceName = this.GetType().Namespace.Split('.')[0],

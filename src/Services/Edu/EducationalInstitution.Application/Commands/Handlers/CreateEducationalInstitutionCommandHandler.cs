@@ -110,7 +110,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
                 {
                     Message = "An Educational Institution assigned this institution as a parent!",
                     ToNotify = parentAdmins,
-                    Url = $"/edu/{newEducationalInstitutionId}",
+                    Uri = $"/edu/{newEducationalInstitutionId}",
                     TriggeredBy = new()
                     {
                         ServiceName = this.GetType().Namespace.Split('.')[0],
@@ -123,7 +123,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
             {
                 Message = "Admin rights granted for a recently created Educational Institution!",
                 ToNotify = newAdmins,
-                Url = $"/edu/{newEducationalInstitutionId}",
+                Uri = $"/edu/{newEducationalInstitutionId}",
                 TriggeredBy = new()
                 {
                     ServiceName = this.GetType().Namespace.Split('.')[0],

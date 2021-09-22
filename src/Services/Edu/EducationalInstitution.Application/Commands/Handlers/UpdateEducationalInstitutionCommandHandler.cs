@@ -116,7 +116,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
             NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent @event = new()
             {
                 Message = "An Educational Institution has been recently updated!",
-                Url = $"/edu/{educationalInstitutionID}",
+                Uri = $"/edu/{educationalInstitutionID}",
                 ToNotify = adminsToNotify,
                 TriggeredBy = new()
                 {
