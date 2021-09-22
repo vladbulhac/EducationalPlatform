@@ -6,6 +6,6 @@ namespace Notification.Application.Integration_Events.Events
 {
     public record NotificationIntegrationEvent : IntegrationEvent
     {
-        public ICollection<Guid> ToNotify { get; init; }
+        public ICollection<string> ToNotify { get; init; }
     }
 }
