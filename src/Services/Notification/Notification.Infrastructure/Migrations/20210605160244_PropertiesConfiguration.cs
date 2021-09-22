@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿/*using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Notification.Infrastructure.Migrations
 {
@@ -102,4 +102,4 @@ namespace Notification.Infrastructure.Migrations
                 oldMaxLength: 100);
         }
     }
-}
+}*/

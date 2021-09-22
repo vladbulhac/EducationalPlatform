@@ -10,15 +10,15 @@ using Notification.Infrastructure;
 namespace Notification.Infrastructure.Migrations
 {
     [DbContext(typeof(NotificationContext))]
-    [Migration("20210717132253_ChangedEventModel")]
-    partial class ChangedEventModel
+    [Migration("20210922183810_ChangedRecipientIdentityToStringType")]
+    partial class ChangedRecipientIdentityToStringType
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.8")
+                .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Notification.Domain.Models.Aggregates.Event", b =>
@@ -51,18 +51,18 @@ namespace Notification.Infrastructure.Migrations
 
             modelBuilder.Entity("Notification.Domain.Models.Recipient", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("EventID")
+                    b.Property<Guid>("EventId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Seen")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id", "EventID");
+                    b.HasKey("Id", "EventId");
 
-                    b.HasIndex("EventID");
+                    b.HasIndex("EventId");
 
                     b.ToTable("Recipients");
                 });
@@ -107,7 +107,7 @@ namespace Notification.Infrastructure.Migrations
                 {
                     b.HasOne("Notification.Domain.Models.Aggregates.Event", "Event")
                         .WithMany("Recipients")
-                        .HasForeignKey("EventID")
+                        .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

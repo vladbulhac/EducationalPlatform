@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿/*using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
 namespace Notification.Infrastructure.Migrations
@@ -139,4 +139,4 @@ namespace Notification.Infrastructure.Migrations
                 columns: new[] { "EventID", "RecipientID" });
         }
     }
-}
+}*/
