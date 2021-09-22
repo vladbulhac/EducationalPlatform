@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿/*using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
 namespace EducationalInstitution.Infrastructure.Migrations
@@ -51,4 +51,4 @@ namespace EducationalInstitution.Infrastructure.Migrations
                 unique: true);
         }
     }
-}
+}*/

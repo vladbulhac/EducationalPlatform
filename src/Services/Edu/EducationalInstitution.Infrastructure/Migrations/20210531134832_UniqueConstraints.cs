@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿/*using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EducationalInstitution.Infrastructure.Migrations
 {
@@ -77,4 +77,4 @@ namespace EducationalInstitution.Infrastructure.Migrations
                 columns: new[] { "Name", "LocationID", "IsDisabled", "EducationalInstitutionID", "Description" });
         }
     }
-}
+}*/

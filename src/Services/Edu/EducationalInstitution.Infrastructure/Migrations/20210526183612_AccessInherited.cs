@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿/*using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EducationalInstitution.Infrastructure.Migrations
 {
@@ -104,4 +104,4 @@ namespace EducationalInstitution.Infrastructure.Migrations
                 columns: new[] { "EntityAccess_IsDisabled", "EntityAccess_DateForPermanentDeletion" });
         }
     }
-}
+}*/
