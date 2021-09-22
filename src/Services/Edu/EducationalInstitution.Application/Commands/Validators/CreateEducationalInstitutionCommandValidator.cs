@@ -27,8 +27,8 @@ namespace EducationalInstitution.Application.Commands.Validators
             RuleForEach(dto => dto.AdminsIDs)
                                 .NotEmpty()
                                     .WithMessage("AdminID was empty or null!")
-                                .NotEqual(Guid.Empty)
-                                    .WithMessage("AdminID was default!");
+                                .NotEqual(Guid.Empty.ToString())
+                                    .WithMessage("AdminsID value was invalid!");
             RuleFor(dto => dto.AdminsIDs)
                                 .NotEmpty()
                                     .WithMessage("AdminsIDs was empty or null!");
