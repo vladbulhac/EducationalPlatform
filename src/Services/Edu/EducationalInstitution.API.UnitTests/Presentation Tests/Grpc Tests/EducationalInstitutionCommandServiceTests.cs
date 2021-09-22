@@ -1051,8 +1051,8 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
-                RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
+                AddAdminsIds = { Guid.NewGuid().ToString() },
+                RemoveAdminsIds = { Guid.NewGuid().ToString() }
             };
 
             UpdateEducationalInstitutionAdminMethod_Setup();
@@ -1071,8 +1071,8 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
-                RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
+                AddAdminsIds = { Guid.NewGuid().ToString() },
+                RemoveAdminsIds = { Guid.NewGuid().ToString() }
             };
 
             UpdateEducationalInstitutionAdminMethod_Setup();
@@ -1091,8 +1091,8 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
-                RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
+                AddAdminsIds = { Guid.NewGuid().ToString() },
+                RemoveAdminsIds = { Guid.NewGuid().ToString() }
             };
 
             UpdateEducationalInstitutionAdminMethod_Setup();
@@ -1111,8 +1111,8 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
-                RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
+                AddAdminsIds = { Guid.NewGuid().ToString() },
+                RemoveAdminsIds = { Guid.NewGuid().ToString() }
             };
 
             UpdateEducationalInstitutionAdminMethod_Setup();
@@ -1148,8 +1148,8 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = educationalInstitutionID.ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
-                RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
+                AddAdminsIds = { Guid.NewGuid().ToString() },
+                RemoveAdminsIds = { Guid.NewGuid().ToString() }
             };
 
             UpdateEducationalInstitutionAdminMethod_SetupToNotFindEntity(educationalInstitutionID);
@@ -1169,8 +1169,8 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = educationalInstitutionID.ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
-                RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
+                AddAdminsIds = { Guid.NewGuid().ToString() },
+                RemoveAdminsIds = { Guid.NewGuid().ToString() }
             };
 
             UpdateEducationalInstitutionAdminMethod_SetupToNotFindEntity(educationalInstitutionID);
@@ -1190,8 +1190,8 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = educationalInstitutionID.ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
-                RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
+                AddAdminsIds = { Guid.NewGuid().ToString() },
+                RemoveAdminsIds = { Guid.NewGuid().ToString() }
             };
 
             UpdateEducationalInstitutionAdminMethod_SetupToNotFindEntity(educationalInstitutionID);
@@ -1226,8 +1226,8 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
-                RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
+                AddAdminsIds = { Guid.NewGuid().ToString() },
+                RemoveAdminsIds = { Guid.NewGuid().ToString() }
             };
 
             UpdateEducationalInstitutionAdminMethod_SetupWhenAnExceptionIsCaughtInHandler();
@@ -1250,8 +1250,8 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
-                RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
+                AddAdminsIds = { Guid.NewGuid().ToString() },
+                RemoveAdminsIds = { Guid.NewGuid().ToString() }
             };
 
             UpdateEducationalInstitutionAdminMethod_SetupWhenAnExceptionIsCaughtInHandler();
@@ -1270,8 +1270,8 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
-                RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
+                AddAdminsIds = { Guid.NewGuid().ToString() },
+                RemoveAdminsIds = { Guid.NewGuid().ToString() }
             };
 
             UpdateEducationalInstitutionAdminMethod_SetupWhenAnExceptionIsCaughtInHandler();
@@ -1306,8 +1306,8 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
-                RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
+                AddAdminsIds = { Guid.NewGuid().ToString() },
+                RemoveAdminsIds = { Guid.NewGuid().ToString() }
             };
 
             UpdateEducationalInstitutionAdminMethod_SetupMediatorToThrowException();
@@ -1326,8 +1326,8 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
-                RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
+                AddAdminsIds = { Guid.NewGuid().ToString() },
+                RemoveAdminsIds = { Guid.NewGuid().ToString() }
             };
 
             UpdateEducationalInstitutionAdminMethod_SetupMediatorToThrowException();
@@ -1346,8 +1346,8 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
-                RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
+                AddAdminsIds = { Guid.NewGuid().ToString() },
+                RemoveAdminsIds = { Guid.NewGuid().ToString() }
             };
 
             UpdateEducationalInstitutionAdminMethod_SetupMediatorToThrowException();
@@ -1375,8 +1375,8 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.Empty.ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
-                RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
+                AddAdminsIds = { Guid.NewGuid().ToString() },
+                RemoveAdminsIds = { Guid.NewGuid().ToString() }
             };
 
             SetupMockedDependenciesToFailValidation<UpdateEducationalInstitutionAdminsCommand>();
@@ -1395,8 +1395,8 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.Empty.ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
-                RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
+                AddAdminsIds = { Guid.NewGuid().ToString() },
+                RemoveAdminsIds = { Guid.NewGuid().ToString() }
             };
 
             SetupMockedDependenciesToFailValidation<UpdateEducationalInstitutionAdminsCommand>();
@@ -1415,8 +1415,8 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.Empty.ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToProtoUuid() },
-                RemoveAdminsIds = { Guid.NewGuid().ToProtoUuid() }
+                AddAdminsIds = { Guid.NewGuid().ToString() },
+                RemoveAdminsIds = { Guid.NewGuid().ToString() }
             };
 
             SetupMockedDependenciesToFailValidation<UpdateEducationalInstitutionAdminsCommand>();

@@ -69,7 +69,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
 
                     eventBus.PublishMultiple(PublishNotificationEventsForAdmins(newEducationalInstitution.Id,
                                                                                 request.AdminsIDs,
-                                                                                parentInstitution?.Admins.Select(a => a.AdminID).ToList()));
+                                                                                parentInstitution?.Admins.Select(a => a.AdminId).ToList()));
 
                     if (parentInstitution is null && request.ParentInstitutionID != default)
                         return new()
@@ -102,7 +102,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
             }
         }
 
-        private IEnumerable<IntegrationEvent> PublishNotificationEventsForAdmins(Guid newEntityID, ICollection<Guid> newEntityAdmins, ICollection<Guid> parentAdmins)
+        private IEnumerable<IntegrationEvent> PublishNotificationEventsForAdmins(Guid newEducationalInstitutionId, ICollection<string> newAdmins, ICollection<string> parentAdmins)
         {
             if (parentAdmins is not null && parentAdmins.Count > 0)
             {
@@ -110,7 +110,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
                 {
                     Message = "An Educational Institution assigned this institution as a parent!",
                     ToNotify = parentAdmins,
-                    Url = $"/edu/{newEntityID}",
+                    Url = $"/edu/{newEducationalInstitutionId}",
                     TriggeredBy = new()
                     {
                         ServiceName = this.GetType().Namespace.Split('.')[0],
@@ -122,8 +122,8 @@ namespace EducationalInstitution.Application.Commands.Handlers
             yield return new AssignedAdminsToEducationalInstitutionIntegrationEvent
             {
                 Message = "Admin rights granted for a recently created Educational Institution!",
-                ToNotify = newEntityAdmins,
-                Url = $"/edu/{newEntityID}",
+                ToNotify = newAdmins,
+                Url = $"/edu/{newEducationalInstitutionId}",
                 TriggeredBy = new()
                 {
                     ServiceName = this.GetType().Namespace.Split('.')[0],

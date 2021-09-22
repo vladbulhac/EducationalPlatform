@@ -35,19 +35,19 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             UpdateEducationalInstitutionAdminsCommand request = new()
             {
                 EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id,
-                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
-                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
             };
 
             var expectedUniOfWorkResponse = new AfterUpdateAdminsCommandChangesDetails(
-                                                                               testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList(),
+                                                                               testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminId).ToList(),
                                                                                request.AddAdminsIDs,
                                                                                request.RemoveAdminsIDs);
 
             dependenciesHelper.mockUnitOfWorkCommand.Setup(uokc => uokc.UsingEducationalInstitutionCommandRepository())
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<Guid>>(), It.IsAny<ICollection<Guid>>(), It.IsAny<CancellationToken>()))
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<string>>(), It.IsAny<ICollection<string>>(), It.IsAny<CancellationToken>()))
                                                                           .ReturnsAsync(expectedUniOfWorkResponse);
 
             var handler = new UpdateEducationalInstitutionAdminsCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
@@ -68,19 +68,19 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             UpdateEducationalInstitutionAdminsCommand request = new()
             {
                 EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id,
-                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
-                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
             };
 
             var expectedUniOfWorkResponse = new AfterUpdateAdminsCommandChangesDetails(
-                                                                               testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList(),
+                                                                               testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminId).ToList(),
                                                                                request.AddAdminsIDs,
                                                                                request.RemoveAdminsIDs);
 
             dependenciesHelper.mockUnitOfWorkCommand.Setup(uokc => uokc.UsingEducationalInstitutionCommandRepository())
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<Guid>>(), It.IsAny<ICollection<Guid>>(), It.IsAny<CancellationToken>()))
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<string>>(), It.IsAny<ICollection<string>>(), It.IsAny<CancellationToken>()))
                                                                           .ReturnsAsync(expectedUniOfWorkResponse);
 
             var handler = new UpdateEducationalInstitutionAdminsCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
@@ -101,14 +101,14 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             UpdateEducationalInstitutionAdminsCommand request = new()
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
-                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
             };
 
             dependenciesHelper.mockUnitOfWorkCommand.Setup(uokc => uokc.UsingEducationalInstitutionCommandRepository())
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<Guid>>(), It.IsAny<ICollection<Guid>>(), It.IsAny<CancellationToken>()))
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<string>>(), It.IsAny<ICollection<string>>(), It.IsAny<CancellationToken>()))
                                                                           .ReturnsAsync((AfterUpdateAdminsCommandChangesDetails)default);
 
             var handler = new UpdateEducationalInstitutionAdminsCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
@@ -129,14 +129,14 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             UpdateEducationalInstitutionAdminsCommand request = new()
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
-                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
             };
 
             dependenciesHelper.mockUnitOfWorkCommand.Setup(uokc => uokc.UsingEducationalInstitutionCommandRepository())
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<Guid>>(), It.IsAny<ICollection<Guid>>(), It.IsAny<CancellationToken>()))
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<string>>(), It.IsAny<ICollection<string>>(), It.IsAny<CancellationToken>()))
                                                                           .ReturnsAsync((AfterUpdateAdminsCommandChangesDetails)default);
 
             var handler = new UpdateEducationalInstitutionAdminsCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
@@ -157,14 +157,14 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             UpdateEducationalInstitutionAdminsCommand request = new()
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
-                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
             };
 
             dependenciesHelper.mockUnitOfWorkCommand.Setup(uokc => uokc.UsingEducationalInstitutionCommandRepository())
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<Guid>>(), It.IsAny<ICollection<Guid>>(), It.IsAny<CancellationToken>()))
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<string>>(), It.IsAny<ICollection<string>>(), It.IsAny<CancellationToken>()))
                                                                           .ReturnsAsync((AfterUpdateAdminsCommandChangesDetails)default);
 
             var handler = new UpdateEducationalInstitutionAdminsCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
@@ -185,19 +185,19 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             UpdateEducationalInstitutionAdminsCommand request = new()
             {
                 EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id,
-                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
-                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
             };
 
             var expectedUniOfWorkResponse = new AfterUpdateAdminsCommandChangesDetails(
-                                                                               testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList(),
+                                                                               testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminId).ToList(),
                                                                                request.AddAdminsIDs,
                                                                                request.RemoveAdminsIDs);
 
             dependenciesHelper.mockUnitOfWorkCommand.Setup(uokc => uokc.UsingEducationalInstitutionCommandRepository())
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<Guid>>(), It.IsAny<ICollection<Guid>>(), It.IsAny<CancellationToken>()))
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<string>>(), It.IsAny<ICollection<string>>(), It.IsAny<CancellationToken>()))
                                                                           .ReturnsAsync(expectedUniOfWorkResponse);
 
             var handler = new UpdateEducationalInstitutionAdminsCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
@@ -218,19 +218,19 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             UpdateEducationalInstitutionAdminsCommand request = new()
             {
                 EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id,
-                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
-                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
             };
 
             var expectedUniOfWorkResponse = new AfterUpdateAdminsCommandChangesDetails(
-                                                                               testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList(),
+                                                                               testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminId).ToList(),
                                                                                request.AddAdminsIDs,
                                                                                request.RemoveAdminsIDs);
 
             dependenciesHelper.mockUnitOfWorkCommand.Setup(uokc => uokc.UsingEducationalInstitutionCommandRepository())
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<Guid>>(), It.IsAny<ICollection<Guid>>(), It.IsAny<CancellationToken>()))
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(eicr => eicr.UpdateAdminsAsync(It.IsAny<Guid>(), It.IsAny<ICollection<string>>(), It.IsAny<ICollection<string>>(), It.IsAny<CancellationToken>()))
                                                                           .ReturnsAsync(expectedUniOfWorkResponse);
 
             var handler = new UpdateEducationalInstitutionAdminsCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,

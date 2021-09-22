@@ -39,7 +39,7 @@ namespace EducationalInstitution.API.Tests.Shared
                     (string)educationalInstitution.Description,
                     (string)educationalInstitution.LocationID,
                     educationalInstitution.BuildingsIDs.ToObject<List<string>>(),
-                    educationalInstitution.AdminsIDs.ToObject<List<Guid>>()
+                    educationalInstitution.AdminsIDs.ToObject<List<string>>()
                     ));
             }
         }

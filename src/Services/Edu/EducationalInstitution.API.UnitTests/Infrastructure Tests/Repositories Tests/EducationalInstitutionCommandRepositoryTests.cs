@@ -48,9 +48,9 @@ namespace EducationalInstitution.API.UnitTests.Infrastructure_Tests.Repositories
                     "Test_Building_ID1",
                     "Test_Building_ID2"
                 },
-                new List<Guid>() {
-                    Guid.NewGuid(),
-                    Guid.NewGuid()
+                new List<string>() {
+                    Guid.NewGuid().ToString(),
+                    Guid.NewGuid().ToString()
                 },
                 testDataHelper.EducationalInstitutions[0]);
 
@@ -67,7 +67,7 @@ namespace EducationalInstitution.API.UnitTests.Infrastructure_Tests.Repositories
         {
             //Arrange
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
-            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminId).ToList();
             string locationID = "Update_Test_LocationID";
             var addBuildingsIDs = new List<string>() { "Update_Test_Building_ID1", "Update_Test_Building_ID2" };
             var removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAtOrDefault(0).BuildingID };
@@ -85,7 +85,7 @@ namespace EducationalInstitution.API.UnitTests.Infrastructure_Tests.Repositories
         {
             //Arrange
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
-            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminId).ToList();
             string locationID = "Update_Test_LocationID";
             var addBuildingsIDs = new List<string>() { "Update_Test_Building_ID21", "Update_Test_Building_ID22" };
             var removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAtOrDefault(0).BuildingID };
@@ -120,7 +120,7 @@ namespace EducationalInstitution.API.UnitTests.Infrastructure_Tests.Repositories
         {
             //Arrange
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
-            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminId).ToList();
             string locationID = "Update_Test_LocationID";
 
             //Act
@@ -136,7 +136,7 @@ namespace EducationalInstitution.API.UnitTests.Infrastructure_Tests.Repositories
         {
             //Arrange
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
-            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminId).ToList();
             string locationID = "Update_Test_LocationID";
 
             //Act
@@ -183,7 +183,7 @@ namespace EducationalInstitution.API.UnitTests.Infrastructure_Tests.Repositories
         {
             //Arrange
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
-            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminId).ToList();
             var addBuildingsIDs = new List<string>() { "Update_Test_Building_ID101", "Update_Test_Building_ID201" };
             var removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAtOrDefault(0).BuildingID };
 
@@ -202,7 +202,7 @@ namespace EducationalInstitution.API.UnitTests.Infrastructure_Tests.Repositories
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[3].Id;
 
-            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminId).ToList();
 
             //Act
             var result = await repository.UpdateParentInstitutionAsync(educationalInstitutionID, parentInstitutionID);
@@ -219,7 +219,7 @@ namespace EducationalInstitution.API.UnitTests.Infrastructure_Tests.Repositories
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[3].Id;
 
-            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminId).ToList();
 
             //Act
             var result = await repository.UpdateParentInstitutionAsync(educationalInstitutionID, parentInstitutionID);
@@ -236,7 +236,7 @@ namespace EducationalInstitution.API.UnitTests.Infrastructure_Tests.Repositories
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             Guid parentInstitutionID = default;
 
-            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminId).ToList();
 
             //Act
             var result = await repository.UpdateParentInstitutionAsync(educationalInstitutionID, parentInstitutionID);
@@ -253,7 +253,7 @@ namespace EducationalInstitution.API.UnitTests.Infrastructure_Tests.Repositories
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             Guid parentInstitutionID = default;
 
-            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminId).ToList();
 
             //Act
             var result = await repository.UpdateParentInstitutionAsync(educationalInstitutionID, parentInstitutionID);
@@ -270,7 +270,7 @@ namespace EducationalInstitution.API.UnitTests.Infrastructure_Tests.Repositories
             Guid educationalInstitutionID = Guid.NewGuid();
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[3].Id;
 
-            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminId).ToList();
 
             //Act
             var result = await repository.UpdateParentInstitutionAsync(educationalInstitutionID, parentInstitutionID);
@@ -287,7 +287,7 @@ namespace EducationalInstitution.API.UnitTests.Infrastructure_Tests.Repositories
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             Guid parentInstitutionID = Guid.NewGuid();
 
-            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminId).ToList();
 
             //Act
             var result = await repository.UpdateParentInstitutionAsync(educationalInstitutionID, parentInstitutionID);
@@ -302,7 +302,7 @@ namespace EducationalInstitution.API.UnitTests.Infrastructure_Tests.Repositories
         {
             //Arrange
             var educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
-            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminId).ToList();
 
             //Act
             var result = await repository.ScheduleForDeletionAsync(educationalInstitutionID);
@@ -319,7 +319,7 @@ namespace EducationalInstitution.API.UnitTests.Infrastructure_Tests.Repositories
         {
             //Arrange
             var educationalInstitutionID = testDataHelper.EducationalInstitutions[1].Id;
-            var adminsIDs = testDataHelper.EducationalInstitutions[1].Admins.Select(a => a.AdminID).ToList();
+            var adminsIDs = testDataHelper.EducationalInstitutions[1].Admins.Select(a => a.AdminId).ToList();
 
             //Act
             var result = await repository.ScheduleForDeletionAsync(educationalInstitutionID);
@@ -336,7 +336,7 @@ namespace EducationalInstitution.API.UnitTests.Infrastructure_Tests.Repositories
         {
             //Arrange
             var educationalInstitutionID = testDataHelper.EducationalInstitutions[2].Id;
-            var adminsIDs = testDataHelper.EducationalInstitutions[2].Admins.Select(a => a.AdminID).ToList();
+            var adminsIDs = testDataHelper.EducationalInstitutions[2].Admins.Select(a => a.AdminId).ToList();
 
             //Act
             var result = await repository.ScheduleForDeletionAsync(educationalInstitutionID);
@@ -353,7 +353,7 @@ namespace EducationalInstitution.API.UnitTests.Infrastructure_Tests.Repositories
         {
             //Arrange
             var educationalInstitutionID = testDataHelper.EducationalInstitutions[3].Id;
-            var adminsIDs = testDataHelper.EducationalInstitutions[3].Admins.Select(a => a.AdminID).ToList();
+            var adminsIDs = testDataHelper.EducationalInstitutions[3].Admins.Select(a => a.AdminId).ToList();
 
             //Act
             var result = await repository.ScheduleForDeletionAsync(educationalInstitutionID);
@@ -370,7 +370,7 @@ namespace EducationalInstitution.API.UnitTests.Infrastructure_Tests.Repositories
         {
             //Arrange
             var educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
-            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminID).ToList();
+            var adminsIDs = testDataHelper.EducationalInstitutions[0].Admins.Select(a => a.AdminId).ToList();
 
             //Act
             var result = await repository.ScheduleForDeletionAsync(educationalInstitutionID);

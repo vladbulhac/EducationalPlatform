@@ -29,7 +29,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Queries_Tests.H
             GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
-            { AdminsIDs = new List<Guid>() { Guid.NewGuid() } };
+            { AdminsIDs = new List<string>() { Guid.NewGuid().ToString() } };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uokq => uokq.UsingEducationalInstitutionQueryRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
@@ -52,7 +52,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Queries_Tests.H
             GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
-            { AdminsIDs = new List<Guid>() { Guid.NewGuid() } };
+            { AdminsIDs = new List<string>() { Guid.NewGuid().ToString() } };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uokq => uokq.UsingEducationalInstitutionQueryRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
@@ -75,7 +75,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Queries_Tests.H
             GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
-            { AdminsIDs = new List<Guid>() { Guid.NewGuid() } };
+            { AdminsIDs = new List<string>() { Guid.NewGuid().ToString() } };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uokq => uokq.UsingEducationalInstitutionQueryRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
@@ -98,7 +98,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Queries_Tests.H
             GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
-            { AdminsIDs = new List<Guid>() { Guid.NewGuid() } };
+            { AdminsIDs = new List<string>() { Guid.NewGuid().ToString() } };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uokq => uokq.UsingEducationalInstitutionQueryRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
@@ -121,7 +121,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Queries_Tests.H
             GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
-            { AdminsIDs = new List<Guid>() { Guid.NewGuid() } };
+            { AdminsIDs = new List<string>() { Guid.NewGuid().ToString() } };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uokq => uokq.UsingEducationalInstitutionQueryRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
@@ -143,8 +143,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Queries_Tests.H
             //Arrange
             GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
-            var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
-            { AdminsIDs = new List<Guid>() };
+            var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult() { AdminsIDs = new List<string>() };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uokq => uokq.UsingEducationalInstitutionQueryRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
@@ -167,7 +166,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Queries_Tests.H
             GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
-            { AdminsIDs = new List<Guid>() };
+            { AdminsIDs = new List<string>() };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uokq => uokq.UsingEducationalInstitutionQueryRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
@@ -190,7 +189,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Queries_Tests.H
             GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
-            { AdminsIDs = new List<Guid>() };
+            { AdminsIDs = new List<string>() };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uokq => uokq.UsingEducationalInstitutionQueryRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
@@ -213,7 +212,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Queries_Tests.H
             GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
-            { AdminsIDs = new List<Guid>() };
+            { AdminsIDs = new List<string>() };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uokq => uokq.UsingEducationalInstitutionQueryRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
@@ -236,7 +235,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Queries_Tests.H
             GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
-            { AdminsIDs = new List<Guid>() };
+            { AdminsIDs = new List<string>() };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uokq => uokq.UsingEducationalInstitutionQueryRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
@@ -259,7 +258,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Queries_Tests.H
             GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
-            { AdminsIDs = new List<Guid>() };
+            { AdminsIDs = new List<string>() };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uokq => uokq.UsingEducationalInstitutionQueryRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
@@ -282,7 +281,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Queries_Tests.H
             GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
-            { AdminsIDs = new List<Guid>() };
+            { AdminsIDs = new List<string>() };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uokq => uokq.UsingEducationalInstitutionQueryRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);
@@ -305,7 +304,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Queries_Tests.H
             GetAllAdminsByEducationalInstitutionIDQuery request = new() { EducationalInstitutionID = Guid.NewGuid() };
 
             var expectedQueryResult = new GetAllAdminsOfEducationalInstitutionQueryResult()
-            { AdminsIDs = new List<Guid>() };
+            { AdminsIDs = new List<string>() };
 
             dependenciesHelper.mockUnitOfWorkQuery.Setup(uokq => uokq.UsingEducationalInstitutionQueryRepository())
                                                    .Returns(dependenciesHelper.mockEducationalInstitutionQueryRepository.Object);

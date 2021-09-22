@@ -35,7 +35,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
 
             CreateEducationalInstitutionCommand request = new()
@@ -69,7 +69,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
 
             CreateEducationalInstitutionCommand request = new()
@@ -103,7 +103,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
 
             CreateEducationalInstitutionCommand request = new()
@@ -137,7 +137,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
 
             CreateEducationalInstitutionCommand request = new()
@@ -171,7 +171,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
 
             CreateEducationalInstitutionCommand request = new()
@@ -205,7 +205,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
 
             CreateEducationalInstitutionCommand request = new()
@@ -239,7 +239,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[1].Id;
 
             CreateEducationalInstitutionCommand request = new()
@@ -273,7 +273,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[1].Id;
 
             CreateEducationalInstitutionCommand request = new()
@@ -307,7 +307,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[1].Id;
 
             CreateEducationalInstitutionCommand request = new()
@@ -341,7 +341,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Guid parentInstitutionID = testDataHelper.EducationalInstitutions[1].Id;
 
             CreateEducationalInstitutionCommand request = new()
@@ -393,7 +393,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Guid parentInstitutionID = Guid.Empty;
 
             CreateEducationalInstitutionCommand request = new()
@@ -427,7 +427,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Guid parentInstitutionID = Guid.Empty;
 
             CreateEducationalInstitutionCommand request = new()
@@ -461,7 +461,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Guid parentInstitutionID = Guid.Empty;
 
             CreateEducationalInstitutionCommand request = new()
@@ -494,7 +494,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             string description = "School";
             string locationID = "location1235";
             var buildingsIDs = new List<string>() { "building1235" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Guid parentInstitutionID = Guid.Empty;
 
             CreateEducationalInstitutionCommand request = new()

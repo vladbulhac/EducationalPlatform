@@ -39,7 +39,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
             dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(r => r.UpdateParentInstitutionAsync(request.EducationalInstitutionID, testDataHelper.EducationalInstitutions[1].Id, It.IsAny<CancellationToken>()))
-                                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>() { Guid.NewGuid() }));
+                                                .ReturnsAsync(new AfterCommandChangesDetails(new List<string>() { Guid.NewGuid().ToString() }));
 
             var handler = new UpdateEducationalInstitutionParentCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                                 dependenciesHelper.mockEventBus.Object,
@@ -66,7 +66,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
             dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(r => r.UpdateParentInstitutionAsync(request.EducationalInstitutionID, testDataHelper.EducationalInstitutions[1].Id, It.IsAny<CancellationToken>()))
-                                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>() { Guid.NewGuid() }));
+                                                .ReturnsAsync(new AfterCommandChangesDetails(new List<string>() { Guid.NewGuid().ToString() }));
 
             var handler = new UpdateEducationalInstitutionParentCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                                 dependenciesHelper.mockEventBus.Object,
@@ -93,7 +93,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                                                      .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
             dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(r => r.UpdateParentInstitutionAsync(request.EducationalInstitutionID, testDataHelper.EducationalInstitutions[1].Id, It.IsAny<CancellationToken>()))
-                                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>() { Guid.NewGuid() }));
+                                                .ReturnsAsync(new AfterCommandChangesDetails(new List<string>() { Guid.NewGuid().ToString() }));
 
             var handler = new UpdateEducationalInstitutionParentCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                                 dependenciesHelper.mockEventBus.Object,

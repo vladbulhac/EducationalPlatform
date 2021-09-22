@@ -26,7 +26,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(Guid.NewGuid().ToProtoUuid());
+            request.AdminsIds.Add(Guid.NewGuid().ToString());
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
@@ -49,7 +49,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(Guid.NewGuid().ToProtoUuid());
+            request.AdminsIds.Add(Guid.NewGuid().ToString());
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
@@ -72,7 +72,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(Guid.NewGuid().ToProtoUuid());
+            request.AdminsIds.Add(Guid.NewGuid().ToString());
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
@@ -95,7 +95,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(Guid.NewGuid().ToProtoUuid());
+            request.AdminsIds.Add(Guid.NewGuid().ToString());
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
@@ -118,7 +118,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(Guid.NewGuid().ToProtoUuid());
+            request.AdminsIds.Add(Guid.NewGuid().ToString());
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
@@ -141,7 +141,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(Guid.NewGuid().ToProtoUuid());
+            request.AdminsIds.Add(Guid.NewGuid().ToString());
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
@@ -164,7 +164,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(Guid.NewGuid().ToProtoUuid());
+            request.AdminsIds.Add(Guid.NewGuid().ToString());
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
@@ -187,7 +187,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 ParentInstitutionId = null
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(Guid.NewGuid().ToProtoUuid());
+            request.AdminsIds.Add(Guid.NewGuid().ToString());
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
@@ -201,7 +201,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
         {
             //Arrange
             var parentInstitutionID = Guid.NewGuid();
-            var adminID = Guid.NewGuid();
+            var adminID = Guid.NewGuid().ToString();
 
             EducationalInstitutionCreateRequest request = new()
             {
@@ -211,7 +211,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(adminID.ToProtoUuid());
+            request.AdminsIds.Add(adminID);
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
@@ -225,7 +225,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
         {
             //Arrange
             var parentInstitutionID = Guid.NewGuid();
-            var adminID = Guid.NewGuid();
+            var adminID = Guid.NewGuid().ToString();
 
             EducationalInstitutionCreateRequest request = new()
             {
@@ -235,7 +235,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(adminID.ToProtoUuid());
+            request.AdminsIds.Add(adminID);
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
@@ -285,14 +285,14 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
         {
             //Arrange
             var id = Guid.NewGuid();
-            var addAdminsID = new List<Guid>() { Guid.NewGuid() };
-            var removeAdminsID = new List<Guid>() { Guid.NewGuid() };
+            var addAdminsID = new List<string>() { Guid.NewGuid().ToString() };
+            var removeAdminsID = new List<string>() { Guid.NewGuid().ToString() };
 
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = id.ToProtoUuid(),
-                AddAdminsIds = { addAdminsID.ConvertAll(a => a.ToProtoUuid()) },
-                RemoveAdminsIds = { removeAdminsID.ConvertAll(a => a.ToProtoUuid()) }
+                AddAdminsIds = { addAdminsID },
+                RemoveAdminsIds = { removeAdminsID }
             };
 
             //Act
@@ -307,14 +307,14 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
         {
             //Arrange
             var id = Guid.NewGuid();
-            var addAdminsID = new List<Guid>() { Guid.NewGuid() };
-            var removeAdminsID = new List<Guid>() { Guid.NewGuid() };
+            var addAdminsID = new List<string>() { Guid.NewGuid().ToString() };
+            var removeAdminsID = new List<string>() { Guid.NewGuid().ToString() };
 
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = id.ToProtoUuid(),
-                AddAdminsIds = { addAdminsID.ConvertAll(a => a.ToProtoUuid()) },
-                RemoveAdminsIds = { removeAdminsID.ConvertAll(a => a.ToProtoUuid()) }
+                AddAdminsIds = { addAdminsID },
+                RemoveAdminsIds = { removeAdminsID }
             };
 
             //Act
@@ -329,14 +329,14 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
         {
             //Arrange
             var id = Guid.NewGuid();
-            var addAdminsID = new List<Guid>() { Guid.NewGuid() };
-            var removeAdminsID = new List<Guid>() { Guid.NewGuid() };
+            var addAdminsID = new List<string>() { Guid.NewGuid().ToString() };
+            var removeAdminsID = new List<string>() { Guid.NewGuid().ToString() };
 
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = id.ToProtoUuid(),
-                AddAdminsIds = { addAdminsID.ConvertAll(a => a.ToProtoUuid()) },
-                RemoveAdminsIds = { removeAdminsID.ConvertAll(a => a.ToProtoUuid()) }
+                AddAdminsIds = { addAdminsID },
+                RemoveAdminsIds = { removeAdminsID }
             };
 
             //Act
@@ -351,14 +351,14 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
         {
             //Arrange
             var id = Guid.NewGuid();
-            var addAdminsID = new List<Guid>() { Guid.NewGuid() };
-            var removeAdminsID = new List<Guid>() { Guid.NewGuid() };
+            var addAdminsID = new List<string>() { Guid.NewGuid().ToString() };
+            var removeAdminsID = new List<string>() { Guid.NewGuid().ToString() };
 
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = id.ToProtoUuid(),
-                AddAdminsIds = { addAdminsID.ConvertAll(a => a.ToProtoUuid()) },
-                RemoveAdminsIds = { removeAdminsID.ConvertAll(a => a.ToProtoUuid()) }
+                AddAdminsIds = { addAdminsID },
+                RemoveAdminsIds = { removeAdminsID }
             };
 
             //Act
@@ -373,14 +373,14 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
         {
             //Arrange
             var id = Guid.NewGuid();
-            var addAdminsID = new List<Guid>();
-            var removeAdminsID = new List<Guid>() { Guid.NewGuid() };
+            var addAdminsID = new List<string>();
+            var removeAdminsID = new List<string>() { Guid.NewGuid().ToString() };
 
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = id.ToProtoUuid(),
-                AddAdminsIds = { addAdminsID.ConvertAll(a => a.ToProtoUuid()) },
-                RemoveAdminsIds = { removeAdminsID.ConvertAll(a => a.ToProtoUuid()) }
+                AddAdminsIds = { addAdminsID },
+                RemoveAdminsIds = { removeAdminsID }
             };
 
             //Act
@@ -395,14 +395,14 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
         {
             //Arrange
             var id = Guid.NewGuid();
-            var addAdminsID = new List<Guid>() { Guid.NewGuid() };
-            var removeAdminsID = new List<Guid>();
+            var addAdminsID = new List<string>() { Guid.NewGuid().ToString() };
+            var removeAdminsID = new List<string>();
 
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = id.ToProtoUuid(),
-                AddAdminsIds = { addAdminsID.ConvertAll(a => a.ToProtoUuid()) },
-                RemoveAdminsIds = { removeAdminsID.ConvertAll(a => a.ToProtoUuid()) }
+                AddAdminsIds = { addAdminsID },
+                RemoveAdminsIds = { removeAdminsID }
             };
 
             //Act

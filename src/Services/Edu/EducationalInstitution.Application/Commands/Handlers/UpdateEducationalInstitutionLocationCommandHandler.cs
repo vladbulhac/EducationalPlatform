@@ -119,7 +119,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
             }
         }
 
-        private void PublishNotificationEventsForAdmins(Guid educationalInstitutionID, ICollection<Guid> adminsToNotify)
+        private void PublishNotificationEventsForAdmins(Guid educationalInstitutionID, ICollection<string> adminsToNotify)
         {
             NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent @event = new()
             {

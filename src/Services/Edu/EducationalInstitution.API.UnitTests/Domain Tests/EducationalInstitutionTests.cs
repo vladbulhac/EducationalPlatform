@@ -21,7 +21,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
             string description = "eduDescription";
             string locationID = "location123";
             var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
 
             //Act
             Domain::EducationalInstitution educationalInstituion = new(name, description, locationID, buildingsIDs, adminsIDs);
@@ -38,7 +38,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
             string description = "eduDescription";
             string locationID = "location123";
             var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
 
             //Act
             Domain::EducationalInstitution educationalInstituion = new(name, description, locationID, buildingsIDs, adminsIDs);
@@ -55,7 +55,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
             string description = "eduDescription";
             string locationID = "location123";
             var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
 
             //Act
             Domain::EducationalInstitution educationalInstituion = new(name, description, locationID, buildingsIDs, adminsIDs);
@@ -72,7 +72,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
             string description = "eduDescription";
             string locationID = "location123";
             var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
 
             //Act
             Domain::EducationalInstitution _ = new(name, description, locationID, buildingsIDs, adminsIDs);
@@ -89,7 +89,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
             string description = "eduDescription";
             string locationID = "location123";
             var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
 
             //Act
             Domain::EducationalInstitution educationalInstituion = new(name, description, locationID, buildingsIDs, adminsIDs);
@@ -106,7 +106,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
             string description = "eduDescription";
             string locationID = "location123";
             var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
 
             //Act
             Domain::EducationalInstitution educationalInstituion = new(name, description, locationID, buildingsIDs, adminsIDs);
@@ -123,13 +123,13 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
             string description = "eduDescription";
             string locationID = "location123";
             var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
 
             //Act
             Domain::EducationalInstitution educationalInstituion = new(name, description, locationID, buildingsIDs, adminsIDs);
 
             //Assert
-            Assert.Equal(adminsIDs[0], educationalInstituion.Admins.ElementAt(0).AdminID);
+            Assert.Equal(adminsIDs[0], educationalInstituion.Admins.ElementAt(0).AdminId);
         }
 
         [Fact]
@@ -140,7 +140,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
             string description = "eduDescription";
             string locationID = "location123";
             var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
 
             var expectedDate = DateTime.UtcNow;
 
@@ -159,7 +159,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
             string description = "eduDescription";
             string locationID = "location123";
             var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
 
             var expectedDate = DateTime.UtcNow;
 
@@ -178,7 +178,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
             string description = "eduDescription";
             string locationID = "location123";
             var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
 
             var expectedDate = DateTime.UtcNow;
 
@@ -197,7 +197,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
             string description = "eduDescription";
             string locationID = "location123";
             var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
 
             //Act
             Domain::EducationalInstitution educationalInstituion = new(name, description, locationID, buildingsIDs, adminsIDs);
@@ -214,7 +214,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
             string description = "eduDescription";
             string locationID = null;
             var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
 
             //Act
             Domain::EducationalInstitution educationalInstituion = new(name, description, locationID, buildingsIDs, adminsIDs);
@@ -231,7 +231,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
             string description = null;
             string locationID = "location123";
             var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
 
             //Act
             Domain::EducationalInstitution educationalInstituion = new(name, description, locationID, buildingsIDs, adminsIDs);
@@ -248,7 +248,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
             string description = "eduDescription";
             string locationID = "location123";
             var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Domain::EducationalInstitution parentInstitution = new("pnameTest", "pdescTest", "plocation123", buildingsIDs, adminsIDs);
 
             //Act
@@ -266,7 +266,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
             string description = "eduDescription";
             string locationID = "location123";
             var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Domain::EducationalInstitution parentInstitution = new("pnameTest", "pdescTest", "plocation123", buildingsIDs, adminsIDs);
 
             //Act
@@ -284,7 +284,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
             string description = "eduDescription";
             string locationID = "location123";
             var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
 
             //Act
             Domain::EducationalInstitution educationalInstituion = new(name, description, locationID, buildingsIDs, adminsIDs);
@@ -301,7 +301,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
             string description = "eduDescription";
             string locationID = "location123";
             var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
 
             //Act
             Domain::EducationalInstitution educationalInstituion = new(name, description, locationID, buildingsIDs, adminsIDs);
@@ -318,7 +318,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
             string description = "eduDescription";
             string locationID = "location123";
             var buildingsIDs = new List<string>() { "building123" };
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
 
             //Act && Assert
             Assert.Throws<ArgumentNullException>(() => { Domain::EducationalInstitution educationalInstituion = new(name, description, locationID, buildingsIDs, adminsIDs); });
@@ -574,7 +574,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                        "eduDescription",
                                                                        "location123",
                                                                        new List<string>() { "building123" },
-                                                                       new List<Guid>() { Guid.NewGuid() });
+                                                                       new List<string>() { Guid.NewGuid().ToString() });
 
             var childInstitution = testDataHelper.EducationalInstitutions[0];
 
@@ -593,7 +593,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             var childInstitution = testDataHelper.EducationalInstitutions[0];
 
@@ -612,7 +612,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.AddChildInstitutions(null);
@@ -629,7 +629,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                      new List<string>() { "building123" },
-                                                                     new List<Guid>() { Guid.NewGuid() });
+                                                                     new List<string>() { Guid.NewGuid().ToString() });
 
             var childInstitution = testDataHelper.EducationalInstitutions[0];
             educationalInstituion.AddChildInstitutions(new List<Domain::EducationalInstitution>(1) { childInstitution });
@@ -649,7 +649,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             var childInstitution = testDataHelper.EducationalInstitutions[0];
             educationalInstituion.AddChildInstitutions(new List<Domain::EducationalInstitution>(1) { childInstitution });
@@ -669,7 +669,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             var parentInstitution = testDataHelper.EducationalInstitutions[0];
 
@@ -688,7 +688,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.SetParentInstitution(null);
@@ -707,7 +707,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.SetNameAndDescription(newName, newDescription);
@@ -725,7 +725,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act && Assert
             Assert.Throws<ArgumentNullException>(() => educationalInstituion.SetNameAndDescription(null, newDescription));
@@ -741,7 +741,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.SetNameAndDescription(newName, newDescription);
@@ -759,7 +759,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.SetNameAndDescription(newName, null);
@@ -777,7 +777,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.SetName(newName);
@@ -794,7 +794,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act && Assert
             Assert.Throws<ArgumentNullException>(() => educationalInstituion.SetName(null));
@@ -809,7 +809,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.SetDescription(newDescription);
@@ -826,7 +826,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.SetDescription(null);
@@ -847,7 +847,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.SetEntireLocation(newLocationID, addBuildingsIDs, removeBuildingsIDs);
@@ -868,7 +868,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.SetEntireLocation(newLocationID, addBuildingsIDs, removeBuildingsIDs);
@@ -889,7 +889,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.SetEntireLocation(newLocationID, addBuildingsIDs, removeBuildingsIDs);
@@ -909,7 +909,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.SetEntireLocation(null, addBuildingsIDs, removeBuildingsIDs);
@@ -927,7 +927,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.SetLocation(newLocationID);
@@ -944,7 +944,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.SetLocation(null);
@@ -962,7 +962,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.CreateAndAddBuildings(addBuildingsIDs);
@@ -980,7 +980,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.CreateAndAddBuildings(addBuildingsIDs);
@@ -997,7 +997,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.CreateAndAddBuildings(null);
@@ -1014,7 +1014,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.CreateAndAddBuildings(null);
@@ -1032,7 +1032,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.RemoveBuildings(removeBuildingsIDs);
@@ -1050,7 +1050,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             var expectedDateForPermanentDeletion = DateTime.UtcNow.Date;
             double days = 30;
@@ -1072,7 +1072,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             var expectedDateForPermanentDeletion = DateTime.UtcNow.Date;
             double days = 30;
@@ -1089,12 +1089,12 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
         public void GivenAdminsIDs_ToCreateAndAddAdminsMethod_ShouldReturnACollectionAdminsWithTwoElements()
         {
             //Arrange
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Domain::EducationalInstitution educationalInstituion = new("eduTest",
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.CreateAndAddAdmins(adminsIDs);
@@ -1107,18 +1107,18 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
         public void GivenAdminsIDs_ToCreateAndAddAdminsMethod_ShouldReturnAThatContainsCollectionAdminsWithTheNewAdminID()
         {
             //Arrange
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Domain::EducationalInstitution educationalInstituion = new("eduTest",
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.CreateAndAddAdmins(adminsIDs);
 
             //Assert
-            Assert.Contains(educationalInstituion.Admins, a => a.AdminID == adminsIDs[0]);
+            Assert.Contains(educationalInstituion.Admins, a => a.AdminId == adminsIDs[0]);
         }
 
         [Fact]
@@ -1129,7 +1129,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.CreateAndAddAdmins(null);
@@ -1142,7 +1142,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
         public void GivenAdminsIDs_ToRemoveAdminsMethod_ShouldReturnAnEmptyCollectionAdmins()
         {
             //Arrange
-            var adminsIDs = new List<Guid>() { Guid.NewGuid() };
+            var adminsIDs = new List<string>() { Guid.NewGuid().ToString() };
             Domain::EducationalInstitution educationalInstituion = new("eduTest",
                                                                     "eduDescription",
                                                                     "location123",
@@ -1164,7 +1164,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstituion.RemoveAdmins(null);
@@ -1181,7 +1181,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstitution.ScheduleForDeletion();
@@ -1198,7 +1198,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123", "building234" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstitution.ScheduleForDeletion();
@@ -1215,7 +1215,7 @@ namespace EducationalInstitution.API.UnitTests.Domain_Tests
                                                                     "eduDescription",
                                                                     "location123",
                                                                     new List<string>() { "building123", "building234" },
-                                                                    new List<Guid>() { Guid.NewGuid() });
+                                                                    new List<string>() { Guid.NewGuid().ToString() });
 
             //Act
             educationalInstitution.ScheduleForDeletion();

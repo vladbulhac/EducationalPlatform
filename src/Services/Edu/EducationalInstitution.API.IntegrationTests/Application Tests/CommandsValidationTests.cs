@@ -36,7 +36,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -57,7 +57,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -78,7 +78,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -99,7 +99,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -120,7 +120,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -141,7 +141,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -162,7 +162,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = string.Empty,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -183,7 +183,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = string.Empty,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -204,7 +204,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "D",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -225,7 +225,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "D",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -246,7 +246,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { string.Empty },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -267,7 +267,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { string.Empty },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -288,7 +288,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fa3A" },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -309,7 +309,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fa3A" },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -330,7 +330,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fa3AQ" },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -351,7 +351,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fa3AQ" },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -372,7 +372,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509" },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -393,7 +393,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509" },
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -414,7 +414,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>(0),
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -435,7 +435,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>(0),
-                AdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -456,7 +456,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<Guid>(0),
+                AdminsIDs = new List<string>(0),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -477,7 +477,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<Guid>(0),
+                AdminsIDs = new List<string>(0),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -498,7 +498,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<Guid>() { default },
+                AdminsIDs = new List<string>() { default },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -519,7 +519,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<Guid>() { default },
+                AdminsIDs = new List<string>() { default },
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -1650,8 +1650,8 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
-                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
             };
 
             //Act
@@ -1668,8 +1668,8 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
-                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
             };
 
             //Act
@@ -1687,7 +1687,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = null,
-                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
             };
 
             //Act
@@ -1705,7 +1705,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             {
                 EducationalInstitutionID = Guid.NewGuid(),
                 AddAdminsIDs = null,
-                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
             };
 
             //Act
@@ -1722,7 +1722,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 RemoveAdminsIDs = null
             };
 
@@ -1740,7 +1740,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
+                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
                 RemoveAdminsIDs = null
             };
 
@@ -1758,8 +1758,8 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = default,
-                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
-                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
             };
 
             //Act
@@ -1776,8 +1776,8 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = default,
-                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
-                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
             };
 
             //Act
@@ -1827,12 +1827,12 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithSameAdminIDOnBothCollections_ShouldReturnFalse()
         {
             //Arrange
-            var adminID = Guid.NewGuid();
+            var adminID = Guid.NewGuid().ToString();
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<Guid>() { adminID },
-                RemoveAdminsIDs = new List<Guid>() { adminID }
+                AddAdminsIDs = new List<string>() { adminID },
+                RemoveAdminsIDs = new List<string>() { adminID }
             };
 
             //Act
@@ -1846,12 +1846,12 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithSameAdminIDOnBothCollections_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
-            var adminID = Guid.NewGuid();
+            var adminID = Guid.NewGuid().ToString();
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<Guid>() { adminID },
-                RemoveAdminsIDs = new List<Guid>() { adminID }
+                AddAdminsIDs = new List<string>() { adminID },
+                RemoveAdminsIDs = new List<string>() { adminID }
             };
 
             //Act
@@ -1865,12 +1865,12 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDuplicateIDInAddAdminsIDsCollection_ShouldReturnFalse()
         {
             //Arrange
-            var adminID = Guid.NewGuid();
+            var adminID = Guid.NewGuid().ToString();
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<Guid>() { adminID, adminID },
-                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+                AddAdminsIDs = new List<string>() { adminID, adminID },
+                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
             };
 
             //Act
@@ -1884,12 +1884,12 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDuplicateIDInAddAdminsIDsCollection_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
-            var adminID = Guid.NewGuid();
+            var adminID = Guid.NewGuid().ToString();
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<Guid>() { adminID, adminID },
-                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+                AddAdminsIDs = new List<string>() { adminID, adminID },
+                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
             };
 
             //Act
@@ -1903,12 +1903,12 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDuplicateIDInRemoveAdminsIDsCollection_ShouldReturnFalse()
         {
             //Arrange
-            var adminID = Guid.NewGuid();
+            var adminID = Guid.NewGuid().ToString();
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
-                RemoveAdminsIDs = new List<Guid>() { adminID, adminID }
+                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                RemoveAdminsIDs = new List<string>() { adminID, adminID }
             };
 
             //Act
@@ -1922,12 +1922,12 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDuplicateIDInRemoveAdminsIDsCollection_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
-            var adminID = Guid.NewGuid();
+            var adminID = Guid.NewGuid().ToString();
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
-                RemoveAdminsIDs = new List<Guid>() { adminID, adminID }
+                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                RemoveAdminsIDs = new List<string>() { adminID, adminID }
             };
 
             //Act
@@ -1944,8 +1944,8 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<Guid>() { default },
-                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+                AddAdminsIDs = new List<string>() { default },
+                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
             };
 
             //Act
@@ -1962,8 +1962,8 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<Guid>() { default },
-                RemoveAdminsIDs = new List<Guid>() { Guid.NewGuid() }
+                AddAdminsIDs = new List<string>() { default },
+                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
             };
 
             //Act
@@ -1980,8 +1980,8 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
-                RemoveAdminsIDs = new List<Guid>() { default }
+                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                RemoveAdminsIDs = new List<string>() { default }
             };
 
             //Act
@@ -1998,8 +1998,8 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<Guid>() { Guid.NewGuid() },
-                RemoveAdminsIDs = new List<Guid>() { default }
+                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                RemoveAdminsIDs = new List<string>() { default }
             };
 
             //Act

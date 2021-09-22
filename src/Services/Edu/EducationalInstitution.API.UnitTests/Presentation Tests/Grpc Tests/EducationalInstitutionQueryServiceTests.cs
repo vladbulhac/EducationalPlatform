@@ -1930,14 +1930,14 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             var result = await service.GetAllAdminsByEducationalInstitutionID(request, dependenciesHelper.mockServerCallContext.Object);
 
             //Assert
-            Assert.Equal(expectedMediatorResult.Data.AdminsIDs.Select(a => a.ToProtoUuid()).ToList(), result.Data);
+            Assert.Equal(expectedMediatorResult.Data.AdminsIDs, result.Data);
         }
 
         private void GetAllAdminsByEducationalInstitutionIDMethod_Setup(out Response<GetAllAdminsOfEducationalInstitutionQueryResult> expectedMediatorResult)
         {
             expectedMediatorResult = new()
             {
-                Data = new() { AdminsIDs = new List<Guid>() { Guid.NewGuid() } },
+                Data = new() { AdminsIDs = new List<string>() { Guid.NewGuid().ToString() } },
                 OperationStatus = true,
                 Message = string.Empty,
                 StatusCode = HttpStatusCode.OK

@@ -600,7 +600,7 @@ namespace EducationalInstitution.API.IntegrationTests.Infrastructure_Tests.Repos
             var result = await repository.GetAllAdminsForEducationalInstitutionAsync(educationalInstitutionID);
 
             //Assert
-            Assert.Contains(new Guid("9a0b8def-c8f0-43a4-b6da-030affb9683d"), result.AdminsIDs);
+            Assert.Contains("9a0b8def-c8f0-43a4-b6da-030affb9683d", result.AdminsIDs);
         }
 
         #endregion GetAllAdminsForEducationalInstitutionAsync() TESTS

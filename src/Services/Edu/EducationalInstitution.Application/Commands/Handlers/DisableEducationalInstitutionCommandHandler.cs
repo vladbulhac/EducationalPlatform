@@ -85,7 +85,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
             }
         }
 
-        private void PublishNotificationEventsForAdmins(Guid educationalInstitutionID, DateTime scheduledDateForDeletion, ICollection<Guid> adminsToNotify)
+        private void PublishNotificationEventsForAdmins(Guid educationalInstitutionID, DateTime scheduledDateForDeletion, ICollection<string> adminsToNotify)
         {
             NotifyAdminsOfEducationalInstitutionScheduledForDeletionIntegrationEvent @event = new()
             {

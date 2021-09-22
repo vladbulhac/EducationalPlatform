@@ -49,7 +49,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAndDescriptionAsync(educationalInstitutionID, name, description, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<string>(1) { Guid.NewGuid().ToString() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -81,7 +81,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                                                      .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAndDescriptionAsync(educationalInstitutionID, name, description, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<string>(1) { Guid.NewGuid().ToString() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -113,7 +113,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAndDescriptionAsync(educationalInstitutionID, name, description, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<string>(1) { Guid.NewGuid().ToString() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -145,7 +145,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAndDescriptionAsync(educationalInstitutionID, name, description, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<string>(1) { Guid.NewGuid().ToString() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -176,7 +176,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAsync(educationalInstitutionID, name, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<string>(1) { Guid.NewGuid().ToString() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -207,7 +207,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAsync(educationalInstitutionID, name, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<string>(1) { Guid.NewGuid().ToString() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -238,7 +238,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAsync(educationalInstitutionID, name, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<string>(1) { Guid.NewGuid().ToString() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -269,7 +269,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateNameAsync(educationalInstitutionID, name, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<string>(1) { Guid.NewGuid().ToString() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -300,7 +300,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateDescriptionAsync(educationalInstitutionID, description, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<string>(1) { Guid.NewGuid().ToString() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -331,7 +331,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                                                      .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateDescriptionAsync(educationalInstitutionID, description, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<string>(1) { Guid.NewGuid().ToString() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -362,7 +362,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateDescriptionAsync(educationalInstitutionID, description, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<string>(1) { Guid.NewGuid().ToString() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 
@@ -393,7 +393,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                                                     .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
             dependenciesHelper.mockEducationalInstitutionCommandRepository
                                 .Setup(r => r.UpdateDescriptionAsync(educationalInstitutionID, description, It.IsAny<CancellationToken>()))
-                                .ReturnsAsync(new AfterCommandChangesDetails(new List<Guid>(1) { Guid.NewGuid() }));
+                                .ReturnsAsync(new AfterCommandChangesDetails(new List<string>(1) { Guid.NewGuid().ToString() }));
 
             var handler = new UpdateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockEventBus.Object, dependenciesHelper.mockLogger.Object);
 

@@ -36,8 +36,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             DisableEducationalInstitutionCommand request = new() { EducationalInstitutionID = educationalInstitutionID };
 
-            var expectedCommandResult = new AfterDeleteCommandChangesDetails(DateTime.UtcNow,
-                                                                        new List<Guid>(1) { Guid.NewGuid() });
+            var expectedCommandResult = new AfterDeleteCommandChangesDetails(DateTime.UtcNow, new List<string>(1) { Guid.NewGuid().ToString() });
 
             SetupMockedDependencies(expectedCommandResult);
 
@@ -59,8 +58,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             DisableEducationalInstitutionCommand request = new() { EducationalInstitutionID = educationalInstitutionID };
 
-            var expectedCommandResult = new AfterDeleteCommandChangesDetails(DateTime.UtcNow,
-                                                                        new List<Guid>(1) { Guid.NewGuid() });
+            var expectedCommandResult = new AfterDeleteCommandChangesDetails(DateTime.UtcNow, new List<string>(1) { Guid.NewGuid().ToString() });
 
             SetupMockedDependencies(expectedCommandResult);
             DisableEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
@@ -81,8 +79,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             DisableEducationalInstitutionCommand request = new() { EducationalInstitutionID = educationalInstitutionID };
 
-            var expectedCommandResult = new AfterDeleteCommandChangesDetails(DateTime.UtcNow,
-                                                                        new List<Guid>(1) { Guid.NewGuid() });
+            var expectedCommandResult = new AfterDeleteCommandChangesDetails(DateTime.UtcNow, new List<string>(1) { Guid.NewGuid().ToString() });
 
             SetupMockedDependencies(expectedCommandResult);
 
@@ -104,8 +101,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             DisableEducationalInstitutionCommand request = new() { EducationalInstitutionID = educationalInstitutionID };
 
-            var expectedCommandResult = new AfterDeleteCommandChangesDetails(DateTime.UtcNow,
-                                                                                    new List<Guid>(1) { Guid.NewGuid() });
+            var expectedCommandResult = new AfterDeleteCommandChangesDetails(DateTime.UtcNow, new List<string>(1) { Guid.NewGuid().ToString() });
 
             SetupMockedDependencies(expectedCommandResult);
 
@@ -127,8 +123,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             DisableEducationalInstitutionCommand request = new() { EducationalInstitutionID = educationalInstitutionID };
 
-            var expectedCommandResult = new AfterDeleteCommandChangesDetails(DateTime.UtcNow,
-                                                                        new List<Guid>(1) { Guid.NewGuid() });
+            var expectedCommandResult = new AfterDeleteCommandChangesDetails(DateTime.UtcNow, new List<string>(1) { Guid.NewGuid().ToString() });
 
             SetupMockedDependencies(expectedCommandResult);
 
@@ -150,8 +145,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             DisableEducationalInstitutionCommand request = new() { EducationalInstitutionID = educationalInstitutionID };
 
-            var expectedCommandResult = new AfterDeleteCommandChangesDetails(DateTime.UtcNow,
-                                                                         new List<Guid>(1) { Guid.NewGuid() });
+            var expectedCommandResult = new AfterDeleteCommandChangesDetails(DateTime.UtcNow, new List<string>(1) { Guid.NewGuid().ToString() });
 
             SetupMockedDependencies(expectedCommandResult);
 
