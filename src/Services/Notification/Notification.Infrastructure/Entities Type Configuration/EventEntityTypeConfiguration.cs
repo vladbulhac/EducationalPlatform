@@ -9,7 +9,7 @@ namespace Notification.Infrastructure.Entities_Type_Configuration
         public void Configure(EntityTypeBuilder<Event> builder)
         {
             builder.HasKey(e => e.Id);
-            builder.HasIndex(e => new { e.Name, e.Message, e.Url });
+            builder.HasIndex(e => new { e.Name, e.Message, e.Uri });
 
             builder.OwnsOne(e => e.TriggerDetails, onb =>
             {
@@ -29,7 +29,7 @@ namespace Notification.Infrastructure.Entities_Type_Configuration
 
             builder.HasMany(e => e.Recipients)
                     .WithOne(pe => pe.Event)
-                    .HasForeignKey(pe => pe.EventID)
+                    .HasForeignKey(pe => pe.EventId)
                     .OnDelete(DeleteBehavior.Cascade);
 
             builder.Property(e => e.Name)
@@ -38,7 +38,7 @@ namespace Notification.Infrastructure.Entities_Type_Configuration
             builder.Property(e => e.Message)
                     .HasMaxLength(350)
                     .IsRequired();
-            builder.Property(e => e.Url)
+            builder.Property(e => e.Uri)
                     .HasMaxLength(100)
                     .IsRequired();
         }

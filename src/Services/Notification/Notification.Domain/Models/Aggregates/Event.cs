@@ -9,7 +9,7 @@ namespace Notification.Domain.Models.Aggregates
     {
         public string Name { get; init; }
         public string Message { get; init; }
-        public string Url { get; init; }
+        public string Uri { get; init; }
         public TriggerDetails TriggerDetails { get; init; }
         public ICollection<Recipient> Recipients { get; private set; }
 
@@ -17,11 +17,11 @@ namespace Notification.Domain.Models.Aggregates
         {
         }
 
-        public Event(string name, string message, string url, DateTime timeIssued, string triggeredByAction, string issuedBy, ICollection<Guid> recipients, Guid? id = null) : base(id)
+        public Event(string name, string message, string uri, DateTime timeIssued, string triggeredByAction, string issuedBy, ICollection<string> recipients, string id = null) : base(id)
         {
             Name = string.IsNullOrEmpty(name) ? throw new ArgumentNullException(nameof(name)) : GetEventName(name);
             Message = message ?? throw new ArgumentNullException(nameof(message));
-            Url = url ?? "NO_URL_SPECIFIED";
+            Uri = uri ?? "NO_URI_SPECIFIED";
             TriggerDetails = new(triggeredByAction, issuedBy, timeIssued);
 
             Recipients = new HashSet<Recipient>();
@@ -30,20 +30,20 @@ namespace Notification.Domain.Models.Aggregates
 
         private static string GetEventName(string @eventName) => eventName.Substring(0, eventName.Length - "IntegrationEvent".Length);
 
-        public static Event ReconstituteEvent(Guid id, string name, string message, string url, DateTime timeIssued, string triggeredByAction, string issuedBy, ICollection<Recipient> recipients)
+        public static Event ReconstituteEvent(string id, string name, string message, string uri, DateTime timeIssued, string triggeredByAction, string issuedBy, ICollection<Recipient> recipients)
         {
             return new()
             {
                 Id = id,
                 Name = name,
                 Message = message,
-                Url = url,
+                Uri = uri,
                 TriggerDetails = new(triggeredByAction, issuedBy, timeIssued),
                 Recipients = recipients
             };
         }
 
-        private void AttachRecipientsToEvent(ICollection<Guid> recipients)
+        private void AttachRecipientsToEvent(ICollection<string> recipients)
         {
             if (recipients is null || recipients.Count == 0) throw new ArgumentException($"Parameter { nameof(recipients) } can't be empty!");
 
@@ -51,7 +51,7 @@ namespace Notification.Domain.Models.Aggregates
                 Recipients.Add(new Recipient(recipient, Id));
         }
 
-        public void RecipientSawEventNotification(Guid recipientId)
+        public void RecipientSawEventNotification(string recipientId)
         {
             var recipient = Recipients.SingleOrDefault(r => r.Id == recipientId);
             if (recipient == default) throw new KeyNotFoundException($"{recipientId} does not exist in event - {Id} collection!");
