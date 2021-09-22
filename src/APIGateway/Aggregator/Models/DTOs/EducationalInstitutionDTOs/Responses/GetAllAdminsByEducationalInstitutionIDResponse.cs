@@ -5,6 +5,6 @@ namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs.Responses
 {
     public class GetAllAdminsByEducationalInstitutionIDResponse
     {
-        public ICollection<Guid> Admins { get; init; }
+        public ICollection<string> Admins { get; init; }
     }
 }
