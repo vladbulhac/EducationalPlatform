@@ -43,6 +43,6 @@ message BaseQueryResult{
 }
 
 message GetAdminsResult{
-	Uuid admins_ids=1;
+	string admins_ids=1;
 }
 
