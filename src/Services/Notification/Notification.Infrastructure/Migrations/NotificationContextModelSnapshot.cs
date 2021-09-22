@@ -16,14 +16,13 @@ namespace Notification.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.8")
+                .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Notification.Domain.Models.Aggregates.Event", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Message")
                         .IsRequired()
@@ -35,32 +34,32 @@ namespace Notification.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Url")
+                    b.Property<string>("Uri")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name", "Message", "Url");
+                    b.HasIndex("Name", "Message", "Uri");
 
                     b.ToTable("Events");
                 });
 
             modelBuilder.Entity("Notification.Domain.Models.Recipient", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("EventID")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("EventId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("Seen")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id", "EventID");
+                    b.HasKey("Id", "EventId");
 
-                    b.HasIndex("EventID");
+                    b.HasIndex("EventId");
 
                     b.ToTable("Recipients");
                 });
@@ -69,8 +68,8 @@ namespace Notification.Infrastructure.Migrations
                 {
                     b.OwnsOne("Notification.Domain.Models.TriggerDetails", "TriggerDetails", b1 =>
                         {
-                            b1.Property<Guid>("EventId")
-                                .HasColumnType("uniqueidentifier");
+                            b1.Property<string>("EventId")
+                                .HasColumnType("nvarchar(450)");
 
                             b1.Property<string>("Action")
                                 .IsRequired()
@@ -105,7 +104,7 @@ namespace Notification.Infrastructure.Migrations
                 {
                     b.HasOne("Notification.Domain.Models.Aggregates.Event", "Event")
                         .WithMany("Recipients")
-                        .HasForeignKey("EventID")
+                        .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
