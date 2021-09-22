@@ -29,11 +29,11 @@ namespace EducationalInstitutionAPI.Utils.Mappers
             };
         }
 
-        private static ICollection<Guid> MapAdminsIDsToCollectionOfGuid(RepeatedField<Uuid> adminsIDs)
+        private static ICollection<string> MapAdminsIDsToCollectionOfGuid(RepeatedField<string> adminsIDs)
         {
-            var mappedIDs = new List<Guid>(adminsIDs.Count);
+            var mappedIDs = new List<string>(adminsIDs.Count);
             for (int i = 0; i < adminsIDs.Count; i++)
-                mappedIDs.Add(adminsIDs[i].ToGuid());
+                mappedIDs.Add(adminsIDs[i]);
 
             return mappedIDs;
         }
@@ -45,8 +45,8 @@ namespace EducationalInstitutionAPI.Utils.Mappers
                 => new()
                 {
                     EducationalInstitutionID = request.EducationalInstitutionId.ToGuid(),
-                    AddAdminsIDs = request.AddAdminsIds.Select(element => element.ToGuid()).ToList(),
-                    RemoveAdminsIDs = request.RemoveAdminsIds.Select(element => element.ToGuid()).ToList()
+                    AddAdminsIDs = request.AddAdminsIds.Select(element => element).ToList(),
+                    RemoveAdminsIDs = request.RemoveAdminsIds.Select(element => element).ToList()
                 };
 
         public static UpdateEducationalInstitutionParentCommand MapToUpdateEducationalInstitutionParentCommand(this EducationalInstitutionParentUpdateRequest request)
