@@ -8,7 +8,7 @@ namespace Notification.Infrastructure.Entities_Type_Configuration
     {
         public void Configure(EntityTypeBuilder<Recipient> builder)
         {
-            builder.HasKey(r => new { r.Id, r.EventID });
+            builder.HasKey(r => new { r.Id, r.EventId });
         }
     }
 }

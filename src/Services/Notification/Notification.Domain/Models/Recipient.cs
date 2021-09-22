@@ -9,16 +9,16 @@ namespace Notification.Domain.Models
     /// </summary>
     public class Recipient : Entity
     {
-        public Guid EventID { get; init; }
+        public string EventId { get; init; }
         public Event Event { get; init; }
         public bool Seen { get; private set; }
 
         public Recipient()
         { }
 
-        public Recipient(Guid personID, Guid eventID) : base(personID)
+        public Recipient(string personId, string eventId) : base(personId)
         {
-            EventID = eventID;
+            EventId = eventId;
             Seen = false;
         }
 
