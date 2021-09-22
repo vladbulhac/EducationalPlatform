@@ -6,10 +6,9 @@
 -- Each Publisher is associated with a single database (known as a distribution database) at the Distributor.
 
 -- Configure Publisher:
-EXEC sp_addremotelogin 'edu-publisher','sa';
 
 -- tell the Publisher who the remote Distributor is
-EXEC sp_adddistributor @distributor = 'edu-distributor',
+EXEC sp_adddistributor @distributor = 'edu-distributor,1433',
                        @password = 'Pass@word';
 
 -- enable database for replication
@@ -87,7 +86,7 @@ EXEC sp_addarticle @publication = N'ProjectOne.EducationalInstitutions',
 USE [ProjectOne.EducationalInstitutions.Writes];
 -- adds a subscription to a publication and sets the Subscriber status
 EXEC sp_addsubscription @publication = N'ProjectOne.EducationalInstitutions', -- name of the publication 
-                        @subscriber = 'edu-subscriber', -- name of the Subscriber
+                        @subscriber = 'edu-subscriber,1433', -- name of the Subscriber
                         @destination_db = 'ProjectOne.EducationalInstitutions.Reads', -- name of the destination database in which to place replicated data
                         @subscription_type = N'Push', -- type of subscription
                         @sync_type = N'replication support only', -- subscription synchronization type, on "replication support only" provides automatic generation at the Subscriber of article custom stored procedures and triggers that support updating subscriptions, if appropriate and assumes that the Subscriber already has the schema and initial data for published tables
@@ -99,7 +98,7 @@ EXEC sp_addsubscription @publication = N'ProjectOne.EducationalInstitutions', --
 --Configure Push Agent:
 -- adds a new scheduled agent job used to synchronize a push subscription to a transactional publication
 EXEC sp_addpushsubscription_agent @publication = N'ProjectOne.EducationalInstitutions', -- name of the publication
-                                  @subscriber = 'edu-subscriber', -- name of the Subscriber instance
+                                  @subscriber = 'edu-subscriber,1433', -- name of the Subscriber instance
                                   @subscriber_db = 'ProjectOne.EducationalInstitutions.Reads', -- name of the subscription database
                                   @subscriber_security_mode = 0, -- security mode to use when connecting to a Subscriber when synchronizing, on "0" specifies SQL Server Authentication, on "1" specifies Windows Authentication
                                   @subscriber_login =  'sa', -- Subscriber login to use when connecting to a Subscriber when synchronizing
@@ -115,6 +114,7 @@ EXEC sp_addpushsubscription_agent @publication = N'ProjectOne.EducationalInstitu
                                   @active_start_date = 0, -- date when the Distribution Agent is first scheduled, formatted as YYYYMMDD, on "0" is default
                                   @active_end_date = 19950101; -- the date when the Distribution Agent stops being scheduled, formatted as YYYYMMDD
 GO
+
 --Changes security properties of a Log Reader agent:
 -- by default it sets up the log reader agent with a default account that won't work, you need to change that to something that will
 EXEC sp_changelogreader_agent @publisher_security_mode = 0, -- the security mode used by the agent when connecting to the Publisher, on "0" specifies SQL Server Authentication, on "1" specifies Windows Authentication
