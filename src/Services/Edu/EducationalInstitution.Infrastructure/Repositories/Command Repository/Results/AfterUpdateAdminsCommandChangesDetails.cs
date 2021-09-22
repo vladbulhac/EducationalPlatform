@@ -6,10 +6,10 @@ namespace EducationalInstitution.Infrastructure.Repositories.Command_Repository.
     /// <inheritdoc cref="AfterCommandChangesDetails"/>
     public record AfterUpdateAdminsCommandChangesDetails : AfterCommandChangesDetails
     {
-        public ICollection<Guid> NewAdminsToNotify { get; init; }
-        public ICollection<Guid> RemovedAdminsToNotify { get; init; }
+        public ICollection<string> NewAdminsToNotify { get; init; }
+        public ICollection<string> RemovedAdminsToNotify { get; init; }
 
-        public AfterUpdateAdminsCommandChangesDetails(ICollection<Guid> existingAdminsToNotify, ICollection<Guid> newAdminsToNotify, ICollection<Guid> removedAdminsToNotify) : base(existingAdminsToNotify)
+        public AfterUpdateAdminsCommandChangesDetails(ICollection<string> existingAdminsToNotify, ICollection<string> newAdminsToNotify, ICollection<string> removedAdminsToNotify) : base(existingAdminsToNotify)
         {
             NewAdminsToNotify = newAdminsToNotify;
             RemovedAdminsToNotify = removedAdminsToNotify;

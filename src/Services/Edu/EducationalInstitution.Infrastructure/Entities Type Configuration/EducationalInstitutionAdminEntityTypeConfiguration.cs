@@ -8,7 +8,7 @@ namespace EducationalInstitution.Infrastructure.Entities_Type_Configuration
     {
         public void Configure(EntityTypeBuilder<EducationalInstitutionAdmin> builder)
         {
-            builder.HasKey(eia => new { eia.AdminID, eia.Id });
+            builder.HasKey(eia => new { eia.AdminId, eia.Id });
 
             builder.Property(eib => eib.Id).HasColumnName("EducationalInstitutionID");
 

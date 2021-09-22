@@ -8,7 +8,7 @@ namespace EducationalInstitution.Infrastructure.Repositories.Command_Repository.
     {
         public DateTime ScheduledDateForDeletion { get; init; }
 
-        public AfterDeleteCommandChangesDetails(DateTime deletionDate, ICollection<Guid> adminsToNotify) : base(adminsToNotify)
+        public AfterDeleteCommandChangesDetails(DateTime deletionDate, ICollection<string> adminsToNotify) : base(adminsToNotify)
                             => ScheduledDateForDeletion = deletionDate;
     }
 }

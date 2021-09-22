@@ -6,14 +6,14 @@ namespace EducationalInstitution.Domain.Models
 {
     public class EducationalInstitutionAdmin : Entity
     {
-        public Guid AdminID { get; init; }
+        public string AdminId { get; init; }
         public Model::EducationalInstitution EducationalInstitution { get; init; }
 
         public EducationalInstitutionAdmin()
         {
         }
 
-        public EducationalInstitutionAdmin(Guid adminID, Guid educationalInstitutionID) : base(educationalInstitutionID)
-                => AdminID = adminID == default ? throw new ArgumentException($"{nameof(adminID)} doesn't have a valid value!") : adminID;
+        public EducationalInstitutionAdmin(string adminID, Guid educationalInstitutionID) : base(educationalInstitutionID)
+                => AdminId = adminID ?? throw new ArgumentException($"{nameof(adminID)} doesn't have a valid value!");
     }
 }

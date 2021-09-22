@@ -26,7 +26,7 @@ namespace EducationalInstitution.Infrastructure.Repositories.Command_Repository
             if (educationalInstitution is null) return default;
 
             educationalInstitution.ScheduleForDeletion();
-            return new(educationalInstitution.Access.DateForPermanentDeletion.Value.ToUniversalTime(), educationalInstitution.Admins.Select(a => a.AdminID).ToList());
+            return new(educationalInstitution.Access.DateForPermanentDeletion.Value.ToUniversalTime(), educationalInstitution.Admins.Select(a => a.AdminId).ToList());
         }
 
         public async Task<AfterCommandChangesDetails> UpdateEntireLocationAsync(Guid educationalInstitutionID, string locationID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken = default)
@@ -36,7 +36,7 @@ namespace EducationalInstitution.Infrastructure.Repositories.Command_Repository
             if (educationalInstitution is null) return default;
 
             educationalInstitution.SetEntireLocation(locationID, addBuildingsIDs, removeBuildingsIDs);
-            return new(educationalInstitution.Admins.Select(a => a.AdminID).ToList());
+            return new(educationalInstitution.Admins.Select(a => a.AdminId).ToList());
         }
 
         public async Task<AfterCommandChangesDetails> UpdateLocationAsync(Guid educationalInstitutionID, string locationID, CancellationToken cancellationToken = default)
@@ -46,7 +46,7 @@ namespace EducationalInstitution.Infrastructure.Repositories.Command_Repository
             if (educationalInstitution is null) return default;
 
             educationalInstitution.SetLocation(locationID);
-            return new(educationalInstitution.Admins.Select(a => a.AdminID).ToList());
+            return new(educationalInstitution.Admins.Select(a => a.AdminId).ToList());
         }
 
         public async Task<AfterCommandChangesDetails> UpdateBuildingsAsync(Guid educationalInstitutionID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken = default)
@@ -57,7 +57,7 @@ namespace EducationalInstitution.Infrastructure.Repositories.Command_Repository
 
             educationalInstitution.CreateAndAddBuildings(addBuildingsIDs);
             educationalInstitution.RemoveBuildings(removeBuildingsIDs);
-            return new(educationalInstitution.Admins.Select(a => a.AdminID).ToList());
+            return new(educationalInstitution.Admins.Select(a => a.AdminId).ToList());
         }
 
         public async Task<AfterCommandChangesDetails> UpdateNameAsync(Guid educationalInstitutionID, string name, CancellationToken cancellationToken = default)
@@ -67,7 +67,7 @@ namespace EducationalInstitution.Infrastructure.Repositories.Command_Repository
             if (educationalInstitution is null) return default;
 
             educationalInstitution.SetName(name);
-            return new(educationalInstitution.Admins.Select(a => a.AdminID).ToList());
+            return new(educationalInstitution.Admins.Select(a => a.AdminId).ToList());
         }
 
         public async Task<AfterCommandChangesDetails> UpdateDescriptionAsync(Guid educationalInstitutionID, string description, CancellationToken cancellationToken = default)
@@ -77,7 +77,7 @@ namespace EducationalInstitution.Infrastructure.Repositories.Command_Repository
             if (educationalInstitution is null) return default;
 
             educationalInstitution.SetDescription(description);
-            return new(educationalInstitution.Admins.Select(a => a.AdminID).ToList());
+            return new(educationalInstitution.Admins.Select(a => a.AdminId).ToList());
         }
 
         public async Task<AfterCommandChangesDetails> UpdateNameAndDescriptionAsync(Guid educationalInstitutionID, string name, string description, CancellationToken cancellationToken = default)
@@ -87,7 +87,7 @@ namespace EducationalInstitution.Infrastructure.Repositories.Command_Repository
             if (educationalInstitution is null) return default;
 
             educationalInstitution.SetNameAndDescription(name, description);
-            return new(educationalInstitution.Admins.Select(a => a.AdminID).ToList());
+            return new(educationalInstitution.Admins.Select(a => a.AdminId).ToList());
         }
 
         public async Task<AfterCommandChangesDetails> UpdateParentInstitutionAsync(Guid educationalInstitutionID, Guid parentInstitutionID, CancellationToken cancellationToken = default)
@@ -107,10 +107,10 @@ namespace EducationalInstitution.Infrastructure.Repositories.Command_Repository
             if (educationalInstitution is null) return default;
 
             educationalInstitution.SetParentInstitution(parentInstitution);
-            return new(educationalInstitution.Admins.Select(a => a.AdminID).ToList());
+            return new(educationalInstitution.Admins.Select(a => a.AdminId).ToList());
         }
 
-        public async Task<AfterUpdateAdminsCommandChangesDetails> UpdateAdminsAsync(Guid educationalInstitutionID, ICollection<Guid> addAdminsIDs, ICollection<Guid> removeAdminsIDs, CancellationToken cancellationToken = default)
+        public async Task<AfterUpdateAdminsCommandChangesDetails> UpdateAdminsAsync(Guid educationalInstitutionID, ICollection<string> addAdminsIDs, ICollection<string> removeAdminsIDs, CancellationToken cancellationToken = default)
         {
             var educationalInstitution = await GetEducationalInstitutionIncludingAdminsAsync(educationalInstitutionID, cancellationToken);
             if (educationalInstitution is null) return default;
@@ -118,7 +118,7 @@ namespace EducationalInstitution.Infrastructure.Repositories.Command_Repository
             educationalInstitution.CreateAndAddAdmins(addAdminsIDs);
             educationalInstitution.RemoveAdmins(removeAdminsIDs);
 
-            return new(educationalInstitution.Admins.Select(a => a.AdminID).Except(addAdminsIDs).ToList(), addAdminsIDs, removeAdminsIDs);
+            return new(educationalInstitution.Admins.Select(a => a.AdminId).Except(addAdminsIDs).ToList(), addAdminsIDs, removeAdminsIDs);
         }
 
         public async Task<Domain::EducationalInstitution> GetEducationalInstitutionIncludingAdminsAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default)

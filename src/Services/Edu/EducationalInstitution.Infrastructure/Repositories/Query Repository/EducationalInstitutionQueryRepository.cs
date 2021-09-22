@@ -107,7 +107,7 @@ namespace EducationalInstitution.Infrastructure.Repositories.Query_Repository
             {
                 await connection.OpenAsync(cancellationToken);
 
-                var queryResult = await connection.QueryAsync<Guid>
+                var queryResult = await connection.QueryAsync<string>
                                                              (@"SELECT AdminID
                                                                 FROM Admins
                                                                 WHERE EducationalInstitutionID=@ID AND IsDisabled=0",

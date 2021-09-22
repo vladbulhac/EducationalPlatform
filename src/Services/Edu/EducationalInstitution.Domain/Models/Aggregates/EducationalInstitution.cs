@@ -34,7 +34,7 @@ namespace EducationalInstitution.Domain.Models.Aggregates
         public ICollection<EducationalInstitutionAdmin> Admins { get; private set; }
 
         public EducationalInstitution(string name, string description, string locationID,
-            ICollection<string> buildingsIDs, ICollection<Guid> adminsIDs, EducationalInstitution parentInstitution = null, DateTime? joinDate = null, Guid? id = null) : base(id)
+            ICollection<string> buildingsIDs, ICollection<string> adminsIDs, EducationalInstitution parentInstitution = null, DateTime? joinDate = null, Guid? id = null) : base(id)
         {
             Name = string.IsNullOrEmpty(name) ? throw new ArgumentNullException(nameof(name)) : name;
             Description = description ?? "NO_DESCRIPTION";
@@ -137,22 +137,25 @@ namespace EducationalInstitution.Domain.Models.Aggregates
             }
         }
 
-        public void CreateAndAddAdmins(ICollection<Guid> addAdminsIDs)
+        public void CreateAndAddAdmins(ICollection<string> addAdminsIDs)
         {
             if (addAdminsIDs is not null && addAdminsIDs.Count > 0)
             {
                 foreach (var adminID in addAdminsIDs)
-                    Admins.Add(new(adminID, Id));
+                {
+                    if (adminID is not null)
+                        Admins.Add(new(adminID, Id));
+                }
             }
         }
 
-        public void RemoveAdmins(ICollection<Guid> removeAdminsIDs)
+        public void RemoveAdmins(ICollection<string> removeAdminsIDs)
         {
             if (removeAdminsIDs is not null && removeAdminsIDs.Count > 0)
             {
                 foreach (var adminID in removeAdminsIDs)
                 {
-                    var admin = Admins.SingleOrDefault(a => a.AdminID == adminID);
+                    var admin = Admins.SingleOrDefault(a => a.AdminId == adminID);
                     if (admin is not null)
                         admin.ScheduleForDeletion();
                 }

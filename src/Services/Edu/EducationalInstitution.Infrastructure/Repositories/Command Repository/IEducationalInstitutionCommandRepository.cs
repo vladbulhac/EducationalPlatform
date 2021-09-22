@@ -22,7 +22,7 @@ namespace EducationalInstitution.Infrastructure.Repositories.Command_Repository
 
         public Task<AfterCommandChangesDetails> UpdateBuildingsAsync(Guid educationalInstitutionID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken = default);
 
-        public Task<AfterUpdateAdminsCommandChangesDetails> UpdateAdminsAsync(Guid educationalInstitutionID, ICollection<Guid> addAdminsIDs, ICollection<Guid> removeAdminsIDs, CancellationToken cancellationToken = default);
+        public Task<AfterUpdateAdminsCommandChangesDetails> UpdateAdminsAsync(Guid educationalInstitutionID, ICollection<string> addAdminsIDs, ICollection<string> removeAdminsIDs, CancellationToken cancellationToken = default);
 
         public Task<AfterCommandChangesDetails> UpdateNameAsync(Guid educationalInstitutionID, string name, CancellationToken cancellationToken = default);
 

@@ -11,7 +11,7 @@ namespace EducationalInstitution.Application.Commands
         public string Description { get; init; }
         public string LocationID { get; init; }
         public ICollection<string> BuildingsIDs { get; init; }
-        public ICollection<Guid> AdminsIDs { get; init; }
+        public ICollection<string> AdminsIDs { get; init; }
 
         /// <remarks>
         /// <i>If an Educational Institution is created without a parent then this field will be equal to the default value of Guid: 00000000-0000-0000-0000-000000000000</i>

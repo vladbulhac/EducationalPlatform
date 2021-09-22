@@ -5,6 +5,6 @@ namespace EducationalInstitution.Infrastructure.Repositories.Query_Repository.Re
 {
     public record GetAllAdminsOfEducationalInstitutionQueryResult
     {
-        public ICollection<Guid> AdminsIDs { get; init; }
+        public ICollection<string> AdminsIDs { get; init; }
     }
 }
