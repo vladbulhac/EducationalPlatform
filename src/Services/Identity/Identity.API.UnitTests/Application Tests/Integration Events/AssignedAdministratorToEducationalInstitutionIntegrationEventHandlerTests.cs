@@ -48,7 +48,7 @@ namespace Identity.API.UnitTests.Application_Tests.Integration_Events
                 Message = "test message",
                 Permissions = new List<string>(1) { DefinedUserPermissions.EducationalInstitutionPermissions.All },
                 TriggeredBy = new RabbitMQEventBus.IntegrationEvents.EventTrigger() { Action = "test", ServiceName = "Identity.API" },
-                Url = string.Empty,
+                Uri = string.Empty,
                 UserId = Guid.NewGuid()
             };
 
@@ -83,7 +83,7 @@ namespace Identity.API.UnitTests.Application_Tests.Integration_Events
                 Message = "test message",
                 Permissions = new List<string>(1) { DefinedUserPermissions.EducationalInstitutionPermissions.All },
                 TriggeredBy = new RabbitMQEventBus.IntegrationEvents.EventTrigger() { Action = "test", ServiceName = "Identity.API" },
-                Url = string.Empty,
+                Uri = string.Empty,
                 UserId = Guid.NewGuid()
             };
 
@@ -118,7 +118,7 @@ namespace Identity.API.UnitTests.Application_Tests.Integration_Events
                 Message = "test message",
                 Permissions = new List<string>(1) { DefinedUserPermissions.EducationalInstitutionPermissions.All },
                 TriggeredBy = new RabbitMQEventBus.IntegrationEvents.EventTrigger() { Action = "test", ServiceName = "Identity.API" },
-                Url = string.Empty,
+                Uri = string.Empty,
                 UserId = Guid.NewGuid()
             };
 
@@ -153,7 +153,7 @@ namespace Identity.API.UnitTests.Application_Tests.Integration_Events
                 Message = "test message",
                 Permissions = new List<string>(1) { DefinedUserPermissions.EducationalInstitutionPermissions.All },
                 TriggeredBy = new RabbitMQEventBus.IntegrationEvents.EventTrigger() { Action = "test", ServiceName = "Identity.API" },
-                Url = string.Empty,
+                Uri = string.Empty,
                 UserId = Guid.NewGuid()
             };
 
@@ -188,7 +188,7 @@ namespace Identity.API.UnitTests.Application_Tests.Integration_Events
                 Message = "test message",
                 Permissions = new List<string>(1) { DefinedUserPermissions.EducationalInstitutionPermissions.Delete },
                 TriggeredBy = new RabbitMQEventBus.IntegrationEvents.EventTrigger() { Action = "test", ServiceName = "Identity.API" },
-                Url = string.Empty,
+                Uri = string.Empty,
                 UserId = Guid.NewGuid()
             };
 
@@ -223,7 +223,7 @@ namespace Identity.API.UnitTests.Application_Tests.Integration_Events
                 Message = "test message",
                 Permissions = new List<string>(1) { DefinedUserPermissions.EducationalInstitutionPermissions.Delete },
                 TriggeredBy = new RabbitMQEventBus.IntegrationEvents.EventTrigger() { Action = "test", ServiceName = "Identity.API" },
-                Url = string.Empty,
+                Uri = string.Empty,
                 UserId = Guid.NewGuid()
             };
 
@@ -258,7 +258,7 @@ namespace Identity.API.UnitTests.Application_Tests.Integration_Events
                 Message = "test message",
                 Permissions = new List<string>(1) { DefinedUserPermissions.EducationalInstitutionPermissions.Delete },
                 TriggeredBy = new RabbitMQEventBus.IntegrationEvents.EventTrigger() { Action = "test", ServiceName = "Identity.API" },
-                Url = string.Empty,
+                Uri = string.Empty,
                 UserId = Guid.NewGuid()
             };
 
@@ -293,7 +293,7 @@ namespace Identity.API.UnitTests.Application_Tests.Integration_Events
                 Message = "test message",
                 Permissions = new List<string>(1) { DefinedUserPermissions.EducationalInstitutionPermissions.ChangeAdministrators },
                 TriggeredBy = new RabbitMQEventBus.IntegrationEvents.EventTrigger() { Action = "test", ServiceName = "Identity.API" },
-                Url = string.Empty,
+                Uri = string.Empty,
                 UserId = Guid.NewGuid()
             };
 
@@ -328,7 +328,7 @@ namespace Identity.API.UnitTests.Application_Tests.Integration_Events
                 Message = "test message",
                 Permissions = new List<string>(1) { DefinedUserPermissions.EducationalInstitutionPermissions.ChangeAdministrators },
                 TriggeredBy = new RabbitMQEventBus.IntegrationEvents.EventTrigger() { Action = "test", ServiceName = "Identity.API" },
-                Url = string.Empty,
+                Uri = string.Empty,
                 UserId = Guid.NewGuid()
             };
 
@@ -363,7 +363,7 @@ namespace Identity.API.UnitTests.Application_Tests.Integration_Events
                 Message = "test message",
                 Permissions = new List<string>(1) { DefinedUserPermissions.EducationalInstitutionPermissions.ChangeAdministrators },
                 TriggeredBy = new RabbitMQEventBus.IntegrationEvents.EventTrigger() { Action = "test", ServiceName = "Identity.API" },
-                Url = string.Empty,
+                Uri = string.Empty,
                 UserId = Guid.NewGuid()
             };
 
@@ -398,7 +398,7 @@ namespace Identity.API.UnitTests.Application_Tests.Integration_Events
                 Message = "test message",
                 Permissions = new List<string>(1) { DefinedUserPermissions.EducationalInstitutionPermissions.UpdateDetails },
                 TriggeredBy = new RabbitMQEventBus.IntegrationEvents.EventTrigger() { Action = "test", ServiceName = "Identity.API" },
-                Url = string.Empty,
+                Uri = string.Empty,
                 UserId = Guid.NewGuid()
             };
 
@@ -433,7 +433,7 @@ namespace Identity.API.UnitTests.Application_Tests.Integration_Events
                 Message = "test message",
                 Permissions = new List<string>(1) { DefinedUserPermissions.EducationalInstitutionPermissions.UpdateDetails },
                 TriggeredBy = new RabbitMQEventBus.IntegrationEvents.EventTrigger() { Action = "test", ServiceName = "Identity.API" },
-                Url = string.Empty,
+                Uri = string.Empty,
                 UserId = Guid.NewGuid()
             };
 
@@ -468,7 +468,7 @@ namespace Identity.API.UnitTests.Application_Tests.Integration_Events
                 Message = "test message",
                 Permissions = new List<string>(1) { DefinedUserPermissions.EducationalInstitutionPermissions.UpdateDetails },
                 TriggeredBy = new RabbitMQEventBus.IntegrationEvents.EventTrigger() { Action = "test", ServiceName = "Identity.API" },
-                Url = string.Empty,
+                Uri = string.Empty,
                 UserId = Guid.NewGuid()
             };
 
