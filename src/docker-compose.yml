@@ -14,6 +14,7 @@ services:
             dockerfile: Services/Edu/EducationalInstitution.Infrastructure/Replication/Publisher/Dockerfile
         depends_on:
            - edu-distributor
+           - edu-subscriber
         container_name: 'edu-publisher'
         hostname: 'edu-publisher'
     edu-subscriber:
@@ -48,6 +49,7 @@ services:
             dockerfile: APIGateway/Aggregator/Dockerfile
         depends_on:
             - educationalinstitution-api
+            - identity-api
     identity-sqldb:
         image: "mcr.microsoft.com/mssql/server:2019-latest"
     identity-api:
