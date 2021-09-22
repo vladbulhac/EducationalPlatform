@@ -236,7 +236,7 @@ namespace EducationalInstitutionAPI.Presentation.Grpc
                     context.Status = new(result.StatusCode.ToGrpcContextStatusCode(), "Successfully retrieved the admins of this Educational Institution!");
                     return new()
                     {
-                        Data = { result.Data.AdminsIDs.Select(id => id.ToProtoUuid()).ToList() },
+                        Data = { result.Data.AdminsIDs },
                         Message = result.Message,
                         OperationStatus = result.OperationStatus,
                         StatusCode = result.StatusCode.ToProtoHttpStatusCode()
