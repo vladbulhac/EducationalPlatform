@@ -62,6 +62,8 @@ services:
             - ACCEPT_EULA=Y
             - MSSQL_SA_PASSWORD=Pass@word
             - MSSQL_AGENT_ENABLED=true
+       ports:
+            - "1471:1433" 
    identity-sqldb:
        environment:
             - ACCEPT_EULA=Y
