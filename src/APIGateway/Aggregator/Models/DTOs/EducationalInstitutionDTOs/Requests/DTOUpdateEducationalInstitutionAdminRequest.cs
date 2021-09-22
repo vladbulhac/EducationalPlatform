@@ -5,7 +5,7 @@ namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs.Requests
 {
     public class DTOUpdateEducationalInstitutionAdminRequest
     {
-        public ICollection<Guid> AddAdminsIDs { get; init; }
-        public ICollection<Guid> RemoveAdminsIDs { get; init; }
+        public ICollection<string> AddAdminsIDs { get; init; }
+        public ICollection<string> RemoveAdminsIDs { get; init; }
     }
 }
