@@ -32,7 +32,7 @@ namespace Aggregator.Models.ObjectMappers
             request.Buildings.Add(requestData.BuildingsIDs);
 
             foreach (var adminID in requestData.AdminsIDs)
-                request.AdminsIds.Add(adminID.ToProtoUuid());
+                request.AdminsIds.Add(adminID);
 
             return request;
         }
@@ -159,7 +159,7 @@ namespace Aggregator.Models.ObjectMappers
 
             return new()
             {
-                Data = new() { Admins = grpcCallResponse.Body.Data.Select(a => a.ToGuid()).ToList() },
+                Data = new() { Admins = grpcCallResponse.Body.Data },
                 Message = grpcCallResponse.Body.Message,
                 OperationStatus = grpcCallResponse.Body.OperationStatus,
                 StatusCode = grpcCallResponse.Body.StatusCode.ToHttpStatusCode()

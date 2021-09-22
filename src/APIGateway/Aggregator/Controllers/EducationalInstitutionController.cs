@@ -223,8 +223,8 @@ namespace Aggregator.Controllers
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = id.ToProtoUuid(),
-                AddAdminsIds = { data.AddAdminsIDs.Select(a => a.ToProtoUuid()).ToList() },
-                RemoveAdminsIds = { data.RemoveAdminsIDs.Select(a => a.ToProtoUuid()).ToList() }
+                AddAdminsIds = { data.AddAdminsIDs },
+                RemoveAdminsIds = { data.RemoveAdminsIDs }
             };
 
             var grpcCallResponse = await commandService.UpdateEducationalInstitutionAdminAsync(request);
