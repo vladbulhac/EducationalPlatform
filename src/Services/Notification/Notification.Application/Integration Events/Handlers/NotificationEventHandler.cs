@@ -26,11 +26,12 @@ namespace Notification.Application.Integration_Events.Handlers
             try
             {
                 Event eventEntity = new(@event.GetType().Name,
-                                        @event.Message, @event.Url,
+                                        @event.Message, @event.Uri,
                                         @event.TimeIssued,
                                         @event.TriggeredBy.Action,
                                         @event.TriggeredBy.ServiceName,
-                                        @event.ToNotify);
+                                        @event.ToNotify,
+                                        @event.EventId);
 
                 await repository.AddEventAsync(eventEntity);
             }
