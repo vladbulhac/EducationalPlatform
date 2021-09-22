@@ -11,8 +11,8 @@ namespace Notification.Infrastructure.Repositories
     {
         public Task AddEventAsync(Event entity, CancellationToken cancellationToken = default);
 
-        public Task<ICollection<GetEventDetails>> GetUnseenEventsForRecipientAsync(Guid recipientID, CancellationToken cancellationToken = default);
+        public Task<ICollection<GetEventDetails>> GetUnseenEventsForRecipientAsync(string recipientID, CancellationToken cancellationToken = default);
 
-        public Task<bool> RecipientSawTheEventAsync(Guid eventId, Guid recipientID, CancellationToken cancellationToken = default);
+        public Task<bool> RecipientSawTheEventAsync(string eventId, string recipientID, CancellationToken cancellationToken = default);
     }
 }

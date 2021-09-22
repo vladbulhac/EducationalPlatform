@@ -22,7 +22,7 @@ namespace Notification.Infrastructure.Repositories
             await context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<bool> RecipientSawTheEventAsync(Guid eventId, Guid recipientId, CancellationToken cancellationToken = default)
+        public async Task<bool> RecipientSawTheEventAsync(string eventId, string recipientId, CancellationToken cancellationToken = default)
         {
             var eventEntity = await context.Events.Include(e => e.Recipients)
                                                   .SingleOrDefaultAsync(e => e.Id == eventId, cancellationToken);
@@ -34,7 +34,7 @@ namespace Notification.Infrastructure.Repositories
             return true;
         }
 
-        public async Task<ICollection<GetEventDetails>> GetUnseenEventsForRecipientAsync(Guid recipientID, CancellationToken cancellationToken = default)
+        public async Task<ICollection<GetEventDetails>> GetUnseenEventsForRecipientAsync(string recipientID, CancellationToken cancellationToken = default)
         {
             return await context.Recipients.Include(r => r.Event)
                                            .Where(r => r.Id == recipientID && !r.Seen)
@@ -42,7 +42,7 @@ namespace Notification.Infrastructure.Repositories
                                            {
                                                Message = e.Event.Message,
                                                TimeIssued = e.Event.TriggerDetails.TimeIssued,
-                                               Url = e.Event.Url
+                                               Url = e.Event.Uri
                                            })
                                            .ToListAsync(cancellationToken);
         }
