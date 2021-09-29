@@ -278,21 +278,23 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
 
         #endregion MapToDisableEducationalInstitutionCommand extension method TESTS
 
-        #region MapToUpdateUpdateEducationalInstitutionCommand extension method TESTS
+        #region MapToUpdateEducationalInstitutionAdminsCommand extension method TESTS
 
         [Fact]
         public void GivenEducationalInstitutionAdminUpdateRequest_ShouldReturnUpdateEducationalInstitutionAdminsCommandType()
         {
             //Arrange
             var id = Guid.NewGuid();
-            var addAdminsID = new List<string>() { Guid.NewGuid().ToString() };
-            var removeAdminsID = new List<string>() { Guid.NewGuid().ToString() };
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.update" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.delete" } } };
 
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = id.ToProtoUuid(),
-                AddAdminsIds = { addAdminsID },
-                RemoveAdminsIds = { removeAdminsID }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             //Act
@@ -307,14 +309,16 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
         {
             //Arrange
             var id = Guid.NewGuid();
-            var addAdminsID = new List<string>() { Guid.NewGuid().ToString() };
-            var removeAdminsID = new List<string>() { Guid.NewGuid().ToString() };
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.update" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.delete" } } };
 
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = id.ToProtoUuid(),
-                AddAdminsIds = { addAdminsID },
-                RemoveAdminsIds = { removeAdminsID }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             //Act
@@ -325,94 +329,292 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
         }
 
         [Fact]
-        public void GivenEducationalInstitutionAdminUpdateRequest_ShouldReturnExpectedAddAdminsIDsCollection()
+        public void GivenEducationalInstitutionAdminUpdateRequest_ShouldReturnExpectedNewAdminItemIdentity()
         {
             //Arrange
             var id = Guid.NewGuid();
-            var addAdminsID = new List<string>() { Guid.NewGuid().ToString() };
-            var removeAdminsID = new List<string>() { Guid.NewGuid().ToString() };
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.update" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.delete" } } };
 
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = id.ToProtoUuid(),
-                AddAdminsIds = { addAdminsID },
-                RemoveAdminsIds = { removeAdminsID }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             //Act
             var mappedRequest = request.MapToUpdateEducationalInstitutionAdminsCommand();
 
             //Assert
-            Assert.Equal(addAdminsID, mappedRequest.AddAdminsIDs);
+            Assert.Equal(newAdmins[0].Identity, mappedRequest.NewAdmins.ElementAt(0).Identity);
         }
 
         [Fact]
-        public void GivenEducationalInstitutionAdminUpdateRequest_ShouldReturnExpectedRemoveAdminsIDsCollection()
+        public void GivenEducationalInstitutionAdminUpdateRequest_ShouldReturnExpectedNewAdminItemPermissionCollectionWithOneItem()
         {
             //Arrange
             var id = Guid.NewGuid();
-            var addAdminsID = new List<string>() { Guid.NewGuid().ToString() };
-            var removeAdminsID = new List<string>() { Guid.NewGuid().ToString() };
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.update" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.delete" } } };
 
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = id.ToProtoUuid(),
-                AddAdminsIds = { addAdminsID },
-                RemoveAdminsIds = { removeAdminsID }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             //Act
             var mappedRequest = request.MapToUpdateEducationalInstitutionAdminsCommand();
 
             //Assert
-            Assert.Equal(removeAdminsID, mappedRequest.RemoveAdminsIDs);
+            Assert.Single(mappedRequest.NewAdmins.ElementAt(0).Permissions);
         }
 
         [Fact]
-        public void GivenEducationalInstitutionAdminUpdateRequest_WithEmptyAddAdminsIDs_ShouldReturnEmptyAddAdminsIDsCollection()
+        public void GivenEducationalInstitutionAdminUpdateRequest_ShouldReturnExpectedNewAdminItemPermission()
         {
             //Arrange
             var id = Guid.NewGuid();
-            var addAdminsID = new List<string>();
-            var removeAdminsID = new List<string>() { Guid.NewGuid().ToString() };
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.update" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.delete" } } };
 
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = id.ToProtoUuid(),
-                AddAdminsIds = { addAdminsID },
-                RemoveAdminsIds = { removeAdminsID }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             //Act
             var mappedRequest = request.MapToUpdateEducationalInstitutionAdminsCommand();
 
             //Assert
-            Assert.Empty(mappedRequest.AddAdminsIDs);
+            Assert.Equal(newAdmins[0].Permissions[0], mappedRequest.NewAdmins.ElementAt(0).Permissions.ElementAt(0));
         }
 
         [Fact]
-        public void GivenEducationalInstitutionAdminUpdateRequest_WithEmptyRemoveAdminsIDs_ShouldReturnEmptyRemoveAdminsIDsCollection()
+        public void GivenEducationalInstitutionAdminUpdateRequest_ShouldReturnExpectedAdminsWithNewPermissionsItemIdentity()
         {
             //Arrange
             var id = Guid.NewGuid();
-            var addAdminsID = new List<string>() { Guid.NewGuid().ToString() };
-            var removeAdminsID = new List<string>();
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.update" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.delete" } } };
 
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = id.ToProtoUuid(),
-                AddAdminsIds = { addAdminsID },
-                RemoveAdminsIds = { removeAdminsID }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             //Act
             var mappedRequest = request.MapToUpdateEducationalInstitutionAdminsCommand();
 
             //Assert
-            Assert.Empty(mappedRequest.RemoveAdminsIDs);
+            Assert.Equal(adminsWithNewPermissions[0].Identity, mappedRequest.AdminsWithNewPermissions.ElementAt(0).Identity);
         }
 
-        #endregion MapToUpdateUpdateEducationalInstitutionCommand extension method TESTS
+        [Fact]
+        public void GivenEducationalInstitutionAdminUpdateRequest_ShouldReturnExpectedAdminsWithNewPermissionsItem_PermissionCollectionWithOneItem()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.update" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.delete" } } };
+
+            EducationalInstitutionAdminUpdateRequest request = new()
+            {
+                EducationalInstitutionId = id.ToProtoUuid(),
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
+            };
+
+            //Act
+            var mappedRequest = request.MapToUpdateEducationalInstitutionAdminsCommand();
+
+            //Assert
+            Assert.Single(mappedRequest.AdminsWithNewPermissions.ElementAt(0).Permissions);
+        }
+
+        [Fact]
+        public void GivenEducationalInstitutionAdminUpdateRequest_ShouldReturnExpectedAdminsWithNewPermissionsItemPermission()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.update" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.delete" } } };
+
+            EducationalInstitutionAdminUpdateRequest request = new()
+            {
+                EducationalInstitutionId = id.ToProtoUuid(),
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
+            };
+
+            //Act
+            var mappedRequest = request.MapToUpdateEducationalInstitutionAdminsCommand();
+
+            //Assert
+            Assert.Equal(adminsWithNewPermissions[0].Permissions[0], mappedRequest.AdminsWithNewPermissions.ElementAt(0).Permissions.ElementAt(0));
+        }
+
+        [Fact]
+        public void GivenEducationalInstitutionAdminUpdateRequest_ShouldReturnExpectedAdminsWithRevokedPermissionsItemIdentity()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.update" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.delete" } } };
+
+            EducationalInstitutionAdminUpdateRequest request = new()
+            {
+                EducationalInstitutionId = id.ToProtoUuid(),
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
+            };
+
+            //Act
+            var mappedRequest = request.MapToUpdateEducationalInstitutionAdminsCommand();
+
+            //Assert
+            Assert.Equal(adminsWithRevokedPermissions[0].Identity, mappedRequest.AdminsWithRevokedPermissions.ElementAt(0).Identity);
+        }
+
+        [Fact]
+        public void GivenEducationalInstitutionAdminUpdateRequest_ShouldReturnExpectedAdminsWithRevokedPermissionsItemPermissionCollectionWithOneItem()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.update" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.delete" } } };
+
+            EducationalInstitutionAdminUpdateRequest request = new()
+            {
+                EducationalInstitutionId = id.ToProtoUuid(),
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
+            };
+
+            //Act
+            var mappedRequest = request.MapToUpdateEducationalInstitutionAdminsCommand();
+
+            //Assert
+            Assert.Single(mappedRequest.AdminsWithRevokedPermissions.ElementAt(0).Permissions);
+        }
+
+        [Fact]
+        public void GivenEducationalInstitutionAdminUpdateRequest_ShouldReturnExpectedAdminsWithRevokedPermissionsItemPermission()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.update" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.delete" } } };
+
+            EducationalInstitutionAdminUpdateRequest request = new()
+            {
+                EducationalInstitutionId = id.ToProtoUuid(),
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
+            };
+
+            //Act
+            var mappedRequest = request.MapToUpdateEducationalInstitutionAdminsCommand();
+
+            //Assert
+            Assert.Equal(adminsWithRevokedPermissions[0].Permissions[0], mappedRequest.AdminsWithRevokedPermissions.ElementAt(0).Permissions.ElementAt(0));
+        }
+
+        [Fact]
+        public void GivenEducationalInstitutionAdminUpdateRequest_WithEmptyNewAdminsCollection_ShouldReturnEmptyNewAdminsCollection()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var newAdmins = new List<AdminInformation>();
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.update" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.delete" } } };
+
+            EducationalInstitutionAdminUpdateRequest request = new()
+            {
+                EducationalInstitutionId = id.ToProtoUuid(),
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
+            };
+
+            //Act
+            var mappedRequest = request.MapToUpdateEducationalInstitutionAdminsCommand();
+
+            //Assert
+            Assert.Empty(mappedRequest.NewAdmins);
+        }
+
+        [Fact]
+        public void GivenEducationalInstitutionAdminUpdateRequest_WithEmptyAdminsWithNewPermissionsCollection_ShouldReturnEmptyAdminsWithNewPermissionsCollection()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>();
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.delete" } } };
+
+            EducationalInstitutionAdminUpdateRequest request = new()
+            {
+                EducationalInstitutionId = id.ToProtoUuid(),
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
+            };
+            //Act
+            var mappedRequest = request.MapToUpdateEducationalInstitutionAdminsCommand();
+
+            //Assert
+            Assert.Empty(mappedRequest.AdminsWithNewPermissions);
+        }
+
+        [Fact]
+        public void GivenEducationalInstitutionAdminUpdateRequest_WithEmptyAdminsWithRevokedPermissionsCollection_ShouldReturnEmptyAdminsWithRevokedPermissionsCollection()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>();
+            var adminsWithRevokedPermissions = new List<AdminInformation>();
+
+            EducationalInstitutionAdminUpdateRequest request = new()
+            {
+                EducationalInstitutionId = id.ToProtoUuid(),
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
+            };
+            //Act
+            var mappedRequest = request.MapToUpdateEducationalInstitutionAdminsCommand();
+
+            //Assert
+            Assert.Empty(mappedRequest.AdminsWithRevokedPermissions);
+        }
+
+        #endregion MapToUpdateEducationalInstitutionAdminsCommand extension method TESTS
 
         #region MapToUpdateEducationalInstitutionParentCommand extension method TESTS
 
