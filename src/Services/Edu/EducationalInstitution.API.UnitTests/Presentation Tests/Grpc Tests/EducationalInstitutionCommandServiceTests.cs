@@ -1048,11 +1048,16 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionAdminUpdateRequest_ToUpdateEducationalInstitutionAdminMethod_ShouldReturnEducationalInstitutionUpdateResponseType()
         {
             //Arrange
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToString() },
-                RemoveAdminsIds = { Guid.NewGuid().ToString() }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             UpdateEducationalInstitutionAdminMethod_Setup();
@@ -1068,11 +1073,16 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionAdminUpdateRequest_ToUpdateEducationalInstitutionAdminMethod_ShouldReturnEmptyMessage()
         {
             //Arrange
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToString() },
-                RemoveAdminsIds = { Guid.NewGuid().ToString() }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             UpdateEducationalInstitutionAdminMethod_Setup();
@@ -1088,11 +1098,16 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionAdminUpdateRequest_ToUpdateEducationalInstitutionAdminMethod_ShouldReturnTrueOperationStatus()
         {
             //Arrange
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToString() },
-                RemoveAdminsIds = { Guid.NewGuid().ToString() }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             UpdateEducationalInstitutionAdminMethod_Setup();
@@ -1108,11 +1123,16 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionAdminUpdateRequest_ToUpdateEducationalInstitutionAdminMethod_ShouldReturnStatusCodeNoContent()
         {
             //Arrange
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToString() },
-                RemoveAdminsIds = { Guid.NewGuid().ToString() }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             UpdateEducationalInstitutionAdminMethod_Setup();
@@ -1145,11 +1165,16 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
         {
             //Arrange
             var educationalInstitutionID = Guid.NewGuid();
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = educationalInstitutionID.ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToString() },
-                RemoveAdminsIds = { Guid.NewGuid().ToString() }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             UpdateEducationalInstitutionAdminMethod_SetupToNotFindEntity(educationalInstitutionID);
@@ -1166,11 +1191,16 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
         {
             //Arrange
             var educationalInstitutionID = Guid.NewGuid();
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = educationalInstitutionID.ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToString() },
-                RemoveAdminsIds = { Guid.NewGuid().ToString() }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             UpdateEducationalInstitutionAdminMethod_SetupToNotFindEntity(educationalInstitutionID);
@@ -1187,11 +1217,16 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
         {
             //Arrange
             var educationalInstitutionID = Guid.NewGuid();
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = educationalInstitutionID.ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToString() },
-                RemoveAdminsIds = { Guid.NewGuid().ToString() }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             UpdateEducationalInstitutionAdminMethod_SetupToNotFindEntity(educationalInstitutionID);
@@ -1223,11 +1258,16 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionAdminUpdateRequest_ToUpdateEducationalInstitutionAdminMethod_AnExceptionIsCaughtInHandler_ShouldReturnFalseOperationStatus()
         {
             //Arrange
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToString() },
-                RemoveAdminsIds = { Guid.NewGuid().ToString() }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             UpdateEducationalInstitutionAdminMethod_SetupWhenAnExceptionIsCaughtInHandler();
@@ -1247,11 +1287,16 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionAdminUpdateRequest_ToUpdateEducationalInstitutionAdminMethod_AnExceptionIsCaughtInHandler_ShouldReturnEmptyMessage()
         {
             //Arrange
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToString() },
-                RemoveAdminsIds = { Guid.NewGuid().ToString() }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             UpdateEducationalInstitutionAdminMethod_SetupWhenAnExceptionIsCaughtInHandler();
@@ -1267,11 +1312,16 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionAdminUpdateRequest_ToUpdateEducationalInstitutionAdminMethod_AnExceptionIsCaughtInHandler_ShouldReturnStatusCodeDefault()
         {
             //Arrange
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToString() },
-                RemoveAdminsIds = { Guid.NewGuid().ToString() }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             UpdateEducationalInstitutionAdminMethod_SetupWhenAnExceptionIsCaughtInHandler();
@@ -1303,11 +1353,16 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionAdminUpdateRequest_ToUpdateEducationalInstitutionAdminMethod_AnExceptionIsThrownByMediator_ShouldReturnFalseOperationStatus()
         {
             //Arrange
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToString() },
-                RemoveAdminsIds = { Guid.NewGuid().ToString() }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             UpdateEducationalInstitutionAdminMethod_SetupMediatorToThrowException();
@@ -1323,11 +1378,16 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionAdminUpdateRequest_ToUpdateEducationalInstitutionAdminMethod_AnExceptionIsThrownByMediator_ShouldReturnStatusCodeDefault()
         {
             //Arrange
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToString() },
-                RemoveAdminsIds = { Guid.NewGuid().ToString() }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             UpdateEducationalInstitutionAdminMethod_SetupMediatorToThrowException();
@@ -1343,11 +1403,16 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
         public async Task GivenAValidEducationalInstitutionAdminUpdateRequest_ToUpdateEducationalInstitutionAdminMethod_AnExceptionIsThrownByMediator_ShouldReturnEmptyMessage()
         {
             //Arrange
+            var newAdmins = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+            var adminsWithRevokedPermissions = new List<AdminInformation>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = { "user.test.all" } } };
+
             EducationalInstitutionAdminUpdateRequest request = new()
             {
                 EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToString() },
-                RemoveAdminsIds = { Guid.NewGuid().ToString() }
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             UpdateEducationalInstitutionAdminMethod_SetupMediatorToThrowException();
@@ -1372,11 +1437,16 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
         public async Task GivenAnInvalidEducationalInstitutionAdminUpdateRequest_ToUpdateEducationalInstitutionAdminMethod_ValidationFails_ShouldReturnFalseOperationStatus()
         {
             //Arrange
+            var newAdmins = new List<AdminInformation>() { new() { Identity = string.Empty, Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>();
+            var adminsWithRevokedPermissions = new List<AdminInformation>();
+
             EducationalInstitutionAdminUpdateRequest request = new()
             {
-                EducationalInstitutionId = Guid.Empty.ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToString() },
-                RemoveAdminsIds = { Guid.NewGuid().ToString() }
+                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             SetupMockedDependenciesToFailValidation<UpdateEducationalInstitutionAdminsCommand>();
@@ -1392,11 +1462,16 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
         public async Task GivenAnInvalidEducationalInstitutionAdminUpdateRequest_ToUpdateEducationalInstitutionAdminMethod_ValidationFails_ShouldReturnEmptyMessage()
         {
             //Arrange
+            var newAdmins = new List<AdminInformation>() { new() { Identity = string.Empty, Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>();
+            var adminsWithRevokedPermissions = new List<AdminInformation>();
+
             EducationalInstitutionAdminUpdateRequest request = new()
             {
-                EducationalInstitutionId = Guid.Empty.ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToString() },
-                RemoveAdminsIds = { Guid.NewGuid().ToString() }
+                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             SetupMockedDependenciesToFailValidation<UpdateEducationalInstitutionAdminsCommand>();
@@ -1412,11 +1487,16 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
         public async Task GivenAnInvalidEducationalInstitutionAdminUpdateRequest_ToUpdateEducationalInstitutionAdminMethod_ValidationFails_ShouldReturnStatusCodeDefault()
         {
             //Arrange
+            var newAdmins = new List<AdminInformation>() { new() { Identity = string.Empty, Permissions = { "user.test.all" } } };
+            var adminsWithNewPermissions = new List<AdminInformation>();
+            var adminsWithRevokedPermissions = new List<AdminInformation>();
+
             EducationalInstitutionAdminUpdateRequest request = new()
             {
-                EducationalInstitutionId = Guid.Empty.ToProtoUuid(),
-                AddAdminsIds = { Guid.NewGuid().ToString() },
-                RemoveAdminsIds = { Guid.NewGuid().ToString() }
+                EducationalInstitutionId = Guid.NewGuid().ToProtoUuid(),
+                NewAdmins = { newAdmins },
+                AdminsWithNewPermissions = { adminsWithNewPermissions },
+                AdminsWithRevokedPermissions = { adminsWithRevokedPermissions }
             };
 
             SetupMockedDependenciesToFailValidation<UpdateEducationalInstitutionAdminsCommand>();
