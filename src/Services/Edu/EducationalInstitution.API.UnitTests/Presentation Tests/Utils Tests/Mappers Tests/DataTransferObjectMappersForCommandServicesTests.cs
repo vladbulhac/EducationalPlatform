@@ -23,10 +23,10 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 Name = "testName",
                 Description = "testDescription",
                 LocationId = "testLocation",
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(Guid.NewGuid().ToString());
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
@@ -46,10 +46,10 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 Name = "testName",
                 Description = "testDescription",
                 LocationId = "testLocation",
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(Guid.NewGuid().ToString());
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
@@ -69,10 +69,10 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 Name = "testName",
                 Description = "testDescription",
                 LocationId = "testLocation",
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(Guid.NewGuid().ToString());
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
@@ -92,10 +92,10 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 Name = "testName",
                 Description = "testDescription",
                 LocationId = "testLocation",
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(Guid.NewGuid().ToString());
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
@@ -115,10 +115,10 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 Name = "testName",
                 Description = "testDescription",
                 LocationId = "testLocation",
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(Guid.NewGuid().ToString());
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
@@ -138,10 +138,10 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 Name = "testName",
                 Description = "testDescription",
                 LocationId = "testLocation",
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(Guid.NewGuid().ToString());
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
@@ -161,10 +161,10 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 Name = "testName",
                 Description = "testDescription",
                 LocationId = "testLocation",
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(Guid.NewGuid().ToString());
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
@@ -184,10 +184,10 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 Name = "testName",
                 Description = "testDescription",
                 LocationId = "testLocation",
-                ParentInstitutionId = null
+                ParentInstitutionId = null,
+                AdminId = Guid.NewGuid().ToString(),
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(Guid.NewGuid().ToString());
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
@@ -197,7 +197,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
         }
 
         [Fact]
-        public void GivenAValidEducationalInstitutionCreateRequest_ShouldReturnCollectionAdminsIDsWithOneElement()
+        public void GivenAValidEducationalInstitutionCreateRequest_ShouldReturnExpectedAdminId()
         {
             //Arrange
             var parentInstitutionID = Guid.NewGuid();
@@ -208,40 +208,16 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Utils_Tests.Ma
                 Name = "testName",
                 Description = "testDescription",
                 LocationId = "testLocation",
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionId = parentInstitutionID.ToProtoUuid()
             };
             request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(adminID);
 
             //Act
             var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
 
             //Assert
-            Assert.Single(mappedRequest.AdminsIDs);
-        }
-
-        [Fact]
-        public void GivenAValidEducationalInstitutionCreateRequest_ShouldReturnExpectedAdminID()
-        {
-            //Arrange
-            var parentInstitutionID = Guid.NewGuid();
-            var adminID = Guid.NewGuid().ToString();
-
-            EducationalInstitutionCreateRequest request = new()
-            {
-                Name = "testName",
-                Description = "testDescription",
-                LocationId = "testLocation",
-                ParentInstitutionId = parentInstitutionID.ToProtoUuid()
-            };
-            request.Buildings.Add("testBuilding1");
-            request.AdminsIds.Add(adminID);
-
-            //Act
-            var mappedRequest = request.MapToCreateEducationalInstitutionCommand();
-
-            //Assert
-            Assert.Equal(adminID, mappedRequest.AdminsIDs.ElementAt(0));
+            Assert.Equal(request.AdminId, mappedRequest.AdminId);
         }
 
         #endregion MapToCreateEducationalInstitutionCommand extension method TESTS
