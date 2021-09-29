@@ -11,6 +11,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
+using Domain = EducationalInstitution.Domain.Models.Aggregates;
 
 namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.Handlers_Tests
 {
@@ -36,9 +37,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             DisableEducationalInstitutionCommand request = new() { EducationalInstitutionID = educationalInstitutionID };
 
-            var expectedCommandResult = new AfterDeleteCommandChangesDetails(DateTime.UtcNow, new List<string>(1) { Guid.NewGuid().ToString() });
-
-            SetupMockedDependencies(expectedCommandResult);
+            SetupMockedDependencies(testDataHelper.EducationalInstitutions[0]);
 
             DisableEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                     dependenciesHelper.mockEventBus.Object,
@@ -58,9 +57,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             DisableEducationalInstitutionCommand request = new() { EducationalInstitutionID = educationalInstitutionID };
 
-            var expectedCommandResult = new AfterDeleteCommandChangesDetails(DateTime.UtcNow, new List<string>(1) { Guid.NewGuid().ToString() });
-
-            SetupMockedDependencies(expectedCommandResult);
+            SetupMockedDependencies(testDataHelper.EducationalInstitutions[0]);
             DisableEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                     dependenciesHelper.mockEventBus.Object,
                                                                     dependenciesHelper.mockLogger.Object);
@@ -79,9 +76,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             DisableEducationalInstitutionCommand request = new() { EducationalInstitutionID = educationalInstitutionID };
 
-            var expectedCommandResult = new AfterDeleteCommandChangesDetails(DateTime.UtcNow, new List<string>(1) { Guid.NewGuid().ToString() });
-
-            SetupMockedDependencies(expectedCommandResult);
+            SetupMockedDependencies(testDataHelper.EducationalInstitutions[0]);
 
             DisableEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                     dependenciesHelper.mockEventBus.Object,
@@ -101,9 +96,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             DisableEducationalInstitutionCommand request = new() { EducationalInstitutionID = educationalInstitutionID };
 
-            var expectedCommandResult = new AfterDeleteCommandChangesDetails(DateTime.UtcNow, new List<string>(1) { Guid.NewGuid().ToString() });
-
-            SetupMockedDependencies(expectedCommandResult);
+            SetupMockedDependencies(testDataHelper.EducationalInstitutions[0]);
 
             DisableEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                     dependenciesHelper.mockEventBus.Object,
@@ -123,9 +116,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             DisableEducationalInstitutionCommand request = new() { EducationalInstitutionID = educationalInstitutionID };
 
-            var expectedCommandResult = new AfterDeleteCommandChangesDetails(DateTime.UtcNow, new List<string>(1) { Guid.NewGuid().ToString() });
-
-            SetupMockedDependencies(expectedCommandResult);
+            SetupMockedDependencies(testDataHelper.EducationalInstitutions[0]);
 
             DisableEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                     dependenciesHelper.mockEventBus.Object,
@@ -135,7 +126,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             var result = await handler.Handle(request);
 
             //Assert
-            Assert.Equal(expectedCommandResult.ScheduledDateForDeletion.Date, result.Data.DateForPermanentDeletion.Date);
+            Assert.Equal(testDataHelper.EducationalInstitutions[0].GetDeletionDate().Value.Date, result.Data.DateForPermanentDeletion.Date);
         }
 
         [Fact]
@@ -145,9 +136,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             Guid educationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             DisableEducationalInstitutionCommand request = new() { EducationalInstitutionID = educationalInstitutionID };
 
-            var expectedCommandResult = new AfterDeleteCommandChangesDetails(DateTime.UtcNow, new List<string>(1) { Guid.NewGuid().ToString() });
-
-            SetupMockedDependencies(expectedCommandResult);
+            SetupMockedDependencies(testDataHelper.EducationalInstitutions[0]);
 
             DisableEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
                                                                     dependenciesHelper.mockEventBus.Object,
@@ -160,12 +149,13 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             Assert.True(result.OperationStatus);
         }
 
-        private void SetupMockedDependencies(AfterDeleteCommandChangesDetails expectedCommandResult)
+        private void SetupMockedDependencies(Domain::EducationalInstitution expectedInstitution)
         {
             dependenciesHelper.mockUnitOfWorkCommand.Setup(muk => muk.UsingEducationalInstitutionCommandRepository())
                                                             .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(cr => cr.ScheduleForDeletionAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
-                                                                        .ReturnsAsync(expectedCommandResult);
+
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(cr => cr.GetEducationalInstitutionIncludingAdminsAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
+                                                                          .ReturnsAsync(expectedInstitution);
         }
 
         #endregion An entity exists for the input ID TESTS
@@ -177,8 +167,8 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             dependenciesHelper.mockUnitOfWorkCommand.Setup(muk => muk.UsingEducationalInstitutionCommandRepository())
                                                             .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(cr => cr.ScheduleForDeletionAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
-                                                                        .ReturnsAsync((AfterDeleteCommandChangesDetails)default);
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(cr => cr.GetEducationalInstitutionIncludingAdminsAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
+                                                                        .ReturnsAsync((Domain::EducationalInstitution)null);
         }
 
         [Fact]
