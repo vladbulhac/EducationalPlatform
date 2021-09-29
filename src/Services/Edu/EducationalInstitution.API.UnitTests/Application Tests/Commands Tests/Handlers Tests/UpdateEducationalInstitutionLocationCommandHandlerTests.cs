@@ -34,7 +34,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             Guid EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).Id };
 
             UpdateEducationalInstitutionLocationCommand request = new()
             {
@@ -66,7 +66,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             Guid EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).Id };
 
             UpdateEducationalInstitutionLocationCommand request = new()
             {
@@ -98,7 +98,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             Guid EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).Id };
 
             UpdateEducationalInstitutionLocationCommand request = new()
             {
@@ -130,7 +130,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             Guid EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             string locationID = "10Fc4a7f1e00f1BDebAe4509";
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).Id };
 
             UpdateEducationalInstitutionLocationCommand request = new()
             {
@@ -281,7 +281,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             //Arrange
             Guid EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).Id };
 
             UpdateEducationalInstitutionLocationCommand request = new()
             {
@@ -312,7 +312,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             //Arrange
             Guid EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).Id };
 
             UpdateEducationalInstitutionLocationCommand request = new()
             {
@@ -343,7 +343,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             //Arrange
             Guid EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).Id };
 
             UpdateEducationalInstitutionLocationCommand request = new()
             {
@@ -374,7 +374,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             //Arrange
             Guid EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).Id };
 
             UpdateEducationalInstitutionLocationCommand request = new()
             {
@@ -405,7 +405,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             //Arrange
             Guid EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).Id };
 
             UpdateEducationalInstitutionLocationCommand request = new()
             {
@@ -436,7 +436,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             //Arrange
             Guid EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).Id };
 
             UpdateEducationalInstitutionLocationCommand request = new()
             {
@@ -467,7 +467,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             //Arrange
             Guid EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id;
             ICollection<string> addBuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" };
-            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).BuildingID };
+            ICollection<string> removeBuildingsIDs = new List<string>() { testDataHelper.EducationalInstitutions[0].Buildings.ElementAt(0).Id };
 
             UpdateEducationalInstitutionLocationCommand request = new()
             {
