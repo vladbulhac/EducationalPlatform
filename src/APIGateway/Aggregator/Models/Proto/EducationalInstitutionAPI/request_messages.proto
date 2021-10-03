@@ -1,16 +1,17 @@
 syntax = "proto3";
 import "Models/Proto/Common/uuid.proto";
+import "Models/Proto/EducationalInstitutionAPI/response_messages_data.proto";
 
 option csharp_namespace = "Aggregator.EducationalInstitutionAPI.Proto";
 
-///Command Requests
+//Command Requests
 message EducationalInstitutionCreateRequest{
 	string name=1;
 	string description=2;
 	string location_id=3;
 	repeated string buildings=4;
 	Uuid parent_institution_id=5;
-	repeated string admins_ids=6;
+	string admin_id=6;
 }
 
 message EducationalInstitutionDeleteRequest{
@@ -27,8 +28,9 @@ message EducationalInstitutionUpdateRequest{
 
 message EducationalInstitutionAdminUpdateRequest{
 	Uuid educational_institution_id=1;
-	repeated string add_admins_ids=2;
-	repeated string remove_admins_ids=3;
+	repeated AdminInformation new_admins=2;
+	repeated AdminInformation admins_with_new_permissions=3;
+	repeated AdminInformation admins_with_revoked_permissions=4;
 }
 
 message EducationalInstitutionParentUpdateRequest{
