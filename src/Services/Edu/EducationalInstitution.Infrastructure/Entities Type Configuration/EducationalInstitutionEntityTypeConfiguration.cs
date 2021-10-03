@@ -26,12 +26,12 @@ namespace EducationalInstitution.Infrastructure.Entities_Type_Configuration
 
             builder.HasMany(ei => ei.Buildings)
                    .WithOne(b => b.EducationalInstitution)
-                   .HasForeignKey(eib => eib.Id)
+                   .HasForeignKey(eib => eib.EducationalInstitutionId)
                    .IsRequired();
 
             builder.HasMany(ei => ei.Admins)
                    .WithOne(a => a.EducationalInstitution)
-                   .HasForeignKey(eia => eia.Id)
+                   .HasForeignKey(eia => eia.EducationalInstitutionId)
                    .IsRequired();
 
             builder.Property(ei => ei.Description)
