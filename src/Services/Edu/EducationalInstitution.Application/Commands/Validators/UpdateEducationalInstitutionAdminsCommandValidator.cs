@@ -1,5 +1,8 @@
 ﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace EducationalInstitution.Application.Commands.Validators
 {
@@ -12,40 +15,43 @@ namespace EducationalInstitution.Application.Commands.Validators
                               .NotEmpty()
                               .WithMessage("{PropertyName} was empty or null!");
 
-            When(dto => dto.AddAdminsIDs is not null && dto.AddAdminsIDs.Count > 0, () =>
+            When(dto => dto.NewAdmins is not null && dto.NewAdmins.Count > 0, () =>
             {
-                RuleFor(dto => dto.AddAdminsIDs)
-                           .Must((dto, collection) => NotContainDuplicates(collection))
-                               .WithMessage(dto => $"{nameof(dto.AddAdminsIDs)} contains duplicate values!");
+                RuleForEach(dto => dto.NewAdmins).SetValidator(dto => new AdminDetailsValidator(nameof(dto.NewAdmins)));
+            });
 
-                RuleForEach(dto => dto.AddAdminsIDs)
-                            .NotEmpty()
-                                .WithMessage(dto => $"{nameof(dto.AddAdminsIDs)} contains an invalid ID!");
+            When(dto => dto.AdminsWithNewPermissions is not null && dto.AdminsWithNewPermissions.Count > 0, () =>
+            {
+                RuleForEach(dto => dto.AdminsWithNewPermissions).SetValidator(dto => new AdminDetailsValidator(nameof(dto.AdminsWithNewPermissions)));
+            });
+
+            When(dto => dto.AdminsWithRevokedPermissions is not null && dto.AdminsWithRevokedPermissions.Count > 0, () =>
+            {
+                RuleForEach(dto => dto.AdminsWithRevokedPermissions).SetValidator(dto => new AdminDetailsValidator(nameof(dto.AdminsWithRevokedPermissions)));
             })
             .Otherwise(() =>
             {
-                RuleFor(dto => dto.RemoveAdminsIDs)
-                        .NotEmpty()
-                            .WithMessage("Both AddAdminsIDs and RemoveAdminsIDs collections are empty!");
+                //rule for the case when all collections are empty
+                RuleFor(dto => dto.NewAdmins)
+                        .NotEmpty().When(dto => dto.AdminsWithNewPermissions is null || dto.AdminsWithNewPermissions.Count == 0)
+                            .WithMessage("All collections are empty!");
             });
+        }
 
-            When(dto => dto.RemoveAdminsIDs is not null && dto.RemoveAdminsIDs.Count > 0, () =>
+        public class AdminDetailsValidator : AbstractValidator<AdminDetails>
+        {
+            public AdminDetailsValidator(string fromCollection)
             {
-                RuleFor(dto => dto.RemoveAdminsIDs)
-                        .Must((dto, collection) => NotContainDuplicates(collection))
-                            .WithMessage("RemoveAdminsIDs contains duplicate values!");
+                RuleFor(dto => dto.Identity)
+                            .NotEmpty()
+                                .WithMessage($"{fromCollection} contains an invalid ID!");
 
-                RuleForEach(dto => dto.RemoveAdminsIDs)
+                RuleFor(dto => dto.Permissions)
+                           .Must((collection) => NotContainDuplicates(collection))
+                               .WithMessage($"{fromCollection} contains duplicate permission values!")
                            .NotEmpty()
-                               .WithMessage(dto => $"{nameof(dto.RemoveAdminsIDs)} contains an invalid ID!");
-            });
-
-            When(dto => dto.RemoveAdminsIDs is not null && dto.RemoveAdminsIDs.Count > 0 && dto.AddAdminsIDs is not null && dto.AddAdminsIDs.Count > 0, () =>
-            {
-                RuleForEach(dto => dto.RemoveAdminsIDs)
-                                        .Must((dto, element) => !dto.AddAdminsIDs.Contains(element))
-                                            .WithMessage((dto, element) => $"{nameof(dto.RemoveAdminsIDs)}' {element} was also found in {nameof(dto.AddAdminsIDs)}!");
-            });
+                               .WithMessage($"{fromCollection} permissions collection is empty!");
+            }
         }
 
         private static bool NotContainDuplicates<TElement>(ICollection<TElement> elements)
