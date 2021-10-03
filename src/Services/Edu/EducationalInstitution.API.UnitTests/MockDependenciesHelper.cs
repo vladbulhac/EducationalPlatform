@@ -5,6 +5,7 @@ using EducationalInstitution.Infrastructure.Unit_of_Work.Command_Unit_of_Work;
 using EducationalInstitution.Infrastructure.Unit_of_Work.Query_Unit_of_Work;
 using Grpc.Core;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Moq;
 using RabbitMQEventBus.Abstractions;
@@ -28,6 +29,7 @@ namespace EducationalInstitution.API.UnitTests
         public readonly Mock<IMediator> mockMediator;
         public readonly Mock<IValidationHandler> mockValidationHandler;
         public readonly Mock<ServerCallContext> mockServerCallContext;
+        public readonly Mock<IHttpContextAccessor> mockHttpContextAccessor;
 
         public MockDependenciesHelper()
         {
@@ -43,6 +45,7 @@ namespace EducationalInstitution.API.UnitTests
             mockMediator = new();
             mockValidationHandler = new();
             mockServerCallContext = new();
+            mockHttpContextAccessor = new();
         }
     }
 }
