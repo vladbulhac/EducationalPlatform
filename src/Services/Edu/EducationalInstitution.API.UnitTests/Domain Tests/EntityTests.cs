@@ -4,7 +4,7 @@ using Xunit;
 
 namespace EducationalInstitution.API.UnitTests.Domain_Tests
 {
-    public class EntityHelper : Entity
+    public class EntityHelper : GuidEntity
     {
         public EntityHelper(Guid? id) : base(id)
         {
