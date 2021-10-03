@@ -154,7 +154,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             dependenciesHelper.mockUnitOfWorkCommand.Setup(muk => muk.UsingEducationalInstitutionCommandRepository())
                                                             .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(cr => cr.GetEducationalInstitutionIncludingAdminsAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(cr => cr.GetEducationalInstitutionIncludingAdminsAndBuildingsAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
                                                                           .ReturnsAsync(expectedInstitution);
         }
 
@@ -167,7 +167,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             dependenciesHelper.mockUnitOfWorkCommand.Setup(muk => muk.UsingEducationalInstitutionCommandRepository())
                                                             .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(cr => cr.GetEducationalInstitutionIncludingAdminsAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
+            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(cr => cr.GetEducationalInstitutionIncludingAdminsAndBuildingsAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
                                                                         .ReturnsAsync((Domain::EducationalInstitution)null);
         }
 
