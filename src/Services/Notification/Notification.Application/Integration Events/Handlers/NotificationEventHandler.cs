@@ -33,7 +33,8 @@ namespace Notification.Application.Integration_Events.Handlers
                                         @event.ToNotify,
                                         @event.EventId);
 
-                await repository.AddEventAsync(eventEntity);
+                await repository.AddAsync(eventEntity);
+                await repository.SaveChangesAsync();
             }
             catch (Exception e)
             {
