@@ -7,8 +7,13 @@ using EducationalInstitution.Application.Commands.Validators;
 using EducationalInstitution.Infrastructure;
 using EducationalInstitution.Infrastructure.Unit_of_Work.Command_Unit_of_Work;
 using EducationalInstitution.Infrastructure.Unit_of_Work.Query_Unit_of_Work;
+using EducationalInstitutionAPI.Authorization;
+using EducationalInstitutionAPI.Authorization.Handlers;
+using EducationalInstitutionAPI.Authorization.Requirements;
 using EducationalInstitutionAPI.Presentation.Grpc;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
@@ -17,13 +22,17 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
+using OpenIddict.Validation.AspNetCore;
 using RabbitMQ.Client;
 using RabbitMQEventBus;
 using RabbitMQEventBus.Abstractions;
 using RabbitMQEventBus.ConnectionHandler;
 using Serilog;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace EducationalInstitutionAPI
 {
@@ -37,6 +46,11 @@ namespace EducationalInstitutionAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
+
+            services.AddAuthorizationConfiguration();
+            services.AddOpenIDDictConfiguration(Configuration);
+
             services.AddGrpc(options => options.EnableDetailedErrors = true);
 
             var writesDBConnectionString = Configuration.GetConnectionString("WritesDB");
@@ -67,17 +81,32 @@ namespace EducationalInstitutionAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app//.UseHttpsRedirection() commented in order to use the http url to make grpc calls when using docker
-               .UseStaticFiles()
-               .UseRouting()
-               .UseSerilogRequestLogging()
-               .AddEventBusSubscriptions()
-               .UseEndpoints(endpoints => endpoints.AddGrpcServices());
+            //app.UseHttpsRedirection() commented in order to use the http url to make grpc calls when using docker
+            app.UseStaticFiles();
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseSerilogRequestLogging();
+            app.AddEventBusSubscriptions();
+            app.UseEndpoints(endpoints => endpoints.AddGrpcServices());
         }
     }
 
     public static class StartupExtensionMethods
     {
+        public static IServiceCollection AddAuthorizationConfiguration(this IServiceCollection services)
+        {
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("DeletePolicy", policy => policy.AddRequirements(new DeleteEducationalInstitutionRequirements()));
+            });
+
+            services.AddSingleton<IAuthorizationHandler,
+                                      DeleteEducationalInstitutionAuthorizationHandler>();
+
+            return services;
+        }
+
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration, string writesDBConnectionString, string readsDBConnectionString)
         {
             services.AddEventBus(configuration)
@@ -114,14 +143,14 @@ namespace EducationalInstitutionAPI
 
                                 //create new DataContext with the connection string to the read database
                                 var dbOptions = new DbContextOptionsBuilder<DataContext>()
-                                                    .UseSqlServer(connectionString, providerOptions =>
-                                                    {
-                                                        providerOptions.EnableRetryOnFailure(maxRetryCount: 10,
-                                                                                             maxRetryDelay: TimeSpan.FromSeconds(30),
-                                                                                             errorNumbersToAdd: null);
+                                                .UseSqlServer(connectionString, providerOptions =>
+                                                {
+                                                    providerOptions.EnableRetryOnFailure(maxRetryCount: 10,
+                                                                                         maxRetryDelay: TimeSpan.FromSeconds(30),
+                                                                                         errorNumbersToAdd: null);
 
-                                                        providerOptions.MigrationsAssembly("EducationalInstitution.Infrastructure");
-                                                    });
+                                                    providerOptions.MigrationsAssembly("EducationalInstitution.Infrastructure");
+                                                });
 
                                 contexts.Add(new DataContext(dbOptions.Options));
 
@@ -190,6 +219,37 @@ namespace EducationalInstitutionAPI
             app.ApplicationServices.GetRequiredService<IEventBus>();
 
             return app;
+        }
+
+        public static IServiceCollection AddOpenIDDictConfiguration(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAuthentication(options => options.DefaultAuthenticateScheme = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
+
+            services.AddOpenIddict()
+                    .AddValidation(options =>
+                    {
+                        // Note: the validation handler uses OpenID Connect discovery
+                        // to retrieve the address of the introspection endpoint.
+                        options.SetIssuer(configuration.GetSection("Identity")["Issuer"]);
+                        options.AddAudiences("educational_institution_api");
+
+                        // Register the encryption credentials, a symmetric
+                        // encryption key that is shared between the server and all the resource servers
+                        // (that performs local token validation instead of using introspection).
+                        //
+                        // Note: in a real world application, this encryption key should be
+                        // stored in a safe place (e.g in Azure KeyVault, stored as a secret).
+                        options.AddEncryptionKey(new SymmetricSecurityKey(
+                        Convert.FromBase64String(configuration.GetSection("Identity")["SharedKey"])));
+
+                        // Register the System.Net.Http integration.
+                        options.UseSystemNetHttp();
+
+                        // Register the ASP.NET Core host.
+                        options.UseAspNetCore();
+                    });
+
+            return services;
         }
     }
 }
