@@ -1,5 +1,8 @@
 ﻿using EducationalInstitution.Application.Commands.Results;
 using EducationalInstitution.Application.Integration_Events;
+using EducationalInstitution.Application.Permissions;
+using EducationalInstitution.Domain.Models;
+using EducationalInstitution.Infrastructure.Repositories;
 using EducationalInstitution.Infrastructure.Repositories.Command_Repository;
 using EducationalInstitution.Infrastructure.Unit_of_Work.Command_Unit_of_Work;
 using MediatR;
@@ -60,7 +63,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
                                                                                    request.Description,
                                                                                    request.LocationID,
                                                                                    request.BuildingsIDs,
-                                                                                   request.AdminsIDs,
+                                                                                   request.AdminId,
                                                                                    parentInstitution);
 
                     await unitOfWork.UsingEducationalInstitutionCommandRepository()
@@ -68,8 +71,8 @@ namespace EducationalInstitution.Application.Commands.Handlers
                     await unitOfWork.SaveChangesAsync(cancellationToken);
 
                     eventBus.PublishMultiple(PublishNotificationEventsForAdmins(newEducationalInstitution.Id,
-                                                                                request.AdminsIDs,
-                                                                                parentInstitution?.Admins.Select(a => a.AdminId).ToList()));
+                                                                                newEducationalInstitution.Admins,
+                                                                                parentInstitution?.Admins.Select(a => a.Id).ToList()));
 
                     if (parentInstitution is null && request.ParentInstitutionID != default)
                         return new()
@@ -102,7 +105,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
             }
         }
 
-        private IEnumerable<IntegrationEvent> PublishNotificationEventsForAdmins(Guid newEducationalInstitutionId, ICollection<string> newAdmins, ICollection<string> parentAdmins)
+        private IEnumerable<IntegrationEvent> PublishNotificationEventsForAdmins(Guid newEducationalInstitutionId, ICollection<EducationalInstitutionAdmin> admins, ICollection<string> parentAdmins)
         {
             if (parentAdmins is not null && parentAdmins.Count > 0)
             {
@@ -122,7 +125,8 @@ namespace EducationalInstitution.Application.Commands.Handlers
             yield return new AssignedAdminsToEducationalInstitutionIntegrationEvent
             {
                 Message = "Admin rights granted for a recently created Educational Institution!",
-                ToNotify = newAdmins,
+                EducationalInstitutionId = newEducationalInstitutionId,
+                NewAdmins = GetAdminDetails(admins),
                 Uri = $"/edu/{newEducationalInstitutionId}",
                 TriggeredBy = new()
                 {
@@ -130,6 +134,23 @@ namespace EducationalInstitution.Application.Commands.Handlers
                     Action = "Create"
                 }
             };
+        }
+
+        private AdminDetailsForIntegrationEvent[] GetAdminDetails(ICollection<EducationalInstitutionAdmin> admins)
+        {
+            var adminsDetails = new AdminDetailsForIntegrationEvent[admins.Count];
+            var index = 0;
+            foreach (var admin in admins)
+            {
+                adminsDetails[index] = new()
+                {
+                    DetailedMessage = $"{UserPermissions.All.Split('.')[^1]} permission has been granted to you for the Educational Institution accessible at x",
+                    Identity = admin.Id,
+                    Permissions = admin.Permissions
+                };
+            }
+
+            return adminsDetails;
         }
     }
 }
