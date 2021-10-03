@@ -5,9 +5,9 @@ using Identity.API.Configuration.Client_Scopes;
 using Identity.API.Configuration.Clients;
 using Identity.API.Configuration.Resource_Servers;
 using Identity.API.Infrastructure;
-using Identity.API.Infrastructure.Repositories;
 using Identity.API.Models;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +15,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using RabbitMQ.Client;
 using RabbitMQEventBus;
 using RabbitMQEventBus.Abstractions;
 using RabbitMQEventBus.ConnectionHandler;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using static OpenIddict.Abstractions.OpenIddictConstants;
@@ -121,6 +123,15 @@ namespace Identity.API
                                //.RequireProofKeyForCodeExchange() globally enforces PKCE
                                .AllowRefreshTokenFlow();
 
+                        // Register the encryption credentials, a symmetric
+                        // encryption key that is shared between the server and all the resource servers
+                        // (that performs local token validation instead of using introspection).
+                        //
+                        // Note: in a real world application, this encryption key should be
+                        // stored in a safe place (e.g in Azure KeyVault, stored as a secret).
+                        options.AddEncryptionKey(new SymmetricSecurityKey(
+                            Convert.FromBase64String(Configuration.GetSection("Identity")["SharedKey"])));
+
                         options.AddDevelopmentEncryptionCertificate()
                                .AddDevelopmentSigningCertificate();
 
@@ -137,10 +148,16 @@ namespace Identity.API
                         options.UseAspNetCore();
                     });
 
+            services.Configure<SecurityStampValidatorOptions>(options =>
+            {
+                // enables immediate logout, after updating the user's information.
+                options.ValidationInterval = TimeSpan.FromMinutes(0);
+            });
+
+            services.AddEventBusConfiguration(Configuration);
+
             services.AddControllersWithViews();
             services.AddRazorPages();
-
-            services.AddTransient<IIdentityRepository, IdentityRepository>();
 
             services.AddTransient<IIdentityService<User>, IdentityService>();
 
@@ -187,6 +204,8 @@ namespace Identity.API
                         name: "default",
                         pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.AddEventBusSubscriptions();
         }
     }
 
@@ -218,7 +237,7 @@ namespace Identity.API
                 return new(queueName, logger, connectionHandler, services);
             });
 
-            services.AddTransient<AssignedAdministratorToEducationalInstitutionIntegrationEventHandler>();
+            services.AddTransient<AssignedAdminsToEducationalInstitutionIntegrationEventHandler>();
 
             return services;
         }
@@ -227,7 +246,7 @@ namespace Identity.API
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
 
-            eventBus.Subscribe<AssignedAdministratorToEducationalInstitutionIntegrationEvent, AssignedAdministratorToEducationalInstitutionIntegrationEventHandler>();
+            eventBus.Subscribe<AssignedAdminsToEducationalInstitutionIntegrationEvent, AssignedAdminsToEducationalInstitutionIntegrationEventHandler>();
         }
     }
 }
