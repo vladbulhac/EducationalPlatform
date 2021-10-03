@@ -1,5 +1,4 @@
-﻿using Identity.API.Infrastructure.Repositories;
-using Identity.API.Models;
+﻿using Identity.API.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -21,7 +20,7 @@ namespace Identity.API.Areas.Identity.Pages.Account
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<User> signInManager, ILogger<LoginModel> logger, UserManager<User> userManager, IIdentityRepository identityRepository)
+        public LoginModel(SignInManager<User> signInManager, ILogger<LoginModel> logger, UserManager<User> userManager)
         {
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
