@@ -35,6 +35,7 @@ services:
             - edu-distributor
             - edu-publisher
             - edu-subscriber
+            - identity-api
             - rabbitmq
     notification-api:
         build: 
