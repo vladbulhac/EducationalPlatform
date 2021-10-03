@@ -17,15 +17,24 @@ namespace Notification.Domain.Models.Aggregates
         {
         }
 
-        public Event(string name, string message, string uri, DateTime timeIssued, string triggeredByAction, string issuedBy, ICollection<string> recipients, string id = null) : base(id)
+        private Event(string name, string message, string uri, DateTime timeIssued, string triggeredByAction, string issuedBy, string id = null) : base(id)
         {
             Name = string.IsNullOrEmpty(name) ? throw new ArgumentNullException(nameof(name)) : GetEventName(name);
-            Message = message ?? throw new ArgumentNullException(nameof(message));
+            Message = message ?? Name;
             Uri = uri ?? "NO_URI_SPECIFIED";
             TriggerDetails = new(triggeredByAction, issuedBy, timeIssued);
 
             Recipients = new HashSet<Recipient>();
+        }
+
+        public Event(string name, string message, string uri, DateTime timeIssued, string triggeredByAction, string issuedBy, ICollection<string> recipients, string id = null) : this(name, message, uri, timeIssued, triggeredByAction, issuedBy, id)
+        {
             AttachRecipientsToEvent(recipients);
+        }
+
+        public Event(string name, string message, string uri, DateTime timeIssued, string triggeredByAction, string issuedBy, string recipientId, string id = null) : this(name, message, uri, timeIssued, triggeredByAction, issuedBy, id)
+        {
+            AddRecipient(recipientId);
         }
 
         private static string GetEventName(string @eventName) => eventName.Substring(0, eventName.Length - "IntegrationEvent".Length);
@@ -43,12 +52,17 @@ namespace Notification.Domain.Models.Aggregates
             };
         }
 
+        private void AddRecipient(string recipientId)
+        {
+            Recipients.Add(new Recipient(recipientId, Id));
+        }
+
         private void AttachRecipientsToEvent(ICollection<string> recipients)
         {
             if (recipients is null || recipients.Count == 0) throw new ArgumentException($"Parameter { nameof(recipients) } can't be empty!");
 
             foreach (var recipient in recipients)
-                Recipients.Add(new Recipient(recipient, Id));
+                AddRecipient(recipient);
         }
 
         public void RecipientSawEventNotification(string recipientId)
