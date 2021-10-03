@@ -7,9 +7,6 @@ namespace Identity.API.Infrastructure
 {
     public class IdentityContext : IdentityDbContext<User>
     {
-        public DbSet<EducationalInstitutionAdministrator> EducationalInstitutionAdministrators { get; set; }
-        public DbSet<UserPermissions> Permissions { get; set; }
-
         public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
         {
         }
@@ -18,8 +15,6 @@ namespace Identity.API.Infrastructure
         {
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new UserEntityTypeConfiguration());
-            builder.ApplyConfiguration(new UserPermissionsEntityTypeConfiguration());
-            builder.ApplyConfiguration(new EducationalInstitutionAdministratorEntityTypeConfiguration());
         }
     }
 }
