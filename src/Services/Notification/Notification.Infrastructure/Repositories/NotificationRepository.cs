@@ -16,23 +16,13 @@ namespace Notification.Infrastructure.Repositories
         public NotificationRepository(NotificationContext context)
             => this.context = context ?? throw new ArgumentNullException(nameof(context));
 
-        public async Task AddEventAsync(Event eventEntity, CancellationToken cancellationToken = default)
-        {
-            await context.AddAsync(eventEntity, cancellationToken);
-            await context.SaveChangesAsync(cancellationToken);
-        }
+        public async Task AddAsync(Event eventEntity, CancellationToken cancellationToken = default) => await context.AddAsync(eventEntity, cancellationToken);
 
-        public async Task<bool> RecipientSawTheEventAsync(string eventId, string recipientId, CancellationToken cancellationToken = default)
-        {
-            var eventEntity = await context.Events.Include(e => e.Recipients)
-                                                  .SingleOrDefaultAsync(e => e.Id == eventId, cancellationToken);
-            if (eventEntity == default) return false;
+        public async Task<Event> GetByIdAsync(string eventId, CancellationToken cancellationToken = default)
+                => await context.Events.Include(e => e.Recipients)
+                                       .SingleOrDefaultAsync(e => e.Id == eventId, cancellationToken);
 
-            eventEntity.RecipientSawEventNotification(recipientId);
-            await context.SaveChangesAsync(cancellationToken);
-
-            return true;
-        }
+        public async Task SaveChangesAsync(CancellationToken cancellationToken = default) => await context.SaveChangesAsync(cancellationToken);
 
         public async Task<ICollection<GetEventDetails>> GetUnseenEventsForRecipientAsync(string recipientID, CancellationToken cancellationToken = default)
         {
