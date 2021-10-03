@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using RabbitMQEventBus.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -46,9 +47,10 @@ namespace EducationalInstitution.Application.Commands.Handlers
             {
                 using (unitOfWorkCommand)
                 {
-                    var commandResult = await unitOfWorkCommand.UsingEducationalInstitutionCommandRepository()
-                                                               .ScheduleForDeletionAsync(request.EducationalInstitutionID, cancellationToken);
-                    if (commandResult == default)
+                    var educationalInstitution = await unitOfWorkCommand.UsingEducationalInstitutionCommandRepository()
+                                                                        .GetEducationalInstitutionIncludingAdminsAndBuildingsAsync(request.EducationalInstitutionID, cancellationToken);
+
+                    if (educationalInstitution == default)
                         return new()
                         {
                             Data = null,
@@ -57,15 +59,17 @@ namespace EducationalInstitution.Application.Commands.Handlers
                             Message = $"Educational Institution with the following ID: {request.EducationalInstitutionID} has not been found!"
                         };
 
+                    educationalInstitution.ScheduleForDeletion();
+
                     await unitOfWorkCommand.SaveChangesAsync(cancellationToken);
 
                     PublishNotificationEventsForAdmins(request.EducationalInstitutionID,
-                                                       commandResult.ScheduledDateForDeletion,
-                                                       commandResult.AdminsToNotify);
+                                                       educationalInstitution.GetDeletionDate().Value,
+                                                       educationalInstitution.Admins.Select(a => a.Id).ToList());
 
                     return new()
                     {
-                        Data = new() { DateForPermanentDeletion = commandResult.ScheduledDateForDeletion },
+                        Data = new() { DateForPermanentDeletion = educationalInstitution.GetDeletionDate().Value },
                         OperationStatus = true,
                         StatusCode = HttpStatusCode.Accepted,
                         Message = string.Empty
@@ -80,7 +84,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
                          request.EducationalInstitutionID,
                          unitOfWorkCommand.GetType(),
                          unitOfWorkCommand.UsingEducationalInstitutionCommandRepository().GetType(),
-                         nameof(IEducationalInstitutionCommandRepository.ScheduleForDeletionAsync),
+                         nameof(IEducationalInstitutionCommandRepository.GetEducationalInstitutionIncludingAdminsAsync),
                          e.Message);
             }
         }
