@@ -1,5 +1,4 @@
-﻿using EducationalInstitution.Infrastructure.Repositories.Command_Repository.Results;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,24 +13,8 @@ namespace EducationalInstitution.Infrastructure.Repositories.Command_Repository
     {
         public Task CreateAsync(Domain::EducationalInstitution data, CancellationToken cancellationToken = default);
 
-        public Task<AfterDeleteCommandChangesDetails> ScheduleForDeletionAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default);
-
-        public Task<AfterCommandChangesDetails> UpdateEntireLocationAsync(Guid educationalInstitutionID, string locationID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken = default);
-
-        public Task<AfterCommandChangesDetails> UpdateLocationAsync(Guid educationalInstitutionID, string locationID, CancellationToken cancellationToken = default);
-
-        public Task<AfterCommandChangesDetails> UpdateBuildingsAsync(Guid educationalInstitutionID, ICollection<string> addBuildingsIDs, ICollection<string> removeBuildingsIDs, CancellationToken cancellationToken = default);
-
-        public Task<AfterUpdateAdminsCommandChangesDetails> UpdateAdminsAsync(Guid educationalInstitutionID, ICollection<string> addAdminsIDs, ICollection<string> removeAdminsIDs, CancellationToken cancellationToken = default);
-
-        public Task<AfterCommandChangesDetails> UpdateNameAsync(Guid educationalInstitutionID, string name, CancellationToken cancellationToken = default);
-
-        public Task<AfterCommandChangesDetails> UpdateDescriptionAsync(Guid educationalInstitutionID, string description, CancellationToken cancellationToken = default);
-
-        public Task<AfterCommandChangesDetails> UpdateNameAndDescriptionAsync(Guid educationalInstitutionID, string name, string description, CancellationToken cancellationToken = default);
-
-        public Task<AfterCommandChangesDetails> UpdateParentInstitutionAsync(Guid educationalInstitutionID, Guid parentInstitutionID, CancellationToken cancellationToken = default);
-
         public Task<Domain::EducationalInstitution> GetEducationalInstitutionIncludingAdminsAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default);
+
+        public Task<Domain::EducationalInstitution> GetEducationalInstitutionIncludingAdminsAndBuildingsAsync(Guid educationalInstitutionID, CancellationToken cancellationToken = default);
     }
 }
