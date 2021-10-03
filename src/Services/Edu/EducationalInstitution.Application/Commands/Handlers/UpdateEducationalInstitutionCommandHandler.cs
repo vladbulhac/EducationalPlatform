@@ -8,9 +8,11 @@ using Newtonsoft.Json;
 using RabbitMQEventBus.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Domain = EducationalInstitution.Domain.Models.Aggregates;
 
 namespace EducationalInstitution.Application.Commands.Handlers
 {
@@ -49,8 +51,10 @@ namespace EducationalInstitution.Application.Commands.Handlers
             {
                 using (unitOfWork)
                 {
-                    var commandResult = await UpdateEducationalInstitution(request, cancellationToken);
-                    if (commandResult == default)
+                    var educationalInstitution = await unitOfWork.UsingEducationalInstitutionCommandRepository()
+                                                                 .GetEducationalInstitutionIncludingAdminsAsync(request.EducationalInstitutionID, cancellationToken);
+
+                    if (educationalInstitution == default)
                         return new()
                         {
                             OperationStatus = false,
@@ -58,9 +62,11 @@ namespace EducationalInstitution.Application.Commands.Handlers
                             Message = $"Educational Institution with the following ID: {request.EducationalInstitutionID} has not been found!"
                         };
 
+                    UpdateEducationalInstitution(request, educationalInstitution);
+
                     await unitOfWork.SaveChangesAsync(cancellationToken);
 
-                    PublishNotificationEventsForAdmins(request.EducationalInstitutionID, commandResult.AdminsToNotify);
+                    PublishNotificationEventsForAdmins(request.EducationalInstitutionID, educationalInstitution.Admins.Select(a => a.Id).ToList());
                 }
             }
             catch (Exception e)
@@ -71,7 +77,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
                     JsonConvert.SerializeObject(request),
                     unitOfWork.GetType(),
                     unitOfWork.UsingEducationalInstitutionCommandRepository().GetType(),
-                    GetNameOfRepositoryMethodThatWasCalledInHandler(request),
+                    nameof(IEducationalInstitutionCommandRepository.GetEducationalInstitutionIncludingAdminsAsync),
                     e.Message);
             }
 
@@ -83,32 +89,13 @@ namespace EducationalInstitution.Application.Commands.Handlers
             };
         }
 
-        private async Task<AfterCommandChangesDetails> UpdateEducationalInstitution(UpdateEducationalInstitutionCommand request, CancellationToken cancellationToken)
+        private void UpdateEducationalInstitution(UpdateEducationalInstitutionCommand request, Domain::EducationalInstitution educationalInstitution)
         {
-            switch (request.UpdateName)
-            {
-                case true when request.UpdateDescription:
-                    return await unitOfWork.UsingEducationalInstitutionCommandRepository()
-                                           .UpdateNameAndDescriptionAsync(request.EducationalInstitutionID, request.Name, request.Description, cancellationToken);
+            if (request.UpdateName)
+                educationalInstitution.SetName(request.Name);
 
-                case false when request.UpdateDescription:
-                    return await unitOfWork.UsingEducationalInstitutionCommandRepository()
-                                           .UpdateDescriptionAsync(request.EducationalInstitutionID, request.Description, cancellationToken);
-
-                default:
-                    return await unitOfWork.UsingEducationalInstitutionCommandRepository()
-                                           .UpdateNameAsync(request.EducationalInstitutionID, request.Name, cancellationToken);
-            }
-        }
-
-        private static string GetNameOfRepositoryMethodThatWasCalledInHandler(UpdateEducationalInstitutionCommand request)
-        {
-            switch (request.UpdateName)
-            {
-                case true when request.UpdateDescription: return nameof(IEducationalInstitutionCommandRepository.UpdateNameAndDescriptionAsync);
-                case false when request.UpdateDescription: return nameof(IEducationalInstitutionCommandRepository.UpdateDescriptionAsync);
-                default: return nameof(IEducationalInstitutionCommandRepository.UpdateNameAsync);
-            }
+            if (request.UpdateDescription)
+                educationalInstitution.SetDescription(request.Description);
         }
 
         private void PublishNotificationEventsForAdmins(Guid educationalInstitutionID, ICollection<string> adminsToNotify)
