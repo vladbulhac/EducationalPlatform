@@ -1,5 +1,6 @@
 ﻿using DataValidation;
 using DataValidation.Abstractions;
+using EducationalInstitution.Application;
 using EducationalInstitution.Application.Commands;
 using EducationalInstitution.Application.Commands.Validators;
 using Microsoft.Extensions.Logging;
@@ -36,7 +37,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -57,7 +58,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -78,7 +79,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -99,7 +100,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -120,7 +121,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -141,7 +142,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -162,7 +163,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = string.Empty,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -183,7 +184,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = string.Empty,
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -204,7 +205,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "D",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -225,7 +226,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "D",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -246,7 +247,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { string.Empty },
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -267,7 +268,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { string.Empty },
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -275,7 +276,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
-            Assert.Equal(" Property BuildingsIDs[0] failed validation. Error was: BuildingID was empty or null!", validationErrors);
+            Assert.Equal(" Property BuildingsIDs[0] failed validation. Error was: Building ID was empty or null!", validationErrors);
         }
 
         [Fact]
@@ -288,7 +289,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fa3A" },
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -309,7 +310,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fa3A" },
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -330,7 +331,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fa3AQ" },
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -351,7 +352,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fa3AQ" },
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -372,7 +373,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509" },
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -393,7 +394,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00f1BDebAe4509" },
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -401,7 +402,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
-            Assert.Equal(" Property BuildingsIDs[0] failed validation. Error was: BuildingID was the same as LocationID!", validationErrors);
+            Assert.Equal(" Property BuildingsIDs[0] failed validation. Error was: Building ID was the same as LocationID!", validationErrors);
         }
 
         [Fact]
@@ -414,7 +415,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>(0),
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -435,7 +436,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>(0),
-                AdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
+                AdminId = Guid.NewGuid().ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -443,11 +444,11 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
-            Assert.Equal(" Property BuildingsIDs failed validation. Error was: BuildingsIDs was empty or null!", validationErrors);
+            Assert.Equal(" Property BuildingsIDs failed validation. Error was: Buildings IDs collection was empty or null!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithEmptyAdminsIDs_ShouldReturnFalse()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithEmptyAdminId_ShouldReturnFalse()
         {
             //Arrange
             var dto = new CreateEducationalInstitutionCommand
@@ -456,7 +457,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<string>(0),
+                AdminId = string.Empty,
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -468,7 +469,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         }
 
         [Fact]
-        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithEmptyAdminsIDs_ShouldReturnValidationErrors()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithEmptyAdminId_ShouldReturnValidationErrors()
         {
             //Arrange
             var dto = new CreateEducationalInstitutionCommand
@@ -477,7 +478,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<string>(0),
+                AdminId = string.Empty,
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -485,11 +486,11 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
-            Assert.Equal(" Property AdminsIDs failed validation. Error was: AdminsIDs was empty or null!", validationErrors);
+            Assert.Equal(" Property AdminId failed validation. Error was: Admin Id was empty or null!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithDefaultAdminID_ShouldReturnFalse()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithDefaultGuidAdminId_ShouldReturnFalse()
         {
             //Arrange
             var dto = new CreateEducationalInstitutionCommand
@@ -498,7 +499,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<string>() { default },
+                AdminId = Guid.Empty.ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -510,7 +511,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         }
 
         [Fact]
-        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithDefaultAdminID_ShouldReturnValidationErrors()
+        public void GivenAnInvalidCreateEducationalInstitutionCommand_WithDefaultGuidAdminId_ShouldReturnValidationErrors()
         {
             //Arrange
             var dto = new CreateEducationalInstitutionCommand
@@ -519,7 +520,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
                 Description = "Description",
                 LocationID = "10Fc4a7f1e00f1BDebAe4509",
                 BuildingsIDs = new List<string>() { "10Fc4a7f1e00F1BDebAe4501" },
-                AdminsIDs = new List<string>() { default },
+                AdminId = Guid.Empty.ToString(),
                 ParentInstitutionID = Guid.NewGuid()
             };
 
@@ -527,7 +528,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
-            Assert.Equal(" Property AdminsIDs[0] failed validation. Error was: AdminID was empty or null!", validationErrors);
+            Assert.Equal(" Property AdminId failed validation. Error was: Admin Id does not have a valid value!", validationErrors);
         }
 
         #endregion CreateEducationalInstitutionCommand TESTS
@@ -1650,8 +1651,9 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
-                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
             };
 
             //Act
@@ -1668,8 +1670,9 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
-                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
             };
 
             //Act
@@ -1680,14 +1683,15 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         }
 
         [Fact]
-        public void GivenAValidUpdateEducationalInstitutionAdminsCommand_WithNullAddAdminsIDsCollection_ShouldReturnTrue()
+        public void GivenAValidUpdateEducationalInstitutionAdminsCommand_WithNullNewAdminsCollection_ShouldReturnTrue()
         {
             //Arrange
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = null,
-                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
+                NewAdmins = null,
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
             };
 
             //Act
@@ -1698,14 +1702,15 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         }
 
         [Fact]
-        public void GivenAValidUpdateEducationalInstitutionAdminsCommand_WithNullAddAdminsIDsCollection_ShouldReturnEmptyValidationErrorsString()
+        public void GivenAValidUpdateEducationalInstitutionAdminsCommand_WithNullNewAdminsCollection_ShouldReturnEmptyValidationErrorsString()
         {
             //Arrange
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = null,
-                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
+                NewAdmins = null,
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
             };
 
             //Act
@@ -1716,14 +1721,15 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         }
 
         [Fact]
-        public void GivenAValidUpdateEducationalInstitutionAdminsCommand_WithNullRemoveAdminsIDsCollection_ShouldReturnTrue()
+        public void GivenAValidUpdateEducationalInstitutionAdminsCommand_WithNullAdminsWithNewPermissionsCollection_ShouldReturnTrue()
         {
             //Arrange
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
-                RemoveAdminsIDs = null
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = null,
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
             };
 
             //Act
@@ -1734,14 +1740,53 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         }
 
         [Fact]
-        public void GivenAValidUpdateEducationalInstitutionAdminsCommand_WithNullRemoveAdminsIDsCollection_ShouldReturnEmptyValidationErrorsString()
+        public void GivenAValidUpdateEducationalInstitutionAdminsCommand_WithNullAdminsWithNewPermissionsCollection_ShouldReturnEmptyValidationErrorsString()
         {
             //Arrange
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
-                RemoveAdminsIDs = null
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = null,
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+
+            //Assert
+            Assert.Empty(validationErrors);
+        }
+
+        [Fact]
+        public void GivenAValidUpdateEducationalInstitutionAdminsCommand_WithNullAdminsWithRevokedPermissionsCollection_ShouldReturnTrue()
+        {
+            //Arrange
+            var dto = new UpdateEducationalInstitutionAdminsCommand
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = null
+            };
+
+            //Act
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+
+            //Assert
+            Assert.True(validationResult);
+        }
+
+        [Fact]
+        public void GivenAValidUpdateEducationalInstitutionAdminsCommand_WithNullAdminsWithRevokedPermissionsCollection_ShouldReturnEmptyValidationErrorsString()
+        {
+            //Arrange
+            var dto = new UpdateEducationalInstitutionAdminsCommand
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = null
             };
 
             //Act
@@ -1758,8 +1803,9 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = default,
-                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
-                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
             };
 
             //Act
@@ -1776,8 +1822,9 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = default,
-                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
-                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
             };
 
             //Act
@@ -1788,14 +1835,15 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         }
 
         [Fact]
-        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithBothCollectionsNull_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithAllCollectionsNull_ShouldReturnFalse()
         {
             //Arrange
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = null,
-                RemoveAdminsIDs = null
+                NewAdmins = null,
+                AdminsWithNewPermissions = null,
+                AdminsWithRevokedPermissions = null
             };
 
             //Act
@@ -1806,33 +1854,34 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         }
 
         [Fact]
-        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithBothCollectionsNull_ShouldReturnAStringWithValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithAllCollectionsNull_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = null,
-                RemoveAdminsIDs = null
+                NewAdmins = null,
+                AdminsWithNewPermissions = null,
+                AdminsWithRevokedPermissions = null
             };
 
             //Act
             var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
-            Assert.Equal(" Property RemoveAdminsIDs failed validation. Error was: Both AddAdminsIDs and RemoveAdminsIDs collections are empty!", validationErrors);
+            Assert.Equal(" Property NewAdmins failed validation. Error was: All collections are empty!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithSameAdminIDOnBothCollections_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithAnEmptyIdInNewAdminsCollection_ShouldReturnFalse()
         {
             //Arrange
-            var adminID = Guid.NewGuid().ToString();
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<string>() { adminID },
-                RemoveAdminsIDs = new List<string>() { adminID }
+                NewAdmins = new List<AdminDetails>() { new() { Identity = string.Empty, Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
             };
 
             //Act
@@ -1843,34 +1892,34 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         }
 
         [Fact]
-        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithSameAdminIDOnBothCollections_ShouldReturnAStringWithValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithAnEmptyIdInNewAdminsCollection_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
-            var adminID = Guid.NewGuid().ToString();
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<string>() { adminID },
-                RemoveAdminsIDs = new List<string>() { adminID }
+                NewAdmins = new List<AdminDetails>() { new() { Identity = string.Empty, Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
             };
 
             //Act
             var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
-            Assert.Equal($" Property RemoveAdminsIDs[0] failed validation. Error was: RemoveAdminsIDs' {adminID} was also found in AddAdminsIDs!", validationErrors);
+            Assert.Equal($" Property NewAdmins[0].Identity failed validation. Error was: {nameof(dto.NewAdmins)} contains an invalid ID!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDuplicateIDInAddAdminsIDsCollection_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithADuplicatePermissionInNewAdminsCollection_ShouldReturnFalse()
         {
             //Arrange
-            var adminID = Guid.NewGuid().ToString();
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<string>() { adminID, adminID },
-                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all", "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
             };
 
             //Act
@@ -1881,34 +1930,34 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         }
 
         [Fact]
-        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDuplicateIDInAddAdminsIDsCollection_ShouldReturnAStringWithValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithADuplicatePermissionInNewAdminsCollection_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
-            var adminID = Guid.NewGuid().ToString();
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<string>() { adminID, adminID },
-                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all", "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
             };
 
             //Act
             var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
-            Assert.Equal(" Property AddAdminsIDs failed validation. Error was: AddAdminsIDs contains duplicate values!", validationErrors);
+            Assert.Equal($" Property NewAdmins[0].Permissions failed validation. Error was: {nameof(dto.NewAdmins)} contains duplicate permission values!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDuplicateIDInRemoveAdminsIDsCollection_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithEmptyPermissionsCollectionInNewAdminsCollection_ShouldReturnFalse()
         {
             //Arrange
-            var adminID = Guid.NewGuid().ToString();
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
-                RemoveAdminsIDs = new List<string>() { adminID, adminID }
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>(0) } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
             };
 
             //Act
@@ -1919,33 +1968,34 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         }
 
         [Fact]
-        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDuplicateIDInRemoveAdminsIDsCollection_ShouldReturnAStringWithValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithEmptyPermissionsCollectionInNewAdminsCollection_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
-            var adminID = Guid.NewGuid().ToString();
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
-                RemoveAdminsIDs = new List<string>() { adminID, adminID }
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>(0) } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
             };
 
             //Act
             var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
-            Assert.Equal(" Property RemoveAdminsIDs failed validation. Error was: RemoveAdminsIDs contains duplicate values!", validationErrors);
+            Assert.Equal($" Property NewAdmins[0].Permissions failed validation. Error was: {nameof(dto.NewAdmins)} permissions collection is empty!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDefaultIDInAddAdminsIDs_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithAnEmptyIdInAdminsWithNewPermissionsCollection_ShouldReturnFalse()
         {
             //Arrange
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<string>() { default },
-                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = string.Empty, Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
             };
 
             //Act
@@ -1956,32 +2006,34 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         }
 
         [Fact]
-        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDefaultIDInAddAdminsIDs_ShouldReturnAStringWithValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithAnEmptyIdInAdminsWithNewPermissionsCollection_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<string>() { default },
-                RemoveAdminsIDs = new List<string>() { Guid.NewGuid().ToString() }
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = string.Empty, Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
             };
 
             //Act
             var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
-            Assert.Equal(" Property AddAdminsIDs[0] failed validation. Error was: AddAdminsIDs contains an invalid ID!", validationErrors);
+            Assert.Equal($" Property AdminsWithNewPermissions[0].Identity failed validation. Error was: {nameof(dto.AdminsWithNewPermissions)} contains an invalid ID!", validationErrors);
         }
 
         [Fact]
-        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDefaultIDInRemoveAdminsIDs_ShouldReturnFalse()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithADuplicatePermissionInAdminsWithNewPermissionsCollection_ShouldReturnFalse()
         {
             //Arrange
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
-                RemoveAdminsIDs = new List<string>() { default }
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all", "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
             };
 
             //Act
@@ -1992,21 +2044,174 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests
         }
 
         [Fact]
-        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithDefaultIDInRemoveAdminsIDs_ShouldReturnAStringWithValidationErrors()
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithADuplicatePermissionInAdminsWithNewPermissionsCollection_ShouldReturnAStringWithValidationErrors()
         {
             //Arrange
             var dto = new UpdateEducationalInstitutionAdminsCommand
             {
                 EducationalInstitutionID = Guid.NewGuid(),
-                AddAdminsIDs = new List<string>() { Guid.NewGuid().ToString() },
-                RemoveAdminsIDs = new List<string>() { default }
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all", "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
             };
 
             //Act
             var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
-            Assert.Equal(" Property RemoveAdminsIDs[0] failed validation. Error was: RemoveAdminsIDs contains an invalid ID!", validationErrors);
+            Assert.Equal($" Property AdminsWithNewPermissions[0].Permissions failed validation. Error was: {nameof(dto.AdminsWithNewPermissions)} contains duplicate permission values!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithEmptyPermissionsCollectionInAdminsWithNewPermissionsCollection_ShouldReturnFalse()
+        {
+            //Arrange
+            var dto = new UpdateEducationalInstitutionAdminsCommand
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>(0) } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithEmptyPermissionsCollectionInAdminsWithNewPermissionsCollection_ShouldReturnAStringWithValidationErrors()
+        {
+            //Arrange
+            var dto = new UpdateEducationalInstitutionAdminsCommand
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>(0) } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete" } } }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+
+            //Assert
+            Assert.Equal($" Property AdminsWithNewPermissions[0].Permissions failed validation. Error was: {nameof(dto.AdminsWithNewPermissions)} permissions collection is empty!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithAnEmptyIdInAdminsWithRevokedPermissionsCollection_ShouldReturnFalse()
+        {
+            //Arrange
+            var dto = new UpdateEducationalInstitutionAdminsCommand
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = string.Empty, Permissions = new List<string>() { "user.test.delete" } } }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithAnEmptyIdInAdminsWithRevokedPermissionsCollection_ShouldReturnAStringWithValidationErrors()
+        {
+            //Arrange
+            var dto = new UpdateEducationalInstitutionAdminsCommand
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = string.Empty, Permissions = new List<string>() { "user.test.delete" } } }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+
+            //Assert
+            Assert.Equal($" Property AdminsWithRevokedPermissions[0].Identity failed validation. Error was: {nameof(dto.AdminsWithRevokedPermissions)} contains an invalid ID!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithADuplicatePermissionInAdminsWithRevokedPermissionsCollection_ShouldReturnFalse()
+        {
+            //Arrange
+            var dto = new UpdateEducationalInstitutionAdminsCommand
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete", "user.test.delete" } } }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithADuplicatePermissionInAdminsWithRevokedPermissionsCollection_ShouldReturnAStringWithValidationErrors()
+        {
+            //Arrange
+            var dto = new UpdateEducationalInstitutionAdminsCommand
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.delete", "user.test.delete" } } }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+
+            //Assert
+            Assert.Equal($" Property AdminsWithRevokedPermissions[0].Permissions failed validation. Error was: {nameof(dto.AdminsWithRevokedPermissions)} contains duplicate permission values!", validationErrors);
+        }
+
+        [Fact]
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithEmptyPermissionsCollectionInAdminsWithRevokedPermissionsCollection_ShouldReturnFalse()
+        {
+            //Arrange
+            var dto = new UpdateEducationalInstitutionAdminsCommand
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>(0) } }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+
+            //Assert
+            Assert.False(validationResult);
+        }
+
+        [Fact]
+        public void GivenAnInvalidUpdateEducationalInstitutionAdminsCommand_WithEmptyPermissionsCollectionInAdminsWithRevokedPermissionsCollection_ShouldReturnAStringWithValidationErrors()
+        {
+            //Arrange
+            var dto = new UpdateEducationalInstitutionAdminsCommand
+            {
+                EducationalInstitutionID = Guid.NewGuid(),
+                NewAdmins = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "user.test.all" } } },
+                AdminsWithNewPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>() { "client.test.all" } } },
+                AdminsWithRevokedPermissions = new List<AdminDetails>() { new() { Identity = Guid.NewGuid().ToString(), Permissions = new List<string>(0) } }
+            };
+
+            //Act
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+
+            //Assert
+            Assert.Equal($" Property AdminsWithRevokedPermissions[0].Permissions failed validation. Error was: {nameof(dto.AdminsWithRevokedPermissions)} permissions collection is empty!", validationErrors);
         }
 
         #endregion UpdateEducationalInstitutionAdminsCommand TESTS
