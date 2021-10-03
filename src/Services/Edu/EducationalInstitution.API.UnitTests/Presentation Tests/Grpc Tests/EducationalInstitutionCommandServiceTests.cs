@@ -4,10 +4,14 @@ using EducationalInstitution.Application.Commands.Results;
 using EducationalInstitutionAPI.Presentation.Grpc;
 using EducationalInstitutionAPI.Proto;
 using EducationalInstitutionAPI.Utils.Mappers;
+using Grpc.Core;
+using Grpc.Core.Testing;
+using Microsoft.AspNetCore.Http;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -21,11 +25,18 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
 
         /// <remarks>Called before each test</remarks>
         public EducationalInstitutionCommandServiceTests(MockDependenciesHelper<EducationalInstitutionCommandService> dependenciesHelper) : base(dependenciesHelper)
-                => service = new(dependenciesHelper.mockMediator.Object,
+                => service = new(dependenciesHelper.mockHttpContextAccessor.Object,
+                                dependenciesHelper.mockMediator.Object,
                                 dependenciesHelper.mockLogger.Object,
                                 dependenciesHelper.mockValidationHandler.Object);
 
         #region CreateEducationalInstitutionMethod TESTS
+
+        private void SetupMockedHttpContextAccessor()
+        {
+            dependenciesHelper.mockHttpContextAccessor.Setup(mhca => mhca.HttpContext).Returns(new DefaultHttpContext());
+            dependenciesHelper.mockHttpContextAccessor.Setup(mhca => mhca.HttpContext.User.FindFirst(It.IsAny<string>())).Returns(new Claim("mockedSub", "123"));
+        }
 
         [Fact]
         public async Task GivenAValidEducationalInstitutionCreateRequest_ToCreateEducationalInstitutionMethod_ShouldReturnAnEducationalInstitutionCreateResponse()
@@ -40,6 +51,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             };
             request.Buildings.Add("building1235");
 
+            SetupMockedHttpContextAccessor();
             CreateEducationalInstitutionMethod_Setup();
 
             //Act
@@ -62,6 +74,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             };
             request.Buildings.Add("building1235");
 
+            SetupMockedHttpContextAccessor();
             CreateEducationalInstitutionMethod_Setup();
 
             //Act
@@ -84,6 +97,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             };
             request.Buildings.Add("building1235");
 
+            SetupMockedHttpContextAccessor();
             CreateEducationalInstitutionMethod_Setup();
 
             //Act
@@ -106,6 +120,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             };
             request.Buildings.Add("building1235");
 
+            SetupMockedHttpContextAccessor();
             CreateEducationalInstitutionMethod_Setup();
 
             //Act
@@ -128,6 +143,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             };
             request.Buildings.Add("building_invalid_data");
 
+            SetupMockedHttpContextAccessor();
             SetupMockedDependenciesToFailValidation<CreateEducationalInstitutionCommand>();
 
             //Act
@@ -152,6 +168,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             };
             request.Buildings.Add("building_invalid_data");
 
+            SetupMockedHttpContextAccessor();
             SetupMockedDependenciesToFailValidation<CreateEducationalInstitutionCommand>();
 
             //Act
@@ -176,6 +193,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             };
             request.Buildings.Add("building_invalid_data");
 
+            SetupMockedHttpContextAccessor();
             SetupMockedDependenciesToFailValidation<CreateEducationalInstitutionCommand>();
 
             //Act
@@ -198,6 +216,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             };
             request.Buildings.Add("building1235");
 
+            SetupMockedHttpContextAccessor();
             CreateEducationalInstitutionMethod_SetupToFailDatabaseInsertion();
 
             //Act
@@ -220,6 +239,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             };
             request.Buildings.Add("building1235");
 
+            SetupMockedHttpContextAccessor();
             CreateEducationalInstitutionMethod_SetupToFailDatabaseInsertion();
 
             //Act
@@ -262,6 +282,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             };
             request.Buildings.Add("building1235");
 
+            SetupMockedHttpContextAccessor();
             CreateEducationalInstitutionMethod_SetupToNotFindParent();
 
             //Act
@@ -284,6 +305,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             };
             request.Buildings.Add("building1235");
 
+            SetupMockedHttpContextAccessor();
             CreateEducationalInstitutionMethod_SetupToNotFindParent();
 
             //Act
@@ -308,6 +330,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             };
             request.Buildings.Add("building1235");
 
+            SetupMockedHttpContextAccessor();
             CreateEducationalInstitutionMethod_SetupToNotFindParent();
 
             //Act
@@ -332,6 +355,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             };
             request.Buildings.Add("building1235");
 
+            SetupMockedHttpContextAccessor();
             CreateEducationalInstitutionMethod_SetupToNotFindParent();
 
             //Act
@@ -374,6 +398,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             };
             request.Buildings.Add("building1235");
 
+            SetupMockedHttpContextAccessor();
             CreateEducationalInstitutionMethod_Setup();
 
             //Act
@@ -396,6 +421,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             };
             request.Buildings.Add("building1235");
 
+            SetupMockedHttpContextAccessor();
             CreateEducationalInstitutionMethod_Setup();
 
             //Act
@@ -420,6 +446,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             };
             request.Buildings.Add("building1235");
 
+            SetupMockedHttpContextAccessor();
             CreateEducationalInstitutionMethod_Setup();
 
             //Act
@@ -444,6 +471,7 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
             };
             request.Buildings.Add("building1235");
 
+            SetupMockedHttpContextAccessor();
             CreateEducationalInstitutionMethod_Setup();
 
             //Act
@@ -1272,7 +1300,8 @@ namespace EducationalInstitution.API.UnitTests.Presentation_Tests.Grpc_Tests
 
             UpdateEducationalInstitutionAdminMethod_SetupWhenAnExceptionIsCaughtInHandler();
 
-            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockMediator.Object,
+            var service = new EducationalInstitutionCommandService(dependenciesHelper.mockHttpContextAccessor.Object,
+                                                                    dependenciesHelper.mockMediator.Object,
                                                                     dependenciesHelper.mockLogger.Object,
                                                                     dependenciesHelper.mockValidationHandler.Object);
 
