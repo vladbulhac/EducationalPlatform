@@ -1,4 +1,5 @@
-﻿using EducationalInstitution.Application.Commands;
+﻿using EducationalInstitution.Application;
+using EducationalInstitution.Application.Commands;
 using EducationalInstitutionAPI.Proto;
 using Google.Protobuf.Collections;
 using System;
@@ -25,17 +26,8 @@ namespace EducationalInstitutionAPI.Utils.Mappers
                 LocationID = request.LocationId,
                 BuildingsIDs = request.Buildings,
                 ParentInstitutionID = parentInstitutionID,
-                AdminsIDs = MapAdminsIDsToCollectionOfGuid(request.AdminsIds)
+                AdminId = request.AdminId
             };
-        }
-
-        private static ICollection<string> MapAdminsIDsToCollectionOfGuid(RepeatedField<string> adminsIDs)
-        {
-            var mappedIDs = new List<string>(adminsIDs.Count);
-            for (int i = 0; i < adminsIDs.Count; i++)
-                mappedIDs.Add(adminsIDs[i]);
-
-            return mappedIDs;
         }
 
         public static DisableEducationalInstitutionCommand MapToDisableEducationalInstitutionCommand(this EducationalInstitutionDeleteRequest request)
@@ -45,8 +37,9 @@ namespace EducationalInstitutionAPI.Utils.Mappers
                 => new()
                 {
                     EducationalInstitutionID = request.EducationalInstitutionId.ToGuid(),
-                    AddAdminsIDs = request.AddAdminsIds.Select(element => element).ToList(),
-                    RemoveAdminsIDs = request.RemoveAdminsIds.Select(element => element).ToList()
+                    NewAdmins = request.NewAdmins.Select(item => new AdminDetails { Identity = item.Identity, Permissions = item.Permissions }).ToList(),
+                    AdminsWithNewPermissions = request.AdminsWithNewPermissions.Select(item => new AdminDetails { Identity = item.Identity, Permissions = item.Permissions }).ToList(),
+                    AdminsWithRevokedPermissions = request.AdminsWithRevokedPermissions.Select(item => new AdminDetails { Identity = item.Identity, Permissions = item.Permissions }).ToList()
                 };
 
         public static UpdateEducationalInstitutionParentCommand MapToUpdateEducationalInstitutionParentCommand(this EducationalInstitutionParentUpdateRequest request)
