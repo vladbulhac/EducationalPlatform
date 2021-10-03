@@ -43,5 +43,10 @@ message BaseQueryResult{
 }
 
 message GetAdminsResult{
-	string admins_ids=1;
+	string admin_id=1;
+}
+
+message AdminInformation{
+	string identity=1;
+	repeated string permissions=2;
 }
