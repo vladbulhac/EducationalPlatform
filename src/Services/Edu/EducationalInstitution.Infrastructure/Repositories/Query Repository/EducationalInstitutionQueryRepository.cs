@@ -52,7 +52,7 @@ namespace EducationalInstitution.Infrastructure.Repositories.Query_Repository
                                   (@"SELECT e.Name, e.Description, e.LocationID, e.JoinDate, e.ParentInstitutionId,
                                              ce.EducationalInstitutionID as ChildInstitutionID, ce.Name as ChildInstitutionName, ce.Description as ChildInstitutionDescription,
                                              pe.Name as ParentName, pe.Description as ParentDescription,
-                                             b.BuildingID
+                                             b.Id as BuildingID
                                     FROM EducationalInstitutions e
                                     LEFT JOIN EducationalInstitutions ce ON ce.ParentInstitutionId=e.EducationalInstitutionID AND ce.IsDisabled=0
                                     LEFT JOIN EducationalInstitutions pe ON e.ParentInstitutionId=pe.EducationalInstitutionID AND pe.IsDisabled=0
@@ -72,7 +72,7 @@ namespace EducationalInstitution.Infrastructure.Repositories.Query_Repository
                 await connection.OpenAsync(cancellationToken);
 
                 var queryResult = await connection.QueryAsync<dynamic>
-                                                                    (@"SELECT e.EducationalInstitutionID, e.Name, e.Description, b.BuildingID
+                                                                    (@"SELECT e.EducationalInstitutionID, e.Name, e.Description, b.Id as BuildingID
                                                                        FROM EducationalInstitutions e
                                                                        LEFT JOIN Buildings b ON e.EducationalInstitutionID=b.EducationalInstitutionID AND b.IsDisabled=0
                                                                        WHERE e.LocationID=@ID AND e.IsDisabled=0
@@ -93,7 +93,7 @@ namespace EducationalInstitution.Infrastructure.Repositories.Query_Repository
                                                                     (@"SELECT e.EducationalInstitutionID, e.Name, e.Description
                                                                        FROM Buildings b
                                                                        JOIN EducationalInstitutions e ON b.EducationalInstitutionID=e.EducationalInstitutionID
-                                                                       WHERE b.BuildingID=@ID AND b.IsDisabled=0 AND e.IsDisabled=0
+                                                                       WHERE b.Id=@ID AND b.IsDisabled=0 AND e.IsDisabled=0
                                                                        ORDER BY e.Name",
                                                                        new { ID = buildingID });
 
@@ -108,7 +108,7 @@ namespace EducationalInstitution.Infrastructure.Repositories.Query_Repository
                 await connection.OpenAsync(cancellationToken);
 
                 var queryResult = await connection.QueryAsync<string>
-                                                             (@"SELECT AdminID
+                                                             (@"SELECT Id as AdminID
                                                                 FROM Admins
                                                                 WHERE EducationalInstitutionID=@ID AND IsDisabled=0",
                                                                 new { ID = educationalInstitutionID });
