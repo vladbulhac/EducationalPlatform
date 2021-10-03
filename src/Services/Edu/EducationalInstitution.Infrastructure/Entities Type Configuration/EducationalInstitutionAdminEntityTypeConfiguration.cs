@@ -8,9 +8,9 @@ namespace EducationalInstitution.Infrastructure.Entities_Type_Configuration
     {
         public void Configure(EntityTypeBuilder<EducationalInstitutionAdmin> builder)
         {
-            builder.HasKey(eia => new { eia.AdminId, eia.Id });
+            builder.HasKey(eia => new { eia.Id, eia.EducationalInstitutionId });
 
-            builder.Property(eib => eib.Id).HasColumnName("EducationalInstitutionID");
+            builder.Property(eib => eib.EducationalInstitutionId).HasColumnName("EducationalInstitutionID");
 
             builder.OwnsOne(eia => eia.Access, exp =>
             {
@@ -18,6 +18,10 @@ namespace EducationalInstitution.Infrastructure.Entities_Type_Configuration
                 exp.Property(a => a.IsDisabled).HasColumnName("IsDisabled");
                 exp.Property(a => a.DateForPermanentDeletion).HasColumnName("DateForPermanentDeletion");
             });
+
+            builder.Property(eia => eia.Permissions)
+                    .HasConversion(p => string.Join(';', p),
+                                   p => p.Split(';', System.StringSplitOptions.RemoveEmptyEntries));
         }
     }
 }
