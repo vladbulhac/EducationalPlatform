@@ -31,7 +31,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Queries_Tests.H
                 EducationalInstitutions = new List<GetEducationalInstitutionByLocationQueryResult>() { new(){
                         Name = testDataHelper.EducationalInstitutions[0].Name,
                         Description = testDataHelper.EducationalInstitutions[0].Description,
-                        BuildingsIDs = testDataHelper.EducationalInstitutions[0].Buildings.Select(b=>b.BuildingID).ToList(),
+                        BuildingsIDs = testDataHelper.EducationalInstitutions[0].Buildings.Select(b=>b.Id).ToList(),
                         EducationalInstitutionID = testDataHelper.EducationalInstitutions[0].Id
                         }
                     }
