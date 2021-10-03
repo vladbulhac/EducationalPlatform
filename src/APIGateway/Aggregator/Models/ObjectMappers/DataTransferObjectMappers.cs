@@ -1,10 +1,12 @@
 ﻿using Aggregator.Common.Proto;
 using Aggregator.EducationalInstitutionAPI.Proto;
 using Aggregator.Models.DTOs;
+using Aggregator.Models.DTOs.EducationalInstitutionDTOs;
 using Aggregator.Models.DTOs.EducationalInstitutionDTOs.Requests;
 using Aggregator.Models.DTOs.EducationalInstitutionDTOs.Responses;
 using Google.Protobuf.Collections;
 using Grpc.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -16,6 +18,22 @@ namespace Aggregator.Models.ObjectMappers
     /// </summary>
     public static class DataTransferObjectMappers
     {
+        public static EducationalInstitutionAdminUpdateRequest MapToEducationalInstitutionAdminUpdateRequest(this DTOUpdateEducationalInstitutionAdminRequest requestData, Guid educationalInstitutionId)
+        {
+            return new()
+            {
+                EducationalInstitutionId = educationalInstitutionId.ToProtoUuid(),
+                NewAdmins = { MapToAdminInformationCollection(requestData.NewAdmins) },
+                AdminsWithNewPermissions = { MapToAdminInformationCollection(requestData.AdminsWithNewPermissions) },
+                AdminsWithRevokedPermissions = { MapToAdminInformationCollection(requestData.AdminsWithRevokedPermissions) }
+            };
+        }
+
+        private static ICollection<AdminInformation> MapToAdminInformationCollection(ICollection<AdminDetails> adminsDetails)
+        {
+            return new List<AdminInformation>(adminsDetails.Select(a => new AdminInformation() { Identity = a.Identity, Permissions = { a.Permissions } }));
+        }
+
         public static EducationalInstitutionCreateRequest MapToEducationalInstitutionCreateRequest(this DTOCreateEducationalInstitutionRequest requestData)
         {
             Uuid parentInstitutionID = null;
@@ -30,9 +48,6 @@ namespace Aggregator.Models.ObjectMappers
                 ParentInstitutionId = parentInstitutionID
             };
             request.Buildings.Add(requestData.BuildingsIDs);
-
-            foreach (var adminID in requestData.AdminsIDs)
-                request.AdminsIds.Add(adminID);
 
             return request;
         }
