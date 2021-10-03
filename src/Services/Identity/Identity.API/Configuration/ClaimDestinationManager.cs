@@ -37,7 +37,7 @@ namespace Identity.API.Configuration
 
                     yield break;
 
-                case DefinedUserPermissions.EducationalInstitutionPermissions.ChangeAdministrators when claim.Value is "granted":
+                case DefinedUserPermissions.EducationalInstitutionPermissions.ChangeAdministrators:
                     yield return Destinations.IdentityToken;
 
                     if (principal.HasScope(DefinedScopes.EducationalInstitutionScopes.ChangeAdministrators) || principal.HasScope(DefinedScopes.EducationalInstitutionScopes.All))
@@ -45,7 +45,7 @@ namespace Identity.API.Configuration
 
                     yield break;
 
-                case DefinedUserPermissions.EducationalInstitutionPermissions.All when claim.Value is "granted":
+                case DefinedUserPermissions.EducationalInstitutionPermissions.All:
                     yield return Destinations.IdentityToken;
 
                     if (principal.HasScope(DefinedScopes.EducationalInstitutionScopes.All))
@@ -53,7 +53,7 @@ namespace Identity.API.Configuration
 
                     yield break;
 
-                case DefinedUserPermissions.EducationalInstitutionPermissions.Delete when claim.Value is "granted":
+                case DefinedUserPermissions.EducationalInstitutionPermissions.Delete:
                     yield return Destinations.IdentityToken;
 
                     if (principal.HasScope(DefinedScopes.EducationalInstitutionScopes.Delete) || principal.HasScope(DefinedScopes.EducationalInstitutionScopes.All))
@@ -61,7 +61,7 @@ namespace Identity.API.Configuration
 
                     yield break;
 
-                case DefinedUserPermissions.EducationalInstitutionPermissions.UpdateDetails when claim.Value is "granted":
+                case DefinedUserPermissions.EducationalInstitutionPermissions.UpdateDetails:
                     yield return Destinations.IdentityToken;
 
                     if (principal.HasScope(DefinedScopes.EducationalInstitutionScopes.UpdateDetails) || principal.HasScope(DefinedScopes.EducationalInstitutionScopes.All))
