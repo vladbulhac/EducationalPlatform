@@ -578,7 +578,7 @@ namespace EducationalInstitution.API.IntegrationTests.Infrastructure_Tests.Repos
         }
 
         [IgnoreWhenDatabaseIsNotLoaded]
-        public async Task GivenAValidEducationalInstitutionID_ToGetAllAdminsForEducationalInstitutionAsyncMethod_ShouldReturnACollectionWithTwoElements()
+        public async Task GivenAValidEducationalInstitutionID_ToGetAllAdminsForEducationalInstitutionAsyncMethod_ShouldReturnACollectionWithOneElement()
         {
             //Arrange
             var educationalInstitutionID = dbFixture.testDataHelper.EducationalInstitutions[3].Id;
@@ -587,7 +587,7 @@ namespace EducationalInstitution.API.IntegrationTests.Infrastructure_Tests.Repos
             var result = await repository.GetAllAdminsForEducationalInstitutionAsync(educationalInstitutionID);
 
             //Assert
-            Assert.Equal(2, result.AdminsIDs.Count);
+            Assert.Single(result.AdminsIDs);
         }
 
         [IgnoreWhenDatabaseIsNotLoaded]
