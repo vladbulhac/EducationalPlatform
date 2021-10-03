@@ -17,6 +17,7 @@ services:
             - ConnectionStrings__ReadsDB=Server=edu-subscriber;Database=ProjectOne.EducationalInstitutions.Reads;User Id=sa;Password=Pass@word;ConnectRetryInterval=30;
             - ConnectionStrings__IntegrationTestsDB=Server=edu-publisher;Database=ProjectOne.EducationalInstitutions.Tests;User Id=sa;Password=Pass@word;ConnectRetryInterval=30;
             - EventBus__HostName=rabbitmq
+            - Identity__Issuer=http://identity-api:41110
        ports:
             - "50001:50001"
             - "53001:53001"
