@@ -8,9 +8,9 @@ namespace EducationalInstitution.Infrastructure.Entities_Type_Configuration
     {
         public void Configure(EntityTypeBuilder<EducationalInstitutionBuilding> builder)
         {
-            builder.HasKey(eib => new { eib.BuildingID, eib.Id });
+            builder.HasKey(eib => new { eib.Id, eib.EducationalInstitutionId });
 
-            builder.Property(eib => eib.Id).HasColumnName("EducationalInstitutionID");
+            builder.Property(eib => eib.EducationalInstitutionId).HasColumnName("EducationalInstitutionID");
 
             builder.OwnsOne(eib => eib.Access, exp =>
             {
