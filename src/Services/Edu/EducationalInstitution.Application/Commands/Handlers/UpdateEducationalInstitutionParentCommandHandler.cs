@@ -5,8 +5,10 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using RabbitMQEventBus.Abstractions;
+using RabbitMQEventBus.IntegrationEvents;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -47,22 +49,33 @@ namespace EducationalInstitution.Application.Commands.Handlers
             {
                 using (unitOfWork)
                 {
-                    var commandResult = await unitOfWork.UsingEducationalInstitutionCommandRepository()
-                                                        .UpdateParentInstitutionAsync(request.EducationalInstitutionID,
-                                                                                      request.ParentInstitutionID,
-                                                                                      cancellationToken);
-
-                    if (commandResult == default)
+                    var parentInstitution = await unitOfWork.UsingEducationalInstitutionCommandRepository()
+                                                            .GetEducationalInstitutionIncludingAdminsAsync(request.ParentInstitutionID, cancellationToken);
+                    if (parentInstitution == default)
                         return new()
                         {
                             OperationStatus = false,
                             StatusCode = HttpStatusCode.NotFound,
-                            Message = $"The Educational Institution with the ID: {request.EducationalInstitutionID} or the Parent Educational Institution with the ID: {request.ParentInstitutionID} has not been found!"
+                            Message = $"The Parent Educational Institution with the ID: {request.ParentInstitutionID} has not been found!"
                         };
+
+                    var educationalInstitution = await unitOfWork.UsingEducationalInstitutionCommandRepository()
+                                                                .GetEducationalInstitutionIncludingAdminsAsync(request.EducationalInstitutionID, cancellationToken);
+                    if (educationalInstitution == default)
+                        return new()
+                        {
+                            OperationStatus = false,
+                            StatusCode = HttpStatusCode.NotFound,
+                            Message = $"The Educational Institution with the ID: {request.EducationalInstitutionID} has not been found!"
+                        };
+
+                    educationalInstitution.SetParentInstitution(parentInstitution);
 
                     await unitOfWork.SaveChangesAsync(cancellationToken);
 
-                    PublishNotificationEventsForAdmins(request.EducationalInstitutionID, commandResult.AdminsToNotify);
+                    eventBus.PublishMultiple(PublishNotificationEventsForAdmins(request.EducationalInstitutionID,
+                                                                                educationalInstitution.Admins.Select(a => a.Id).ToList(),
+                                                                                parentInstitution.Admins.Select(a => a.Id).ToList()));
                 }
             }
             catch (Exception e)
@@ -73,7 +86,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
                         JsonConvert.SerializeObject(request),
                         unitOfWork.GetType(),
                         unitOfWork.UsingEducationalInstitutionCommandRepository().GetType(),
-                        nameof(IEducationalInstitutionCommandRepository.UpdateParentInstitutionAsync),
+                        nameof(IEducationalInstitutionCommandRepository.GetEducationalInstitutionIncludingAdminsAsync),
                         e.Message);
             }
 
@@ -85,9 +98,9 @@ namespace EducationalInstitution.Application.Commands.Handlers
             };
         }
 
-        private void PublishNotificationEventsForAdmins(Guid educationalInstitutionID, ICollection<string> adminsToNotify)
+        private IEnumerable<IntegrationEvent> PublishNotificationEventsForAdmins(Guid educationalInstitutionID, ICollection<string> adminsToNotify, ICollection<string> parentAdminsToNotify)
         {
-            NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent @event = new()
+            yield return new NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent
             {
                 Message = "An Educational Institution's parent has been recently updated!",
                 TriggeredBy = new()
@@ -99,7 +112,20 @@ namespace EducationalInstitution.Application.Commands.Handlers
                 ToNotify = adminsToNotify,
             };
 
-            eventBus.Publish(@event);
+            if (parentAdminsToNotify is not null && parentAdminsToNotify.Count > 0)
+            {
+                yield return new NotifyAdminsOfNewEducationalInstitutionChildIntegrationEvent
+                {
+                    Message = "An Educational Institution assigned this institution as a parent!",
+                    ToNotify = parentAdminsToNotify,
+                    Uri = $"/edu/{educationalInstitutionID}",
+                    TriggeredBy = new()
+                    {
+                        ServiceName = this.GetType().Namespace.Split('.')[0],
+                        Action = "Create"
+                    }
+                };
+            }
         }
     }
 }
