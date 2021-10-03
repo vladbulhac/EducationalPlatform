@@ -1,7 +1,8 @@
-using Aggregator.Authorization;
 using Aggregator.EducationalInstitutionAPI.Proto;
 using Aggregator.Infrastructure;
 using Aggregator.Services.EducationalInstitution;
+using Grpc.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +13,7 @@ using OpenIddict.Validation.AspNetCore;
 using Serilog;
 using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Aggregator
 {
@@ -28,6 +30,7 @@ namespace Aggregator
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOpenIDDictConfiguration(Configuration);
+            services.AddAuthorizationConfiguration();
 
             services.AddControllers();
 
@@ -35,7 +38,7 @@ namespace Aggregator
 
             services.AddScoped<IEducationalInstitutionCommandService, EducationalInstitutionCommandService>()
                     .AddScoped<IEducationalInstitutionQueryService, EducationalInstitutionQueryService>()
-                    .AddScoped<IRequestAuthorizationService, RequestAuthorizationService>();
+                    .AddHttpContextAccessor();
 
             services.AddGrpcClients(Configuration);
         }
@@ -65,6 +68,17 @@ namespace Aggregator
 
     public static class StartupExtensionMethods
     {
+        public static IServiceCollection AddAuthorizationConfiguration(this IServiceCollection services)
+        {
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("CreateEducationalInstitutionPolicy", policy => policy.RequireClaim("oi_scp", "client.educational_institution.all"));
+                options.AddPolicy("DeleteEducationalInstitutionPolicy", policy => policy.RequireClaim("oi_scp", "client.educational_institution.delete", "client.educational_institution.all"));
+            });
+
+            return services;
+        }
+
         public static IServiceCollection AddGrpcClients(this IServiceCollection services, IConfiguration configuration)
         {
             var httpHandler = new SocketsHttpHandler
@@ -76,15 +90,15 @@ namespace Aggregator
 
             var eduUri = new Uri(configuration.GetSection("ServicesUrls")["gRPCEdu"]);
 
-            services.AddTransient<GrpcExceptionInterceptor>();
+            services.AddTransient<GrpcInterceptor>();
 
             services.AddGrpcClient<Query.QueryClient>(options => options.Address = eduUri)
                     .ConfigureChannel(ch => ch.HttpHandler = httpHandler)
-                    .AddInterceptor<GrpcExceptionInterceptor>();
+                    .AddInterceptor<GrpcInterceptor>();
 
             services.AddGrpcClient<Command.CommandClient>(options => options.Address = eduUri)
                     .ConfigureChannel(ch => ch.HttpHandler = httpHandler)
-                    .AddInterceptor<GrpcExceptionInterceptor>();
+                    .AddInterceptor<GrpcInterceptor>();
 
             return services;
         }
@@ -101,7 +115,7 @@ namespace Aggregator
                         // Note: the validation handler uses OpenID Connect discovery
                         // to retrieve the address of the introspection endpoint.
                         options.SetIssuer(configuration.GetSection("ServicesUrls")["identity"]);
-                        options.AddAudiences(aggregator, "educational_institution_api");
+                        options.AddAudiences(aggregator);
 
                         // Configure the validation handler to use introspection and register the client
                         // credentials used when communicating with the remote introspection endpoint.
