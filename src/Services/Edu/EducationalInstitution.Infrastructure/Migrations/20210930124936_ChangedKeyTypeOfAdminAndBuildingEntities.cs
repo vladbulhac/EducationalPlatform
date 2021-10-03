@@ -1,9 +1,9 @@
-﻿/*using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EducationalInstitution.Infrastructure.Migrations
 {
-    public partial class ChangedAdminIdToString : Migration
+    public partial class ChangedKeyTypeOfAdminAndBuildingEntities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,14 +35,15 @@ namespace EducationalInstitution.Infrastructure.Migrations
                 name: "Admins",
                 columns: table => new
                 {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     EducationalInstitutionID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AdminId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Permissions = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDisabled = table.Column<bool>(type: "bit", nullable: true),
                     DateForPermanentDeletion = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Admins", x => new { x.AdminId, x.EducationalInstitutionID });
+                    table.PrimaryKey("PK_Admins", x => new { x.Id, x.EducationalInstitutionID });
                     table.ForeignKey(
                         name: "FK_Admins_EducationalInstitutions_EducationalInstitutionID",
                         column: x => x.EducationalInstitutionID,
@@ -55,14 +56,14 @@ namespace EducationalInstitution.Infrastructure.Migrations
                 name: "Buildings",
                 columns: table => new
                 {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     EducationalInstitutionID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BuildingID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     IsDisabled = table.Column<bool>(type: "bit", nullable: true),
                     DateForPermanentDeletion = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Buildings", x => new { x.BuildingID, x.EducationalInstitutionID });
+                    table.PrimaryKey("PK_Buildings", x => new { x.Id, x.EducationalInstitutionID });
                     table.ForeignKey(
                         name: "FK_Buildings_EducationalInstitutions_EducationalInstitutionID",
                         column: x => x.EducationalInstitutionID,
@@ -127,4 +128,3 @@ namespace EducationalInstitution.Infrastructure.Migrations
         }
     }
 }
-*/
