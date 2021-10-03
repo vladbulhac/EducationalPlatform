@@ -1,5 +1,4 @@
 ﻿using RabbitMQEventBus.IntegrationEvents;
-using System;
 using System.Collections.Generic;
 
 namespace EducationalInstitution.Application.Integration_Events

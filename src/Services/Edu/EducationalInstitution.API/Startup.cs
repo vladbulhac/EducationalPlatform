@@ -7,12 +7,10 @@ using EducationalInstitution.Application.Commands.Validators;
 using EducationalInstitution.Infrastructure;
 using EducationalInstitution.Infrastructure.Unit_of_Work.Command_Unit_of_Work;
 using EducationalInstitution.Infrastructure.Unit_of_Work.Query_Unit_of_Work;
-using EducationalInstitutionAPI.Authorization;
 using EducationalInstitutionAPI.Authorization.Handlers;
 using EducationalInstitutionAPI.Authorization.Requirements;
 using EducationalInstitutionAPI.Presentation.Grpc;
 using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,10 +27,8 @@ using RabbitMQEventBus;
 using RabbitMQEventBus.Abstractions;
 using RabbitMQEventBus.ConnectionHandler;
 using Serilog;
-using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace EducationalInstitutionAPI
 {

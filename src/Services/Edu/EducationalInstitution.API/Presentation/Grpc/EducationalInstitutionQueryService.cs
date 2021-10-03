@@ -6,7 +6,6 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EducationalInstitutionAPI.Presentation.Grpc

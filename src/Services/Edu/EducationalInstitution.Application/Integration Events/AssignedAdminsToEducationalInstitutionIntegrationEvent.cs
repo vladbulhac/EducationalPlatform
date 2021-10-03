@@ -1,5 +1,4 @@
-﻿using EducationalInstitution.Infrastructure.Repositories;
-using RabbitMQEventBus.IntegrationEvents;
+﻿using RabbitMQEventBus.IntegrationEvents;
 using System;
 using System.Collections.Generic;
 

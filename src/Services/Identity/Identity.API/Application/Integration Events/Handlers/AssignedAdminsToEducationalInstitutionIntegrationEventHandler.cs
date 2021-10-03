@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using RabbitMQEventBus.IntegrationEvents;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 

@@ -7,7 +7,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using OpenIddict.Validation.AspNetCore;
 using System;

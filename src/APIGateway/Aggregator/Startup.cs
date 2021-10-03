@@ -1,8 +1,6 @@
 using Aggregator.EducationalInstitutionAPI.Proto;
 using Aggregator.Infrastructure;
 using Aggregator.Services.EducationalInstitution;
-using Grpc.Core;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +11,6 @@ using OpenIddict.Validation.AspNetCore;
 using Serilog;
 using System;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace Aggregator
 {

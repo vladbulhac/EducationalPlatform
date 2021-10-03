@@ -1,7 +1,5 @@
 ﻿using EducationalInstitution.Application.Integration_Events;
-using EducationalInstitution.Infrastructure.Repositories;
 using EducationalInstitution.Infrastructure.Repositories.Command_Repository;
-using EducationalInstitution.Infrastructure.Repositories.Command_Repository.Results;
 using EducationalInstitution.Infrastructure.Unit_of_Work.Command_Unit_of_Work;
 using MediatR;
 using Microsoft.Extensions.Logging;

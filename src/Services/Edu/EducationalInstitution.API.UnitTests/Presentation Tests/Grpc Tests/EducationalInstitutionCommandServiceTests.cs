@@ -4,8 +4,6 @@ using EducationalInstitution.Application.Commands.Results;
 using EducationalInstitutionAPI.Presentation.Grpc;
 using EducationalInstitutionAPI.Proto;
 using EducationalInstitutionAPI.Utils.Mappers;
-using Grpc.Core;
-using Grpc.Core.Testing;
 using Microsoft.AspNetCore.Http;
 using Moq;
 using System;

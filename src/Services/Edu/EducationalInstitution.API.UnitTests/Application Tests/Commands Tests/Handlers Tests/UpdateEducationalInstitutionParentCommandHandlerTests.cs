@@ -1,10 +1,8 @@
 ﻿using EducationalInstitution.API.Tests.Shared;
 using EducationalInstitution.Application.Commands;
 using EducationalInstitution.Application.Commands.Handlers;
-using EducationalInstitution.Infrastructure.Repositories.Command_Repository.Results;
 using Moq;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;

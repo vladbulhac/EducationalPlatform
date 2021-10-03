@@ -1,11 +1,9 @@
 ﻿using Identity.API.Models;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using OpenIddict.Server.AspNetCore;
 using System;
 using System.Threading.Tasks;
 

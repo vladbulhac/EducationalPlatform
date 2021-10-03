@@ -39,7 +39,7 @@ namespace Notification.API
                                          providerOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                                          providerOptions.MigrationsAssembly("Notification.Infrastructure");
                                      });
-                options.LogTo(Console.WriteLine);
+                //options.LogTo(Console.WriteLine);
             });
 
             services.AddTransient<INotificationRepository, NotificationRepository>();
@@ -105,7 +105,7 @@ namespace Notification.API
                 return new(queueName, logger, connectionHandler, services);
             });
 
-            services.AddTransient<NotificationEventHandler<AssignedAdminsToEducationalInstitutionIntegrationEvent>>();
+            services.AddTransient<AssignedAdminsToEducationalInstitutionIntegrationEventHandler>();
             services.AddTransient<NotificationEventHandler<NotifyAdminsOfEducationalInstitutionScheduledForDeletionIntegrationEvent>>();
             services.AddTransient<NotificationEventHandler<NotifyAdminsOfNewEducationalInstitutionChildIntegrationEvent>>();
             services.AddTransient<NotificationEventHandler<NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent>>();
@@ -118,7 +118,7 @@ namespace Notification.API
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
 
             eventBus.Subscribe<AssignedAdminsToEducationalInstitutionIntegrationEvent,
-                               NotificationEventHandler<AssignedAdminsToEducationalInstitutionIntegrationEvent>>();
+                               AssignedAdminsToEducationalInstitutionIntegrationEventHandler>();
 
             eventBus.Subscribe<NotifyAdminsOfEducationalInstitutionScheduledForDeletionIntegrationEvent,
                                NotificationEventHandler<NotifyAdminsOfEducationalInstitutionScheduledForDeletionIntegrationEvent>>();

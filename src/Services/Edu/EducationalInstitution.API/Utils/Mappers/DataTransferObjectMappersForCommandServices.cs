@@ -1,9 +1,7 @@
 ﻿using EducationalInstitution.Application;
 using EducationalInstitution.Application.Commands;
 using EducationalInstitutionAPI.Proto;
-using Google.Protobuf.Collections;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace EducationalInstitutionAPI.Utils.Mappers

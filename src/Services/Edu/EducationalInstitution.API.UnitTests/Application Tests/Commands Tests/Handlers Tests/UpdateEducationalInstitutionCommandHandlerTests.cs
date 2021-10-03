@@ -2,10 +2,8 @@
 using EducationalInstitution.Application;
 using EducationalInstitution.Application.Commands;
 using EducationalInstitution.Application.Commands.Handlers;
-using EducationalInstitution.Infrastructure.Repositories.Command_Repository.Results;
 using Moq;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -79,6 +77,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             };
 
             dependenciesHelper.mockUnitOfWorkCommand.Setup(uok => uok.UsingEducationalInstitutionCommandRepository())
+                                                    .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
             dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(meicr => meicr.GetEducationalInstitutionIncludingAdminsAsync(educationalInstitutionID, It.IsAny<CancellationToken>()))
                                                                           .ReturnsAsync(testDataHelper.EducationalInstitutions[0]);

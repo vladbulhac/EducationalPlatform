@@ -1,6 +1,5 @@
 ﻿using Notification.Domain.Building_Blocks;
 using Notification.Domain.Models.Aggregates;
-using System;
 
 namespace Notification.Domain.Models
 {

@@ -4,9 +4,6 @@ using Notification.Domain.Models.Aggregates;
 using Notification.Infrastructure.Repositories;
 using RabbitMQEventBus.IntegrationEvents;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Notification.Application.Integration_Events.Handlers

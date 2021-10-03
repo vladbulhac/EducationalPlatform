@@ -1,6 +1,5 @@
 ﻿using Notification.Domain.Models.Aggregates;
 using Notification.Infrastructure.Repositories.Results;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;

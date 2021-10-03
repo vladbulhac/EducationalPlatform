@@ -2,7 +2,6 @@
 using EducationalInstitution.Application.Integration_Events;
 using EducationalInstitution.Application.Permissions;
 using EducationalInstitution.Domain.Models;
-using EducationalInstitution.Infrastructure.Repositories;
 using EducationalInstitution.Infrastructure.Repositories.Command_Repository;
 using EducationalInstitution.Infrastructure.Unit_of_Work.Command_Unit_of_Work;
 using MediatR;
