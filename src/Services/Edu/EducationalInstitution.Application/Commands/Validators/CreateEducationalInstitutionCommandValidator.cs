@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using System;
+using System.Collections.Generic;
 
 namespace EducationalInstitution.Application.Commands.Validators
 {
@@ -15,23 +16,20 @@ namespace EducationalInstitution.Application.Commands.Validators
                                     .WithMessage("{PropertyName} contains characters that are not supported and/or the length is not exactly 24!");
             RuleForEach(dto => dto.BuildingsIDs)
                                 .NotEmpty()
-                                    .WithMessage("BuildingID was empty or null!")
+                                    .WithMessage("Building ID was empty or null!")
                                 .Matches(@"\b[a-fA-F0-9]{24}$")
                                     .WithMessage("BuildingID contains characters that are not supported and/or the length is not exactly 24!")
                                 .NotEqual(req => req.LocationID)
-                                    .WithMessage(dto => $"BuildingID was the same as {nameof(dto.LocationID)}!");
+                                    .WithMessage(dto => $"Building ID was the same as {nameof(dto.LocationID)}!");
             RuleFor(dto => dto.BuildingsIDs)
                                 .NotEmpty()
-                                    .WithMessage(dto => $"{nameof(dto.BuildingsIDs)} was empty or null!");
+                                    .WithMessage("Buildings IDs collection was empty or null!");
 
-            RuleForEach(dto => dto.AdminsIDs)
+            RuleFor(dto => dto.AdminId)
                                 .NotEmpty()
-                                    .WithMessage("AdminID was empty or null!")
+                                    .WithMessage("{PropertyName} was empty or null!")
                                 .NotEqual(Guid.Empty.ToString())
-                                    .WithMessage("AdminsID value was invalid!");
-            RuleFor(dto => dto.AdminsIDs)
-                                .NotEmpty()
-                                    .WithMessage("AdminsIDs was empty or null!");
+                                    .WithMessage("{PropertyName} does not have a valid value!");
 
             RuleFor(dto => dto.Name)
                               .NotEmpty()
