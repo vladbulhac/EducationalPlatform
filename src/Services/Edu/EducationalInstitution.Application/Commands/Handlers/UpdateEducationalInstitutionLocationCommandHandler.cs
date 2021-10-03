@@ -8,9 +8,11 @@ using Newtonsoft.Json;
 using RabbitMQEventBus.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Domain = EducationalInstitution.Domain.Models.Aggregates;
 
 namespace EducationalInstitution.Application.Commands.Handlers
 {
@@ -48,9 +50,10 @@ namespace EducationalInstitution.Application.Commands.Handlers
             {
                 using (unitOfWork)
                 {
-                    var commandResult = await UpdateLocationOfEducationalInstitution(request, cancellationToken);
+                    var educationalInstitution = await unitOfWork.UsingEducationalInstitutionCommandRepository()
+                                                                 .GetEducationalInstitutionIncludingAdminsAndBuildingsAsync(request.EducationalInstitutionID, cancellationToken);
 
-                    if (commandResult == default)
+                    if (educationalInstitution == default)
                         return new()
                         {
                             OperationStatus = false,
@@ -58,9 +61,11 @@ namespace EducationalInstitution.Application.Commands.Handlers
                             Message = $"Educational Institution with the following ID: {request.EducationalInstitutionID} has not been found!"
                         };
 
+                    UpdateLocationOfEducationalInstitution(request, educationalInstitution);
+
                     await unitOfWork.SaveChangesAsync(cancellationToken);
 
-                    PublishNotificationEventsForAdmins(request.EducationalInstitutionID, commandResult.AdminsToNotify);
+                    PublishNotificationEventsForAdmins(request.EducationalInstitutionID, educationalInstitution.Admins.Select(a => a.Id).ToList());
                 }
             }
             catch (Exception e)
@@ -71,7 +76,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
                             JsonConvert.SerializeObject(request),
                             unitOfWork.GetType(),
                             unitOfWork.UsingEducationalInstitutionCommandRepository().GetType(),
-                            GetNameOfRepositoryMethodThatWasCalledInHandler(request),
+                            nameof(IEducationalInstitutionCommandRepository.GetEducationalInstitutionIncludingAdminsAndBuildingsAsync),
                             e.Message);
             }
 
@@ -83,39 +88,22 @@ namespace EducationalInstitution.Application.Commands.Handlers
             };
         }
 
-        private async Task<AfterCommandChangesDetails> UpdateLocationOfEducationalInstitution(UpdateEducationalInstitutionLocationCommand request, CancellationToken cancellationToken)
+        private void UpdateLocationOfEducationalInstitution(UpdateEducationalInstitutionLocationCommand request, Domain::EducationalInstitution educationalInstitution)
         {
             switch (request.UpdateLocation)
             {
-                case true when request.UpdateBuildings:
-                    return await unitOfWork.UsingEducationalInstitutionCommandRepository()
-                                                .UpdateEntireLocationAsync(request.EducationalInstitutionID,
-                                                                           request.LocationID, request.AddBuildingsIDs,
-                                                                           request.RemoveBuildingsIDs,
-                                                                           cancellationToken);
+                case true when request.UpdateBuildings is true:
+                    educationalInstitution.SetEntireLocation(request.LocationID, request.AddBuildingsIDs, request.RemoveBuildingsIDs);
+                    break;
 
-                case false when request.UpdateBuildings:
-                    return await unitOfWork.UsingEducationalInstitutionCommandRepository()
-                                                .UpdateBuildingsAsync(request.EducationalInstitutionID,
-                                                                      request.AddBuildingsIDs,
-                                                                      request.RemoveBuildingsIDs,
-                                                                      cancellationToken);
+                case false when request.UpdateBuildings is true:
+                    educationalInstitution.CreateAndAddBuildings(request.AddBuildingsIDs);
+                    educationalInstitution.RemoveBuildings(request.RemoveBuildingsIDs);
+                    break;
 
                 default:
-                    return await unitOfWork.UsingEducationalInstitutionCommandRepository()
-                                                .UpdateLocationAsync(request.EducationalInstitutionID,
-                                                                     request.LocationID,
-                                                                     cancellationToken);
-            }
-        }
-
-        private static string GetNameOfRepositoryMethodThatWasCalledInHandler(UpdateEducationalInstitutionLocationCommand request)
-        {
-            switch (request.UpdateLocation)
-            {
-                case true when request.UpdateBuildings: return nameof(IEducationalInstitutionCommandRepository.UpdateEntireLocationAsync);
-                case false when request.UpdateBuildings: return nameof(IEducationalInstitutionCommandRepository.UpdateBuildingsAsync);
-                default: return nameof(IEducationalInstitutionCommandRepository.UpdateLocationAsync);
+                    educationalInstitution.SetLocation(request.LocationID);
+                    break;
             }
         }
 
