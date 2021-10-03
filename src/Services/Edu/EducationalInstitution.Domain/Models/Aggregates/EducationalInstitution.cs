@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace EducationalInstitution.Domain.Models.Aggregates
 {
-    public class EducationalInstitution : Entity, IAggregateRoot
+    public class EducationalInstitution : GuidEntity, IAggregateRoot
     {
         public string Name { get; private set; }
         public string Description { get; private set; }
@@ -34,7 +34,7 @@ namespace EducationalInstitution.Domain.Models.Aggregates
         public ICollection<EducationalInstitutionAdmin> Admins { get; private set; }
 
         public EducationalInstitution(string name, string description, string locationID,
-            ICollection<string> buildingsIDs, ICollection<string> adminsIDs, EducationalInstitution parentInstitution = null, DateTime? joinDate = null, Guid? id = null) : base(id)
+            ICollection<string> buildingsIDs, string adminId, EducationalInstitution parentInstitution = null, DateTime? joinDate = null, Guid? id = null) : base(id)
         {
             Name = string.IsNullOrEmpty(name) ? throw new ArgumentNullException(nameof(name)) : name;
             Description = description ?? "NO_DESCRIPTION";
@@ -47,7 +47,7 @@ namespace EducationalInstitution.Domain.Models.Aggregates
             ParentInstitution = parentInstitution;
 
             CreateAndAddBuildings(buildingsIDs);
-            CreateAndAddAdmins(adminsIDs);
+            CreateAndAddAdmin(adminId, new string[1] { "user.educational_institution.all" });
         }
 
         public EducationalInstitution()
@@ -128,34 +128,50 @@ namespace EducationalInstitution.Domain.Models.Aggregates
         {
             if (removeBuildingsIDs is not null && removeBuildingsIDs.Count > 0)
             {
-                foreach (var buildingID in removeBuildingsIDs)
+                foreach (var buildingId in removeBuildingsIDs)
                 {
-                    var building = Buildings.SingleOrDefault(b => b.BuildingID == buildingID);
+                    var building = Buildings.SingleOrDefault(b => b.Id == buildingId);
                     if (building is not null)
                         building.ScheduleForDeletion();
                 }
             }
         }
 
-        public void CreateAndAddAdmins(ICollection<string> addAdminsIDs)
+        public void CreateAndAddAdmin(string adminId, ICollection<string> permissions)
         {
-            if (addAdminsIDs is not null && addAdminsIDs.Count > 0)
+            if (adminId is not null)
+                Admins.Add(new(adminId, Id, permissions));
+        }
+
+        /// <summary>
+        /// Removes all the permissions from <paramref name="revokedPermissions"/> and if the admin has no permissions anymore, the admin is scheduled for deletion
+        /// </summary>
+        public void RevokeAdminPermissions(string adminId, ICollection<string> revokedPermissions)
+        {
+            var admin = Admins.FirstOrDefault(a => a.Id == adminId);
+            if (admin is not null)
             {
-                foreach (var adminID in addAdminsIDs)
-                {
-                    if (adminID is not null)
-                        Admins.Add(new(adminID, Id));
-                }
+                admin.RevokePermissions(revokedPermissions);
+
+                if (admin.Permissions.Count == 0)
+                    admin.ScheduleForDeletion();
             }
         }
 
-        public void RemoveAdmins(ICollection<string> removeAdminsIDs)
+        public void GrantAdminPermissions(string adminId, ICollection<string> grantedPermissions)
         {
-            if (removeAdminsIDs is not null && removeAdminsIDs.Count > 0)
+            var admin = Admins.FirstOrDefault(a => a.Id == adminId);
+            if (admin is not null)
+                admin.GrantPermissions(grantedPermissions);
+        }
+
+        public void RemoveAdmins(ICollection<string> removeAdminsIds)
+        {
+            if (removeAdminsIds is not null && removeAdminsIds.Count > 0)
             {
-                foreach (var adminID in removeAdminsIDs)
+                foreach (var adminID in removeAdminsIds)
                 {
-                    var admin = Admins.SingleOrDefault(a => a.AdminId == adminID);
+                    var admin = Admins.SingleOrDefault(a => a.Id == adminID);
                     if (admin is not null)
                         admin.ScheduleForDeletion();
                 }
