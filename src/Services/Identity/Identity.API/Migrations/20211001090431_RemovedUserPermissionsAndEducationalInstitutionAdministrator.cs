@@ -1,9 +1,9 @@
-﻿/*using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Identity.API.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class RemovedUserPermissionsAndEducationalInstitutionAdministrator : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -199,23 +199,6 @@ namespace Identity.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Permissions",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Permissions", x => x.UserId);
-                    table.ForeignKey(
-                        name: "FK_Permissions_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OpenIddictAuthorizations",
                 columns: table => new
                 {
@@ -237,34 +220,6 @@ namespace Identity.API.Migrations
                         column: x => x.ApplicationId,
                         principalTable: "OpenIddictApplications",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EducationalInstitutionAdministrators",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    EducationalInstitutionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CanChangeAdministrators = table.Column<bool>(type: "bit", nullable: false),
-                    CanUpdateEducationalInstitutionDetails = table.Column<bool>(type: "bit", nullable: false),
-                    CanRemoveEducationalInstitution = table.Column<bool>(type: "bit", nullable: false),
-                    UserPermissionsUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EducationalInstitutionAdministrators", x => new { x.UserId, x.EducationalInstitutionId });
-                    table.ForeignKey(
-                        name: "FK_EducationalInstitutionAdministrators_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EducationalInstitutionAdministrators_Permissions_UserPermissionsUserId",
-                        column: x => x.UserPermissionsUserId,
-                        principalTable: "Permissions",
-                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -343,11 +298,6 @@ namespace Identity.API.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EducationalInstitutionAdministrators_UserPermissionsUserId",
-                table: "EducationalInstitutionAdministrators",
-                column: "UserPermissionsUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictApplications_ClientId",
                 table: "OpenIddictApplications",
                 column: "ClientId",
@@ -402,9 +352,6 @@ namespace Identity.API.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "EducationalInstitutionAdministrators");
-
-            migrationBuilder.DropTable(
                 name: "OpenIddictScopes");
 
             migrationBuilder.DropTable(
@@ -414,16 +361,13 @@ namespace Identity.API.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Permissions");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictAuthorizations");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "OpenIddictApplications");
         }
     }
-}*/
+}
