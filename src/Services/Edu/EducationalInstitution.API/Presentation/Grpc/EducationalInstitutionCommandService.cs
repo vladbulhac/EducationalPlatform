@@ -4,8 +4,12 @@ using EducationalInstitutionAPI.Utils.Mappers;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
+using OpenIddict.Validation.AspNetCore;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -19,10 +23,12 @@ namespace EducationalInstitutionAPI.Presentation.Grpc
     {
         private readonly IMediator mediator;
         private readonly IValidationHandler validationHandler;
+        private readonly IHttpContextAccessor httpContext;
         private readonly ILogger<EducationalInstitutionCommandService> logger;
 
-        public EducationalInstitutionCommandService(IMediator mediator, ILogger<EducationalInstitutionCommandService> logger, IValidationHandler validationHandler)
+        public EducationalInstitutionCommandService(IHttpContextAccessor httpContext, IMediator mediator, ILogger<EducationalInstitutionCommandService> logger, IValidationHandler validationHandler)
         {
+            this.httpContext = httpContext ?? throw new ArgumentNullException(nameof(httpContext));
             this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.validationHandler = validationHandler ?? throw new ArgumentNullException(nameof(validationHandler));
@@ -44,6 +50,7 @@ namespace EducationalInstitutionAPI.Presentation.Grpc
         /// </list>
         /// <i>If the request fails (e.g an Exception is caught by this method) then <see cref="ServerCallContext"/>'s ResponseTrailers are set with a Message and <see cref="HttpStatusCode"/></i>
         /// </returns>
+        [Authorize(AuthenticationSchemes = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme)]//, Policy = "CreateEducationalInstitutionPolicy")]
         public override async Task<EducationalInstitutionCreateResponse> CreateEducationalInstitution(EducationalInstitutionCreateRequest request, ServerCallContext context)
         {
             logger.LogInformation("EducationalInstitutionCommandService.CreateEducationalInstitution received gRPC request");
@@ -51,7 +58,14 @@ namespace EducationalInstitutionAPI.Presentation.Grpc
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (context is null) throw new ArgumentNullException(nameof(context));
 
+            var resourceOwnerIdentity = httpContext.HttpContext
+                                                   .User
+                                                   .FindFirst("sub")
+                                                   .Value;
+            request.AdminId = resourceOwnerIdentity;
+
             var dto = request.MapToCreateEducationalInstitutionCommand();
+
             if (!validationHandler.IsDataTransferObjectValid(dto, out string validationErrors))
             {
                 SetStatusAndTrailersOfContext(ref context, StatusCode.InvalidArgument, validationErrors, HttpStatusCode.BadRequest);
@@ -91,6 +105,7 @@ namespace EducationalInstitutionAPI.Presentation.Grpc
         }
 
         /// <inheritdoc cref="CreateEducationalInstitution"/>
+        [Authorize(AuthenticationSchemes = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme, Policy = "DeletePolicy")]
         public override async Task<EducationalInstitutionDeleteResponse> DeleteEducationalInstitution(EducationalInstitutionDeleteRequest request, ServerCallContext context)
         {
             logger.LogInformation("EducationalInstitutionCommandService.DeleteEducationalInstitution received gRPC request");
