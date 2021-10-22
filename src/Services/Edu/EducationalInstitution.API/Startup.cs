@@ -3,7 +3,9 @@ using DatabaseTasks.Cleanup_Task;
 using DataValidation;
 using DataValidation.Abstractions;
 using EducationalInstitution.Application;
+using EducationalInstitution.Application.BaseHandlers;
 using EducationalInstitution.Application.Commands.Validators;
+using EducationalInstitution.Application.Integration_Events;
 using EducationalInstitution.Infrastructure;
 using EducationalInstitution.Infrastructure.Unit_of_Work.Command_Unit_of_Work;
 using EducationalInstitution.Infrastructure.Unit_of_Work.Query_Unit_of_Work;
@@ -26,9 +28,15 @@ using RabbitMQ.Client;
 using RabbitMQEventBus;
 using RabbitMQEventBus.Abstractions;
 using RabbitMQEventBus.ConnectionHandler;
+using RabbitMQEventBus.Transactional_Outbox.Infrastructure;
+using RabbitMQEventBus.Transactional_Outbox.Services.MessageRelay;
+using RabbitMQEventBus.Transactional_Outbox.Services.Outbox_Services;
+using RabbitMQEventBus.Transactional_Outbox.Services.Transaction;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
 
 namespace EducationalInstitutionAPI
 {
@@ -97,17 +105,34 @@ namespace EducationalInstitutionAPI
                 options.AddPolicy("DeletePolicy", policy => policy.AddRequirements(new DeleteEducationalInstitutionRequirements()));
             });
 
-            services.AddSingleton<IAuthorizationHandler,
-                                      DeleteEducationalInstitutionAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, DeleteEducationalInstitutionAuthorizationHandler>();
 
             return services;
         }
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration, string writesDBConnectionString, string readsDBConnectionString)
         {
-            services.AddEventBus(configuration)
-                    .AddDatabaseCleanupHostedService(writesDBConnectionString)
+            services.AddDatabaseCleanupHostedService(writesDBConnectionString)
                     .AddSingleton(_ => new ValidatorFactory(typeof(CreateEducationalInstitutionCommandValidator).Assembly))
+                    .AddTransient<IIntegrationEventOutboxService>(serviceProvider =>
+                    {
+                        var context = serviceProvider.CreateScope()
+                                                     .ServiceProvider
+                                                     .GetRequiredService<DataContext>();
+                        var logger = serviceProvider.GetRequiredService<ILogger<IntegrationEventOutboxService>>();
+
+                        return new IntegrationEventOutboxService(context.Database.GetDbConnection(), logger);
+                    })
+                    .AddEventBus(configuration)
+                    .AddSingleton<IMessageRelayService>(serviceProvider =>
+                    {
+                        var context = serviceProvider.CreateScope().ServiceProvider.GetRequiredService<TransactionalOutboxContext>();
+                        var logger = serviceProvider.GetRequiredService<ILogger<MessageRelayService>>();
+                        var eventBus = serviceProvider.GetRequiredService<IEventBus>();
+                        var assemblyWithEvents = typeof(NotificationIntegrationEvent).Assembly;
+
+                        return new MessageRelayService(logger, context, eventBus, assemblyWithEvents);
+                    })
                     .AddTransient<IValidationHandler, ValidationHandler>()
                     .AddTransient<IUnitOfWorkForQueries>(_ => new UnitOfWorkForQueries(readsDBConnectionString))
                     .AddTransient<IUnitOfWorkForCommands, UnitOfWorkForCommands>()
@@ -130,12 +155,15 @@ namespace EducationalInstitutionAPI
         {
             return services.AddHostedService(serviceProvider =>
                             {
-                                var contexts = new List<DataContext>();
+                                var contexts = new List<DbContext>();
 
-                                var context = serviceProvider.CreateScope()
-                                                             .ServiceProvider
-                                                             .GetRequiredService<DataContext>();
+                                var scope = serviceProvider.CreateScope();
+
+                                var context = scope.ServiceProvider.GetRequiredService<DataContext>();
                                 contexts.Add(context);
+
+                                var outboxContext = scope.ServiceProvider.GetRequiredService<TransactionalOutboxContext>();
+                                contexts.Add(outboxContext);
 
                                 //create new DataContext with the connection string to the read database
                                 var dbOptions = new DbContextOptionsBuilder<DataContext>()
@@ -177,7 +205,11 @@ namespace EducationalInstitutionAPI
                 var queueName = configuration.GetSection("EventBus")["QueueName"];
                 var connectionHandler = serviceProvider.GetRequiredService<IPersistentConnectionHandler>();
 
-                return new(queueName, logger, connectionHandler, services);
+                var outboxService = serviceProvider.CreateScope()
+                                                   .ServiceProvider
+                                                   .GetRequiredService<IIntegrationEventOutboxService>();
+
+                return new(queueName, logger, connectionHandler, services, outboxService);
             });
 
             return services;
@@ -205,7 +237,17 @@ namespace EducationalInstitutionAPI
                                              });
 
                         //options.LogTo(Console.WriteLine);
-                    }, ServiceLifetime.Scoped);
+                    }).AddDbContext<TransactionalOutboxContext>(options =>
+                    {
+                        options.UseSqlServer(connectionString,
+                                             providerOptions =>
+                                             {
+                                                 providerOptions.EnableRetryOnFailure(maxRetryCount: 10,
+                                                                                      maxRetryDelay: TimeSpan.FromSeconds(30),
+                                                                                      errorNumbersToAdd: null);
+                                                 providerOptions.MigrationsAssembly("EducationalInstitution.Infrastructure");
+                                             });
+                    });
 
             return services;
         }
