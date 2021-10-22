@@ -35,12 +35,12 @@ namespace EducationalInstitution.Infrastructure.Entities_Type_Configuration
                    .IsRequired();
 
             builder.Property(ei => ei.Description)
-                   .IsRequired()
-                   .HasMaxLength(500);
+                   .HasMaxLength(500)
+                   .IsRequired();
 
             builder.Property(ei => ei.Name)
-                   .IsRequired()
-                   .HasMaxLength(128);
+                   .HasMaxLength(128)
+                   .IsRequired();
 
             builder.Property(ei => ei.LocationID)
                    .IsRequired();

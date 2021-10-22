@@ -21,7 +21,8 @@ namespace EducationalInstitution.Infrastructure.Entities_Type_Configuration
 
             builder.Property(eia => eia.Permissions)
                     .HasConversion(p => string.Join(';', p),
-                                   p => p.Split(';', System.StringSplitOptions.RemoveEmptyEntries));
+                                   p => p.Split(';', System.StringSplitOptions.RemoveEmptyEntries))
+                    .IsRequired();
         }
     }
 }
