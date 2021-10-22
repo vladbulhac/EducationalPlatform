@@ -7,14 +7,17 @@ using RabbitMQEventBus.Abstractions;
 using RabbitMQEventBus.ConnectionHandler;
 using RabbitMQEventBus.IntegrationEvents;
 using RabbitMQEventBus.Subscription;
+using RabbitMQEventBus.Transactional_Outbox.Services.Outbox_Services;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RabbitMQEventBus
 {
-    public class EventBus : IEventBus, IDisposable
+    public class EventBus : IEventBus
     {
         private bool disposed;
 
@@ -27,6 +30,9 @@ namespace RabbitMQEventBus
         private readonly ISubscriptionManager subscriptionManager;
         private readonly IPersistentConnectionHandler connectionHandler;
 
+        private readonly IIntegrationEventOutboxService outboxService;
+        private readonly ConcurrentDictionary<ulong, IntegrationEvent> deliveryTagToEventMap;
+
         public EventBus(string queueName, ILogger<EventBus> logger, IPersistentConnectionHandler connectionHandler, IServiceCollection services)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -37,35 +43,52 @@ namespace RabbitMQEventBus
             subscriptionManager = new SubscriptionManager();
 
             connectionHandler.CanEstablishConnection();
+
+            deliveryTagToEventMap = new();
+            outboxService = null;
         }
 
-        public void Publish(IntegrationEvent @event)
+        public EventBus(string queueName, ILogger<EventBus> logger, IPersistentConnectionHandler connectionHandler, IServiceCollection services, IIntegrationEventOutboxService outboxService) : this(queueName, logger, connectionHandler, services)
         {
+            this.outboxService = outboxService ?? throw new ArgumentNullException(nameof(outboxService));
+        }
+
+        public void Publish(IntegrationEvent @event, bool publisherConfirms)
+        {
+            if (@event is null) throw new ArgumentNullException(nameof(@event));
             if (!connectionHandler.CanEstablishConnection()) return;
 
             using var channelForPublishingThisEvent = connectionHandler.GetTransientChannel();
-            logger.LogDebug("A channel was created successfully, continuing with Publishing the event!");
+            logger.LogDebug("[EventBus]: A channel was created successfully, continuing with Publishing the event!");
 
-            Publish(@event, channelForPublishingThisEvent);
+            if (publisherConfirms) SetupPublisherConfirms(channelForPublishingThisEvent);
+
+            Publish(@event, channelForPublishingThisEvent, publisherConfirms);
         }
 
-        public void PublishMultiple(IEnumerable<IntegrationEvent> @events)
+        public void PublishMultiple(IEnumerable<IntegrationEvent> @events, bool publisherConfirms)
         {
+            if (@events is null) throw new ArgumentException(nameof(@events));
             if (!connectionHandler.CanEstablishConnection()) return;
 
             using var channelForPublishingThisEvents = connectionHandler.GetTransientChannel();
-            logger.LogDebug("A channel was created successfully, continuing with Publishing the events!");
+            logger.LogDebug("[EventBus]: A channel was created successfully, continuing with Publishing the events!");
+
+            if (publisherConfirms) SetupPublisherConfirms(channelForPublishingThisEvents);
 
             foreach (var @event in @events)
-                Publish(@event, channelForPublishingThisEvents);
+                Publish(@event, channelForPublishingThisEvents, publisherConfirms);
         }
 
         #region Publish methods
 
-        private void Publish(IntegrationEvent @event, IModel channelForPublishingThisEvent)
+        private void Publish(IntegrationEvent @event, IModel channelForPublishingThisEvent, bool publisherConfirms)
         {
             channelForPublishingThisEvent.ExchangeDeclare(exchange: exchangeName,
                                                           type: ExchangeType.Direct);
+
+            if (publisherConfirms)
+                deliveryTagToEventMap.TryAdd(channelForPublishingThisEvent.NextPublishSeqNo, @event);
 
             channelForPublishingThisEvent.BasicPublish(exchange: exchangeName,
                                                        routingKey: @event.GetType().Name,
@@ -73,8 +96,58 @@ namespace RabbitMQEventBus
                                                        basicProperties: ConfigureMessageProperties(channelForPublishingThisEvent),
                                                        body: GetEncodedIntegrationEvent(@event));
 
-            logger.LogDebug($"A new {@event.GetType().Name} has been published to RabbitMQ!");
+            logger.LogDebug($"[EventBus]: Trying to publish {@event.GetType().Name} to RabbitMQ, awaiting for acknowledgement: {publisherConfirms}!");
         }
+
+        #region Event publish acknowledgement
+
+        private void SetupPublisherConfirms(IModel channel)
+        {
+            if (outboxService is null) throw new InvalidOperationException($"An instance of {nameof(outboxService)} has not been provided!");
+
+            channel.ConfirmSelect();
+
+            channel.BasicAcks += AcknowledgedEventWasPublished;
+            channel.BasicNacks += NotAcknowledgedEventWasPublished;
+        }
+
+        private async void AcknowledgedEventWasPublished(object _, BasicAckEventArgs eventArgs) => await SetPublishStatusBasedOnAcknowledgement(eventArgs.DeliveryTag, eventArgs.Multiple, MarkEventAsPublished);
+
+        private async void NotAcknowledgedEventWasPublished(object _, BasicNackEventArgs eventArgs) => await SetPublishStatusBasedOnAcknowledgement(eventArgs.DeliveryTag, eventArgs.Multiple, MarkEventAsNotPublished);
+
+        private async Task SetPublishStatusBasedOnAcknowledgement(ulong deliveryTag, bool multiple, SetPublishStatus SetPublishStatusDelegate)
+        {
+            if (multiple)
+            {
+                foreach (var publishedEvent in deliveryTagToEventMap.Where(k => k.Key <= deliveryTag))
+                    await SetPublishStatusDelegate(publishedEvent.Key, publishedEvent.Value);
+            }
+            else
+            {
+                if (deliveryTagToEventMap.TryGetValue(deliveryTag, out IntegrationEvent @event))
+                    await SetPublishStatusDelegate(deliveryTag, @event);
+            }
+        }
+
+        private delegate Task SetPublishStatus(ulong deliveryTag, IntegrationEvent @event);
+
+        private async Task MarkEventAsPublished(ulong deliveryTag, IntegrationEvent @event)
+        {
+            await outboxService.EventHasBeenPublished(@event.EventId);
+            deliveryTagToEventMap.TryRemove(deliveryTag, out IntegrationEvent _);
+
+            logger.LogInformation($"[EventBus][Success]: Event {@event} with Delivery Tag (Sequence Number): {deliveryTag} has been published to the event bus!");
+        }
+
+        private async Task MarkEventAsNotPublished(ulong deliveryTag, IntegrationEvent @event)
+        {
+            await outboxService.PublishingFailed(@event.EventId);
+            deliveryTagToEventMap.TryRemove(deliveryTag, out IntegrationEvent _);
+
+            logger.LogInformation($"[EventBus][Error]: Event {@event.EventId} with Delivery Tag (Sequence Number): {deliveryTag} has NOT been published to the event bus!");
+        }
+
+        #endregion Event publish acknowledgement
 
         private static IBasicProperties ConfigureMessageProperties(IModel channel)
         {
@@ -160,7 +233,7 @@ namespace RabbitMQEventBus
             }
             catch (Exception e)
             {
-                logger.LogError("An error occurred while handling the received event from RabbitMQ event bus, error details => {0}", e.Message);
+                logger.LogError("[EventBus][Error]: An error occurred while handling the received event from RabbitMQ event bus, error details => {0}", e.Message);
             }
         }
 
@@ -184,11 +257,25 @@ namespace RabbitMQEventBus
 
         public void Dispose()
         {
-            if (!disposed && connectionHandler is not null)
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
             {
-                connectionHandler.Dispose();
-                disposed = true;
+                if (disposing)
+                {
+                    subscriptionManager.ClearResources();
+                    deliveryTagToEventMap.Clear();
+
+                    outboxService.Dispose();
+                    connectionHandler.Dispose();
+                }
             }
+
+            disposed = true;
         }
     }
 }
