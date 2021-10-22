@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace EducationalInstitution.Infrastructure.Migrations
+namespace EducationalInstitution.Infrastructure.Migrations.EducationalInstitutionMigrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20210922092308_ChangedAdminIdToString")]

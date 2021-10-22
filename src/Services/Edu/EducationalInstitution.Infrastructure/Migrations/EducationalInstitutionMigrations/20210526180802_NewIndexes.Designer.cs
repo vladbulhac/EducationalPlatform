@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace EducationalInstitution.Infrastructure.Migrations
+namespace EducationalInstitution.Infrastructure.Migrations.EducationalInstitutionMigrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210531134832_UniqueConstraints")]
-    partial class UniqueConstraints
+    [Migration("20210526180802_NewIndexes")]
+    partial class NewIndexes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,19 +54,13 @@ namespace EducationalInstitution.Infrastructure.Migrations
 
                     b.HasKey("EducationalInstitutionID");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.HasIndex("ParentInstitutionEducationalInstitutionID");
 
-                    b.HasIndex("EducationalInstitutionID", "IsDisabled")
-                        .IsUnique();
+                    b.HasIndex("EducationalInstitutionID", "IsDisabled");
 
-                    b.HasIndex("LocationID", "EducationalInstitutionID", "IsDisabled")
-                        .IsUnique();
+                    b.HasIndex("LocationID", "EducationalInstitutionID", "IsDisabled");
 
-                    b.HasIndex("Name", "LocationID", "IsDisabled", "EducationalInstitutionID", "Description")
-                        .IsUnique();
+                    b.HasIndex("Name", "LocationID", "IsDisabled", "EducationalInstitutionID", "Description");
 
                     b.ToTable("EducationalInstitutions");
                 });
@@ -78,12 +72,6 @@ namespace EducationalInstitution.Infrastructure.Migrations
 
                     b.Property<Guid>("EducationalInstitutionID")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DateForPermanentDeletion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDisabled")
-                        .HasColumnType("bit");
 
                     b.HasKey("AdminID", "EducationalInstitutionID");
 
@@ -99,12 +87,6 @@ namespace EducationalInstitution.Infrastructure.Migrations
 
                     b.Property<Guid>("EducationalInstitutionID")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DateForPermanentDeletion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDisabled")
-                        .HasColumnType("bit");
 
                     b.HasKey("BuildingID", "EducationalInstitutionID");
 
@@ -130,7 +112,33 @@ namespace EducationalInstitution.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("EducationalInstitutionAPI.Data.Helpers.Access", "EntityAccess", b1 =>
+                        {
+                            b1.Property<Guid>("EducationalInstitutionAdminAdminID")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("EducationalInstitutionAdminEducationalInstitutionID")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime?>("DateForPermanentDeletion")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<bool>("IsDisabled")
+                                .HasColumnType("bit");
+
+                            b1.HasKey("EducationalInstitutionAdminAdminID", "EducationalInstitutionAdminEducationalInstitutionID");
+
+                            b1.HasIndex("IsDisabled", "DateForPermanentDeletion");
+
+                            b1.ToTable("Admins");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EducationalInstitutionAdminAdminID", "EducationalInstitutionAdminEducationalInstitutionID");
+                        });
+
                     b.Navigation("EducationalInstitution");
+
+                    b.Navigation("EntityAccess");
                 });
 
             modelBuilder.Entity("EducationalInstitutionAPI.Data.EducationalInstitutionBuilding", b =>
@@ -141,7 +149,33 @@ namespace EducationalInstitution.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("EducationalInstitutionAPI.Data.Helpers.Access", "EntityAccess", b1 =>
+                        {
+                            b1.Property<string>("EducationalInstitutionBuildingBuildingID")
+                                .HasColumnType("nvarchar(450)");
+
+                            b1.Property<Guid>("EducationalInstitutionBuildingEducationalInstitutionID")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<DateTime?>("DateForPermanentDeletion")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<bool>("IsDisabled")
+                                .HasColumnType("bit");
+
+                            b1.HasKey("EducationalInstitutionBuildingBuildingID", "EducationalInstitutionBuildingEducationalInstitutionID");
+
+                            b1.HasIndex("IsDisabled", "DateForPermanentDeletion");
+
+                            b1.ToTable("Buildings");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EducationalInstitutionBuildingBuildingID", "EducationalInstitutionBuildingEducationalInstitutionID");
+                        });
+
                     b.Navigation("EducationalInstitution");
+
+                    b.Navigation("EntityAccess");
                 });
 
             modelBuilder.Entity("EducationalInstitutionAPI.Data.EducationalInstitution", b =>

@@ -1,7 +1,7 @@
 ﻿/*using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace EducationalInstitution.Infrastructure.Migrations
+namespace EducationalInstitution.Infrastructure.Migrations.EducationalInstitutionMigrations
 {
     public partial class ChangedAdminIdToString : Migration
     {
