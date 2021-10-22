@@ -71,23 +71,22 @@ namespace RabbitMQEventBus.ConnectionHandler
 
         public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
             if (!disposed)
             {
-                try
+                if (disposing)
                 {
-                    if (persistentChannel is not null)
-                        persistentChannel.Dispose();
-
-                    if (connection is not null)
-                        connection.Dispose();
-
-                    disposed = true;
-                }
-                catch (Exception e)
-                {
-                    logger.LogError($"Could not close the connection to RabbitMQ, error details => {e.Message}");
+                    persistentChannel?.Dispose();
+                    connection?.Dispose();
                 }
             }
+
+            disposed = true;
         }
     }
 }
