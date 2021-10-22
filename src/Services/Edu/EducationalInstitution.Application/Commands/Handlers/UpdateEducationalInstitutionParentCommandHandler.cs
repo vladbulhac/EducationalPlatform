@@ -1,4 +1,5 @@
-﻿using EducationalInstitution.Application.Integration_Events;
+﻿using EducationalInstitution.Application.BaseHandlers;
+using EducationalInstitution.Application.Integration_Events;
 using EducationalInstitution.Infrastructure.Repositories.Command_Repository;
 using EducationalInstitution.Infrastructure.Unit_of_Work.Command_Unit_of_Work;
 using MediatR;
@@ -75,7 +76,8 @@ namespace EducationalInstitution.Application.Commands.Handlers
 
                     eventBus.PublishMultiple(PublishNotificationEventsForAdmins(request.EducationalInstitutionID,
                                                                                 educationalInstitution.Admins.Select(a => a.Id).ToList(),
-                                                                                parentInstitution.Admins.Select(a => a.Id).ToList()));
+                                                                                parentInstitution.Admins.Select(a => a.Id).ToList()),
+                                                                                publisherConfirms: false);
                 }
             }
             catch (Exception e)

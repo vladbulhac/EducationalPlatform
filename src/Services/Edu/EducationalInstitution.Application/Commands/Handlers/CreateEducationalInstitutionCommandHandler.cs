@@ -1,4 +1,5 @@
-﻿using EducationalInstitution.Application.Commands.Results;
+﻿using EducationalInstitution.Application.BaseHandlers;
+using EducationalInstitution.Application.Commands.Results;
 using EducationalInstitution.Application.Integration_Events;
 using EducationalInstitution.Application.Permissions;
 using EducationalInstitution.Domain.Models;
@@ -71,7 +72,8 @@ namespace EducationalInstitution.Application.Commands.Handlers
 
                     eventBus.PublishMultiple(PublishNotificationEventsForAdmins(newEducationalInstitution.Id,
                                                                                 newEducationalInstitution.Admins,
-                                                                                parentInstitution?.Admins.Select(a => a.Id).ToList()));
+                                                                                parentInstitution?.Admins.Select(a => a.Id).ToList()),
+                                                                                publisherConfirms: false);
 
                     if (parentInstitution is null && request.ParentInstitutionID != default)
                         return new()
