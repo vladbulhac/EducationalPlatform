@@ -2,7 +2,7 @@
 using System;
 using System.Net;
 
-namespace EducationalInstitution.Application
+namespace EducationalInstitution.Application.BaseHandlers
 {
     /// <summary>
     /// Defines methods that handle exceptions that occur in <typeparamref name="THandler"/>'s methods
@@ -28,6 +28,12 @@ namespace EducationalInstitution.Application
         {
             logger.LogError(error_message, error_message_substitutes);
             return new() { StatusCode = HttpStatusCode.InternalServerError, Message = string.Format(response_message, error_message_substitutes) };
+        }
+
+        protected TReturn HandleException<TReturn>(string error_message, string response_message, HttpStatusCode httpStatusCode, params object[] error_message_substitutes) where TReturn : Response, new()
+        {
+            logger.LogError(error_message, error_message_substitutes);
+            return new() { StatusCode = httpStatusCode, Message = string.Format(response_message, error_message_substitutes) };
         }
     }
 }
