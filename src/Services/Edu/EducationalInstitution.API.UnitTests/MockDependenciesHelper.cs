@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Moq;
 using RabbitMQEventBus.Abstractions;
+using RabbitMQEventBus.Transactional_Outbox.Services.MessageRelay;
+using RabbitMQEventBus.Transactional_Outbox.Services.Outbox_Services;
 
 namespace EducationalInstitution.API.UnitTests
 {
@@ -24,6 +26,8 @@ namespace EducationalInstitution.API.UnitTests
         public readonly Mock<IUnitOfWorkForQueries> mockUnitOfWorkQuery;
 
         public readonly Mock<IEventBus> mockEventBus;
+        public readonly Mock<IMessageRelayService> mockMessageRelay;
+        public readonly Mock<IIntegrationEventOutboxService> mockOutboxService;
 
         public readonly Mock<ILogger<T>> mockLogger;
         public readonly Mock<IMediator> mockMediator;
@@ -40,6 +44,8 @@ namespace EducationalInstitution.API.UnitTests
             mockUnitOfWorkQuery = new();
 
             mockEventBus = new();
+            mockMessageRelay = new();
+            mockOutboxService = new();
 
             mockLogger = new();
             mockMediator = new();
