@@ -6,7 +6,7 @@ using Moq;
 using System;
 using Xunit;
 
-namespace EducationalInstitution.API.IntegrationTests.Application_Tests
+namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validation
 {
     public class QueriesValidationTests
     {
