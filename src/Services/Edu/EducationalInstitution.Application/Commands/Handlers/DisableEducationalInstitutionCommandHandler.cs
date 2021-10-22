@@ -1,6 +1,5 @@
 ﻿using EducationalInstitution.Application.BaseHandlers;
 using EducationalInstitution.Application.Commands.Results;
-using EducationalInstitution.Application.Exceptions;
 using EducationalInstitution.Application.Integration_Events;
 using EducationalInstitution.Infrastructure.Repositories.Command_Repository;
 using EducationalInstitution.Infrastructure.Unit_of_Work.Command_Unit_of_Work;
