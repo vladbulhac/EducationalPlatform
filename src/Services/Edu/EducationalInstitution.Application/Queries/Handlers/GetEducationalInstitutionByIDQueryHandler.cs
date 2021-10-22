@@ -1,4 +1,5 @@
-﻿using EducationalInstitution.Infrastructure.Repositories.Query_Repository;
+﻿using EducationalInstitution.Application.BaseHandlers;
+using EducationalInstitution.Infrastructure.Repositories.Query_Repository;
 using EducationalInstitution.Infrastructure.Repositories.Query_Repository.Results;
 using EducationalInstitution.Infrastructure.Unit_of_Work.Query_Unit_of_Work;
 using MediatR;
