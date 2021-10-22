@@ -1,4 +1,5 @@
 ﻿using EducationalInstitution.Application;
+using EducationalInstitution.Application.BaseHandlers;
 using System.Net;
 using Xunit;
 
