@@ -8,6 +8,8 @@ namespace RabbitMQEventBus.Subscription
     /// </summary>
     public interface ISubscriptionManager
     {
+        public void ClearResources();
+
         public void SaveSubscription(Type eventType, Type handler);
 
         public Subscription GetSubscriptionDetailsOfEvent(string eventName);

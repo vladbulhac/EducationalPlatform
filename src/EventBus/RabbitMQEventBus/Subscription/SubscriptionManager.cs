@@ -29,5 +29,7 @@ namespace RabbitMQEventBus.Subscription
         public Subscription GetSubscriptionDetailsOfEvent(string eventName) => HasSubscription(eventName) ? eventNameToSubscriptionMap[eventName] : default;
 
         private bool HasSubscription(string eventName) => eventNameToSubscriptionMap.ContainsKey(eventName);
+
+        public void ClearResources() => eventNameToSubscriptionMap.Clear();
     }
 }
