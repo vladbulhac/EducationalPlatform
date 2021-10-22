@@ -1,7 +1,5 @@
 ﻿using EducationalInstitution.Infrastructure.Repositories.Command_Repository;
-using MediatR;
 using Microsoft.EntityFrameworkCore.Storage;
-using RabbitMQEventBus.Transactional_Outbox.Infrastructure;
 using RabbitMQEventBus.Transactional_Outbox.Services.Outbox_Services;
 using System;
 using System.Threading;

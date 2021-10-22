@@ -3,16 +3,13 @@ using EducationalInstitution.Application;
 using EducationalInstitution.Application.Commands;
 using EducationalInstitution.Application.Commands.Handlers;
 using EducationalInstitution.Application.Commands.Results;
-using EducationalInstitution.Infrastructure.Repositories.Command_Repository;
 using Microsoft.EntityFrameworkCore.Storage;
 using Moq;
 using RabbitMQEventBus.Transactional_Outbox.Services.Outbox_Services;
 using System;
 using System.Net;
-using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
-using Domain = EducationalInstitution.Domain.Models.Aggregates;
 
 namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.Handlers_Tests
 {

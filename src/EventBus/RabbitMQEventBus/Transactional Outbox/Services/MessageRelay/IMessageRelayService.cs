@@ -1,8 +1,5 @@
 ﻿using RabbitMQEventBus.IntegrationEvents;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RabbitMQEventBus.Transactional_Outbox.Services.MessageRelay

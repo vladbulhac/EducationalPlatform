@@ -2,7 +2,6 @@ using DatabaseTasks.ApplyMigrations_Task;
 using DatabaseTasks.Cleanup_Task;
 using DataValidation;
 using DataValidation.Abstractions;
-using EducationalInstitution.Application;
 using EducationalInstitution.Application.BaseHandlers;
 using EducationalInstitution.Application.Commands.Validators;
 using EducationalInstitution.Application.Integration_Events;
@@ -31,12 +30,9 @@ using RabbitMQEventBus.ConnectionHandler;
 using RabbitMQEventBus.Transactional_Outbox.Infrastructure;
 using RabbitMQEventBus.Transactional_Outbox.Services.MessageRelay;
 using RabbitMQEventBus.Transactional_Outbox.Services.Outbox_Services;
-using RabbitMQEventBus.Transactional_Outbox.Services.Transaction;
 using Serilog;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
 
 namespace EducationalInstitutionAPI
 {

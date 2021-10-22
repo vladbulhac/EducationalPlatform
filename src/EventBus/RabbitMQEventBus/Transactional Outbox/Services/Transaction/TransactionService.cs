@@ -1,13 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
-using RabbitMQEventBus.Transactional_Outbox.Infrastructure;
 using RabbitMQEventBus.Transactional_Outbox.Services.MessageRelay;
 using RabbitMQEventBus.Transactional_Outbox.Services.Outbox_Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RabbitMQEventBus.Transactional_Outbox.Services.Transaction
