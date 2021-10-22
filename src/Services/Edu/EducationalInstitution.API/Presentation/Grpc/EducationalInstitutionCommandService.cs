@@ -49,7 +49,7 @@ namespace EducationalInstitutionAPI.Presentation.Grpc
         /// </list>
         /// <i>If the request fails (e.g an Exception is caught by this method) then <see cref="ServerCallContext"/>'s ResponseTrailers are set with a Message and <see cref="HttpStatusCode"/></i>
         /// </returns>
-        [Authorize(AuthenticationSchemes = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme)]//, Policy = "CreateEducationalInstitutionPolicy")]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme)]
         public override async Task<EducationalInstitutionCreateResponse> CreateEducationalInstitution(EducationalInstitutionCreateRequest request, ServerCallContext context)
         {
             logger.LogInformation("EducationalInstitutionCommandService.CreateEducationalInstitution received gRPC request");
