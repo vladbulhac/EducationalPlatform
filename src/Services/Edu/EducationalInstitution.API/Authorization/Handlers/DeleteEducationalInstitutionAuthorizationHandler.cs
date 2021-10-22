@@ -34,7 +34,7 @@ namespace EducationalInstitutionAPI.Authorization.Handlers
             contextAccessor.HttpContext.Request.Headers.TryGetValue("resource_id", out StringValues headerValues);
             resourceId = headerValues.FirstOrDefault();
 
-            return string.IsNullOrEmpty(resourceId);
+            return !string.IsNullOrEmpty(resourceId);
         }
 
         //user is authorized if a claim like "permission_name:resourceId" exists
