@@ -46,9 +46,9 @@ namespace RabbitMQEventBus.Transactional_Outbox.Services.Outbox_Services
             await context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task SaveMultipleEventsToDatabaseAsync(List<IntegrationEvent> events, IDbContextTransaction transaction, CancellationToken cancellationToken = default)
+        public async Task SaveMultipleEventsToDatabaseAsync(IEnumerable<IntegrationEvent> events, IDbContextTransaction transaction, CancellationToken cancellationToken = default)
         {
-            if (events is null || events.Count == 0) throw new ArgumentException(nameof(events));
+            if (events is null) throw new ArgumentException(nameof(events));
             if (transaction is null) throw new ArgumentNullException(nameof(transaction));
 
             await context.Database.UseTransactionAsync(transaction.GetDbTransaction(), cancellationToken);

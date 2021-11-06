@@ -15,6 +15,6 @@ namespace RabbitMQEventBus.Transactional_Outbox.Services.Outbox_Services
     {
         public Task SaveEventToDatabaseAsync(IntegrationEvent @event, IDbContextTransaction transaction, CancellationToken cancellationToken = default);
 
-        public Task SaveMultipleEventsToDatabaseAsync(List<IntegrationEvent> events, IDbContextTransaction transaction, CancellationToken cancellationToken = default);
+        public Task SaveMultipleEventsToDatabaseAsync(IEnumerable<IntegrationEvent> events, IDbContextTransaction transaction, CancellationToken cancellationToken = default);
     }
 }
