@@ -3,16 +3,17 @@ using EducationalInstitution.Application;
 using EducationalInstitution.Application.Commands;
 using EducationalInstitution.Application.Commands.Handlers;
 using EducationalInstitution.Application.Commands.Results;
+using Microsoft.EntityFrameworkCore.Storage;
 using Moq;
+using RabbitMQEventBus.Transactional_Outbox.Services.Outbox_Services;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
-using Domain = EducationalInstitution.Domain.Models.Aggregates;
 
-namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.Handlers_Tests
+namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.Handlers_Tests.Create
 {
     public class CreateEducationalInstitutionCommandHandlerTests : IClassFixture<MockDependenciesHelper<CreateEducationalInstitutionCommandHandler>>,
                                                                    IClassFixture<TestDataFromJSONParser>
@@ -48,10 +49,9 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                 AdminId = adminId
             };
 
-            SetupMockedDependencies(testDataHelper.EducationalInstitutions[0]);
+            SetupMockedDependencies();
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -82,10 +82,9 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                 AdminId = adminId
             };
 
-            SetupMockedDependencies(testDataHelper.EducationalInstitutions[0]);
+            SetupMockedDependencies();
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -116,10 +115,9 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                 AdminId = adminId
             };
 
-            SetupMockedDependencies(testDataHelper.EducationalInstitutions[0]);
+            SetupMockedDependencies();
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -150,10 +148,9 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                 AdminId = adminId
             };
 
-            SetupMockedDependencies(testDataHelper.EducationalInstitutions[0]);
+            SetupMockedDependencies();
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -184,10 +181,9 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                 AdminId = adminId
             };
 
-            SetupMockedDependencies(testDataHelper.EducationalInstitutions[0]);
+            SetupMockedDependencies();
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -218,10 +214,9 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                 AdminId = adminId
             };
 
-            SetupMockedDependencies(testDataHelper.EducationalInstitutions[0]);
+            SetupMockedDependencies();
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -252,10 +247,9 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                 AdminId = adminId
             };
 
-            SetupMockedDependencies(null);
+            SetupMockedDependenciesToNotFindTheParent(parentInstitutionID);
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -286,10 +280,9 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                 AdminId = adminId
             };
 
-            SetupMockedDependencies(null);
+            SetupMockedDependenciesToNotFindTheParent(parentInstitutionID);
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -320,10 +313,9 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                 AdminId = adminId
             };
 
-            SetupMockedDependencies(null);
+            SetupMockedDependenciesToNotFindTheParent(parentInstitutionID);
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -354,10 +346,9 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
                 AdminId = adminId
             };
 
-            SetupMockedDependencies(null);
+            SetupMockedDependenciesToNotFindTheParent(parentInstitutionID);
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -367,22 +358,30 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             Assert.Equal($"The Educational Institution has been successfully created but the Parent Institution with the following ID: {parentInstitutionID} has not been found!", result.Message);
         }
 
-        private void SetupMockedDependencies(Domain::EducationalInstitution expectedEntityReturned)
-        {
-            dependenciesHelper.mockUnitOfWorkCommand.Setup(uok => uok.UsingEducationalInstitutionCommandRepository())
-                                                    .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
-
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(mr => mr.GetEducationalInstitutionIncludingAdminsAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
-                                                                          .ReturnsAsync(expectedEntityReturned);
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(mr => mr.CreateAsync(It.IsAny<Domain::EducationalInstitution>(), It.IsAny<CancellationToken>()));
-        }
-
         private void SetupMockedDependencies()
         {
-            dependenciesHelper.mockUnitOfWorkCommand.Setup(uok => uok.UsingEducationalInstitutionCommandRepository())
-                                                    .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
+            dependenciesHelper.mockUnitOfWorkCommand.Setup(muokc => muokc.ExecuteTransactionAsync(It.IsAny<Func<IDbContextTransaction, IIntegrationEventOutboxService, CreateEducationalInstitutionCommand, Task<Response<CreateEducationalInstitutionCommandResult>>>>(),
+                                                                                               It.IsAny<CreateEducationalInstitutionCommand>()))
+                                                   .ReturnsAsync(new Response<CreateEducationalInstitutionCommandResult>()
+                                                   {
+                                                       Data = new() { EducationalInstitutionID = Guid.NewGuid() },
+                                                       OperationStatus = true,
+                                                       StatusCode = HttpStatusCode.Created,
+                                                       Message = string.Empty
+                                                   });
+        }
 
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(mr => mr.CreateAsync(It.IsAny<Domain::EducationalInstitution>(), It.IsAny<CancellationToken>()));
+        private void SetupMockedDependenciesToNotFindTheParent(Guid parentId)
+        {
+            dependenciesHelper.mockUnitOfWorkCommand.Setup(muokc => muokc.ExecuteTransactionAsync(It.IsAny<Func<IDbContextTransaction, IIntegrationEventOutboxService, CreateEducationalInstitutionCommand, Task<Response<CreateEducationalInstitutionCommandResult>>>>(),
+                                                                                               It.IsAny<CreateEducationalInstitutionCommand>()))
+                                                   .ReturnsAsync(new Response<CreateEducationalInstitutionCommandResult>()
+                                                   {
+                                                       Data = new() { EducationalInstitutionID = Guid.NewGuid() },
+                                                       OperationStatus = true,
+                                                       StatusCode = HttpStatusCode.MultiStatus,
+                                                       Message = $"The Educational Institution has been successfully created but the Parent Institution with the following ID: {parentId} has not been found!"
+                                                   });
         }
 
         [Fact]
@@ -409,7 +408,6 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             SetupMockedDependencies();
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -443,7 +441,6 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             SetupMockedDependencies();
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -476,7 +473,6 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
 
             SetupMockedDependencies();
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -510,7 +506,6 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
             SetupMockedDependencies();
 
             var handler = new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                         dependenciesHelper.mockEventBus.Object,
                                                                          dependenciesHelper.mockLogger.Object);
 
             //Act
@@ -525,7 +520,6 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
         {
             //Arrange
             CreateEducationalInstitutionCommandHandler handler = new(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                    dependenciesHelper.mockEventBus.Object,
                                                                     dependenciesHelper.mockLogger.Object);
 
             //Assert
@@ -537,8 +531,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
         {
             //Assert
             Assert.Throws<ArgumentNullException>(() => new CreateEducationalInstitutionCommandHandler(null,
-                                                                                                        dependenciesHelper.mockEventBus.Object,
-                                                                                                        dependenciesHelper.mockLogger.Object));
+                                                                                                      dependenciesHelper.mockLogger.Object));
         }
 
         [Fact]
@@ -546,17 +539,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
         {
             //Assert
             Assert.Throws<ArgumentNullException>(() => new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                                                        dependenciesHelper.mockEventBus.Object,
-                                                                                                        null));
-        }
-
-        [Fact]
-        public void GivenANullArgumentEventBusToTheRequestHandlerConstructor_ShouldThrowArgumentNullException()
-        {
-            //Assert
-            Assert.Throws<ArgumentNullException>(() => new CreateEducationalInstitutionCommandHandler(dependenciesHelper.mockUnitOfWorkCommand.Object,
-                                                                                                        null,
-                                                                                                        dependenciesHelper.mockLogger.Object));
+                                                                                                      null));
         }
     }
 }
