@@ -6,6 +6,7 @@ using EducationalInstitution.Infrastructure.Unit_of_Work.Query_Unit_of_Work;
 using Grpc.Core;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using Moq;
 using RabbitMQEventBus.Abstractions;
@@ -19,6 +20,7 @@ namespace EducationalInstitution.API.UnitTests
     /// </summary>
     public class MockDependenciesHelper<T> where T : class
     {
+        public readonly Mock<IDbContextTransaction> mockTransaction;
         public readonly Mock<IEducationalInstitutionCommandRepository> mockEducationalInstitutionCommandRepository;
         public readonly Mock<IEducationalInstitutionQueryRepository> mockEducationalInstitutionQueryRepository;
 
@@ -37,6 +39,7 @@ namespace EducationalInstitution.API.UnitTests
 
         public MockDependenciesHelper()
         {
+            mockTransaction = new();
             mockEducationalInstitutionCommandRepository = new();
             mockEducationalInstitutionQueryRepository = new();
 
