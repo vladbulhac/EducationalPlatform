@@ -11,7 +11,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.Handlers_Tests
+namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.Handlers_Tests.Disable
 {
     public class DisableEducationalInstitutionCommandHandlerTests : IClassFixture<MockDependenciesHelper<DisableEducationalInstitutionCommandHandler>>,
                                                                     IClassFixture<TestDataFromJSONParser>
@@ -145,10 +145,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
 
         private void SetupMockedDependencies()
         {
-            dependenciesHelper.mockUnitOfWorkCommand.Setup(mukc => mukc.UsingEducationalInstitutionCommandRepository())
-                                                    .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
-
-            dependenciesHelper.mockUnitOfWorkCommand.Setup(mukc => mukc.ExecuteTransactionAsync(It.IsAny<Func<IDbContextTransaction, IIntegrationEventOutboxService, /*IEducationalInstitutionCommandRepository,*/ DisableEducationalInstitutionCommand, Task<Response<DisableEducationalInstitutionCommandResult>>>>(),
+            dependenciesHelper.mockUnitOfWorkCommand.Setup(mukc => mukc.ExecuteTransactionAsync(It.IsAny<Func<IDbContextTransaction, IIntegrationEventOutboxService, DisableEducationalInstitutionCommand, Task<Response<DisableEducationalInstitutionCommandResult>>>>(),
                                                                                                 It.IsAny<DisableEducationalInstitutionCommand>()))
                                                     .ReturnsAsync(new Response<DisableEducationalInstitutionCommandResult>()
                                                     {
@@ -165,10 +162,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
 
         private void SetupMockedDependenciesToNotFindTheEntity(Guid entityId)
         {
-            dependenciesHelper.mockUnitOfWorkCommand.Setup(mukc => mukc.UsingEducationalInstitutionCommandRepository())
-                                                    .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
-
-            dependenciesHelper.mockUnitOfWorkCommand.Setup(mukc => mukc.ExecuteTransactionAsync(It.IsAny<Func<IDbContextTransaction, IIntegrationEventOutboxService, /*IEducationalInstitutionCommandRepository,*/ DisableEducationalInstitutionCommand, Task<Response<DisableEducationalInstitutionCommandResult>>>>(),
+            dependenciesHelper.mockUnitOfWorkCommand.Setup(mukc => mukc.ExecuteTransactionAsync(It.IsAny<Func<IDbContextTransaction, IIntegrationEventOutboxService, DisableEducationalInstitutionCommand, Task<Response<DisableEducationalInstitutionCommandResult>>>>(),
                                                                                                 It.IsAny<DisableEducationalInstitutionCommand>()))
                                                     .ReturnsAsync(new Response<DisableEducationalInstitutionCommandResult>()
                                                     {
