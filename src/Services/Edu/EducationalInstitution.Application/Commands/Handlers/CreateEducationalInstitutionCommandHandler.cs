@@ -6,10 +6,12 @@ using EducationalInstitution.Domain.Models;
 using EducationalInstitution.Infrastructure.Repositories.Command_Repository;
 using EducationalInstitution.Infrastructure.Unit_of_Work.Command_Unit_of_Work;
 using MediatR;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using RabbitMQEventBus.Abstractions;
 using RabbitMQEventBus.IntegrationEvents;
+using RabbitMQEventBus.Transactional_Outbox.Services.Outbox_Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,17 +22,16 @@ using Domain = EducationalInstitution.Domain.Models.Aggregates;
 
 namespace EducationalInstitution.Application.Commands.Handlers
 {
-    public class CreateEducationalInstitutionCommandHandler : HandlerBase<CreateEducationalInstitutionCommandHandler>,
-                                                              IRequestHandler<CreateEducationalInstitutionCommand, Response<CreateEducationalInstitutionCommandResult>>
+    public class CreateEducationalInstitutionCommandHandler : CommandRequestHandlerBase<CreateEducationalInstitutionCommandHandler,
+                                                                                        CreateEducationalInstitutionCommand,
+                                                                                        Response<CreateEducationalInstitutionCommandResult>>
     {
         private readonly IUnitOfWorkForCommands unitOfWork;
-        private readonly IEventBus eventBus;
 
         /// <inheritdoc cref="HandlerBase{THandler}.HandlerBase"/>
-        public CreateEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWork, IEventBus eventBus, ILogger<CreateEducationalInstitutionCommandHandler> logger) : base(logger)
+        public CreateEducationalInstitutionCommandHandler(IUnitOfWorkForCommands unitOfWork, ILogger<CreateEducationalInstitutionCommandHandler> logger) : base(logger)
         {
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-            this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
         }
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace EducationalInstitution.Application.Commands.Handlers
         /// </list>
         /// </returns>
         /// <exception cref="ArgumentNullException"/>
-        public async Task<Response<CreateEducationalInstitutionCommandResult>> Handle(CreateEducationalInstitutionCommand request, CancellationToken cancellationToken = default)
+        public override async Task<Response<CreateEducationalInstitutionCommandResult>> Handle(CreateEducationalInstitutionCommand request, CancellationToken cancellationToken = default)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
 
@@ -54,43 +55,18 @@ namespace EducationalInstitution.Application.Commands.Handlers
             {
                 using (unitOfWork)
                 {
-                    Domain::EducationalInstitution parentInstitution = null;
-                    if (request.ParentInstitutionID != default)
-                        parentInstitution = await unitOfWork.UsingEducationalInstitutionCommandRepository()
-                                                            .GetEducationalInstitutionIncludingAdminsAsync(request.ParentInstitutionID, cancellationToken);
+                    var transactionResult = await unitOfWork.ExecuteTransactionAsync(TransactionOperations, request);
 
-                    Domain::EducationalInstitution newEducationalInstitution = new(request.Name,
-                                                                                   request.Description,
-                                                                                   request.LocationID,
-                                                                                   request.BuildingsIDs,
-                                                                                   request.AdminId,
-                                                                                   parentInstitution);
-
-                    await unitOfWork.UsingEducationalInstitutionCommandRepository()
-                                    .CreateAsync(newEducationalInstitution, cancellationToken);
-                    await unitOfWork.SaveChangesAsync(cancellationToken);
-
-                    eventBus.PublishMultiple(PublishNotificationEventsForAdmins(newEducationalInstitution.Id,
-                                                                                newEducationalInstitution.Admins,
-                                                                                parentInstitution?.Admins.Select(a => a.Id).ToList()),
-                                                                                publisherConfirms: false);
-
-                    if (parentInstitution is null && request.ParentInstitutionID != default)
+                    if (transactionResult == default)
                         return new()
                         {
-                            Data = new() { EducationalInstitutionID = newEducationalInstitution.Id },
-                            OperationStatus = true,
-                            StatusCode = HttpStatusCode.MultiStatus,
-                            Message = $"The Educational Institution has been successfully created but the Parent Institution with the following ID: {request.ParentInstitutionID} has not been found!"
+                            Data = null,
+                            OperationStatus = false,
+                            StatusCode = HttpStatusCode.InternalServerError,
+                            Message = "Could not successfully handle all the required operations for this request!"
                         };
 
-                    return new()
-                    {
-                        Data = new() { EducationalInstitutionID = newEducationalInstitution.Id },
-                        OperationStatus = true,
-                        StatusCode = HttpStatusCode.Created,
-                        Message = string.Empty
-                    };
+                    return transactionResult;
                 }
             }
             catch (Exception e)
@@ -106,7 +82,49 @@ namespace EducationalInstitution.Application.Commands.Handlers
             }
         }
 
-        private IEnumerable<IntegrationEvent> PublishNotificationEventsForAdmins(Guid newEducationalInstitutionId, ICollection<EducationalInstitutionAdmin> admins, ICollection<string> parentAdmins)
+        protected override async Task<Response<CreateEducationalInstitutionCommandResult>> TransactionOperations(IDbContextTransaction transaction, IIntegrationEventOutboxService eventOutboxService, CreateEducationalInstitutionCommand request)
+        {
+            Domain::EducationalInstitution parentInstitution = null;
+            if (request.ParentInstitutionID != default)
+                parentInstitution = await unitOfWork.UsingEducationalInstitutionCommandRepository()
+                                                    .GetEducationalInstitutionIncludingAdminsAsync(request.ParentInstitutionID);
+
+            Domain::EducationalInstitution newEducationalInstitution = new(request.Name,
+                                                                           request.Description,
+                                                                           request.LocationID,
+                                                                           request.BuildingsIDs,
+                                                                           request.AdminId,
+                                                                           parentInstitution);
+
+            await unitOfWork.UsingEducationalInstitutionCommandRepository()
+                            .CreateAsync(newEducationalInstitution);
+            await unitOfWork.SaveChangesAsync();
+
+            await PublishIntegrationEventsAsync(transaction,
+                                                eventOutboxService,
+                                                CreateNotificationEventsForAdmins(newEducationalInstitution.Id,
+                                                                                   newEducationalInstitution.Admins,
+                                                                                   parentInstitution?.Admins.Select(a => a.Id).ToList()));
+
+            if (parentInstitution is null && request.ParentInstitutionID != default)
+                return new()
+                {
+                    Data = new() { EducationalInstitutionID = newEducationalInstitution.Id },
+                    OperationStatus = true,
+                    StatusCode = HttpStatusCode.MultiStatus,
+                    Message = $"The Educational Institution has been successfully created but the Parent Institution with the following ID: {request.ParentInstitutionID} has not been found!"
+                };
+
+            return new()
+            {
+                Data = new() { EducationalInstitutionID = newEducationalInstitution.Id },
+                OperationStatus = true,
+                StatusCode = HttpStatusCode.Created,
+                Message = string.Empty
+            };
+        }
+
+        private IEnumerable<IntegrationEvent> CreateNotificationEventsForAdmins(Guid newEducationalInstitutionId, ICollection<EducationalInstitutionAdmin> admins, ICollection<string> parentAdmins)
         {
             if (parentAdmins is not null && parentAdmins.Count > 0)
             {
@@ -123,18 +141,19 @@ namespace EducationalInstitution.Application.Commands.Handlers
                 };
             }
 
-            yield return new AssignedAdminsToEducationalInstitutionIntegrationEvent
-            {
-                Message = "Admin rights granted for a recently created Educational Institution!",
-                EducationalInstitutionId = newEducationalInstitutionId,
-                NewAdmins = GetAdminDetails(admins),
-                Uri = $"/edu/{newEducationalInstitutionId}",
-                TriggeredBy = new()
+            if (admins is not null && admins.Count > 0)
+                yield return new AssignedAdminsToEducationalInstitutionIntegrationEvent
                 {
-                    ServiceName = this.GetType().Namespace.Split('.')[0],
-                    Action = "Create"
-                }
-            };
+                    Message = "Admin rights granted for a recently created Educational Institution!",
+                    EducationalInstitutionId = newEducationalInstitutionId,
+                    NewAdmins = GetAdminDetails(admins),
+                    Uri = $"/edu/{newEducationalInstitutionId}",
+                    TriggeredBy = new()
+                    {
+                        ServiceName = this.GetType().Namespace.Split('.')[0],
+                        Action = "Create"
+                    }
+                };
         }
 
         private AdminDetailsForIntegrationEvent[] GetAdminDetails(ICollection<EducationalInstitutionAdmin> admins)
