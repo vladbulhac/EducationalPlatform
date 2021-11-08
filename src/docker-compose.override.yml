@@ -19,8 +19,8 @@ services:
             - EventBus__HostName=rabbitmq
             - Identity__Issuer=http://identity-api:41110
        ports:
-            - "50001:50001"
-            - "53001:53001"
+            - "50001"
+            - "53001"
    notification-api:
        environment:
             - ASPNETCORE_ENVIRONMENT=Development
