@@ -14,13 +14,13 @@ using Domain = EducationalInstitution.Domain.Models.Aggregates;
 
 namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.Handlers_Tests.Create
 {
-    public class CommandRequestHandlerBaseTests : CreateEducationalInstitutionCommandHandler, IClassFixture<MockDependenciesHelper<CreateEducationalInstitutionCommandHandler>>,
-                                                                                              IClassFixture<TestDataFromJSONParser>
+    public class CreateCommandRequestHandlerBaseTests : CreateEducationalInstitutionCommandHandler, IClassFixture<MockDependenciesHelper<CreateEducationalInstitutionCommandHandler>>,
+                                                                                                    IClassFixture<TestDataFromJSONParser>
     {
         private readonly TestDataFromJSONParser testDataHelper;
         private readonly MockDependenciesHelper<CreateEducationalInstitutionCommandHandler> dependenciesHelper;
 
-        public CommandRequestHandlerBaseTests(MockDependenciesHelper<CreateEducationalInstitutionCommandHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
+        public CreateCommandRequestHandlerBaseTests(MockDependenciesHelper<CreateEducationalInstitutionCommandHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
             : base(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockLogger.Object)
         {
             this.dependenciesHelper = dependenciesHelper;
