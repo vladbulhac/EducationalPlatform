@@ -9,11 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
-
-using Domain = EducationalInstitution.Domain.Models.Aggregates;
 
 namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.Handlers_Tests.UpdateAdmins
 {

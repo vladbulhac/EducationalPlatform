@@ -73,8 +73,8 @@ namespace RabbitMQEventBus.Transactional_Outbox.Services.Outbox_Services
             await context.AddAsync(outbox, cancellationToken);
 
             logger.LogDebug("[Outbox]: Using transaction {0}, the event: {1} will be saved to the Outbox table!",
-                                  transactionId,
-                                  @event.ToString());
+                            transactionId,
+                            @event.ToString());
         }
 
         public async Task EventHasBeenPublished(string eventId, CancellationToken cancellationToken = default)

@@ -9,7 +9,6 @@ using RabbitMQEventBus.Transactional_Outbox.Services.Outbox_Services;
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 

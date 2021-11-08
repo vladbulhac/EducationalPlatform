@@ -2,11 +2,9 @@
 using EducationalInstitution.Application.Integration_Events;
 using EducationalInstitution.Infrastructure.Repositories.Command_Repository;
 using EducationalInstitution.Infrastructure.Unit_of_Work.Command_Unit_of_Work;
-using MediatR;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using RabbitMQEventBus.Abstractions;
 using RabbitMQEventBus.IntegrationEvents;
 using RabbitMQEventBus.Transactional_Outbox.Services.Outbox_Services;
 using System;

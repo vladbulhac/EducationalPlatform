@@ -7,7 +7,7 @@ namespace EducationalInstitutionAPI.Utils.Mappers
 {
     public static class HttpStatusCodeMapper
     {
-        private readonly static ConcurrentDictionary<HttpStatusCode, ProtoHttpStatusCode> httpStatusCodeToProtoMap;
+        private static readonly ConcurrentDictionary<HttpStatusCode, ProtoHttpStatusCode> httpStatusCodeToProtoMap;
 
         static HttpStatusCodeMapper() => httpStatusCodeToProtoMap = new();
 
