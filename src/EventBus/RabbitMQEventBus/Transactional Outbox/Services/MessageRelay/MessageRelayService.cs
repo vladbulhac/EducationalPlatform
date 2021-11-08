@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using RabbitMQEventBus.Abstractions;
 using RabbitMQEventBus.Transactional_Outbox.Infrastructure;
+using RabbitMQEventBus.Transactional_Outbox.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace RabbitMQEventBus.Transactional_Outbox.Services.MessageRelay
         {
             if (transactionId == Guid.Empty) throw new ArgumentException(nameof(transactionId));
 
-            var pendingEvents = await context.Outbox.Where(o => o.PublishStatus == Models.PublishStatus.Pending && o.TransactionId == transactionId)
+            var pendingEvents = await context.Outbox.Where(o => o.PublishStatus == PublishStatus.Pending && o.TransactionId == transactionId)
                                                     .OrderBy(o => o.CreatedDate)
                                                     .ToListAsync();
 
