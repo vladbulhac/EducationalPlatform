@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs.Responses
+namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs.Responses;
+
+public record GetAllEducationalInstitutionsByBuildingResponse
 {
-    public record GetAllEducationalInstitutionsByBuildingResponse
-    {
-        public ICollection<EducationalInstitutionBaseResponse> EducationalInstitutions { get; init; }
-    }
+    public ICollection<EducationalInstitutionBaseResponse> EducationalInstitutions { get; init; }
 }

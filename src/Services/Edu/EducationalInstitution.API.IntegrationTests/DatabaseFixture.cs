@@ -38,7 +38,8 @@ namespace EducationalInstitution.API.IntegrationTests
         private void SetupContext()
         {
             var dbOptions = new DbContextOptionsBuilder<DataContext>()
-                           .UseSqlServer(DbConnection, providerOptions => providerOptions.EnableRetryOnFailure(1));
+                           .UseSqlServer(DbConnection, providerOptions => providerOptions.EnableRetryOnFailure(1))
+                           .EnableSensitiveDataLogging();
 
             Context = new(dbOptions.Options);
             Context.Database.Migrate();
@@ -59,6 +60,9 @@ namespace EducationalInstitution.API.IntegrationTests
 
             var testBuilding = Context.Buildings.ToList();
             Context.RemoveRange(testBuilding);
+
+            var testAdmins = Context.Admins.ToList();
+            Context.RemoveRange(testAdmins);
         }
 
         public void Dispose()

@@ -2,7 +2,7 @@
 using EducationalInstitution.Infrastructure.Entities_Type_Configuration;
 using Microsoft.EntityFrameworkCore;
 
-using Domain = EducationalInstitution.Domain.Models.Aggregates;
+using Aggregate = EducationalInstitution.Domain.Models.Aggregates;
 
 namespace EducationalInstitution.Infrastructure
 {
@@ -11,7 +11,7 @@ namespace EducationalInstitution.Infrastructure
     /// </summary>
     public class DataContext : DbContext
     {
-        public virtual DbSet<Domain::EducationalInstitution> EducationalInstitutions { get; set; }
+        public virtual DbSet<Aggregate::EducationalInstitution> EducationalInstitutions { get; set; }
         public virtual DbSet<EducationalInstitutionBuilding> Buildings { get; set; }
         public virtual DbSet<EducationalInstitutionAdmin> Admins { get; set; }
 

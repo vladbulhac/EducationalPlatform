@@ -4,31 +4,30 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace Aggregator.Services
+namespace Aggregator.Services;
+
+public abstract class GrpcServiceBase<TService> where TService : class
 {
-    public abstract class GrpcServiceBase<TService> where TService : class
+    protected readonly ILogger<TService> logger;
+
+    protected GrpcServiceBase(ILogger<TService> logger)
+                => this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+
+    protected async Task<GrpcCallResponse<T>> MakeUnaryCallAndGetResponseAsync<T>(AsyncUnaryCall<T> call)
     {
-        protected readonly ILogger<TService> logger;
-
-        protected GrpcServiceBase(ILogger<TService> logger)
-                    => this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-
-        protected async Task<GrpcCallResponse<T>> MakeUnaryCallAndGetResponseAsync<T>(AsyncUnaryCall<T> call)
+        try
         {
-            try
-            {
-                var response = await call.ResponseAsync;
-                var trailers = call.GetTrailers();
+            var response = await call.ResponseAsync;
+            var trailers = call.GetTrailers();
 
-                logger.LogDebug("gRPC call ended with response: {@response}", response);
+            logger.LogDebug("gRPC call ended with response: {@response}", response);
 
-                return new() { Body = response, Trailers = trailers };
-            }
-            catch (Exception e)
-            {
-                logger.LogError($"Could not finish the gRPC call successfully, error details => {e.Message}");
-                return new() { Body = default, Trailers = new() };
-            }
+            return new() { Body = response, Trailers = trailers };
+        }
+        catch (Exception e)
+        {
+            logger.LogError($"Could not finish the gRPC call successfully, error details => {e.Message}");
+            return new() { Body = default, Trailers = new() };
         }
     }
 }

@@ -12,7 +12,7 @@ namespace EducationalInstitution.API.IntegrationTests.Infrastructure_Tests.Repos
     public class EducationalInstitutionQueryRepositoryTests
     {
         private readonly DatabaseFixture dbFixture;
-        private IEducationalInstitutionQueryRepository repository;
+        private readonly IEducationalInstitutionQueryRepository repository;
 
         /// <remarks>Called before each test</remarks>
         public EducationalInstitutionQueryRepositoryTests(DatabaseFixture dbFixture)

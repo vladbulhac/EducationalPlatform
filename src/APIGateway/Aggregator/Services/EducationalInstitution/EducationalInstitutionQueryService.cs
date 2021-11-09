@@ -4,59 +4,58 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace Aggregator.Services.EducationalInstitution
+namespace Aggregator.Services.EducationalInstitution;
+
+public class EducationalInstitutionQueryService : GrpcServiceBase<EducationalInstitutionQueryService>,
+                                                  IEducationalInstitutionQueryService
 {
-    public class EducationalInstitutionQueryService : GrpcServiceBase<EducationalInstitutionQueryService>,
-                                                      IEducationalInstitutionQueryService
+    private readonly Query.QueryClient client;
+
+    public EducationalInstitutionQueryService(ILogger<EducationalInstitutionQueryService> logger, Query.QueryClient client) : base(logger)
+        => this.client = client ?? throw new ArgumentNullException(nameof(client));
+
+    public async Task<GrpcCallResponse<EducationalInstitutionGetResponse>> GetEducationalInstitutionByIDAsync(EducationalInstitutionGetByIdRequest request)
     {
-        private readonly Query.QueryClient client;
+        logger.LogDebug($"{nameof(EducationalInstitutionQueryService)}: {nameof(Query.QueryClient)} calls server with request: {request}");
 
-        public EducationalInstitutionQueryService(ILogger<EducationalInstitutionQueryService> logger, Query.QueryClient client) : base(logger)
-            => this.client = client ?? throw new ArgumentNullException(nameof(client));
+        var request_call = client.GetEducationalInstitutionByIDAsync(request);
 
-        public async Task<GrpcCallResponse<EducationalInstitutionGetResponse>> GetEducationalInstitutionByIDAsync(EducationalInstitutionGetByIdRequest request)
-        {
-            logger.LogDebug($"{nameof(EducationalInstitutionQueryService)}: {nameof(Query.QueryClient)} calls server with request: {request}");
+        return await MakeUnaryCallAndGetResponseAsync(request_call);
+    }
 
-            var request_call = client.GetEducationalInstitutionByIDAsync(request);
+    public async Task<GrpcCallResponse<EducationalInstitutionGetByNameResponse>> GetAllEducationalInstitutionsByNameAsync(EducationalInstitutionGetByNameRequest request)
+    {
+        logger.LogDebug($"{nameof(EducationalInstitutionQueryService)}: {nameof(Query.QueryClient)} calls server with request: {request}");
 
-            return await MakeUnaryCallAndGetResponseAsync(request_call);
-        }
+        var request_call = client.GetAllEducationalInstitutionsByNameAsync(request);
 
-        public async Task<GrpcCallResponse<EducationalInstitutionGetByNameResponse>> GetAllEducationalInstitutionsByNameAsync(EducationalInstitutionGetByNameRequest request)
-        {
-            logger.LogDebug($"{nameof(EducationalInstitutionQueryService)}: {nameof(Query.QueryClient)} calls server with request: {request}");
+        return await MakeUnaryCallAndGetResponseAsync(request_call);
+    }
 
-            var request_call = client.GetAllEducationalInstitutionsByNameAsync(request);
+    public async Task<GrpcCallResponse<EducationalInstitutionsGetByLocationResponse>> GetAllEducationalInstitutionsByLocationAsync(EducationalInstitutionsGetByLocationRequest request)
+    {
+        logger.LogDebug($"{nameof(EducationalInstitutionQueryService)}: {nameof(Query.QueryClient)} calls server with request: {request}");
 
-            return await MakeUnaryCallAndGetResponseAsync(request_call);
-        }
+        var request_call = client.GetAllEducationalInstitutionsByLocationAsync(request);
 
-        public async Task<GrpcCallResponse<EducationalInstitutionsGetByLocationResponse>> GetAllEducationalInstitutionsByLocationAsync(EducationalInstitutionsGetByLocationRequest request)
-        {
-            logger.LogDebug($"{nameof(EducationalInstitutionQueryService)}: {nameof(Query.QueryClient)} calls server with request: {request}");
+        return await MakeUnaryCallAndGetResponseAsync(request_call);
+    }
 
-            var request_call = client.GetAllEducationalInstitutionsByLocationAsync(request);
+    public async Task<GrpcCallResponse<EducationalInstitutionsGetByBuildingResponse>> GetAllEducationalInstitutionsByBuildingAsync(EducationalInstitutionsGetByBuildingRequest request)
+    {
+        logger.LogDebug($"{nameof(EducationalInstitutionQueryService)}: {nameof(Query.QueryClient)} calls server with request: {request}");
 
-            return await MakeUnaryCallAndGetResponseAsync(request_call);
-        }
+        var request_call = client.GetAllEducationalInstitutionsByBuildingAsync(request);
 
-        public async Task<GrpcCallResponse<EducationalInstitutionsGetByBuildingResponse>> GetAllEducationalInstitutionsByBuildingAsync(EducationalInstitutionsGetByBuildingRequest request)
-        {
-            logger.LogDebug($"{nameof(EducationalInstitutionQueryService)}: {nameof(Query.QueryClient)} calls server with request: {request}");
+        return await MakeUnaryCallAndGetResponseAsync(request_call);
+    }
 
-            var request_call = client.GetAllEducationalInstitutionsByBuildingAsync(request);
+    public async Task<GrpcCallResponse<AdminsGetByEducationalInstitutionIdResponse>> GetAllAdminsByEducationalInstitutionIDAsync(AdminsGetByEducationalInstitutionIdRequest request)
+    {
+        logger.LogDebug($"{nameof(EducationalInstitutionQueryService)}: {nameof(Query.QueryClient)} calls server with request: {request}");
 
-            return await MakeUnaryCallAndGetResponseAsync(request_call);
-        }
+        var request_call = client.GetAllAdminsByEducationalInstitutionIDAsync(request);
 
-        public async Task<GrpcCallResponse<AdminsGetByEducationalInstitutionIdResponse>> GetAllAdminsByEducationalInstitutionIDAsync(AdminsGetByEducationalInstitutionIdRequest request)
-        {
-            logger.LogDebug($"{nameof(EducationalInstitutionQueryService)}: {nameof(Query.QueryClient)} calls server with request: {request}");
-
-            var request_call = client.GetAllAdminsByEducationalInstitutionIDAsync(request);
-
-            return await MakeUnaryCallAndGetResponseAsync(request_call);
-        }
+        return await MakeUnaryCallAndGetResponseAsync(request_call);
     }
 }

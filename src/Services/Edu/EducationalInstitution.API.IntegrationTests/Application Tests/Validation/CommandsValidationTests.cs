@@ -63,7 +63,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
@@ -84,7 +84,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -126,7 +126,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -168,7 +168,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -210,7 +210,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -252,7 +252,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -294,7 +294,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -336,7 +336,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -378,7 +378,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -420,7 +420,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -462,7 +462,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -504,7 +504,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -569,7 +569,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
@@ -609,7 +609,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
@@ -649,7 +649,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
@@ -689,7 +689,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property UpdateDescription failed validation. Error was: Both update fields are set to false!", validationErrors);
@@ -709,7 +709,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -729,7 +729,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
@@ -749,7 +749,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -769,7 +769,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property Name failed validation. Error was: Name was empty or null!", validationErrors);
@@ -789,7 +789,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -809,7 +809,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property Name failed validation. Error was: Name's length was not between 2-128 characters!", validationErrors);
@@ -829,7 +829,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -849,7 +849,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property Description failed validation. Error was: Description was empty or null!", validationErrors);
@@ -869,7 +869,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(request, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(request, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -889,7 +889,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property Description failed validation. Error was: Description's length was not between 2-500 characters!", validationErrors);
@@ -910,7 +910,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var result = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var result = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.True(result);
@@ -927,7 +927,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var result = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
@@ -944,7 +944,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var result = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var result = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(result);
@@ -961,7 +961,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var result = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
@@ -979,7 +979,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var result = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var result = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(result);
@@ -997,7 +997,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var result = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property ParentInstitutionID failed validation. Error was: ParentInstitutionID was the same as EducationalInstitutionID!", validationErrors);
@@ -1041,7 +1041,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
@@ -1061,7 +1061,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -1101,7 +1101,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -1141,7 +1141,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -1181,7 +1181,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.True(validationResult);
@@ -1201,7 +1201,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
@@ -1221,7 +1221,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.True(validationResult);
@@ -1241,7 +1241,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -1261,7 +1261,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property AddBuildingsIDs failed validation. Error was: AddBuildingsIDs can't contain duplicates!", validationErrors);
@@ -1281,7 +1281,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -1301,7 +1301,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property UpdateBuildings failed validation. Error was: Both location and buildings update fields are false!", validationErrors);
@@ -1321,7 +1321,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -1341,7 +1341,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property AddBuildingsIDs failed validation. Error was: AddBuildingsIDs can't contain duplicates!", validationErrors);
@@ -1362,7 +1362,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -1383,7 +1383,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property AddBuildingsIDs failed validation. Error was: Both AddBuildingsIDs and RemoveBuildingsIDs collections are empty!", validationErrors);
@@ -1403,7 +1403,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -1444,7 +1444,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -1486,7 +1486,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -1528,7 +1528,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -1570,7 +1570,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -1634,7 +1634,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal($" Property AddBuildingsIDs[0] failed validation. Error was: AddBuildingsIDs' {buildingID} was also found in RemoveBuildingsIDs!", validationErrors);
@@ -1657,7 +1657,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.True(validationResult);
@@ -1676,7 +1676,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
@@ -1695,7 +1695,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.True(validationResult);
@@ -1714,7 +1714,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
@@ -1733,7 +1733,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.True(validationResult);
@@ -1752,7 +1752,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
@@ -1771,7 +1771,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.True(validationResult);
@@ -1790,7 +1790,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Empty(validationErrors);
@@ -1809,7 +1809,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -1828,7 +1828,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
@@ -1847,7 +1847,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -1866,7 +1866,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal(" Property NewAdmins failed validation. Error was: All collections are empty!", validationErrors);
@@ -1885,7 +1885,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -1904,7 +1904,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal($" Property NewAdmins[0].Identity failed validation. Error was: {nameof(dto.NewAdmins)} contains an invalid ID!", validationErrors);
@@ -1923,7 +1923,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -1942,7 +1942,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal($" Property NewAdmins[0].Permissions failed validation. Error was: {nameof(dto.NewAdmins)} contains duplicate permission values!", validationErrors);
@@ -1961,7 +1961,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -1980,7 +1980,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal($" Property NewAdmins[0].Permissions failed validation. Error was: {nameof(dto.NewAdmins)} permissions collection is empty!", validationErrors);
@@ -1999,7 +1999,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -2018,7 +2018,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal($" Property AdminsWithNewPermissions[0].Identity failed validation. Error was: {nameof(dto.AdminsWithNewPermissions)} contains an invalid ID!", validationErrors);
@@ -2037,7 +2037,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -2056,7 +2056,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal($" Property AdminsWithNewPermissions[0].Permissions failed validation. Error was: {nameof(dto.AdminsWithNewPermissions)} contains duplicate permission values!", validationErrors);
@@ -2075,7 +2075,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -2094,7 +2094,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal($" Property AdminsWithNewPermissions[0].Permissions failed validation. Error was: {nameof(dto.AdminsWithNewPermissions)} permissions collection is empty!", validationErrors);
@@ -2113,7 +2113,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -2132,7 +2132,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal($" Property AdminsWithRevokedPermissions[0].Identity failed validation. Error was: {nameof(dto.AdminsWithRevokedPermissions)} contains an invalid ID!", validationErrors);
@@ -2151,7 +2151,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -2170,7 +2170,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal($" Property AdminsWithRevokedPermissions[0].Permissions failed validation. Error was: {nameof(dto.AdminsWithRevokedPermissions)} contains duplicate permission values!", validationErrors);
@@ -2189,7 +2189,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out _);
 
             //Assert
             Assert.False(validationResult);
@@ -2208,7 +2208,7 @@ namespace EducationalInstitution.API.IntegrationTests.Application_Tests.Validati
             };
 
             //Act
-            var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
+            _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
             //Assert
             Assert.Equal($" Property AdminsWithRevokedPermissions[0].Permissions failed validation. Error was: {nameof(dto.AdminsWithRevokedPermissions)} permissions collection is empty!", validationErrors);

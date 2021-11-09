@@ -1,5 +1,4 @@
 syntax = "proto3";
-import "Presentation/Proto/uuid.proto";
 import "Presentation/Proto/status_codes.proto";
 import "Presentation/Proto/response_messages_data.proto";
 
