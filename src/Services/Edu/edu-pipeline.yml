@@ -23,10 +23,14 @@ jobs:
       - checkout: self
         lfs: true
       - task: NuGetToolInstaller@1
-        displayName: Use NuGet 5.8.1
+        displayName: Use NuGet 6.0.0
         inputs:
-          versionSpec: 5.8.1
+          versionSpec: 6.0.0
           checkLatest: true
+      - task: UseDotNet@2
+        displayName: Use .NET 6
+        inputs:
+          version: 6.x
       - task: DotNetCoreCLI@2
         displayName: Restore
         inputs:
