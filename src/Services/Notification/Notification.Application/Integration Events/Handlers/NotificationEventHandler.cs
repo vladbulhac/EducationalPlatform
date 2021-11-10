@@ -3,43 +3,40 @@ using Notification.Application.Integration_Events.Events;
 using Notification.Domain.Models.Aggregates;
 using Notification.Infrastructure.Repositories;
 using RabbitMQEventBus.IntegrationEvents;
-using System;
-using System.Threading.Tasks;
 
-namespace Notification.Application.Integration_Events.Handlers
+namespace Notification.Application.Integration_Events.Handlers;
+
+public class NotificationEventHandler<TEvent> : IIntegrationEventHandler<TEvent> where TEvent : NotificationIntegrationEvent
 {
-    public class NotificationEventHandler<TEvent> : IIntegrationEventHandler<TEvent> where TEvent : NotificationIntegrationEvent
+    private readonly INotificationRepository repository;
+    private readonly ILogger<NotificationEventHandler<TEvent>> logger;
+
+    public NotificationEventHandler(INotificationRepository repository, ILogger<NotificationEventHandler<TEvent>> logger)
     {
-        private readonly INotificationRepository repository;
-        private readonly ILogger<NotificationEventHandler<TEvent>> logger;
+        this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
+        this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    }
 
-        public NotificationEventHandler(INotificationRepository repository, ILogger<NotificationEventHandler<TEvent>> logger)
+    public async Task HandleEvent(TEvent @event)
+    {
+        logger.LogInformation($"Received integration event: {@event} !");
+
+        try
         {
-            this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            Event eventEntity = new(@event.GetType().Name,
+                                    @event.Message, @event.Uri,
+                                    @event.TimeIssued,
+                                    @event.TriggeredBy.Action,
+                                    @event.TriggeredBy.ServiceName,
+                                    @event.ToNotify,
+                                    @event.EventId);
+
+            await repository.AddAsync(eventEntity);
+            await repository.SaveChangesAsync();
         }
-
-        public async Task HandleEvent(TEvent @event)
+        catch (Exception e)
         {
-            logger.LogInformation($"Received integration event: {@event} !");
-
-            try
-            {
-                Event eventEntity = new(@event.GetType().Name,
-                                        @event.Message, @event.Uri,
-                                        @event.TimeIssued,
-                                        @event.TriggeredBy.Action,
-                                        @event.TriggeredBy.ServiceName,
-                                        @event.ToNotify,
-                                        @event.EventId);
-
-                await repository.AddAsync(eventEntity);
-                await repository.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                logger.LogError("Could not finish handling the following event: {0}, error details => {1}", @event, e.Message);
-            }
+            logger.LogError("Could not finish handling the following event: {0}, error details => {1}", @event, e.Message);
         }
     }
 }

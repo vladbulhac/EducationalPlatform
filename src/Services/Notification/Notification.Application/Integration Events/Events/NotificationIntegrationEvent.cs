@@ -1,10 +1,8 @@
 ﻿using RabbitMQEventBus.IntegrationEvents;
-using System.Collections.Generic;
 
-namespace Notification.Application.Integration_Events.Events
+namespace Notification.Application.Integration_Events.Events;
+
+public record NotificationIntegrationEvent : IntegrationEvent
 {
-    public record NotificationIntegrationEvent : IntegrationEvent
-    {
-        public ICollection<string> ToNotify { get; init; }
-    }
+    public ICollection<string> ToNotify { get; init; }
 }
