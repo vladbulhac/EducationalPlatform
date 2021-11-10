@@ -1,14 +1,11 @@
-using Microsoft.Extensions.Hosting;
+namespace DatabaseTasks;
 
-namespace DatabaseTasks
+public static class Program
 {
-    public static class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            Host.CreateDefaultBuilder(args)
-                .Build()
-                .Run();
-        }
+        Host.CreateDefaultBuilder(args)
+            .Build()
+            .Run();
     }
 }
