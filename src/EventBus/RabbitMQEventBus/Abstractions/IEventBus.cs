@@ -1,7 +1,4 @@
-﻿using System;
+﻿namespace RabbitMQEventBus.Abstractions;
 
-namespace RabbitMQEventBus.Abstractions
-{
-    public interface IEventBus : IEventBusPublisher, IEventBusSubscriber, IDisposable
-    { }
-}
+public interface IEventBus : IEventBusPublisher, IEventBusSubscriber, IDisposable
+{ }

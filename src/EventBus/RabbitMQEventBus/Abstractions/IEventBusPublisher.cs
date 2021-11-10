@@ -1,12 +1,10 @@
 ﻿using RabbitMQEventBus.IntegrationEvents;
-using System.Collections.Generic;
 
-namespace RabbitMQEventBus.Abstractions
+namespace RabbitMQEventBus.Abstractions;
+
+public interface IEventBusPublisher
 {
-    public interface IEventBusPublisher
-    {
-        public void Publish(IntegrationEvent @event, bool publisherConfirms);
+    public void Publish(IntegrationEvent @event, bool publisherConfirms);
 
-        public void PublishMultiple(IEnumerable<IntegrationEvent> @events, bool publisherConfirms);
-    }
+    public void PublishMultiple(IEnumerable<IntegrationEvent> @events, bool publisherConfirms);
 }

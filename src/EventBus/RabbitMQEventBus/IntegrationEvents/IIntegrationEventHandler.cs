@@ -1,9 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿namespace RabbitMQEventBus.IntegrationEvents;
 
-namespace RabbitMQEventBus.IntegrationEvents
+public interface IIntegrationEventHandler<in TIntegrationEvent> where TIntegrationEvent : IntegrationEvent
 {
-    public interface IIntegrationEventHandler<in TIntegrationEvent> where TIntegrationEvent : IntegrationEvent
-    {
-        public Task HandleEvent(TIntegrationEvent @event);
-    }
+    public Task HandleEvent(TIntegrationEvent @event);
 }

@@ -3,57 +3,52 @@ using Microsoft.Extensions.Logging;
 using RabbitMQEventBus.Abstractions;
 using RabbitMQEventBus.Transactional_Outbox.Infrastructure;
 using RabbitMQEventBus.Transactional_Outbox.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
-namespace RabbitMQEventBus.Transactional_Outbox.Services.MessageRelay
+namespace RabbitMQEventBus.Transactional_Outbox.Services.MessageRelay;
+
+/// <summary>
+/// <inheritdoc cref="IMessageRelayService"/>
+/// </summary>
+public class MessageRelayService : IMessageRelayService
 {
-    /// <summary>
-    /// <inheritdoc cref="IMessageRelayService"/>
-    /// </summary>
-    public class MessageRelayService : IMessageRelayService
+    private readonly ILogger<MessageRelayService> logger;
+
+    private readonly IEventBus eventBus;
+    private readonly List<Type> eventTypes;
+    private readonly TransactionalOutboxContext context;
+
+    public MessageRelayService(ILogger<MessageRelayService> logger, TransactionalOutboxContext context, IEventBus eventBus, Assembly assemblyWithIntegrationEvents)
     {
-        private readonly ILogger<MessageRelayService> logger;
+        this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        this.context = context ?? throw new ArgumentNullException(nameof(context));
+        this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
 
-        private readonly IEventBus eventBus;
-        private readonly List<Type> eventTypes;
-        private readonly TransactionalOutboxContext context;
+        eventTypes = assemblyWithIntegrationEvents.GetTypes()
+                                                  .Where(t => t.Name.EndsWith("IntegrationEvent"))
+                                                  .ToList();
+    }
 
-        public MessageRelayService(ILogger<MessageRelayService> logger, TransactionalOutboxContext context, IEventBus eventBus, Assembly assemblyWithIntegrationEvents)
+    public async Task OnTransactionFinished(Guid transactionId)
+    {
+        if (transactionId == Guid.Empty) throw new ArgumentException(nameof(transactionId));
+
+        var pendingEvents = await context.Outbox.Where(o => o.PublishStatus == PublishStatus.Pending && o.TransactionId == transactionId)
+                                                .OrderBy(o => o.CreatedDate)
+                                                .ToListAsync();
+
+        foreach (var pendingEvent in pendingEvents)
         {
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.context = context ?? throw new ArgumentNullException(nameof(context));
-            this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-
-            eventTypes = assemblyWithIntegrationEvents.GetTypes()
-                                                      .Where(t => t.Name.EndsWith("IntegrationEvent"))
-                                                      .ToList();
-        }
-
-        public async Task OnTransactionFinished(Guid transactionId)
-        {
-            if (transactionId == Guid.Empty) throw new ArgumentException(nameof(transactionId));
-
-            var pendingEvents = await context.Outbox.Where(o => o.PublishStatus == PublishStatus.Pending && o.TransactionId == transactionId)
-                                                    .OrderBy(o => o.CreatedDate)
-                                                    .ToListAsync();
-
-            foreach (var pendingEvent in pendingEvents)
+            try
             {
-                try
-                {
-                    var eventType = eventTypes.Find(e => e.Name == pendingEvent.EventName);
-                    var @event = pendingEvent.RestoreEvent(eventType);
+                var eventType = eventTypes.Find(e => e.Name == pendingEvent.EventName);
+                var @event = pendingEvent.RestoreEvent(eventType);
 
-                    eventBus.Publish(@event, publisherConfirms: true);
-                }
-                catch (Exception e)
-                {
-                    logger.LogInformation($"[MessageRelay][Error]: Could not publish the event {pendingEvent.EventName} with id:{pendingEvent.EventId} from transaction {pendingEvent.TransactionId}! Error details => {e.Message}.");
-                }
+                eventBus.Publish(@event, publisherConfirms: true);
+            }
+            catch (Exception e)
+            {
+                logger.LogInformation($"[MessageRelay][Error]: Could not publish the event {pendingEvent.EventName} with id:{pendingEvent.EventId} from transaction {pendingEvent.TransactionId}! Error details => {e.Message}.");
             }
         }
     }
