@@ -5,6 +5,7 @@
     <UserSecretsId>dotnet-DatabaseTasks-6481F9E9-3BF3-4F4F-B5FD-1E64FB051C9D</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
+	<ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
