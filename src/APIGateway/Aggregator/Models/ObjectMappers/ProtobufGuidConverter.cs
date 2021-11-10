@@ -1,5 +1,4 @@
 ﻿using Aggregator.Common.Proto;
-using System;
 using System.Buffers.Binary;
 
 namespace Aggregator.Models.ObjectMappers;

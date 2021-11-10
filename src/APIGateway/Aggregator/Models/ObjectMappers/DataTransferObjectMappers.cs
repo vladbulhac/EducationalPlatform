@@ -6,9 +6,6 @@ using Aggregator.Models.DTOs.EducationalInstitutionDTOs.Requests;
 using Aggregator.Models.DTOs.EducationalInstitutionDTOs.Responses;
 using Google.Protobuf.Collections;
 using Grpc.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 
 namespace Aggregator.Models.ObjectMappers;

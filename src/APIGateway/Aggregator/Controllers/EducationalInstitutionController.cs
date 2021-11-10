@@ -5,11 +5,8 @@ using Aggregator.Models.DTOs.EducationalInstitutionDTOs.Responses;
 using Aggregator.Models.ObjectMappers;
 using Aggregator.Services.EducationalInstitution;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OpenIddict.Validation.AspNetCore;
-using System;
-using System.Threading.Tasks;
 
 namespace Aggregator.Controllers;
 

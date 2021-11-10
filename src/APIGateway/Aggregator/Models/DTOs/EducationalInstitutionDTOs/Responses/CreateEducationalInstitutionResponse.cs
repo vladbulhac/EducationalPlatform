@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs.Responses;
+﻿namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs.Responses;
 
 public record CreateEducationalInstitutionResponse
 {

@@ -1,12 +1,5 @@
-global using System;
-global using System.Linq;
-
 using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Serilog;
-using System.IO;
 
 namespace Aggregator;
 
@@ -40,7 +33,7 @@ public class Program
             .UseSerilog()
             .Build();
 
-    private static ILogger CreateSerilogLogger(IConfiguration configuration)
+    private static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)
     {
         return new LoggerConfiguration()
                         .MinimumLevel.Verbose()

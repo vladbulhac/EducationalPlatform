@@ -1,16 +1,9 @@
 using Aggregator.EducationalInstitutionAPI.Proto;
 using Aggregator.Infrastructure;
 using Aggregator.Services.EducationalInstitution;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Validation.AspNetCore;
 using Serilog;
-using System;
-using System.Net.Http;
 
 namespace Aggregator;
 

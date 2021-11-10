@@ -1,8 +1,5 @@
 ﻿using Aggregator.EducationalInstitutionAPI.Proto;
 using Aggregator.Models;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
 
 namespace Aggregator.Services.EducationalInstitution;
 

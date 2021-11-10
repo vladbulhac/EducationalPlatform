@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
+﻿namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs;
 
-namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs;
-
-public record AdminDetails
+public record struct AdminDetails
 {
     public string Identity { get; init; }
     public ICollection<string> Permissions { get; init; }
