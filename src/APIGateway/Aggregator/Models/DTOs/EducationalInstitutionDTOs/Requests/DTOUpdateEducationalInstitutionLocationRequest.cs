@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
+﻿namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs.Requests;
 
-namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs.Requests;
-
-public record DTOUpdateEducationalInstitutionLocationRequest
+public record struct DTOUpdateEducationalInstitutionLocationRequest
 {
     public bool UpdateLocation { get; init; }
     public string LocationID { get; init; }

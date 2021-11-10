@@ -1,8 +1,6 @@
-﻿using System;
+﻿namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs.Requests;
 
-namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs.Requests;
-
-public record DTOUpdateEducationalInstitutionParentRequest
+public record struct DTOUpdateEducationalInstitutionParentRequest
 {
     public Guid ParentInstitutionID { get; init; }
 }

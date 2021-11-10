@@ -1,6 +1,6 @@
 ﻿namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs.Requests;
 
-public record DTOUpdateEducationalInstitutionRequest
+public record struct DTOUpdateEducationalInstitutionRequest
 {
     public bool UpdateName { get; init; }
     public string Name { get; init; }

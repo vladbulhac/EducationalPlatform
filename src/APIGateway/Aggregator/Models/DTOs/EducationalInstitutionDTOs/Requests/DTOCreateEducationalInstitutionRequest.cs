@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs.Requests;
 
-namespace Aggregator.Models.DTOs.EducationalInstitutionDTOs.Requests;
-
-public record DTOCreateEducationalInstitutionRequest
+public record struct DTOCreateEducationalInstitutionRequest
 {
     public string Name { get; init; }
     public string Description { get; init; }
