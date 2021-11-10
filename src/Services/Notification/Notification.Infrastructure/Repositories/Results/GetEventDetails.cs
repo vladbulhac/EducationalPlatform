@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Notification.Infrastructure.Repositories.Results
+﻿namespace Notification.Infrastructure.Repositories.Results
 {
     public record GetEventDetails
     {

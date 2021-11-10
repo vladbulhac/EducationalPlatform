@@ -1,13 +1,9 @@
 ﻿using Notification.Domain.Models.Aggregates;
 using Notification.Infrastructure.Repositories.Results;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace Notification.Infrastructure.Repositories
+namespace Notification.Infrastructure.Repositories;
+
+public interface INotificationRepository : IRepository<Event>
 {
-    public interface INotificationRepository : IRepository<Event>
-    {
-        public Task<ICollection<GetEventDetails>> GetUnseenEventsForRecipientAsync(string recipientID, CancellationToken cancellationToken = default);
-    }
+    public Task<ICollection<GetEventDetails>> GetUnseenEventsForRecipientAsync(string recipientID, CancellationToken cancellationToken = default);
 }
