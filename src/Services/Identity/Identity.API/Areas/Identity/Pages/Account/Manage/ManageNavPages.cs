@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 
 namespace Identity.API.Areas.Identity.Pages.Account.Manage
 {

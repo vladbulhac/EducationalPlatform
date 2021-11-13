@@ -8,425 +8,419 @@ using Microsoft.Extensions.Options;
 using Moq;
 using OpenIddict.Abstractions;
 using OpenIddict.EntityFrameworkCore.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace Identity.API.UnitTests.Application_Tests.Services
+namespace Identity.API.UnitTests.Application_Tests.Services;
+
+public class IdentityServiceTests
 {
-    public class IdentityServiceTests
+    private readonly IIdentityService<User> identityService;
+    private readonly Mock<IOpenIddictApplicationManager> appManagerMock;
+    private readonly Mock<IOpenIddictAuthorizationManager> authManagerMock;
+    private readonly Mock<IOpenIddictScopeManager> scopeManagerMock;
+
+    private readonly Mock<SignInManager<User>> signInManagerMock;
+    private readonly Mock<UserManager<User>> userManagerMock;
+
+    public IdentityServiceTests()
     {
-        private readonly IIdentityService<User> identityService;
-        private readonly Mock<IOpenIddictApplicationManager> appManagerMock;
-        private readonly Mock<IOpenIddictAuthorizationManager> authManagerMock;
-        private readonly Mock<IOpenIddictScopeManager> scopeManagerMock;
+        appManagerMock = new();
+        authManagerMock = new();
+        scopeManagerMock = new();
 
-        private readonly Mock<SignInManager<User>> signInManagerMock;
-        private readonly Mock<UserManager<User>> userManagerMock;
+        userManagerMock = new(new Mock<IUserStore<User>>().Object,
+                                  new Mock<IOptions<IdentityOptions>>().Object,
+                                  new Mock<IPasswordHasher<User>>().Object,
+                                  new IUserValidator<User>[0],
+                                  new IPasswordValidator<User>[0],
+                                  new Mock<ILookupNormalizer>().Object,
+                                  new Mock<IdentityErrorDescriber>().Object,
+                                  new Mock<IServiceProvider>().Object,
+                                  new Mock<ILogger<UserManager<User>>>().Object);
+        signInManagerMock = new(userManagerMock.Object,
+                                new Mock<IHttpContextAccessor>().Object,
+                                new Mock<IUserClaimsPrincipalFactory<User>>().Object,
+                                new Mock<IOptions<IdentityOptions>>().Object,
+                                new Mock<ILogger<SignInManager<User>>>().Object,
+                                new Mock<IAuthenticationSchemeProvider>().Object,
+                                new Mock<IUserConfirmation<User>>().Object);
 
-        public IdentityServiceTests()
+        identityService = new IdentityService(appManagerMock.Object, authManagerMock.Object, scopeManagerMock.Object, signInManagerMock.Object, userManagerMock.Object);
+    }
+
+    [Fact]
+    public async Task GivenAnUser_Application_Scopes_Authorizations_ToCreateUserPrincipalAsync_ShouldReturnANotNullClaimsPrincipal()
+    {
+        //Arrange
+        var user = new User
         {
-            appManagerMock = new();
-            authManagerMock = new();
-            scopeManagerMock = new();
+            Id = Guid.NewGuid().ToString(),
+            FirstName = "TestF",
+            LastName = "TestL",
+            PhoneNumber = "0771777177",
+            LocationId = "test_location",
+            BirthDate = new(1992, 1, 2)
+        };
 
-            userManagerMock = new(new Mock<IUserStore<User>>().Object,
-                                      new Mock<IOptions<IdentityOptions>>().Object,
-                                      new Mock<IPasswordHasher<User>>().Object,
-                                      new IUserValidator<User>[0],
-                                      new IPasswordValidator<User>[0],
-                                      new Mock<ILookupNormalizer>().Object,
-                                      new Mock<IdentityErrorDescriber>().Object,
-                                      new Mock<IServiceProvider>().Object,
-                                      new Mock<ILogger<UserManager<User>>>().Object);
-            signInManagerMock = new(userManagerMock.Object,
-                                    new Mock<IHttpContextAccessor>().Object,
-                                    new Mock<IUserClaimsPrincipalFactory<User>>().Object,
-                                    new Mock<IOptions<IdentityOptions>>().Object,
-                                    new Mock<ILogger<SignInManager<User>>>().Object,
-                                    new Mock<IAuthenticationSchemeProvider>().Object,
-                                    new Mock<IUserConfirmation<User>>().Object);
-
-            identityService = new IdentityService(appManagerMock.Object, authManagerMock.Object, scopeManagerMock.Object, signInManagerMock.Object, userManagerMock.Object);
-        }
-
-        [Fact]
-        public async Task GivenAnUser_Application_Scopes_Authorizations_ToCreateUserPrincipalAsync_ShouldReturnANotNullClaimsPrincipal()
+        OpenIddictEntityFrameworkCoreApplication application = new()
         {
-            //Arrange
-            var user = new User
-            {
-                Id = Guid.NewGuid().ToString(),
-                FirstName = "TestF",
-                LastName = "TestL",
-                PhoneNumber = "0771777177",
-                LocationId = "test_location",
-                BirthDate = new(1992, 1, 2)
-            };
+            ClientId = Guid.NewGuid().ToString(),
+            DisplayName = "test_app",
+            Id = Guid.NewGuid().ToString()
+        };
 
-            OpenIddictEntityFrameworkCoreApplication application = new()
+        ImmutableArray<string> scopes = ImmutableArray.Create<string>(); scopes.Add("openid"); scopes.Add("profile");
+
+        List<object> authorizations = new(1)
+        {
+            new OpenIddictEntityFrameworkCoreAuthorization()
             {
-                ClientId = Guid.NewGuid().ToString(),
-                DisplayName = "test_app",
+                Application = application,
+                Scopes = "openid profile",
+                Subject = user.Id,
                 Id = Guid.NewGuid().ToString()
-            };
+            }
+        };
 
-            ImmutableArray<string> scopes = ImmutableArray.Create<string>(); scopes.Add("openid"); scopes.Add("profile");
+        var resources = new List<string>(1) { "test_resource" };
+        List<Claim> claims = new() { new("testType", "testValue") };
+        SetupMockedDependencies(scopes, user, application, authorizations[0], claims, resources);
 
-            List<object> authorizations = new(1)
-            {
-                new OpenIddictEntityFrameworkCoreAuthorization()
-                {
-                    Application = application,
-                    Scopes = "openid profile",
-                    Subject = user.Id,
-                    Id = Guid.NewGuid().ToString()
-                }
-            };
+        //Act
+        var result = await identityService.CreateUserPrincipalAsync(user, application, scopes, authorizations);
 
-            var resources = new List<string>(1) { "test_resource" };
-            List<Claim> claims = new() { new("testType", "testValue") };
-            SetupMockedDependencies(scopes, user, application, authorizations[0], claims, resources);
+        //Assert
+        Assert.NotNull(result);
+    }
 
-            //Act
-            var result = await identityService.CreateUserPrincipalAsync(user, application, scopes, authorizations);
-
-            //Assert
-            Assert.NotNull(result);
-        }
-
-        [Fact]
-        public async Task GivenAnUser_Application_Scopes_Authorizations_ToCreateUserPrincipalAsync_ShouldReturnAClaimsPrincipalWithAnExpectedResource()
+    [Fact]
+    public async Task GivenAnUser_Application_Scopes_Authorizations_ToCreateUserPrincipalAsync_ShouldReturnAClaimsPrincipalWithAnExpectedResource()
+    {
+        //Arrange
+        var user = new User
         {
-            //Arrange
-            var user = new User
-            {
-                Id = Guid.NewGuid().ToString(),
-                FirstName = "TestF",
-                LastName = "TestL",
-                PhoneNumber = "0771777177",
-                LocationId = "test_location",
-                BirthDate = new(1992, 1, 2)
-            };
+            Id = Guid.NewGuid().ToString(),
+            FirstName = "TestF",
+            LastName = "TestL",
+            PhoneNumber = "0771777177",
+            LocationId = "test_location",
+            BirthDate = new(1992, 1, 2)
+        };
 
-            OpenIddictEntityFrameworkCoreApplication application = new()
+        OpenIddictEntityFrameworkCoreApplication application = new()
+        {
+            ClientId = Guid.NewGuid().ToString(),
+            DisplayName = "test_app",
+            Id = Guid.NewGuid().ToString()
+        };
+
+        ImmutableArray<string> scopes = ImmutableArray.Create<string>(); scopes.Add("openid"); scopes.Add("profile");
+
+        List<object> authorizations = new(1)
+        {
+            new OpenIddictEntityFrameworkCoreAuthorization()
             {
-                ClientId = Guid.NewGuid().ToString(),
-                DisplayName = "test_app",
+                Application = application,
+                Scopes = "openid profile",
+                Subject = user.Id,
                 Id = Guid.NewGuid().ToString()
-            };
+            }
+        };
 
-            ImmutableArray<string> scopes = ImmutableArray.Create<string>(); scopes.Add("openid"); scopes.Add("profile");
+        var resources = new List<string>(1) { "test_resource" };
+        List<Claim> claims = new() { new("testType", "testValue") };
+        SetupMockedDependencies(scopes, user, application, authorizations[0], claims, resources);
 
-            List<object> authorizations = new(1)
-            {
-                new OpenIddictEntityFrameworkCoreAuthorization()
-                {
-                    Application = application,
-                    Scopes = "openid profile",
-                    Subject = user.Id,
-                    Id = Guid.NewGuid().ToString()
-                }
-            };
+        //Act
+        var result = await identityService.CreateUserPrincipalAsync(user, application, scopes, authorizations);
 
-            var resources = new List<string>(1) { "test_resource" };
-            List<Claim> claims = new() { new("testType", "testValue") };
-            SetupMockedDependencies(scopes, user, application, authorizations[0], claims, resources);
+        //Assert
+        Assert.True(result.HasResource("test_resource"));
+    }
 
-            //Act
-            var result = await identityService.CreateUserPrincipalAsync(user, application, scopes, authorizations);
-
-            //Assert
-            Assert.True(result.HasResource("test_resource"));
-        }
-
-        [Fact]
-        public async Task GivenAnUser_Application_Scopes_Authorizations_ToCreateUserPrincipalAsync_ShouldReturnAClaimsPrincipalWithTwoScopes()
+    [Fact]
+    public async Task GivenAnUser_Application_Scopes_Authorizations_ToCreateUserPrincipalAsync_ShouldReturnAClaimsPrincipalWithTwoScopes()
+    {
+        //Arrange
+        var user = new User
         {
-            //Arrange
-            var user = new User
-            {
-                Id = Guid.NewGuid().ToString(),
-                FirstName = "TestF",
-                LastName = "TestL",
-                PhoneNumber = "0771777177",
-                LocationId = "test_location",
-                BirthDate = new(1992, 1, 2)
-            };
+            Id = Guid.NewGuid().ToString(),
+            FirstName = "TestF",
+            LastName = "TestL",
+            PhoneNumber = "0771777177",
+            LocationId = "test_location",
+            BirthDate = new(1992, 1, 2)
+        };
 
-            OpenIddictEntityFrameworkCoreApplication application = new()
+        OpenIddictEntityFrameworkCoreApplication application = new()
+        {
+            ClientId = Guid.NewGuid().ToString(),
+            DisplayName = "test_app",
+            Id = Guid.NewGuid().ToString()
+        };
+
+        ImmutableArray<string> scopes = ImmutableArray.Create<string>("openid", "profile");
+
+        List<object> authorizations = new(1)
+        {
+            new OpenIddictEntityFrameworkCoreAuthorization()
             {
-                ClientId = Guid.NewGuid().ToString(),
-                DisplayName = "test_app",
+                Application = application,
+                Scopes = "openid profile",
+                Subject = user.Id,
                 Id = Guid.NewGuid().ToString()
-            };
+            }
+        };
 
-            ImmutableArray<string> scopes = ImmutableArray.Create<string>("openid", "profile");
+        var resources = new List<string>(1) { "test_resource" };
+        List<Claim> claims = new() { new("testType", "testValue") };
+        SetupMockedDependencies(scopes, user, application, authorizations[0], claims, resources);
 
-            List<object> authorizations = new(1)
-            {
-                new OpenIddictEntityFrameworkCoreAuthorization()
-                {
-                    Application = application,
-                    Scopes = "openid profile",
-                    Subject = user.Id,
-                    Id = Guid.NewGuid().ToString()
-                }
-            };
+        //Act
+        var result = await identityService.CreateUserPrincipalAsync(user, application, scopes, authorizations);
 
-            var resources = new List<string>(1) { "test_resource" };
-            List<Claim> claims = new() { new("testType", "testValue") };
-            SetupMockedDependencies(scopes, user, application, authorizations[0], claims, resources);
+        //Assert
+        Assert.Equal(2, result.GetScopes().Length);
+    }
 
-            //Act
-            var result = await identityService.CreateUserPrincipalAsync(user, application, scopes, authorizations);
-
-            //Assert
-            Assert.Equal(2, result.GetScopes().Length);
-        }
-
-        [Fact]
-        public async Task GivenAnUser_Application_Scopes_Authorizations_ToCreateUserPrincipalAsync_ShouldReturnAClaimsPrincipalWithOpenIdScope()
+    [Fact]
+    public async Task GivenAnUser_Application_Scopes_Authorizations_ToCreateUserPrincipalAsync_ShouldReturnAClaimsPrincipalWithOpenIdScope()
+    {
+        //Arrange
+        var user = new User
         {
-            //Arrange
-            var user = new User
-            {
-                Id = Guid.NewGuid().ToString(),
-                FirstName = "TestF",
-                LastName = "TestL",
-                PhoneNumber = "0771777177",
-                LocationId = "test_location",
-                BirthDate = new(1992, 1, 2)
-            };
+            Id = Guid.NewGuid().ToString(),
+            FirstName = "TestF",
+            LastName = "TestL",
+            PhoneNumber = "0771777177",
+            LocationId = "test_location",
+            BirthDate = new(1992, 1, 2)
+        };
 
-            OpenIddictEntityFrameworkCoreApplication application = new()
+        OpenIddictEntityFrameworkCoreApplication application = new()
+        {
+            ClientId = Guid.NewGuid().ToString(),
+            DisplayName = "test_app",
+            Id = Guid.NewGuid().ToString()
+        };
+
+        ImmutableArray<string> scopes = ImmutableArray.Create<string>("openid", "profile");
+
+        List<object> authorizations = new(1)
+        {
+            new OpenIddictEntityFrameworkCoreAuthorization()
             {
-                ClientId = Guid.NewGuid().ToString(),
-                DisplayName = "test_app",
+                Application = application,
+                Scopes = "openid profile",
+                Subject = user.Id,
                 Id = Guid.NewGuid().ToString()
-            };
+            }
+        };
 
-            ImmutableArray<string> scopes = ImmutableArray.Create<string>("openid", "profile");
+        var resources = new List<string>(1) { "test_resource" };
+        List<Claim> claims = new() { new("testType", "testValue") };
+        SetupMockedDependencies(scopes, user, application, authorizations[0], claims, resources);
 
-            List<object> authorizations = new(1)
-            {
-                new OpenIddictEntityFrameworkCoreAuthorization()
-                {
-                    Application = application,
-                    Scopes = "openid profile",
-                    Subject = user.Id,
-                    Id = Guid.NewGuid().ToString()
-                }
-            };
+        //Act
+        var result = await identityService.CreateUserPrincipalAsync(user, application, scopes, authorizations);
 
-            var resources = new List<string>(1) { "test_resource" };
-            List<Claim> claims = new() { new("testType", "testValue") };
-            SetupMockedDependencies(scopes, user, application, authorizations[0], claims, resources);
+        //Assert
+        Assert.True(result.HasScope("openid"));
+    }
 
-            //Act
-            var result = await identityService.CreateUserPrincipalAsync(user, application, scopes, authorizations);
-
-            //Assert
-            Assert.True(result.HasScope("openid"));
-        }
-
-        [Fact]
-        public async Task GivenAnUser_Application_Scopes_Authorizations_ToCreateUserPrincipalAsync_ShouldReturnAClaimsPrincipalWithProfileScope()
+    [Fact]
+    public async Task GivenAnUser_Application_Scopes_Authorizations_ToCreateUserPrincipalAsync_ShouldReturnAClaimsPrincipalWithProfileScope()
+    {
+        //Arrange
+        var user = new User
         {
-            //Arrange
-            var user = new User
-            {
-                Id = Guid.NewGuid().ToString(),
-                FirstName = "TestF",
-                LastName = "TestL",
-                PhoneNumber = "0771777177",
-                LocationId = "test_location",
-                BirthDate = new(1992, 1, 2)
-            };
+            Id = Guid.NewGuid().ToString(),
+            FirstName = "TestF",
+            LastName = "TestL",
+            PhoneNumber = "0771777177",
+            LocationId = "test_location",
+            BirthDate = new(1992, 1, 2)
+        };
 
-            OpenIddictEntityFrameworkCoreApplication application = new()
+        OpenIddictEntityFrameworkCoreApplication application = new()
+        {
+            ClientId = Guid.NewGuid().ToString(),
+            DisplayName = "test_app",
+            Id = Guid.NewGuid().ToString()
+        };
+
+        ImmutableArray<string> scopes = ImmutableArray.Create<string>("openid", "profile");
+
+        List<object> authorizations = new(1)
+        {
+            new OpenIddictEntityFrameworkCoreAuthorization()
             {
-                ClientId = Guid.NewGuid().ToString(),
-                DisplayName = "test_app",
+                Application = application,
+                Scopes = "openid profile",
+                Subject = user.Id,
                 Id = Guid.NewGuid().ToString()
-            };
+            }
+        };
 
-            ImmutableArray<string> scopes = ImmutableArray.Create<string>("openid", "profile");
+        var resources = new List<string>(1) { "test_resource" };
+        List<Claim> claims = new() { new("testType", "testValue") };
+        SetupMockedDependencies(scopes, user, application, authorizations[0], claims, resources);
 
-            List<object> authorizations = new(1)
-            {
-                new OpenIddictEntityFrameworkCoreAuthorization()
-                {
-                    Application = application,
-                    Scopes = "openid profile",
-                    Subject = user.Id,
-                    Id = Guid.NewGuid().ToString()
-                }
-            };
+        //Act
+        var result = await identityService.CreateUserPrincipalAsync(user, application, scopes, authorizations);
 
-            var resources = new List<string>(1) { "test_resource" };
-            List<Claim> claims = new() { new("testType", "testValue") };
-            SetupMockedDependencies(scopes, user, application, authorizations[0], claims, resources);
+        //Assert
+        Assert.True(result.HasScope("profile"));
+    }
 
-            //Act
-            var result = await identityService.CreateUserPrincipalAsync(user, application, scopes, authorizations);
-
-            //Assert
-            Assert.True(result.HasScope("profile"));
-        }
-
-        [Fact]
-        public async Task GivenAnUser_Application_Scopes_Authorizations_ToCreateUserPrincipalAsync_ShouldReturnAClaimsPrincipalWithExpectedAuthorizationId()
+    [Fact]
+    public async Task GivenAnUser_Application_Scopes_Authorizations_ToCreateUserPrincipalAsync_ShouldReturnAClaimsPrincipalWithExpectedAuthorizationId()
+    {
+        //Arrange
+        var user = new User
         {
-            //Arrange
-            var user = new User
-            {
-                Id = Guid.NewGuid().ToString(),
-                FirstName = "TestF",
-                LastName = "TestL",
-                PhoneNumber = "0771777177",
-                LocationId = "test_location",
-                BirthDate = new(1992, 1, 2)
-            };
+            Id = Guid.NewGuid().ToString(),
+            FirstName = "TestF",
+            LastName = "TestL",
+            PhoneNumber = "0771777177",
+            LocationId = "test_location",
+            BirthDate = new(1992, 1, 2)
+        };
 
-            OpenIddictEntityFrameworkCoreApplication application = new()
-            {
-                ClientId = Guid.NewGuid().ToString(),
-                DisplayName = "test_app",
-                Id = Guid.NewGuid().ToString()
-            };
-
-            ImmutableArray<string> scopes = ImmutableArray.Create<string>("openid", "profile");
-
-            var authorizationId = Guid.NewGuid().ToString();
-            List<object> authorizations = new(1)
-            {
-                new OpenIddictEntityFrameworkCoreAuthorization()
-                {
-                    Application = application,
-                    Scopes = "openid profile",
-                    Subject = user.Id,
-                    Id = authorizationId
-                }
-            };
-
-            var resources = new List<string>(1) { "test_resource" };
-            List<Claim> claims = new() { new("testType", "testValue") };
-            SetupMockedDependencies(scopes, user, application, authorizations[0], claims, resources);
-
-            //Act
-            var result = await identityService.CreateUserPrincipalAsync(user, application, scopes, authorizations);
-
-            //Assert
-            Assert.Equal(authorizationId, result.GetAuthorizationId());
-        }
-
-        [Fact]
-        public async Task GivenAnUser_Application_Scopes_Authorizations_ToCreateUserPrincipalAsync_ShouldReturnAClaimsPrincipalWithClaimDestinationSetToAccessToken()
+        OpenIddictEntityFrameworkCoreApplication application = new()
         {
-            //Arrange
-            var user = new User
-            {
-                Id = Guid.NewGuid().ToString(),
-                FirstName = "TestF",
-                LastName = "TestL",
-                PhoneNumber = "0771777177",
-                LocationId = "test_location",
-                BirthDate = new(1992, 1, 2)
-            };
+            ClientId = Guid.NewGuid().ToString(),
+            DisplayName = "test_app",
+            Id = Guid.NewGuid().ToString()
+        };
 
-            OpenIddictEntityFrameworkCoreApplication application = new()
-            {
-                ClientId = Guid.NewGuid().ToString(),
-                DisplayName = "test_app",
-                Id = Guid.NewGuid().ToString()
-            };
+        ImmutableArray<string> scopes = ImmutableArray.Create<string>("openid", "profile");
 
-            ImmutableArray<string> scopes = ImmutableArray.Create<string>("openid", "profile");
-
-            var authorizationId = Guid.NewGuid().ToString();
-            List<object> authorizations = new(1)
-            {
-                new OpenIddictEntityFrameworkCoreAuthorization()
-                {
-                    Application = application,
-                    Scopes = "openid profile",
-                    Subject = user.Id,
-                    Id = authorizationId
-                }
-            };
-
-            var resources = new List<string>(1) { "test_resource" };
-            List<Claim> claims = new() { new("testType", "testValue") };
-            SetupMockedDependencies(scopes, user, application, authorizations[0], claims, resources);
-
-            //Act
-            var result = await identityService.CreateUserPrincipalAsync(user, application, scopes, authorizations);
-
-            //Assert
-            Assert.Contains(result.Claims, c => c.Type.Equals("testType") && c.HasDestination("access_token"));
-        }
-
-        [Fact]
-        public async Task GivenAnUser_Application_Scopes_Authorizations_AndANameClaim_ToCreateUserPrincipalAsync_ShouldReturnAClaimsPrincipal_WithClaimNameDestinationSetToAccessTokenAndIdentityToken()
+        var authorizationId = Guid.NewGuid().ToString();
+        List<object> authorizations = new(1)
         {
-            //Arrange
-            var user = new User
+            new OpenIddictEntityFrameworkCoreAuthorization()
             {
-                Id = Guid.NewGuid().ToString(),
-                FirstName = "TestF",
-                LastName = "TestL",
-                PhoneNumber = "0771777177",
-                LocationId = "test_location",
-                BirthDate = new(1992, 1, 2)
-            };
+                Application = application,
+                Scopes = "openid profile",
+                Subject = user.Id,
+                Id = authorizationId
+            }
+        };
 
-            OpenIddictEntityFrameworkCoreApplication application = new()
-            {
-                ClientId = Guid.NewGuid().ToString(),
-                DisplayName = "test_app",
-                Id = Guid.NewGuid().ToString()
-            };
+        var resources = new List<string>(1) { "test_resource" };
+        List<Claim> claims = new() { new("testType", "testValue") };
+        SetupMockedDependencies(scopes, user, application, authorizations[0], claims, resources);
 
-            ImmutableArray<string> scopes = ImmutableArray.Create<string>("openid", "profile");
+        //Act
+        var result = await identityService.CreateUserPrincipalAsync(user, application, scopes, authorizations);
 
-            var authorizationId = Guid.NewGuid().ToString();
-            List<object> authorizations = new(1)
-            {
-                new OpenIddictEntityFrameworkCoreAuthorization()
-                {
-                    Application = application,
-                    Scopes = "openid profile",
-                    Subject = user.Id,
-                    Id = authorizationId
-                }
-            };
+        //Assert
+        Assert.Equal(authorizationId, result.GetAuthorizationId());
+    }
 
-            var resources = new List<string>(1) { "test_resource" };
-            List<Claim> claims = new() { new("testType", "testValue"), new("name", "test") };
-            SetupMockedDependencies(scopes, user, application, authorizations[0], claims, resources);
-
-            //Act
-            var result = await identityService.CreateUserPrincipalAsync(user, application, scopes, authorizations);
-
-            //Assert
-            Assert.Contains(result.Claims, c => c.Type.Equals("name") && c.HasDestination("access_token") && c.HasDestination("id_token"));
-        }
-
-        private void SetupMockedDependencies(ImmutableArray<string> scopes, User user, OpenIddictEntityFrameworkCoreApplication application, object authorization, List<Claim> claims, List<string> resources)
+    [Fact]
+    public async Task GivenAnUser_Application_Scopes_Authorizations_ToCreateUserPrincipalAsync_ShouldReturnAClaimsPrincipalWithClaimDestinationSetToAccessToken()
+    {
+        //Arrange
+        var user = new User
         {
-            scopeManagerMock.Setup(smm => smm.ListResourcesAsync(scopes, It.IsAny<CancellationToken>())).Returns(resources.ToAsyncEnumerable());
+            Id = Guid.NewGuid().ToString(),
+            FirstName = "TestF",
+            LastName = "TestL",
+            PhoneNumber = "0771777177",
+            LocationId = "test_location",
+            BirthDate = new(1992, 1, 2)
+        };
 
-            var claimsIdentity = new ClaimsIdentity(claims);
-            var principal = new ClaimsPrincipal(claimsIdentity);
-            signInManagerMock.Setup(simm => simm.CreateUserPrincipalAsync(user)).ReturnsAsync(principal);
+        OpenIddictEntityFrameworkCoreApplication application = new()
+        {
+            ClientId = Guid.NewGuid().ToString(),
+            DisplayName = "test_app",
+            Id = Guid.NewGuid().ToString()
+        };
 
-            authManagerMock.Setup(amm => amm.CreateAsync(principal, user.Id, application.Id, It.IsAny<string>(), scopes, It.IsAny<CancellationToken>())).ReturnsAsync(authorization);
-        }
+        ImmutableArray<string> scopes = ImmutableArray.Create<string>("openid", "profile");
+
+        var authorizationId = Guid.NewGuid().ToString();
+        List<object> authorizations = new(1)
+        {
+            new OpenIddictEntityFrameworkCoreAuthorization()
+            {
+                Application = application,
+                Scopes = "openid profile",
+                Subject = user.Id,
+                Id = authorizationId
+            }
+        };
+
+        var resources = new List<string>(1) { "test_resource" };
+        List<Claim> claims = new() { new("testType", "testValue") };
+        SetupMockedDependencies(scopes, user, application, authorizations[0], claims, resources);
+
+        //Act
+        var result = await identityService.CreateUserPrincipalAsync(user, application, scopes, authorizations);
+
+        //Assert
+        Assert.Contains(result.Claims, c => c.Type.Equals("testType") && c.HasDestination("access_token"));
+    }
+
+    [Fact]
+    public async Task GivenAnUser_Application_Scopes_Authorizations_AndANameClaim_ToCreateUserPrincipalAsync_ShouldReturnAClaimsPrincipal_WithClaimNameDestinationSetToAccessTokenAndIdentityToken()
+    {
+        //Arrange
+        var user = new User
+        {
+            Id = Guid.NewGuid().ToString(),
+            FirstName = "TestF",
+            LastName = "TestL",
+            PhoneNumber = "0771777177",
+            LocationId = "test_location",
+            BirthDate = new(1992, 1, 2)
+        };
+
+        OpenIddictEntityFrameworkCoreApplication application = new()
+        {
+            ClientId = Guid.NewGuid().ToString(),
+            DisplayName = "test_app",
+            Id = Guid.NewGuid().ToString()
+        };
+
+        ImmutableArray<string> scopes = ImmutableArray.Create<string>("openid", "profile");
+
+        var authorizationId = Guid.NewGuid().ToString();
+        List<object> authorizations = new(1)
+        {
+            new OpenIddictEntityFrameworkCoreAuthorization()
+            {
+                Application = application,
+                Scopes = "openid profile",
+                Subject = user.Id,
+                Id = authorizationId
+            }
+        };
+
+        var resources = new List<string>(1) { "test_resource" };
+        List<Claim> claims = new() { new("testType", "testValue"), new("name", "test") };
+        SetupMockedDependencies(scopes, user, application, authorizations[0], claims, resources);
+
+        //Act
+        var result = await identityService.CreateUserPrincipalAsync(user, application, scopes, authorizations);
+
+        //Assert
+        Assert.Contains(result.Claims, c => c.Type.Equals("name") && c.HasDestination("access_token") && c.HasDestination("id_token"));
+    }
+
+    private void SetupMockedDependencies(ImmutableArray<string> scopes, User user, OpenIddictEntityFrameworkCoreApplication application, object authorization, List<Claim> claims, List<string> resources)
+    {
+        scopeManagerMock.Setup(smm => smm.ListResourcesAsync(scopes, It.IsAny<CancellationToken>())).Returns(resources.ToAsyncEnumerable());
+
+        var claimsIdentity = new ClaimsIdentity(claims);
+        var principal = new ClaimsPrincipal(claimsIdentity);
+        signInManagerMock.Setup(simm => simm.CreateUserPrincipalAsync(user)).ReturnsAsync(principal);
+
+        authManagerMock.Setup(amm => amm.CreateAsync(principal, user.Id, application.Id, It.IsAny<string>(), scopes, It.IsAny<CancellationToken>())).ReturnsAsync(authorization);
     }
 }

@@ -1,12 +1,9 @@
 ﻿using RabbitMQEventBus.IntegrationEvents;
-using System;
-using System.Collections.Generic;
 
-namespace Identity.API.Application.Integration_Events.Events
+namespace Identity.API.Application.Integration_Events.Events;
+
+public record AssignedAdminsToEducationalInstitutionIntegrationEvent : IntegrationEvent
 {
-    public record AssignedAdminsToEducationalInstitutionIntegrationEvent : IntegrationEvent
-    {
-        public Guid EducationalInstitutionId { get; init; }
-        public ICollection<AdminDetailsForIntegrationEvent> NewAdmins { get; init; }
-    }
+    public Guid EducationalInstitutionId { get; init; }
+    public ICollection<AdminDetailsForIntegrationEvent> NewAdmins { get; init; }
 }

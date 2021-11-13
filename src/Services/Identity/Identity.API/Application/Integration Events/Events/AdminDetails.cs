@@ -1,15 +1,12 @@
-﻿using System.Collections.Generic;
+﻿namespace Identity.API.Application.Integration_Events.Events;
 
-namespace Identity.API.Application.Integration_Events.Events
+public record AdminDetailsForIntegrationEvent : AdminDetails
 {
-    public record AdminDetailsForIntegrationEvent : AdminDetails
-    {
-        public string DetailedMessage { get; init; }
-    }
+    public string DetailedMessage { get; init; }
+}
 
-    public record AdminDetails
-    {
-        public string Identity { get; init; }
-        public ICollection<string> Permissions { get; init; }
-    }
+public record AdminDetails
+{
+    public string Identity { get; init; }
+    public ICollection<string> Permissions { get; init; }
 }

@@ -1,18 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
 
-namespace Identity.API.Models
+namespace Identity.API.Models;
+
+public class User : IdentityUser
 {
-    public class User : IdentityUser
-    {
-        public string FirstName { get; set; }
+    public string FirstName { get; set; }
 
-        public string LastName { get; set; }
+    public string LastName { get; set; }
 
-        public DateTime BirthDate { get; set; }
+    public DateTime BirthDate { get; set; }
 
-        public string LocationId { get; set; }
+    public string LocationId { get; set; }
 
-        public string GetFullName() => FirstName + " " + LastName;
-    }
+    public string GetFullName() => FirstName + " " + LastName;
 }
