@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
+﻿namespace EducationalInstitution.Application;
 
-namespace EducationalInstitution.Application
+public record AdminDetails
 {
-    public record AdminDetails
-    {
-        public string Identity { get; init; }
-        public ICollection<string> Permissions { get; init; }
-    }
+    public string Identity { get; init; }
+    public ICollection<string> Permissions { get; init; }
 }

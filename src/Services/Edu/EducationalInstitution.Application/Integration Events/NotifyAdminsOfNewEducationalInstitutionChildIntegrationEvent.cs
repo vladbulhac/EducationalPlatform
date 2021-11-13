@@ -1,4 +1,3 @@
-﻿namespace EducationalInstitution.Application.Integration_Events
-{
-    public record NotifyAdminsOfNewEducationalInstitutionChildIntegrationEvent : NotificationIntegrationEvent { }
-}
+﻿namespace EducationalInstitution.Application.Integration_Events;
+
+public record NotifyAdminsOfNewEducationalInstitutionChildIntegrationEvent : NotificationIntegrationEvent { }

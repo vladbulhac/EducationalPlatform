@@ -1,15 +1,14 @@
 ﻿using FluentValidation;
 
-namespace EducationalInstitution.Application.Queries.Validators
+namespace EducationalInstitution.Application.Queries.Validators;
+
+public class GetEducationalInstitutionByIDQueryValidator : AbstractValidator<GetEducationalInstitutionByIDQuery>
 {
-    public class GetEducationalInstitutionByIDQueryValidator : AbstractValidator<GetEducationalInstitutionByIDQuery>
+    public GetEducationalInstitutionByIDQueryValidator()
     {
-        public GetEducationalInstitutionByIDQueryValidator()
-        {
-            CascadeMode = CascadeMode.Stop;
-            RuleFor(dto => dto.EducationalInstitutionID)
-                              .NotEmpty()
-                                .WithMessage("{PropertyName} was empty or null!");
-        }
+        CascadeMode = CascadeMode.Stop;
+        RuleFor(dto => dto.EducationalInstitutionID)
+                          .NotEmpty()
+                            .WithMessage("{PropertyName} was empty or null!");
     }
 }

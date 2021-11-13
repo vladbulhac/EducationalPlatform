@@ -1,9 +1,6 @@
-﻿using System;
+﻿namespace EducationalInstitution.Application.Commands.Results;
 
-namespace EducationalInstitution.Application.Commands.Results
+public record CreateEducationalInstitutionCommandResult
 {
-    public record CreateEducationalInstitutionCommandResult
-    {
-        public Guid EducationalInstitutionID { get; init; }
-    }
+    public Guid EducationalInstitutionID { get; init; }
 }

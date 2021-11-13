@@ -1,11 +1,9 @@
 ﻿using EducationalInstitution.Infrastructure.Repositories.Query_Repository.Results;
 using MediatR;
-using System;
 
-namespace EducationalInstitution.Application.Queries
+namespace EducationalInstitution.Application.Queries;
+
+public class GetEducationalInstitutionByIDQuery : IRequest<Response<GetEducationalInstitutionByIDQueryResult>>
 {
-    public class GetEducationalInstitutionByIDQuery : IRequest<Response<GetEducationalInstitutionByIDQueryResult>>
-    {
-        public Guid EducationalInstitutionID { get; init; }
-    }
+    public Guid EducationalInstitutionID { get; init; }
 }
