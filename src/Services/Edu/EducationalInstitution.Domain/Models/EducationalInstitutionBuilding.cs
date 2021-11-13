@@ -1,19 +1,17 @@
 ﻿using EducationalInstitution.Domain.Building_Blocks;
-using System;
 using Model = EducationalInstitution.Domain.Models.Aggregates;
 
-namespace EducationalInstitution.Domain.Models
+namespace EducationalInstitution.Domain.Models;
+
+public class EducationalInstitutionBuilding : StringEntity
 {
-    public class EducationalInstitutionBuilding : StringEntity
+    public Model::EducationalInstitution EducationalInstitution { get; init; }
+    public Guid EducationalInstitutionId { get; init; }
+
+    public EducationalInstitutionBuilding()
     {
-        public Model::EducationalInstitution EducationalInstitution { get; init; }
-        public Guid EducationalInstitutionId { get; init; }
-
-        public EducationalInstitutionBuilding()
-        {
-        }
-
-        public EducationalInstitutionBuilding(string buildingId, Guid educationalInstitutionID) : base(buildingId)
-                => EducationalInstitutionId = educationalInstitutionID;
     }
+
+    public EducationalInstitutionBuilding(string buildingId, Guid educationalInstitutionID) : base(buildingId)
+            => EducationalInstitutionId = educationalInstitutionID;
 }
