@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
 
 namespace EducationalInstitution.Infrastructure.Migrations.OutboxMigrations
 {

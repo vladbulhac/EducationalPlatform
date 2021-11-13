@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-
-namespace EducationalInstitution.Infrastructure.Repositories.Query_Repository.Results
+﻿namespace EducationalInstitution.Infrastructure.Repositories.Query_Repository.Results;
+public record GetEducationalInstitutionByLocationQueryResult : EducationalInstitutionBaseQueryResult
 {
-    public record GetEducationalInstitutionByLocationQueryResult : EducationalInstitutionBaseQueryResult
-    {
-        public ICollection<string> BuildingsIDs { get; init; }
-    }
+    public ICollection<string> BuildingsIDs { get; init; }
 }

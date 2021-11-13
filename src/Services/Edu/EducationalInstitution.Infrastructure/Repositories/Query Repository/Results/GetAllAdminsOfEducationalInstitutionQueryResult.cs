@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
+﻿namespace EducationalInstitution.Infrastructure.Repositories.Query_Repository.Results;
 
-namespace EducationalInstitution.Infrastructure.Repositories.Query_Repository.Results
+public record GetAllAdminsOfEducationalInstitutionQueryResult
 {
-    public record GetAllAdminsOfEducationalInstitutionQueryResult
-    {
-        public ICollection<string> AdminsIDs { get; init; }
-    }
+    public ICollection<string> AdminsIDs { get; init; }
 }

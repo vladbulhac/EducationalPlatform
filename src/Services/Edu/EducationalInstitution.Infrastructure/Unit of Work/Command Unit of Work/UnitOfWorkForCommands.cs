@@ -5,60 +5,56 @@ using Microsoft.Extensions.Logging;
 using RabbitMQEventBus.Transactional_Outbox.Services.MessageRelay;
 using RabbitMQEventBus.Transactional_Outbox.Services.Outbox_Services;
 using RabbitMQEventBus.Transactional_Outbox.Services.Transaction;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace EducationalInstitution.Infrastructure.Unit_of_Work.Command_Unit_of_Work
+namespace EducationalInstitution.Infrastructure.Unit_of_Work.Command_Unit_of_Work;
+
+public class UnitOfWorkForCommands : IUnitOfWorkForCommands
 {
-    public class UnitOfWorkForCommands : IUnitOfWorkForCommands
+    private bool disposed;
+
+    private readonly DataContext context;
+    private readonly ITransactionService transactionService;
+
+    public IEducationalInstitutionCommandRepository EducationalInstitutionRepository { get; private set; }
+
+    public UnitOfWorkForCommands(ILoggerFactory loggerFactory, IMessageRelayService messageRelay, DbContextOptions<DataContext> options)
     {
-        private bool disposed;
+        context = new(options);
+        transactionService = new TransactionService(context, messageRelay, loggerFactory);
+    }
 
-        private readonly DataContext context;
-        private readonly ITransactionService transactionService;
+    public IEducationalInstitutionCommandRepository UsingEducationalInstitutionCommandRepository()
+    {
+        if (EducationalInstitutionRepository is null)
+            EducationalInstitutionRepository = new EducationalInstitutionCommandRepository(context);
 
-        public IEducationalInstitutionCommandRepository EducationalInstitutionRepository { get; private set; }
+        return EducationalInstitutionRepository;
+    }
 
-        public UnitOfWorkForCommands(ILoggerFactory loggerFactory, IMessageRelayService messageRelay, DbContextOptions<DataContext> options)
+    public async Task<TResponse> ExecuteTransactionAsync<TRequest, TResponse>(Func<IDbContextTransaction, IIntegrationEventOutboxService, TRequest, Task<TResponse>> transactionOperations, TRequest request)
+    {
+        return await transactionService.ExecuteTransactionAsync(transactionOperations, request);
+    }
+
+    public async Task SaveChangesAsync(CancellationToken cancellationToken = default) => await context.SaveChangesAsync(cancellationToken);
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposed)
         {
-            context = new(options);
-            transactionService = new TransactionService(context, messageRelay, loggerFactory);
-        }
-
-        public IEducationalInstitutionCommandRepository UsingEducationalInstitutionCommandRepository()
-        {
-            if (EducationalInstitutionRepository is null)
-                EducationalInstitutionRepository = new EducationalInstitutionCommandRepository(context);
-
-            return EducationalInstitutionRepository;
-        }
-
-        public async Task<TResponse> ExecuteTransactionAsync<TRequest, TResponse>(Func<IDbContextTransaction, IIntegrationEventOutboxService, TRequest, Task<TResponse>> transactionOperations, TRequest request)
-        {
-            return await transactionService.ExecuteTransactionAsync(transactionOperations, request);
-        }
-
-        public async Task SaveChangesAsync(CancellationToken cancellationToken = default) => await context.SaveChangesAsync(cancellationToken);
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposed)
+            if (disposing)
             {
-                if (disposing)
-                {
-                    context.Dispose();
-                    transactionService.Dispose();
-                }
+                context.Dispose();
+                transactionService.Dispose();
             }
-
-            disposed = true;
         }
+
+        disposed = true;
     }
 }
