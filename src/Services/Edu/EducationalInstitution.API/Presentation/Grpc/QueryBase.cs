@@ -1,10 +1,9 @@
 ﻿using EducationalInstitutionAPI.Presentation.Grpc;
 
-namespace EducationalInstitutionAPI.Proto
+namespace EducationalInstitutionAPI.Proto;
+
+public static partial class Query
 {
-    public static partial class Query
-    {
-        public abstract partial class QueryBase : ServiceBase
-        { }
-    }
+    public abstract partial class QueryBase : ServiceBase
+    { }
 }

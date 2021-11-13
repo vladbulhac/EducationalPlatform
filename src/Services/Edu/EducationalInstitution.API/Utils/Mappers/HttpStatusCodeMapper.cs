@@ -1,33 +1,31 @@
 ﻿using EducationalInstitutionAPI.Proto;
-using System;
 using System.Collections.Concurrent;
 using System.Net;
 
-namespace EducationalInstitutionAPI.Utils.Mappers
+namespace EducationalInstitutionAPI.Utils.Mappers;
+
+public static class HttpStatusCodeMapper
 {
-    public static class HttpStatusCodeMapper
+    private static readonly ConcurrentDictionary<HttpStatusCode, ProtoHttpStatusCode> httpStatusCodeToProtoMap;
+
+    static HttpStatusCodeMapper() => httpStatusCodeToProtoMap = new();
+
+    /// <summary>
+    /// Extension method that maps a <see cref="HttpStatusCode"/> to an equivalent <see cref="ProtoHttpStatusCode"/> if it can otherwise it maps to <see cref="ProtoHttpStatusCode.Ok"/>
+    /// </summary>
+    public static ProtoHttpStatusCode ToProtoHttpStatusCode(this HttpStatusCode code)
     {
-        private static readonly ConcurrentDictionary<HttpStatusCode, ProtoHttpStatusCode> httpStatusCodeToProtoMap;
-
-        static HttpStatusCodeMapper() => httpStatusCodeToProtoMap = new();
-
-        /// <summary>
-        /// Extension method that maps a <see cref="HttpStatusCode"/> to an equivalent <see cref="ProtoHttpStatusCode"/> if it can otherwise it maps to <see cref="ProtoHttpStatusCode.Ok"/>
-        /// </summary>
-        public static ProtoHttpStatusCode ToProtoHttpStatusCode(this HttpStatusCode code)
+        ProtoHttpStatusCode protoHttpStatusCode;
+        if (!httpStatusCodeToProtoMap.ContainsKey(code))
         {
-            ProtoHttpStatusCode protoHttpStatusCode;
-            if (!httpStatusCodeToProtoMap.ContainsKey(code))
-            {
-                if (Enum.TryParse(code.ToString(), out protoHttpStatusCode))
-                    httpStatusCodeToProtoMap.TryAdd(code, protoHttpStatusCode);
-                else
-                    protoHttpStatusCode = ProtoHttpStatusCode.Ok;
-            }
+            if (Enum.TryParse(code.ToString(), out protoHttpStatusCode))
+                httpStatusCodeToProtoMap.TryAdd(code, protoHttpStatusCode);
             else
-                httpStatusCodeToProtoMap.TryGetValue(code, out protoHttpStatusCode);
-
-            return protoHttpStatusCode;
+                protoHttpStatusCode = ProtoHttpStatusCode.Ok;
         }
+        else
+            httpStatusCodeToProtoMap.TryGetValue(code, out protoHttpStatusCode);
+
+        return protoHttpStatusCode;
     }
 }
