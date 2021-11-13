@@ -33,7 +33,7 @@ public class Program
             .UseSerilog()
             .Build();
 
-    private static ILogger CreateSerilogLogger(IConfiguration configuration)
+    private static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)
     {
         return new LoggerConfiguration()
                         .MinimumLevel.Verbose()
