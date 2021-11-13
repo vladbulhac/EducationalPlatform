@@ -3,83 +3,82 @@ using EducationalInstitution.Application.BaseHandlers;
 using System.Net;
 using Xunit;
 
-namespace EducationalInstitution.API.UnitTests.Application_Tests.HandlerBase_Tests
+namespace EducationalInstitution.API.UnitTests.Application_Tests.HandlerBase_Tests;
+
+public class HandlerBaseTests : HandlerBase<HandlerBaseTests>, IClassFixture<MockDependenciesHelper<HandlerBaseTests>>
 {
-    public class HandlerBaseTests : HandlerBase<HandlerBaseTests>, IClassFixture<MockDependenciesHelper<HandlerBaseTests>>
+    private readonly MockDependenciesHelper<HandlerBaseTests> dependenciesHelper;
+
+    public HandlerBaseTests(MockDependenciesHelper<HandlerBaseTests> dependenciesHelper) : base(dependenciesHelper.mockLogger.Object)
+            => this.dependenciesHelper = dependenciesHelper;
+
+    [Fact]
+    public void GivenAnExceptionMessage_ResponseMessage_ShouldReturnResponseType()
     {
-        private readonly MockDependenciesHelper<HandlerBaseTests> dependenciesHelper;
+        //Arrange
+        var exceptionMessage = "testException";
+        var responseMessage = "testResponse";
 
-        public HandlerBaseTests(MockDependenciesHelper<HandlerBaseTests> dependenciesHelper) : base(dependenciesHelper.mockLogger.Object)
-                => this.dependenciesHelper = dependenciesHelper;
+        //Act
+        var result = HandleException<Response>(exceptionMessage, responseMessage);
 
-        [Fact]
-        public void GivenAnExceptionMessage_ResponseMessage_ShouldReturnResponseType()
-        {
-            //Arrange
-            var exceptionMessage = "testException";
-            var responseMessage = "testResponse";
+        //Assert
+        Assert.IsType<Response>(result);
+    }
 
-            //Act
-            var result = HandleException<Response>(exceptionMessage, responseMessage);
+    [Fact]
+    public void GivenAnExceptionMessage_ResponseMessage_ShouldReturnFalseOperationStatus()
+    {
+        //Arrange
+        var exceptionMessage = "testException";
+        var responseMessage = "testResponse";
 
-            //Assert
-            Assert.IsType<Response>(result);
-        }
+        //Act
+        var result = HandleException<Response>(exceptionMessage, responseMessage);
 
-        [Fact]
-        public void GivenAnExceptionMessage_ResponseMessage_ShouldReturnFalseOperationStatus()
-        {
-            //Arrange
-            var exceptionMessage = "testException";
-            var responseMessage = "testResponse";
+        //Assert
+        Assert.False(result.OperationStatus);
+    }
 
-            //Act
-            var result = HandleException<Response>(exceptionMessage, responseMessage);
+    [Fact]
+    public void GivenAnExceptionMessage_ResponseMessage_ShouldReturnExpectedMessage()
+    {
+        //Arrange
+        var exceptionMessage = "testException";
+        var responseMessage = "testResponse";
 
-            //Assert
-            Assert.False(result.OperationStatus);
-        }
+        //Act
+        var result = HandleException<Response>(exceptionMessage, responseMessage);
 
-        [Fact]
-        public void GivenAnExceptionMessage_ResponseMessage_ShouldReturnExpectedMessage()
-        {
-            //Arrange
-            var exceptionMessage = "testException";
-            var responseMessage = "testResponse";
+        //Assert
+        Assert.Equal(responseMessage, result.Message);
+    }
 
-            //Act
-            var result = HandleException<Response>(exceptionMessage, responseMessage);
+    [Fact]
+    public void GivenAnExceptionMessage_ResponseMessage_ShouldReturnStatusCodeInternalServerError()
+    {
+        //Arrange
+        var exceptionMessage = "testException";
+        var responseMessage = "testResponse";
 
-            //Assert
-            Assert.Equal(responseMessage, result.Message);
-        }
+        //Act
+        var result = HandleException<Response>(exceptionMessage, responseMessage);
 
-        [Fact]
-        public void GivenAnExceptionMessage_ResponseMessage_ShouldReturnStatusCodeInternalServerError()
-        {
-            //Arrange
-            var exceptionMessage = "testException";
-            var responseMessage = "testResponse";
+        //Assert
+        Assert.Equal(HttpStatusCode.InternalServerError, result.StatusCode);
+    }
 
-            //Act
-            var result = HandleException<Response>(exceptionMessage, responseMessage);
+    [Fact]
+    public void GivenAnExceptionMessage_ResponseMessage_ShouldReturnNullData()
+    {
+        //Arrange
+        var exceptionMessage = "testException";
+        var responseMessage = "testResponse";
 
-            //Assert
-            Assert.Equal(HttpStatusCode.InternalServerError, result.StatusCode);
-        }
+        //Act
+        var result = HandleException<Response<object>>(exceptionMessage, responseMessage);
 
-        [Fact]
-        public void GivenAnExceptionMessage_ResponseMessage_ShouldReturnNullData()
-        {
-            //Arrange
-            var exceptionMessage = "testException";
-            var responseMessage = "testResponse";
-
-            //Act
-            var result = HandleException<Response<object>>(exceptionMessage, responseMessage);
-
-            //Assert
-            Assert.Null(result.Data);
-        }
+        //Assert
+        Assert.Null(result.Data);
     }
 }

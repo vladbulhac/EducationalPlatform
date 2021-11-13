@@ -2,212 +2,208 @@
 using EducationalInstitution.Application.Commands;
 using EducationalInstitution.Application.Commands.Handlers;
 using Moq;
-using System;
 using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
 using Xunit;
 using Domain = EducationalInstitution.Domain.Models.Aggregates;
 
-namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.Handlers_Tests.Create
+namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.Handlers_Tests.Create;
+
+public class CreateCommandRequestHandlerBaseTests : CreateEducationalInstitutionCommandHandler, IClassFixture<MockDependenciesHelper<CreateEducationalInstitutionCommandHandler>>,
+                                                                                                IClassFixture<TestDataFromJSONParser>
 {
-    public class CreateCommandRequestHandlerBaseTests : CreateEducationalInstitutionCommandHandler, IClassFixture<MockDependenciesHelper<CreateEducationalInstitutionCommandHandler>>,
-                                                                                                    IClassFixture<TestDataFromJSONParser>
+    private readonly TestDataFromJSONParser testDataHelper;
+    private readonly MockDependenciesHelper<CreateEducationalInstitutionCommandHandler> dependenciesHelper;
+
+    public CreateCommandRequestHandlerBaseTests(MockDependenciesHelper<CreateEducationalInstitutionCommandHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
+        : base(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockLogger.Object)
     {
-        private readonly TestDataFromJSONParser testDataHelper;
-        private readonly MockDependenciesHelper<CreateEducationalInstitutionCommandHandler> dependenciesHelper;
+        this.dependenciesHelper = dependenciesHelper;
+        this.testDataHelper = testDataHelper;
+    }
 
-        public CreateCommandRequestHandlerBaseTests(MockDependenciesHelper<CreateEducationalInstitutionCommandHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
-            : base(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockLogger.Object)
+    [Fact]
+    public async Task GivenACreateEducationalInstitutionCommand_ToTransactionOperationsMethod_ShouldReturnHttpStatusCodeCreated()
+    {
+        //Arrange
+        var educationalInstitution = testDataHelper.EducationalInstitutions[0];
+        var request = new CreateEducationalInstitutionCommand
         {
-            this.dependenciesHelper = dependenciesHelper;
-            this.testDataHelper = testDataHelper;
-        }
+            Name = educationalInstitution.Name,
+            Description = educationalInstitution.Description,
+            LocationID = educationalInstitution.LocationID,
+            BuildingsIDs = new string[1] { "test_building" },
+            AdminId = "test_admin_id",
+            ParentInstitutionID = Guid.NewGuid()
+        };
 
-        [Fact]
-        public async Task GivenACreateEducationalInstitutionCommand_ToTransactionOperationsMethod_ShouldReturnHttpStatusCodeCreated()
+        SetupMockedDependencies(educationalInstitution.ParentInstitution);
+
+        //Act
+        var result = await TransactionOperations(dependenciesHelper.mockTransaction.Object, dependenciesHelper.mockOutboxService.Object, request);
+
+        //Assert
+        Assert.Equal(HttpStatusCode.Created, result.StatusCode);
+    }
+
+    [Fact]
+    public async Task GivenACreateEducationalInstitutionCommand_ToTransactionOperationsMethod_ShouldReturnOperationStatusTrue()
+    {
+        //Arrange
+        var educationalInstitution = testDataHelper.EducationalInstitutions[0];
+        var request = new CreateEducationalInstitutionCommand
         {
-            //Arrange
-            var educationalInstitution = testDataHelper.EducationalInstitutions[0];
-            var request = new CreateEducationalInstitutionCommand
-            {
-                Name = educationalInstitution.Name,
-                Description = educationalInstitution.Description,
-                LocationID = educationalInstitution.LocationID,
-                BuildingsIDs = new string[1] { "test_building" },
-                AdminId = "test_admin_id",
-                ParentInstitutionID = Guid.NewGuid()
-            };
+            Name = educationalInstitution.Name,
+            Description = educationalInstitution.Description,
+            LocationID = educationalInstitution.LocationID,
+            BuildingsIDs = new string[1] { "test_building" },
+            AdminId = "test_admin_id",
+            ParentInstitutionID = Guid.NewGuid()
+        };
 
-            SetupMockedDependencies(educationalInstitution.ParentInstitution);
+        SetupMockedDependencies(educationalInstitution.ParentInstitution);
 
-            //Act
-            var result = await TransactionOperations(dependenciesHelper.mockTransaction.Object, dependenciesHelper.mockOutboxService.Object, request);
+        //Act
+        var result = await TransactionOperations(dependenciesHelper.mockTransaction.Object, dependenciesHelper.mockOutboxService.Object, request);
 
-            //Assert
-            Assert.Equal(HttpStatusCode.Created, result.StatusCode);
-        }
+        //Assert
+        Assert.True(result.OperationStatus);
+    }
 
-        [Fact]
-        public async Task GivenACreateEducationalInstitutionCommand_ToTransactionOperationsMethod_ShouldReturnOperationStatusTrue()
+    [Fact]
+    public async Task GivenACreateEducationalInstitutionCommand_ToTransactionOperationsMethod_ShouldReturnEmptyMessage()
+    {
+        //Arrange
+        var educationalInstitution = testDataHelper.EducationalInstitutions[0];
+        var request = new CreateEducationalInstitutionCommand
         {
-            //Arrange
-            var educationalInstitution = testDataHelper.EducationalInstitutions[0];
-            var request = new CreateEducationalInstitutionCommand
-            {
-                Name = educationalInstitution.Name,
-                Description = educationalInstitution.Description,
-                LocationID = educationalInstitution.LocationID,
-                BuildingsIDs = new string[1] { "test_building" },
-                AdminId = "test_admin_id",
-                ParentInstitutionID = Guid.NewGuid()
-            };
+            Name = educationalInstitution.Name,
+            Description = educationalInstitution.Description,
+            LocationID = educationalInstitution.LocationID,
+            BuildingsIDs = new string[1] { "test_building" },
+            AdminId = "test_admin_id",
+            ParentInstitutionID = Guid.NewGuid()
+        };
 
-            SetupMockedDependencies(educationalInstitution.ParentInstitution);
+        SetupMockedDependencies(educationalInstitution.ParentInstitution);
 
-            //Act
-            var result = await TransactionOperations(dependenciesHelper.mockTransaction.Object, dependenciesHelper.mockOutboxService.Object, request);
+        //Act
+        var result = await TransactionOperations(dependenciesHelper.mockTransaction.Object, dependenciesHelper.mockOutboxService.Object, request);
 
-            //Assert
-            Assert.True(result.OperationStatus);
-        }
+        //Assert
+        Assert.Empty(result.Message);
+    }
 
-        [Fact]
-        public async Task GivenACreateEducationalInstitutionCommand_ToTransactionOperationsMethod_ShouldReturnEmptyMessage()
+    [Fact]
+    public async Task GivenACreateEducationalInstitutionCommand_ToTransactionOperationsMethod_ShouldReturnAGuidId()
+    {
+        //Arrange
+        var educationalInstitution = testDataHelper.EducationalInstitutions[0];
+        var request = new CreateEducationalInstitutionCommand
         {
-            //Arrange
-            var educationalInstitution = testDataHelper.EducationalInstitutions[0];
-            var request = new CreateEducationalInstitutionCommand
-            {
-                Name = educationalInstitution.Name,
-                Description = educationalInstitution.Description,
-                LocationID = educationalInstitution.LocationID,
-                BuildingsIDs = new string[1] { "test_building" },
-                AdminId = "test_admin_id",
-                ParentInstitutionID = Guid.NewGuid()
-            };
+            Name = educationalInstitution.Name,
+            Description = educationalInstitution.Description,
+            LocationID = educationalInstitution.LocationID,
+            BuildingsIDs = new string[1] { "test_building" },
+            AdminId = "test_admin_id",
+            ParentInstitutionID = Guid.NewGuid()
+        };
 
-            SetupMockedDependencies(educationalInstitution.ParentInstitution);
+        SetupMockedDependencies(educationalInstitution.ParentInstitution);
 
-            //Act
-            var result = await TransactionOperations(dependenciesHelper.mockTransaction.Object, dependenciesHelper.mockOutboxService.Object, request);
+        //Act
+        var result = await TransactionOperations(dependenciesHelper.mockTransaction.Object, dependenciesHelper.mockOutboxService.Object, request);
 
-            //Assert
-            Assert.Empty(result.Message);
-        }
+        //Assert
+        Assert.NotEqual(Guid.Empty, result.Data.EducationalInstitutionID);
+    }
 
-        [Fact]
-        public async Task GivenACreateEducationalInstitutionCommand_ToTransactionOperationsMethod_ShouldReturnAGuidId()
+    private void SetupMockedDependencies(Domain::EducationalInstitution parentInstitution)
+    {
+        dependenciesHelper.mockUnitOfWorkCommand.Setup(muokc => muokc.UsingEducationalInstitutionCommandRepository())
+                                                .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
+
+        dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(meicr => meicr.GetEducationalInstitutionIncludingAdminsAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
+                                                                      .ReturnsAsync(parentInstitution);
+    }
+
+    [Fact]
+    public async Task GivenACreateEducationalInstitutionCommandWithNotFoundParentInstitution_ToTransactionOperationsMethod_ShouldReturnHttpStatusCodeMultiStatus()
+    {
+        //Arrange
+        var educationalInstitution = testDataHelper.EducationalInstitutions[0];
+        var request = new CreateEducationalInstitutionCommand
         {
-            //Arrange
-            var educationalInstitution = testDataHelper.EducationalInstitutions[0];
-            var request = new CreateEducationalInstitutionCommand
-            {
-                Name = educationalInstitution.Name,
-                Description = educationalInstitution.Description,
-                LocationID = educationalInstitution.LocationID,
-                BuildingsIDs = new string[1] { "test_building" },
-                AdminId = "test_admin_id",
-                ParentInstitutionID = Guid.NewGuid()
-            };
+            Name = educationalInstitution.Name,
+            Description = educationalInstitution.Description,
+            LocationID = educationalInstitution.LocationID,
+            BuildingsIDs = new string[1] { "test_building" },
+            AdminId = "test_admin_id",
+            ParentInstitutionID = Guid.NewGuid()
+        };
 
-            SetupMockedDependencies(educationalInstitution.ParentInstitution);
+        SetupMockedDependenciesWithNotFoundParentInstitution();
 
-            //Act
-            var result = await TransactionOperations(dependenciesHelper.mockTransaction.Object, dependenciesHelper.mockOutboxService.Object, request);
+        //Act
+        var result = await TransactionOperations(dependenciesHelper.mockTransaction.Object, dependenciesHelper.mockOutboxService.Object, request);
 
-            //Assert
-            Assert.NotEqual(Guid.Empty, result.Data.EducationalInstitutionID);
-        }
+        //Assert
+        Assert.Equal(HttpStatusCode.MultiStatus, result.StatusCode);
+    }
 
-        private void SetupMockedDependencies(Domain::EducationalInstitution parentInstitution)
+    [Fact]
+    public async Task GivenACreateEducationalInstitutionCommandWithNotFoundParentInstitution_ToTransactionOperationsMethod_ShouldReturnOperationStatusTrue()
+    {
+        //Arrange
+        var educationalInstitution = testDataHelper.EducationalInstitutions[0];
+        var request = new CreateEducationalInstitutionCommand
         {
-            dependenciesHelper.mockUnitOfWorkCommand.Setup(muokc => muokc.UsingEducationalInstitutionCommandRepository())
-                                                    .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
+            Name = educationalInstitution.Name,
+            Description = educationalInstitution.Description,
+            LocationID = educationalInstitution.LocationID,
+            BuildingsIDs = new string[1] { "test_building" },
+            AdminId = "test_admin_id",
+            ParentInstitutionID = Guid.NewGuid()
+        };
 
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(meicr => meicr.GetEducationalInstitutionIncludingAdminsAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
-                                                                          .ReturnsAsync(parentInstitution);
-        }
+        SetupMockedDependenciesWithNotFoundParentInstitution();
 
-        [Fact]
-        public async Task GivenACreateEducationalInstitutionCommandWithNotFoundParentInstitution_ToTransactionOperationsMethod_ShouldReturnHttpStatusCodeMultiStatus()
+        //Act
+        var result = await TransactionOperations(dependenciesHelper.mockTransaction.Object, dependenciesHelper.mockOutboxService.Object, request);
+
+        //Assert
+        Assert.True(result.OperationStatus);
+    }
+
+    [Fact]
+    public async Task GivenACreateEducationalInstitutionCommandWithNotFoundParentInstitution_ToTransactionOperationsMethod_ShouldReturnMessage()
+    {
+        //Arrange
+        var educationalInstitution = testDataHelper.EducationalInstitutions[0];
+        var request = new CreateEducationalInstitutionCommand
         {
-            //Arrange
-            var educationalInstitution = testDataHelper.EducationalInstitutions[0];
-            var request = new CreateEducationalInstitutionCommand
-            {
-                Name = educationalInstitution.Name,
-                Description = educationalInstitution.Description,
-                LocationID = educationalInstitution.LocationID,
-                BuildingsIDs = new string[1] { "test_building" },
-                AdminId = "test_admin_id",
-                ParentInstitutionID = Guid.NewGuid()
-            };
+            Name = educationalInstitution.Name,
+            Description = educationalInstitution.Description,
+            LocationID = educationalInstitution.LocationID,
+            BuildingsIDs = new string[1] { "test_building" },
+            AdminId = "test_admin_id",
+            ParentInstitutionID = Guid.NewGuid()
+        };
 
-            SetupMockedDependenciesWithNotFoundParentInstitution();
+        SetupMockedDependenciesWithNotFoundParentInstitution();
 
-            //Act
-            var result = await TransactionOperations(dependenciesHelper.mockTransaction.Object, dependenciesHelper.mockOutboxService.Object, request);
+        //Act
+        var result = await TransactionOperations(dependenciesHelper.mockTransaction.Object, dependenciesHelper.mockOutboxService.Object, request);
 
-            //Assert
-            Assert.Equal(HttpStatusCode.MultiStatus, result.StatusCode);
-        }
+        //Assert
+        Assert.Equal($"The Educational Institution has been successfully created but the Parent Institution with the following ID: {request.ParentInstitutionID} has not been found!", result.Message);
+    }
 
-        [Fact]
-        public async Task GivenACreateEducationalInstitutionCommandWithNotFoundParentInstitution_ToTransactionOperationsMethod_ShouldReturnOperationStatusTrue()
-        {
-            //Arrange
-            var educationalInstitution = testDataHelper.EducationalInstitutions[0];
-            var request = new CreateEducationalInstitutionCommand
-            {
-                Name = educationalInstitution.Name,
-                Description = educationalInstitution.Description,
-                LocationID = educationalInstitution.LocationID,
-                BuildingsIDs = new string[1] { "test_building" },
-                AdminId = "test_admin_id",
-                ParentInstitutionID = Guid.NewGuid()
-            };
+    private void SetupMockedDependenciesWithNotFoundParentInstitution()
+    {
+        dependenciesHelper.mockUnitOfWorkCommand.Setup(muokc => muokc.UsingEducationalInstitutionCommandRepository())
+                                               .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
 
-            SetupMockedDependenciesWithNotFoundParentInstitution();
-
-            //Act
-            var result = await TransactionOperations(dependenciesHelper.mockTransaction.Object, dependenciesHelper.mockOutboxService.Object, request);
-
-            //Assert
-            Assert.True(result.OperationStatus);
-        }
-
-        [Fact]
-        public async Task GivenACreateEducationalInstitutionCommandWithNotFoundParentInstitution_ToTransactionOperationsMethod_ShouldReturnMessage()
-        {
-            //Arrange
-            var educationalInstitution = testDataHelper.EducationalInstitutions[0];
-            var request = new CreateEducationalInstitutionCommand
-            {
-                Name = educationalInstitution.Name,
-                Description = educationalInstitution.Description,
-                LocationID = educationalInstitution.LocationID,
-                BuildingsIDs = new string[1] { "test_building" },
-                AdminId = "test_admin_id",
-                ParentInstitutionID = Guid.NewGuid()
-            };
-
-            SetupMockedDependenciesWithNotFoundParentInstitution();
-
-            //Act
-            var result = await TransactionOperations(dependenciesHelper.mockTransaction.Object, dependenciesHelper.mockOutboxService.Object, request);
-
-            //Assert
-            Assert.Equal($"The Educational Institution has been successfully created but the Parent Institution with the following ID: {request.ParentInstitutionID} has not been found!", result.Message);
-        }
-
-        private void SetupMockedDependenciesWithNotFoundParentInstitution()
-        {
-            dependenciesHelper.mockUnitOfWorkCommand.Setup(muokc => muokc.UsingEducationalInstitutionCommandRepository())
-                                                   .Returns(dependenciesHelper.mockEducationalInstitutionCommandRepository.Object);
-
-            dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(meicr => meicr.GetEducationalInstitutionIncludingAdminsAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
-                                                                          .ReturnsAsync((Domain::EducationalInstitution)default);
-        }
+        dependenciesHelper.mockEducationalInstitutionCommandRepository.Setup(meicr => meicr.GetEducationalInstitutionIncludingAdminsAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
+                                                                      .ReturnsAsync((Domain::EducationalInstitution)default);
     }
 }
