@@ -9,7 +9,7 @@ using Aggregate = EducationalInstitution.Domain.Models.Aggregates;
 
 namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.Handlers_Tests.UpdateLocation
 {
-    public class UpdateLocationCommandRequestHandlerBaseTests : UpdateEducationalInstitutionLocationCommandHandler,
+    public class UpdateLocationCommandHandlerBaseTests : UpdateEducationalInstitutionLocationCommandHandler,
                                                                 IClassFixture<MockDependenciesHelper<UpdateEducationalInstitutionLocationCommandHandler>>,
                                                                 IClassFixture<TestDataFromJSONParser>
     {
@@ -17,7 +17,7 @@ namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.
         private readonly MockDependenciesHelper<UpdateEducationalInstitutionLocationCommandHandler> dependenciesHelper;
 
         /// <remarks>Called before each test</remarks>
-        public UpdateLocationCommandRequestHandlerBaseTests(MockDependenciesHelper<UpdateEducationalInstitutionLocationCommandHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
+        public UpdateLocationCommandHandlerBaseTests(MockDependenciesHelper<UpdateEducationalInstitutionLocationCommandHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
         : base(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockLogger.Object)
         {
             this.dependenciesHelper = dependenciesHelper;

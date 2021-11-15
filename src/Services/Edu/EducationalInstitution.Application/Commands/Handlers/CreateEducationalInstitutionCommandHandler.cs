@@ -15,7 +15,7 @@ using Domain = EducationalInstitution.Domain.Models.Aggregates;
 
 namespace EducationalInstitution.Application.Commands.Handlers;
 
-public class CreateEducationalInstitutionCommandHandler : CommandRequestHandlerBase<CreateEducationalInstitutionCommandHandler,
+public class CreateEducationalInstitutionCommandHandler : CommandHandlerBase<CreateEducationalInstitutionCommandHandler,
                                                                                     CreateEducationalInstitutionCommand,
                                                                                     Response<CreateEducationalInstitutionCommandResult>>
 {

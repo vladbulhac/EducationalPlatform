@@ -9,13 +9,13 @@ using Domain = EducationalInstitution.Domain.Models.Aggregates;
 
 namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.Handlers_Tests.UpdateAdmins;
 
-public class UpdateAdminsCommandRequestHandlerBaseTests : UpdateEducationalInstitutionAdminsCommandHandler, IClassFixture<MockDependenciesHelper<UpdateEducationalInstitutionAdminsCommandHandler>>,
+public class UpdateAdminsCommandHandlerBaseTests : UpdateEducationalInstitutionAdminsCommandHandler, IClassFixture<MockDependenciesHelper<UpdateEducationalInstitutionAdminsCommandHandler>>,
                                                                                                             IClassFixture<TestDataFromJSONParser>
 {
     private readonly TestDataFromJSONParser testDataHelper;
     private readonly MockDependenciesHelper<UpdateEducationalInstitutionAdminsCommandHandler> dependenciesHelper;
 
-    public UpdateAdminsCommandRequestHandlerBaseTests(MockDependenciesHelper<UpdateEducationalInstitutionAdminsCommandHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
+    public UpdateAdminsCommandHandlerBaseTests(MockDependenciesHelper<UpdateEducationalInstitutionAdminsCommandHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
     : base(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockLogger.Object)
     {
         this.dependenciesHelper = dependenciesHelper;

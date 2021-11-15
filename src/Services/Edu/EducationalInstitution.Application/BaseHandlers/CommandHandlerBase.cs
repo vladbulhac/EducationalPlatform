@@ -6,9 +6,9 @@ using RabbitMQEventBus.Transactional_Outbox.Services.Outbox_Services;
 
 namespace EducationalInstitution.Application.BaseHandlers;
 
-public abstract class CommandRequestHandlerBase<THandler, TRequest, TResponse> : HandlerBase<THandler>, IRequestHandler<TRequest, TResponse> where TRequest : IRequest<TResponse> where THandler : class
+public abstract class CommandHandlerBase<THandler, TRequest, TResponse> : HandlerBase<THandler>, IRequestHandler<TRequest, TResponse> where TRequest : IRequest<TResponse> where THandler : class
 {
-    protected CommandRequestHandlerBase(ILogger<THandler> logger) : base(logger)
+    protected CommandHandlerBase(ILogger<THandler> logger) : base(logger)
     {
     }
 

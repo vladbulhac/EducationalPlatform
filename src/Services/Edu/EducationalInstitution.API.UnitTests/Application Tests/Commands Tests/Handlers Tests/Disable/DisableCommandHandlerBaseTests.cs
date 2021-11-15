@@ -8,13 +8,13 @@ using Entity = EducationalInstitution.Domain.Models.Aggregates;
 
 namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.Handlers_Tests.Disable;
 
-public class DisableCommandRequestHandlerBaseTests : DisableEducationalInstitutionCommandHandler, IClassFixture<MockDependenciesHelper<DisableEducationalInstitutionCommandHandler>>,
+public class DisableCommandHandlerBaseTests : DisableEducationalInstitutionCommandHandler, IClassFixture<MockDependenciesHelper<DisableEducationalInstitutionCommandHandler>>,
                                                                                                   IClassFixture<TestDataFromJSONParser>
 {
     private readonly TestDataFromJSONParser testDataHelper;
     private readonly MockDependenciesHelper<DisableEducationalInstitutionCommandHandler> dependenciesHelper;
 
-    public DisableCommandRequestHandlerBaseTests(MockDependenciesHelper<DisableEducationalInstitutionCommandHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
+    public DisableCommandHandlerBaseTests(MockDependenciesHelper<DisableEducationalInstitutionCommandHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
     : base(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockLogger.Object)
     {
         this.dependenciesHelper = dependenciesHelper;

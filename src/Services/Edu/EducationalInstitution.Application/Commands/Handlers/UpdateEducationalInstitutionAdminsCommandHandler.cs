@@ -12,7 +12,7 @@ using System.Text;
 
 namespace EducationalInstitution.Application.Commands.Handlers;
 
-public class UpdateEducationalInstitutionAdminsCommandHandler : CommandRequestHandlerBase<UpdateEducationalInstitutionAdminsCommandHandler,
+public class UpdateEducationalInstitutionAdminsCommandHandler : CommandHandlerBase<UpdateEducationalInstitutionAdminsCommandHandler,
                                                                                           UpdateEducationalInstitutionAdminsCommand,
                                                                                           Response>
 {

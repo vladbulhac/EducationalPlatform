@@ -11,7 +11,7 @@ using System.Net;
 
 namespace EducationalInstitution.Application.Commands.Handlers;
 
-public class DisableEducationalInstitutionCommandHandler : CommandRequestHandlerBase<DisableEducationalInstitutionCommandHandler,
+public class DisableEducationalInstitutionCommandHandler : CommandHandlerBase<DisableEducationalInstitutionCommandHandler,
                                                                                      DisableEducationalInstitutionCommand,
                                                                                      Response<DisableEducationalInstitutionCommandResult>>
 {

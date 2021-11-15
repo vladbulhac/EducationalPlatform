@@ -9,7 +9,7 @@ using Domain = EducationalInstitution.Domain.Models.Aggregates;
 
 namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.Handlers_Tests.Update;
 
-public class UpdateCommandRequestHandlerBaseTests : UpdateEducationalInstitutionCommandHandler,
+public class UpdateCommandHandlerBaseTests : UpdateEducationalInstitutionCommandHandler,
                                                     IClassFixture<MockDependenciesHelper<UpdateEducationalInstitutionCommandHandler>>,
                                                     IClassFixture<TestDataFromJSONParser>
 {
@@ -17,7 +17,7 @@ public class UpdateCommandRequestHandlerBaseTests : UpdateEducationalInstitution
     private readonly MockDependenciesHelper<UpdateEducationalInstitutionCommandHandler> dependenciesHelper;
 
     /// <remarks>Called before each test</remarks>
-    public UpdateCommandRequestHandlerBaseTests(MockDependenciesHelper<UpdateEducationalInstitutionCommandHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
+    public UpdateCommandHandlerBaseTests(MockDependenciesHelper<UpdateEducationalInstitutionCommandHandler> dependenciesHelper, TestDataFromJSONParser testDataHelper)
     : base(dependenciesHelper.mockUnitOfWorkCommand.Object, dependenciesHelper.mockLogger.Object)
     {
         this.dependenciesHelper = dependenciesHelper;

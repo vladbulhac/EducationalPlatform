@@ -12,7 +12,7 @@ using Domain = EducationalInstitution.Domain.Models.Aggregates;
 
 namespace EducationalInstitution.Application.Commands.Handlers;
 
-public class UpdateEducationalInstitutionLocationCommandHandler : CommandRequestHandlerBase<UpdateEducationalInstitutionLocationCommandHandler,
+public class UpdateEducationalInstitutionLocationCommandHandler : CommandHandlerBase<UpdateEducationalInstitutionLocationCommandHandler,
                                                                                             UpdateEducationalInstitutionLocationCommand,
                                                                                             Response>
 {
