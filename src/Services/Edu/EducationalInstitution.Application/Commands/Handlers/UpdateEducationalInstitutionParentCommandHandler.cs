@@ -2,26 +2,24 @@
 using EducationalInstitution.Application.Integration_Events;
 using EducationalInstitution.Infrastructure.Repositories.Command_Repository;
 using EducationalInstitution.Infrastructure.Unit_of_Work.Command_Unit_of_Work;
-using MediatR;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using RabbitMQEventBus.Abstractions;
 using RabbitMQEventBus.IntegrationEvents;
+using RabbitMQEventBus.Transactional_Outbox.Services.Outbox_Services;
 using System.Net;
 
 namespace EducationalInstitution.Application.Commands.Handlers;
 
-public class UpdateEducationalInstitutionParentCommandHandler : HandlerBase<UpdateEducationalInstitutionParentCommandHandler>,
-                                                                IRequestHandler<UpdateEducationalInstitutionParentCommand, Response>
+public class UpdateEducationalInstitutionParentCommandHandler : CommandHandlerBase<UpdateEducationalInstitutionParentCommandHandler,
+                                                                                   UpdateEducationalInstitutionParentCommand, Response>
 {
     private readonly IUnitOfWorkForCommands unitOfWork;
-    private readonly IEventBus eventBus;
 
     /// <inheritdoc cref="HandlerBase{THandler}.HandlerBase"/>
-    public UpdateEducationalInstitutionParentCommandHandler(IUnitOfWorkForCommands unitOfWork, IEventBus eventBus, ILogger<UpdateEducationalInstitutionParentCommandHandler> logger) : base(logger)
+    public UpdateEducationalInstitutionParentCommandHandler(IUnitOfWorkForCommands unitOfWork, ILogger<UpdateEducationalInstitutionParentCommandHandler> logger) : base(logger)
     {
         this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-        this.eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
     }
 
     /// <summary>
@@ -37,7 +35,7 @@ public class UpdateEducationalInstitutionParentCommandHandler : HandlerBase<Upda
     /// </list>
     /// </returns>
     /// <exception cref="ArgumentNullException"/>
-    public async Task<Response> Handle(UpdateEducationalInstitutionParentCommand request, CancellationToken cancellationToken = default)
+    public override async Task<Response> Handle(UpdateEducationalInstitutionParentCommand request, CancellationToken cancellationToken = default)
     {
         if (request is null) throw new ArgumentNullException(nameof(request));
 
@@ -45,34 +43,17 @@ public class UpdateEducationalInstitutionParentCommandHandler : HandlerBase<Upda
         {
             using (unitOfWork)
             {
-                var parentInstitution = await unitOfWork.UsingEducationalInstitutionCommandRepository()
-                                                        .GetEducationalInstitutionIncludingAdminsAsync(request.ParentInstitutionID, cancellationToken);
-                if (parentInstitution == default)
+                var transactionResult = await unitOfWork.ExecuteTransactionAsync(TransactionOperations, request);
+
+                if (transactionResult == default)
                     return new()
                     {
                         OperationStatus = false,
-                        StatusCode = HttpStatusCode.NotFound,
-                        Message = $"The Parent Educational Institution with the ID: {request.ParentInstitutionID} has not been found!"
+                        StatusCode = HttpStatusCode.InternalServerError,
+                        Message = "Could not successfully handle all the required operations for this request!"
                     };
 
-                var educationalInstitution = await unitOfWork.UsingEducationalInstitutionCommandRepository()
-                                                            .GetEducationalInstitutionIncludingAdminsAsync(request.EducationalInstitutionID, cancellationToken);
-                if (educationalInstitution == default)
-                    return new()
-                    {
-                        OperationStatus = false,
-                        StatusCode = HttpStatusCode.NotFound,
-                        Message = $"The Educational Institution with the ID: {request.EducationalInstitutionID} has not been found!"
-                    };
-
-                educationalInstitution.SetParentInstitution(parentInstitution);
-
-                await unitOfWork.SaveChangesAsync(cancellationToken);
-
-                eventBus.PublishMultiple(PublishNotificationEventsForAdmins(request.EducationalInstitutionID,
-                                                                            educationalInstitution.Admins.Select(a => a.Id).ToList(),
-                                                                            parentInstitution.Admins.Select(a => a.Id).ToList()),
-                                                                            publisherConfirms: false);
+                return transactionResult;
             }
         }
         catch (Exception e)
@@ -86,6 +67,39 @@ public class UpdateEducationalInstitutionParentCommandHandler : HandlerBase<Upda
                     nameof(IEducationalInstitutionCommandRepository.GetEducationalInstitutionIncludingAdminsAsync),
                     e.Message);
         }
+    }
+
+    protected override async Task<Response> TransactionOperations(IDbContextTransaction transaction, IIntegrationEventOutboxService eventOutboxService, UpdateEducationalInstitutionParentCommand request)
+    {
+        var parentInstitution = await unitOfWork.UsingEducationalInstitutionCommandRepository()
+                                                .GetEducationalInstitutionIncludingAdminsAsync(request.ParentInstitutionID);
+        if (parentInstitution == default)
+            return new()
+            {
+                OperationStatus = false,
+                StatusCode = HttpStatusCode.NotFound,
+                Message = $"The Parent Educational Institution with the ID: {request.ParentInstitutionID} has not been found!"
+            };
+
+        var educationalInstitution = await unitOfWork.UsingEducationalInstitutionCommandRepository()
+                                                    .GetEducationalInstitutionIncludingAdminsAsync(request.EducationalInstitutionID);
+        if (educationalInstitution == default)
+            return new()
+            {
+                OperationStatus = false,
+                StatusCode = HttpStatusCode.NotFound,
+                Message = $"The Educational Institution with the ID: {request.EducationalInstitutionID} has not been found!"
+            };
+
+        educationalInstitution.SetParentInstitution(parentInstitution);
+
+        await unitOfWork.SaveChangesAsync();
+
+        await PublishIntegrationEventsAsync(transaction,
+                                            eventOutboxService,
+                                            CreateNotificationEventsForAdmins(request.EducationalInstitutionID,
+                                                                              educationalInstitution.Admins.Select(a => a.Id).ToList(),
+                                                                              parentInstitution.Admins.Select(a => a.Id).ToList()));
 
         return new()
         {
@@ -95,19 +109,20 @@ public class UpdateEducationalInstitutionParentCommandHandler : HandlerBase<Upda
         };
     }
 
-    private IEnumerable<IntegrationEvent> PublishNotificationEventsForAdmins(Guid educationalInstitutionID, ICollection<string> adminsToNotify, ICollection<string> parentAdminsToNotify)
+    private IEnumerable<IntegrationEvent> CreateNotificationEventsForAdmins(Guid educationalInstitutionID, ICollection<string> adminsToNotify, ICollection<string> parentAdminsToNotify)
     {
-        yield return new NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent
-        {
-            Message = "An Educational Institution's parent has been recently updated!",
-            TriggeredBy = new()
+        if (adminsToNotify is not null && adminsToNotify.Count > 0)
+            yield return new NotifyAdminsOfEducationalInstitutionUpdateIntegrationEvent
             {
-                Action = "Update",
-                ServiceName = this.GetType().Namespace.Split('.')[0]
-            },
-            Uri = $"/edu/{educationalInstitutionID}",
-            ToNotify = adminsToNotify,
-        };
+                Message = "An Educational Institution's parent has been recently updated!",
+                TriggeredBy = new()
+                {
+                    Action = "Update",
+                    ServiceName = this.GetType().Namespace.Split('.')[0]
+                },
+                Uri = $"/edu/{educationalInstitutionID}",
+                ToNotify = adminsToNotify,
+            };
 
         if (parentAdminsToNotify is not null && parentAdminsToNotify.Count > 0)
         {
