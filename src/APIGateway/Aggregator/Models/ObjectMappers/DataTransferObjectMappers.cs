@@ -259,6 +259,12 @@ public static class DataTransferObjectMappers
         if (grpcCallResponse.Trailers.Count > 0)
             return GetTrailersFromGrpcResponse<TIn, TResponse>(grpcCallResponse);
 
+        if (grpcCallResponse.Status.StatusCode is StatusCode.Unauthenticated)
+            return new() { StatusCode = HttpStatusCode.Unauthorized, Message = "You are not authenticated!" };
+
+        if (grpcCallResponse.Status.StatusCode is StatusCode.PermissionDenied)
+            return new() { StatusCode = HttpStatusCode.Forbidden, Message = "You don't have permission for this action!" };
+
         if (grpcCallResponse.Body is null)
             return new() { StatusCode = HttpStatusCode.InternalServerError, Message = "An error occurred while trying to reach a service needed for this request!" };
 
