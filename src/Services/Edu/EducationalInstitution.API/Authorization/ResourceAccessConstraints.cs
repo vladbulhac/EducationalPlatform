@@ -10,10 +10,12 @@ public class ResourceAccessConstraints
         if (claims is null || claims.Count == 0) throw new ArgumentException($"{nameof(claims)} collection does not contain any element!");
         if (minimumClaimsNeeded <= 0) throw new ArgumentOutOfRangeException(nameof(minimumClaimsNeeded), $"{nameof(minimumClaimsNeeded)} is lesser or equal than 0!");
 
-        if (minimumClaimsNeeded > claims.Count) MinimumClaimsNeeded = claims.Count;
+        if (minimumClaimsNeeded > claims.Count)
+            MinimumClaimsNeeded = claims.Count;
+        else
+            MinimumClaimsNeeded = minimumClaimsNeeded;
 
         this.claims = claims;
-        MinimumClaimsNeeded = minimumClaimsNeeded;
     }
 
     public bool ContainsKeyValuePair(string key, string value)
