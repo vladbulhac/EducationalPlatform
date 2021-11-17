@@ -1,18 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿namespace EducationalInstitutionAPI.Authorization.Requirements;
 
-namespace EducationalInstitutionAPI.Authorization.Requirements;
-
-public class DeleteEducationalInstitutionRequirements : IAuthorizationRequirement
+public class DeleteEducationalInstitutionRequirements : RequirementBase
 {
-    public ResourcePolicy Policy { get; init; }
+    public DeleteEducationalInstitutionRequirements() : base(new DeleteEducationalInstitutionPolicy())
+    { }
 
-    public DeleteEducationalInstitutionRequirements()
-    {
-        Policy = new DeleteEducationalInstitutionPolicy();
-    }
-
-    public DeleteEducationalInstitutionRequirements(ResourcePolicy policy)
-    {
-        Policy = policy;
-    }
+    public DeleteEducationalInstitutionRequirements(ResourcePolicy policy) : base(policy)
+    { }
 }
