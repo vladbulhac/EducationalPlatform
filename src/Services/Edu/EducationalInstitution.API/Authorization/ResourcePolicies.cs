@@ -17,8 +17,35 @@ public record DeleteEducationalInstitutionPolicy : ResourcePolicy
     private static ResourceAccessConstraints ResourceOwnerPermissionsConstraints() => new(
                                                                 claims: new(2)
                                                                 {
-                                                                    { "user.educational_institution.all", null },
-                                                                    { "user.educational_institution.delete", null }
+                                                                    { Permissions.All, null },
+                                                                    { Permissions.Delete, null }
                                                                 },
                                                                 minimumClaimsNeeded: 1);
+}
+
+public record UpdateEducationalInstitutionPolicy : ResourcePolicy
+{
+    public UpdateEducationalInstitutionPolicy() : base(new ResourceAccessConstraints[1] { ResourceOwnerPermissionsConstraints() })
+    { }
+    private static ResourceAccessConstraints ResourceOwnerPermissionsConstraints() => new(
+                                                                 claims: new(2)
+                                                                 {
+                                                                     { Permissions.All, null },
+                                                                     { Permissions.UpdateDetails, null }
+                                                                 },
+                                                                 minimumClaimsNeeded: 1);
+}
+
+public record UpdateAdministratorsPolicy : ResourcePolicy
+{
+    public UpdateAdministratorsPolicy() : base(new ResourceAccessConstraints[1] { ResourceOwnerPermissionsConstraints() })
+    { }
+
+    private static ResourceAccessConstraints ResourceOwnerPermissionsConstraints() => new(
+                                                                 claims: new(2)
+                                                                 {
+                                                                     { Permissions.All, null },
+                                                                     { Permissions.ChangeAdministrators, null }
+                                                                 },
+                                                                 minimumClaimsNeeded: 1);
 }
