@@ -63,6 +63,7 @@ public class DatabaseCleanup : IHostedService, IAsyncDisposable
         return await connection.QueryAsync<string>(@"SELECT TABLE_NAME
                                                      FROM INFORMATION_SCHEMA.TABLES
                                                      WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME NOT LIKE '__EFMigrationsHistory'
+                                                                                     AND TABLE_Name NOT LIKE 'Outbox'
                                                                                      AND TABLE_NAME NOT LIKE 'sys%'
                                                                                      AND TABLE_NAME NOT LIKE 'MS%'");
     }
