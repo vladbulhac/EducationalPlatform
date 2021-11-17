@@ -148,6 +148,7 @@ public class EducationalInstitutionCommandService : Command.CommandBase
     }
 
     /// <inheritdoc cref="CreateEducationalInstitution"/>
+    [Authorize(AuthenticationSchemes = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme, Policy = "UpdatePolicy")]
     public override async Task<EducationalInstitutionUpdateResponse> UpdateEducationalInstitution(EducationalInstitutionUpdateRequest request, ServerCallContext context)
     {
         logger.LogInformation("EducationalInstitutionCommandService.UpdateEducationalInstitution received gRPC request");
@@ -193,6 +194,7 @@ public class EducationalInstitutionCommandService : Command.CommandBase
     }
 
     /// <inheritdoc cref="CreateEducationalInstitution"/>
+    [Authorize(AuthenticationSchemes = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme, Policy = "UpdateAdministratorsPolicy")]
     public override async Task<EducationalInstitutionUpdateResponse> UpdateEducationalInstitutionAdmin(EducationalInstitutionAdminUpdateRequest request, ServerCallContext context)
     {
         logger.LogInformation("EducationalInstitutionCommandService.UpdateEducationalInstitutionAdmin received gRPC request");
@@ -237,6 +239,7 @@ public class EducationalInstitutionCommandService : Command.CommandBase
     }
 
     /// <inheritdoc cref="CreateEducationalInstitution"/>
+    [Authorize(AuthenticationSchemes = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme, Policy = "UpdatePolicy")]
     public override async Task<EducationalInstitutionUpdateResponse> UpdateEducationalInstitutionParent(EducationalInstitutionParentUpdateRequest request, ServerCallContext context)
     {
         logger.LogInformation("EducationalInstitutionCommandService.UpdateEducationalInstitutionParent received gRPC request");
@@ -282,6 +285,7 @@ public class EducationalInstitutionCommandService : Command.CommandBase
     }
 
     /// <inheritdoc cref="CreateEducationalInstitution"/>
+    [Authorize(AuthenticationSchemes = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme, Policy = "UpdatePolicy")]
     public override async Task<EducationalInstitutionUpdateResponse> UpdateEducationalInstitutionLocation(EducationalInstitutionLocationUpdateRequest request, ServerCallContext context)
     {
         logger.LogInformation("EducationalInstitutionCommandService.UpdateEducationalInstitutionLocation received gRPC request");
