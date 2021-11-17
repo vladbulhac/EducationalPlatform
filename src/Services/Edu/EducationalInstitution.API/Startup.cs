@@ -90,9 +90,11 @@ public static class StartupExtensionMethods
         services.AddAuthorization(options =>
         {
             options.AddPolicy("DeletePolicy", policy => policy.AddRequirements(new DeleteEducationalInstitutionRequirements()));
+            options.AddPolicy("UpdatePolicy", policy => policy.AddRequirements(new UpdateEducationalInstitutionRequirements()));
+            options.AddPolicy("UpdateAdministratorsPolicy", policy => policy.AddRequirements(new UpdateAdministratorsRequirements()));
         });
 
-        services.AddSingleton<IAuthorizationHandler, DeleteEducationalInstitutionAuthorizationHandler>();
+        services.AddSingleton<IAuthorizationHandler, CommandAuthorizationHandler>();
 
         return services;
     }
