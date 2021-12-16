@@ -20,8 +20,8 @@ public class TestDataFromJSONParser
 
     private void GetEducationalInstitutionsFromJSONFile(string path = "Resources\\EducationalInstitutions.examples.json")
     {
-        string file = File.ReadAllText(path);
-        dynamic jsonEducationalInstitutions = JsonConvert.DeserializeObject(file);
+        string data = File.ReadAllText(path);
+        dynamic jsonEducationalInstitutions = JsonConvert.DeserializeObject(data);
 
         ParseTheExtractedDataAndSaveItToList(jsonEducationalInstitutions);
     }
