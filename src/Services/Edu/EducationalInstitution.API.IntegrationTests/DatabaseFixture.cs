@@ -52,14 +52,14 @@ public class DatabaseFixture : IDisposable
 
     private void CleanupDatabase()
     {
-        var testEducationalInstitutions = Context.EducationalInstitutions.ToList();
-        Context.RemoveRange(testEducationalInstitutions);
-
         var testBuilding = Context.Buildings.ToList();
         Context.RemoveRange(testBuilding);
 
         var testAdmins = Context.Admins.ToList();
         Context.RemoveRange(testAdmins);
+
+        var testEducationalInstitutions = Context.EducationalInstitutions.ToList();
+        Context.RemoveRange(testEducationalInstitutions);
     }
 
     public void Dispose()
