@@ -26,6 +26,7 @@ services:
             - ASPNETCORE_ENVIRONMENT=Development
             - ASPNETCORE_URLS=http://0.0.0.0:80
             - ConnectionStrings__ConnectionToNotificationDB=Server=notification-sqldb;Database=ProjectOne.Notifications;User Id=sa;Password=Pass@word;ConnectRetryInterval=30;
+            - Identity__Issuer=http://identity-api:41110
             - EventBus__HostName=rabbitmq
        ports:
             - "16780:80"
