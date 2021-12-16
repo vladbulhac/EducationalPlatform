@@ -1,0 +1,10 @@
+{
+  "Tests": {
+    "ResourcesPaths": {
+      "EventsFilePath": "Resources\\Events.examples.json"
+    },
+    "IntegrationTestsVariables": {
+      "IS_DBLOADED": false
+    }
+  }
+}
