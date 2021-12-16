@@ -1,5 +1,4 @@
-﻿using EducationalInstitution.Application.Integration_Events;
-using RabbitMQEventBus.IntegrationEvents;
+﻿using RabbitMQEventBus.IntegrationEvents;
 
 namespace Notification.Application.Integration_Events.Events;
 
