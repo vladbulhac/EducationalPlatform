@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31205.134
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{08FB3E93-7FD0-4904-AB07-B3EAF2311820}"
 EndProject
@@ -81,6 +81,35 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BAB7289D-12F5-4B32-84C7-290BBF3E6EE2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.API.UnitTests", "Services\Identity\Identity.API.UnitTests\Identity.API.UnitTests.csproj", "{A90980B6-38DD-4E15-B728-7E658275219B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{EB736272-1E72-46E2-8D8B-8564A6641EC4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notification.API.Tests.Shared", "Services\Notification\Notification.API.Tests.Shared\Notification.API.Tests.Shared.csproj", "{6D74A1EA-E384-42D9-8198-647C099B5A32}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notification.API.Tests.Unit", "Services\Notification\Notification.API.Tests.Unit\Notification.API.Tests.Unit.csproj", "{EACAB771-6E70-44A6-8B71-127B61BD0E88}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notification.API.Tests.Integration", "Services\Notification\Notification.API.Tests.Integration\Notification.API.Tests.Integration.csproj", "{A1F3CE9E-03B1-44D1-9C69-BDBE032D0C51}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "SignalRTestClient", "Services\Notification\SignalRTestClient\", "{36544564-A896-4FF0-B824-5A2010F5CC12}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_59649"
+		Debug.AspNetCompiler.PhysicalPath = "Services\Notification\SignalRTestClient\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_59649\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_59649"
+		Release.AspNetCompiler.PhysicalPath = "Services\Notification\SignalRTestClient\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_59649\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "59649"
+		SlnRelativePath = "Services\Notification\SignalRTestClient\"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -164,6 +193,22 @@ Global
 		{A90980B6-38DD-4E15-B728-7E658275219B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A90980B6-38DD-4E15-B728-7E658275219B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A90980B6-38DD-4E15-B728-7E658275219B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D74A1EA-E384-42D9-8198-647C099B5A32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D74A1EA-E384-42D9-8198-647C099B5A32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D74A1EA-E384-42D9-8198-647C099B5A32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D74A1EA-E384-42D9-8198-647C099B5A32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EACAB771-6E70-44A6-8B71-127B61BD0E88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EACAB771-6E70-44A6-8B71-127B61BD0E88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EACAB771-6E70-44A6-8B71-127B61BD0E88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EACAB771-6E70-44A6-8B71-127B61BD0E88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1F3CE9E-03B1-44D1-9C69-BDBE032D0C51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1F3CE9E-03B1-44D1-9C69-BDBE032D0C51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1F3CE9E-03B1-44D1-9C69-BDBE032D0C51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1F3CE9E-03B1-44D1-9C69-BDBE032D0C51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36544564-A896-4FF0-B824-5A2010F5CC12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36544564-A896-4FF0-B824-5A2010F5CC12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36544564-A896-4FF0-B824-5A2010F5CC12}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{36544564-A896-4FF0-B824-5A2010F5CC12}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -200,6 +245,11 @@ Global
 		{4DB2C2F4-9BDD-4266-86A1-435E8E7C4E6D} = {3DFEF1BF-8570-4E76-89D9-298CE7E36B10}
 		{BAB7289D-12F5-4B32-84C7-290BBF3E6EE2} = {65DB6EA5-7737-430B-B4C9-A15FC576743F}
 		{A90980B6-38DD-4E15-B728-7E658275219B} = {BAB7289D-12F5-4B32-84C7-290BBF3E6EE2}
+		{EB736272-1E72-46E2-8D8B-8564A6641EC4} = {C15AF18F-6EDC-4DAD-B507-4B8670427514}
+		{6D74A1EA-E384-42D9-8198-647C099B5A32} = {EB736272-1E72-46E2-8D8B-8564A6641EC4}
+		{EACAB771-6E70-44A6-8B71-127B61BD0E88} = {EB736272-1E72-46E2-8D8B-8564A6641EC4}
+		{A1F3CE9E-03B1-44D1-9C69-BDBE032D0C51} = {EB736272-1E72-46E2-8D8B-8564A6641EC4}
+		{36544564-A896-4FF0-B824-5A2010F5CC12} = {EB736272-1E72-46E2-8D8B-8564A6641EC4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0755839D-14ED-4C54-BEB8-32CC5B50A3B4}
