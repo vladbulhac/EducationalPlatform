@@ -1,0 +1,50 @@
+<h1>SignalR Notification Hub</h1>
+
+<div>
+  <h3>Connected: {{ isConnectedToHub }}</h3>
+</div>
+
+<div>
+  <div>
+    <label for="accesstoken">Access Token</label>
+    <input type="text" #accessToken id="accesstoken" />
+    <button (click)="ConnectToNotificationHub()">Connect</button>
+  </div>
+
+  <div>
+    <button (click)="GetNotifications()">Get Notifications</button>
+  </div>
+</div>
+
+<div
+  *ngIf="
+    !notifications || notifications.length === 0;
+    then notificationsMessage;
+    else notificationsList
+  "
+></div>
+
+<ng-template #notificationsMessage>
+  <p>Waiting for notifications...</p>
+</ng-template>
+
+<ng-template #notificationsList>
+  <ol *ngIf="notifications">
+    <li
+      style="cursor: pointer"
+      *ngFor="let notification of notifications"
+      (click)="NotificationSeen(notificationId)"
+    >
+      <p>
+        Id: <em #notificationId>{{ notification.Id }}</em>
+      </p>
+      <p>Title: {{ notification.Title }}</p>
+      <p>From: {{ notification.From }}</p>
+      <p>To: {{ notification.To }}</p>
+      <p>Message: {{ notification.Message }}</p>
+      <p>Uri: {{ notification.Uri }}</p>
+      <p>Issued at: {{ notification.IssuedAt | date }}</p>
+      <p>Seen: {{ notification.Seen }}</p>
+    </li>
+  </ol>
+</ng-template>
