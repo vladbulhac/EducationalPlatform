@@ -1,0 +1,7 @@
+{
+  "Tests": {
+    "ResourcesPaths": {
+      "EventsFilePath": "Resources\\Events.examples.json"
+    }
+  }
+}
