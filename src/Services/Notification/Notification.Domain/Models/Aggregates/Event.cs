@@ -17,7 +17,7 @@ public class Event : Entity, IAggregateRoot
     private Event(string name, string message, string uri, DateTime timeIssued, string triggeredByAction, string issuedBy, string id = null) : base(id)
     {
         Name = string.IsNullOrEmpty(name) ? throw new ArgumentNullException(nameof(name)) : GetEventName(name);
-        Message = message ?? Name;
+        Message = message ?? "NO_MESSAGE_SPECIFIED";
         Uri = uri ?? "NO_URI_SPECIFIED";
         TriggerDetails = new(triggeredByAction, issuedBy, timeIssued);
 
@@ -65,7 +65,7 @@ public class Event : Entity, IAggregateRoot
     public void RecipientSawEventNotification(string recipientId)
     {
         var recipient = Recipients.SingleOrDefault(r => r.Id == recipientId);
-        if (recipient == default) throw new KeyNotFoundException($"{recipientId} does not exist in event - {Id} collection!");
+        if (recipient == default) throw new KeyNotFoundException($"{recipientId} does not exist in event {Id}'s collection!");
 
         recipient.ChangeSeenStatus(true);
     }
