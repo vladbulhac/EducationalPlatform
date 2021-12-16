@@ -1,4 +1,4 @@
-﻿namespace EducationalInstitution.Application.Integration_Events;
+﻿namespace Notification.Application.Integration_Events;
 
 public record AdminDetailsForIntegrationEvent : AdminDetails
 {
