@@ -266,7 +266,7 @@ public class EventBus : IEventBus
                 subscriptionManager.ClearResources();
                 deliveryTagToEventMap.Clear();
 
-                outboxService.Dispose();
+                outboxService?.Dispose();
                 connectionHandler.Dispose();
             }
         }
