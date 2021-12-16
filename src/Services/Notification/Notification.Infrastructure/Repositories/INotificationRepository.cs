@@ -7,5 +7,5 @@ namespace Notification.Infrastructure.Repositories;
 /// </summary>
 public interface INotificationRepository : IRepository<Event>
 {
-    public Task<ICollection<Event>> GetEventsFromCollection(ICollection<string> eventsIds, string recipientId, CancellationToken cancellationToken = default);
+    public Task<ICollection<Event>> GetEventsFromCollectionAsync(ICollection<string> eventsIds, string recipientId, CancellationToken cancellationToken = default);
 }
