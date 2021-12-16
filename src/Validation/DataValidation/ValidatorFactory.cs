@@ -13,13 +13,13 @@ namespace DataValidation;
 /// </i></remarks>
 public class ValidatorFactory
 {
-    private readonly IDictionary<Type, Type> dtoToValidatorMap;
+    private readonly Dictionary<Type, Type> dtoToValidatorMap;
     private readonly Assembly assembly;
 
     public ValidatorFactory(Assembly appAssembly)
     {
         assembly = appAssembly ?? throw new ArgumentNullException(nameof(appAssembly));
-        dtoToValidatorMap = new Dictionary<Type, Type>();
+        dtoToValidatorMap = new();
 
         MapDTOsToValidators();
     }
