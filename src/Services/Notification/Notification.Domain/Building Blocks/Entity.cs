@@ -11,5 +11,5 @@ public abstract class Entity
     {
     }
 
-    protected Entity(string id) => Id = id ?? Guid.NewGuid().ToString();
+    protected Entity(string id) => Id = string.IsNullOrEmpty(id) ? Guid.NewGuid().ToString() : id;
 }
