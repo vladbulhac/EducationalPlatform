@@ -1,0 +1,31 @@
+{
+  "Events": [
+    {
+      "Id": "test-1-id-2020",
+      "Name": "TestEventOneIntegrationEvent",
+      "Message": "TestMessageFromEventOne",
+      "Uri": "/tests/eventOne",
+      "TimeIssued": "01-01-2020",
+      "TriggeredByAction": "Add",
+      "IssuedBy": "Test"
+    },
+    {
+      "Id": "test-2-id-2020",
+      "Name": "TestEventTwoIntegrationEvent",
+      "Message": "TestMessageFromEventTwo",
+      "Uri": "/tests/eventTwo",
+      "TimeIssued": "02-01-2020",
+      "TriggeredByAction": "Delete",
+      "IssuedBy": "Test"
+    },
+    {
+      "Id": "test-3-id-2020",
+      "Name": "TestEventThreeIntegrationEvent",
+      "Message": "TestMessageFromEventThree",
+      "Uri": "/tests/eventThree",
+      "TimeIssued": "03-01-2020",
+      "TriggeredByAction": "Update",
+      "IssuedBy": "Test.Version.20.2.0"
+    }
+  ]
+}
