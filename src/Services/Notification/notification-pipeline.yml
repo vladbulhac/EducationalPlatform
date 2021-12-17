@@ -41,6 +41,18 @@ jobs:
           projects: src/Services/Notification/Notification.API/Notification.API.csproj
           arguments: --configuration $(BuildConfiguration)
       - task: DotNetCoreCLI@2
+        displayName: Notification API Unit Tests
+        inputs:
+          command: test
+          projects: src/Services/Notification/Notification.API.Tests.Unit/Notification.API.Tests.Unit.csproj
+          arguments: --configuration $(BuildConfiguration)
+      - task: DotNetCoreCLI@2
+        displayName: Notification API Integration Tests
+        inputs:
+          command: test
+          projects: src/Services/Notification/Notification.API.Tests.Integration/Notification.API.Tests.Integration.csproj
+          arguments: --configuration $(BuildConfiguration)
+      - task: DotNetCoreCLI@2
         displayName: Publish
         inputs:
           command: publish
