@@ -1,8 +1,9 @@
-﻿using Notification.Application.DTOs;
+﻿using Notification.API.Hubs.Management;
+using Notification.Application.DTOs;
 
 namespace Notification.API.Hubs;
 
-public interface INotificationHub
+public interface INotificationHub : IHubCall
 {
     public Task ReceiveNotification(NotificationBody notification);
 
