@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using DataValidation.Abstractions;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using Notification.API.Hubs;
 using Notification.Application.Services;
@@ -15,7 +16,10 @@ public class MockDependenciesHelper<T> where T : class
 
     public Mock<INotificationHub> mockClientOne;
     public Mock<INotificationHub> mockClientTwo;
+    public Mock<HubCallerContext> mockHubContext;
     public Mock<IHubCallerClients<INotificationHub>> mockHubClients;
+
+    public Mock<IValidationHandler> mockValidationHandler;
 
     public readonly Mock<INotificationService> mockNotificationService;
 
@@ -27,7 +31,10 @@ public class MockDependenciesHelper<T> where T : class
 
         mockClientOne = new();
         mockClientTwo = new();
+        mockHubContext = new();
         mockHubClients = new();
+
+        mockValidationHandler = new();
 
         mockNotificationService = new();
 
