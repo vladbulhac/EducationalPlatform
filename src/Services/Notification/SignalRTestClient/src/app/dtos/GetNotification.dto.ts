@@ -1,3 +1,3 @@
-export interface GetNotification{
-    EventId:string;
+export interface GetNotificationDTO {
+  EventId: string;
 }
