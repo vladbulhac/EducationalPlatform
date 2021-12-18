@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NotificationBody } from './dtos/NotificationBody.dto';
 import * as signalR from '@microsoft/signalr';
-import { GetNotifications } from './dtos/GetNotifications.dto';
-import { GetNotification } from './dtos/GetNotification.dto';
+import { GetNotificationsOfRecipientDTO } from './dtos/GetNotificationsOfRecipient.dto';
+import { GetNotificationDTO } from './dtos/GetNotification.dto';
 
 @Component({
   selector: 'app-root',
@@ -59,10 +59,15 @@ export class AppComponent {
 
       console.log("notifications now:" + this.notifications);
     });
+
+    this.connection!.on("CallFailed", (failDetails) => {
+      console.log("A SignalR call failed, details:");
+      console.log(failDetails);
+    });
   }
 
   public GetNotifications(): void {
-    let dto: GetNotifications = {
+    let dto: GetNotificationsOfRecipientDTO = {
       Offset: 0,
       ResultsCount: 10
     };
@@ -71,7 +76,7 @@ export class AppComponent {
   }
 
   public NotificationSeen(idElelement: HTMLElement): void {
-    let dto: GetNotification = {
+    let dto: GetNotificationDTO = {
       EventId: idElelement.innerText
     };
 
