@@ -71,7 +71,7 @@ public class QueriesValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
+        Assert.Equal("Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
     }
 
     #endregion GetEducationalInstitutionByIDQuery TESTS
@@ -140,7 +140,7 @@ public class QueriesValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property Name failed validation. Error was: Name was empty or null!", validationErrors);
+        Assert.Equal("Property Name failed validation. Error was: Name was empty or null!", validationErrors);
     }
 
     [Fact]
@@ -153,7 +153,7 @@ public class QueriesValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property Name failed validation. Error was: Name was empty or null!", validationErrors);
+        Assert.Equal("Property Name failed validation. Error was: Name was empty or null!", validationErrors);
     }
 
     [Fact]
@@ -166,7 +166,7 @@ public class QueriesValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property Name failed validation. Error was: Name's length was not between 2-128 characters!", validationErrors);
+        Assert.Equal("Property Name failed validation. Error was: Name's length was not between 2-128 characters!", validationErrors);
     }
 
     [Fact]
@@ -192,7 +192,7 @@ public class QueriesValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property OffsetValue failed validation. Error was: Offset Value was not between 0 and 150!", validationErrors);
+        Assert.Equal("Property OffsetValue failed validation. Error was: Offset Value was not between 0 and 150!", validationErrors);
     }
 
     [Fact]
@@ -218,7 +218,7 @@ public class QueriesValidationTests
         var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property ResultsCount failed validation. Error was: Results Count was not between 1 and 100!", validationErrors);
+        Assert.Equal("Property ResultsCount failed validation. Error was: Results Count was not between 1 and 100!", validationErrors);
     }
 
     #endregion GetAllEducationalInstitutionsByNameQuery TESTS
@@ -274,7 +274,7 @@ public class QueriesValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property LocationID failed validation. Error was: Location ID was empty or null!", validationErrors);
+        Assert.Equal("Property LocationID failed validation. Error was: Location ID was empty or null!", validationErrors);
     }
 
     [Fact]
@@ -300,7 +300,7 @@ public class QueriesValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property LocationID failed validation. Error was: Location ID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
+        Assert.Equal("Property LocationID failed validation. Error was: Location ID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
     }
 
     [Fact]
@@ -326,7 +326,7 @@ public class QueriesValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property LocationID failed validation. Error was: Location ID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
+        Assert.Equal("Property LocationID failed validation. Error was: Location ID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
     }
 
     #endregion GetAllEducationalInstitutionsByLocationQuery TESTS
@@ -382,7 +382,7 @@ public class QueriesValidationTests
         var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: EducationalInstitutionID is empty, null or default!", validationErrors);
+        Assert.Equal("Property EducationalInstitutionID failed validation. Error was: EducationalInstitutionID is empty, null or default!", validationErrors);
     }
 
     #endregion GetAllAdminsByEducationalInstitutionIDQuery TESTS
@@ -438,7 +438,7 @@ public class QueriesValidationTests
         var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property BuildingID failed validation. Error was: Building ID was empty or null!", validationErrors);
+        Assert.Equal("Property BuildingID failed validation. Error was: Building ID was empty or null!", validationErrors);
     }
 
     [Fact]
@@ -464,7 +464,7 @@ public class QueriesValidationTests
         var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property BuildingID failed validation. Error was: Building ID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
+        Assert.Equal("Property BuildingID failed validation. Error was: Building ID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
     }
 
     [Fact]
@@ -490,7 +490,7 @@ public class QueriesValidationTests
         var validationResult = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property BuildingID failed validation. Error was: Building ID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
+        Assert.Equal("Property BuildingID failed validation. Error was: Building ID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
     }
 
     #endregion GetAllEducationalInstitutionsByBuildingQuery TEST

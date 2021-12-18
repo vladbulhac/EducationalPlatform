@@ -106,7 +106,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property Name failed validation. Error was: Name was empty or null!", validationErrors);
+        Assert.Equal("Property Name failed validation. Error was: Name was empty or null!", validationErrors);
     }
 
     [Fact]
@@ -148,7 +148,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property Name failed validation. Error was: Name's length was not between 2-128 characters!", validationErrors);
+        Assert.Equal("Property Name failed validation. Error was: Name's length was not between 2-128 characters!", validationErrors);
     }
 
     [Fact]
@@ -190,7 +190,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property Description failed validation. Error was: Description was empty or null!", validationErrors);
+        Assert.Equal("Property Description failed validation. Error was: Description was empty or null!", validationErrors);
     }
 
     [Fact]
@@ -232,7 +232,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property Description failed validation. Error was: Description's length was not between 2-500 characters!", validationErrors);
+        Assert.Equal("Property Description failed validation. Error was: Description's length was not between 2-500 characters!", validationErrors);
     }
 
     [Fact]
@@ -274,7 +274,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property BuildingsIDs[0] failed validation. Error was: Building ID was empty or null!", validationErrors);
+        Assert.Equal("Property BuildingsIDs[0] failed validation. Error was: Building ID was empty or null!", validationErrors);
     }
 
     [Fact]
@@ -316,7 +316,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property BuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
+        Assert.Equal("Property BuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
     }
 
     [Fact]
@@ -358,7 +358,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property BuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
+        Assert.Equal("Property BuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
     }
 
     [Fact]
@@ -400,7 +400,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property BuildingsIDs[0] failed validation. Error was: Building ID was the same as LocationID!", validationErrors);
+        Assert.Equal("Property BuildingsIDs[0] failed validation. Error was: Building ID was the same as LocationID!", validationErrors);
     }
 
     [Fact]
@@ -442,7 +442,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property BuildingsIDs failed validation. Error was: Buildings IDs collection was empty or null!", validationErrors);
+        Assert.Equal("Property BuildingsIDs failed validation. Error was: Buildings IDs collection was empty or null!", validationErrors);
     }
 
     [Fact]
@@ -484,7 +484,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property AdminId failed validation. Error was: Admin Id was empty or null!", validationErrors);
+        Assert.Equal("Property AdminId failed validation. Error was: Admin Id was empty or null!", validationErrors);
     }
 
     [Fact]
@@ -526,7 +526,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property AdminId failed validation. Error was: Admin Id does not have a valid value!", validationErrors);
+        Assert.Equal("Property AdminId failed validation. Error was: Admin Id does not have a valid value!", validationErrors);
     }
 
     #endregion CreateEducationalInstitutionCommand TESTS
@@ -690,7 +690,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property UpdateDescription failed validation. Error was: Both update fields are set to false!", validationErrors);
+        Assert.Equal("Property UpdateDescription failed validation. Error was: Both update fields are set to false!", validationErrors);
     }
 
     [Fact]
@@ -730,7 +730,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
+        Assert.Equal("Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
     }
 
     [Fact]
@@ -770,7 +770,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property Name failed validation. Error was: Name was empty or null!", validationErrors);
+        Assert.Equal("Property Name failed validation. Error was: Name was empty or null!", validationErrors);
     }
 
     [Fact]
@@ -810,7 +810,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property Name failed validation. Error was: Name's length was not between 2-128 characters!", validationErrors);
+        Assert.Equal("Property Name failed validation. Error was: Name's length was not between 2-128 characters!", validationErrors);
     }
 
     [Fact]
@@ -850,7 +850,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property Description failed validation. Error was: Description was empty or null!", validationErrors);
+        Assert.Equal("Property Description failed validation. Error was: Description was empty or null!", validationErrors);
     }
 
     [Fact]
@@ -890,7 +890,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property Description failed validation. Error was: Description's length was not between 2-500 characters!", validationErrors);
+        Assert.Equal("Property Description failed validation. Error was: Description's length was not between 2-500 characters!", validationErrors);
     }
 
     #endregion UpdateEducationalInstitutionCommand TESTS
@@ -962,7 +962,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
+        Assert.Equal("Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
     }
 
     [Fact]
@@ -998,7 +998,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property ParentInstitutionID failed validation. Error was: ParentInstitutionID was the same as EducationalInstitutionID!", validationErrors);
+        Assert.Equal("Property ParentInstitutionID failed validation. Error was: ParentInstitutionID was the same as EducationalInstitutionID!", validationErrors);
     }
 
     #endregion UpdateEducationalInstitutionParentCommand TESTS
@@ -1082,7 +1082,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
+        Assert.Equal("Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
     }
 
     [Fact]
@@ -1122,7 +1122,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property AddBuildingsIDs[0] failed validation. Error was: BuildingID was empty or null!", validationErrors);
+        Assert.Equal("Property AddBuildingsIDs[0] failed validation. Error was: BuildingID was empty or null!", validationErrors);
     }
 
     [Fact]
@@ -1162,7 +1162,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property LocationID failed validation. Error was: Location ID was empty or null!", validationErrors);
+        Assert.Equal("Property LocationID failed validation. Error was: Location ID was empty or null!", validationErrors);
     }
 
     [Fact]
@@ -1262,7 +1262,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property AddBuildingsIDs failed validation. Error was: AddBuildingsIDs can't contain duplicates!", validationErrors);
+        Assert.Equal("Property AddBuildingsIDs failed validation. Error was: AddBuildingsIDs can't contain duplicates!", validationErrors);
     }
 
     [Fact]
@@ -1302,7 +1302,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property UpdateBuildings failed validation. Error was: Both location and buildings update fields are false!", validationErrors);
+        Assert.Equal("Property UpdateBuildings failed validation. Error was: Both location and buildings update fields are false!", validationErrors);
     }
 
     [Fact]
@@ -1342,7 +1342,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property AddBuildingsIDs failed validation. Error was: AddBuildingsIDs can't contain duplicates!", validationErrors);
+        Assert.Equal("Property AddBuildingsIDs failed validation. Error was: AddBuildingsIDs can't contain duplicates!", validationErrors);
     }
 
     [Fact]
@@ -1384,7 +1384,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property AddBuildingsIDs failed validation. Error was: Both AddBuildingsIDs and RemoveBuildingsIDs collections are empty!", validationErrors);
+        Assert.Equal("Property AddBuildingsIDs failed validation. Error was: Both AddBuildingsIDs and RemoveBuildingsIDs collections are empty!", validationErrors);
     }
 
     [Fact]
@@ -1424,7 +1424,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property RemoveBuildingsIDs[0] failed validation. Error was: BuildingID was empty or null!", validationErrors);
+        Assert.Equal("Property RemoveBuildingsIDs[0] failed validation. Error was: BuildingID was empty or null!", validationErrors);
     }
 
     [Fact]
@@ -1466,7 +1466,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property RemoveBuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
+        Assert.Equal("Property RemoveBuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
     }
 
     [Fact]
@@ -1508,7 +1508,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property AddBuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
+        Assert.Equal("Property AddBuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
     }
 
     [Fact]
@@ -1550,7 +1550,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property RemoveBuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
+        Assert.Equal("Property RemoveBuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
     }
 
     [Fact]
@@ -1592,7 +1592,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property AddBuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
+        Assert.Equal("Property AddBuildingsIDs[0] failed validation. Error was: BuildingID contains characters that are not supported and/or the length is not exactly 24!", validationErrors);
     }
 
     [Fact]
@@ -1635,7 +1635,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal($" Property AddBuildingsIDs[0] failed validation. Error was: AddBuildingsIDs' {buildingID} was also found in RemoveBuildingsIDs!", validationErrors);
+        Assert.Equal($"Property AddBuildingsIDs[0] failed validation. Error was: AddBuildingsIDs' {buildingID} was also found in RemoveBuildingsIDs!", validationErrors);
     }
 
     #endregion UpdateEducationalInstitutionLocationCommand TESTS
@@ -1829,7 +1829,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
+        Assert.Equal("Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
     }
 
     [Fact]
@@ -1867,7 +1867,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property NewAdmins failed validation. Error was: All collections are empty!", validationErrors);
+        Assert.Equal("Property NewAdmins failed validation. Error was: All collections are empty!", validationErrors);
     }
 
     [Fact]
@@ -1905,7 +1905,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal($" Property NewAdmins[0].Identity failed validation. Error was: {nameof(dto.NewAdmins)} contains an invalid ID!", validationErrors);
+        Assert.Equal($"Property NewAdmins[0].Identity failed validation. Error was: {nameof(dto.NewAdmins)} contains an invalid ID!", validationErrors);
     }
 
     [Fact]
@@ -1943,7 +1943,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal($" Property NewAdmins[0].Permissions failed validation. Error was: {nameof(dto.NewAdmins)} contains duplicate permission values!", validationErrors);
+        Assert.Equal($"Property NewAdmins[0].Permissions failed validation. Error was: {nameof(dto.NewAdmins)} contains duplicate permission values!", validationErrors);
     }
 
     [Fact]
@@ -1981,7 +1981,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal($" Property NewAdmins[0].Permissions failed validation. Error was: {nameof(dto.NewAdmins)} permissions collection is empty!", validationErrors);
+        Assert.Equal($"Property NewAdmins[0].Permissions failed validation. Error was: {nameof(dto.NewAdmins)} permissions collection is empty!", validationErrors);
     }
 
     [Fact]
@@ -2019,7 +2019,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal($" Property AdminsWithNewPermissions[0].Identity failed validation. Error was: {nameof(dto.AdminsWithNewPermissions)} contains an invalid ID!", validationErrors);
+        Assert.Equal($"Property AdminsWithNewPermissions[0].Identity failed validation. Error was: {nameof(dto.AdminsWithNewPermissions)} contains an invalid ID!", validationErrors);
     }
 
     [Fact]
@@ -2057,7 +2057,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal($" Property AdminsWithNewPermissions[0].Permissions failed validation. Error was: {nameof(dto.AdminsWithNewPermissions)} contains duplicate permission values!", validationErrors);
+        Assert.Equal($"Property AdminsWithNewPermissions[0].Permissions failed validation. Error was: {nameof(dto.AdminsWithNewPermissions)} contains duplicate permission values!", validationErrors);
     }
 
     [Fact]
@@ -2095,7 +2095,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal($" Property AdminsWithNewPermissions[0].Permissions failed validation. Error was: {nameof(dto.AdminsWithNewPermissions)} permissions collection is empty!", validationErrors);
+        Assert.Equal($"Property AdminsWithNewPermissions[0].Permissions failed validation. Error was: {nameof(dto.AdminsWithNewPermissions)} permissions collection is empty!", validationErrors);
     }
 
     [Fact]
@@ -2133,7 +2133,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal($" Property AdminsWithRevokedPermissions[0].Identity failed validation. Error was: {nameof(dto.AdminsWithRevokedPermissions)} contains an invalid ID!", validationErrors);
+        Assert.Equal($"Property AdminsWithRevokedPermissions[0].Identity failed validation. Error was: {nameof(dto.AdminsWithRevokedPermissions)} contains an invalid ID!", validationErrors);
     }
 
     [Fact]
@@ -2171,7 +2171,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal($" Property AdminsWithRevokedPermissions[0].Permissions failed validation. Error was: {nameof(dto.AdminsWithRevokedPermissions)} contains duplicate permission values!", validationErrors);
+        Assert.Equal($"Property AdminsWithRevokedPermissions[0].Permissions failed validation. Error was: {nameof(dto.AdminsWithRevokedPermissions)} contains duplicate permission values!", validationErrors);
     }
 
     [Fact]
@@ -2209,7 +2209,7 @@ public class CommandsValidationTests
         _ = validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal($" Property AdminsWithRevokedPermissions[0].Permissions failed validation. Error was: {nameof(dto.AdminsWithRevokedPermissions)} permissions collection is empty!", validationErrors);
+        Assert.Equal($"Property AdminsWithRevokedPermissions[0].Permissions failed validation. Error was: {nameof(dto.AdminsWithRevokedPermissions)} permissions collection is empty!", validationErrors);
     }
 
     #endregion UpdateEducationalInstitutionAdminsCommand TESTS
@@ -2265,7 +2265,7 @@ public class CommandsValidationTests
         validationHandler.IsDataTransferObjectValid(dto, out string validationErrors);
 
         //Assert
-        Assert.Equal(" Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
+        Assert.Equal("Property EducationalInstitutionID failed validation. Error was: Educational Institution ID was empty or null!", validationErrors);
     }
 
     #endregion DisableEducationalInstitutionCommand TESTS
