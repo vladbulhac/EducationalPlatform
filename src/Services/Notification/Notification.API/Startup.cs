@@ -1,9 +1,13 @@
+using DataValidation;
+using DataValidation.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Notification.API.Hubs;
+using Notification.API.Hubs.DataTransferObjects.Validators;
 using Notification.API.Hubs.Management;
+using Notification.API.Infrastructure;
 using Notification.Application.Integration_Events.Events;
 using Notification.Application.Integration_Events.Handlers;
 using Notification.Application.Services;
@@ -54,11 +58,17 @@ public class Startup
             });
         });
 
-        services.AddTransient<INotificationRepository, NotificationRepository>();
-        services.AddTransient<INotificationService, NotificationService>();
+        services.AddTransient<INotificationRepository, NotificationRepository>()
+                .AddTransient<INotificationService, NotificationService>()
+                .AddSingleton(_ => new ValidatorFactory(typeof(GetNotificationDTOValidator).Assembly))
+                .AddTransient<IValidationHandler, ValidationHandler>()
+                .AddSingleton<IUserIdProvider, ResourceOwnerIdentification>();
 
-        services.AddSingleton<IUserIdProvider, ResourceOwnerIdentification>();
-        services.AddSignalR(options => { options.EnableDetailedErrors = true; });
+        services.AddSignalR(options =>
+        {
+            options.EnableDetailedErrors = true;
+            options.AddFilter<HubInterceptor>();
+        });
 
         services.AddMediatR(typeof(Startup), typeof(AssignedAdminsToEducationalInstitutionIntegrationEventHandler));
 
