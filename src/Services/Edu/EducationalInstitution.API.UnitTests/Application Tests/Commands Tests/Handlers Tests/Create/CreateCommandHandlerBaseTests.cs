@@ -9,7 +9,7 @@ using Domain = EducationalInstitution.Domain.Models.Aggregates;
 namespace EducationalInstitution.API.UnitTests.Application_Tests.Commands_Tests.Handlers_Tests.Create;
 
 public class CreateCommandHandlerBaseTests : CreateEducationalInstitutionCommandHandler, IClassFixture<MockDependenciesHelper<CreateEducationalInstitutionCommandHandler>>,
-                                                                                                IClassFixture<TestDataFromJSONParser>
+                                                                                         IClassFixture<TestDataFromJSONParser>
 {
     private readonly TestDataFromJSONParser testDataHelper;
     private readonly MockDependenciesHelper<CreateEducationalInstitutionCommandHandler> dependenciesHelper;

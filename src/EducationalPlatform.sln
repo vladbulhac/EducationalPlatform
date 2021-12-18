@@ -32,6 +32,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notification.API", "Notific
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notification.API", "Services\Notification\Notification.API\Notification.API.csproj", "{D0D0C318-84BD-4373-BEEF-75C54484A04A}"
 	ProjectSection(ProjectDependencies) = postProject
+		{066F5763-D161-42CA-A442-06A9FE601BD5} = {066F5763-D161-42CA-A442-06A9FE601BD5}
 		{54BDA6F8-1AE6-4809-ABEB-CEB1A3C69C78} = {54BDA6F8-1AE6-4809-ABEB-CEB1A3C69C78}
 	EndProjectSection
 EndProject

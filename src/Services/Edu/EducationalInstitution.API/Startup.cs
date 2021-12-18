@@ -267,7 +267,7 @@ public static class StartupExtensionMethods
                     // Note: in a real world application, this encryption key should be
                     // stored in a safe place (e.g in Azure KeyVault, stored as a secret).
                     options.AddEncryptionKey(new SymmetricSecurityKey(
-                Convert.FromBase64String(configuration.GetSection("Identity")["SharedKey"])));
+                            Convert.FromBase64String(configuration.GetSection("Identity")["SharedKey"])));
 
                     // Register the System.Net.Http integration.
                     options.UseSystemNetHttp();
