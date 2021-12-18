@@ -5,7 +5,7 @@ public record GetNotificationDTO
     public string EventId { get; init; }
 }
 
-public record GetNotificationsDTO
+public record SeenNotificationsDTO
 {
     public ICollection<string> EventsIds { get; init; }
 }
