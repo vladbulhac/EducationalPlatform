@@ -37,7 +37,7 @@ public class ValidationHandler : IValidationHandler
         {
             validationErrors = "An error occurred while trying to validate the object!";
 
-            logger.LogError("Could not validate the request: {0} with the type: {1}, error details => {2}",
+            logger.LogError("[Validation Handler]: Could not validate the request: {0} with the type: {1}, error details => {2}",
                             JsonConvert.SerializeObject(dto),
                             dto.GetType(),
                             e.Message);
@@ -46,18 +46,23 @@ public class ValidationHandler : IValidationHandler
     }
 
     /// <summary>
-    /// Iterates over a list of errors and appends each to a <see cref="StringBuilder"/>
+    /// Iterates over a list of errors and appends each to a <see cref="StringBuilder"/>.
     /// </summary>
-    /// <param name="validationResult">The object that contains information about the validation result</param>
-    /// <returns>All the validation errors</returns>
+    /// <param name="validationResult">The object that contains information about the validation result.</param>
+    /// <returns>All the validation errors.</returns>
     private static string GetValidationErrors(ValidationResult validationResult)
     {
         StringBuilder validationErrorInfo = new();
         foreach (var failure in validationResult.Errors)
-            validationErrorInfo.Append(" Property ")
+        {
+            if (validationErrorInfo.Length > 0)
+                validationErrorInfo.Append(' ');
+
+            validationErrorInfo.Append("Property ")
                                .Append(failure.PropertyName)
                                .Append(" failed validation. Error was: ")
                                .Append(failure.ErrorMessage);
+        }
 
         return validationErrorInfo.ToString();
     }
