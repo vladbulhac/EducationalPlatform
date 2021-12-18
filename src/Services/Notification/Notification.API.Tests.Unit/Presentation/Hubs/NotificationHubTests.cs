@@ -1,4 +1,5 @@
 ﻿using Notification.API.Hubs;
+using Notification.API.Hubs.DataTransferObjects;
 using Notification.API.Tests.Shared;
 using Notification.Application.DTOs;
 
@@ -9,53 +10,57 @@ public class NotificationHubTests : IClassFixture<MockDependenciesHelper<Notific
     private JSONDataParser testDataHelper;
     private MockDependenciesHelper<NotificationHub> dependenciesHelper;
 
+    private NotificationHub hub;
+
     public NotificationHubTests(MockDependenciesHelper<NotificationHub> dependenciesHelper, JSONDataParser testDataHelper)
     {
         this.testDataHelper = testDataHelper;
         this.dependenciesHelper = dependenciesHelper;
+
+        hub = new(dependenciesHelper.mockNotificationService.Object, dependenciesHelper.mockLogger.Object);
+        hub.Clients = dependenciesHelper.mockHubClients.Object;
+        hub.Context = dependenciesHelper.mockHubContext.Object;
     }
 
     [Fact]
-    public async Task GivenARecipientAndACollectionOfNotifications_ToSendNotificationsMethod_ShouldCallReceiveNotificationsOfRecipientOnce()
+    public async Task GivenAGetNotificationsOfRecipientDTO_ToGetNotificationsMethod_ShouldCallReceiveNotificationsOfRecipientOnce()
     {
         //Arrange
+        var dto = new GetNotificationsOfRecipientDTO() { Offset = 0, ResultsCount = 10 };
         var @event = testDataHelper.Events[0];
         var to = @event.Recipients.First().Id;
         var notifications = new NotificationBody[1] { new(@event, to) };
 
         SetupMockedClients(to);
-
-        var hub = new NotificationHub(dependenciesHelper.mockNotificationService.Object, dependenciesHelper.mockLogger.Object);
-        hub.Clients = dependenciesHelper.mockHubClients.Object;
-
+        dependenciesHelper.mockNotificationService.Setup(mns => mns.GetNotificationsAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
+                                                  .ReturnsAsync(notifications);
         //Act
-        await hub.SendNotifications(to, notifications);
+        await hub.GetNotifications(dto);
 
         //Assert
         dependenciesHelper.mockClientOne.Verify(mco => mco.ReceiveNotifications(notifications), Times.Once);
     }
 
     [Fact]
-    public async Task GivenARecipientAndACollectionOfNotifications_ToSendNotificationsMethod_ShouldNotCallReceiveNotificationsOfOtherRecipients()
+    public async Task GivenAGetNotificationsOfRecipientDTO_ToGetNotificationsMethod_ShouldNotCallReceiveNotificationsOfOtherRecipients()
     {
         //Arrange
+        var dto = new GetNotificationsOfRecipientDTO() { Offset = 0, ResultsCount = 10 };
         var @event = testDataHelper.Events[0];
         var to = @event.Recipients.First().Id;
         var notifications = new NotificationBody[1] { new(@event, to) };
 
         SetupMockedClients(to);
-
-        var hub = new NotificationHub(dependenciesHelper.mockNotificationService.Object, dependenciesHelper.mockLogger.Object);
-        hub.Clients = dependenciesHelper.mockHubClients.Object;
-
+        dependenciesHelper.mockNotificationService.Setup(mns => mns.GetNotificationsAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
+                                                  .ReturnsAsync(notifications);
         //Act
-        await hub.SendNotifications(to, notifications);
+        await hub.GetNotifications(dto);
 
         //Assert
-        dependenciesHelper.mockClientTwo.Verify(mco => mco.ReceiveNotifications(notifications), Times.Never);
+        dependenciesHelper.mockClientTwo.Verify(mct => mct.ReceiveNotifications(notifications), Times.Never);
     }
 
-    private void SetupMockedClients(string testUserId)
+    private void SetupMockedClients(string testUserId = "user-one")
     {
         dependenciesHelper.mockClientOne.Setup(mco => mco.ReceiveNotifications(It.IsAny<ICollection<NotificationBody>>()))
                                         .Verifiable();
@@ -66,5 +71,13 @@ public class NotificationHubTests : IClassFixture<MockDependenciesHelper<Notific
                                                    .Returns(dependenciesHelper.mockClientOne.Object);
         dependenciesHelper.mockHubClients.Setup(mc => mc.User("user-two"))
                                                    .Returns(dependenciesHelper.mockClientTwo.Object);
+
+        dependenciesHelper.mockHubContext.SetupGet(mhc => mhc.UserIdentifier)
+                                         .Returns(testUserId);
+        dependenciesHelper.mockHubContext.SetupGet(mhc => mhc.ConnectionId)
+                                         .Returns("mockConnectionId");
+
+        dependenciesHelper.mockHubClients.SetupGet(mhc => mhc.Caller)
+                                         .Returns(dependenciesHelper.mockHubClients.Object.User(testUserId));
     }
 }
