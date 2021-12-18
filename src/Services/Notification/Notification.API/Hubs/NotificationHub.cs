@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using Notification.API.Hubs.DataTransferObjects;
-using Notification.Application.DTOs;
 using Notification.Application.Services;
 using OpenIddict.Validation.AspNetCore;
 
@@ -26,25 +25,13 @@ public class NotificationHub : Hub<INotificationHub>
         await Clients.Caller.ReceiveNotifications(notifications);
     }
 
-    public async Task SendNotifications(string recipient, ICollection<NotificationBody> notifications)
-    {
-        await Clients.User(recipient).ReceiveNotifications(notifications);
-    }
+    public async Task Seen(GetNotificationDTO dto) => await notificationService.NotificationSeenAsync(Context.UserIdentifier, dto.EventId);
 
-    //todo add dto validation
-    public async Task Seen(GetNotificationDTO dto)
-    {
-        await notificationService.NotificationSeenAsync(Context.UserIdentifier, dto.EventId);
-    }
-
-    public async Task SeenAll(GetNotificationsDTO dto)
-    {
-        await notificationService.NotificationSeenAsync(Context.UserIdentifier, dto.EventsIds);
-    }
+    public async Task SeenAll(SeenNotificationsDTO dto) => await notificationService.NotificationSeenAsync(Context.UserIdentifier, dto.EventsIds);
 
     public override async Task OnConnectedAsync()
     {
-        logger.LogInformation("[SignalR.Hub] User {0} with connection {1} has connected",
+        logger.LogInformation("[SignalR.Hub]: User {0} with connection {1} has connected",
                                Context.UserIdentifier,
                                Context.ConnectionId);
 
@@ -54,10 +41,10 @@ public class NotificationHub : Hub<INotificationHub>
 
     public override async Task OnDisconnectedAsync(Exception ex)
     {
-        logger.LogInformation("[SignalR.Hub] User {0} with connection {1} has been disconnected, error details => {2}",
+        logger.LogInformation("[SignalR.Hub]: User {0} with connection {1} has been disconnected, error details => {2}",
                                Context.UserIdentifier,
                                Context.ConnectionId,
-                               ex.Message);
+                               ex?.Message ?? "Disconnected without an exception.");
 
         await Groups.RemoveFromGroupAsync(Context.ConnectionId, Context.UserIdentifier);
         await base.OnDisconnectedAsync(ex);
