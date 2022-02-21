@@ -60,7 +60,6 @@ public class EducationalInstitutionCommandService : Command.CommandBase
         request.AdminId = resourceOwnerIdentity;
 
         var dto = request.MapToCreateEducationalInstitutionCommand();
-
         if (!validationHandler.IsDataTransferObjectValid(dto, out string validationErrors))
         {
             SetStatusAndTrailersOfContext(ref context, StatusCode.InvalidArgument, validationErrors, HttpStatusCode.BadRequest);

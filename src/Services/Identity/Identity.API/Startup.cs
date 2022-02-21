@@ -98,15 +98,15 @@ public class Startup
                            .SetIntrospectionEndpointUris("/connect/introspect"); // introspection endpoint validates an access token
 
                     options.RegisterScopes(Scopes.Email,
-                                       Scopes.Profile,
-                                       Scopes.Roles,
-                                       DefinedScopes.EducationalInstitutionScopes.All,
-                                       DefinedScopes.EducationalInstitutionScopes.ChangeAdministrators,
-                                       DefinedScopes.EducationalInstitutionScopes.Delete,
-                                       DefinedScopes.EducationalInstitutionScopes.UpdateDetails,
-                                       DefinedScopes.NotificationScopes.All,
-                                       DefinedScopes.NotificationScopes.Receive,
-                                       DefinedScopes.NotificationScopes.Delete);
+                                           Scopes.Profile,
+                                           Scopes.Roles,
+                                           DefinedScopes.EducationalInstitutionScopes.All,
+                                           DefinedScopes.EducationalInstitutionScopes.ChangeAdministrators,
+                                           DefinedScopes.EducationalInstitutionScopes.Delete,
+                                           DefinedScopes.EducationalInstitutionScopes.UpdateDetails,
+                                           DefinedScopes.NotificationScopes.All,
+                                           DefinedScopes.NotificationScopes.Receive,
+                                           DefinedScopes.NotificationScopes.Delete);
 
                     options.AllowAuthorizationCodeFlow()
                            //.RequireProofKeyForCodeExchange() globally enforces PKCE
@@ -118,8 +118,7 @@ public class Startup
                     //
                     // Note: in a real world application, this encryption key should be
                     // stored in a safe place (e.g in Azure KeyVault, stored as a secret).
-                    options.AddEncryptionKey(new SymmetricSecurityKey(
-                    Convert.FromBase64String(Configuration.GetSection("Identity")["SharedKey"])));
+                    options.AddEncryptionKey(new SymmetricSecurityKey(Convert.FromBase64String(Configuration.GetSection("Identity")["SharedKey"])));
 
                     options.AddDevelopmentEncryptionCertificate()
                            .AddDevelopmentSigningCertificate();
@@ -189,9 +188,8 @@ public class Startup
             endpoints.MapRazorPages();
             endpoints.MapControllers();
             endpoints.MapFallbackToFile("index.html");
-            endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            endpoints.MapControllerRoute(name: "default",
+                                         pattern: "{controller=Home}/{action=Index}/{id?}");
         });
 
         app.AddEventBusSubscriptions();

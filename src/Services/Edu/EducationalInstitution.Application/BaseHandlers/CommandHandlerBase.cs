@@ -9,8 +9,7 @@ namespace EducationalInstitution.Application.BaseHandlers;
 public abstract class CommandHandlerBase<THandler, TRequest, TResponse> : HandlerBase<THandler>, IRequestHandler<TRequest, TResponse> where TRequest : IRequest<TResponse> where THandler : class
 {
     protected CommandHandlerBase(ILogger<THandler> logger) : base(logger)
-    {
-    }
+    { }
 
     public abstract Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken);
 

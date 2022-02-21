@@ -14,20 +14,20 @@ namespace DataValidation;
 public class ValidatorFactory
 {
     private readonly Dictionary<Type, Type> dtoToValidatorMap;
-    private readonly Assembly assembly;
 
     public ValidatorFactory(Assembly appAssembly)
     {
-        assembly = appAssembly ?? throw new ArgumentNullException(nameof(appAssembly));
+        if (appAssembly is null) throw new ArgumentNullException(nameof(appAssembly));
+
         dtoToValidatorMap = new();
 
-        MapDTOsToValidators();
+        MapDTOsToValidators(appAssembly);
     }
 
     /// <summary>
     /// Searches in the given <see cref="assembly">Assembly</see> for classes that inherit <see cref="AbstractValidator{T}"/> and maps them to the class dictionary.
     /// </summary>
-    private void MapDTOsToValidators()
+    private void MapDTOsToValidators(Assembly assembly)
     {
         foreach (var type in assembly.GetTypes())
         {

@@ -8,8 +8,8 @@ public static class MetadataExtensionMethods
     {
         if (metadata is not null)
         {
-            for (int i = 0; i < data.Length; i++)
-                metadata.Add(data[i].key, data[i].value);
+            foreach (var (key, value) in data)
+                metadata.Add(key, value);
         }
     }
 }

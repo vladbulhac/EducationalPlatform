@@ -28,7 +28,8 @@ public static class DataTransferObjectMappers
 
     private static ICollection<AdminInformation> MapToAdminInformationCollection(ICollection<AdminDetails> adminsDetails)
     {
-        return new List<AdminInformation>(adminsDetails.Select(a => new AdminInformation() { Identity = a.Identity, Permissions = { a.Permissions } }));
+        return adminsDetails.Select(a => new AdminInformation() { Identity = a.Identity, Permissions = { a.Permissions } })
+                            .ToList();
     }
 
     public static EducationalInstitutionCreateRequest MapToEducationalInstitutionCreateRequest(this DTOCreateEducationalInstitutionRequest requestData)

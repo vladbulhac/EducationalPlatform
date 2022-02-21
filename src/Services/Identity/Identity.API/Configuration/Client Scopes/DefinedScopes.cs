@@ -27,10 +27,10 @@ public static class DefinedScopes
             {
                 Name = All,
                 Resources =
-                    {
-                        "aggregator",
-                        "educational_institution_api"
-                    }
+                {
+                   "aggregator",
+                   "educational_institution_api"
+                }
             });
         }
 
@@ -42,10 +42,10 @@ public static class DefinedScopes
             {
                 Name = Delete,
                 Resources =
-                    {
-                        "aggregator",
-                        "educational_institution_api"
-                    }
+                {
+                   "aggregator",
+                   "educational_institution_api"
+                }
             });
         }
 
@@ -57,10 +57,10 @@ public static class DefinedScopes
             {
                 Name = UpdateDetails,
                 Resources =
-                    {
-                        "aggregator",
-                        "educational_institution_api"
-                    }
+                {
+                   "aggregator",
+                   "educational_institution_api"
+                }
             });
         }
 
@@ -72,10 +72,10 @@ public static class DefinedScopes
             {
                 Name = ChangeAdministrators,
                 Resources =
-                    {
-                        "aggregator",
-                        "educational_institution_api"
-                    }
+                {
+                   "aggregator",
+                   "educational_institution_api"
+                }
             });
         }
 
@@ -110,8 +110,8 @@ public static class DefinedScopes
                 Name = All,
                 Resources =
                 {
-                        "aggregator",
-                        "notification_api"
+                   "aggregator",
+                   "notification_api"
                 }
             });
         }
@@ -125,8 +125,8 @@ public static class DefinedScopes
                 Name = Receive,
                 Resources =
                 {
-                        "aggregator",
-                        "notification_api"
+                   "aggregator",
+                   "notification_api"
                 }
             });
         }
@@ -140,8 +140,8 @@ public static class DefinedScopes
                 Name = Delete,
                 Resources =
                 {
-                        "aggregator",
-                        "notification_api"
+                   "aggregator",
+                   "notification_api"
                 }
             });
         }

@@ -28,10 +28,10 @@ public class Program
 
     public static IWebHost BuildWebHost(string[] args) =>
         WebHost.CreateDefaultBuilder(args)
-            .UseStartup<Startup>()
-            .UseContentRoot(Directory.GetCurrentDirectory())
-            .UseSerilog()
-            .Build();
+               .UseStartup<Startup>()
+               .UseContentRoot(Directory.GetCurrentDirectory())
+               .UseSerilog()
+               .Build();
 
     private static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)
     {

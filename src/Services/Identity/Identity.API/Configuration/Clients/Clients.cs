@@ -36,16 +36,16 @@ public class Clients : IClients<OpenIddictApplicationDescriptor>
             Permissions =
             {
                     Permissions.Endpoints.Authorization,
-                        Permissions.Endpoints.Logout,
-                        Permissions.Endpoints.Token,
-                        Permissions.GrantTypes.AuthorizationCode,
-                        Permissions.GrantTypes.RefreshToken,
-                        Permissions.ResponseTypes.Code,
-                        Permissions.Scopes.Email,
-                        Permissions.Scopes.Profile,
-                        Permissions.Scopes.Roles,
-                        Permissions.Prefixes.Scope + DefinedScopes.EducationalInstitutionScopes.All,
-                        Permissions.Prefixes.Scope + DefinedScopes.NotificationScopes.All
+                    Permissions.Endpoints.Logout,
+                    Permissions.Endpoints.Token,
+                    Permissions.GrantTypes.AuthorizationCode,
+                    Permissions.GrantTypes.RefreshToken,
+                    Permissions.ResponseTypes.Code,
+                    Permissions.Scopes.Email,
+                    Permissions.Scopes.Profile,
+                    Permissions.Scopes.Roles,
+                    Permissions.Prefixes.Scope + DefinedScopes.EducationalInstitutionScopes.All,
+                    Permissions.Prefixes.Scope + DefinedScopes.NotificationScopes.All
             },
             Requirements =
             {
