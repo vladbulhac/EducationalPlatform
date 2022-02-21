@@ -13,8 +13,8 @@ using System.Text;
 namespace EducationalInstitution.Application.Commands.Handlers;
 
 public class UpdateEducationalInstitutionAdminsCommandHandler : CommandHandlerBase<UpdateEducationalInstitutionAdminsCommandHandler,
-                                                                                          UpdateEducationalInstitutionAdminsCommand,
-                                                                                          Response>
+                                                                                   UpdateEducationalInstitutionAdminsCommand,
+                                                                                   Response>
 {
     private readonly IUnitOfWorkForCommands unitOfWork;
 
@@ -25,9 +25,8 @@ public class UpdateEducationalInstitutionAdminsCommandHandler : CommandHandlerBa
     }
 
     /// <summary>
-    /// Tries to update the Admins of an <see cref="EducationalInstitution"/> entity
+    /// Tries to update the Admins of an <see cref="EducationalInstitution"/> entity.
     /// </summary>
-    /// <param name="cancellationToken">Cancels the operation ____________</param>
     /// <returns>
     /// An <see cref="Response">object</see> with HttpStatusCode:
     /// <list type="bullet">
@@ -98,9 +97,9 @@ public class UpdateEducationalInstitutionAdminsCommandHandler : CommandHandlerBa
         await PublishIntegrationEventsAsync(transaction,
                                             eventOutboxService,
                                             CreateNotificationEventsForAdmins(request.NewAdmins,
-                                                                               request.AdminsWithRevokedPermissions,
-                                                                               request.AdminsWithNewPermissions,
-                                                                               request.EducationalInstitutionID));
+                                                                              request.AdminsWithRevokedPermissions,
+                                                                              request.AdminsWithNewPermissions,
+                                                                              request.EducationalInstitutionID));
         return new()
         {
             Message = string.Empty,
@@ -122,7 +121,7 @@ public class UpdateEducationalInstitutionAdminsCommandHandler : CommandHandlerBa
             {
                 Message = "Admin rights revoked for an Educational Institution!",
                 EducationalInstitutionId = educationalInstitutionID,
-                UpdatedAdmins = BuildDetailedMessage(adminsWithRevokedPermissions, $"permissions have been revoked for the Educational Institution accessible at [{educationalInstitutionID}]"),
+                UpdatedAdmins = BuildDetailedMessage(adminsWithRevokedPermissions, $"permissions have been revoked for the Educational Institution."),
                 Uri = $"/edu/{educationalInstitutionID}",
                 TriggeredBy = new()
                 {
@@ -136,7 +135,7 @@ public class UpdateEducationalInstitutionAdminsCommandHandler : CommandHandlerBa
             {
                 Message = "Admin rights updated for an Educational Institution!",
                 EducationalInstitutionId = educationalInstitutionID,
-                UpdatedAdmins = BuildDetailedMessage(adminsWithNewPermissions, $"permissions have been granted for the Educational Institution accessible at [{educationalInstitutionID}]"),
+                UpdatedAdmins = BuildDetailedMessage(adminsWithNewPermissions, $"permissions have been granted for the Educational Institution."),
                 Uri = $"/edu/{educationalInstitutionID}",
                 TriggeredBy = new()
                 {

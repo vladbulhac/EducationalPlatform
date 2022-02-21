@@ -16,8 +16,8 @@ using Domain = EducationalInstitution.Domain.Models.Aggregates;
 namespace EducationalInstitution.Application.Commands.Handlers;
 
 public class CreateEducationalInstitutionCommandHandler : CommandHandlerBase<CreateEducationalInstitutionCommandHandler,
-                                                                                    CreateEducationalInstitutionCommand,
-                                                                                    Response<CreateEducationalInstitutionCommandResult>>
+                                                                             CreateEducationalInstitutionCommand,
+                                                                             Response<CreateEducationalInstitutionCommandResult>>
 {
     private readonly IUnitOfWorkForCommands unitOfWork;
 
@@ -28,9 +28,8 @@ public class CreateEducationalInstitutionCommandHandler : CommandHandlerBase<Cre
     }
 
     /// <summary>
-    /// Tries to create and save to the database a new <see cref="EducationalInstitution"/> entity
+    /// Tries to create and save to the database a new <see cref="EducationalInstitution"/> entity.
     /// </summary>
-    /// <param name="cancellationToken">Cancels the operation ________</param>
     /// <returns>
     /// An <see cref="Response{TData}">object</see> with HttpStatusCode:
     /// <list type="bullet">
@@ -96,8 +95,8 @@ public class CreateEducationalInstitutionCommandHandler : CommandHandlerBase<Cre
         await PublishIntegrationEventsAsync(transaction,
                                             eventOutboxService,
                                             CreateNotificationEventsForAdmins(newEducationalInstitution.Id,
-                                                                               newEducationalInstitution.Admins,
-                                                                               parentInstitution?.Admins.Select(a => a.Id).ToList()));
+                                                                              newEducationalInstitution.Admins,
+                                                                              parentInstitution?.Admins.Select(a => a.Id).ToList()));
 
         if (parentInstitution is null && request.ParentInstitutionID != default)
             return new()
@@ -157,7 +156,7 @@ public class CreateEducationalInstitutionCommandHandler : CommandHandlerBase<Cre
         {
             adminsDetails[index] = new()
             {
-                DetailedMessage = $"{UserPermissions.All.Split('.')[^1]} permission has been granted to you for the Educational Institution accessible at x",
+                DetailedMessage = $"'{UserPermissions.All.Split('.')[^1]}' permission has been granted to you for the Educational Institution.",
                 Identity = admin.Id,
                 Permissions = admin.Permissions
             };
