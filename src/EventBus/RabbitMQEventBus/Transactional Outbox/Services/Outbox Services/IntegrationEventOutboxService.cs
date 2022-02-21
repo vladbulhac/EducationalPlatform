@@ -19,7 +19,7 @@ public class IntegrationEventOutboxService : IIntegrationEventOutboxService
     private readonly ILogger<IntegrationEventOutboxService> logger;
     private readonly TransactionalOutboxContext context;
 
-    ///<remarks>The same <see cref="DbConnection"/> must be used on the <see cref="DbContext">DbContexts</see> that want to share a transaction</remarks>
+    ///<remarks>The same <see cref="DbConnection"/> must be used on the <see cref="DbContext">DbContexts</see> that want to share a transaction.</remarks>
     public IntegrationEventOutboxService(DbConnection sharedConnection, ILogger<IntegrationEventOutboxService> logger)
     {
         this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -35,26 +35,20 @@ public class IntegrationEventOutboxService : IIntegrationEventOutboxService
 
         await context.Database.UseTransactionAsync(transaction.GetDbTransaction(), cancellationToken);
 
-        await AddEventToOutboxAsync(@event,
-                                    transaction.TransactionId,
-                                    cancellationToken);
+        await AddEventToOutboxAsync(@event, transaction.TransactionId, cancellationToken);
 
         await context.SaveChangesAsync(cancellationToken);
     }
 
     public async Task SaveMultipleEventsToDatabaseAsync(IEnumerable<IntegrationEvent> events, IDbContextTransaction transaction, CancellationToken cancellationToken = default)
     {
-        if (events is null) throw new ArgumentException(nameof(events));
+        if (events is null) throw new ArgumentNullException(nameof(events));
         if (transaction is null) throw new ArgumentNullException(nameof(transaction));
 
         await context.Database.UseTransactionAsync(transaction.GetDbTransaction(), cancellationToken);
 
         foreach (var @event in events)
-        {
-            await AddEventToOutboxAsync(@event,
-                                        transaction.TransactionId,
-                                        cancellationToken);
-        }
+            await AddEventToOutboxAsync(@event, transaction.TransactionId, cancellationToken);
 
         await context.SaveChangesAsync(cancellationToken);
     }
@@ -62,7 +56,7 @@ public class IntegrationEventOutboxService : IIntegrationEventOutboxService
     private async Task AddEventToOutboxAsync(IntegrationEvent @event, Guid transactionId, CancellationToken cancellationToken = default)
     {
         if (@event is null) throw new ArgumentNullException(nameof(@event));
-        if (transactionId == Guid.Empty) throw new ArgumentException(nameof(transactionId));
+        if (transactionId == Guid.Empty) throw new ArgumentException($"Transaction id value was {Guid.Empty}!", nameof(transactionId));
 
         Outbox outbox = new(@event, transactionId);
 
@@ -75,7 +69,7 @@ public class IntegrationEventOutboxService : IIntegrationEventOutboxService
 
     public async Task EventHasBeenPublished(string eventId, CancellationToken cancellationToken = default)
     {
-        if (string.IsNullOrEmpty(eventId)) throw new ArgumentException(eventId);
+        if (string.IsNullOrEmpty(eventId)) throw new ArgumentException("Event id was null or empty!", nameof(eventId));
 
         var eventDetails = await context.Outbox.FirstOrDefaultAsync(o => o.EventId == eventId, cancellationToken);
 
@@ -90,7 +84,7 @@ public class IntegrationEventOutboxService : IIntegrationEventOutboxService
 
     public async Task PublishingFailed(string eventId, CancellationToken cancellationToken = default)
     {
-        if (string.IsNullOrEmpty(eventId)) throw new ArgumentException(eventId);
+        if (string.IsNullOrEmpty(eventId)) throw new ArgumentException("Event id was null or empty!", nameof(eventId));
 
         var eventDetails = await context.Outbox.FirstOrDefaultAsync(o => o.EventId == eventId, cancellationToken);
 
