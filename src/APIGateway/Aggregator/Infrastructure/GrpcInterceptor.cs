@@ -42,7 +42,7 @@ public class GrpcInterceptor : Interceptor
     private void AddAccessTokenToHeaders(Metadata headers)
     {
         var accessToken = httpContextAccessor.HttpContext.Request.Headers[HeaderNames.Authorization]
-                                               .ToString();
+                                             .ToString();
 
         headers.Add(new Metadata.Entry(HeaderNames.Authorization, accessToken));
     }
