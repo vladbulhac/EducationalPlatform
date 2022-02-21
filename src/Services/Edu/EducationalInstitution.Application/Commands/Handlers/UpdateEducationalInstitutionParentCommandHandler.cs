@@ -12,7 +12,8 @@ using System.Net;
 namespace EducationalInstitution.Application.Commands.Handlers;
 
 public class UpdateEducationalInstitutionParentCommandHandler : CommandHandlerBase<UpdateEducationalInstitutionParentCommandHandler,
-                                                                                   UpdateEducationalInstitutionParentCommand, Response>
+                                                                                   UpdateEducationalInstitutionParentCommand,
+                                                                                   Response>
 {
     private readonly IUnitOfWorkForCommands unitOfWork;
 
@@ -23,9 +24,8 @@ public class UpdateEducationalInstitutionParentCommandHandler : CommandHandlerBa
     }
 
     /// <summary>
-    /// Tries to update the ParentInstitution field of an <see cref="EducationalInstitution"/> entity
+    /// Tries to update the ParentInstitution field of an <see cref="EducationalInstitution"/> entity.
     /// </summary>
-    /// <param name="cancellationToken">Cancels the operation ____________</param>
     /// <returns>
     /// An <see cref="Response">object</see> with HttpStatusCode:
     /// <list type="bullet">

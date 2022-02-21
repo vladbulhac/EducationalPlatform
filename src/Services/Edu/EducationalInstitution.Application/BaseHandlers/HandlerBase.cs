@@ -4,7 +4,7 @@ using System.Net;
 namespace EducationalInstitution.Application.BaseHandlers;
 
 /// <summary>
-/// Defines methods that handle exceptions that occur in <typeparamref name="THandler"/>'s methods
+/// Defines methods that handle exceptions that occur in <typeparamref name="THandler"/>'s methods.
 /// </summary>
 public abstract class HandlerBase<THandler> where THandler : class
 {
@@ -14,14 +14,14 @@ public abstract class HandlerBase<THandler> where THandler : class
     protected HandlerBase(ILogger<THandler> logger) => this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
     /// <summary>
-    /// Logs the error and creates a <typeparamref name="TReturn"/> object
+    /// Logs the error and creates a <typeparamref name="TReturn"/> object.
     /// </summary>
-    /// <typeparam name="TReturn">The return type of the method where the exception was caught</typeparam>
-    /// <param name="error_message">The logged message</param>
-    /// <param name="response_message">Assigned to the Message field of <typeparamref name="TReturn"/></param>
-    /// <param name="error_message_substitutes">Arguments used in the composite format of <paramref name="error_message"/></param>
+    /// <typeparam name="TReturn">The return type of the method where the exception was caught.</typeparam>
+    /// <param name="error_message">The logged message.</param>
+    /// <param name="response_message">Assigned to the Message field of <typeparamref name="TReturn"/>.</param>
+    /// <param name="error_message_substitutes">Arguments used in the composite format of <paramref name="error_message"/>.</param>
     /// <returns>
-    /// <typeparamref name="TReturn"/> with StatusCode: <see cref="HttpStatusCode.InternalServerError">500</see> and Message: <paramref name="response_message"/>
+    /// <typeparamref name="TReturn"/> with StatusCode: <see cref="HttpStatusCode.InternalServerError">500</see> and Message: <paramref name="response_message"/>.
     /// </returns>
     protected TReturn HandleException<TReturn>(string error_message, string response_message, params object[] error_message_substitutes) where TReturn : Response, new()
     {

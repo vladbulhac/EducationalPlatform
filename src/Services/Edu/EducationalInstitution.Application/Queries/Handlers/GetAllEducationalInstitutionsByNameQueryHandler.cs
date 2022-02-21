@@ -10,7 +10,8 @@ using System.Net;
 namespace EducationalInstitution.Application.Queries.Handlers;
 
 public class GetAllEducationalInstitutionsByNameQueryHandler : HandlerBase<GetAllEducationalInstitutionsByNameQueryHandler>,
-                                                               IRequestHandler<GetAllEducationalInstitutionsByNameQuery, Response<GetAllEducationalInstitutionsByNameQueryResult>>
+                                                               IRequestHandler<GetAllEducationalInstitutionsByNameQuery,
+                                                                               Response<GetAllEducationalInstitutionsByNameQueryResult>>
 {
     private readonly IUnitOfWorkForQueries unitOfWork;
 
@@ -19,9 +20,8 @@ public class GetAllEducationalInstitutionsByNameQueryHandler : HandlerBase<GetAl
         => this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
 
     /// <summary>
-    /// Tries to get one or more <see cref="EducationalInstitution"/>s whose Name's contain a given string
+    /// Tries to get one or more <see cref="EducationalInstitution"/>s whose Name's contain a given string.
     /// </summary>
-    /// <param name="cancellationToken">Cancels the operation ______</param>
     /// <returns>
     /// An <see cref="Response{TData}">object</see> with HttpStatusCode:
     /// <list type="bullet">

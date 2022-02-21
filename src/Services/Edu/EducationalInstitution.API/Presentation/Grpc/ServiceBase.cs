@@ -8,7 +8,7 @@ namespace EducationalInstitutionAPI.Presentation.Grpc;
 public abstract class ServiceBase
 {
     /// <remarks>
-    /// <i>Sets <see cref="ServerCallContext.StatusCode"/> to <see cref="StatusCode.Aborted"/> and the trailer to <see cref="HttpStatusCode.InternalServerError"/></i>
+    /// <i>Sets <see cref="ServerCallContext.StatusCode"/> to <see cref="StatusCode.Aborted"/> and the trailer to <see cref="HttpStatusCode.InternalServerError"/>.</i>
     /// </remarks>
     protected void HandleException<TClass>(ILogger<TClass> logger, ref ServerCallContext context, string error_message, params object[] error_message_substitutes) where TClass : ServiceBase
     {
@@ -20,7 +20,7 @@ public abstract class ServiceBase
     }
 
     /// <summary>
-    /// Adds <paramref name="message"/> and <paramref name="httpStatusCode"/> trailers to the context
+    /// Adds <paramref name="message"/> and <paramref name="httpStatusCode"/> trailers to the context.
     /// </summary>
     protected void SetStatusAndTrailersOfContext(ref ServerCallContext context, StatusCode code, string message, HttpStatusCode httpStatusCode)
           => SetStatusAndTrailersOfContext(ref context, code, message, new (string key, string value)[2] {
@@ -29,7 +29,7 @@ public abstract class ServiceBase
                                                                              });
 
     /// <remarks>
-    /// <i>Converts <paramref name="httpStatusCode"/> to equivalent <see cref="StatusCode"/></i>
+    /// <i>Converts <paramref name="httpStatusCode"/> to equivalent <see cref="StatusCode"/>.</i>
     /// </remarks>
     protected void SetStatusAndTrailersOfContext(ref ServerCallContext context, HttpStatusCode httpStatusCode, string message)
             => SetStatusAndTrailersOfContext(ref context, httpStatusCode.ToGrpcContextStatusCode(), message, httpStatusCode);
@@ -41,7 +41,7 @@ public abstract class ServiceBase
     }
 
     /// <remarks>
-    /// <i>Sets <see cref="ServerCallContext.StatusCode"/> to <see cref="StatusCode.InvalidArgument"/> and the trailer to <see cref="HttpStatusCode.BadRequest"/></i>
+    /// <i>Sets <see cref="ServerCallContext.StatusCode"/> to <see cref="StatusCode.InvalidArgument"/> and the trailer to <see cref="HttpStatusCode.BadRequest"/>.</i>
     /// </remarks>
     protected void SetStatusAndTrailersOfContextWhenValidationFails(ref ServerCallContext context, string validationErrors)
                 => SetStatusAndTrailersOfContext(ref context,

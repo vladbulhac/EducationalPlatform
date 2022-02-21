@@ -12,8 +12,8 @@ using System.Net;
 namespace EducationalInstitution.Application.Commands.Handlers;
 
 public class DisableEducationalInstitutionCommandHandler : CommandHandlerBase<DisableEducationalInstitutionCommandHandler,
-                                                                                     DisableEducationalInstitutionCommand,
-                                                                                     Response<DisableEducationalInstitutionCommandResult>>
+                                                                              DisableEducationalInstitutionCommand,
+                                                                              Response<DisableEducationalInstitutionCommandResult>>
 {
     private readonly IUnitOfWorkForCommands unitOfWorkCommand;
 
@@ -24,9 +24,8 @@ public class DisableEducationalInstitutionCommandHandler : CommandHandlerBase<Di
     }
 
     /// <summary>
-    /// Schedules an <see cref="EducationalInstitution"/> entity for deletion
+    /// Schedules an <see cref="EducationalInstitution"/> entity for deletion.
     /// </summary>
-    /// <param name="cancellationToken">Cancels the operation ________</param>
     /// <returns>
     /// An <see cref="Response{TData}">object</see> with HttpStatusCode:
     /// <list type="bullet">

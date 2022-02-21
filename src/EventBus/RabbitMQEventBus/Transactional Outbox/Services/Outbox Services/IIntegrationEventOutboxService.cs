@@ -6,6 +6,7 @@ namespace RabbitMQEventBus.Transactional_Outbox.Services.Outbox_Services;
 
 /// <summary>
 /// A service that uses a relational database inserts <see cref="IntegrationEvent">events</see> into an <see cref="Outbox"/> table as part of the local <see cref="IDbContextTransaction">transaction</see>.
+/// <inheritdoc cref="=IOutboxEventPublishingStatus"/>
 /// </summary>
 public interface IIntegrationEventOutboxService : IOutboxEventPublishingStatus, IDisposable
 {

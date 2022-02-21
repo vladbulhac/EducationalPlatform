@@ -13,8 +13,8 @@ using Domain = EducationalInstitution.Domain.Models.Aggregates;
 namespace EducationalInstitution.Application.Commands.Handlers;
 
 public class UpdateEducationalInstitutionLocationCommandHandler : CommandHandlerBase<UpdateEducationalInstitutionLocationCommandHandler,
-                                                                                            UpdateEducationalInstitutionLocationCommand,
-                                                                                            Response>
+                                                                                     UpdateEducationalInstitutionLocationCommand,
+                                                                                     Response>
 {
     private readonly IUnitOfWorkForCommands unitOfWork;
 
@@ -25,9 +25,8 @@ public class UpdateEducationalInstitutionLocationCommandHandler : CommandHandler
     }
 
     /// <summary>
-    /// Tries to update the LocationID and/or the BuildingsIDs of an <see cref="EducationalInstitution"/> entity
+    /// Tries to update the LocationID and/or the BuildingsIDs of an <see cref="EducationalInstitution"/> entity.
     /// </summary>
-    /// <param name="cancellationToken">Cancels the operation ____________</param>
     /// <returns>
     /// An <see cref="Response">object</see> with HttpStatusCode:
     /// <list type="bullet">

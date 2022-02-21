@@ -9,7 +9,8 @@ using System.Net;
 namespace EducationalInstitution.Application.Queries.Handlers;
 
 public class GetAllEducationalInstitutionsByLocationQueryHandler : HandlerBase<GetAllEducationalInstitutionsByLocationQueryHandler>,
-                                                                   IRequestHandler<GetAllEducationalInstitutionsByLocationQuery, Response<GetAllEducationalInstitutionsByLocationQueryResult>>
+                                                                   IRequestHandler<GetAllEducationalInstitutionsByLocationQuery,
+                                                                                   Response<GetAllEducationalInstitutionsByLocationQueryResult>>
 {
     private readonly IUnitOfWorkForQueries unitOfWork;
 
@@ -18,9 +19,8 @@ public class GetAllEducationalInstitutionsByLocationQueryHandler : HandlerBase<G
         => this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
 
     /// <summary>
-    /// Tries to get an <see cref="EducationalInstitution"/> by LocationID
+    /// Tries to get an <see cref="EducationalInstitution"/> by LocationID.
     /// </summary>
-    /// <param name="cancellationToken">Cancels the operation _________</param>
     /// <returns>
     /// An <see cref="Response{ResponseType}">object</see> with HttpStatusCode:
     /// <list type="bullet">
