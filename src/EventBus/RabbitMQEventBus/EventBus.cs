@@ -64,7 +64,7 @@ public class EventBus : IEventBus
 
     public void PublishMultiple(IEnumerable<IntegrationEvent> @events, bool publisherConfirms)
     {
-        if (@events is null) throw new ArgumentException(nameof(@events));
+        if (@events is null) throw new ArgumentNullException(nameof(@events));
         if (!connectionHandler.CanEstablishConnection()) return;
 
         using var channelForPublishingThisEvents = connectionHandler.GetTransientChannel();
